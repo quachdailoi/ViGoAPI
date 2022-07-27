@@ -1,0 +1,287 @@
+[2022-07-25 14:09:31.165 +07:00  INF]  User profile is available. Using 'C:\Users\quach\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-07-25 14:09:31.401 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-07-25 14:09:31.401 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-07-25 14:09:31.403 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-07-25 14:09:31.404 +07:00  INF]  Hosting environment: Development
+[2022-07-25 14:09:31.404 +07:00  INF]  Content root path: D:\DotNet_Study\projects\MaaS\API\
+[2022-07-25 14:09:32.242 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger - -
+[2022-07-25 14:09:32.352 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger - - - 301 0 - 115.3191ms
+[2022-07-25 14:09:32.354 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-07-25 14:09:32.631 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-07-25 14:09:32.631 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/swagger-ui-standalone-preset.js - -
+[2022-07-25 14:09:32.631 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/swagger-ui-bundle.js - -
+[2022-07-25 14:09:32.632 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/swagger-ui.css - -
+[2022-07-25 14:09:32.634 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 280.0077ms
+[2022-07-25 14:09:32.636 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11964 application/javascript;+charset=utf-8 5.7041ms
+[2022-07-25 14:09:32.688 +07:00  INF]  Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+[2022-07-25 14:09:32.688 +07:00  INF]  Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+[2022-07-25 14:09:32.689 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/swagger-ui-standalone-preset.js - - - 200 337162 application/javascript 58.9488ms
+[2022-07-25 14:09:32.689 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/swagger-ui.css - - - 200 143632 text/css 57.1143ms
+[2022-07-25 14:09:32.710 +07:00  INF]  Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+[2022-07-25 14:09:32.710 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/swagger-ui-bundle.js - - - 200 1092889 application/javascript 79.2114ms
+[2022-07-25 14:09:32.863 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-07-25 14:09:32.985 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 122.2031ms
+[2022-07-25 14:09:40.088 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/api/bookers/phone/send-otp?PhoneNumber=%2B84837226239 - -
+[2022-07-25 14:09:40.206 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.SendPhoneOtp (API)'
+[2022-07-25 14:09:40.241 +07:00  INF]  Route matched with {action = "SendPhoneOtp", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendPhoneOtp(API.Models.Requests.SendPhoneOtpRequest) on controller API.Controllers.Booker.BookersController (API).
+[2022-07-25 14:09:42.689 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-07-25 14:09:43.421 +07:00  ERR]  An error occurred using the connection to database 'MaaSDB' on server ''.
+[2022-07-25 14:09:43.479 +07:00  ERR]  An exception occurred while iterating over the results of a query for context type 'Infrastructure.Data.AppDbContext'.
+Npgsql.PostgresException (0x80004005): 3D000: database "MaaSDB" does not exist
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|211_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|191_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.ConnectorPool.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.ConnectorPool.<Get>g__RentAsync|28_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|45_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: FATAL
+    SqlState: 3D000
+    MessageText: database "MaaSDB" does not exist
+    File: postinit.c
+    Line: 885
+    Routine: InitPostgres
+Npgsql.PostgresException (0x80004005): 3D000: database "MaaSDB" does not exist
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|211_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|191_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.ConnectorPool.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.ConnectorPool.<Get>g__RentAsync|28_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|45_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: FATAL
+    SqlState: 3D000
+    MessageText: database "MaaSDB" does not exist
+    File: postinit.c
+    Line: 885
+    Routine: InitPostgres
+[2022-07-25 14:09:43.693 +07:00  INF]  Executed action API.Controllers.Booker.BookersController.SendPhoneOtp (API) in 3447.0798ms
+[2022-07-25 14:09:43.696 +07:00  INF]  Executed endpoint 'API.Controllers.Booker.BookersController.SendPhoneOtp (API)'
+[2022-07-25 14:09:43.702 +07:00  ERR]  An unhandled exception has occurred while executing the request.
+Npgsql.PostgresException (0x80004005): 3D000: database "MaaSDB" does not exist
+   at Npgsql.Internal.NpgsqlConnector.<ReadMessage>g__ReadMessageLong|211_0(NpgsqlConnector connector, Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|191_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.ConnectorPool.OpenNewConnector(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.ConnectorPool.<Get>g__RentAsync|28_0(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|45_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at API.Services.AuthService.GetRoleAccountByRegistration(String registration, Int32 registrationType, String roleName) in D:\DotNet_Study\projects\MaaS\API\Services\AuthService.cs:line 65
+   at API.Services.AuthService.GetBookerAccountByPhoneNumber(String phoneNumber) in D:\DotNet_Study\projects\MaaS\API\Services\AuthService.cs:line 47
+   at API.Controllers.Booker.BookersController.SendPhoneOtp(SendPhoneOtpRequest request) in D:\DotNet_Study\projects\MaaS\API\Controllers\Booker\BookersController.cs:line 28
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+  Exception data:
+    Severity: FATAL
+    SqlState: 3D000
+    MessageText: database "MaaSDB" does not exist
+    File: postinit.c
+    Line: 885
+    Routine: InitPostgres
+[2022-07-25 14:09:43.735 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/api/bookers/phone/send-otp?PhoneNumber=%2B84837226239 - - - 500 - text/plain;+charset=utf-8 3647.5037ms
+[2022-07-25 14:10:18.212 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-07-25 14:10:34.111 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-07-25 14:10:44.687 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-07-25 14:10:45.150 +07:00  INF]  Executed DbCommand (210ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE "MaaSDB";
+[2022-07-25 14:10:45.286 +07:00  INF]  Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+);
+[2022-07-25 14:10:45.321 +07:00  INF]  Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (SELECT 1 FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE c.relname='__EFMigrationsHistory');
+[2022-07-25 14:10:45.324 +07:00  INF]  Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+[2022-07-25 14:10:45.337 +07:00  INF]  Applying migration '20220725071034_InitialDB'.
+[2022-07-25 14:10:45.393 +07:00  INF]  Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE roles (
+    id integer GENERATED BY DEFAULT AS IDENTITY,
+    description character varying(100) NOT NULL,
+    name character varying(20) NOT NULL,
+    created_at timestamp with time zone NULL,
+    created_by integer NOT NULL,
+    updated_at timestamp with time zone NULL,
+    updated_by integer NOT NULL,
+    deleted_at timestamp with time zone NULL,
+    CONSTRAINT "PK_roles" PRIMARY KEY (id)
+);
+[2022-07-25 14:10:45.398 +07:00  INF]  Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE users (
+    id integer GENERATED BY DEFAULT AS IDENTITY,
+    code uuid NOT NULL,
+    name character varying(50) NOT NULL,
+    gender integer NOT NULL,
+    status integer NOT NULL,
+    date_of_birth timestamp with time zone NOT NULL,
+    created_at timestamp with time zone NULL,
+    created_by integer NOT NULL,
+    updated_at timestamp with time zone NULL,
+    updated_by integer NOT NULL,
+    deleted_at timestamp with time zone NULL,
+    CONSTRAINT "PK_users" PRIMARY KEY (id)
+);
+[2022-07-25 14:10:45.407 +07:00  INF]  Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE accounts (
+    id integer GENERATED BY DEFAULT AS IDENTITY,
+    user_id integer NOT NULL,
+    registration character varying(30) NULL,
+    registration_type integer NOT NULL,
+    verified boolean NOT NULL DEFAULT FALSE,
+    role_id integer NULL,
+    created_at timestamp with time zone NULL,
+    created_by integer NOT NULL,
+    updated_at timestamp with time zone NULL,
+    updated_by integer NOT NULL,
+    deleted_at timestamp with time zone NULL,
+    CONSTRAINT "PK_accounts" PRIMARY KEY (id),
+    CONSTRAINT "FK_accounts_roles_role_id" FOREIGN KEY (role_id) REFERENCES roles (id),
+    CONSTRAINT "FK_accounts_users_user_id" FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+[2022-07-25 14:10:45.413 +07:00  INF]  Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE verified_codes (
+    id integer GENERATED BY DEFAULT AS IDENTITY,
+    account_id integer NULL,
+    expired_time timestamp with time zone NOT NULL,
+    code character varying(10) NOT NULL,
+    registration_type integer NOT NULL,
+    status boolean NOT NULL,
+    type integer NOT NULL,
+    created_at timestamp with time zone NULL,
+    created_by integer NOT NULL,
+    updated_at timestamp with time zone NULL,
+    updated_by integer NOT NULL,
+    deleted_at timestamp with time zone NULL,
+    CONSTRAINT "PK_verified_codes" PRIMARY KEY (id),
+    CONSTRAINT "FK_verified_codes_accounts_account_id" FOREIGN KEY (account_id) REFERENCES accounts (id)
+);
+[2022-07-25 14:10:45.416 +07:00  INF]  Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO roles (id, created_at, created_by, deleted_at, description, name, updated_at, updated_by)
+VALUES (1, TIMESTAMPTZ '2022-07-25 07:10:34.153301Z', 0, NULL, 'Role for booker', 'BOOKER', TIMESTAMPTZ '2022-07-25 07:10:34.153301Z', 0);
+INSERT INTO roles (id, created_at, created_by, deleted_at, description, name, updated_at, updated_by)
+VALUES (2, TIMESTAMPTZ '2022-07-25 07:10:34.153299Z', 0, NULL, 'Role for driver', 'DRIVER', TIMESTAMPTZ '2022-07-25 07:10:34.1533Z', 0);
+[2022-07-25 14:10:45.417 +07:00  INF]  Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO users (id, code, created_at, created_by, date_of_birth, deleted_at, gender, name, status, updated_at, updated_by)
+VALUES (1, '73a2332e-1d40-4ff8-9b26-ce58c2a862af', TIMESTAMPTZ '2022-07-25 07:10:34.153302Z', 0, TIMESTAMPTZ '2022-07-25 07:10:34.153304Z', NULL, 1, 'Quach Dai Loi', 1, TIMESTAMPTZ '2022-07-25 07:10:34.153302Z', 0);
+INSERT INTO users (id, code, created_at, created_by, date_of_birth, deleted_at, gender, name, status, updated_at, updated_by)
+VALUES (2, 'c663393f-8ea0-422b-b730-22e9b6a3fc54', TIMESTAMPTZ '2022-07-25 07:10:34.153305Z', 0, TIMESTAMPTZ '2022-07-25 07:10:34.153305Z', NULL, 1, 'Olivier', 1, TIMESTAMPTZ '2022-07-25 07:10:34.153305Z', 0);
+[2022-07-25 14:10:45.420 +07:00  INF]  Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO accounts (id, created_at, created_by, deleted_at, registration, registration_type, role_id, updated_at, updated_by, user_id, verified)
+VALUES (1, TIMESTAMPTZ '2022-07-25 07:10:34.153306Z', 0, NULL, 'loiqdse140970@fpt.edu.vn', 0, 2, TIMESTAMPTZ '2022-07-25 07:10:34.153306Z', 0, 2, TRUE);
+INSERT INTO accounts (id, created_at, created_by, deleted_at, registration, registration_type, role_id, updated_at, updated_by, user_id, verified)
+VALUES (2, TIMESTAMPTZ '2022-07-25 07:10:34.153307Z', 0, NULL, '+84837226239', 1, 2, TIMESTAMPTZ '2022-07-25 07:10:34.153307Z', 0, 2, TRUE);
+INSERT INTO accounts (id, created_at, created_by, deleted_at, registration, registration_type, role_id, updated_at, updated_by, user_id, verified)
+VALUES (3, TIMESTAMPTZ '2022-07-25 07:10:34.153308Z', 0, NULL, '+84837226239', 1, 1, TIMESTAMPTZ '2022-07-25 07:10:34.153308Z', 0, 1, TRUE);
+[2022-07-25 14:10:45.423 +07:00  INF]  Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_accounts_registration_role_id" ON accounts (registration, role_id);
+[2022-07-25 14:10:45.427 +07:00  INF]  Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_accounts_role_id" ON accounts (role_id);
+[2022-07-25 14:10:45.430 +07:00  INF]  Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_accounts_user_id" ON accounts (user_id);
+[2022-07-25 14:10:45.432 +07:00  INF]  Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_roles_description" ON roles (description);
+[2022-07-25 14:10:45.435 +07:00  INF]  Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_verified_codes_account_id" ON verified_codes (account_id);
+[2022-07-25 14:10:45.439 +07:00  INF]  Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT setval(
+    pg_get_serial_sequence('roles', 'id'),
+    GREATEST(
+        (SELECT MAX(id) FROM roles) + 1,
+        nextval(pg_get_serial_sequence('roles', 'id'))),
+    false);
+SELECT setval(
+    pg_get_serial_sequence('users', 'id'),
+    GREATEST(
+        (SELECT MAX(id) FROM users) + 1,
+        nextval(pg_get_serial_sequence('users', 'id'))),
+    false);
+SELECT setval(
+    pg_get_serial_sequence('accounts', 'id'),
+    GREATEST(
+        (SELECT MAX(id) FROM accounts) + 1,
+        nextval(pg_get_serial_sequence('accounts', 'id'))),
+    false);
+[2022-07-25 14:10:45.440 +07:00  INF]  Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20220725071034_InitialDB', '6.0.6');
+[2022-07-25 14:13:52.030 +07:00  INF]  User profile is available. Using 'C:\Users\quach\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-07-25 14:13:52.386 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-07-25 14:13:52.386 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-07-25 14:13:52.389 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-07-25 14:13:52.389 +07:00  INF]  Hosting environment: Development
+[2022-07-25 14:13:52.390 +07:00  INF]  Content root path: D:\DotNet_Study\projects\MaaS\API\
+[2022-07-25 14:13:53.502 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-07-25 14:13:53.858 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-07-25 14:13:53.861 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 368.0158ms
+[2022-07-25 14:13:53.867 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11964 application/javascript;+charset=utf-8 9.5215ms
+[2022-07-25 14:13:54.050 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-07-25 14:13:54.181 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 131.6123ms
+[2022-07-25 14:13:58.255 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/api/bookers/phone/send-otp?PhoneNumber=%2B84837226239 - -
+[2022-07-25 14:13:58.337 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.SendPhoneOtp (API)'
+[2022-07-25 14:13:58.366 +07:00  INF]  Route matched with {action = "SendPhoneOtp", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendPhoneOtp(API.Models.Requests.SendPhoneOtpRequest) on controller API.Controllers.Booker.BookersController (API).
+[2022-07-25 14:13:59.661 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-07-25 14:14:00.584 +07:00  INF]  Executed DbCommand (90ms) [Parameters=[@__roleName_2='?', @__registration_0='?', @__registrationType_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a.id, a.created_at, a.created_by, a.deleted_at, a.registration, a.registration_type, a.role_id, a.updated_at, a.updated_by, a.user_id, a.verified, u.id, u.code, u.created_at, u.created_by, u.date_of_birth, u.deleted_at, u.gender, u.name, u.status, u.updated_at, u.updated_by, r0.id, r0.created_at, r0.created_by, r0.deleted_at, r0.description, r0.name, r0.updated_at, r0.updated_by
+FROM accounts AS a
+INNER JOIN (
+    SELECT r.id
+    FROM roles AS r
+    WHERE r.name = @__roleName_2
+) AS t ON a.role_id = t.id
+INNER JOIN users AS u ON a.user_id = u.id
+LEFT JOIN roles AS r0 ON a.role_id = r0.id
+WHERE (a.registration = @__registration_0) AND (a.registration_type = @__registrationType_1)
+LIMIT 1
+[2022-07-25 14:14:02.515 +07:00  INF]  Executed DbCommand (14ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?', @p2='?' (DbType = DateTime), @p3='?' (DbType = Int32), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?' (DbType = Int32), @p7='?' (DbType = Boolean), @p8='?' (DbType = Int32), @p9='?' (DbType = DateTime), @p10='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO verified_codes (account_id, code, created_at, created_by, deleted_at, expired_time, registration_type, status, type, updated_at, updated_by)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10)
+RETURNING id;
+[2022-07-25 14:14:02.531 +07:00  INF]  Executing OkObjectResult, writing value of type 'API.Models.Response.Response'.
+[2022-07-25 14:14:02.547 +07:00  INF]  Executed action API.Controllers.Booker.BookersController.SendPhoneOtp (API) in 4175.8385ms
+[2022-07-25 14:14:02.548 +07:00  INF]  Executed endpoint 'API.Controllers.Booker.BookersController.SendPhoneOtp (API)'
+[2022-07-25 14:14:02.578 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/api/bookers/phone/send-otp?PhoneNumber=%2B84837226239 - - - 200 - application/json;+charset=utf-8 4323.2227ms
+[2022-07-25 14:14:02.645 +07:00  ERR]  Domain.Entities.VerifiedCode Add function error.
+System.ObjectDisposedException: Cannot access a disposed context instance. A common cause of this error is disposing a context instance that was resolved from dependency injection and then later trying to use the same context instance elsewhere in your application. This may occur if you are calling 'Dispose' on the context instance, or wrapping it in a using statement. If you are using dependency injection, you should let the dependency injection container take care of disposing context instances.
+Object name: 'AppDbContext'.
+   at Microsoft.EntityFrameworkCore.DbContext.CheckDisposed()
+   at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Infrastructure.Data.Repositories.GenericRepository`1.Add(T entity) in D:\DotNet_Study\projects\MaaS\Infrastructure\Data\Repositories\GenericRepository.cs:line 34
