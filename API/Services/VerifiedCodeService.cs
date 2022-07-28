@@ -92,7 +92,9 @@ namespace API.Services
 
             DateTime timeToResend = code.CreatedAt.AddMinutes(minuteForResend);
 
-            if (DateTime.Compare(timeToResend, DateTime.UtcNow) < 0)
+            var now = DateTime.UtcNow;
+
+            if (DateTime.Compare(timeToResend, now) > 0)
             {
                 return false;
             }

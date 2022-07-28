@@ -99,17 +99,17 @@ namespace API.Controllers.Booker
             {
                 response = new(
                     StatusCode: StatusCodes.Status401Unauthorized,
-                    Message: "Login failed - Wrong otp."
+                    Message: "Login failed - Wrong or expired OTP."
                 );
                 return Unauthorized(response);
             }
 
-            var user = await AppServices.AuthService.GetDriverUserViewModelByEmail(request.PhoneNumber);
+            var user = await AppServices.AuthService.GetBookerUserViewModelByPhoneNumber(request.PhoneNumber);
 
             if (user == null)
             {
                 response.SetStatusCode(StatusCodes.Status401Unauthorized)
-                    .SetMessage("Login failed - Not found email of driver account in our system.");
+                    .SetMessage("Login failed - Not found phone of booker account in our system.");
                 return Unauthorized(response);
             }
 

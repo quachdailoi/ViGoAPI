@@ -1,0 +1,338 @@
+[2022-07-28 00:05:25.314 +07:00  INF]  User profile is available. Using 'C:\Users\quach\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-07-28 00:05:25.536 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-07-28 00:05:25.536 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-07-28 00:05:25.539 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-07-28 00:05:25.539 +07:00  INF]  Hosting environment: Development
+[2022-07-28 00:05:25.539 +07:00  INF]  Content root path: D:\DotNet_Study\projects\MaaS\API\
+[2022-07-28 00:05:26.244 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-07-28 00:05:26.574 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-07-28 00:05:26.586 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11964 application/javascript;+charset=utf-8 10.1010ms
+[2022-07-28 00:05:26.586 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 348.4546ms
+[2022-07-28 00:05:26.830 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-07-28 00:05:26.981 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 150.4279ms
+[2022-07-28 00:05:46.519 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/api/bookers/phone/send-login-otp?PhoneNumber=%2B84837226239 - -
+[2022-07-28 00:05:46.621 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API)'
+[2022-07-28 00:05:46.651 +07:00  INF]  Route matched with {action = "SendPhoneLoginOtp", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendPhoneLoginOtp(API.Models.Requests.SendPhoneOtpRequest) on controller API.Controllers.Booker.BookersController (API).
+[2022-07-28 00:05:48.165 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-07-28 00:05:49.094 +07:00  INF]  Executed DbCommand (95ms) [Parameters=[@__roleName_2='?', @__registration_0='?', @__registrationType_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a.id, a.created_at, a.created_by, a.deleted_at, a.registration, a.registration_type, a.role_id, a.updated_at, a.updated_by, a.user_id, a.verified, u.id, u.code, u.created_at, u.created_by, u.date_of_birth, u.deleted_at, u.gender, u.name, u.status, u.updated_at, u.updated_by, r0.id, r0.created_at, r0.created_by, r0.deleted_at, r0.description, r0.name, r0.updated_at, r0.updated_by
+FROM accounts AS a
+INNER JOIN (
+    SELECT r.id
+    FROM roles AS r
+    WHERE r.name = @__roleName_2
+) AS t ON a.role_id = t.id
+INNER JOIN users AS u ON a.user_id = u.id
+LEFT JOIN roles AS r0 ON a.role_id = r0.id
+WHERE (a.registration = @__registration_0) AND (a.registration_type = @__registrationType_1)
+LIMIT 1
+[2022-07-28 00:05:49.292 +07:00  INF]  Executed DbCommand (9ms) [Parameters=[@__registration_0='?', @__registrationType_1='?' (DbType = Int32), @__codeType_2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT v.id, v."AccountId", v.code, v.created_at, v.created_by, v.deleted_at, v.expired_time, v.registration, v.registration_type, v.status, v.type, v.updated_at, v.updated_by
+FROM verified_codes AS v
+WHERE ((v.registration = @__registration_0) AND (v.registration_type = @__registrationType_1)) AND (v.type = @__codeType_2)
+ORDER BY v.created_at DESC
+LIMIT 1
+[2022-07-28 00:15:47.426 +07:00  INF]  User profile is available. Using 'C:\Users\quach\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-07-28 00:15:47.679 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-07-28 00:15:47.679 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-07-28 00:15:47.683 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-07-28 00:15:47.683 +07:00  INF]  Hosting environment: Development
+[2022-07-28 00:15:47.683 +07:00  INF]  Content root path: D:\DotNet_Study\projects\MaaS\API\
+[2022-07-28 00:15:48.523 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-07-28 00:15:48.918 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-07-28 00:15:48.927 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11964 application/javascript;+charset=utf-8 8.1020ms
+[2022-07-28 00:15:48.927 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 407.5014ms
+[2022-07-28 00:15:49.044 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-07-28 00:15:49.160 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 116.4561ms
+[2022-07-28 00:16:14.773 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/api/bookers/phone/send-login-otp?PhoneNumber=%2B84837226239 - -
+[2022-07-28 00:16:14.894 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API)'
+[2022-07-28 00:16:14.925 +07:00  INF]  Route matched with {action = "SendPhoneLoginOtp", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendPhoneLoginOtp(API.Models.Requests.SendPhoneOtpRequest) on controller API.Controllers.Booker.BookersController (API).
+[2022-07-28 00:16:16.382 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-07-28 00:16:17.348 +07:00  INF]  Executed DbCommand (100ms) [Parameters=[@__roleName_2='?', @__registration_0='?', @__registrationType_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a.id, a.created_at, a.created_by, a.deleted_at, a.registration, a.registration_type, a.role_id, a.updated_at, a.updated_by, a.user_id, a.verified, u.id, u.code, u.created_at, u.created_by, u.date_of_birth, u.deleted_at, u.gender, u.name, u.status, u.updated_at, u.updated_by, r0.id, r0.created_at, r0.created_by, r0.deleted_at, r0.description, r0.name, r0.updated_at, r0.updated_by
+FROM accounts AS a
+INNER JOIN (
+    SELECT r.id
+    FROM roles AS r
+    WHERE r.name = @__roleName_2
+) AS t ON a.role_id = t.id
+INNER JOIN users AS u ON a.user_id = u.id
+LEFT JOIN roles AS r0 ON a.role_id = r0.id
+WHERE (a.registration = @__registration_0) AND (a.registration_type = @__registrationType_1)
+LIMIT 1
+[2022-07-28 00:16:17.514 +07:00  INF]  Executed DbCommand (7ms) [Parameters=[@__registration_0='?', @__registrationType_1='?' (DbType = Int32), @__codeType_2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT v.id, v."AccountId", v.code, v.created_at, v.created_by, v.deleted_at, v.expired_time, v.registration, v.registration_type, v.status, v.type, v.updated_at, v.updated_by
+FROM verified_codes AS v
+WHERE ((v.registration = @__registration_0) AND (v.registration_type = @__registrationType_1)) AND (v.type = @__codeType_2)
+ORDER BY v.created_at DESC
+LIMIT 1
+[2022-07-28 00:17:22.130 +07:00  INF]  User profile is available. Using 'C:\Users\quach\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-07-28 00:17:22.408 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-07-28 00:17:22.408 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-07-28 00:17:22.411 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-07-28 00:17:22.412 +07:00  INF]  Hosting environment: Development
+[2022-07-28 00:17:22.412 +07:00  INF]  Content root path: D:\DotNet_Study\projects\MaaS\API\
+[2022-07-28 00:17:23.369 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-07-28 00:17:23.724 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-07-28 00:17:23.733 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11964 application/javascript;+charset=utf-8 7.4479ms
+[2022-07-28 00:17:23.733 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 370.2900ms
+[2022-07-28 00:17:23.907 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-07-28 00:17:24.046 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 139.4084ms
+[2022-07-28 00:17:29.915 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/api/bookers/phone/send-login-otp?PhoneNumber=%2B84837226239 - -
+[2022-07-28 00:17:29.995 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API)'
+[2022-07-28 00:17:30.020 +07:00  INF]  Route matched with {action = "SendPhoneLoginOtp", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendPhoneLoginOtp(API.Models.Requests.SendPhoneOtpRequest) on controller API.Controllers.Booker.BookersController (API).
+[2022-07-28 00:17:31.492 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-07-28 00:17:32.695 +07:00  INF]  Executed DbCommand (150ms) [Parameters=[@__roleName_2='?', @__registration_0='?', @__registrationType_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a.id, a.created_at, a.created_by, a.deleted_at, a.registration, a.registration_type, a.role_id, a.updated_at, a.updated_by, a.user_id, a.verified, u.id, u.code, u.created_at, u.created_by, u.date_of_birth, u.deleted_at, u.gender, u.name, u.status, u.updated_at, u.updated_by, r0.id, r0.created_at, r0.created_by, r0.deleted_at, r0.description, r0.name, r0.updated_at, r0.updated_by
+FROM accounts AS a
+INNER JOIN (
+    SELECT r.id
+    FROM roles AS r
+    WHERE r.name = @__roleName_2
+) AS t ON a.role_id = t.id
+INNER JOIN users AS u ON a.user_id = u.id
+LEFT JOIN roles AS r0 ON a.role_id = r0.id
+WHERE (a.registration = @__registration_0) AND (a.registration_type = @__registrationType_1)
+LIMIT 1
+[2022-07-28 00:17:32.855 +07:00  INF]  Executed DbCommand (6ms) [Parameters=[@__registration_0='?', @__registrationType_1='?' (DbType = Int32), @__codeType_2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT v.id, v."AccountId", v.code, v.created_at, v.created_by, v.deleted_at, v.expired_time, v.registration, v.registration_type, v.status, v.type, v.updated_at, v.updated_by
+FROM verified_codes AS v
+WHERE ((v.registration = @__registration_0) AND (v.registration_type = @__registrationType_1)) AND (v.type = @__codeType_2)
+ORDER BY v.created_at DESC
+LIMIT 1
+[2022-07-28 00:17:54.676 +07:00  INF]  User profile is available. Using 'C:\Users\quach\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-07-28 00:17:55.286 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-07-28 00:17:55.286 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-07-28 00:17:55.296 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-07-28 00:17:55.296 +07:00  INF]  Hosting environment: Development
+[2022-07-28 00:17:55.296 +07:00  INF]  Content root path: D:\DotNet_Study\projects\MaaS\API\
+[2022-07-28 00:17:56.204 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-07-28 00:17:56.653 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-07-28 00:17:56.668 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11964 application/javascript;+charset=utf-8 13.5346ms
+[2022-07-28 00:17:56.668 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 472.3340ms
+[2022-07-28 00:17:56.818 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-07-28 00:17:56.956 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 138.4330ms
+[2022-07-28 00:21:02.473 +07:00  INF]  User profile is available. Using 'C:\Users\quach\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-07-28 00:21:02.732 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-07-28 00:21:02.732 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-07-28 00:21:02.736 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-07-28 00:21:02.737 +07:00  INF]  Hosting environment: Development
+[2022-07-28 00:21:02.737 +07:00  INF]  Content root path: D:\DotNet_Study\projects\MaaS\API\
+[2022-07-28 00:21:04.071 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-07-28 00:21:04.374 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 307.0508ms
+[2022-07-28 00:21:04.394 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-07-28 00:21:04.401 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11964 application/javascript;+charset=utf-8 7.3150ms
+[2022-07-28 00:21:04.633 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-07-28 00:21:04.763 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 130.0525ms
+[2022-07-28 00:22:03.568 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/api/bookers/phone/send-login-otp?PhoneNumber=%2B84837226239 - -
+[2022-07-28 00:22:03.673 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API)'
+[2022-07-28 00:22:03.712 +07:00  INF]  Route matched with {action = "SendPhoneLoginOtp", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendPhoneLoginOtp(API.Models.Requests.SendPhoneOtpRequest) on controller API.Controllers.Booker.BookersController (API).
+[2022-07-28 00:22:05.286 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-07-28 00:22:06.313 +07:00  INF]  Executed DbCommand (101ms) [Parameters=[@__roleName_2='?', @__registration_0='?', @__registrationType_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a.id, a.created_at, a.created_by, a.deleted_at, a.registration, a.registration_type, a.role_id, a.updated_at, a.updated_by, a.user_id, a.verified, u.id, u.code, u.created_at, u.created_by, u.date_of_birth, u.deleted_at, u.gender, u.name, u.status, u.updated_at, u.updated_by, r0.id, r0.created_at, r0.created_by, r0.deleted_at, r0.description, r0.name, r0.updated_at, r0.updated_by
+FROM accounts AS a
+INNER JOIN (
+    SELECT r.id
+    FROM roles AS r
+    WHERE r.name = @__roleName_2
+) AS t ON a.role_id = t.id
+INNER JOIN users AS u ON a.user_id = u.id
+LEFT JOIN roles AS r0 ON a.role_id = r0.id
+WHERE (a.registration = @__registration_0) AND (a.registration_type = @__registrationType_1)
+LIMIT 1
+[2022-07-28 00:22:06.487 +07:00  INF]  Executed DbCommand (12ms) [Parameters=[@__registration_0='?', @__registrationType_1='?' (DbType = Int32), @__codeType_2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT v.id, v."AccountId", v.code, v.created_at, v.created_by, v.deleted_at, v.expired_time, v.registration, v.registration_type, v.status, v.type, v.updated_at, v.updated_by
+FROM verified_codes AS v
+WHERE ((v.registration = @__registration_0) AND (v.registration_type = @__registrationType_1)) AND (v.type = @__codeType_2)
+ORDER BY v.created_at DESC
+LIMIT 1
+[2022-07-28 00:22:25.938 +07:00  INF]  Executed DbCommand (13ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?', @p2='?' (DbType = DateTime), @p3='?' (DbType = Int32), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Int32), @p8='?' (DbType = Boolean), @p9='?' (DbType = Int32), @p10='?' (DbType = DateTime), @p11='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO verified_codes ("AccountId", code, created_at, created_by, deleted_at, expired_time, registration, registration_type, status, type, updated_at, updated_by)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING id;
+[2022-07-28 00:22:25.992 +07:00  INF]  Executing OkObjectResult, writing value of type 'API.Models.Response.Response'.
+[2022-07-28 00:22:26.010 +07:00  INF]  Executed action API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API) in 22289.8171ms
+[2022-07-28 00:22:26.011 +07:00  INF]  Executed endpoint 'API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API)'
+[2022-07-28 00:22:26.033 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/api/bookers/phone/send-login-otp?PhoneNumber=%2B84837226239 - - - 200 - application/json;+charset=utf-8 22465.4854ms
+[2022-07-28 00:22:26.182 +07:00  ERR]  Domain.Entities.VerifiedCode Add function error.
+System.ObjectDisposedException: Cannot access a disposed context instance. A common cause of this error is disposing a context instance that was resolved from dependency injection and then later trying to use the same context instance elsewhere in your application. This may occur if you are calling 'Dispose' on the context instance, or wrapping it in a using statement. If you are using dependency injection, you should let the dependency injection container take care of disposing context instances.
+Object name: 'AppDbContext'.
+   at Microsoft.EntityFrameworkCore.DbContext.CheckDisposed()
+   at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Infrastructure.Data.Repositories.GenericRepository`1.Add(T entity) in D:\DotNet_Study\projects\MaaS\Infrastructure\Data\Repositories\GenericRepository.cs:line 34
+[2022-07-28 00:22:29.617 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/api/bookers/phone/send-login-otp?PhoneNumber=%2B84837226239 - -
+[2022-07-28 00:22:29.619 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API)'
+[2022-07-28 00:22:29.620 +07:00  INF]  Route matched with {action = "SendPhoneLoginOtp", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendPhoneLoginOtp(API.Models.Requests.SendPhoneOtpRequest) on controller API.Controllers.Booker.BookersController (API).
+[2022-07-28 00:22:29.633 +07:00  INF]  Executed DbCommand (7ms) [Parameters=[@__roleName_2='?', @__registration_0='?', @__registrationType_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a.id, a.created_at, a.created_by, a.deleted_at, a.registration, a.registration_type, a.role_id, a.updated_at, a.updated_by, a.user_id, a.verified, u.id, u.code, u.created_at, u.created_by, u.date_of_birth, u.deleted_at, u.gender, u.name, u.status, u.updated_at, u.updated_by, r0.id, r0.created_at, r0.created_by, r0.deleted_at, r0.description, r0.name, r0.updated_at, r0.updated_by
+FROM accounts AS a
+INNER JOIN (
+    SELECT r.id
+    FROM roles AS r
+    WHERE r.name = @__roleName_2
+) AS t ON a.role_id = t.id
+INNER JOIN users AS u ON a.user_id = u.id
+LEFT JOIN roles AS r0 ON a.role_id = r0.id
+WHERE (a.registration = @__registration_0) AND (a.registration_type = @__registrationType_1)
+LIMIT 1
+[2022-07-28 00:22:29.637 +07:00  INF]  Executed DbCommand (3ms) [Parameters=[@__registration_0='?', @__registrationType_1='?' (DbType = Int32), @__codeType_2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT v.id, v."AccountId", v.code, v.created_at, v.created_by, v.deleted_at, v.expired_time, v.registration, v.registration_type, v.status, v.type, v.updated_at, v.updated_by
+FROM verified_codes AS v
+WHERE ((v.registration = @__registration_0) AND (v.registration_type = @__registrationType_1)) AND (v.type = @__codeType_2)
+ORDER BY v.created_at DESC
+LIMIT 1
+[2022-07-28 00:22:50.084 +07:00  INF]  Executing BadRequestObjectResult, writing value of type 'API.Models.Response.Response'.
+[2022-07-28 00:22:50.084 +07:00  INF]  Executed action API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API) in 20464.462ms
+[2022-07-28 00:22:50.084 +07:00  INF]  Executed endpoint 'API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API)'
+[2022-07-28 00:22:50.085 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/api/bookers/phone/send-login-otp?PhoneNumber=%2B84837226239 - - - 400 - application/json;+charset=utf-8 20467.9296ms
+[2022-07-28 00:33:52.539 +07:00  INF]  User profile is available. Using 'C:\Users\quach\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-07-28 00:33:52.891 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-07-28 00:33:52.891 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-07-28 00:33:52.894 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-07-28 00:33:52.895 +07:00  INF]  Hosting environment: Development
+[2022-07-28 00:33:52.895 +07:00  INF]  Content root path: D:\DotNet_Study\projects\MaaS\API\
+[2022-07-28 00:33:53.690 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-07-28 00:33:54.018 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-07-28 00:33:54.024 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 338.4250ms
+[2022-07-28 00:33:54.034 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11964 application/javascript;+charset=utf-8 15.3737ms
+[2022-07-28 00:33:54.136 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-07-28 00:33:54.267 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 131.2423ms
+[2022-07-28 00:34:00.668 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/api/bookers/phone/send-login-otp?PhoneNumber=%2B84837226239 - -
+[2022-07-28 00:34:00.770 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API)'
+[2022-07-28 00:34:00.802 +07:00  INF]  Route matched with {action = "SendPhoneLoginOtp", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendPhoneLoginOtp(API.Models.Requests.SendPhoneOtpRequest) on controller API.Controllers.Booker.BookersController (API).
+[2022-07-28 00:34:02.140 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-07-28 00:34:03.049 +07:00  INF]  Executed DbCommand (91ms) [Parameters=[@__roleName_2='?', @__registration_0='?', @__registrationType_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a.id, a.created_at, a.created_by, a.deleted_at, a.registration, a.registration_type, a.role_id, a.updated_at, a.updated_by, a.user_id, a.verified, u.id, u.code, u.created_at, u.created_by, u.date_of_birth, u.deleted_at, u.gender, u.name, u.status, u.updated_at, u.updated_by, r0.id, r0.created_at, r0.created_by, r0.deleted_at, r0.description, r0.name, r0.updated_at, r0.updated_by
+FROM accounts AS a
+INNER JOIN (
+    SELECT r.id
+    FROM roles AS r
+    WHERE r.name = @__roleName_2
+) AS t ON a.role_id = t.id
+INNER JOIN users AS u ON a.user_id = u.id
+LEFT JOIN roles AS r0 ON a.role_id = r0.id
+WHERE (a.registration = @__registration_0) AND (a.registration_type = @__registrationType_1)
+LIMIT 1
+[2022-07-28 00:34:03.214 +07:00  INF]  Executed DbCommand (7ms) [Parameters=[@__registration_0='?', @__registrationType_1='?' (DbType = Int32), @__codeType_2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT v.id, v."AccountId", v.code, v.created_at, v.created_by, v.deleted_at, v.expired_time, v.registration, v.registration_type, v.status, v.type, v.updated_at, v.updated_by
+FROM verified_codes AS v
+WHERE ((v.registration = @__registration_0) AND (v.registration_type = @__registrationType_1)) AND (v.type = @__codeType_2)
+ORDER BY v.created_at DESC
+LIMIT 1
+[2022-07-28 00:34:10.768 +07:00  INF]  Executed DbCommand (14ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?', @p2='?' (DbType = DateTime), @p3='?' (DbType = Int32), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Int32), @p8='?' (DbType = Boolean), @p9='?' (DbType = Int32), @p10='?' (DbType = DateTime), @p11='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO verified_codes ("AccountId", code, created_at, created_by, deleted_at, expired_time, registration, registration_type, status, type, updated_at, updated_by)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING id;
+[2022-07-28 00:34:10.819 +07:00  INF]  Executing OkObjectResult, writing value of type 'API.Models.Response.Response'.
+[2022-07-28 00:34:10.833 +07:00  INF]  Executed action API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API) in 10024.2676ms
+[2022-07-28 00:34:10.834 +07:00  INF]  Executed endpoint 'API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API)'
+[2022-07-28 00:34:10.857 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/api/bookers/phone/send-login-otp?PhoneNumber=%2B84837226239 - - - 200 - application/json;+charset=utf-8 10189.5618ms
+[2022-07-28 00:34:10.996 +07:00  ERR]  Domain.Entities.VerifiedCode Add function error.
+System.ObjectDisposedException: Cannot access a disposed context instance. A common cause of this error is disposing a context instance that was resolved from dependency injection and then later trying to use the same context instance elsewhere in your application. This may occur if you are calling 'Dispose' on the context instance, or wrapping it in a using statement. If you are using dependency injection, you should let the dependency injection container take care of disposing context instances.
+Object name: 'AppDbContext'.
+   at Microsoft.EntityFrameworkCore.DbContext.CheckDisposed()
+   at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Infrastructure.Data.Repositories.GenericRepository`1.Add(T entity) in D:\DotNet_Study\projects\MaaS\Infrastructure\Data\Repositories\GenericRepository.cs:line 34
+[2022-07-28 00:34:30.409 +07:00  INF]  Request starting HTTP/2 POST https://localhost:7019/api/bookers/phone/login application/json 54
+[2022-07-28 00:34:30.414 +07:00  INF]  CORS policy execution successful.
+[2022-07-28 00:34:30.416 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.PhoneLogin (API)'
+[2022-07-28 00:34:30.419 +07:00  INF]  Route matched with {action = "PhoneLogin", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PhoneLogin(API.Models.Requests.PhoneLoginRequest) on controller API.Controllers.Booker.BookersController (API).
+[2022-07-28 00:34:30.447 +07:00  INF]  Executed DbCommand (3ms) [Parameters=[@__registration_0='?', @__registrationType_1='?' (DbType = Int32), @__codeType_2='?' (DbType = Int32), @__otp_3='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT v.id, v."AccountId", v.code, v.created_at, v.created_by, v.deleted_at, v.expired_time, v.registration, v.registration_type, v.status, v.type, v.updated_at, v.updated_by
+FROM verified_codes AS v
+WHERE (((v.registration = @__registration_0) AND (v.registration_type = @__registrationType_1)) AND (v.type = @__codeType_2)) AND (v.code = @__otp_3)
+ORDER BY v.created_at DESC
+LIMIT 1
+[2022-07-28 00:34:30.456 +07:00  INF]  Executed DbCommand (4ms) [Parameters=[@__roleName_2='?', @__registration_0='?', @__registrationType_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a.id, a.created_at, a.created_by, a.deleted_at, a.registration, a.registration_type, a.role_id, a.updated_at, a.updated_by, a.user_id, a.verified, u.id, u.code, u.created_at, u.created_by, u.date_of_birth, u.deleted_at, u.gender, u.name, u.status, u.updated_at, u.updated_by, r0.id, r0.created_at, r0.created_by, r0.deleted_at, r0.description, r0.name, r0.updated_at, r0.updated_by
+FROM accounts AS a
+INNER JOIN (
+    SELECT r.id
+    FROM roles AS r
+    WHERE r.name = @__roleName_2
+) AS t ON a.role_id = t.id
+INNER JOIN users AS u ON a.user_id = u.id
+LEFT JOIN roles AS r0 ON a.role_id = r0.id
+WHERE (a.registration = @__registration_0) AND (a.registration_type = @__registrationType_1)
+LIMIT 1
+[2022-07-28 00:34:30.457 +07:00  INF]  Executing UnauthorizedObjectResult, writing value of type 'API.Models.Response.Response'.
+[2022-07-28 00:34:30.459 +07:00  INF]  Executed action API.Controllers.Booker.BookersController.PhoneLogin (API) in 39.7107ms
+[2022-07-28 00:34:30.459 +07:00  INF]  Executed endpoint 'API.Controllers.Booker.BookersController.PhoneLogin (API)'
+[2022-07-28 00:34:30.459 +07:00  INF]  Request finished HTTP/2 POST https://localhost:7019/api/bookers/phone/login application/json 54 - 401 - application/json;+charset=utf-8 50.4201ms
+[2022-07-28 00:37:06.145 +07:00  INF]  User profile is available. Using 'C:\Users\quach\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-07-28 00:37:06.355 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-07-28 00:37:06.355 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-07-28 00:37:06.357 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-07-28 00:37:06.357 +07:00  INF]  Hosting environment: Development
+[2022-07-28 00:37:06.357 +07:00  INF]  Content root path: D:\DotNet_Study\projects\MaaS\API\
+[2022-07-28 00:37:06.940 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-07-28 00:37:07.265 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-07-28 00:37:07.288 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11964 application/javascript;+charset=utf-8 21.8334ms
+[2022-07-28 00:37:07.288 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 353.5280ms
+[2022-07-28 00:37:07.420 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-07-28 00:37:07.574 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 154.4704ms
+[2022-07-28 00:37:22.718 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/api/bookers/phone/send-login-otp?PhoneNumber=%2B84837226239 - -
+[2022-07-28 00:37:22.811 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API)'
+[2022-07-28 00:37:22.841 +07:00  INF]  Route matched with {action = "SendPhoneLoginOtp", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendPhoneLoginOtp(API.Models.Requests.SendPhoneOtpRequest) on controller API.Controllers.Booker.BookersController (API).
+[2022-07-28 00:37:24.262 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-07-28 00:37:25.228 +07:00  INF]  Executed DbCommand (94ms) [Parameters=[@__roleName_2='?', @__registration_0='?', @__registrationType_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a.id, a.created_at, a.created_by, a.deleted_at, a.registration, a.registration_type, a.role_id, a.updated_at, a.updated_by, a.user_id, a.verified, u.id, u.code, u.created_at, u.created_by, u.date_of_birth, u.deleted_at, u.gender, u.name, u.status, u.updated_at, u.updated_by, r0.id, r0.created_at, r0.created_by, r0.deleted_at, r0.description, r0.name, r0.updated_at, r0.updated_by
+FROM accounts AS a
+INNER JOIN (
+    SELECT r.id
+    FROM roles AS r
+    WHERE r.name = @__roleName_2
+) AS t ON a.role_id = t.id
+INNER JOIN users AS u ON a.user_id = u.id
+LEFT JOIN roles AS r0 ON a.role_id = r0.id
+WHERE (a.registration = @__registration_0) AND (a.registration_type = @__registrationType_1)
+LIMIT 1
+[2022-07-28 00:37:25.395 +07:00  INF]  Executed DbCommand (6ms) [Parameters=[@__registration_0='?', @__registrationType_1='?' (DbType = Int32), @__codeType_2='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT v.id, v."AccountId", v.code, v.created_at, v.created_by, v.deleted_at, v.expired_time, v.registration, v.registration_type, v.status, v.type, v.updated_at, v.updated_by
+FROM verified_codes AS v
+WHERE ((v.registration = @__registration_0) AND (v.registration_type = @__registrationType_1)) AND (v.type = @__codeType_2)
+ORDER BY v.created_at DESC
+LIMIT 1
+[2022-07-28 00:37:27.116 +07:00  INF]  Executed DbCommand (10ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?', @p2='?' (DbType = DateTime), @p3='?' (DbType = Int32), @p4='?' (DbType = DateTime), @p5='?' (DbType = DateTime), @p6='?', @p7='?' (DbType = Int32), @p8='?' (DbType = Boolean), @p9='?' (DbType = Int32), @p10='?' (DbType = DateTime), @p11='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO verified_codes ("AccountId", code, created_at, created_by, deleted_at, expired_time, registration, registration_type, status, type, updated_at, updated_by)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING id;
+[2022-07-28 00:37:27.132 +07:00  INF]  Executing OkObjectResult, writing value of type 'API.Models.Response.Response'.
+[2022-07-28 00:37:27.144 +07:00  INF]  Executed action API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API) in 4296.0613ms
+[2022-07-28 00:37:27.145 +07:00  INF]  Executed endpoint 'API.Controllers.Booker.BookersController.SendPhoneLoginOtp (API)'
+[2022-07-28 00:37:27.166 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/api/bookers/phone/send-login-otp?PhoneNumber=%2B84837226239 - - - 200 - application/json;+charset=utf-8 4448.7533ms
+[2022-07-28 00:37:27.236 +07:00  ERR]  Domain.Entities.VerifiedCode Add function error.
+System.ObjectDisposedException: Cannot access a disposed context instance. A common cause of this error is disposing a context instance that was resolved from dependency injection and then later trying to use the same context instance elsewhere in your application. This may occur if you are calling 'Dispose' on the context instance, or wrapping it in a using statement. If you are using dependency injection, you should let the dependency injection container take care of disposing context instances.
+Object name: 'AppDbContext'.
+   at Microsoft.EntityFrameworkCore.DbContext.CheckDisposed()
+   at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Infrastructure.Data.Repositories.GenericRepository`1.Add(T entity) in D:\DotNet_Study\projects\MaaS\Infrastructure\Data\Repositories\GenericRepository.cs:line 34
+[2022-07-28 00:37:44.684 +07:00  INF]  Request starting HTTP/2 POST https://localhost:7019/api/bookers/phone/login application/json 54
+[2022-07-28 00:37:44.690 +07:00  INF]  CORS policy execution successful.
+[2022-07-28 00:37:44.692 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.PhoneLogin (API)'
+[2022-07-28 00:37:44.694 +07:00  INF]  Route matched with {action = "PhoneLogin", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] PhoneLogin(API.Models.Requests.PhoneLoginRequest) on controller API.Controllers.Booker.BookersController (API).
+[2022-07-28 00:37:44.714 +07:00  INF]  Executed DbCommand (1ms) [Parameters=[@__registration_0='?', @__registrationType_1='?' (DbType = Int32), @__codeType_2='?' (DbType = Int32), @__otp_3='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT v.id, v."AccountId", v.code, v.created_at, v.created_by, v.deleted_at, v.expired_time, v.registration, v.registration_type, v.status, v.type, v.updated_at, v.updated_by
+FROM verified_codes AS v
+WHERE (((v.registration = @__registration_0) AND (v.registration_type = @__registrationType_1)) AND (v.type = @__codeType_2)) AND (v.code = @__otp_3)
+ORDER BY v.created_at DESC
+LIMIT 1
+[2022-07-28 00:37:44.723 +07:00  INF]  Executed DbCommand (4ms) [Parameters=[@__roleName_2='?', @__registration_0='?', @__registrationType_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a.id, a.created_at, a.created_by, a.deleted_at, a.registration, a.registration_type, a.role_id, a.updated_at, a.updated_by, a.user_id, a.verified, u.id, u.code, u.created_at, u.created_by, u.date_of_birth, u.deleted_at, u.gender, u.name, u.status, u.updated_at, u.updated_by, r0.id, r0.created_at, r0.created_by, r0.deleted_at, r0.description, r0.name, r0.updated_at, r0.updated_by
+FROM accounts AS a
+INNER JOIN (
+    SELECT r.id
+    FROM roles AS r
+    WHERE r.name = @__roleName_2
+) AS t ON a.role_id = t.id
+INNER JOIN users AS u ON a.user_id = u.id
+LEFT JOIN roles AS r0 ON a.role_id = r0.id
+WHERE (a.registration = @__registration_0) AND (a.registration_type = @__registrationType_1)
+LIMIT 1
+[2022-07-28 00:37:44.859 +07:00  INF]  Executing JsonResult, writing value of type 'API.Models.Response.Response'.
+[2022-07-28 00:37:44.868 +07:00  INF]  Executed action API.Controllers.Booker.BookersController.PhoneLogin (API) in 173.5095ms
+[2022-07-28 00:37:44.868 +07:00  INF]  Executed endpoint 'API.Controllers.Booker.BookersController.PhoneLogin (API)'
+[2022-07-28 00:37:44.868 +07:00  INF]  Request finished HTTP/2 POST https://localhost:7019/api/bookers/phone/login application/json 54 - 200 - application/json;+charset=utf-8 183.9088ms
