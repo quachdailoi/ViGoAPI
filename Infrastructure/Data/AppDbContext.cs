@@ -66,6 +66,16 @@ namespace Infrastructure.Data
                 Status = 1
             });
 
+            builder.Entity<User>().HasData(new User
+            {
+                Id = 3,
+                Name = "Dat Do",
+                Code = Guid.NewGuid(),
+                DateOfBirth = DateTime.UtcNow,
+                Gender = 1,
+                Status = 1
+            });
+
             builder.Entity<Account>().HasData(new Account
             {
                 Id = 1,
@@ -94,6 +104,36 @@ namespace Infrastructure.Data
                 RoleId = 1,
                 Verified = true,
                 UserId = 1
+            });
+
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 4,
+                Registration = "loiqdse140970@fpt.edu.vn",
+                RegistrationType = 0,
+                RoleId = 1,
+                Verified = true,
+                UserId = 1
+            });
+
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 5,
+                Registration = "+84377322919",
+                RegistrationType = 1,
+                RoleId = 1,
+                Verified = true,
+                UserId = 3
+            });
+
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 6,
+                Registration = "trongdat2000@gmail.com",
+                RegistrationType = 0,
+                RoleId = 1,
+                Verified = true,
+                UserId = 3
             });
         }
 

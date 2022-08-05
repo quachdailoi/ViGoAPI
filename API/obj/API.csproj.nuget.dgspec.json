@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DotNet_Study\\projects\\MaaS\\API\\API.csproj": {}
+    "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\API\\API.csproj": {}
   },
   "projects": {
-    "D:\\DotNet_Study\\projects\\MaaS\\API\\API.csproj": {
+    "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DotNet_Study\\projects\\MaaS\\API\\API.csproj",
+        "projectUniqueName": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "D:\\DotNet_Study\\projects\\MaaS\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\quach\\.nuget\\packages\\",
-        "outputPath": "D:\\DotNet_Study\\projects\\MaaS\\API\\obj\\",
+        "projectPath": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\Win\\.nuget\\packages\\",
+        "outputPath": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\quach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Win\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,11 +28,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\DotNet_Study\\projects\\MaaS\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\DotNet_Study\\projects\\MaaS\\Domain\\Domain.csproj"
+              "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Domain\\Domain.csproj": {
+                "projectPath": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Domain\\Domain.csproj"
               },
-              "D:\\DotNet_Study\\projects\\MaaS\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "D:\\DotNet_Study\\projects\\MaaS\\Infrastructure\\Infrastructure.csproj"
+              "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -62,6 +62,10 @@
             "FirebaseAdmin": {
               "target": "Package",
               "version": "[2.3.0, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.3.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
@@ -126,21 +130,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\DotNet_Study\\projects\\MaaS\\Domain\\Domain.csproj": {
+    "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DotNet_Study\\projects\\MaaS\\Domain\\Domain.csproj",
+        "projectUniqueName": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\DotNet_Study\\projects\\MaaS\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\quach\\.nuget\\packages\\",
-        "outputPath": "D:\\DotNet_Study\\projects\\MaaS\\Domain\\obj\\",
+        "projectPath": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\Win\\.nuget\\packages\\",
+        "outputPath": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\quach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Win\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -190,21 +194,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\DotNet_Study\\projects\\MaaS\\Infrastructure\\Infrastructure.csproj": {
+    "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DotNet_Study\\projects\\MaaS\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "D:\\DotNet_Study\\projects\\MaaS\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\quach\\.nuget\\packages\\",
-        "outputPath": "D:\\DotNet_Study\\projects\\MaaS\\Infrastructure\\obj\\",
+        "projectPath": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Win\\.nuget\\packages\\",
+        "outputPath": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\quach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Win\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -218,8 +222,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\DotNet_Study\\projects\\MaaS\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\DotNet_Study\\projects\\MaaS\\Domain\\Domain.csproj"
+              "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Domain\\Domain.csproj": {
+                "projectPath": "G:\\.NET Core\\ViGoAPI\\ViGoAPI\\Domain\\Domain.csproj"
               }
             }
           }
@@ -274,7 +278,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

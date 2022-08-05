@@ -1,5 +1,7 @@
 ﻿using API.Services;
 using API.Services.Constract;
+using API.SignalR;
+using API.SignalR.Constract;
 using Domain.Interfaces.Repositories;
 using Domain.Interfaces.Services;
 using Infrastructure.Data.Repositories;
@@ -30,7 +32,7 @@ namespace API.Extensions
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
-                options.Authority = config["Jwt:Issuer"];
+                //options.Authority = config["Jwt:Issuer"];
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateActor = true,
@@ -62,7 +64,12 @@ namespace API.Extensions
             services.AddTransient<IVerifiedCodeService, VerifiedCodeService>();
         }
 
-        public static void ConfigureSwagger(this IServiceCollection services)
+        public static void ConfigureIoCSignalR(this IServiceCollection services)
+        {
+            services.AddTransient<ISignalRService, SignalRService>();
+        }
+
+            public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>
             {

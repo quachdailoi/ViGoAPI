@@ -19,5 +19,6 @@ namespace API.Services
         public IAccountService AccountService { get; }
         public IAuthService AuthService { get; }
         public IVerifiedCodeService VerifiedCodeService { get; }
+
     }
 }

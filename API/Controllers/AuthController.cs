@@ -1,8 +1,10 @@
-﻿using API.Models.Requests;
+﻿using API.JwtFeatures;
+using API.Models.Requests;
+using API.Models.Response;
 using API.Services.Constract;
-using Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace API.Controllers
 {
@@ -17,6 +19,7 @@ namespace API.Controllers
         protected IAppServices AppServices => _appServices ?? (_appServices = HttpContext.RequestServices.GetRequiredService<IAppServices>());
 
         public abstract Task<IActionResult> SendPhoneLoginOtp([FromBody] SendPhoneOtpRequest request);
-        public abstract IActionResult SendGmailOtp([FromBody] SendGmailOtpRequest request);
+        public abstract Task<IActionResult> SendGmailOtp();
+
     }
 }

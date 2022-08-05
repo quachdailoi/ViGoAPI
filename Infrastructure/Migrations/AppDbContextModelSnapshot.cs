@@ -89,12 +89,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4503),
+                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7096),
                             CreatedBy = 0,
                             Registration = "loiqdse140970@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 2,
-                            UpdatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4503),
+                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7096),
                             UpdatedBy = 0,
                             UserId = 2,
                             Verified = true
@@ -102,12 +102,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4512),
+                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7109),
                             CreatedBy = 0,
                             Registration = "+84837226239",
                             RegistrationType = 1,
                             RoleId = 2,
-                            UpdatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4513),
+                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7109),
                             UpdatedBy = 0,
                             UserId = 2,
                             Verified = true
@@ -115,14 +115,53 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4519),
+                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7116),
                             CreatedBy = 0,
                             Registration = "+84837226239",
                             RegistrationType = 1,
                             RoleId = 1,
-                            UpdatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4519),
+                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7116),
                             UpdatedBy = 0,
                             UserId = 1,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7123),
+                            CreatedBy = 0,
+                            Registration = "loiqdse140970@fpt.edu.vn",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7123),
+                            UpdatedBy = 0,
+                            UserId = 1,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7130),
+                            CreatedBy = 0,
+                            Registration = "+84377322919",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7130),
+                            UpdatedBy = 0,
+                            UserId = 3,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7139),
+                            CreatedBy = 0,
+                            Registration = "trongdat2000@gmail.com",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7140),
+                            UpdatedBy = 0,
+                            UserId = 3,
                             Verified = true
                         });
                 });
@@ -179,21 +218,21 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4371),
+                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(6992),
                             CreatedBy = 0,
                             Description = "Role for driver",
                             Name = "DRIVER",
-                            UpdatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4373),
+                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(6994),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4390),
+                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7017),
                             CreatedBy = 0,
                             Description = "Role for booker",
                             Name = "BOOKER",
-                            UpdatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4390),
+                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7017),
                             UpdatedBy = 0
                         });
                 });
@@ -257,27 +296,40 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Code = new Guid("da0ef573-6a50-4b0e-a0bb-8cadcf8d3331"),
-                            CreatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4398),
+                            Code = new Guid("2aa60a5f-2058-4026-9896-d47a79f81393"),
+                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7026),
                             CreatedBy = 0,
-                            DateOfBirth = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4424),
+                            DateOfBirth = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7063),
                             Gender = 1,
                             Name = "Quach Dai Loi",
                             Status = 1,
-                            UpdatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4398),
+                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7026),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
-                            Code = new Guid("bd5b5d29-26e9-4f60-9502-4b71bae15ea4"),
-                            CreatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4489),
+                            Code = new Guid("eda460a0-9bda-49cb-8ab7-7306ddcbf657"),
+                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7075),
                             CreatedBy = 0,
-                            DateOfBirth = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4492),
+                            DateOfBirth = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7077),
                             Gender = 1,
                             Name = "Olivier",
                             Status = 1,
-                            UpdatedAt = new DateTime(2022, 7, 26, 8, 10, 27, 876, DateTimeKind.Utc).AddTicks(4490),
+                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7076),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Code = new Guid("87fdf729-4c30-41f4-989d-fe5c909c8a87"),
+                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7085),
+                            CreatedBy = 0,
+                            DateOfBirth = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7086),
+                            Gender = 1,
+                            Name = "Dat Do",
+                            Status = 1,
+                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7085),
                             UpdatedBy = 0
                         });
                 });
