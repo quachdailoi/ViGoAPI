@@ -8,11 +8,15 @@ using Infrastructure.Data.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Text.Json.Serialization;
+using Microsoft.IdentityModel.Logging;
+using API.SignalR;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var config = builder.Configuration;
+
+IdentityModelEventSource.ShowPII = true;
 
 // Config log
 var logger = new LoggerConfiguration()
@@ -65,6 +69,9 @@ services.AddDbContextPool<AppDbContext>(options =>
         options.UseNpgsql(connectionString)
 );
 
+services.AddSignalR();
+
+
 // Config for authentication
 services.ConfigureAuthentication(config);
 
@@ -84,6 +91,9 @@ services.ConfigureIoCRepositories();
 
 // IoC for Services layer
 services.ConfigureIoCServices();
+
+// IoC for SignalR
+services.ConfigureIoCSignalR();
 
 #region IOC for Logging
 services.AddLogging();
@@ -112,5 +122,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<SignalRHub>("");
 
 app.Run();

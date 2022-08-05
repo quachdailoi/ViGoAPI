@@ -10,7 +10,7 @@ namespace Domain.Shares.Enums
     {
         BOOKER = 1,
         DRIVER = 2,
-        ADMIN = 3,
+        ADMIN = 3
     }
 
     public static class RolesExtensions

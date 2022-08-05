@@ -8,9 +8,11 @@ namespace API.Services.Constract
     public interface IVerifiedCodeService
     {
         Task<Tuple<MessageResource, string>> SendPhoneOtp(string phoneNumber);
-        Task<string> SendGmailOtp(Account account);
+        Task<Tuple<string, string>> SendGmailOtp(Account account);
         Task<VerifiedCode> SaveCode(string code, string registration, int registrationType, int codeType);
         Task<bool> CheckValidTimeSendOtp(string registration, int registrationType, int codeType);
-        Task<bool> CheckPhoneLoginByOtp(string otp, string registration, int registrationType, int codeType);
+        //Task<bool> CheckPhoneLoginByOtp(string otp, string registration, int registrationType, int codeType);
+
+        Task<bool> VerifyOtp(string otp, string registration, int registrationType, int codeType);
     }
 }

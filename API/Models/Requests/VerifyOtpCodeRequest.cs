@@ -4,11 +4,11 @@ namespace API.Models.Requests
 {
     public class VerifyOtpCodeRequest
     {
+        //[Required]
+        //public string UserCode { get; set; }
         [Required]
-        public string UserCode { get; set; }
-        [Required]
-        public string OtpCode { get; set; }
-        [Required]
-        public int RegistrationType { get; set; }
+        public string Otp { get; set; }
+        //[Required]
+        //public int RegistrationType { get; set; }
     }
 }

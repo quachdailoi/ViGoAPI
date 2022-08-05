@@ -1,10 +1,13 @@
-﻿using API.Models.Requests;
+﻿using API.Models;
+using API.Models.Requests;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
+using MailKit.Net.Smtp;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 
@@ -42,8 +45,52 @@ namespace API.Services
             return Tuple.Create(msgResource, otp);
         }
 
-        public Task<string> SendGmailOtp(Account account)
+        public async Task<Tuple<string,string>> SendGmailOtp(Account account)
         {
+            var otp = GenerateOtpCode(6);
+            MailContent mailContent = new()
+            {
+                To = account.Registration,
+                Subject = "Vigo App: Verify Email",
+                Body = $"Otp code from ViGo App: {otp}"
+            };
+            var mailRespone = await SendMail(mailContent);
+            return Tuple.Create(mailRespone,otp);
+        }
+        private async Task<string> SendMail(MailContent mailContent)
+        {
+            MimeMessage email = new();
+
+            var mailSettings = configuration.GetSection("MailSettings").Get<MailSettings>();
+
+            email.Sender = new MailboxAddress(mailSettings.DisplayName, mailSettings.Mail);
+            email.From.Add(new MailboxAddress(mailSettings.DisplayName, mailSettings.Mail));
+            email.To.Add(MailboxAddress.Parse(mailContent.To));
+            email.Subject = mailContent.Subject;
+
+            BodyBuilder builder = new();
+
+            builder.HtmlBody = mailContent.Body;
+            email.Body = builder.ToMessageBody();
+
+            using SmtpClient smtp = new();
+
+            try
+            {
+                smtp.Connect(mailSettings.Host, mailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
+                smtp.Authenticate(mailSettings.Mail, mailSettings.Password);
+                return await smtp.SendAsync(email);
+                //logger.LogInformation($"Send mail to:  {mailContent.To}");
+            }
+            catch (Exception e)
+            {
+                //logger.LogInformation($"Fail: Send mail to:  {mailContent.To}");
+                //logger.LogError(e.Message);
+            }
+            finally
+            {
+                smtp.Disconnect(true);
+            }    
             return null;
         }
 
@@ -91,10 +138,8 @@ namespace API.Services
             var minuteForResend = int.Parse(configuration.GetSection("OTP:TimeResend").Value);
 
             DateTime timeToResend = code.CreatedAt.AddMinutes(minuteForResend);
-
             var now = DateTime.UtcNow;
-
-            if (DateTime.Compare(timeToResend, now) > 0)
+            if (DateTime.Compare(timeToResend, now) < 0)
             {
                 return false;
             }
@@ -102,20 +147,40 @@ namespace API.Services
             return true;
         }
 
-        public async Task<bool> CheckPhoneLoginByOtp(string otp, string registration, int registrationType, int codeType)
+        //public async Task<bool> CheckPhoneLoginByOtp(string otp, string registration, int registrationType, int codeType)
+        //{
+        //    var code = await _unitOfWork.VerifiedCodes.GetVerifiedCode(otp, registration, registrationType, codeType).FirstOrDefaultAsync();
+
+        //    var minuteForExpired = int.Parse(configuration.GetSection("OTP:ExpiredTime").Value);
+
+        //    DateTime validTime = code.CreatedAt.AddMinutes(minuteForExpired);
+
+        //    if (DateTime.Compare(validTime, DateTime.UtcNow) < 0)
+        //    {
+        //        return false;
+        //    }
+
+        //    return true;
+        //}
+
+        public async Task<bool> VerifyOtp(string otp, string registration, int registrationType, int codeType)
         {
             var code = await _unitOfWork.VerifiedCodes.GetVerifiedCode(otp, registration, registrationType, codeType).FirstOrDefaultAsync();
 
-            var minuteForExpired = int.Parse(configuration.GetSection("OTP:ExpiredTime").Value);
-
-            DateTime validTime = code.CreatedAt.AddMinutes(minuteForExpired);
-
-            if (DateTime.Compare(validTime, DateTime.UtcNow) < 0)
+            if(code != null)
             {
-                return false;
-            }
+                //var minuteForExpired = int.Parse(configuration.GetSection("OTP:ExpiredTime").Value);
 
-            return true;
+                //DateTime validTime = code.CreatedAt.AddMinutes(minuteForExpired);
+
+                if (DateTime.Compare(code.ExpiredTime, DateTime.UtcNow) < 0)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DotNet_Study\\projects\\MaaS\\Domain\\Domain.csproj": {}
+    "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "D:\\DotNet_Study\\projects\\MaaS\\Domain\\Domain.csproj": {
+    "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DotNet_Study\\projects\\MaaS\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\DotNet_Study\\projects\\MaaS\\Domain\\Domain.csproj",
+        "projectPath": "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\quach\\.nuget\\packages\\",
-        "outputPath": "D:\\DotNet_Study\\projects\\MaaS\\Domain\\obj\\",
+        "outputPath": "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\quach\\AppData\\Roaming\\NuGet\\NuGet.Config",

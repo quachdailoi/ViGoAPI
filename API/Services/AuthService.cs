@@ -32,7 +32,7 @@ namespace API.Services
                 return null;
             }
  
-            var driverUser = this.GetUserOfAccount(driverAccount);
+            var driverUser = await this.GetUserOfAccount(driverAccount);
 
             return _mapper.Map<UserViewModel> (driverUser);
         }
@@ -66,16 +66,17 @@ namespace API.Services
                                        join role in roles
                                        on account.RoleId equals role.Id
                                        select account)
-                    .Include(acc => acc.User)
+                    //.Include(acc => acc.User)
                     .Include(acc => acc.Role)
                     .FirstOrDefaultAsync();
 
             return roleAccount;
         }
 
-        private User GetUserOfAccount(Account account)
+        private async Task<User> GetUserOfAccount(Account account)
         {
-            return account.User;
+            //return account.User;
+            return await _unitOfWork.Users.List(user => user.Id == account.UserId).Include(user => user.Accounts).FirstOrDefaultAsync();
         }
 
         public async Task<UserViewModel> GetBookerUserViewModelByPhoneNumber(string phoneNumber)
@@ -87,9 +88,30 @@ namespace API.Services
                 return null;
             }
 
-            var bookerUser = this.GetUserOfAccount(bookerAccount);
+            var bookerUser = await this.GetUserOfAccount(bookerAccount);
 
             return _mapper.Map<UserViewModel>(bookerUser);
+        }
+
+        public async Task<Account> GetBookerAccountByEmail(string email)
+        {
+            return await GetRoleAccountByRegistration(email, RegistrationTypes.Email.GetInt(), Roles.BOOKER.GetString());
+        }
+
+        public async Task<Account> GetDriverAccountByPhoneNumber(string phoneNumber)
+        {
+            return await GetRoleAccountByRegistration(phoneNumber, RegistrationTypes.Phone.GetInt(), Roles.DRIVER.GetString());
+        }
+
+        public async Task<UserViewModel> GetUserViewModelByRole(Roles role)
+        {
+            var account = _unitOfWork.Accounts.List(x => x.RoleId == ((int)role)).Include(acc=>acc.Role).FirstOrDefault();
+
+            var user = await _unitOfWork.Users.List(user => user.Id == account.UserId).Include(user=>user.Accounts).FirstOrDefaultAsync();
+
+            //var _user = await user.MapTo<UserViewModel>(_mapper).FirstOrDefaultAsync();
+
+            return  _mapper.Map<UserViewModel>(user);
         }
     }
 }
