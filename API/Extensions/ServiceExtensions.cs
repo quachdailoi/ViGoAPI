@@ -66,7 +66,7 @@ namespace API.Extensions
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)
         {
-            services.AddTransient<ISignalRService, SignalRService>();
+            services.AddSingleton<ISignalRService, SignalRService>();
         }
 
             public static void ConfigureSwagger(this IServiceCollection services)

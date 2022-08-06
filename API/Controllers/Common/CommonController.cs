@@ -1,10 +1,12 @@
 ﻿using API.JwtFeatures;
 using API.Models.Requests;
 using API.Models.Response;
+using API.SignalR;
 using API.SignalR.Constract;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 
 namespace API.Controllers.Common
@@ -75,5 +77,6 @@ namespace API.Controllers.Common
                 return BadRequest(response);
             }
         }
+
     }
 }

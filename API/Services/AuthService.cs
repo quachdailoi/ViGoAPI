@@ -109,8 +109,6 @@ namespace API.Services
 
             var user = await _unitOfWork.Users.List(user => user.Id == account.UserId).Include(user=>user.Accounts).FirstOrDefaultAsync();
 
-            //var _user = await user.MapTo<UserViewModel>(_mapper).FirstOrDefaultAsync();
-
             return  _mapper.Map<UserViewModel>(user);
         }
     }

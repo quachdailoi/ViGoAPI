@@ -1,0 +1,110 @@
+[2022-08-06 00:00:11.468 +07:00  INF]  Request starting HTTP/2 POST https://localhost:7019/api/signalr/send-message application/json 43
+[2022-08-06 00:00:11.474 +07:00  INF]  CORS policy execution successful.
+[2022-08-06 00:00:11.474 +07:00  INF]  Executing endpoint 'API.Controllers.Common.CommonController.SendMessage (API)'
+[2022-08-06 00:00:11.520 +07:00  INF]  Route matched with {action = "SendMessage", controller = "Common"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendMessage(API.Controllers.Common.SendMessageRequest) on controller API.Controllers.Common.CommonController (API).
+[2022-08-06 00:00:11.967 +07:00  INF]  Executed action API.Controllers.Common.CommonController.SendMessage (API) in 434.2236ms
+[2022-08-06 00:00:11.972 +07:00  INF]  Executed endpoint 'API.Controllers.Common.CommonController.SendMessage (API)'
+[2022-08-06 00:00:11.974 +07:00  ERR]  An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Unable to resolve service for type 'API.SignalR.SignalRHub' while attempting to activate 'API.Controllers.Common.CommonController'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetService(IServiceProvider sp, Type type, Type requiredBy, Boolean isDefaultParameterRequired)
+   at lambda_method60(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass7_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+[2022-08-06 00:00:12.034 +07:00  INF]  Request finished HTTP/2 POST https://localhost:7019/api/signalr/send-message application/json 43 - 500 - text/plain;+charset=utf-8 565.2489ms
+[2022-08-06 20:45:02.785 +07:00  INF]  User profile is available. Using 'C:\Users\Win\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-08-06 20:45:03.907 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-08-06 20:45:03.907 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-08-06 20:45:03.912 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-08-06 20:45:03.912 +07:00  INF]  Hosting environment: Development
+[2022-08-06 20:45:03.912 +07:00  INF]  Content root path: G:\.NET Core\ViGoAPI\ViGoAPI\API\
+[2022-08-06 20:45:04.753 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-08-06 20:45:05.284 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-08-06 20:45:05.284 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 534.0576ms
+[2022-08-06 20:45:05.294 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11976 application/javascript;+charset=utf-8 10.1247ms
+[2022-08-06 20:45:05.305 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_vs/browserLink - -
+[2022-08-06 20:45:05.394 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 89.3037ms
+[2022-08-06 20:45:05.549 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-08-06 20:45:05.690 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 141.6313ms
+[2022-08-06 20:46:36.081 +07:00  INF]  Request starting HTTP/2 OPTIONS https://localhost:7019/negotiate?negotiateVersion=1 - -
+[2022-08-06 20:46:36.094 +07:00  INF]  CORS policy execution successful.
+[2022-08-06 20:46:36.095 +07:00  INF]  Request finished HTTP/2 OPTIONS https://localhost:7019/negotiate?negotiateVersion=1 - - - 204 - - 13.6042ms
+[2022-08-06 20:46:36.097 +07:00  INF]  Request starting HTTP/2 POST https://localhost:7019/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+[2022-08-06 20:46:36.098 +07:00  INF]  CORS policy execution successful.
+[2022-08-06 20:46:36.926 +07:00  INF]  Executing endpoint '/negotiate'
+[2022-08-06 20:46:36.978 +07:00  INF]  Executed endpoint '/negotiate'
+[2022-08-06 20:46:36.979 +07:00  INF]  Request finished HTTP/2 POST https://localhost:7019/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0 - 200 316 application/json 881.2848ms
+[2022-08-06 20:46:36.995 +07:00  INF]  Request starting HTTP/1.1 GET https://localhost:7019/?id=7wCElvRTT3c-i8z2JMTPxw - -
+[2022-08-06 20:46:36.996 +07:00  INF]  CORS policy execution successful.
+[2022-08-06 20:46:36.997 +07:00  INF]  Executing endpoint ''
+[2022-08-06 20:47:12.953 +07:00  INF]  Request starting HTTP/2 POST https://localhost:7019/api/signalr/send-message application/json 45
+[2022-08-06 20:47:12.954 +07:00  INF]  CORS policy execution successful.
+[2022-08-06 20:47:12.956 +07:00  INF]  Executing endpoint 'API.Controllers.Common.CommonController.SendMessage (API)'
+[2022-08-06 20:47:12.984 +07:00  INF]  Route matched with {action = "SendMessage", controller = "Common"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendMessage(API.Controllers.Common.SendMessageRequest) on controller API.Controllers.Common.CommonController (API).
+[2022-08-06 20:47:23.701 +07:00  INF]  Executed action API.Controllers.Common.CommonController.SendMessage (API) in 10709.5033ms
+[2022-08-06 20:47:23.708 +07:00  INF]  Executed endpoint 'API.Controllers.Common.CommonController.SendMessage (API)'
+[2022-08-06 20:47:23.711 +07:00  ERR]  An unhandled exception has occurred while executing the request.
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at API.SignalR.SignalRService.SendToUserAsync(String userCode, String method, Object obj) in G:\.NET Core\ViGoAPI\ViGoAPI\API\SignalR\SignalRService.cs:line 16
+   at API.Controllers.Common.CommonController.SendMessage(SendMessageRequest request) in G:\.NET Core\ViGoAPI\ViGoAPI\API\Controllers\Common\CommonController.cs:line 84
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+[2022-08-06 20:47:24.051 +07:00  INF]  Request finished HTTP/2 POST https://localhost:7019/api/signalr/send-message application/json 45 - 500 - text/plain;+charset=utf-8 11098.3419ms
+[2022-08-06 20:49:59.122 +07:00  INF]  User profile is available. Using 'C:\Users\Win\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-08-06 20:49:59.362 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-08-06 20:49:59.362 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-08-06 20:49:59.365 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-08-06 20:49:59.365 +07:00  INF]  Hosting environment: Development
+[2022-08-06 20:49:59.365 +07:00  INF]  Content root path: G:\.NET Core\ViGoAPI\ViGoAPI\API\
+[2022-08-06 20:49:59.837 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-08-06 20:50:00.179 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-08-06 20:50:00.179 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_vs/browserLink - -
+[2022-08-06 20:50:00.195 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 362.9204ms
+[2022-08-06 20:50:00.195 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11976 application/javascript;+charset=utf-8 13.9676ms
+[2022-08-06 20:50:00.219 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 39.7146ms
+[2022-08-06 20:50:00.392 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-08-06 20:50:00.526 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 133.8965ms
+[2022-08-06 20:50:14.873 +07:00  INF]  Request starting HTTP/2 OPTIONS https://localhost:7019/negotiate?negotiateVersion=1 - -
+[2022-08-06 20:50:14.879 +07:00  INF]  CORS policy execution successful.
+[2022-08-06 20:50:14.881 +07:00  INF]  Request finished HTTP/2 OPTIONS https://localhost:7019/negotiate?negotiateVersion=1 - - - 204 - - 7.8409ms
+[2022-08-06 20:50:14.883 +07:00  INF]  Request starting HTTP/2 POST https://localhost:7019/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0
+[2022-08-06 20:50:14.883 +07:00  INF]  CORS policy execution successful.
+[2022-08-06 20:50:14.946 +07:00  INF]  Executing endpoint '/negotiate'
+[2022-08-06 20:50:14.965 +07:00  INF]  Executed endpoint '/negotiate'
+[2022-08-06 20:50:14.965 +07:00  INF]  Request finished HTTP/2 POST https://localhost:7019/negotiate?negotiateVersion=1 text/plain;charset=UTF-8 0 - 200 316 application/json 82.4236ms
+[2022-08-06 20:50:14.981 +07:00  INF]  Request starting HTTP/1.1 GET https://localhost:7019/?id=sdYCuqiZS0N-e63C5ATZSA - -
+[2022-08-06 20:50:14.981 +07:00  INF]  CORS policy execution successful.
+[2022-08-06 20:50:14.981 +07:00  INF]  Executing endpoint ''
+[2022-08-06 20:50:27.512 +07:00  INF]  Request starting HTTP/2 POST https://localhost:7019/api/signalr/send-message application/json 45
+[2022-08-06 20:50:27.513 +07:00  INF]  CORS policy execution successful.
+[2022-08-06 20:50:27.515 +07:00  INF]  Executing endpoint 'API.Controllers.Common.CommonController.SendMessage (API)'
+[2022-08-06 20:50:27.538 +07:00  INF]  Route matched with {action = "SendMessage", controller = "Common"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] SendMessage(API.Controllers.Common.SendMessageRequest) on controller API.Controllers.Common.CommonController (API).
+[2022-08-06 20:50:27.743 +07:00  INF]  Executing StatusCodeResult, setting HTTP status code 200
+[2022-08-06 20:50:27.750 +07:00  INF]  Executed action API.Controllers.Common.CommonController.SendMessage (API) in 205.9734ms
+[2022-08-06 20:50:27.751 +07:00  INF]  Executed endpoint 'API.Controllers.Common.CommonController.SendMessage (API)'
+[2022-08-06 20:50:27.751 +07:00  INF]  Request finished HTTP/2 POST https://localhost:7019/api/signalr/send-message application/json 45 - 200 0 - 239.2388ms

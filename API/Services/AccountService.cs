@@ -35,18 +35,6 @@ namespace API.Services
 
             return account.Id;
         }
-        //public async Task<Account> GetAccountByRegistration(string registration, RegistrationTypes registrationTypes, Roles role)
-        //{
-        //    switch (registrationTypes)
-        //    {
-        //        case RegistrationTypes.Email:
-        //            return await _unitOfWork.Accounts.GetAccountByEmail(registration).FirstOrDefaultAsync();
-        //        case RegistrationTypes.Phone:
-        //            return await _unitOfWork.Accounts.GetAccountByPhoneNumber(registration).FirstOrDefaultAsync();
-        //        default:
-        //            return null;
-        //    }           
-        //}
         public async Task UpdateAccountRegistration(Account account, string registration, RegistrationTypes registrationTypes)
         {
                 account.Registration = registration;
