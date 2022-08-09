@@ -1,31 +1,58 @@
 ﻿using API.Models;
 using API.SignalR.Constract;
 using Domain.Shares.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace API.SignalR
 {
     public class SignalRHub: Hub
     {
-        public async Task Connect()
+        [Authorize]
+        public async Task Login()
         {
-            await Clients.Client(Context.ConnectionId).SendAsync("Connected","Connect successfully");
-        }
+            var claims = Context.User.Claims;
 
-        public async Task Login(UserViewModel user)
-        { 
+            var userClaim = claims.Where(claim => claim.Type == "User").FirstOrDefault().Value;
+
+            var user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserViewModel>(userClaim);
+
             await Groups.AddToGroupAsync(Context.ConnectionId, user.Code.ToString());
             await Groups.AddToGroupAsync(Context.ConnectionId, user.RoleName);
+
+            //await Clients.Client(Context.ConnectionId).SendAsync("User", user);
         }
 
-        public async Task Logout(UserViewModel user)
+        [Authorize]
+        public async Task Logout()
         {
+            var claims = Context.User.Claims;
+
+            var userClaim = claims.Where(claim => claim.Type == "User").FirstOrDefault().Value;
+
+            var user = Newtonsoft.Json.JsonConvert.DeserializeObject<UserViewModel>(userClaim);
+
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, user.Code.ToString());
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, user.RoleName);
         }
 
-        public async Task Disconnect()
+        public override Task OnConnectedAsync()
         {
+            Clients.Client(Context.ConnectionId).SendAsync("Connected", "Connect successfully");
+            return base.OnConnectedAsync();
+        }
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            if (exception != null)
+            {
+                System.Console.WriteLine($"Exception on disconnect from signalr client: {exception.Message}");
+            }
+            else
+            {
+                System.Console.WriteLine($"A client has disconnected: {Context.ConnectionId}");
+            }
+            return base.OnDisconnectedAsync(exception);
         }
     }
 }

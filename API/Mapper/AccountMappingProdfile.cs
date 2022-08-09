@@ -14,7 +14,7 @@ namespace API.Mapper
                     dest => dest.Email,
                     opt => opt.MapFrom(
                         src => src.Registration    
-                    )
+                    )     
                 )
                 .IncludeMembers(
                     s => s.User,

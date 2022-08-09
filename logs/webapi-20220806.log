@@ -108,3 +108,66 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 [2022-08-06 20:50:27.750 +07:00  INF]  Executed action API.Controllers.Common.CommonController.SendMessage (API) in 205.9734ms
 [2022-08-06 20:50:27.751 +07:00  INF]  Executed endpoint 'API.Controllers.Common.CommonController.SendMessage (API)'
 [2022-08-06 20:50:27.751 +07:00  INF]  Request finished HTTP/2 POST https://localhost:7019/api/signalr/send-message application/json 45 - 200 0 - 239.2388ms
+[2022-08-06 23:52:04.113 +07:00  INF]  User profile is available. Using 'C:\Users\Win\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[2022-08-06 23:52:04.543 +07:00  INF]  Now listening on: https://localhost:7019
+[2022-08-06 23:52:04.544 +07:00  INF]  Now listening on: http://localhost:5019
+[2022-08-06 23:52:04.548 +07:00  INF]  Application started. Press Ctrl+C to shut down.
+[2022-08-06 23:52:04.548 +07:00  INF]  Hosting environment: Development
+[2022-08-06 23:52:04.548 +07:00  INF]  Content root path: G:\.NET Core\ViGoAPI\ViGoAPI\API\
+[2022-08-06 23:52:05.887 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/index.html - -
+[2022-08-06 23:52:06.587 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_vs/browserLink - -
+[2022-08-06 23:52:06.587 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - -
+[2022-08-06 23:52:06.625 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/index.html - - - 200 - text/html;charset=utf-8 740.8834ms
+[2022-08-06 23:52:06.626 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_framework/aspnetcore-browser-refresh.js - - - 200 11976 application/javascript;+charset=utf-8 39.2947ms
+[2022-08-06 23:52:06.718 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 131.6308ms
+[2022-08-06 23:52:06.815 +07:00  INF]  Request starting HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - -
+[2022-08-06 23:52:07.048 +07:00  INF]  Request finished HTTP/2 GET https://localhost:7019/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 233.3616ms
+[2022-08-06 23:52:16.350 +07:00  INF]  Request starting HTTP/2 POST https://localhost:7019/api/bookers/phone/loginfake - 0
+[2022-08-06 23:52:16.427 +07:00  INF]  CORS policy execution successful.
+[2022-08-06 23:52:17.713 +07:00  INF]  Executing endpoint 'API.Controllers.Booker.BookersController.LoginFake (API)'
+[2022-08-06 23:52:17.757 +07:00  INF]  Route matched with {action = "LoginFake", controller = "Bookers"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] LoginFake() on controller API.Controllers.Booker.BookersController (API).
+[2022-08-06 23:52:22.455 +07:00  INF]  Entity Framework Core 6.0.6 initialized 'AppDbContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL:6.0.5+9d79af6e2586d5d28da253ac075706a5575a1743' with options: MaxPoolSize=1024 
+[2022-08-06 23:52:24.320 +07:00  INF]  Executed DbCommand (148ms) [Parameters=[@__role_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT a.id, a.created_at, a.created_by, a.deleted_at, a.registration, a.registration_type, a.role_id, a.updated_at, a.updated_by, a.user_id, a.verified
+FROM accounts AS a
+WHERE a.role_id = @__role_0
+LIMIT 1
+[2022-08-06 23:52:24.901 +07:00  INF]  Executed action API.Controllers.Booker.BookersController.LoginFake (API) in 7132.9673ms
+[2022-08-06 23:52:24.906 +07:00  INF]  Executed endpoint 'API.Controllers.Booker.BookersController.LoginFake (API)'
+[2022-08-06 23:52:24.908 +07:00  ERR]  An unhandled exception has occurred while executing the request.
+AutoMapper.AutoMapperMappingException: Unable to create a map expression from . (Domain.Entities.User) to String.Email (System.String)
+
+Mapping types:
+User -> UserViewModel
+Domain.Entities.User -> API.Models.UserViewModel
+
+Type Map configuration:
+User -> UserViewModel
+Domain.Entities.User -> API.Models.UserViewModel
+
+Destination Member:
+Email
+
+   at System.Lazy`1.ViaFactory(LazyThreadSafetyMode mode)
+   at System.Lazy`1.ExecutionAndPublication(LazyHelper executionAndPublication, Boolean useDefaultConstructor)
+   at System.Lazy`1.CreateValue()
+   at API.Extensions.QueryableExtensions.MapTo[T](IQueryable query, IMapper mapper) in G:\.NET Core\ViGoAPI\ViGoAPI\API\Extensions\QueryableExtensions.cs:line 29
+   at API.Services.AuthService.GetUserViewModelByRole(Roles role) in G:\.NET Core\ViGoAPI\ViGoAPI\API\Services\AuthService.cs:line 116
+   at API.Controllers.Booker.BookersController.LoginFake() in G:\.NET Core\ViGoAPI\ViGoAPI\API\Controllers\Booker\BookersController.cs:line 348
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+[2022-08-06 23:52:25.056 +07:00  INF]  Request finished HTTP/2 POST https://localhost:7019/api/bookers/phone/loginfake - 0 - 500 - text/plain;+charset=utf-8 8706.0444ms

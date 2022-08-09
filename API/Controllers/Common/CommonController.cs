@@ -78,5 +78,18 @@ namespace API.Controllers.Common
             }
         }
 
+        // for test signalr
+        [HttpPost("hubs/send-to-user")]
+        public async Task<IActionResult> SendToUser([FromBody] MessageRequest request)
+        {
+            await _signalRService.SendToUserAsync(request.UserCode, "Message", request.Message);
+            return Ok();
+        }
+    }
+    // for test signalr
+    public class MessageRequest
+    {
+        public string Message { get; set; }
+        public string UserCode { get; set; }
     }
 }

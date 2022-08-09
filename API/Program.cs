@@ -69,8 +69,7 @@ services.AddDbContextPool<AppDbContext>(options =>
         options.UseNpgsql(connectionString)
 );
 
-services.AddSignalR();
-
+services.AddSignalR(cfg=>cfg.EnableDetailedErrors = true);
 
 // Config for authentication
 services.ConfigureAuthentication(config);
@@ -123,6 +122,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<SignalRHub>("");
+app.MapHub<SignalRHub>("/hubs");
 
 app.Run();

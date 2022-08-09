@@ -51,7 +51,7 @@ namespace API.JwtFeatures
 		{
 			var tokenOptions = new JwtSecurityToken(
 				claims: claims,
-				expires: DateTime.Now.AddDays(1),
+				expires: DateTime.Now.AddMinutes(1),
 				signingCredentials: signingCredentials,
 				issuer: configuration.GetSection("Jwt:Issuer").Value,
 				audience: configuration.GetSection("Jwt:Audience").Value,

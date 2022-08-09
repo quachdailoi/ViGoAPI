@@ -105,11 +105,17 @@ namespace API.Services
 
         public async Task<UserViewModel> GetUserViewModelByRole(Roles role)
         {
-            var account = _unitOfWork.Accounts.List(x => x.RoleId == ((int)role)).Include(acc=>acc.Role).FirstOrDefault();
+            //var account = _unitOfWork.Accounts.List(x => x.RoleId == ((int)role)).FirstOrDefault();
 
-            var user = await _unitOfWork.Users.List(user => user.Id == account.UserId).Include(user=>user.Accounts).FirstOrDefaultAsync();
+            //var users = _unitOfWork.Users.List(user => user.Id == account.UserId);
 
-            return  _mapper.Map<UserViewModel>(user);
+            //return await _mapper.ProjectTo<UserViewModel>(users).FirstOrDefaultAsync();
+
+            var account = _unitOfWork.Accounts.List(x => x.RoleId == ((int)role)).Include(account => account.Role).FirstOrDefault();
+
+            var user = await _unitOfWork.Users.List(user => user.Id == account.UserId).Include(user => user.Accounts).FirstOrDefaultAsync();
+
+            return _mapper.Map<UserViewModel>(user);
         }
     }
 }

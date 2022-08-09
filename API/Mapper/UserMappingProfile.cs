@@ -2,6 +2,7 @@
 using API.Models;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Shares.Enums;
 
 namespace API.Mapper
 {
@@ -11,7 +12,7 @@ namespace API.Mapper
         {
             CreateMap<User, UserViewModel>()
                 .ForMember(
-                    dest => dest.Email, 
+                    dest => dest.Email,
                     opt => opt.MapFrom<EmailResolver>()
                 )
                 .ForMember(
@@ -22,6 +23,21 @@ namespace API.Mapper
                     dest => dest.RoleName,
                     opt => opt.MapFrom<RoleNameResolver>()
                 );
+
+            //CreateProjection<User, UserViewModel>()
+            //    .ForMember(
+            //        dest => dest.Email,
+            //        otp => otp.MapFrom(user => user.Accounts.Where(account => account.RegistrationType == RegistrationTypes.Email.GetInt()).FirstOrDefault().Registration)
+            //    )
+            //    .ForMember(
+            //        dest => dest.PhoneNumber,
+            //        otp => otp.MapFrom(user => user.Accounts.Where(account => account.RegistrationType == RegistrationTypes.Phone.GetInt()).FirstOrDefault().Registration)
+            //    )
+            //    .ForMember(
+            //        dest => dest.RoleName,
+            //        otp => otp.MapFrom(user => user.Accounts.FirstOrDefault().Role.Name)
+            //    );     
+
         }
     }
 }

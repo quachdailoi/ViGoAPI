@@ -32,7 +32,7 @@ namespace API.Extensions
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
-                //options.Authority = config["Jwt:Issuer"];
+                //options.Authority = config["Jwt:Issuer"];  
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateActor = true,
@@ -44,6 +44,22 @@ namespace API.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"])),
                 };
                 options.RequireHttpsMetadata = false;
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"].FirstOrDefault();
+
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                        {
+                            context.Token = accessToken;
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
             });
         }
 
