@@ -1,4 +1,6 @@
-﻿using API.Services;
+﻿using API.Quartz;
+using API.Quartz.Jobs;
+using API.Services;
 using API.Services.Constract;
 using API.SignalR;
 using API.SignalR.Constract;
@@ -8,6 +10,8 @@ using Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Quartz;
+using Quartz.Spi;
 using System.Text;
 
 namespace API.Extensions
@@ -85,7 +89,15 @@ namespace API.Extensions
             services.AddSingleton<ISignalRService, SignalRService>();
         }
 
-            public static void ConfigureSwagger(this IServiceCollection services)
+        public static void ConfigureIoCCronJob(this IServiceCollection services)
+        {
+            // Sign job
+            services.AddTransient<MessageJob>();
+
+            services.AddTransient<IJobFactory, JobFactory>();
+            services.AddSingleton<IJobScheduler, JobScheduler>();
+        }
+        public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>
             {

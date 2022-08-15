@@ -94,6 +94,9 @@ services.ConfigureIoCServices();
 // IoC for SignalR
 services.ConfigureIoCSignalR();
 
+// IoC for Quartz
+services.ConfigureIoCCronJob();
+
 #region IOC for Logging
 services.AddLogging();
 #endregion

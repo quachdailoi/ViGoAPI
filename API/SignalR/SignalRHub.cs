@@ -20,7 +20,7 @@ namespace API.SignalR
             await Groups.AddToGroupAsync(Context.ConnectionId, user.Code.ToString());
             await Groups.AddToGroupAsync(Context.ConnectionId, user.RoleName);
 
-            //await Clients.Client(Context.ConnectionId).SendAsync("User", user);
+            await Clients.Client(Context.ConnectionId).SendAsync("User", user);
         }
 
         [Authorize]

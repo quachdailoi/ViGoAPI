@@ -1,6 +1,8 @@
 ﻿using API.JwtFeatures;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Quartz;
+using API.Quartz.Jobs;
 using API.SignalR;
 using API.SignalR.Constract;
 using AutoMapper;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
+using Quartz;
 
 namespace API.Controllers.Common
 {
@@ -18,11 +21,13 @@ namespace API.Controllers.Common
         private readonly IJwtHandler _jwtHandler;
         private readonly IMapper _mapper;
         private readonly ISignalRService _signalRService;
-        public CommonController(IJwtHandler jwtHandler, IMapper mapper, ISignalRService signalRService)
+        private readonly IJobScheduler _jobScheduler;
+        public CommonController(IJwtHandler jwtHandler, IMapper mapper, ISignalRService signalRService, IJobScheduler jobScheduler)
         {
             _jwtHandler = jwtHandler;
             _mapper = mapper;
             _signalRService = signalRService;
+            _jobScheduler = jobScheduler;
         }
 
         [HttpPost("refresh-access-token")]
@@ -76,6 +81,15 @@ namespace API.Controllers.Common
                 );
                 return BadRequest(response);
             }
+        }
+
+        // for test quartz
+        [HttpPost("job/send-to-user")]
+        public async Task<IActionResult> StartJob([FromBody] MessageRequest request)
+        {
+            await _jobScheduler.StartMessageJob<MessageJob>(request.UserCode, request.Message, "0 0-5 15 * * ?");
+            // Fire every minute starting at 3:00 PM and ending at 3:05 PM, every day
+            return Ok();
         }
 
         // for test signalr
