@@ -44,6 +44,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("deleted_at");
 
                     b.Property<string>("Registration")
+                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)")
                         .HasColumnName("registration");
@@ -52,7 +53,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("registration_type");
 
-                    b.Property<int?>("RoleId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("integer")
                         .HasColumnName("role_id");
 
@@ -89,12 +90,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7096),
+                            CreatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7821),
                             CreatedBy = 0,
                             Registration = "loiqdse140970@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 2,
-                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7096),
+                            UpdatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7822),
                             UpdatedBy = 0,
                             UserId = 2,
                             Verified = true
@@ -102,25 +103,25 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7109),
+                            CreatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7831),
                             CreatedBy = 0,
                             Registration = "+84837226239",
                             RegistrationType = 1,
                             RoleId = 2,
-                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7109),
+                            UpdatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7831),
                             UpdatedBy = 0,
                             UserId = 2,
-                            Verified = true
+                            Verified = false
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7116),
+                            CreatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7838),
                             CreatedBy = 0,
-                            Registration = "+84837226239",
+                            Registration = "+848372262391",
                             RegistrationType = 1,
                             RoleId = 1,
-                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7116),
+                            UpdatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7838),
                             UpdatedBy = 0,
                             UserId = 1,
                             Verified = true
@@ -128,25 +129,25 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7123),
+                            CreatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7844),
                             CreatedBy = 0,
                             Registration = "loiqdse140970@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 1,
-                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7123),
+                            UpdatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7844),
                             UpdatedBy = 0,
                             UserId = 1,
-                            Verified = true
+                            Verified = false
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7130),
+                            CreatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7850),
                             CreatedBy = 0,
                             Registration = "+84377322919",
                             RegistrationType = 1,
                             RoleId = 1,
-                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7130),
+                            UpdatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7851),
                             UpdatedBy = 0,
                             UserId = 3,
                             Verified = true
@@ -154,19 +155,19 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7139),
+                            CreatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7859),
                             CreatedBy = 0,
                             Registration = "trongdat2000@gmail.com",
                             RegistrationType = 0,
                             RoleId = 1,
-                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7140),
+                            UpdatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7860),
                             UpdatedBy = 0,
                             UserId = 3,
                             Verified = true
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.Role", b =>
+            modelBuilder.Entity("Domain.Entities.AppFile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -174,6 +175,10 @@ namespace Infrastructure.Migrations
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("Code")
+                        .HasColumnType("uuid")
+                        .HasColumnName("code");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -187,6 +192,52 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("deleted_at");
 
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("path");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean")
+                        .HasColumnName("status");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("updated_by");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("files", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = new Guid("6dba84ab-0669-4832-8a19-084832badf6c"),
+                            CreatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7729),
+                            CreatedBy = 0,
+                            Path = "abcabc",
+                            Status = true,
+                            Type = 1,
+                            UpdatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7732),
+                            UpdatedBy = 0
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -199,17 +250,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("character varying(20)")
                         .HasColumnName("name");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
-
-                    b.Property<int>("UpdatedBy")
-                        .HasColumnType("integer")
-                        .HasColumnName("updated_by");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("Description")
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("roles", (string)null);
@@ -218,22 +261,14 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(6992),
-                            CreatedBy = 0,
                             Description = "Role for driver",
-                            Name = "DRIVER",
-                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(6994),
-                            UpdatedBy = 0
+                            Name = "DRIVER"
                         },
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7017),
-                            CreatedBy = 0,
                             Description = "Role for booker",
-                            Name = "BOOKER",
-                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7017),
-                            UpdatedBy = 0
+                            Name = "BOOKER"
                         });
                 });
 
@@ -266,6 +301,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("deleted_at");
 
+                    b.Property<int?>("FileId")
+                        .HasColumnType("integer")
+                        .HasColumnName("file_id");
+
                     b.Property<int>("Gender")
                         .HasColumnType("integer")
                         .HasColumnName("gender");
@@ -290,46 +329,53 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("FileId")
+                        .IsUnique();
+
                     b.ToTable("users", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Code = new Guid("2aa60a5f-2058-4026-9896-d47a79f81393"),
-                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7026),
+                            Code = new Guid("571b76af-36da-4ce7-8f08-b0ead8c3e29c"),
+                            CreatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7759),
                             CreatedBy = 0,
-                            DateOfBirth = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7063),
+                            DateOfBirth = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7776),
+                            FileId = 1,
                             Gender = 1,
                             Name = "Quach Dai Loi",
                             Status = 1,
-                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7026),
+                            UpdatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7759),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
-                            Code = new Guid("eda460a0-9bda-49cb-8ab7-7306ddcbf657"),
-                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7075),
+                            Code = new Guid("d331ede6-cc95-4c95-ad4c-92b9b6646197"),
+                            CreatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7792),
                             CreatedBy = 0,
-                            DateOfBirth = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7077),
+                            DateOfBirth = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7794),
                             Gender = 1,
                             Name = "Olivier",
                             Status = 1,
-                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7076),
+                            UpdatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7792),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
-                            Code = new Guid("87fdf729-4c30-41f4-989d-fe5c909c8a87"),
-                            CreatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7085),
+                            Code = new Guid("2d8d309a-8099-46a0-8202-ee1b65f8ff8e"),
+                            CreatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7807),
                             CreatedBy = 0,
-                            DateOfBirth = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7086),
+                            DateOfBirth = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7808),
                             Gender = 1,
                             Name = "Dat Do",
                             Status = 1,
-                            UpdatedAt = new DateTime(2022, 8, 4, 14, 19, 47, 445, DateTimeKind.Utc).AddTicks(7085),
+                            UpdatedAt = new DateTime(2022, 8, 18, 4, 32, 0, 905, DateTimeKind.Utc).AddTicks(7807),
                             UpdatedBy = 0
                         });
                 });
@@ -342,9 +388,6 @@ namespace Infrastructure.Migrations
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -396,8 +439,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
-
                     b.ToTable("verified_codes", (string)null);
                 });
 
@@ -405,7 +446,9 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.Role", "Role")
                         .WithMany("Accounts")
-                        .HasForeignKey("RoleId");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("Accounts")
@@ -418,16 +461,19 @@ namespace Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VerifiedCode", b =>
+            modelBuilder.Entity("Domain.Entities.User", b =>
                 {
-                    b.HasOne("Domain.Entities.Account", null)
-                        .WithMany("VerifiedCodes")
-                        .HasForeignKey("AccountId");
+                    b.HasOne("Domain.Entities.AppFile", "File")
+                        .WithOne("User")
+                        .HasForeignKey("Domain.Entities.User", "FileId");
+
+                    b.Navigation("File");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Account", b =>
+            modelBuilder.Entity("Domain.Entities.AppFile", b =>
                 {
-                    b.Navigation("VerifiedCodes");
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Role", b =>

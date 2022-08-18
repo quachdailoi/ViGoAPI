@@ -28,6 +28,7 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.Property(e => e.RegistrationType)
                 .IsRequired()
+                .HasConversion<int>()
                 .HasColumnName("registration_type");
 
             builder.Property(e => e.Verified)
@@ -36,7 +37,8 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasDefaultValue(false);
 
             builder.Property(e => e.RoleId)
-                .HasColumnName("role_id");
+                .HasColumnName("role_id")
+                .HasConversion<int>();
 
             // foreign key
             builder.HasOne(e => e.Role)

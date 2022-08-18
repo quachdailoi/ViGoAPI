@@ -1,136 +1,187 @@
-﻿using API.Models; 
+﻿using API.Models;
+using API.Services.Constract;
+using API.SettingHelpers;
+using Domain.Entities;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace API.JwtFeatures
 {
     public class JwtHandler : IJwtHandler
     {
-		private readonly IConfiguration configuration;
-		public JwtHandler(IConfiguration configuration)
+		private readonly IConfiguration _configuration;
+        private readonly IAppServices _appservice;
+        private readonly JwtSettings _jwtSettings;
+
+		private readonly SigningCredentials _signingCredentials;
+
+		public JwtHandler(IConfiguration configuration, IOptions<JwtSettings> jwtSettings, IAppServices appservice)
 		{
-			this.configuration = configuration;
+			_configuration = configuration;
+			_appservice = appservice;
+            _jwtSettings = jwtSettings.Value;
+
+			_signingCredentials = GetSigningCredentials();
 		}
 
 		private SigningCredentials GetSigningCredentials()
 		{
-			var secretKeyBytes = Encoding.UTF8.GetBytes(configuration.GetSection("Jwt:Key").Value);
+			var secretKeyBytes = Encoding.UTF8.GetBytes(_jwtSettings.Key);
 
 			var secretKey = new SymmetricSecurityKey(secretKeyBytes);
 
 			return new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha512);
 		}
 
-		private List<Claim> GetClaims(UserViewModel user)
+		private IDictionary<string, object> GetClaims(UserViewModel user, string? ipAddress = null)
 		{
-			var claims = new List<Claim>
-			{
-                //new Claim(ClaimTypes.Sid, user.Code.ToString()),
-                //new Claim(ClaimTypes.Name, user.Name),
-                //new Claim(ClaimTypes.DateOfBirth, user.DateOfBirth.ToString()),
-                new Claim("User", Newtonsoft.Json.JsonConvert.SerializeObject(user)),
-				new Claim(ClaimTypes.Role, user.RoleName)
-			};
+			IDictionary<string, object> claims = new Dictionary<string, object>();
+			claims.Add(ClaimTypes.Name, user.Name);
+			claims.Add(ClaimTypes.DateOfBirth, user.DateOfBirth);
+			claims.Add(ClaimTypes.Role, user.RoleName);
 
-			if (!string.IsNullOrEmpty(user.Email))
+			if (!string.IsNullOrEmpty(ipAddress))
             {
-				claims.Add(new Claim(ClaimTypes.Email, user.Email));
+				claims.Add("ipAddress", ipAddress);
             }
+
+			if (!string.IsNullOrEmpty(user.Gmail))
+			{
+				claims.Add(ClaimTypes.Email, user.Gmail);
+			}
 
 			if (!string.IsNullOrEmpty(user.PhoneNumber))
-            {
-				claims.Add(new Claim(ClaimTypes.MobilePhone, user.PhoneNumber));
-            }
+			{
+				claims.Add(ClaimTypes.MobilePhone, user.PhoneNumber);
+			}
 
 			return claims;
 		}
 
-		private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
+		private SecurityTokenDescriptor GenerateTokenDescriptor(UserViewModel user, string? ipAddress = null)
 		{
-			var tokenOptions = new JwtSecurityToken(
-				claims: claims,
-				expires: DateTime.Now.AddDays(1),
-				signingCredentials: signingCredentials,
-				issuer: configuration.GetSection("Jwt:Issuer").Value,
-				audience: configuration.GetSection("Jwt:Audience").Value,
-				notBefore: DateTime.Now
-			);
+			var tokenDescriptor = GenerateTokenDescriptor();
 
-			return tokenOptions;
+			tokenDescriptor.Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) });
+			tokenDescriptor.Claims = GetClaims(user, ipAddress);
+
+			return tokenDescriptor;
 		}
 
-		private JwtSecurityToken GenerateRefreshTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
+		private IDictionary<string, object> ConvertEnumToDictionary(IEnumerable<Claim> claims)
 		{
-			var tokenOptions = new JwtSecurityToken(
-				claims: claims,
-				expires: DateTime.Now.AddMinutes(1),
-				signingCredentials: signingCredentials,
-				issuer: configuration.GetSection("Jwt:Issuer").Value,
-				audience: configuration.GetSection("Jwt:Audience").Value,
-				notBefore: DateTime.Now
-			);
+			IDictionary<string, object> claimDic = new Dictionary<string, object>();
+			foreach (var claim in claims)
+			{
+				claimDic.Add(claim.Type, claim.Value);
+			}
 
-			return tokenOptions;
+			return claimDic;
 		}
 
-		public string GenerateToken(UserViewModel user)
+		private SecurityTokenDescriptor GenerateTokenDescriptor(ClaimsPrincipal claimsPrincipal)
 		{
-			var signingCredentials = GetSigningCredentials();
-			var claims = GetClaims(user);
-			var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
-			var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+			var claims = claimsPrincipal.Claims;
 
+			var tokenDescriptor = GenerateTokenDescriptor();
+
+			var userId = int.Parse(claims.First(x => x.Type == "id").Value);
+
+			tokenDescriptor.Subject = new ClaimsIdentity(new[] { new Claim("id", userId.ToString()) });
+
+			tokenDescriptor.Claims = ConvertEnumToDictionary(claims);
+
+			return tokenDescriptor;
+		}
+
+		private SecurityTokenDescriptor GenerateTokenDescriptor()
+		{
+			var tokenDescriptor = new SecurityTokenDescriptor
+			{
+				SigningCredentials = _signingCredentials,
+				Issuer = _jwtSettings.Issuer,
+				Audience = _jwtSettings.Audience,
+				NotBefore = DateTime.UtcNow,
+				Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.AccessTokenTTLMinutes),
+			};
+
+			return tokenDescriptor;
+		}
+
+		public string GenerateToken(UserViewModel user, string? ipAddress = null)
+		{
+			var tokenHandler = new JwtSecurityTokenHandler();
+
+			var tokenDescriptor = GenerateTokenDescriptor(user, ipAddress);
+
+			var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+
+			return tokenHandler.WriteToken(securityToken);
+		}
+
+		public async Task<string> GenerateRefreshToken(string userCode)
+		{
+			var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+			await _appservice.Token.CreateRefreshTokenAsync(token, userCode);
 			return token;
 		}
 
-		public string GenerateRefreshToken(UserViewModel user)
+		private int? GetUserIdFromToken(string token)
 		{
-			var signingCredentials = GetSigningCredentials();
-			var claims = GetClaims(user);
-			var tokenOptions = GenerateRefreshTokenOptions(signingCredentials, claims);
-			var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-
-			return token;
-		}
-		public async Task<UserViewModel> ValidateToken(string token, bool validateLifeTime = true)
-        {
-			var secretKeyBytes = Encoding.UTF8.GetBytes(configuration.GetSection("Jwt:Key").Value);
-
-			var secretKey = new SymmetricSecurityKey(secretKeyBytes);
-
-			var tokenValidationResult = await new JwtSecurityTokenHandler().ValidateTokenAsync
-				(
-					token, 
-					new TokenValidationParameters() 
-					{ 
-						ValidateLifetime = validateLifeTime,
-						ValidateAudience = false,
-						ValidateIssuer = false,
-						ValidateIssuerSigningKey = true,
-						IssuerSigningKey = secretKey
-					}
-				);
+			if (token == null)
+			{
+				return null;
+			}
 			
-            if (!tokenValidationResult.IsValid)
-            {
+			try
+			{
+				GetPrincipal(token, out SecurityToken validatedToken);
 
-				if (tokenValidationResult.Exception.GetType().IsAssignableFrom(typeof(SecurityTokenExpiredException)))
-                {
-					throw new SecurityTokenExpiredException("Token is expired");
-				}
-				else
-                {
-					throw new SecurityTokenException("Token is invalid");
-				}
-            }
-			return Newtonsoft.Json.JsonConvert.DeserializeObject<UserViewModel>((string)tokenValidationResult.Claims["User"]);
-        }
-		public UserViewModel GetUserFromToken (string token)
+				var jwtToken = (JwtSecurityToken)validatedToken;
+				var userId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+
+				return userId;
+			}
+			catch
+			{
+				return null;
+			}
+		}
+
+		public IQueryable<User>? GetUserByToken(string token)
         {
-			var claim = new JwtSecurityTokenHandler().ReadJwtToken(token).Claims.FirstOrDefault(x => x.Type == "User").Value;
-			return Newtonsoft.Json.JsonConvert.DeserializeObject<UserViewModel>(claim);
+			var userId = GetUserIdFromToken(token);
+
+			return _appservice.User.GetUserById(userId);
         }
-	}
+
+		private ClaimsPrincipal GetPrincipal(string token, out SecurityToken validatedToken)
+        {
+			var tokenHandler = new JwtSecurityTokenHandler();
+			var secretKeyBytes = Encoding.UTF8.GetBytes(_jwtSettings.Key);
+
+			return tokenHandler.ValidateToken(token, new TokenValidationParameters
+			{
+				ValidateIssuer = true,
+				ValidIssuer = _jwtSettings.Issuer,
+				ValidateAudience = true,
+				ValidAudience = _jwtSettings.Audience,
+				ValidateLifetime = true,
+				ValidateIssuerSigningKey = true,
+				IssuerSigningKey = new SymmetricSecurityKey(secretKeyBytes),
+				ClockSkew = TimeSpan.Zero
+			}, out validatedToken);
+		}
+
+        public Task<UserViewModel?> GetUserViewModelByToken(string token)
+        {
+			var userId = GetUserIdFromToken(token);
+
+			return _appservice.User.GetUserViewModelById(userId);
+		}
+    }
 }

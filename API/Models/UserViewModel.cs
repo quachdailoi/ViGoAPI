@@ -1,17 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Shares.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace API.Models
 {
     public class UserViewModel
     {
+        [JsonIgnore]
+        public int Id { get; set; }
         public Guid Code { get; set; }
         public string Name { get; set; }
         public int Gender { get; set; }
         public int Status { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public string AvatarUrl { get; set; } = string.Empty;
+        public Guid AvatarCode { get; set; } = Guid.NewGuid();
 
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string RoleName { get; set; }
+        public string Gmail { get; set; } = string.Empty ;
+        public bool HasVerifiedGmail { get; set; } = false;
+        public string PhoneNumber { get; set; } = string.Empty;
+        public bool HasVerifiedPhoneNumber { get; set; } = false;
+        public string RoleName { get; set; } = Roles.GUEST.GetName();
     }
 }

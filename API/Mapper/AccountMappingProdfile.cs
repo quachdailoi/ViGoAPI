@@ -11,16 +11,21 @@ namespace API.Mapper
         {
             CreateMap<Account, UserViewModel>()
                 .ForMember(
-                    dest => dest.Email,
-                    opt => opt.MapFrom(
-                        src => src.Registration    
+                    model => model.Gmail,
+                    config => config.MapFrom(
+                        acc => acc.Registration
+                    )
+                )
+                .ForMember(
+                    model => model.PhoneNumber,
+                    config => config.MapFrom(
+                        acc => acc.Registration
                     )
                 )
                 .IncludeMembers(
                     s => s.User,
                     s => s.Role
-                )
-                .ReverseMap();
+                );
         }
     }
 }

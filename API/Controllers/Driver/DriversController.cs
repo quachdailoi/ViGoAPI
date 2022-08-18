@@ -1,14 +1,17 @@
-﻿using API.JwtFeatures;
+﻿using API.Extensions;
+using API.JwtFeatures;
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Twilio.Rest.Api.V2010.Account;
 
 namespace API.Controllers.Driver
@@ -16,15 +19,13 @@ namespace API.Controllers.Driver
     [Route("api/[controller]")]
     [Authorize(Roles="DRIVER")]
     [ApiController]
-    public class DriversController : AuthController<DriversController>
+    public class DriversController : BaseController<DriversController>
     {
         private readonly IJwtHandler _jwtHandler;
-        private readonly IMapper _mapper;
 
-        public DriversController( IMapper mapper, IJwtHandler jwtHandler)
+        public DriversController(IJwtHandler jwtHandler)
         {
             _jwtHandler = jwtHandler;
-            _mapper = mapper;
         }
 
         [HttpPost("login-by-email")]
@@ -48,9 +49,9 @@ namespace API.Controllers.Driver
 
             IReadOnlyDictionary<string, dynamic> claims = verifiedIdToken.Claims;
 
-            string email = claims["email"];
+            string gmail = claims["email"];
 
-            var user = await AppServices.AuthService.GetDriverUserViewModelByEmail(email);
+            var user = await AppServices.Driver.GetUserViewModel(gmail, RegistrationTypes.Gmail);
 
             if (user == null)
             {
@@ -60,7 +61,7 @@ namespace API.Controllers.Driver
             }
 
             string token = _jwtHandler.GenerateToken(user);
-            string refreshToken = _jwtHandler.GenerateRefreshToken(user);
+            string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
 
             response.SetStatusCode(StatusCodes.Status200OK)
                 .SetMessage("Login successfully.")
@@ -74,216 +75,177 @@ namespace API.Controllers.Driver
             return new JsonResult(response);
         }
 
-        [HttpGet("gmail/send-otp-to-vefiry")]
-        public override async Task<IActionResult> SendGmailOtp()
+        [HttpGet("gmail/send-otp-to-update")]
+        public async Task<IActionResult> SendGmailOtpToUpdate([FromQuery] SendOtpRequest request)
         {
-            Response response = new();
+            request.OtpTypes = OtpTypes.UpdateOTP;
+            request.RegistrationTypes = RegistrationTypes.Gmail;
 
-            var userCode = _jwtHandler.GetUserFromToken(Request.Headers["Authorization"].FirstOrDefault().Split(" ").Last());
-
-            var account = await AppServices.AccountService.GetAccountByUserCode(userCode.Code.ToString(), RegistrationTypes.Email);
-
-            var canResend = await AppServices.VerifiedCodeService.CheckValidTimeSendOtp(account.Registration, RegistrationTypes.Email.GetInt(), VerifiedCodeTypes.VerificationOTP.GetInt());
-
-            if (!canResend)
-            {
-                response = new Response(
-                    StatusCode: StatusCodes.Status400BadRequest,
-                    Message: "Wait 1 minute since last sent, please."
+            // check not existed verify gmail to send otp if EXIST return error response
+            var existResponse = 
+                AppServices.Driver.CheckNotExisted(
+                    request, 
+                    errorMessage: "This gmail was belong to another verified account - please use another.", 
+                    errorCode: StatusCodes.Status400BadRequest, 
+                    isVerified: true
                 );
 
-                return BadRequest(response);
-            }
+            if (existResponse != null) return ApiResult(existResponse);
 
-            var result = await AppServices.VerifiedCodeService.SendGmailOtp(account);
-
-            var otp = result.Item2;
-
-            var mailResponse = result.Item1;
-
-            if (!mailResponse.Contains("2.0.0"))
-            {
-                response = new Response(
-                    StatusCode: StatusCodes.Status500InternalServerError,
-                    Message: mailResponse
-                );
-            }
-
-            var verifiedCode = await AppServices.VerifiedCodeService.SaveCode(otp, account.Registration, RegistrationTypes.Email.GetInt(), VerifiedCodeTypes.RegisterOTP.GetInt());
-
-            if (verifiedCode == null)
-            {
-                response = new Response(
-                    StatusCode: StatusCodes.Status500InternalServerError,
-                    Message: "Send code failed - Try again, please!"
+            // check valid time to send otp
+            var checkValidResponse =
+                await AppServices.VerifiedCode.CheckValidTimeSendOtp(
+                    request,
+                    errorMessage: "Wait 1 minute since last sent, please.",
+                    errorCode: StatusCodes.Status400BadRequest
                 );
 
-                return StatusCode(500, response);
-            }
+            if (checkValidResponse != null) return ApiResult(checkValidResponse);
 
-            response = new Response(
-                StatusCode: StatusCodes.Status200OK,
-                Message: "Send Otp Successfully.",
-                Data: otp
-            );
+            // send and save otp code
+            var sendAndSaveResponse =
+                await AppServices.VerifiedCode.SendAndSaveOtpGmail(
+                    request,
+                    errorMessage: "Fail to send otp to this gmail address - Please try again.",
+                    errorCode: StatusCodes.Status500InternalServerError
+                );
 
-            return new JsonResult(response);
+            return ApiResult(sendAndSaveResponse);
         }
 
-        [HttpGet("phone/send-otp-to-login")]
-        [AllowAnonymous]
-        public override async Task<IActionResult> SendPhoneLoginOtp([FromBody] SendPhoneOtpRequest request)
+        [HttpPut("gmail")]
+        public async Task<IActionResult> UpdateGmail([FromBody] UpdateRegistrationByOtpRequest request)
         {
+            request.RegistrationTypes = RegistrationTypes.Gmail;
+            request.OtpTypes = OtpTypes.UpdateOTP;
+
             Response response = new();
 
-            var account = await AppServices.AuthService.GetDriverAccountByPhoneNumber(request.PhoneNumber);
+            var authenResponse = CheckLoginedUserToGetAccount(RegistrationTypes.Phone, out UserViewModel? loginedUser, out Account? account);
 
-            if (account == null)
-            {
-                response = new Response(
-                    StatusCode: StatusCodes.Status404NotFound,
-                    Message: "This phone number has not been registered."
-                );
-                return NotFound(response);
-            }
+            if (authenResponse != null) return ApiResult(authenResponse);
 
-            var canResend = await AppServices.VerifiedCodeService.CheckValidTimeSendOtp(request.PhoneNumber, RegistrationTypes.Phone.GetInt(), VerifiedCodeTypes.LoginOTP.GetInt());
-
-            if (!canResend)
-            {
-                response = new Response(
-                    StatusCode: StatusCodes.Status400BadRequest,
-                    Message: "Wait 1 minute since last sent, please."
+            // check not existed verified gmail to send otp if EXIST return error response
+            var existResponse =
+                AppServices.Driver.CheckNotExisted(
+                    request,
+                    errorMessage: "This gmail was belong to another verified account - please use another.",
+                    errorCode: StatusCodes.Status400BadRequest,
+                    isVerified: true
                 );
 
-                return BadRequest(response);
-            }
+            if (existResponse != null) return ApiResult(existResponse);
 
-            var result = await AppServices.VerifiedCodeService.SendPhoneOtp(request.PhoneNumber);
-
-            var otp = result.Item2;
-
-            var messageResource = result.Item1;
-
-            if (messageResource.Status == MessageResource.StatusEnum.Failed)
-            {
-                response = new Response(
-                    StatusCode: StatusCodes.Status500InternalServerError,
-                    Message: messageResource.ErrorMessage
+            // verify OTP
+            var verifyResponse =
+                await AppServices.VerifiedCode.VerifyOtp(
+                    request,
+                    errorMessage: "Wrong or Expired OTP - Please try again.",
+                    errorCode: StatusCodes.Status400BadRequest
                 );
 
-                return StatusCode(500, response);
-            }
+            if (verifyResponse != null) return ApiResult(verifyResponse);
 
-            var verifiedCode = await AppServices.VerifiedCodeService.SaveCode(otp, request.PhoneNumber, RegistrationTypes.Phone.GetInt(), VerifiedCodeTypes.LoginOTP.GetInt());
+            var updateResult = await AppServices.Account.UpdateAccountRegistration(account, request.Registration, request.RegistrationTypes, isVerified: true);
 
-            if (verifiedCode == null)
-            {
-                response = new Response(
-                    StatusCode: StatusCodes.Status500InternalServerError,
-                    Message: "Send code failed - Try again, please!"
-                );
-
-                return StatusCode(500, response);
-            }
-
-            response = new Response(
-                StatusCode: StatusCodes.Status200OK,
-                Message: "Send Otp Successfully.",
-                Data: otp
-            );
-
-            return new JsonResult(response);
-        }
-        [HttpGet("phone/send-otp-to-update")]
-        public async Task<IActionResult> SendPhoneOtpForUpdate([FromQuery] SendPhoneOtpRequest request)
-        {
-            Response response = new();
-
-            var isDuplicatePhoneNumber = (await AppServices.AuthService.GetDriverAccountByPhoneNumber(request.PhoneNumber)) == null;
-
-            if (isDuplicatePhoneNumber)
-            {
-                response = new Response(
-                    StatusCode: StatusCodes.Status400BadRequest,
-                    Message: "This phone number has been registered."
-                );
-                return BadRequest(response);
-            }
-
-            var canResend = await AppServices.VerifiedCodeService.CheckValidTimeSendOtp(request.PhoneNumber, RegistrationTypes.Phone.GetInt(), VerifiedCodeTypes.VerificationOTP.GetInt());
-
-            if (!canResend)
-            {
-                response = new Response(
-                    StatusCode: StatusCodes.Status400BadRequest,
-                    Message: "Wait 1 minute since last sent, please."
-                );
-
-                return BadRequest(response);
-            }
-
-            var result = await AppServices.VerifiedCodeService.SendPhoneOtp(request.PhoneNumber);
-
-            var otp = result.Item2;
-
-            var messageResource = result.Item1;
-
-            if (messageResource.Status == MessageResource.StatusEnum.Failed)
-            {
-                response = new Response(
-                    StatusCode: StatusCodes.Status500InternalServerError,
-                    Message: messageResource.ErrorMessage
-                );
-
-                return StatusCode(500, response);
-            }
-
-            var verifiedCode = await AppServices.VerifiedCodeService.SaveCode(otp, request.PhoneNumber, RegistrationTypes.Phone.GetInt(), VerifiedCodeTypes.VerificationOTP.GetInt());
-
-            if (verifiedCode == null)
-            {
-                response = new Response(
-                    StatusCode: StatusCodes.Status500InternalServerError,
-                    Message: "Send code failed - Try again, please!"
-                );
-
-                return StatusCode(500, response);
-            }
-
-            response = new Response(
-                StatusCode: StatusCodes.Status200OK,
-                Message: "Send otp successfully.",
-                Data: otp
-            );
-
-            return new JsonResult(response);
-        }
-        [HttpPut("phone")]
-        public async Task<IActionResult> UpdatePhone([FromBody] string phoneNumber, string otp)
-        {
-            Response response = new();
-
-            var user = _jwtHandler.GetUserFromToken(Request.Headers["Authorization"].FirstOrDefault().Split(" ").Last());
-
-            var account = await AppServices.AccountService.GetAccountByUserCode(user.Code.ToString(), RegistrationTypes.Phone);
-
-            var isValidToken = await AppServices.VerifiedCodeService.VerifyOtp(otp, phoneNumber, RegistrationTypes.Phone.GetInt(), VerifiedCodeTypes.VerificationOTP.GetInt());
-
-            if (!isValidToken)
+            if (!updateResult)
             {
                 response
-                    .SetStatusCode(StatusCodes.Status400BadRequest)
-                    .SetMessage("Otp is not valid");
-                return BadRequest(response);
-            }
+                    .SetStatusCode(StatusCodes.Status500InternalServerError)
+                    .SetMessage("Update gmail failed");
 
-            await AppServices.AccountService.UpdateAccountRegistration(account, phoneNumber, RegistrationTypes.Phone);
+                return ApiResult(response);
+            }
 
             response
                     .SetStatusCode(StatusCodes.Status200OK)
-                    .SetMessage("Update phone number successfully");
-            return new JsonResult(response);
+                    .SetMessage("Update gmail successfully");
+            return ApiResult(response);
+        }
+
+        [HttpGet("phone/send-otp-to-verify")]
+        public async Task<IActionResult> SendPhoneOtpToVerify([FromQuery] SendOtpRequest request)
+        {
+            request.OtpTypes = OtpTypes.VerificationOTP;
+            request.RegistrationTypes = RegistrationTypes.Phone;
+
+            // check not existed verified phone number to send otp if EXIST return error response
+            var existResponse =
+                AppServices.Driver.CheckNotExisted(
+                    request,
+                    errorMessage: "This phone number was verified by another account - please use another.",
+                    errorCode: StatusCodes.Status400BadRequest
+                );
+
+            if (existResponse != null) return ApiResult(existResponse);
+
+            // check valid time to send otp
+            var checkValidResponse =
+                await AppServices.VerifiedCode.CheckValidTimeSendOtp(
+                    request,
+                    errorMessage: "Wait 1 minute since last sent, please.",
+                    errorCode: StatusCodes.Status400BadRequest
+                );
+
+            if (checkValidResponse != null) return ApiResult(checkValidResponse);
+
+            // send and save otp code
+            var sendAndSaveResponse =
+                await AppServices.VerifiedCode.SendAndSaveOtpPhoneNumber(
+                    request,
+                    errorMessage: "Fail to send otp to this phone number - Please try again.",
+                    errorCode: StatusCodes.Status500InternalServerError
+                );
+
+            return ApiResult(sendAndSaveResponse);
+        }
+
+        [HttpPost("phone/verify")]
+        public async Task<IActionResult> VerifyPhoneNumber([FromBody] VerifyOtpRequest request)
+        {
+            request.RegistrationTypes = RegistrationTypes.Phone;
+            request.OtpTypes = OtpTypes.VerificationOTP;
+
+            var authenResponse = CheckLoginedUserToGetAccount(RegistrationTypes.Gmail, out UserViewModel? loginedUser, out Account? account);
+
+            if (authenResponse != null) return ApiResult(authenResponse);
+
+            // check not existed verified gmail to send otp if EXIST return error response
+            var existResponse =
+                AppServices.Driver.CheckNotExisted(
+                    request,
+                    errorMessage: "Verify failed - This phone numner was verified by another account, please use another.",
+                    errorCode: StatusCodes.Status400BadRequest
+                );
+
+            if (existResponse != null) return ApiResult(existResponse);
+
+            // verify OTP
+            var verifyResponse =
+                await AppServices.VerifiedCode.VerifyOtp(
+                    request,
+                    errorMessage: "Wrong or Expired OTP for verifying - please try again.",
+                    errorCode: StatusCodes.Status400BadRequest
+                );
+
+            if (verifyResponse != null) return ApiResult(verifyResponse);
+
+            // verify account
+            var result = await AppServices.Account.VerifyAccount(account);
+            if (!result)
+            {
+                return ApiResult(new(
+                        StatusCode: StatusCodes.Status500InternalServerError,
+                        Message: "Verify phone number failed."
+                    ));
+            }
+
+            var response = new Response(
+                StatusCode: StatusCodes.Status200OK,
+                Message: "Verified phone number successfully."
+            );
+
+            return ApiResult(response);
         }
 
         [HttpPost("phone/loginFake")]
@@ -292,10 +254,10 @@ namespace API.Controllers.Driver
         {
             Response response = new();
 
-            var user = await AppServices.AuthService.GetUserViewModelByRole(Roles.DRIVER);
+            var user = await AppServices.Driver.GetUserViewModel();
 
             string token = _jwtHandler.GenerateToken(user);
-            string refreshToken = _jwtHandler.GenerateRefreshToken(user);
+            string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
 
             response.SetStatusCode(StatusCodes.Status200OK)
                 .SetMessage("Login successfully.")
@@ -308,5 +270,12 @@ namespace API.Controllers.Driver
 
             return new JsonResult(response);
         }
+
+        [HttpGet("test")]
+        public IActionResult TestLogin()
+        {
+            var user = LoginedUser;
+            return Ok(user);
+        }  
     }
 }

@@ -2,9 +2,9 @@
 
 namespace API.Models.Requests
 {
-    public class SendGmailOtpRequest
+    public class VerifyOtpRequest : SendOtpRequest
     {
         [Required]
-        public string Gmail { get; set; }
+        public string OTP { get; set; }
     }
 }

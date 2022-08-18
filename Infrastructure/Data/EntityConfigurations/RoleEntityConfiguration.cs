@@ -10,13 +10,17 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.EntityConfigurations
 {
-    public class RoleEntityConfiguration : BaseEntityConfiguration<Role>
+    public class RoleEntityConfiguration : IEntityTypeConfiguration<Role>
     {
-        public override void Configure(EntityTypeBuilder<Role> builder)
+        public void Configure(EntityTypeBuilder<Role> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("roles");
+
+            builder.HasKey(x => x.Id);
+
+            builder.Property(e => e.Id)
+                .HasColumnName("id")
+                .HasConversion<int>();
 
             builder.Property(e => e.Description)
                 .IsRequired()
@@ -28,7 +32,7 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasMaxLength(20)
                 .HasColumnName("name");
 
-            builder.HasIndex(e => e.Description).IsUnique();
+            builder.HasIndex(e => e.Name).IsUnique();
         }
     }
 }

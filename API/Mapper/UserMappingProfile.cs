@@ -1,7 +1,7 @@
-﻿using API.Mapper.CustomResolver;
-using API.Models;
+﻿using API.Models;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Shares.Enums;
 
 namespace API.Mapper
 {
@@ -11,16 +11,32 @@ namespace API.Mapper
         {
             CreateMap<User, UserViewModel>()
                 .ForMember(
-                    dest => dest.Email, 
-                    opt => opt.MapFrom<EmailResolver>()
+                    dest => dest.Gmail,
+                    opt => opt.MapFrom(user => user.Accounts.Where(x => x.RegistrationType == RegistrationTypes.Gmail).FirstOrDefault().Registration)
                 )
                 .ForMember(
                     dest => dest.PhoneNumber,
-                    opt => opt.MapFrom<PhoneNumberResolver>()
+                    opt => opt.MapFrom(user => user.Accounts.Where(x => x.RegistrationType == RegistrationTypes.Phone).FirstOrDefault().Registration)
                 )
                 .ForMember(
                     dest => dest.RoleName,
-                    opt => opt.MapFrom<RoleNameResolver>()
+                    opt => opt.MapFrom(user => user.Accounts.FirstOrDefault().Role.Name)
+                )
+                .ForMember(
+                    dest => dest.HasVerifiedGmail,
+                    opt => opt.MapFrom(user => user.Accounts.Where(x => x.RegistrationType == RegistrationTypes.Gmail).FirstOrDefault().Verified)
+                )
+                .ForMember(
+                    dest => dest.HasVerifiedPhoneNumber,
+                    opt => opt.MapFrom(user => user.Accounts.Where(x => x.RegistrationType == RegistrationTypes.Phone).FirstOrDefault().Verified)
+                )
+                .ForMember(
+                    dest => dest.AvatarUrl,
+                    opt => opt.MapFrom(user => user.File == null ? null : user.File.Path)
+                )
+                .ForMember(
+                    dest => dest.AvatarCode,
+                    opt => opt.MapFrom(user => user.File == null ? Guid.Empty : user.File.Code)
                 );
         }
     }

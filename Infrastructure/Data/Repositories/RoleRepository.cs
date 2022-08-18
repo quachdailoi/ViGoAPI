@@ -22,6 +22,11 @@ namespace Infrastructure.Data.Repositories
             return List();
         }
 
+        public IQueryable<Role> GetRoleById(Roles roleId)
+        {
+            return List(x => x.Id == roleId);
+        }
+
         public IQueryable<Role> GetRoleByName(string roleName)
         {
             return List(x => x.Name == roleName);

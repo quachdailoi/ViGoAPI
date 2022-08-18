@@ -5,6 +5,6 @@ namespace API.Models.Requests
     public class LoginByEmailRequest
     {
         [Required]
-        public string IdToken { get; set; }
+        public string IdToken { get; set; } = string.Empty;
     }
 }

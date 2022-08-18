@@ -14,7 +14,7 @@ namespace API.Mapper
                     config => config.MapFrom(
                         role => role.Name
                     )
-                ).ReverseMap();
+                );
         }
     }
 }

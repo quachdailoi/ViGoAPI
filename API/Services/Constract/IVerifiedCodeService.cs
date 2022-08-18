@@ -1,4 +1,5 @@
 ﻿using API.Models.Requests;
+using API.Models.Response;
 using Domain.Entities;
 using Domain.Shares.Enums;
 using Twilio.Rest.Api.V2010.Account;
@@ -7,12 +8,13 @@ namespace API.Services.Constract
 {
     public interface IVerifiedCodeService
     {
-        Task<Tuple<MessageResource, string>> SendPhoneOtp(string phoneNumber);
-        Task<Tuple<string, string>> SendGmailOtp(Account account);
-        Task<VerifiedCode> SaveCode(string code, string registration, int registrationType, int codeType);
-        Task<bool> CheckValidTimeSendOtp(string registration, int registrationType, int codeType);
-        //Task<bool> CheckPhoneLoginByOtp(string otp, string registration, int registrationType, int codeType);
+        Task<MessageResource?> SendPhoneOtp(string phoneNumber, out string otp);
+        Task<string?> SendGmailOtp(string gmail, out string otp);
+        Task<Response?> VerifyOtp(VerifyOtpRequest request, string errorMessage, int errorCode);
+        Task<Response?> VerifyOtp(UpdateRegistrationByOtpRequest request, string errorMessage, int errorCode);
 
-        Task<bool> VerifyOtp(string otp, string registration, int registrationType, int codeType);
+        Task<Response?> CheckValidTimeSendOtp(SendOtpRequest request, string errorMessage, int errorCode);
+        Task<Response> SendAndSaveOtpPhoneNumber(SendOtpRequest request, string errorMessage, int errorCode);
+        Task<Response> SendAndSaveOtpGmail(SendOtpRequest request, string errorMessage, int errorCode);
     }
 }

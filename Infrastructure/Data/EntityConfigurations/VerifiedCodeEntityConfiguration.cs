@@ -29,6 +29,7 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.Property(e => e.RegistrationType)
                 .IsRequired()
+                .HasConversion<int>()
                 .HasColumnName("registration_type");
 
             builder.Property(e => e.Type)

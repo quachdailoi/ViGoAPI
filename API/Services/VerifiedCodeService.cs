@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using API.Models.Requests;
+using API.Models.Response;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
@@ -34,30 +35,28 @@ namespace API.Services
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        public async Task<Tuple<MessageResource, string>> SendPhoneOtp(string phoneNumber)
+        public Task<MessageResource?> SendPhoneOtp(string phoneNumber, out string otp)
         {
-            var otp = GenerateOtpCode(6);
+            otp = GenerateOtpCode(6);
 
             var message = $"Otp code from ViGo App: {otp}";
 
-            var msgResource = await SendSMS(message, phoneNumber);
-
-            return Tuple.Create(msgResource, otp);
+            return SendSMS(message, phoneNumber);
         }
 
-        public async Task<Tuple<string,string>> SendGmailOtp(Account account)
+        public Task<string?> SendGmailOtp(string gmail, out string otp)
         {
-            var otp = GenerateOtpCode(6);
+            otp = GenerateOtpCode(6);
             MailContent mailContent = new()
             {
-                To = account.Registration,
+                To = gmail,
                 Subject = "Vigo App: Verify Email",
                 Body = $"Otp code from ViGo App: {otp}"
             };
-            var mailRespone = await SendMail(mailContent);
-            return Tuple.Create(mailRespone,otp);
+            return SendMail(mailContent);
         }
-        private async Task<string> SendMail(MailContent mailContent)
+
+        private async Task<string?> SendMail(MailContent mailContent)
         {
             MimeMessage email = new();
 
@@ -94,7 +93,7 @@ namespace API.Services
             return null;
         }
 
-        private async Task<MessageResource> SendSMS(string sms, string toPhoneNumber)
+        private Task<MessageResource?> SendSMS(string sms, string toPhoneNumber)
         {
             string fromPhoneNumber = configuration.GetSection("Twilio:PhoneNumber").Value;
 
@@ -103,43 +102,93 @@ namespace API.Services
 
             TwilioClient.Init(accountSid, authToken);
 
-            var message = await MessageResource.CreateAsync(
+            return MessageResource.CreateAsync(
                 body: sms,
                 from: new Twilio.Types.PhoneNumber(fromPhoneNumber),
                 to: new Twilio.Types.PhoneNumber(toPhoneNumber)
             );
-
-            return message;
         }
-
-        public async Task<VerifiedCode> SaveCode(string code, string registration, int registrationType, int codeType)
+            
+        private async Task<Response> SaveCode(SendOtpRequest request, string otp)
         {
             VerifiedCode verifiedCode = new()
             {
-                RegistrationType = registrationType,
-                Registration = registration,
-                Code = code,
+                RegistrationType = request.RegistrationTypes,
+                Registration = request.Registration,
+                Code = otp,
                 ExpiredTime = DateTime.UtcNow.AddMinutes(5),
-                Type = codeType,
+                Type = request.OtpTypes,
             };
 
-            return await _unitOfWork.VerifiedCodes.CreateVerifiedCode(verifiedCode);
+            var code = await _unitOfWork.VerifiedCodes.CreateVerifiedCode(verifiedCode);
+            if (code == null)
+            {
+                return new(
+                    StatusCode: StatusCodes.Status400BadRequest,
+                    Message: "Send Code Fail - Please try again."
+                );
+            }
+
+            return new Response(
+                StatusCode: StatusCodes.Status200OK,
+                Message: "Send Otp Successfully.",
+                Data: otp
+            );
         }
 
-        public async Task<bool> CheckValidTimeSendOtp(string registration, int registrationType, int codeType)
+        private async Task<Response?> VerifyOtp(string otp, string registration, RegistrationTypes registrationTypes, OtpTypes otpTypes, string errorMessage, int errorCode)
+        {
+            var code = await _unitOfWork.VerifiedCodes.GetVerifiedCode(otp, registration, registrationTypes, otpTypes).FirstOrDefaultAsync();
+
+            if (code == null)
+            {
+                return new(
+                    StatusCode: errorCode,
+                    Message: errorMessage
+                );
+            }
+
+            var minuteForExpired = int.Parse(configuration.GetSection("OTP:ExpiredTime").Value);
+
+            DateTime validTime = code.CreatedAt.AddMinutes(minuteForExpired);
+
+            if (DateTime.Compare(validTime, DateTime.UtcNow) < 0)
+            {
+                return new(
+                    StatusCode: errorCode,
+                    Message: errorMessage
+                );
+            }
+
+            return null;
+        }
+
+        public Task<Response?> VerifyOtp(VerifyOtpRequest request, string errorMessage, int errorCode)
+        {
+            return VerifyOtp(request.OTP, request.Registration, request.RegistrationTypes, request.OtpTypes, errorMessage, errorCode);
+        }
+
+        public Task<Response?> VerifyOtp(UpdateRegistrationByOtpRequest request, string errorMessage, int errorCode)
+        {
+            return VerifyOtp(request.OTP, request.Registration, RegistrationTypes.Phone, OtpTypes.UpdateOTP, errorMessage, errorCode);
+        }
+
+        private async Task<bool> CheckValidTimeSendOtp(string registration, RegistrationTypes registrationType, OtpTypes codeType)
         {
             var code = await _unitOfWork.VerifiedCodes.GetVerifiedCode(registration, registrationType, codeType).FirstOrDefaultAsync();
-            
+
             if (code == null)
             {
                 return true;
             }
-            
+
             var minuteForResend = int.Parse(configuration.GetSection("OTP:TimeResend").Value);
 
             DateTime timeToResend = code.CreatedAt.AddMinutes(minuteForResend);
+
             var now = DateTime.UtcNow;
-            if (DateTime.Compare(timeToResend, now) < 0)
+
+            if (DateTime.Compare(timeToResend, now) > 0)
             {
                 return false;
             }
@@ -147,40 +196,49 @@ namespace API.Services
             return true;
         }
 
-        //public async Task<bool> CheckPhoneLoginByOtp(string otp, string registration, int registrationType, int codeType)
-        //{
-        //    var code = await _unitOfWork.VerifiedCodes.GetVerifiedCode(otp, registration, registrationType, codeType).FirstOrDefaultAsync();
-
-        //    var minuteForExpired = int.Parse(configuration.GetSection("OTP:ExpiredTime").Value);
-
-        //    DateTime validTime = code.CreatedAt.AddMinutes(minuteForExpired);
-
-        //    if (DateTime.Compare(validTime, DateTime.UtcNow) < 0)
-        //    {
-        //        return false;
-        //    }
-
-        //    return true;
-        //}
-
-        public async Task<bool> VerifyOtp(string otp, string registration, int registrationType, int codeType)
+        public async Task<Response?> CheckValidTimeSendOtp(SendOtpRequest request, string errorMessage, int errorCode)
         {
-            var code = await _unitOfWork.VerifiedCodes.GetVerifiedCode(otp, registration, registrationType, codeType).FirstOrDefaultAsync();
+            var canResend = await CheckValidTimeSendOtp(request.Registration, request.RegistrationTypes, request.OtpTypes);
 
-            if(code != null)
+            if (!canResend) 
             {
-                //var minuteForExpired = int.Parse(configuration.GetSection("OTP:ExpiredTime").Value);
-
-                //DateTime validTime = code.CreatedAt.AddMinutes(minuteForExpired);
-
-                if (DateTime.Compare(code.ExpiredTime, DateTime.UtcNow) < 0)
-                {
-                    return false;
-                }
-
-                return true;
+                return new Response(
+                    StatusCode: errorCode,
+                    Message: errorMessage
+                );
             }
-            return false;
+
+            return null;
+        }
+
+        public async Task<Response> SendAndSaveOtpPhoneNumber(SendOtpRequest request, string errorMessage, int errorCode)
+        {
+            var messageResource = await SendPhoneOtp(request.Registration, out string otp);
+
+            if (messageResource?.Status == MessageResource.StatusEnum.Failed)
+            {
+                return new Response(
+                    StatusCode: errorCode,
+                    Message: errorMessage
+                );
+            }
+
+            return await SaveCode(request, otp);
+        }
+
+        public async Task<Response> SendAndSaveOtpGmail(SendOtpRequest request, string errorMessage, int errorCode)
+        {
+            var mailResponse = await SendGmailOtp(request.Registration, out string otp);
+
+            if (mailResponse == null || !mailResponse.Contains("2.0.0"))
+            {
+                return new Response(
+                    StatusCode: errorCode,
+                    Message: errorMessage
+                );
+            }
+
+            return await SaveCode(request, otp);
         }
     }
 }

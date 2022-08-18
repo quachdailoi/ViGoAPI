@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Domain.Shares.Enums
 {
-    public class File
+    public enum FileTypes
     {
+        Image = 1,
+        Video = 2
     }
 }

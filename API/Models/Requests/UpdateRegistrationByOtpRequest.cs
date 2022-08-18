@@ -2,9 +2,9 @@
 
 namespace API.Models.Requests
 {
-    public class SendPhoneOtpRequest
+    public class UpdateRegistrationByOtpRequest : SendOtpRequest
     {
         [Required]
-        public string PhoneNumber { get; set; }
+        public string OTP { get; set; }
     }
 }

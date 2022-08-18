@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Domain.Entities.Base
 {
     public class BaseEntity : IBaseEntity
-    {
+    {   
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public int CreatedBy { get; set; }

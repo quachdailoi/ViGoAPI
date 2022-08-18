@@ -10,5 +10,7 @@ namespace Domain.Interfaces.Repositories
     public interface IUserRepository : IGenericRepository<User>
     {
         IQueryable<User> GetUserByCode(string code);
+        IQueryable<User> GetUserById(int id);
+        Task UpdateUser(User user);
     }
 }

@@ -12,8 +12,8 @@ namespace Domain.Interfaces.Repositories
     {
         Task<VerifiedCode> CreateVerifiedCode(VerifiedCode verifiedCode);
 
-        IQueryable<VerifiedCode> GetVerifiedCode(string registration, int registrationType, int codeType);
+        IQueryable<VerifiedCode> GetVerifiedCode(string registration, RegistrationTypes registrationType, OtpTypes codeType);
 
-        IQueryable<VerifiedCode> GetVerifiedCode(string otp, string registration, int registrationType, int codeType);
+        IQueryable<VerifiedCode> GetVerifiedCode(string otp, string registration, RegistrationTypes registrationType, OtpTypes codeType);
     }
 }

@@ -8,7 +8,7 @@ namespace Domain.Shares.Enums
 {
     public enum RegistrationTypes
     {
-        Email,
+        Gmail,
         Phone
     }
 
@@ -18,7 +18,7 @@ namespace Domain.Shares.Enums
         {
             switch (type)
             {
-                case RegistrationTypes.Email:
+                case RegistrationTypes.Gmail:
                     return 0;
                 case RegistrationTypes.Phone:
                     return 1;

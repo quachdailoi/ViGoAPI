@@ -6,25 +6,28 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public enum VerifiedCodeTypes
+    public enum OtpTypes
     {
         LoginOTP,
         RegisterOTP,
-        VerificationOTP
+        VerificationOTP,
+        UpdateOTP
     }
 
-    public static class VerifiedCodeTypesExtensions
+    public static class OtpTypesExtensions
     {
-        public static int GetInt(this VerifiedCodeTypes type)
+        public static int GetInt(this OtpTypes type)
         {
             switch (type)
             {
-                case VerifiedCodeTypes.LoginOTP:
+                case OtpTypes.LoginOTP:
                     return 0;
-                case VerifiedCodeTypes.RegisterOTP:
+                case OtpTypes.RegisterOTP:
                     return 1;
-                case VerifiedCodeTypes.VerificationOTP:
+                case OtpTypes.VerificationOTP:
                     return 2;
+                case OtpTypes.UpdateOTP:
+                    return 3;
                 default:
                     return -1;
             }
