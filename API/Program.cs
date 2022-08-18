@@ -57,9 +57,24 @@ FirebaseApp.Create(new AppOptions
     ServiceAccountId = config["Firebase:ServiceAccountId"]
 });
 
-string connectionString = Environment.GetEnvironmentVariable("PostgreSQLMaaSConnection");
+string connectionString = string.Empty; ;
 
-if (string.IsNullOrEmpty(connectionString))
+if (builder.Environment.EnvironmentName == "Production")
+{
+    // Use connection string provided at runtime by Heroku.
+    var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+    connectionUrl = connectionUrl.Replace("postgres://", string.Empty);
+    var userPassSide = connectionUrl.Split("@")[0];
+    var hostSide = connectionUrl.Split("@")[1];
+
+    var user = userPassSide.Split(":")[0];
+    var password = userPassSide.Split(":")[1];
+    var host = hostSide.Split("/")[0];
+    var database = hostSide.Split("/")[1].Split("?")[0];
+
+    connectionString = $"Host={host};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true";
+} else
 {
     connectionString = config.GetConnectionString("PostgreSQLMaaSConnection");
 }
@@ -67,6 +82,16 @@ if (string.IsNullOrEmpty(connectionString))
 services.AddDbContextPool<AppDbContext>(options =>
         options.UseNpgsql(connectionString)
 );
+
+var serviceProvider = builder.Services.BuildServiceProvider();
+try
+{
+    var dbContext = serviceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.Migrate();
+}
+catch
+{
+}
 
 // config for signalR
 services.AddSignalR();
