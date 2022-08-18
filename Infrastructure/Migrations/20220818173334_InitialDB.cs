@@ -132,7 +132,7 @@ namespace Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "files",
                 columns: new[] { "id", "code", "created_at", "created_by", "deleted_at", "path", "status", "type", "updated_at", "updated_by" },
-                values: new object[] { 1, new Guid("4d60e54a-6b06-43d2-9783-23550adace1d"), new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2034), 0, null, "abcabc", true, 1, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2036), 0 });
+                values: new object[] { 1, new Guid("c386bcde-3e00-45b3-9466-67f03f2f83ae"), new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8446), 0, null, "abcabc", true, 1, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8447), 0 });
 
             migrationBuilder.InsertData(
                 table: "roles",
@@ -148,43 +148,43 @@ namespace Infrastructure.Migrations
                 columns: new[] { "id", "code", "created_at", "created_by", "date_of_birth", "deleted_at", "file_id", "gender", "name", "status", "updated_at", "updated_by" },
                 values: new object[,]
                 {
-                    { 2, new Guid("b44897e0-7068-4216-a538-34ff51734a51"), new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2064), 0, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2080), null, null, 1, "Olivier", 1, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2065), 0 },
-                    { 3, new Guid("3d5f2e98-190a-4dbd-b347-09f8b856f57b"), new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2089), 0, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2090), null, null, 1, "Dat Do", 1, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2089), 0 }
+                    { 2, new Guid("84180d39-5928-46d3-b095-d47df6fd38c7"), new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8475), 0, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8476), null, null, 1, "Olivier", 1, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8475), 0 },
+                    { 3, new Guid("8e8cde90-beca-4936-b4b3-3b75d2f3caed"), new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8494), 0, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8496), null, null, 1, "Dat Do", 1, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8494), 0 }
                 });
 
             migrationBuilder.InsertData(
                 table: "accounts",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id", "verified" },
-                values: new object[] { 1, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2099), 0, null, "loiqdse140970@fpt.edu.vn", 0, 2, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2099), 0, 2, true });
+                values: new object[] { 1, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8504), 0, null, "loiqdse140970@fpt.edu.vn", 0, 2, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8505), 0, 2, true });
 
             migrationBuilder.InsertData(
                 table: "accounts",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id" },
-                values: new object[] { 2, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2108), 0, null, "+84837226239", 1, 2, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2108), 0, 2 });
+                values: new object[] { 2, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8515), 0, null, "+84837226239", 1, 2, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8515), 0, 2 });
 
             migrationBuilder.InsertData(
                 table: "accounts",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id", "verified" },
                 values: new object[,]
                 {
-                    { 5, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2127), 0, null, "+84377322919", 1, 1, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2128), 0, 3, true },
-                    { 6, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2135), 0, null, "trongdat2000@gmail.com", 0, 1, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2136), 0, 3, true }
+                    { 5, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8536), 0, null, "+84377322919", 1, 1, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8536), 0, 3, true },
+                    { 6, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8545), 0, null, "trongdat2000@gmail.com", 0, 1, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8545), 0, 3, true }
                 });
 
             migrationBuilder.InsertData(
                 table: "users",
                 columns: new[] { "id", "code", "created_at", "created_by", "date_of_birth", "deleted_at", "file_id", "gender", "name", "status", "updated_at", "updated_by" },
-                values: new object[] { 1, new Guid("f175a6be-109b-4551-b895-260af7406655"), new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2054), 0, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2055), null, 1, 1, "Quach Dai Loi", 1, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2054), 0 });
+                values: new object[] { 1, new Guid("3d6dc024-7056-4939-8a5b-bdc320b5ffc8"), new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8463), 0, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8465), null, 1, 1, "Quach Dai Loi", 1, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8464), 0 });
 
             migrationBuilder.InsertData(
                 table: "accounts",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id", "verified" },
-                values: new object[] { 3, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2115), 0, null, "+848372262391", 1, 1, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2115), 0, 1, true });
+                values: new object[] { 3, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8523), 0, null, "+848372262391", 1, 1, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8523), 0, 1, true });
 
             migrationBuilder.InsertData(
                 table: "accounts",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id" },
-                values: new object[] { 4, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2121), 0, null, "loiqdse140970@fpt.edu.vn", 0, 1, new DateTime(2022, 8, 18, 10, 25, 9, 1, DateTimeKind.Utc).AddTicks(2121), 0, 1 });
+                values: new object[] { 4, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8529), 0, null, "loiqdse140970@fpt.edu.vn", 0, 1, new DateTime(2022, 8, 18, 17, 33, 34, 455, DateTimeKind.Utc).AddTicks(8530), 0, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_accounts_registration_role_id",
