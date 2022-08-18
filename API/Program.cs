@@ -83,15 +83,15 @@ services.AddDbContextPool<AppDbContext>(options =>
         options.UseNpgsql(connectionString)
 );
 
-var serviceProvider = builder.Services.BuildServiceProvider();
-try
-{
-    var dbContext = serviceProvider.GetRequiredService<AppDbContext>();
-    dbContext.Database.Migrate();
-}
-catch
-{
-}
+//var serviceProvider = builder.Services.BuildServiceProvider();
+//try
+//{
+//    var dbContext = serviceProvider.GetRequiredService<AppDbContext>();
+//    dbContext.Database.Migrate();
+//}
+//catch
+//{
+//}
 
 // config for signalR
 services.AddSignalR();
@@ -149,7 +149,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // add middlewares
-//app.UseErrorHandlerMiddleware();
+app.UseErrorHandlerMiddleware();
 app.UseJwtMiddleware();
 
 // Using CORS
