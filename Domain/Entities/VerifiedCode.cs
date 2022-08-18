@@ -13,8 +13,8 @@ namespace Domain.Entities
         public DateTime ExpiredTime { get; set; }
         public string Code { get; set; } // code to verify
         public string Registration { get; set; } // email or phone
-        public int RegistrationType { get; set; }
+        public RegistrationTypes RegistrationType { get; set; }
         public bool Status { get; set; } = false;
-        public int Type { get; set; } // code type
+        public OtpTypes Type { get; set; } // code type
     }
 }

@@ -1,7 +1,9 @@
 ﻿using API.Services;
 using API.Services.Constract;
+using API.SettingHelpers;
+using API.SignalR;
+using API.SignalR.Constract;
 using Domain.Interfaces.Repositories;
-using Domain.Interfaces.Services;
 using Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -28,21 +30,26 @@ namespace API.Extensions
 
         public static void ConfigureAuthentication(this IServiceCollection services, ConfigurationManager config)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            services.AddAuthentication(auth =>
             {
-                options.Authority = config["Jwt:Issuer"];
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = config["JwtSettings:Issuer"];
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidateActor = true,
+                    ValidateIssuer = true,
+                    ValidIssuer = config["JwtSettings:Issuer"],
                     ValidateAudience = true,
-                    ValidateIssuerSigningKey = true,
+                    ValidAudience = config["JwtSettings:Audience"],
                     ValidateLifetime = true,
-                    ValidIssuer = config["Jwt:Issuer"],
-                    ValidAudience = config["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"])),
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:Key"])),
                 };
                 options.RequireHttpsMetadata = false;
             });
+
         }
 
         public static void ConfigureIoCRepositories(this IServiceCollection services)
@@ -57,12 +64,20 @@ namespace API.Extensions
         public static void ConfigureIoCServices(this IServiceCollection services)
         {
             services.AddTransient<IAppServices, AppServices>();
-            services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IVerifiedCodeService, VerifiedCodeService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<IBookerService, BookerService>();
+            services.AddTransient<IDriverService, DriverService>();
         }
 
-        public static void ConfigureSwagger(this IServiceCollection services)
+        public static void ConfigureIoCSignalR(this IServiceCollection services)
+        {
+            services.AddTransient<ISignalRService, SignalRService>();
+        }
+
+            public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>
             {
@@ -92,6 +107,12 @@ namespace API.Extensions
                     }
                 });
             });
+        }
+
+        public static void ConfigureSettings(this IServiceCollection services, WebApplicationBuilder builder)
+        {
+            // configure strongly typed settings object
+            services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.ToTable("users");
 
             builder.Property(e => e.Code)
+                .IsRequired()
                 .HasColumnName("code");
 
             builder.Property(e => e.Name)
@@ -37,6 +38,11 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.Status)
                 .IsRequired()
                 .HasColumnName("status");
+
+            builder.Property(e => e.FileId)
+                .HasColumnName("file_id");
+
+            builder.HasIndex(e => e.Code).IsUnique();
         }
     }
 }

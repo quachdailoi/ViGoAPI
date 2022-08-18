@@ -1,5 +1,4 @@
 ﻿using API.Services.Constract;
-using Domain.Interfaces.Services;
 
 namespace API.Services
 {
@@ -7,17 +6,26 @@ namespace API.Services
     {
         public AppServices(
                 IAccountService accountService,
-                IAuthService authService,
-                IVerifiedCodeService verifiedCodeService
+                IVerifiedCodeService verifiedCodeService,
+                IUserService userService,
+                ITokenService tokenService,
+                IBookerService bookerService, 
+                IDriverService driverService
             )
         {
-            AccountService = accountService;
-            AuthService = authService;
-            VerifiedCodeService = verifiedCodeService;
+            Account = accountService;
+            VerifiedCode = verifiedCodeService;
+            User = userService;
+            Token = tokenService;
+            Booker = bookerService;
+            Driver = driverService;
         }
 
-        public IAccountService AccountService { get; }
-        public IAuthService AuthService { get; }
-        public IVerifiedCodeService VerifiedCodeService { get; }
+        public IAccountService Account { get; }
+        public IVerifiedCodeService VerifiedCode { get; }
+        public IUserService User { get; }
+        public ITokenService Token { get; set; }
+        public IBookerService Booker { get; }
+        public IDriverService Driver { get; }
     }
 }

@@ -12,22 +12,18 @@ namespace Infrastructure.Data.Repositories
         {
         }
 
-        public IQueryable<Account> GetAccountByEmail(string email)
-        {
-            return GetAccountByRegistration(email, ((int)RegistrationTypes.Email));
-        }
-
-        public IQueryable<Account> GetAccountByPhoneNumber(string phoneNumber)
-        {
-            return GetAccountByRegistration(phoneNumber, ((int)RegistrationTypes.Phone));
-        }
-
-        private IQueryable<Account> GetAccountByRegistration(string registration, int registrationType)
+        public IQueryable<Account> GetAccountByRegistration(string registration, RegistrationTypes registrationTypes)
         {
             return List(account =>
                 account.Registration == registration &&
-                account.RegistrationType == registrationType
+                account.RegistrationType == registrationTypes && 
+                account.RoleId != null
             );
+        }
+
+        public IQueryable<Account> GetAccountByUserId(int userId)
+        {
+            return List(account => account.UserId == userId);
         }
     }
 }

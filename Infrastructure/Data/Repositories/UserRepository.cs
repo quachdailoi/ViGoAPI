@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,16 @@ namespace Infrastructure.Data.Repositories
         public IQueryable<User> GetUserByCode(string code)
         {
             return List(user => user.Code.ToString() == code);
+        }
+
+        public IQueryable<User> GetUserById(int id)
+        {
+            return List(user => user.Id == id);
+        }
+
+        public Task UpdateUser(User user)
+        {
+            return Update(user);
         }
     }
 }

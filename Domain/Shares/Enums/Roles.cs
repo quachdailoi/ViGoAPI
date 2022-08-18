@@ -11,6 +11,7 @@ namespace Domain.Shares.Enums
         BOOKER = 1,
         DRIVER = 2,
         ADMIN = 3,
+        GUEST = 4,
     }
 
     public static class RolesExtensions
@@ -27,6 +28,26 @@ namespace Domain.Shares.Enums
                     return "ADMIN";
                 default:
                     return "GUEST";
+            }
+        }
+
+        public static string GetName(this Roles role)
+        {
+            return Enum.GetName(typeof(Roles), role);
+        }
+
+        public static int GetInt(this Roles role)
+        {
+            switch (role)
+            {
+                case Roles.BOOKER:
+                    return 1;
+                case Roles.DRIVER:
+                    return 2;
+                case Roles.ADMIN:
+                    return 3;
+                default:
+                    return 4;
             }
         }
     }

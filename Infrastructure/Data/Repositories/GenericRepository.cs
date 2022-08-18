@@ -77,7 +77,7 @@ namespace Infrastructure.Data.Repositories
             return true;
         }
 
-        public virtual async Task Update(T entity)
+        public virtual async Task<bool> Update(T entity)
         {
             try
             {
@@ -87,11 +87,14 @@ namespace Infrastructure.Data.Repositories
                 }
                 DbSet.Update(entity);
                 await _dbContext.SaveChangesAsync();
+                return true;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "{Repo} Update function error.", typeof(T));
             }
+
+            return false;
         }
     }
 }

@@ -8,6 +8,9 @@ using Infrastructure.Data.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Text.Json.Serialization;
+using Microsoft.IdentityModel.Logging;
+using API.SignalR;
+using API.Middleware;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -65,6 +68,9 @@ services.AddDbContextPool<AppDbContext>(options =>
         options.UseNpgsql(connectionString)
 );
 
+// config for signalR
+services.AddSignalR();
+
 // Config for authentication
 services.ConfigureAuthentication(config);
 
@@ -75,6 +81,9 @@ services.ConfigureAuthentication(config);
 services.AddAutoMapper(typeof(Program));
 //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+// config class for settings: JwtSettings
+services.ConfigureSettings(builder);
+
 // IoC for Configuration
 services.AddScoped<IJwtHandler, JwtHandler>();
 services.AddSingleton<IConfiguration>(config);
@@ -84,6 +93,15 @@ services.ConfigureIoCRepositories();
 
 // IoC for Services layer
 services.ConfigureIoCServices();
+
+// add http context accessor
+services.AddHttpContextAccessor();
+
+// IoC for SignalR
+services.ConfigureIoCSignalR();
+
+// add redis cache
+services.AddStackExchangeRedisCache(r => { r.Configuration = config["RedisSettings:ConnectionString"]; });
 
 #region IOC for Logging
 services.AddLogging();
@@ -100,9 +118,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MaaS API v1"));
+    IdentityModelEventSource.ShowPII = true;
 }
 
 app.UseHttpsRedirection();
+
+// add middlewares
+//app.UseErrorHandlerMiddleware();
+app.UseJwtMiddleware();
 
 // Using CORS
 app.UseCors(MyAllowSpecificOrigins);
@@ -112,5 +135,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<SignalRHub>("");
 
 app.Run();
