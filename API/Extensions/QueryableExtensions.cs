@@ -28,24 +28,5 @@ namespace API.Extensions
         {
             return query.ProjectTo<T>(mapper.ConfigurationProvider);
         }
-
-        //public static IQueryable<TDestination> ProjectTo<TDestination>(
-        //    this IQueryable source,
-        //    IConfigurationProvider configuration)
-        // => new ProjectionExpression(source, configuration.)
-        //.To<TDestination>();
     }
-    //public class ProjectionExpression
-    //{
-    //    private readonly Expression expression;
-    //    private readonly IQueryable _source;
-    //    private readonly Microsoft.Extensions.Configuration.IConfigurationProvider _configuration;
-    //    public IQueryable<TResult> To<TResult>()
-    //    {
-    //        return (IQueryable<TResult>)_configuration. .GetMapExpression(
-    //                _source.ElementType,
-    //                typeof(TResult))
-    //            .Aggregate(_source, Select);
-    //    }
-    //}
 }
