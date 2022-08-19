@@ -57,7 +57,7 @@ FirebaseApp.Create(new AppOptions
     ServiceAccountId = config["Firebase:ServiceAccountId"]
 });
 
-string connectionString = Environment.GetEnvironmentVariable("PostgreSQLMaaSConnection");
+string? connectionString = Environment.GetEnvironmentVariable("PostgreSQLMaaSConnection");
 
 if (string.IsNullOrEmpty(connectionString))
 {
@@ -69,7 +69,10 @@ services.AddDbContextPool<AppDbContext>(options =>
 );
 
 // config for signalR
-services.AddSignalR();
+services.AddSignalR(cfg =>
+{
+    cfg.EnableDetailedErrors = true;
+});
 
 // Config for authentication
 services.ConfigureAuthentication(config);
@@ -99,6 +102,9 @@ services.AddHttpContextAccessor();
 
 // IoC for SignalR
 services.ConfigureIoCSignalR();
+
+// IoC for CronJobs
+services.ConfigureIoCCronJob();
 
 // add redis cache
 services.AddStackExchangeRedisCache(r => { r.Configuration = config["RedisSettings:ConnectionString"]; });
@@ -136,6 +142,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<SignalRHub>("");
+app.MapHub<SignalRHub>("/hubs");
 
 app.Run();

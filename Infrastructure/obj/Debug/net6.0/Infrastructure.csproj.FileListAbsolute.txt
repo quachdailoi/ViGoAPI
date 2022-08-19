@@ -32,3 +32,20 @@ D:\DotNet_Study\projects\VigoApi_Authen\ViGoAPI\Infrastructure\obj\Debug\net6.0\
 D:\DotNet_Study\projects\VigoApi_Authen\ViGoAPI\Infrastructure\obj\Debug\net6.0\Infrastructure.pdb
 D:\DotNet_Study\projects\VigoApi_Authen\ViGoAPI\Infrastructure\obj\Debug\net6.0\Infrastructure.genruntimeconfig.cache
 D:\DotNet_Study\projects\VigoApi_Authen\ViGoAPI\Infrastructure\obj\Debug\net6.0\ref\Infrastructure.dll
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\bin\Debug\net6.0\Infrastructure.deps.json
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\bin\Debug\net6.0\Infrastructure.runtimeconfig.json
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\bin\Debug\net6.0\Infrastructure.dll
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\bin\Debug\net6.0\Infrastructure.pdb
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\bin\Debug\net6.0\Domain.dll
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\bin\Debug\net6.0\Domain.pdb
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\obj\Debug\net6.0\Infrastructure.csproj.AssemblyReference.cache
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\obj\Debug\net6.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\obj\Debug\net6.0\Infrastructure.AssemblyInfoInputs.cache
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\obj\Debug\net6.0\Infrastructure.AssemblyInfo.cs
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\obj\Debug\net6.0\Infrastructure.csproj.CoreCompileInputs.cache
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\obj\Debug\net6.0\Infrastructure.csproj.CopyComplete
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\obj\Debug\net6.0\Infrastructure.dll
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\obj\Debug\net6.0\refint\Infrastructure.dll
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\obj\Debug\net6.0\Infrastructure.pdb
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\obj\Debug\net6.0\Infrastructure.genruntimeconfig.cache
+G:\.NET Core\Capstone Project\ViGoAPI\Infrastructure\obj\Debug\net6.0\ref\Infrastructure.dll

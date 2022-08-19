@@ -71,7 +71,7 @@ namespace API.Services
         private static string GetAccessTokenKey(string token)
             => $"access_tokens:{token}:revoked";
 
-        public async Task<bool> IsActiveRefreshToken(string token)
-        => await _cache.GetStringAsync(GetRefreshTokenKey(token, false)) != null;
+        public async Task<string> ValueOfActiveRefreshToken(string token)
+        => await _cache.GetStringAsync(GetRefreshTokenKey(token, false));
     }
 }

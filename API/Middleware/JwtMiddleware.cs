@@ -18,18 +18,16 @@ namespace API.Middleware
 
         public async Task Invoke(HttpContext context, IJwtHandler jwtHandler)
         {
-            var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            var hasAuthorizeAttribute = context.GetEndpoint()?.Metadata.Any(m => m is AuthorizeAttribute);
 
-            var user = await jwtHandler.GetUserViewModelByToken(token);
-
-            var hasAllowAnonymousAttribute = context.GetEndpoint().Metadata.Any(m => m is AllowAnonymousAttribute);
-
-            if (!hasAllowAnonymousAttribute && user == null)
+            if(hasAuthorizeAttribute == true)
             {
-                throw new UnauthorizedAccessException();
-            }
+                var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-            context.Items["User"] = user;
+                var user = await jwtHandler.GetUserViewModelByToken(token);
+
+                context.Items["User"] = user;
+            }
 
             await _next(context);
         }

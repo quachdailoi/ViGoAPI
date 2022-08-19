@@ -1,4 +1,6 @@
-﻿using API.Services;
+﻿using API.Quartz;
+using API.Quartz.Jobs;
+using API.Services;
 using API.Services.Constract;
 using API.SettingHelpers;
 using API.SignalR;
@@ -8,6 +10,7 @@ using Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Quartz.Spi;
 using System.Text;
 
 namespace API.Extensions
@@ -48,6 +51,22 @@ namespace API.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:Key"])),
                 };
                 options.RequireHttpsMetadata = false;
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"].FirstOrDefault();
+
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                        {
+                            context.Token = accessToken;
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
         }
@@ -77,7 +96,16 @@ namespace API.Extensions
             services.AddTransient<ISignalRService, SignalRService>();
         }
 
-            public static void ConfigureSwagger(this IServiceCollection services)
+        public static void ConfigureIoCCronJob(this IServiceCollection services)
+        {
+            // Sign job
+            services.AddTransient<MessageJob>();
+
+            services.AddTransient<IJobFactory, JobFactory>();
+            services.AddSingleton<IJobScheduler, JobScheduler>();
+        }
+
+        public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>
             {
@@ -106,6 +134,9 @@ namespace API.Extensions
                         new string[]{}
                     }
                 });
+
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "API.xml");
+                options.IncludeXmlComments(filePath);
             });
         }
 
