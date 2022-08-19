@@ -22,9 +22,9 @@ namespace API.Middleware
 
             var user = await jwtHandler.GetUserViewModelByToken(token);
 
-            var hasAllowAnonymousAttribute = context.GetEndpoint().Metadata.Any(m => m is AllowAnonymousAttribute);
+            var hasAllowAnonymousAttribute = context.GetEndpoint()?.Metadata.Any(m => m is AllowAnonymousAttribute);
 
-            if (!hasAllowAnonymousAttribute && user == null)
+            if ((!hasAllowAnonymousAttribute ?? false) && user == null)
             {
                 throw new UnauthorizedAccessException();
             }
