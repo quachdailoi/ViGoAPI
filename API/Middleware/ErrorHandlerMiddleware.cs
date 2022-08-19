@@ -17,7 +17,7 @@ namespace API.Middleware
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, ILogger logger)
+        public async Task Invoke(HttpContext context, ILogger<ErrorHandlerMiddleware> logger)
         {
             try
             {
