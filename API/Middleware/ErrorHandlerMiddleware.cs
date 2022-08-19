@@ -17,7 +17,7 @@ namespace API.Middleware
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, ILogger logger)
         {
             try
             {
@@ -49,6 +49,11 @@ namespace API.Middleware
 
                 var result = JsonSerializer.Serialize(new { message = error?.Message });
                 await response.WriteAsync(result);
+
+                logger.LogError(error, "Request {method} {url} => {statusCode}", 
+                    context.Request?.Method, 
+                    context.Request?.Path.Value, 
+                    context.Response?.StatusCode);
             }
         }
     }
