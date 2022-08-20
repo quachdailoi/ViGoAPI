@@ -57,9 +57,9 @@ FirebaseApp.Create(new AppOptions
     ServiceAccountId = config["Firebase:ServiceAccountId"]
 });
 
-string connectionString = string.Empty; ;
+string connectionString = string.Empty;
 
-if (builder.Environment.EnvironmentName == "Production")
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
 {
     // Use connection string provided at runtime by Heroku.
     var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
