@@ -609,11 +609,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Domain\\Domain.csproj",
+      "projectUniqueName": "D:\\DotNet_Study\\projects\\ViGo_Authen_1\\ViGoAPI\\Domain\\Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Domain\\Domain.csproj",
+      "projectPath": "D:\\DotNet_Study\\projects\\ViGo_Authen_1\\ViGoAPI\\Domain\\Domain.csproj",
       "packagesPath": "C:\\Users\\quach\\.nuget\\packages\\",
-      "outputPath": "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Domain\\obj\\",
+      "outputPath": "D:\\DotNet_Study\\projects\\ViGo_Authen_1\\ViGoAPI\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\quach\\AppData\\Roaming\\NuGet\\NuGet.Config",

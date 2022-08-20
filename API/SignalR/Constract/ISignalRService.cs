@@ -1,4 +1,5 @@
-﻿using Domain.Shares.Enums;
+﻿using API.JwtFeatures;
+using Domain.Shares.Enums;
 
 namespace API.SignalR.Constract
 {

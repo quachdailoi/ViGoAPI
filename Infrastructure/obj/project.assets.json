@@ -1029,11 +1029,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "D:\\DotNet_Study\\projects\\ViGo_Authen_1\\ViGoAPI\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Infrastructure\\Infrastructure.csproj",
+      "projectPath": "D:\\DotNet_Study\\projects\\ViGo_Authen_1\\ViGoAPI\\Infrastructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\quach\\.nuget\\packages\\",
-      "outputPath": "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Infrastructure\\obj\\",
+      "outputPath": "D:\\DotNet_Study\\projects\\ViGo_Authen_1\\ViGoAPI\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\quach\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1050,8 +1050,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Domain\\Domain.csproj": {
-              "projectPath": "D:\\DotNet_Study\\projects\\VigoApi_Authen\\ViGoAPI\\Domain\\Domain.csproj"
+            "D:\\DotNet_Study\\projects\\ViGo_Authen_1\\ViGoAPI\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\DotNet_Study\\projects\\ViGo_Authen_1\\ViGoAPI\\Domain\\Domain.csproj"
             }
           }
         }

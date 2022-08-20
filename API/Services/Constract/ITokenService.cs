@@ -11,6 +11,6 @@
         Task CreateRefreshTokenAsync(string token, string userCode);
         string GetRefreshTokenKey(string token, bool revoke = true);
 
-        Task<bool> IsActiveRefreshToken(string token);
+        Task<string> ValueOfActiveRefreshToken(string token);
     }
 }
