@@ -132,7 +132,13 @@ services.ConfigureIoCSignalR();
 services.ConfigureIoCCronJob();
 
 // add redis cache
-services.AddStackExchangeRedisCache(r => { r.Configuration = config["RedisSettings:ConnectionString"]; });
+var redisSetting = config["RedisSettings:LocalConnectionString"];
+if (builder.Environment.EnvironmentName == "Production")
+{
+    redisSetting = config["RedisSettings:CloudConnectionString"];
+}
+services.AddStackExchangeRedisCache(r => r.Configuration = redisSetting);
+
 
 #region IOC for Logging
 services.AddLogging();

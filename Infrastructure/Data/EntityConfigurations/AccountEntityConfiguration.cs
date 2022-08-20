@@ -51,7 +51,7 @@ namespace Infrastructure.Data.EntityConfigurations
                 .IsRequired();
 
             builder.HasIndex(e => new { e.Registration, e.RoleId })
-                .IsUnique();
+                .IsUnique().HasFilter("verified = true");
         }
     }
 }
