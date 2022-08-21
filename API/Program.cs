@@ -133,10 +133,10 @@ services.ConfigureIoCCronJob();
 
 // add redis cache
 var redisSetting = config["RedisSettings:LocalConnectionString"];
-//if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
-//{
-//    redisSetting = config["RedisSettings:CloudConnectionString"];
-//}
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
+{
+    redisSetting = Environment.GetEnvironmentVariable("RedisSettings:CloudConnectionString");
+}
 services.AddStackExchangeRedisCache(r => r.Configuration = redisSetting);
 
 

@@ -113,7 +113,7 @@ namespace Infrastructure.Data
             builder.Entity<Account>().HasData(new Account
             {
                 Id = 3,
-                Registration = "+848372262391",
+                Registration = "+84837226239",
                 RegistrationType = RegistrationTypes.Phone,
                 RoleId = Domain.Shares.Enums.Roles.BOOKER,
                 Verified = true,
