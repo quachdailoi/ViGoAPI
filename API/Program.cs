@@ -59,7 +59,7 @@ FirebaseApp.Create(new AppOptions
 
 string connectionString = string.Empty;
 
-if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
 {
     // Use connection string provided at runtime by Heroku.
     var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
@@ -133,7 +133,7 @@ services.ConfigureIoCCronJob();
 
 // add redis cache
 var redisSetting = config["RedisSettings:LocalConnectionString"];
-if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
 {
     redisSetting = config["RedisSettings:CloudConnectionString"];
 }
