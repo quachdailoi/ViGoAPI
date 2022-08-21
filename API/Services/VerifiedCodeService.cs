@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Services.Constract;
@@ -97,8 +98,10 @@ namespace API.Services
         {
             string fromPhoneNumber = configuration.GetSection("Twilio:PhoneNumber").Value;
 
-            string accountSid = configuration.GetSection("Twilio:TWILIO_ACCOUNT_SID").Value;
-            string authToken = configuration.GetSection("Twilio:TWILIO_AUTH_TOKEN").Value;
+            // get base on environment
+
+            var accountSid = configuration.GetConfigByEnv("Twilio:TWILIO_ACCOUNT_SID");
+            var authToken = configuration.GetConfigByEnv("Twilio:TWILIO_AUTH_TOKEN");
 
             TwilioClient.Init(accountSid, authToken);
 
