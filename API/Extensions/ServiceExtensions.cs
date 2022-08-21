@@ -79,6 +79,9 @@ namespace API.Extensions
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IVerifiedCodeRepository, VerifiedCodeRepository>();
+            services.AddScoped<IUserRoomRepository, UserRoomRepository>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -90,6 +93,9 @@ namespace API.Extensions
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IBookerService, BookerService>();
             services.AddTransient<IDriverService, DriverService>();
+            services.AddTransient<IUserRoomService, UserRoomService>();
+            services.AddTransient<IRoomService, RoomService>();
+            services.AddTransient<IMessageService, MessageService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)

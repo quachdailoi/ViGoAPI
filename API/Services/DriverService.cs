@@ -23,7 +23,7 @@ namespace API.Services
 
         public async Task<UserViewModel?> GetUserViewModel()
         {
-            var account = _unitOfWork.Accounts.List(x => x.RoleId == Roles.BOOKER).Include(acc => acc.Role).FirstOrDefault();
+            var account = _unitOfWork.Accounts.List(x => x.RoleId == Roles.DRIVER).Include(acc => acc.Role).FirstOrDefault();
 
             if (account == null) return null;
 

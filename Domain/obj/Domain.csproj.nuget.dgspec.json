@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\.NET Core\\ViGoAPI\\New folder\\ViGoAPI\\Domain\\Domain.csproj": {}
+    "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "G:\\.NET Core\\ViGoAPI\\New folder\\ViGoAPI\\Domain\\Domain.csproj": {
+    "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\.NET Core\\ViGoAPI\\New folder\\ViGoAPI\\Domain\\Domain.csproj",
+        "projectUniqueName": "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "G:\\.NET Core\\ViGoAPI\\New folder\\ViGoAPI\\Domain\\Domain.csproj",
+        "projectPath": "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Win\\.nuget\\packages\\",
-        "outputPath": "G:\\.NET Core\\ViGoAPI\\New folder\\ViGoAPI\\Domain\\obj\\",
+        "outputPath": "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Win\\AppData\\Roaming\\NuGet\\NuGet.Config",

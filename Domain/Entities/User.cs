@@ -17,6 +17,10 @@ namespace Domain.Entities
         public int? FileId { get; set; }
 
         public List<Account> Accounts { get; set; } = new();
+        public List<UserRoom> UserRooms { get; set; } = new();
+
+        public List<Message> Messages { get; set; } = new();
+
         public AppFile? File { get; set; } = null;
     }
 }

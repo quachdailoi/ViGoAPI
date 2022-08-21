@@ -8,5 +8,6 @@ namespace API.Services.Constract
         Task UpdateUser(User user);
         IQueryable<User>? GetUserById(int? id);
         Task<UserViewModel?> GetUserViewModelById(int? userId);
+        Task<List<User>> GetUsersByCode(List<Guid> userCodes);
     }
 }

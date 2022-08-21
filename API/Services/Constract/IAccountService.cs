@@ -16,6 +16,7 @@ namespace API.Services.Constract
         Task<bool> VerifyAccount(Account? account);
         IQueryable<Account>? GetRoleAccountByRegistration(Roles roleId, string registration, RegistrationTypes registrationType);
         Task<UserViewModel?> GetUserViewModel(Roles roles, string registration, RegistrationTypes registrationTypes);
+        Task<bool> InsertAccount(int userId, Roles role, string registration, RegistrationTypes registrationType, bool verified);
         Response? CheckNotExisted(Roles roles, SendOtpRequest request, string existMessage, int statusCode, bool? isVerified = false);
         Response? CheckExisted(Roles roles, SendOtpRequest request, string existMessage, int statusCode, bool? isVerified = false);
         

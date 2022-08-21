@@ -140,5 +140,18 @@ namespace API.Services
 
             return await user.MapTo<UserViewModel>(_mapper).FirstOrDefaultAsync();
         }
+
+        public async Task<bool> InsertAccount(int userId, Roles role, string registration, RegistrationTypes registrationType, bool verified)
+        {
+            var account = new Account{
+                UserId = userId,
+                RoleId = role,
+                Registration = registration,
+                RegistrationType = registrationType,
+                Verified = verified
+            };
+            var result = await _unitOfWork.Accounts.Add(account);
+            return result != null;
+        }
     }
 }

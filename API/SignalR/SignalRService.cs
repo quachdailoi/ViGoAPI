@@ -24,6 +24,11 @@ namespace API.SignalR
             await _signalRHub.Clients.Group(userCode).SendAsync(method, obj);
         }
 
+        public async Task SendToUsersAsync(List<string> userCodes, string method, object obj)
+        {
+            await _signalRHub.Clients.Groups(userCodes).SendAsync(method, obj);
+        }
+
         public async Task SendToUsersGroupRoleNameAsync(Roles role, string method, Object obj)
         {
             await _signalRHub.Clients.Group(role.GetString()).SendAsync(method, obj);

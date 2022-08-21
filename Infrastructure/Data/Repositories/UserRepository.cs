@@ -26,6 +26,12 @@ namespace Infrastructure.Data.Repositories
             return List(user => user.Id == id);
         }
 
+        public IQueryable<User> GetUsersByCode(List<Guid> codes)
+        {
+            var codeHashSet = codes.ToHashSet();
+            return List(user => codeHashSet.Contains(user.Code));
+        }
+
         public Task UpdateUser(User user)
         {
             return Update(user);
