@@ -57,7 +57,7 @@ namespace API.Controllers.Booker
 
             // send and save otp code
             var sendAndSaveResponse = 
-                await AppServices.VerifiedCode.SendAndSaveOtpPhoneNumber(
+                await AppServices.VerifiedCode.SendAndSaveOtp(
                     request, 
                     errorMessage: "Fail to send code to this phone number - Please try again.", 
                     errorCode: StatusCodes.Status500InternalServerError
@@ -137,7 +137,7 @@ namespace API.Controllers.Booker
 
             // send and save otp code
             var sendAndSaveResponse = 
-                await AppServices.VerifiedCode.SendAndSaveOtpGmail(
+                await AppServices.VerifiedCode.SendAndSaveOtp(
                     request, 
                     errorMessage: "Fail to send otp to this gmail - Please try again.", 
                     errorCode: StatusCodes.Status500InternalServerError
@@ -223,7 +223,7 @@ namespace API.Controllers.Booker
 
             // send and save otp code
             var sendAndSaveResponse =
-                await AppServices.VerifiedCode.SendAndSaveOtpPhoneNumber(
+                await AppServices.VerifiedCode.SendAndSaveOtp(
                     request,
                     errorMessage: "Fail to send otp to this phone number - Please try again.",
                     errorCode: StatusCodes.Status500InternalServerError
@@ -277,8 +277,43 @@ namespace API.Controllers.Booker
             }
 
             response
-                    .SetStatusCode(StatusCodes.Status200OK)
-                    .SetMessage("Update phone number successfully");
+                .SetStatusCode(StatusCodes.Status200OK)
+                .SetMessage("Update phone number successfully");
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        /// Update booker information - Update information if it includes valid email, then send verified code.
+        /// </summary>
+        /// <remarks>Update</remarks>
+        /// <param name="request" example="{Name: 'ABC' , Gender: 1, DateOfBirth='31-01-2000', Registration='abc@gmail.com'}">Information schema</param>
+        /// <response code = "200"> Update information successfully.</response>
+        /// <response code="400"> Update failed - This email was verified by another account.</response>
+        /// <response code="500"> Update failed - Something went wrong.</response>
+        [HttpPut("information")]
+        public async Task<IActionResult> UpdateInformation([FromBody] UpdateUserInfoRequest request)
+        {
+            request.RegistrationTypes = RegistrationTypes.Gmail;
+            request.OtpTypes = OtpTypes.VerificationOTP;
+
+            var loginedUser = LoginedUser;
+
+            var updateResponse =
+                    await AppServices.Booker.UpdateBookerAccount(
+                        loginedUser.Code.ToString(), 
+                        request, 
+                        new[] { "This email was verified by another account.", "Update information failed." }, 
+                        new[] { StatusCodes.Status400BadRequest, StatusCodes.Status500InternalServerError }
+                    );
+
+            if (updateResponse != null) return ApiResult(updateResponse);
+
+            Response response = new();
+
+            response
+                .SetStatusCode(StatusCodes.Status200OK)
+                .SetMessage("Updated information successfully.");
+
             return ApiResult(response);
         }
 

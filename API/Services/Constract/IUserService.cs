@@ -5,7 +5,7 @@ namespace API.Services.Constract
 {
     public interface IUserService
     {
-        Task UpdateUser(User user);
+        Task<bool> UpdateUser(User user);
         IQueryable<User>? GetUserById(int? id);
         Task<UserViewModel?> GetUserViewModelById(int? userId);
     }

@@ -18,6 +18,6 @@ namespace API.Services.Constract
         Task<UserViewModel?> GetUserViewModel(Roles roles, string registration, RegistrationTypes registrationTypes);
         Response? CheckNotExisted(Roles roles, SendOtpRequest request, string existMessage, int statusCode, bool? isVerified = false);
         Response? CheckExisted(Roles roles, SendOtpRequest request, string existMessage, int statusCode, bool? isVerified = false);
-        
+        Task<Response> UpdateUserAccount(string userCode, Roles userRole, UpdateUserInfoRequest request, string[] errorMessages, int[] errorCodes);
     }
 }

@@ -52,5 +52,10 @@ namespace API.Services
         {
             return base.GetUserViewModel(Roles.BOOKER, registration, registrationTypes);
         }
+
+        public Task<Response?> UpdateBookerAccount(string userCode, UpdateUserInfoRequest request, string[] errorMessages, int[] errorCodes)
+        {
+            return base.UpdateUserAccount(userCode, Roles.BOOKER, request, errorMessages, errorCodes);
+        }
     }
 }

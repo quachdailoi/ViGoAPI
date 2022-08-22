@@ -36,7 +36,7 @@ namespace API.Services
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        public Task<MessageResource?> SendPhoneOtp(string phoneNumber, out string otp)
+        private Task<MessageResource?> SendPhoneOtp(string phoneNumber, out string otp)
         {
             otp = GenerateOtpCode(6);
 
@@ -45,7 +45,7 @@ namespace API.Services
             return SendSMS(message, phoneNumber);
         }
 
-        public Task<string?> SendGmailOtp(string gmail, out string otp)
+        private Task<string?> SendGmailOtp(string gmail, out string otp)
         {
             otp = GenerateOtpCode(6);
             MailContent mailContent = new()
@@ -214,7 +214,7 @@ namespace API.Services
             return null;
         }
 
-        public async Task<Response> SendAndSaveOtpPhoneNumber(SendOtpRequest request, string errorMessage, int errorCode)
+        private async Task<Response> SendAndSaveOtpPhoneNumber(SendOtpRequest request, string errorMessage, int errorCode)
         {
             var messageResource = await SendPhoneOtp(request.Registration, out string otp);
 
@@ -229,7 +229,7 @@ namespace API.Services
             return await SaveCode(request, otp);
         }
 
-        public async Task<Response> SendAndSaveOtpGmail(SendOtpRequest request, string errorMessage, int errorCode)
+        private async Task<Response> SendAndSaveOtpGmail(SendOtpRequest request, string errorMessage, int errorCode)
         {
             var mailResponse = await SendGmailOtp(request.Registration, out string otp);
 
@@ -242,6 +242,23 @@ namespace API.Services
             }
 
             return await SaveCode(request, otp);
+        }
+
+        public async Task<Response> SendAndSaveOtp(SendOtpRequest request, string errorMessage, int errorCode)
+        {
+
+            switch (request.RegistrationTypes)
+            {
+                case RegistrationTypes.Phone:
+                    return await SendAndSaveOtpPhoneNumber(request, errorMessage, errorCode);
+                case RegistrationTypes.Gmail:
+                    return await SendAndSaveOtpGmail(request, errorMessage, errorCode);
+                default:
+                    return new Response(
+                        StatusCode: errorCode,
+                        Message: errorMessage
+                    );
+            }
         }
     }
 }

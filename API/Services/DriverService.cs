@@ -51,5 +51,10 @@ namespace API.Services
         {
             return await base.GetUserViewModel(Roles.DRIVER, registration, registrationTypes);
         }
+
+        public Task<Response?> UpdateDriverAccount(string userCode, UpdateUserInfoRequest request, string[] errorMessages, int[] errorCodes)
+        {
+            return base.UpdateUserAccount(userCode, Roles.BOOKER, request, errorMessages, errorCodes);
+        }
     }
 }

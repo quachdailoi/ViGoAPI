@@ -16,5 +16,6 @@ namespace API.Services.Constract
         IQueryable<Account>? GetAccount(string registration, RegistrationTypes registrationTypes);
         Task<UserViewModel?> GetUserViewModel();
         Task<UserViewModel?> GetUserViewModel(string registration, RegistrationTypes registrationTypes);
+        Task<Response?> UpdateDriverAccount(string userCode, UpdateUserInfoRequest request, string[] errorMessages, int[] errorCodes);
     }
 }

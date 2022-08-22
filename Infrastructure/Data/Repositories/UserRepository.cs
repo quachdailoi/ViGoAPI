@@ -25,10 +25,5 @@ namespace Infrastructure.Data.Repositories
         {
             return List(user => user.Id == id);
         }
-
-        public Task UpdateUser(User user)
-        {
-            return Update(user);
-        }
     }
 }
