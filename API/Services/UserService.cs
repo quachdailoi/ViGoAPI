@@ -20,9 +20,9 @@ namespace API.Services
             _mapper = mapper;
         }
 
-        public Task UpdateUser(User user)
+        public Task<bool> UpdateUser(User user)
         {
-            return _unitOfWork.Users.UpdateUser(user);
+            return _unitOfWork.Users.Update(user);
         }
 
         public IQueryable<User>? GetUserById(int? id)
@@ -48,6 +48,5 @@ namespace API.Services
 
             return await _mapper.ProjectTo<UserViewModel>(user).FirstOrDefaultAsync();
         }
-
     }
 }

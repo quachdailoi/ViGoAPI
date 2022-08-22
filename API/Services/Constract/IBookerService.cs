@@ -16,5 +16,12 @@ namespace API.Services.Constract
         IQueryable<Account>? GetAccount(string registration, RegistrationTypes registrationTypes);
         Task<UserViewModel?> GetUserViewModel();
         Task<UserViewModel?> GetUserViewModel(string registration, RegistrationTypes registrationTypes);
+
+        /// <summary>
+        /// Method for updating booker information.
+        /// </summary>
+        /// <param name="errorMessages">List of message when error occurs - this method have 2 case return error: duplicated and update failed</param>
+        /// <param name="errorCodes">List of error code match with errorMessage orders</param>
+        Task<Response?> UpdateBookerAccount(string userCode, UpdateUserInfoRequest request, string[] errorMessages, int[] errorCodes);
     }
 }

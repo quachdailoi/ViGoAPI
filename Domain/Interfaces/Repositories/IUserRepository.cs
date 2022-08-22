@@ -11,6 +11,5 @@ namespace Domain.Interfaces.Repositories
     {
         IQueryable<User> GetUserByCode(string code);
         IQueryable<User> GetUserById(int id);
-        Task UpdateUser(User user);
     }
 }
