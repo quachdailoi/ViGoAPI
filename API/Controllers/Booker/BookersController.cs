@@ -319,11 +319,18 @@ namespace API.Controllers.Booker
 
         [HttpPost("phone/loginFake")]
         [AllowAnonymous]
-        public async Task<IActionResult> LoginFake()
+        public async Task<IActionResult> LoginFake([FromBody] string phoneNumber)
         {
             Response response = new();
 
-            var user = await AppServices.Booker.GetUserViewModel("+84377322919", RegistrationTypes.Phone);
+            var user = await AppServices.Booker.GetUserViewModel(phoneNumber, RegistrationTypes.Phone);
+
+            if (user == null)
+            {
+                response.SetStatusCode(StatusCodes.Status500InternalServerError)
+                    .SetMessage("Login failed - not found user with this phone number");
+                return ApiResult(response);
+            }
 
             string token = _jwtHandler.GenerateToken(user);
             string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
@@ -337,14 +344,20 @@ namespace API.Controllers.Booker
                     User = user
                 });
 
-            return new JsonResult(response);
+            return ApiResult(response);
+        }
+
+        [HttpGet("test")]
+        public IActionResult TestAuthen()
+        {
+            var user = LoginedUser;
+            return Ok(user);
         }
 
         //[HttpPost("phone/send-otp-to-signup")]
         //[AllowAnonymous]
         //public async Task<IActionResult> SendOtpToSignUp([FromBody] SendPhoneOtpRequest request)
         //{
-
         //}
     }
 }

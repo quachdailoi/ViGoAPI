@@ -283,13 +283,20 @@ namespace API.Controllers.Driver
             return ApiResult(response);
         }
 
-        [HttpPost("phone/loginFake")]
+        [HttpPost("gmail/loginFake")]
         [AllowAnonymous]
-        public async Task<IActionResult> LoginFake()
+        public async Task<IActionResult> LoginFake([FromBody] string gmail)
         {
             Response response = new();
 
-            var user = await AppServices.Driver.GetUserViewModel();
+            var user = await AppServices.Driver.GetUserViewModel(gmail, RegistrationTypes.Phone);
+
+            if (user == null)
+            {
+                response.SetStatusCode(StatusCodes.Status500InternalServerError)
+                    .SetMessage("Login failed - not found user with this gmail");
+                return ApiResult(response);
+            }
 
             string token = _jwtHandler.GenerateToken(user);
             string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
@@ -307,7 +314,7 @@ namespace API.Controllers.Driver
         }
 
         [HttpGet("test")]
-        public IActionResult TestLogin()
+        public IActionResult TestAuthen()
         {
             var user = LoginedUser;
             return Ok(user);
