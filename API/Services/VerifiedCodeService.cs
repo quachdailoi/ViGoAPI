@@ -112,7 +112,7 @@ namespace API.Services
             );
         }
             
-        private async Task<Response> SaveCode(SendOtpRequest request, string otp)
+        private async Task<Response> SaveCode(SendOtpRequest request, string otp, Response successResponse, Response errorResponse)
         {
             VerifiedCode verifiedCode = new()
             {
@@ -124,30 +124,21 @@ namespace API.Services
             };
 
             var code = await _unitOfWork.VerifiedCodes.CreateVerifiedCode(verifiedCode);
-            if (code == null)
-            {
-                return new(
-                    StatusCode: StatusCodes.Status400BadRequest,
-                    Message: "Send Code Fail - Please try again."
-                );
-            }
+            if (code == null) return errorResponse;
 
-            return new Response(
-                StatusCode: StatusCodes.Status200OK,
-                Message: "Send Otp Successfully.",
-                Data: otp
-            );
+            successResponse.Data = otp;
+            return successResponse;
         }
 
-        private async Task<Response?> VerifyOtp(string otp, string registration, RegistrationTypes registrationTypes, OtpTypes otpTypes, string errorMessage, int errorCode)
+        private async Task<Response?> VerifyOtp(string otp, string registration, RegistrationTypes registrationTypes, OtpTypes otpTypes, Response errorResponse)
         {
             var code = await _unitOfWork.VerifiedCodes.GetVerifiedCode(otp, registration, registrationTypes, otpTypes).FirstOrDefaultAsync();
 
             if (code == null)
             {
                 return new(
-                    StatusCode: errorCode,
-                    Message: errorMessage
+                    StatusCode: errorResponse.StatusCode,
+                    Message: errorResponse.Message
                 );
             }
 
@@ -158,22 +149,17 @@ namespace API.Services
             if (DateTime.Compare(validTime, DateTime.UtcNow) < 0)
             {
                 return new(
-                    StatusCode: errorCode,
-                    Message: errorMessage
+                    StatusCode: errorResponse.StatusCode,
+                    Message: errorResponse.Message
                 );
             }
 
             return null;
         }
 
-        public Task<Response?> VerifyOtp(VerifyOtpRequest request, string errorMessage, int errorCode)
+        public Task<Response?> VerifyOtp(VerifyOtpRequest request, Response errorResponse)
         {
-            return VerifyOtp(request.OTP, request.Registration, request.RegistrationTypes, request.OtpTypes, errorMessage, errorCode);
-        }
-
-        public Task<Response?> VerifyOtp(UpdateRegistrationByOtpRequest request, string errorMessage, int errorCode)
-        {
-            return VerifyOtp(request.OTP, request.Registration, RegistrationTypes.Phone, OtpTypes.UpdateOTP, errorMessage, errorCode);
+            return VerifyOtp(request.OTP, request.Registration, request.RegistrationTypes, request.OtpTypes, errorResponse);
         }
 
         private async Task<bool> CheckValidTimeSendOtp(string registration, RegistrationTypes registrationType, OtpTypes codeType)
@@ -199,65 +185,61 @@ namespace API.Services
             return true;
         }
 
-        public async Task<Response?> CheckValidTimeSendOtp(SendOtpRequest request, string errorMessage, int errorCode)
+        public async Task<Response?> CheckValidTimeSendOtp(SendOtpRequest request, Response response)
         {
             var canResend = await CheckValidTimeSendOtp(request.Registration, request.RegistrationTypes, request.OtpTypes);
 
             if (!canResend) 
             {
                 return new Response(
-                    StatusCode: errorCode,
-                    Message: errorMessage
+                    StatusCode: response.StatusCode,
+                    Message: response.Message
                 );
             }
 
             return null;
         }
 
-        private async Task<Response> SendAndSaveOtpPhoneNumber(SendOtpRequest request, string errorMessage, int errorCode)
+        private async Task<Response> SendAndSaveOtpPhoneNumber(SendOtpRequest request, Response successResponse, Response errorResponse)
         {
             var messageResource = await SendPhoneOtp(request.Registration, out string otp);
 
             if (messageResource?.Status == MessageResource.StatusEnum.Failed)
             {
                 return new Response(
-                    StatusCode: errorCode,
-                    Message: errorMessage
+                    StatusCode: errorResponse.StatusCode,
+                    Message: errorResponse.Message
                 );
             }
 
-            return await SaveCode(request, otp);
+            return await SaveCode(request, otp, successResponse, errorResponse);
         }
 
-        private async Task<Response> SendAndSaveOtpGmail(SendOtpRequest request, string errorMessage, int errorCode)
+        private async Task<Response> SendAndSaveOtpGmail(SendOtpRequest request, Response successResponse, Response errorResponse)
         {
             var mailResponse = await SendGmailOtp(request.Registration, out string otp);
 
             if (mailResponse == null || !mailResponse.Contains("2.0.0"))
             {
                 return new Response(
-                    StatusCode: errorCode,
-                    Message: errorMessage
+                    StatusCode: errorResponse.StatusCode,
+                    Message: errorResponse.Message
                 );
             }
 
-            return await SaveCode(request, otp);
+            return await SaveCode(request, otp, successResponse, errorResponse);
         }
 
-        public async Task<Response> SendAndSaveOtp(SendOtpRequest request, string errorMessage, int errorCode)
+        public async Task<Response> SendAndSaveOtp(SendOtpRequest request, Response successResponse, Response errorResponse)
         {
-
             switch (request.RegistrationTypes)
             {
                 case RegistrationTypes.Phone:
-                    return await SendAndSaveOtpPhoneNumber(request, errorMessage, errorCode);
+                    return await SendAndSaveOtpPhoneNumber(request, successResponse, errorResponse);
                 case RegistrationTypes.Gmail:
-                    return await SendAndSaveOtpGmail(request, errorMessage, errorCode);
+                    return await SendAndSaveOtpGmail(request, successResponse, errorResponse);
                 default:
-                    return new Response(
-                        StatusCode: errorCode,
-                        Message: errorMessage
-                    );
+                    return errorResponse;
             }
         }
     }

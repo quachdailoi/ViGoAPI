@@ -1,6 +1,6 @@
 ﻿namespace API.Models.Requests
 {
-    public class UpdateUserInfoRequest : SendOtpRequest
+    public class UserInfoRequest : SendOtpRequest
     {
         public string Name { get; set; }
         public int Gender { get; set; }
