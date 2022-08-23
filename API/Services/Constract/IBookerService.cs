@@ -8,8 +8,8 @@ namespace API.Services.Constract
 {
     public interface IBookerService : IAccountService
     {
-        Response? CheckNotExisted(SendOtpRequest request, string errorMessage, int errorCode, bool? isVerified = null);
-        Response? CheckExisted(SendOtpRequest request, string errorMessage, int errorCode, bool? isVerified = null);
+        Response? CheckNotExisted(SendOtpRequest request, Response errorResponse, bool? isVerified = null);
+        Response? CheckExisted(SendOtpRequest request, Response errorResponse, bool? isVerified = null);
 
         Task<UserViewModel?> GetUserViewModel(SendOtpRequest request);
 
@@ -17,11 +17,22 @@ namespace API.Services.Constract
         Task<UserViewModel?> GetUserViewModel();
         Task<UserViewModel?> GetUserViewModel(string registration, RegistrationTypes registrationTypes);
 
-        /// <summary>
-        /// Method for updating booker information.
-        /// </summary>
-        /// <param name="errorMessages">List of message when error occurs - this method have 2 case return error: duplicated and update failed</param>
-        /// <param name="errorCodes">List of error code match with errorMessage orders</param>
-        Task<Response?> UpdateBookerAccount(string userCode, UpdateUserInfoRequest request, string[] errorMessages, int[] errorCodes);
+        Task<Response> UpdateBookerAccount(
+            string userCode,
+            UserInfoRequest request,
+            Response successResponse,
+            Response duplicateReponse,
+            Response failedResponse,
+            Response successButNotSendCodeResponse
+        );
+
+        Task<Response> CreateBookerAccount(
+            UserRegisterRequest request,
+            Response successResponse,
+            Response duplicatedAuthRegistrationResponse,
+            Response duplicatedOptionalRegistrationResponse,
+            Response failedResponse,
+            Response successButNotSendCodeResponse
+        );
     }
 }
