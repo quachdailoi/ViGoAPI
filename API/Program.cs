@@ -57,9 +57,9 @@ FirebaseApp.Create(new AppOptions
     ServiceAccountId = config["Firebase:ServiceAccountId"]
 });
 
-string connectionString = string.Empty; ;
+string connectionString = string.Empty;
 
-if (builder.Environment.EnvironmentName == "Production")
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
 {
     // Use connection string provided at runtime by Heroku.
     var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
@@ -132,7 +132,13 @@ services.ConfigureIoCSignalR();
 services.ConfigureIoCCronJob();
 
 // add redis cache
-services.AddStackExchangeRedisCache(r => { r.Configuration = config["RedisSettings:ConnectionString"]; });
+var redisSetting = config["RedisSettings:LocalConnectionString"];
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
+{
+    redisSetting = Environment.GetEnvironmentVariable("RedisSettings:CloudConnectionString");
+}
+services.AddStackExchangeRedisCache(r => r.Configuration = redisSetting);
+
 
 #region IOC for Logging
 services.AddLogging();

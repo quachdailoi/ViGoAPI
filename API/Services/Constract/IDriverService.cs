@@ -8,13 +8,21 @@ namespace API.Services.Constract
 {
     public interface IDriverService : IAccountService
     {
-        Response? CheckExisted(SendOtpRequest request, string errorMessage, int errorCode, bool? isVerified = null);
-        Response? CheckNotExisted(SendOtpRequest request, string errorMessage, int errorCode, bool? isVerified = null);
+        Response? CheckExisted(SendOtpRequest request, Response errorResponse, bool? isVerified = null);
+        Response? CheckNotExisted(SendOtpRequest request, Response errorResponse, bool? isVerified = null);
 
         Task<UserViewModel?> GetUserViewModel(SendOtpRequest request);
 
         IQueryable<Account>? GetAccount(string registration, RegistrationTypes registrationTypes);
         Task<UserViewModel?> GetUserViewModel();
         Task<UserViewModel?> GetUserViewModel(string registration, RegistrationTypes registrationTypes);
+        Task<Response> UpdateDriverAccount(
+            string userCode,
+            UserInfoRequest request,
+            Response successResponse,
+            Response duplicateReponse,
+            Response failedResponse,
+            Response successButNotSendCodeResponse
+        );
     }
 }

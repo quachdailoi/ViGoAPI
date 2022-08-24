@@ -32,14 +32,14 @@ namespace API.Services
             return _mapper.Map<UserViewModel>(user);
         }
 
-        public Response? CheckExisted(SendOtpRequest request, string errorMessage, int errorCode, bool? isVerified = null)
+        public Response? CheckExisted(SendOtpRequest request, Response errorResponse, bool? isVerified = null)
         {
-            return base.CheckExisted(Roles.DRIVER, request, errorMessage, errorCode);
+            return base.CheckExisted(Roles.DRIVER, request, errorResponse, isVerified);
         }
 
-        public Response? CheckNotExisted(SendOtpRequest request, string errorMessage, int errorCode, bool? isVerified = null)
+        public Response? CheckNotExisted(SendOtpRequest request, Response errorResponse, bool? isVerified = null)
         {
-            return base.CheckNotExisted(Roles.DRIVER, request, errorMessage, errorCode);
+            return base.CheckNotExisted(Roles.DRIVER, request, errorResponse, isVerified);
         }
 
         public async Task<UserViewModel?> GetUserViewModel(SendOtpRequest request)
@@ -50,6 +50,25 @@ namespace API.Services
         public async Task<UserViewModel?> GetUserViewModel(string registration, RegistrationTypes registrationTypes)
         {
             return await base.GetUserViewModel(Roles.DRIVER, registration, registrationTypes);
+        }
+
+        public Task<Response> UpdateDriverAccount(
+            string userCode,
+            UserInfoRequest request,
+            Response successResponse,
+            Response duplicateReponse,
+            Response failedResponse,
+            Response successButNotSendCodeResponse)
+        {
+            return base.UpdateUserAccount(
+                userCode, 
+                Roles.DRIVER, 
+                request, 
+                successResponse, 
+                duplicateReponse, 
+                failedResponse, 
+                successButNotSendCodeResponse
+            );
         }
     }
 }

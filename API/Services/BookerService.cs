@@ -17,14 +17,14 @@ namespace API.Services
         {
         }
 
-        public Response? CheckNotExisted(SendOtpRequest request, string errorMessage, int errorCode, bool? isVerified = null)
+        public Response? CheckNotExisted(SendOtpRequest request, Response errorResponse, bool? isVerified = null)
         {
-            return base.CheckNotExisted(Roles.BOOKER, request, errorMessage, errorCode, isVerified);
+            return base.CheckNotExisted(Roles.BOOKER, request, errorResponse, isVerified);
         }
 
-        public Response? CheckExisted(SendOtpRequest request, string errorMessage, int errorCode, bool? isVerified = null)
+        public Response? CheckExisted(SendOtpRequest request, Response errorResponse, bool? isVerified = null)
         {
-            return base.CheckExisted(Roles.BOOKER, request, errorMessage, errorCode, isVerified);
+            return base.CheckExisted(Roles.BOOKER, request, errorResponse, isVerified);
         }
 
         public Task<UserViewModel?> GetUserViewModel(SendOtpRequest request)
@@ -51,6 +51,43 @@ namespace API.Services
         public Task<UserViewModel?> GetUserViewModel(string registration, RegistrationTypes registrationTypes)
         {
             return base.GetUserViewModel(Roles.BOOKER, registration, registrationTypes);
+        }
+
+        public Task<Response> UpdateBookerAccount(
+            string userCode,
+            UserInfoRequest request,
+            Response successResponse,
+            Response duplicateReponse,
+            Response failedResponse,
+            Response successButNotSendCodeResponse)
+        {
+            return base.UpdateUserAccount(
+                userCode, 
+                Roles.BOOKER, 
+                request, 
+                successResponse, 
+                duplicateReponse, 
+                failedResponse, 
+                successButNotSendCodeResponse
+            );
+        }
+
+        public Task<Response> CreateBookerAccount(UserRegisterRequest request,
+            Response successResponse,
+            Response duplicatedAuthRegistrationResponse,
+            Response duplicatedOptionalRegistrationResponse,
+            Response failedResponse,
+            Response successButNotSendCodeResponse)
+        {
+            return base.CreateUserAccount(
+                Roles.BOOKER, 
+                request, 
+                successResponse, 
+                duplicatedAuthRegistrationResponse, 
+                duplicatedOptionalRegistrationResponse, 
+                failedResponse, 
+                successButNotSendCodeResponse
+            );
         }
     }
 }

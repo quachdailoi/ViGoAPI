@@ -12,7 +12,7 @@ namespace Domain.Entities
     public class Account : BaseEntity
     {
         public int UserId { get; set; }
-        public string Registration { get; set; } // gmail or phone number
+        public string Registration { get; set; } = string.Empty; // gmail or phone number
         public RegistrationTypes RegistrationType { get; set; } // email: 0 or phone number: 1
         public bool Verified { get; set; } = false;
         public Roles? RoleId { get; set; }

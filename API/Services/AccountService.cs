@@ -27,10 +27,10 @@ namespace API.Services
 
         public async Task<Account?> GetAccountByUserCodeAsync(string userCode, RegistrationTypes registrationTypes)
         {
-            var user = await _unitOfWork.Users.GetUserByCode(userCode).Include(user=>user.Accounts).FirstOrDefaultAsync();
+            var user = await _unitOfWork.Users.GetUserByCode(userCode).Include(user => user.Accounts).FirstOrDefaultAsync();
 
             if (user == null) return null;
-            
+
             var account = user.Accounts.Where(x => x.RegistrationType == registrationTypes).FirstOrDefault();
 
             return account;
@@ -52,7 +52,7 @@ namespace API.Services
         {
             var user = await _unitOfWork.Users.GetUserByCode(userCode).FirstOrDefaultAsync();
 
-            if(user == null) return null;
+            if (user == null) return null;
 
             var account = user.Accounts.Where(x => x.RegistrationType == registrationType).FirstOrDefault();
 
@@ -68,55 +68,72 @@ namespace API.Services
             var roles = _unitOfWork.Roles.GetRoleById(roleId);
 
             var roleAccount = from account in accounts
-                                join role in roles on account.RoleId equals role.Id
-                                    select account;
+                              join role in roles on account.RoleId equals role.Id
+                              select account;
 
             return roleAccount;
         }
 
-        public async Task<bool> UpdateAccountRegistration(Account? account, string registration, RegistrationTypes registrationTypes, bool isVerified = false)
+        public async Task<Response> UpdateAccountRegistration(Account? account, SendOtpRequest request, bool isVerified, Response successResponse, Response errorResponse)
         {
-            if ( account == null || registrationTypes != account.RegistrationType)
+            if (account == null || request.RegistrationTypes != account.RegistrationType)
             {
-                return false;
+                return errorResponse;
             }
 
-            account.Registration = registration;
+            account.Registration = request.Registration;
             account.Verified = isVerified;
-            return await _unitOfWork.Accounts.Update(account);
+
+            if (!await _unitOfWork.Accounts.Update(account)) return errorResponse;
+
+            return successResponse;
         }
 
-        public  async Task<bool> VerifyAccount(Account? account)
+        public async Task<Response> VerifyAccount(Account? account, Response successResponse, Response errorResponse)
         {
-            if (account == null) return false;
+            if (account == null) return errorResponse;
             account.Verified = true;
-            return await _unitOfWork.Accounts.Update(account);
+            if (await _unitOfWork.Accounts.Update(account)) return successResponse;
+            else return errorResponse;
         }
 
-        public Response? CheckNotExisted(Roles roles, SendOtpRequest request, string errorMessage, int errorCode, bool? isVerified = false)
+        public Response? CheckNotExisted(Roles roles, SendOtpRequest request, Response existResponse, bool? isVerified = false)
         {
-            var account = GetAccount(roles, request.Registration, request.RegistrationTypes)?.FirstOrDefault();
+            var accounts = GetAccount(roles, request.Registration, request.RegistrationTypes);
+            if (isVerified != null)
+            {
+                accounts = accounts?.Where(acc => acc.Verified == isVerified);
+            }
 
-            if ((account != null && isVerified == null) || (account != null && isVerified != null && isVerified == account.Verified))
+            var account = accounts?.FirstOrDefault();
+
+            if (account != null)
             {
                 return new(
-                    StatusCode: errorCode,
-                    Message: errorMessage
+                    StatusCode: existResponse.StatusCode,
+                    Message: existResponse.Message
                 );
             }
 
             return null;
         }
 
-        public Response? CheckExisted(Roles roles, SendOtpRequest request, string errorMessage, int errorCode, bool? isVerified = null)
+        public Response? CheckExisted(Roles roles, SendOtpRequest request, Response notExistResponse, bool? isVerified = null)
         {
-            var account = GetAccount(roles, request.Registration, request.RegistrationTypes)?.FirstOrDefault();
+            var accounts = GetAccount(roles, request.Registration, request.RegistrationTypes);
 
-            if (account == null || (account != null && isVerified != null && account.Verified != isVerified))
+            if (isVerified != null)
             {
-                return new Response(
-                    StatusCode: errorCode,
-                    Message: errorMessage
+                accounts = accounts?.Where(acc => acc.Verified == isVerified);
+            }
+
+            var account = accounts?.FirstOrDefault();
+
+            if (account == null)
+            {
+                return new(
+                    StatusCode: notExistResponse.StatusCode,
+                    Message: notExistResponse.Message
                 );
             }
 
@@ -141,17 +158,110 @@ namespace API.Services
             return await user.MapTo<UserViewModel>(_mapper).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> InsertAccount(int userId, Roles role, string registration, RegistrationTypes registrationType, bool verified)
+        public async Task<Response> UpdateUserAccount(
+            string userCode, Roles userRole, 
+            UserInfoRequest request, 
+            Response successResponse, 
+            Response duplicateReponse, 
+            Response failedResponse,
+            Response successButNotSendCodeResponse)
         {
-            var account = new Account{
-                UserId = userId,
-                RoleId = role,
-                Registration = registration,
-                RegistrationType = registrationType,
-                Verified = verified
+            var existResponse = CheckNotExisted(userRole, request, duplicateReponse, isVerified: true);
+            if (existResponse != null) return existResponse;
+
+            var user = await _unitOfWork.Users.GetUserByCode(userCode).Include(acc => acc.Accounts).FirstOrDefaultAsync();
+            var account = user?.Accounts.Where(acc => acc.RegistrationType == request.RegistrationTypes).FirstOrDefault();
+
+            if (user == null) return failedResponse;
+
+            // open transaction
+            await _unitOfWork.CreateTransactionAsync();
+
+            user.Name = request.Name;
+            user.Gender = request.Gender;
+            user.DateOfBirth = request.DateOfBirth;
+
+            if (account != null && !string.IsNullOrEmpty(request.Registration))
+            {
+                account.Registration = request.Registration;
+                account.Verified = false;
+
+                if (!await _unitOfWork.Accounts.Update(account))
+                {
+                    await _unitOfWork.Rollback();
+                    return failedResponse;
+                }
+            }
+
+            //commit transaction
+            await _unitOfWork.CommitAsync();
+            return await _verifiedCodeService.SendAndSaveOtp(request, successResponse, successButNotSendCodeResponse);
+        }
+
+        public async Task<Response> CreateUserAccount(
+            Roles userRole, UserRegisterRequest request, 
+            Response successResponse, 
+            Response duplicatedAuthRegistrationResponse, 
+            Response duplicatedOptionalRegistrationResponse,
+            Response failedResponse,
+            Response successButNotSendCodeResponse)
+        {
+            var existResponse = CheckNotExisted(userRole, request, duplicatedAuthRegistrationResponse, isVerified: true);
+            if (existResponse != null) return existResponse;
+
+            var authAccount = new Account()
+            {
+                Registration = request.Registration,
+                RegistrationType = request.RegistrationTypes,
+                RoleId = userRole, 
+                Verified = true
             };
-            var result = await _unitOfWork.Accounts.Add(account);
-            return result != null;
+
+            var accounts = new List<Account>() { authAccount };
+
+            if (!string.IsNullOrEmpty(request.OptionalRegistration))
+            {
+                SendOtpRequest optionRegistrationOtpRequest = new()
+                {
+                    Registration = request.OptionalRegistration,
+                    RegistrationTypes = request.OptionalRegistrationTypes,
+                };
+                existResponse = CheckNotExisted(userRole, optionRegistrationOtpRequest, duplicatedOptionalRegistrationResponse, true);
+                if (existResponse != null) return existResponse;
+                
+                // email or phone base user role
+                var optionalAccount = new Account()
+                {
+                    Registration = request.OptionalRegistration,
+                    RegistrationType = request.OptionalRegistrationTypes,
+                    RoleId = userRole
+                };
+
+                accounts.Add(optionalAccount);
+            }
+
+            var newUser = new User()
+            {
+                Name = request.Name,
+                DateOfBirth = request.DateOfBirth,
+                Gender = request.Gender,
+                Accounts = accounts
+            };
+
+            // open transaction
+            await _unitOfWork.CreateTransactionAsync();
+
+            newUser = await _unitOfWork.Users.Add(newUser);
+
+            if (newUser == null)
+            {
+                await _unitOfWork.Rollback();
+                return failedResponse;
+            }
+
+            //commit transaction
+            await _unitOfWork.CommitAsync();
+            return await _verifiedCodeService.SendAndSaveOtp(request, successResponse, successButNotSendCodeResponse);
         }
     }
 }

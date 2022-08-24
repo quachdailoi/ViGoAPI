@@ -12,13 +12,28 @@ namespace API.Services.Constract
         Task<Account?> GetAccountByUserCodeAsync(string userCode, RegistrationTypes registrationTypes);
 
         IQueryable<Account>? GetAccountByUserCode(string userCode, RegistrationTypes registrationTypes);
-        Task<bool> UpdateAccountRegistration(Account? account, string registration, RegistrationTypes registrationTypes, bool isVerified = false);
-        Task<bool> VerifyAccount(Account? account);
+        Task<Response> UpdateAccountRegistration(Account? account, SendOtpRequest request, bool isVerified, Response successResponse, Response errorResponse);
+        Task<Response> VerifyAccount(Account? account, Response successResponse, Response errorResponse);
         IQueryable<Account>? GetRoleAccountByRegistration(Roles roleId, string registration, RegistrationTypes registrationType);
         Task<UserViewModel?> GetUserViewModel(Roles roles, string registration, RegistrationTypes registrationTypes);
-        Task<bool> InsertAccount(int userId, Roles role, string registration, RegistrationTypes registrationType, bool verified);
-        Response? CheckNotExisted(Roles roles, SendOtpRequest request, string existMessage, int statusCode, bool? isVerified = false);
-        Response? CheckExisted(Roles roles, SendOtpRequest request, string existMessage, int statusCode, bool? isVerified = false);
-        
+        Response? CheckNotExisted(Roles roles, SendOtpRequest request, Response existResponse, bool? isVerified = false);
+        Response? CheckExisted(Roles roles, SendOtpRequest request, Response notExistResponse, bool? isVerified = false);
+        Task<Response> UpdateUserAccount(
+            string userCode, Roles userRole,
+            UserInfoRequest request,
+            Response successResponse,
+            Response duplicateReponse,
+            Response failedResponse,
+            Response successButNotSendCodeResponse
+        );
+
+        Task<Response> CreateUserAccount(
+             Roles userRole, UserRegisterRequest request,
+             Response successResponse,
+             Response duplicatedAuthRegistrationResponse,
+             Response duplicatedOptionalRegistrationResponse,
+             Response failedResponse,
+             Response successButNotSendCodeResponse
+         );
     }
 }

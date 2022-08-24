@@ -8,13 +8,8 @@ namespace API.Services.Constract
 {
     public interface IVerifiedCodeService
     {
-        Task<MessageResource?> SendPhoneOtp(string phoneNumber, out string otp);
-        Task<string?> SendGmailOtp(string gmail, out string otp);
-        Task<Response?> VerifyOtp(VerifyOtpRequest request, string errorMessage, int errorCode);
-        Task<Response?> VerifyOtp(UpdateRegistrationByOtpRequest request, string errorMessage, int errorCode);
-
-        Task<Response?> CheckValidTimeSendOtp(SendOtpRequest request, string errorMessage, int errorCode);
-        Task<Response> SendAndSaveOtpPhoneNumber(SendOtpRequest request, string errorMessage, int errorCode);
-        Task<Response> SendAndSaveOtpGmail(SendOtpRequest request, string errorMessage, int errorCode);
+        Task<Response?> VerifyOtp(VerifyOtpRequest request, Response errorResponse);
+        Task<Response?> CheckValidTimeSendOtp(SendOtpRequest request, Response errorResponse);
+        Task<Response> SendAndSaveOtp(SendOtpRequest request, Response successResponse, Response errorResponse);
     }
 }
