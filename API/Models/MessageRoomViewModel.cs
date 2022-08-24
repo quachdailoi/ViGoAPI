@@ -8,10 +8,9 @@ namespace API.Models
         [JsonIgnore]
         public int Id { get; set; }
         public Guid Code { get; set; }
-        //public DateTime LastSeenTime { get; set; }
         public List<MessageUserViewModel> Users { get; set; } = new();
         public List<MessageViewModel> Messages { get; set; } = new();
-        
+        public StatusTypes.Room Status { get; set; } 
     }
     public class MessageViewModel
     {

@@ -260,6 +260,29 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Get support message room
+        /// </summary>
+        /// /// <remarks>Get support message room</remarks>
+        /// <response code="200">Get successfully</response>
+        /// <response code="500">Failure</response>
+        [HttpGet("message/room/by-booking-detail")]
+        public async Task<IActionResult> GetSupportMessageRoom()
+        {
+            var user = this.LoginedUser;
+
+            var roomViewModels = await AppServices.Room.GetByType(user.Id, MessageRoomTypes.Support);
+
+            var response = new Response
+            {
+                Data = roomViewModels,
+                Message = "Get successfully",
+                StatusCode = StatusCodes.Status200OK
+            };
+
+            return new JsonResult(response);
+        }
+
+        /// <summary>
         /// Get message room by booking detail - (pending...)
         /// </summary>
         /// /// <remarks>Get message room</remarks>
@@ -271,6 +294,7 @@ namespace API.Controllers
         {
             return Ok();
         }
+
 
         /// <summary>
         /// Test api - Create message room with specific partners's code
@@ -304,10 +328,4 @@ namespace API.Controllers
             return new JsonResult(respone);
         }
     }
-    //public class MessageRequest
-    //{
-    //    public string Message { get; set; }
-    //    public string UserCode { get; set; }
-    //}
-
 }
