@@ -265,7 +265,7 @@ namespace API.Controllers
         /// /// <remarks>Get support message room</remarks>
         /// <response code="200">Get successfully</response>
         /// <response code="500">Failure</response>
-        [HttpGet("message/room/by-booking-detail")]
+        [HttpGet("message/room/support-type")]
         public async Task<IActionResult> GetSupportMessageRoom()
         {
             var user = this.LoginedUser;
@@ -285,8 +285,7 @@ namespace API.Controllers
         /// <summary>
         /// Get message room by booking detail - (pending...)
         /// </summary>
-        /// /// <remarks>Get message room</remarks>
-        ///// <param name="roomCode" example="613de7b4-db59-4a6c-b9a1-2b1e176460d3">Room Code</param>
+        /// <remarks>Get message room</remarks>
         /// <response code="200">Send successfully</response>
         /// <response code="500">Failure</response>
         [HttpGet("message/room/by-booking-detail")]
@@ -307,25 +306,36 @@ namespace API.Controllers
         [HttpPost("message/room")]
         public async Task<IActionResult> CreateMessageRoom([FromBody] MessageRoomRequest request)
         {
-            var room = await AppServices.Room.Create(MessageRoomTypes.Conversation);
+            Response response = new();
 
-            var users = await AppServices.User.GetUsersByCode(request.PartnerUserCodes);
+            var user = this.LoginedUser;
 
-            var userIds = users.Select(user => user.Id).ToList();
+            request.PartnerUserCodes.Add(user.Code);
 
-            userIds.Add(this.LoginedUser.Id);
+            var members = await AppServices.User.GetUsersByCode(request.PartnerUserCodes);
 
-            var userRoom = await AppServices.UserRoom.Create(room.Id, userIds);
+            var room = await AppServices.Room.Create(members.Select(member => member.Id).ToList(),MessageRoomTypes.Conversation);
+
+            if(room == null)
+            {
+                response = new Response
+                {
+                    Message = "Fail to create message room",
+                    StatusCode = StatusCodes.Status400BadRequest
+                };
+
+                return BadRequest(response);
+            }
 
             var roomViewModel = await AppServices.Room.GetViewModelByCode(room.Code);
 
-            var respone = new Response
+            response = new Response
             {
                 Data = roomViewModel,
                 Message = "Send message successfully",
                 StatusCode = StatusCodes.Status200OK
             };
-            return new JsonResult(respone);
+            return new JsonResult(response);
         }
     }
 }

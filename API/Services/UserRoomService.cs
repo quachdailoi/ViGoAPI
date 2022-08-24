@@ -18,39 +18,6 @@ namespace API.Services
             _mapper = mapper;
         }
 
-        public async Task<bool> Create(int roomId, List<int> userIds)
-        {
-            var listUserRoom = new List<UserRoom>();
-            userIds.ForEach(userId =>
-            {
-                listUserRoom.Add(new UserRoom
-                {
-                    RoomId = roomId,
-                    UserId = userId
-                });
-            });
-
-            return await _unitOfWork.UserRooms.Add(listUserRoom) != null;
-        }
-
-        //public async Task<Guid> GetRoomCodeByMemberCode(List<Guid> userCodes)
-        //{
-        //    var userCodesHashSet = userCodes.ToHashSet();
-
-        //    var userRoomIQueryable = _unitOfWork.UserRooms
-        //        .List(userRoom => userCodesHashSet.Contains(userRoom.User.Code) && userRoom.Status == StatusTypes.UserRoom.Active)
-        //        .Include(userRoom => userRoom.Room);
-
-        //    var roomCode = userRoomIQueryable
-        //        .AsEnumerable()
-        //        .GroupBy(userRoom => userRoom.Room.Code)
-        //        .Select(key => key.Key)
-        //        .ToList()
-        //        .First();
-
-        //    return roomCode;
-        //}
-
         public async Task<DateTime?> UpdateLastSeenTime(int userId, Guid roomCode)
         {
             var userRoom = _unitOfWork.UserRooms

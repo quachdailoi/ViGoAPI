@@ -59,5 +59,40 @@ namespace API.Services
         }
 
         public async Task<Room> GetByCode(Guid roomCode) => await _unitOfWork.Rooms.GetRoomsByCode(roomCode).FirstOrDefaultAsync();
+
+        public Task<Room> Create(List<int> MemberIds, MessageRoomTypes type, Message? initMessage = null)
+        {
+            var userRooms = new List<UserRoom>();
+
+            MemberIds.ForEach(memberId =>
+            {
+                userRooms.Add(new UserRoom
+                {
+                    UserId = memberId
+                });
+            });
+
+            var room = new Room
+            {
+                Type = type,
+                UserRooms = userRooms
+            };
+
+            if (initMessage != null)
+            {
+                room.Messages.Add(initMessage);
+            }
+            
+            return _unitOfWork.Rooms.Add(room);
+        }
+
+        public async Task<Room?> Disable(Guid roomCode)
+        {
+            var room = _unitOfWork.Rooms.List(room => room.Code == roomCode).FirstOrDefault();
+
+            room.Status = StatusTypes.Room.InActive;
+
+            return await _unitOfWork.Rooms.Update(room) ? room : null;
+        }
     }
 }
