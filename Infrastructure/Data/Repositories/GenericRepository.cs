@@ -95,7 +95,6 @@ namespace Infrastructure.Data.Repositories
             {
                 _logger.LogError(ex, "{Repo} Update function error.", typeof(T));
             }
-
             return false;
         }
 

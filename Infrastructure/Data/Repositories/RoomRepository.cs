@@ -14,5 +14,7 @@ namespace Infrastructure.Data.Repositories
         public RoomRepository(AppDbContext dbContext, ILogger<GenericRepository<Room>> logger) : base(dbContext, logger)
         {
         }
+
+        public IQueryable<Room> GetRoomsByCode(Guid code) => List(room => room.Code == code);
     }
 }

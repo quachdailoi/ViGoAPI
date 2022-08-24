@@ -9,5 +9,7 @@ namespace API.SignalR.Constract
         Task SendToUserAsync(string userCode, string method, Object obj);
         Task SendToUsersAsync(List<string> userCodes, string method, Object obj);
         Task SendToUsersGroupRoleNameAsync(Roles role, string method, Object obj);
+
+        Task SendToGroupAsync(string groupName, string method, Object obj);
     }
 }

@@ -18,7 +18,7 @@ namespace API.Models
         public string Content { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
         public StatusTypes.Message Status { get; set; }
-        public UserViewModel? User { get; set; }
+        public Guid UserCode { get; set; }
     }
 
     public class MessageUserViewModel : UserViewModel

@@ -12,9 +12,9 @@ namespace API.Mapper
 
             CreateMap<Message, MessageViewModel>()
                 .ForMember(
-                    dest => dest.User,
+                    dest => dest.UserCode,
                     opt => opt.MapFrom(
-                            message => message.User
+                            message => message.User.Code
                         )
                 );
             CreateMap<User, MessageUserViewModel>()
@@ -26,20 +26,12 @@ namespace API.Mapper
                 .IncludeBase<User,UserViewModel>();
 
             CreateMap<Room, MessageRoomViewModel>()
-                //.ForMember(
-                //    dest => dest.LastSeenTime,
-                //    opt => opt.MapFrom(
-                //            room => room.UserRooms.First().LastSeenTime
-                //        )
-                //    )
                 .ForMember(
                     dest => dest.Users,
                     opt => opt.MapFrom(
                             room => room.UserRooms.Select(user_room => user_room.User)
                         )
                     );
-                //.IncludeBase<User, UserViewModel>()
-                //.IncludeBase<Message, MessageViewModel>();
         }
     }
 }

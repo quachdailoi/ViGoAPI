@@ -9,5 +9,6 @@ namespace Domain.Interfaces.Repositories
 {
     public interface IRoomRepository : IGenericRepository<Room>
     {
+        IQueryable<Room> GetRoomsByCode(Guid code);
     }
 }

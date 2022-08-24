@@ -28,24 +28,9 @@ namespace API.Services
             return _unitOfWork.Rooms.Add(room);
         }
 
-        //private IQueryable<Room> GetRoomByUserMembers(List<Guid> userCodes)
-        //{
-        //    var userCodeHashSet = userCodes.ToHashSet();
-        //    var room = _unitOfWork.Rooms
-        //        .List()
-        //        .Selectroom => room.UserRooms
-        //            .Where(userRoom => 
-        //                userCodeHashSet.Contains(userRoom.User.Code) 
-        //                && userRoom.Status == StatusTypes.UserRoom.Active)
-        //            .GroupBy(userRoom => userRoom.RoomId)
-        //            .FirstOrDefault()
-        //            .
-        //        );
-        //    return null;
-        //}
         public async Task<MessageRoomViewModel> GetViewModelByCode(Guid roomCode)
         {
-            var rooms = _unitOfWork.Rooms.List(room => room.Code == roomCode);
+            var rooms = _unitOfWork.Rooms.GetRoomsByCode(roomCode);
 
             return await rooms.MapTo<MessageRoomViewModel>(_mapper).FirstOrDefaultAsync();
         }
@@ -57,9 +42,22 @@ namespace API.Services
             return await rooms.MapTo<MessageRoomViewModel>(_mapper).ToListAsync();
         }
 
-        //public Task<bool> SendMessage(string userCode, string message)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public MessageRoomViewModel GetViewModelByMemberCode(List<Guid> memberCode)
+        {
+            var userCodeHashSet = memberCode.ToHashSet();
+
+            var roomQueyable = _unitOfWork.Rooms
+                .List(room => room.UserRooms
+                                   .Select(userRoom => userRoom.User.Code)
+                                   .All(userCode => userCodeHashSet.Contains(userCode)) &&
+                              room.UserRooms
+                                   .Select(userRoom => userRoom.User.Code)
+                                   .Count() == userCodeHashSet.Count &&
+                              room.Status == StatusTypes.Room.Active);
+
+            return roomQueyable.MapTo<MessageRoomViewModel>(_mapper).FirstOrDefault();
+        }
+
+        public async Task<Room> GetByCode(Guid roomCode) => await _unitOfWork.Rooms.GetRoomsByCode(roomCode).FirstOrDefaultAsync();
     }
 }

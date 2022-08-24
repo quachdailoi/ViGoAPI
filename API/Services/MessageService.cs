@@ -18,7 +18,7 @@ namespace API.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<MessageViewModel> Create(string content, int roomId, int userId)
+        public async Task<Message> Create(string content, int roomId, int userId)
         {
             var message = new Message
             {
@@ -27,7 +27,12 @@ namespace API.Services
                 Content = content
             };
             message = await _unitOfWork.Messages.Add(message);
-            return await _unitOfWork.Messages.List(msg => msg.Id == message.Id).MapTo<MessageViewModel>(_mapper).FirstOrDefaultAsync();
+            return message;
+        }
+
+        public MessageViewModel GetViewModel(Message message)
+        {
+            return _unitOfWork.Messages.List(msg => msg.Id == message.Id).MapTo<MessageViewModel>(_mapper).FirstOrDefault();
         }
     }
 }

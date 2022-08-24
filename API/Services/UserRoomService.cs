@@ -33,31 +33,34 @@ namespace API.Services
             return await _unitOfWork.UserRooms.Add(listUserRoom) != null;
         }
 
-        public async Task<Guid> GetRoomCodeByMemberCode(List<Guid> userCodes)
-        {
-            var userCodesHashSet = userCodes.ToHashSet();
-            var userRoomIQueryable = _unitOfWork.UserRooms
-                .List(userRoom => userCodesHashSet.Contains(userRoom.User.Code) && userRoom.Status == StatusTypes.UserRoom.Active)
-                .Include(userRoom => userRoom.Room);
+        //public async Task<Guid> GetRoomCodeByMemberCode(List<Guid> userCodes)
+        //{
+        //    var userCodesHashSet = userCodes.ToHashSet();
 
-            var roomCode = userRoomIQueryable
-                .AsEnumerable()
-                .GroupBy(userRoom => userRoom.Room.Code)
-                .Select(key => key.Key)
-                .ToList()
-                .First();
+        //    var userRoomIQueryable = _unitOfWork.UserRooms
+        //        .List(userRoom => userCodesHashSet.Contains(userRoom.User.Code) && userRoom.Status == StatusTypes.UserRoom.Active)
+        //        .Include(userRoom => userRoom.Room);
 
-            return roomCode;
-        }
+        //    var roomCode = userRoomIQueryable
+        //        .AsEnumerable()
+        //        .GroupBy(userRoom => userRoom.Room.Code)
+        //        .Select(key => key.Key)
+        //        .ToList()
+        //        .First();
 
-        public async Task<bool> UpdateLastSeenTime(int userId, int roomId)
+        //    return roomCode;
+        //}
+
+        public async Task<DateTime?> UpdateLastSeenTime(int userId, Guid roomCode)
         {
             var userRoom = _unitOfWork.UserRooms
-                                .List(userRoom => userRoom.UserId == userId && userRoom.RoomId == roomId && userRoom.Status == StatusTypes.UserRoom.Active)
+                                .List(userRoom => userRoom.UserId == userId && userRoom.Room.Code == roomCode && userRoom.Status == StatusTypes.UserRoom.Active)
                                 .FirstOrDefault();
             userRoom.LastSeenTime = DateTime.UtcNow;
 
-            return await _unitOfWork.UserRooms.Update(userRoom);
+            var result = await _unitOfWork.UserRooms.Update(userRoom);
+
+            return result ? userRoom.LastSeenTime : null;
         }
     }
 }
