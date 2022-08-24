@@ -14,7 +14,7 @@
         "outputPath": "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\quach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Win\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -31,8 +31,8 @@
               "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\Domain\\Domain.csproj": {
                 "projectPath": "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\Domain\\Domain.csproj"
               },
-              "G:\\.NET Core\\ViGoAPI\\New folder\\ViGoAPI\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "G:\\.NET Core\\ViGoAPI\\New folder\\ViGoAPI\\Infrastructure\\Infrastructure.csproj"
+              "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -174,7 +174,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -188,7 +188,7 @@
         "outputPath": "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\quach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Win\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -238,7 +238,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -252,7 +252,7 @@
         "outputPath": "G:\\.NET Core\\Capstone_Project\\ViGoAPI\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\quach\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Win\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -322,7 +322,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
