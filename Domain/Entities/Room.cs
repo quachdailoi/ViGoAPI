@@ -13,8 +13,10 @@ namespace Domain.Entities
         public Guid Code { get; set; } = new Guid();
         public StatusTypes.Room Status { get; set; } = StatusTypes.Room.Active;
         public MessageRoomTypes Type { get; set; }
+        public String Name { get; set; } = String.Empty;
 
         public List<UserRoom> UserRooms { get; set; } = new();
         public List<Message> Messages { get; set; } = new();
+        public BookingDetail Booking { get; set; }
     }
 }

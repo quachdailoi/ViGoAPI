@@ -20,6 +20,8 @@ namespace Domain.Entities
         public List<UserRoom> UserRooms { get; set; } = new();
 
         public List<Message> Messages { get; set; } = new();
+        public List<Booking> Bookings { get; set; } = new();
+        public List<BookingDetail> BookingDetails { get; set; } = new();
 
         public AppFile? File { get; set; } = null;
     }

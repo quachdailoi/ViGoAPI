@@ -19,6 +19,10 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.ToTable("rooms");
 
+            builder.Property(e => e.Name)
+                .HasMaxLength(30)
+                .HasColumnName("name");
+
             builder.Property(e => e.Code)
                 .IsRequired()
                 .HasDefaultValue(new Guid())

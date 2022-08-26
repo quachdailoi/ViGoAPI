@@ -23,7 +23,22 @@ namespace Domain.Shares.Enums
         {
             InActive,
             Active,
-            IsDeleted
+            Deleted
+        }
+
+        public enum Booking
+        {
+            Cancelled,
+            Started,
+            Completed
+        }
+        public enum BookingDetail
+        {
+            Cancelled,
+            Pending,
+            Ready,
+            Started,
+            Completed
         }
     }
 }

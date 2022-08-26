@@ -7,6 +7,7 @@ namespace API.Models
     {
         [JsonIgnore]
         public int Id { get; set; }
+        public string Name { get; set; } = String.Empty;
         public Guid Code { get; set; }
         public List<MessageUserViewModel> Users { get; set; } = new();
         public List<MessageViewModel> Messages { get; set; } = new();
