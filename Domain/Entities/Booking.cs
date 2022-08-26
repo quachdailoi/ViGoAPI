@@ -16,10 +16,10 @@ namespace Domain.Entities
         public double DiscountPrice { get; set; }
         public int Option { get; set; }
         public BookingType Type { get; set; }
-        public JObject Days { get; set; }
+        public DaySchedule Days { get; set; }
         public bool IsShared { get; set; }
-        public JObject From { get; set; }
-        public JObject To { get; set; }
+        public Location From { get; set; }
+        public Location To { get; set; }
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
         public int UserId { get; set; }
@@ -32,11 +32,16 @@ namespace Domain.Entities
         //Promotion
 
     }
-
-    //public class Location
-    //{
-    //    public double X { get; set; }
-    //    public double Y { get; set; }
-    //    public string LocationName { get; set; }
-    //}
+    public class Location
+    {
+        public double X { get; set; }
+        public double Y { get; set; }
+        public string LocationName { get; set; }
+    }
+    public class DaySchedule
+    {
+        public List<int> DaysOfWeek { get; set; }
+        public List<int> DaysOfMonth { get; set; }
+        Dictionary<int,List<int>> IgnoreDaysByMonth { get; set; }
+    }
 }
