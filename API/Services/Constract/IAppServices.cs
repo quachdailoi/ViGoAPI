@@ -12,5 +12,9 @@ namespace API.Services.Constract
         IBookerService Booker { get; }
 
         IDriverService Driver { get; }
+
+        IUserRoomService UserRoom { get; }
+        IRoomService Room { get; }
+        IMessageService Message  { get; }
     }
 }

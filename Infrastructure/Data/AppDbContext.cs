@@ -36,6 +36,21 @@ namespace Infrastructure.Data
             new VerifiedCodeEntityConfiguration()
                 .Configure(builder.Entity<VerifiedCode>());
 
+            new UserRoomEntityConfiguration()
+                .Configure(builder.Entity<UserRoom>());
+
+            new RoomEntityConfiguration()
+                .Configure(builder.Entity<Room>());
+
+            new MessageEntityConfiguration()
+                .Configure(builder.Entity<Message>());
+
+            new BookingEntityConfiguration()
+                .Configure(builder.Entity<Booking>());
+
+            new BookingDetailEntityConfiguration()
+                .Configure(builder.Entity<BookingDetail>());
+
             builder.Entity<Role>().HasData(new Role
             {
                 Id = Domain.Shares.Enums.Roles.DRIVER,
@@ -306,5 +321,10 @@ namespace Infrastructure.Data
         public DbSet<User> Files { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<VerifiedCode> VerifiedCodes { get; set; }
+        public DbSet<UserRoom> UserRooms { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<BookingDetail> BookingDetails { get; set; }
     }
 }

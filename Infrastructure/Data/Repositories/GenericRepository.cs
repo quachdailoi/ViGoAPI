@@ -29,16 +29,18 @@ namespace Infrastructure.Data.Repositories
                 {
                     ((IBaseEntity) entity).CreatedAt = DateTime.UtcNow;
                 }
-                await DbSet.AddAsync(entity);
+                entity = (await DbSet.AddAsync(entity)).Entity;
 
                 await this._dbContext.SaveChangesAsync();
+
+                return entity; 
                 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "{Repo} Add function error.", typeof(T));
             }
-            return entity;
+            return null;
         }
 
         public IQueryable<T> List(Expression<Func<T, bool>> expression = null)
@@ -93,8 +95,32 @@ namespace Infrastructure.Data.Repositories
             {
                 _logger.LogError(ex, "{Repo} Update function error.", typeof(T));
             }
-
             return false;
+        }
+
+        public async Task<List<T>> Add(List<T> entities)
+        {
+            try
+            {
+                if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))
+                {
+                    entities.ForEach(entity =>
+                    {
+                        ((IBaseEntity)entity).CreatedAt = DateTime.UtcNow;
+                    });                   
+                }
+                await DbSet.AddRangeAsync(entities);
+
+                await this._dbContext.SaveChangesAsync();
+
+                return entities;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} Add function error.", typeof(T));
+            }
+            return null;
         }
     }
 }

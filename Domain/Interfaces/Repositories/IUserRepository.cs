@@ -10,6 +10,7 @@ namespace Domain.Interfaces.Repositories
     public interface IUserRepository : IGenericRepository<User>
     {
         IQueryable<User> GetUserByCode(string code);
+        IQueryable<User> GetUsersByCode(List<Guid> codes);
         IQueryable<User> GetUserById(int id);
     }
 }
