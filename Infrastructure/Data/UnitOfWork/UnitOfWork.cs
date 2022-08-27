@@ -23,6 +23,8 @@ namespace Infrastructure.Data.UnitOfWork
         public IRoomRepository Rooms { get; private set; }
 
         public IMessageRepository Messages { get; private set; }
+        public IBookingRepository Bookings { get; private set; }
+        public IBookingDetailRepository BookingDetails { get; private set; }
 
         public UnitOfWork(
             AppDbContext dbContext, 
@@ -33,7 +35,9 @@ namespace Infrastructure.Data.UnitOfWork
             IVerifiedCodeRepository verifiedCodeRepository,
             IUserRoomRepository userRoomRepository,
             IRoomRepository roomRepository,
-            IMessageRepository messageRepository
+            IMessageRepository messageRepository,
+            IBookingRepository bookingRepository,
+            IBookingDetailRepository bookingDetailRepository
         )
         {
             _dbContext = dbContext;
@@ -45,6 +49,8 @@ namespace Infrastructure.Data.UnitOfWork
             UserRooms = userRoomRepository;
             Rooms = roomRepository;
             Messages = messageRepository;
+            Bookings = bookingRepository;
+            BookingDetails = bookingDetailRepository;
 
             _logger = loggerFactory.CreateLogger("logs");
         }

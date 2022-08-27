@@ -11,6 +11,8 @@ namespace Domain.Interfaces.UnitOfWork
         IUserRoomRepository UserRooms { get; }
         IRoomRepository Rooms { get; }
         IMessageRepository Messages { get; }
+        IBookingRepository Bookings { get; }
+        IBookingDetailRepository BookingDetails { get; }
 
         Task CreateTransactionAsync();
         Task CommitAsync();
