@@ -43,8 +43,8 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.Days)
                 .HasColumnType("json")
                 .HasConversion(
-                    obj => JObject.FromObject(obj),
-                    json => json.ToObject<DaySchedule>())
+                    obj => JsonConvert.SerializeObject(obj),
+                    json => JsonConvert.DeserializeObject<DaySchedule>(json))
                 .HasColumnName("days");
 
             builder.Property(e => e.IsShared)
@@ -60,15 +60,15 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.From)
                 .HasColumnType("json")
                 .HasConversion(
-                    obj => JObject.FromObject(obj),
-                    json => json.ToObject<Location>())
+                    obj => JsonConvert.SerializeObject(obj),
+                    json => JsonConvert.DeserializeObject<Location>(json))
                 .HasColumnName("from");
 
             builder.Property(e => e.To)
                 .HasColumnType("json")
                 .HasConversion(
-                    obj => JObject.FromObject(obj),
-                    json => json.ToObject<Location>())
+                    obj => JsonConvert.SerializeObject(obj),
+                    json => JsonConvert.DeserializeObject<Location>(json))
                 .HasColumnName("to");
 
             builder.Property(e => e.UserId)
