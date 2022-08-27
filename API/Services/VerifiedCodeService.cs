@@ -96,7 +96,7 @@ namespace API.Services
 
         private Task<MessageResource?> SendSMS(string sms, string toPhoneNumber)
         {
-            string fromPhoneNumber = configuration.GetSection("Twilio:PhoneNumber").Value;
+            var fromPhoneNumber = configuration.GetConfigByEnv("Twilio:PHONE_NUMBER");
 
             // get base on environment
 
