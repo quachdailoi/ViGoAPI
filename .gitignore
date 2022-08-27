@@ -455,3 +455,13 @@ $RECYCLE.BIN/
 
 # Migration
 Migrations/
+
+# Obj
+Infrastructure/obj/
+API/obj/
+Domain/obj/
+
+##
+## Visual Studio
+##
+.vs/*
