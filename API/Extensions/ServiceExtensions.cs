@@ -82,6 +82,8 @@ namespace API.Extensions
             services.AddScoped<IUserRoomRepository, UserRoomRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IBookingDetailRepository, BookingDetailRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -96,6 +98,8 @@ namespace API.Extensions
             services.AddTransient<IUserRoomService, UserRoomService>();
             services.AddTransient<IRoomService, RoomService>();
             services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IBookingService, BookingService>();
+            services.AddTransient<IBookingDetailService, BookingDetailService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)
