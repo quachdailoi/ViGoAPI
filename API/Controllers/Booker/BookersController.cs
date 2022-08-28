@@ -33,11 +33,11 @@ namespace API.Controllers.Booker
         /// <param name="request" example="{Registration: '+84837226239'}">Send Otp Request Schema</param>
         /// <response code = "200"> Send otp code successfully.</response>
         /// <response code = "400"> Wait 1 minute since last sent.</response>
-        /// <response code = "404"> Not found account with this phone number to send login otp.</response>
+        /// <response code = "400"> Not found account with this phone number to send login otp.</response>
         /// <response code = "500"> Fail to send code to this phone number.</response>
-        [HttpGet("phone/send-otp-to-login")]
+        [HttpPost("phone/send-otp-to-login")]
         [AllowAnonymous]
-        public async Task<IActionResult> SendPhoneOtpToLogin([FromQuery] SendOtpRequest request)
+        public async Task<IActionResult> SendPhoneOtpToLogin([FromBody] SendOtpRequest request)
         {
             request.OtpTypes = OtpTypes.LoginOTP;
             request.RegistrationTypes = RegistrationTypes.Phone;
@@ -49,7 +49,7 @@ namespace API.Controllers.Booker
                     errorResponse: new()
                     {
                         Message = "Not found account with this phone number to send login otp.",
-                        StatusCode = StatusCodes.Status404NotFound
+                        StatusCode = StatusCodes.Status400BadRequest
                     },
                     isVerified: true
                 );
@@ -95,10 +95,10 @@ namespace API.Controllers.Booker
         /// <param name="request" example="{Registration: '+84837226239', OTP: '123123'}">Verify Otp Request Schema</param>
         /// <response code = "200"> Login successfully.</response>
         /// <response code = "400"> Wrong or Expired OTP.</response>
-        /// <response code = "404"> Not found phone of booker account in our system.</response>
+        /// <response code = "400"> Not found phone of booker account in our system.</response>
         [HttpPost("phone/login")]
         [AllowAnonymous]
-        public async Task<IActionResult> PhoneLogin(VerifyOtpRequest request)
+        public async Task<IActionResult> PhoneLogin([FromBody] VerifyOtpRequest request)
         {
             request.RegistrationTypes = RegistrationTypes.Phone;
             request.OtpTypes = OtpTypes.LoginOTP;
@@ -121,7 +121,7 @@ namespace API.Controllers.Booker
 
             if (user == null)
             {
-                response.SetStatusCode(StatusCodes.Status404NotFound)
+                response.SetStatusCode(StatusCodes.Status400BadRequest)
                     .SetMessage("Not found phone of booker account in our system.");
                 return Unauthorized(response);
             }
@@ -150,8 +150,8 @@ namespace API.Controllers.Booker
         /// <response code = "400"> This email was verified by another account.</response>
         /// <response code = "400"> Wait 1 minute since last sent.</response>
         /// <response code = "500"> Fail to send otp to this gmail.</response>
-        [HttpGet("gmail/send-otp-to-verify")]
-        public async Task<IActionResult> SendGmailOtpToVerify([FromQuery]SendOtpRequest request)
+        [HttpPost("gmail/send-otp-to-verify")]
+        public async Task<IActionResult> SendGmailOtpToVerify([FromBody] SendOtpRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
             request.RegistrationTypes = RegistrationTypes.Gmail;
@@ -274,8 +274,8 @@ namespace API.Controllers.Booker
         /// <response code = "400"> This phone number was verified by another account.</response>
         /// <response code = "400"> Wait 1 minute since last sent.</response>
         /// <response code = "500"> Fail to send otp to this phone number.</response>
-        [HttpGet("phone/send-otp-to-update")]
-        public async Task<IActionResult> SendPhoneOtpForUpdate([FromQuery] SendOtpRequest request)
+        [HttpPost("phone/send-otp-to-update")]
+        public async Task<IActionResult> SendPhoneOtpForUpdate([FromBody] SendOtpRequest request)
         {
             request.OtpTypes = OtpTypes.UpdateOTP; 
             request.RegistrationTypes = RegistrationTypes.Phone; 

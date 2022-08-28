@@ -1,8 +1,8 @@
-﻿using API.Quartz;
+﻿using API.Models.Settings;
+using API.Quartz;
 using API.Quartz.Jobs;
 using API.Services;
 using API.Services.Constract;
-using API.SettingHelpers;
 using API.SignalR;
 using API.SignalR.Constract;
 using Domain.Interfaces.Repositories;
@@ -151,6 +151,8 @@ namespace API.Extensions
         {
             // configure strongly typed settings object
             services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+            services.Configure<TwilioSettings>(builder.Configuration.GetSection("TwilioSettings"));
+            services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
         }
     }
 }

@@ -69,7 +69,7 @@ namespace API.Controllers
                                 }
                                 );
 
-            return new JsonResult(response);
+            return ApiResult(response);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace API.Controllers
                                         }                                                            
                                         );
 
-            return new JsonResult(response);
+            return ApiResult(response);
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace API.Controllers
                                         }
                                         );
 
-            return new JsonResult(response);
+            return ApiResult(response);
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace API.Controllers
                                 }
                                 );
 
-            return new JsonResult(response);
+            return ApiResult(response);
         }
     }
 }
