@@ -1,6 +1,6 @@
 ﻿using API.Models;
+using API.Models.Settings;
 using API.Services.Constract;
-using API.SettingHelpers;
 using Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

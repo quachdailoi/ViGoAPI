@@ -1,4 +1,6 @@
-﻿namespace API.Extensions
+﻿using API.Models.Settings;
+
+namespace API.Extensions
 {
     public static class ConfigurationExtensions
     {
