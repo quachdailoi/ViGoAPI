@@ -48,5 +48,13 @@ namespace API.Services
 
             return await _mapper.ProjectTo<UserViewModel>(user).FirstOrDefaultAsync();
         }
+
+        public List<User> GetUsersByCode(List<Guid> userCodes)
+        {
+
+            var user = _unitOfWork.Users.GetUsersByCode(userCodes);
+
+            return user.ToList();
+        }
     }
 }

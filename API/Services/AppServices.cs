@@ -10,7 +10,10 @@ namespace API.Services
                 IUserService userService,
                 ITokenService tokenService,
                 IBookerService bookerService, 
-                IDriverService driverService
+                IDriverService driverService,
+                IUserRoomService userRoomService,
+                IRoomService roomService,
+                IMessageService messageService
             )
         {
             Account = accountService;
@@ -19,6 +22,9 @@ namespace API.Services
             Token = tokenService;
             Booker = bookerService;
             Driver = driverService;
+            UserRoom = userRoomService;
+            Room = roomService;
+            Message = messageService; 
         }
 
         public IAccountService Account { get; }
@@ -27,5 +33,8 @@ namespace API.Services
         public ITokenService Token { get; set; }
         public IBookerService Booker { get; }
         public IDriverService Driver { get; }
+        public IUserRoomService UserRoom { get; }
+        public IRoomService Room { get; }
+        public IMessageService Message { get; }
     }
 }

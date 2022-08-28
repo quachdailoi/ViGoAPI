@@ -8,6 +8,9 @@ namespace Domain.Interfaces.UnitOfWork
         IRoleRepository Roles { get; }
         IUserRepository Users { get; }
         IVerifiedCodeRepository VerifiedCodes { get; }
+        IUserRoomRepository UserRooms { get; }
+        IRoomRepository Rooms { get; }
+        IMessageRepository Messages { get; }
 
         Task CreateTransactionAsync();
         Task CommitAsync();

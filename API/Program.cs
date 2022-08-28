@@ -132,10 +132,10 @@ services.ConfigureIoCSignalR();
 services.ConfigureIoCCronJob();
 
 // add redis cache
-var redisSetting = config["RedisSettings:LocalConnectionString"];
+var redisSetting = config["RedisSettings:ConnectionString"];
 if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
 {
-    redisSetting = Environment.GetEnvironmentVariable("RedisSettings:CloudConnectionString");
+    redisSetting = Environment.GetEnvironmentVariable("RedisSettings:ConnectionString");
 }
 services.AddStackExchangeRedisCache(r => r.Configuration = redisSetting);
 
@@ -154,7 +154,10 @@ var app = builder.Build();
 //if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MaaS API v1"));
+    app.UseSwaggerUI(c => {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "MaaS API v1");
+        c.DisplayRequestDuration();
+        });
     IdentityModelEventSource.ShowPII = true;
 }
 

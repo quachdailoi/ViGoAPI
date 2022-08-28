@@ -57,7 +57,6 @@ namespace API.Controllers
                     .SetMessage("Invalid client request");
                 return response;
             }
-
             return response;
         }
 

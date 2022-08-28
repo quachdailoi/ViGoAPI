@@ -6,6 +6,8 @@ namespace Domain.Interfaces.Repositories
     {
         Task<T> Add(T entity);
 
+        Task<List<T>> Add(List<T> entities);
+
         Task<bool> Update(T entity);
 
         Task<bool> Remove(T entity);

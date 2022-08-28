@@ -18,13 +18,23 @@ namespace Infrastructure.Data.UnitOfWork
         public IUserRepository Users { get; private set; }
         public IVerifiedCodeRepository VerifiedCodes { get; private set; }
 
+        public IUserRoomRepository UserRooms { get; private set; }
+
+        public IRoomRepository Rooms { get; private set; }
+
+        public IMessageRepository Messages { get; private set; }
+
         public UnitOfWork(
             AppDbContext dbContext, 
             ILoggerFactory loggerFactory,
             IAccountRepository accountRepository,
             IRoleRepository roleRepository,
             IUserRepository userRepository,
-            IVerifiedCodeRepository verifiedCodeRepository)
+            IVerifiedCodeRepository verifiedCodeRepository,
+            IUserRoomRepository userRoomRepository,
+            IRoomRepository roomRepository,
+            IMessageRepository messageRepository
+        )
         {
             _dbContext = dbContext;
 
@@ -32,6 +42,9 @@ namespace Infrastructure.Data.UnitOfWork
             Roles = roleRepository;
             Accounts = accountRepository;
             VerifiedCodes = verifiedCodeRepository;
+            UserRooms = userRoomRepository;
+            Rooms = roomRepository;
+            Messages = messageRepository;
 
             _logger = loggerFactory.CreateLogger("logs");
         }
