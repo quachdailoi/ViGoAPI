@@ -13,15 +13,5 @@ namespace API.Extensions
 
             return configuration.GetSection(configName).Value;
         }
-
-        public static object? Get(this object settings, string configName)
-        {
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
-            {
-                return Environment.GetEnvironmentVariable(configName);
-            }
-
-            return settings.GetType().GetProperty(configName)?.GetValue(settings, null);
-        }
     }
 }
