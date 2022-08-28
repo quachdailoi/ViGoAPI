@@ -20,18 +20,15 @@ namespace API.Services
     public class VerifiedCodeService : IVerifiedCodeService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly MailSettings _mailSettings;
-        private readonly TwilioSettings _twilioSettings;
+        private readonly IConfiguration _configuration;
         private static Random random = new Random();
 
         public VerifiedCodeService(
-            IUnitOfWork unitOfWork, 
-            IOptions<TwilioSettings> twilioSettings, 
-            IOptions<MailSettings> mailSettings)
+            IUnitOfWork unitOfWork,
+            IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
-            _mailSettings = mailSettings.Value;
-            _twilioSettings = twilioSettings.Value;
+            _configuration = configuration;
         }
 
         private string GenerateOtpCode(int length)
@@ -66,7 +63,10 @@ namespace API.Services
         {
             MimeMessage email = new();
 
-            var mailBoxAddress = new MailboxAddress((string?)_mailSettings.Get("DisplayName"), (string?)_mailSettings.Get("Mail"));
+            var mailBoxAddress = new MailboxAddress(
+                _configuration.GetConfigByEnv("MailSettings:DisplayName"),
+                _configuration.GetConfigByEnv("MailSettings:Mail")
+            );
 
             email.Sender = mailBoxAddress;
             email.From.Add(mailBoxAddress);
@@ -82,8 +82,8 @@ namespace API.Services
 
             try
             {
-                smtp.Connect((string ?)_mailSettings.Get("Host"), (int?) _mailSettings.Get("Port") ?? 587, MailKit.Security.SecureSocketOptions.StartTls);
-                smtp.Authenticate((string?)_mailSettings.Get("Mail"), (string?)_mailSettings.Get("Password"));
+                smtp.Connect(_configuration.GetConfigByEnv("MailSettings:Host"), int.Parse(_configuration.GetConfigByEnv("MailSettings:Port") ?? "587"), MailKit.Security.SecureSocketOptions.StartTls);
+                smtp.Authenticate(_configuration.GetConfigByEnv("MailSettings:Mail"), _configuration.GetConfigByEnv("MailSettings:Password"));
                 return await smtp.SendAsync(email);
                 //logger.LogInformation($"Send mail to:  {mailContent.To}");
             }
@@ -101,12 +101,12 @@ namespace API.Services
 
         private Task<MessageResource?> SendSMS(string sms, string toPhoneNumber)
         {
-            var fromPhoneNumber = (string?) _twilioSettings.Get("PhoneNumber");
+            var fromPhoneNumber = _configuration.GetConfigByEnv("TwilioSettings:PhoneNumber");
 
             // get base on environment
 
-            var accountSid = (string?) _twilioSettings.Get("AccountSID");
-            var authToken = (string?) _twilioSettings.Get("AuthToken");
+            var accountSid = _configuration.GetConfigByEnv("TwilioSettings:AccountSID");
+            var authToken = _configuration.GetConfigByEnv("TwilioSettings:AuthToken");
 
             TwilioClient.Init(accountSid, authToken);
 
@@ -147,7 +147,7 @@ namespace API.Services
                 );
             }
 
-            var minuteForExpired = (int?) _twilioSettings.Get("ExpiredTime") ?? 0;
+            var minuteForExpired = int.Parse(_configuration.GetConfigByEnv("TwilioSettings:ExpiredTime") ?? "0");
 
             DateTime validTime = code.CreatedAt.AddMinutes(minuteForExpired);
 
@@ -176,7 +176,7 @@ namespace API.Services
                 return true;
             }
 
-            var minuteForResend = (int?) _twilioSettings.Get("TimeResend") ?? 0;
+            var minuteForResend = int.Parse(_configuration.GetConfigByEnv("TwilioSettings:TimeResend") ?? "0");
 
             DateTime timeToResend = code.CreatedAt.AddMinutes(minuteForResend);
 
