@@ -115,15 +115,15 @@ namespace Infrastructure.Data
                 Status = 1,
             });
 
-            //builder.Entity<User>().HasData(new User
-            //{
-            //    Id = 5,
-            //    Name = "Loi Quach",
-            //    Code = Guid.NewGuid(),
-            //    DateOfBirth = DateTime.UtcNow,
-            //    Gender = 1,
-            //    Status = 1,
-            //});
+            builder.Entity<User>().HasData(new User
+            {
+                Id = 5,
+                Name = "Loi Quach",
+                Code = Guid.NewGuid(),
+                DateOfBirth = DateTime.UtcNow,
+                Gender = 1,
+                Status = 1,
+            });
 
             builder.Entity<User>().HasData(new User
             {
@@ -175,25 +175,25 @@ namespace Infrastructure.Data
                 UserId = 2
             });
 
-            //builder.Entity<Account>().HasData(new Account
-            //{
-            //    Id = 3,
-            //    Registration = "loiqdse140970@fpt.edu.vn",
-            //    RegistrationType = RegistrationTypes.Gmail,
-            //    RoleId = Domain.Shares.Enums.Roles.BOOKER,
-            //    Verified = false,
-            //    UserId = 5
-            //});
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 3,
+                Registration = "loiqdse140970@fpt.edu.vn",
+                RegistrationType = RegistrationTypes.Gmail,
+                RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                Verified = false,
+                UserId = 5
+            });
 
-            //builder.Entity<Account>().HasData(new Account
-            //{
-            //    Id = 4,
-            //    Registration = "+84837226239",
-            //    RegistrationType = RegistrationTypes.Phone,
-            //    RoleId = Domain.Shares.Enums.Roles.BOOKER,
-            //    Verified = true,
-            //    UserId = 5
-            //});
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 4,
+                Registration = "+84837226239",
+                RegistrationType = RegistrationTypes.Phone,
+                RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                Verified = true,
+                UserId = 5
+            });
 
             builder.Entity<Account>().HasData(new Account
             {
