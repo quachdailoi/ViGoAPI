@@ -1,5 +1,5 @@
-﻿using API.Services.Constract;
-using API.SettingHelpers;
+﻿using API.Models.Settings;
+using API.Services.Constract;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
