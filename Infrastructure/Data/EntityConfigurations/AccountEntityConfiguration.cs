@@ -50,8 +50,11 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasForeignKey(e => e.UserId)
                 .IsRequired();
 
-            builder.HasIndex(e => new { e.Registration, e.RoleId })
-                .IsUnique().HasFilter("verified = true");
+            builder
+                .HasIndex(e => new { e.Registration, e.RoleId})
+                .HasFilter("verified = true")
+                .IsUnique();
+
         }
     }
 }

@@ -452,3 +452,16 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Migration
+Migrations/
+
+# Obj
+Infrastructure/obj/
+API/obj/
+Domain/obj/
+
+##
+## Visual Studio
+##
+.vs/

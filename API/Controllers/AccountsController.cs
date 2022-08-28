@@ -5,6 +5,7 @@ using API.Quartz;
 using API.Quartz.Jobs;
 using API.Services.Constract;
 using API.SignalR.Constract;
+using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,14 +18,10 @@ namespace API.Controllers
     public class AccountsController : BaseController<AccountsController>
     {
         private readonly IJwtHandler _jwtHandler;
-        private readonly ISignalRService _signalRService;
-        private readonly IJobScheduler _jobScheduler;
 
-        public AccountsController(IJwtHandler jwtHandler, ISignalRService signalRService, IJobScheduler jobScheduler)
+        public AccountsController(IJwtHandler jwtHandler)
         {
             _jwtHandler = jwtHandler;
-            _signalRService = signalRService;
-            _jobScheduler = jobScheduler;
         }
 
         [HttpPost("refresh-token")]
@@ -106,39 +103,5 @@ namespace API.Controllers
 
             return Ok(new Response(StatusCode: 200, Message: "Token revoked successfully."));
         }
-
-        /// <summary>
-        /// Test api - Send message to specific user every minute starting at 5:10 PM and ending at 5:15 PM, every day
-        /// </summary>
-        /// /// <remarks>Cron job</remarks>
-        /// <param name="request" example="{Message: 'Cron job is excuting...' ,UserCode: '613de7b4-db59-4a6c-b9a1-2b1e176460d3'}">Message schema</param>
-        /// <response code="200">Job is excuting...</response>
-        /// <response code="500">Failure</response>
-        [HttpPost("test/cron-job/send-to-user")]
-        public async Task<IActionResult> StartMessageJob([FromBody] MessageRequest request)
-        {
-            await _jobScheduler.StartMessageJob<MessageJob>(request.UserCode, request.Message, "0 10-15 17 * * ?");
-            // Fire every minute starting at 5:10 PM and ending at 5:15 PM, every day
-            return Ok();
-        }
-
-        /// <summary>
-        /// Test api - Send message to specific user
-        /// </summary>
-        /// /// <remarks>Websocket</remarks>
-        /// <param name="request" example="{Message: 'Hello world!' ,UserCode: '613de7b4-db59-4a6c-b9a1-2b1e176460d3'}">Message schema</param>
-        /// <response code="200">Send successfully</response>
-        /// <response code="500">Failure</response>
-        [HttpPost("test/websocket/send-to-user")]
-        public async Task<IActionResult> SendToUser([FromBody] MessageRequest request)
-        {
-            await _signalRService.SendToUserAsync(request.UserCode, "Message", request.Message);
-            return Ok();
-        }
-    }
-    public class MessageRequest
-    {
-        public string Message { get; set; }
-        public string UserCode { get; set; }
     }
 }

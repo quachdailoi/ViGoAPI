@@ -36,6 +36,21 @@ namespace Infrastructure.Data
             new VerifiedCodeEntityConfiguration()
                 .Configure(builder.Entity<VerifiedCode>());
 
+            new UserRoomEntityConfiguration()
+                .Configure(builder.Entity<UserRoom>());
+
+            new RoomEntityConfiguration()
+                .Configure(builder.Entity<Room>());
+
+            new MessageEntityConfiguration()
+                .Configure(builder.Entity<Message>());
+
+            new BookingEntityConfiguration()
+                .Configure(builder.Entity<Booking>());
+
+            new BookingDetailEntityConfiguration()
+                .Configure(builder.Entity<BookingDetail>());
+
             builder.Entity<Role>().HasData(new Role
             {
                 Id = Domain.Shares.Enums.Roles.DRIVER,
@@ -100,15 +115,15 @@ namespace Infrastructure.Data
                 Status = 1,
             });
 
-            //builder.Entity<User>().HasData(new User
-            //{
-            //    Id = 5,
-            //    Name = "Loi Quach",
-            //    Code = Guid.NewGuid(),
-            //    DateOfBirth = DateTime.UtcNow,
-            //    Gender = 1,
-            //    Status = 1,
-            //});
+            builder.Entity<User>().HasData(new User
+            {
+                Id = 5,
+                Name = "Loi Quach",
+                Code = Guid.NewGuid(),
+                DateOfBirth = DateTime.UtcNow,
+                Gender = 1,
+                Status = 1,
+            });
 
             builder.Entity<User>().HasData(new User
             {
@@ -160,25 +175,25 @@ namespace Infrastructure.Data
                 UserId = 2
             });
 
-            //builder.Entity<Account>().HasData(new Account
-            //{
-            //    Id = 3,
-            //    Registration = "loiqdse140970@fpt.edu.vn",
-            //    RegistrationType = RegistrationTypes.Gmail,
-            //    RoleId = Domain.Shares.Enums.Roles.BOOKER,
-            //    Verified = false,
-            //    UserId = 5
-            //});
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 3,
+                Registration = "loiqdse140970@fpt.edu.vn",
+                RegistrationType = RegistrationTypes.Gmail,
+                RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                Verified = false,
+                UserId = 5
+            });
 
-            //builder.Entity<Account>().HasData(new Account
-            //{
-            //    Id = 4,
-            //    Registration = "+84837226239",
-            //    RegistrationType = RegistrationTypes.Phone,
-            //    RoleId = Domain.Shares.Enums.Roles.BOOKER,
-            //    Verified = true,
-            //    UserId = 5
-            //});
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 4,
+                Registration = "+84837226239",
+                RegistrationType = RegistrationTypes.Phone,
+                RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                Verified = true,
+                UserId = 5
+            });
 
             builder.Entity<Account>().HasData(new Account
             {
@@ -306,5 +321,10 @@ namespace Infrastructure.Data
         public DbSet<User> Files { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<VerifiedCode> VerifiedCodes { get; set; }
+        public DbSet<UserRoom> UserRooms { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<BookingDetail> BookingDetails { get; set; }
     }
 }
