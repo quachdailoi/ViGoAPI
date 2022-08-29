@@ -30,10 +30,8 @@ namespace API.Services.Constract
         Task<Response> CreateUserAccount(
              Roles userRole, UserRegisterRequest request,
              Response successResponse,
-             Response duplicatedAuthRegistrationResponse,
-             Response duplicatedOptionalRegistrationResponse,
-             Response failedResponse,
-             Response successButNotSendCodeResponse
+             Response duplicatedRegistrationResponse,
+             Response failedResponse
          );
     }
 }

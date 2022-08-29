@@ -96,6 +96,7 @@ namespace API.Extensions
             services.AddTransient<IUserRoomService, UserRoomService>();
             services.AddTransient<IRoomService, RoomService>();
             services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IFileService, FileService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)

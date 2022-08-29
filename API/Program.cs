@@ -11,15 +11,18 @@ using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Logging;
 using API.SignalR;
 using API.Middleware;
+using AutoMapper;
+using API.Mapper;
+using API.Services.Constract;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
-var config = builder.Configuration;
+var _config = builder.Configuration;
 
 // Config log
 var logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(config)
+    .ReadFrom.Configuration(_config)
     .Enrich.FromLogContext()
     .CreateLogger();
 
@@ -46,15 +49,15 @@ services.AddEndpointsApiExplorer();
 services.ConfigureSwagger();
 
 // private key
-var pathToKey = Path.Combine(Directory.GetCurrentDirectory(), config["Firebase:AdminSdkJsonFile"]);
+var pathToKey = Path.Combine(Directory.GetCurrentDirectory(), _config["Firebase:AdminSdkJsonFile"]);
 GoogleCredential credential = GoogleCredential.FromFile(pathToKey);
 
 // Create Firebase app
 FirebaseApp.Create(new AppOptions
 {
     Credential = credential,
-    ProjectId = config["Firebase:ProjectId"],
-    ServiceAccountId = config["Firebase:ServiceAccountId"]
+    ProjectId = _config["Firebase:ProjectId"],
+    ServiceAccountId = _config["Firebase:ServiceAccountId"]
 });
 
 string connectionString = string.Empty;
@@ -76,7 +79,7 @@ if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production"
     connectionString = $"Host={host};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true";
 } else
 {
-    connectionString = config.GetConnectionString("PostgreSQLMaaSConnection");
+    connectionString = _config.GetConnectionString("PostgreSQLMaaSConnection");
 }
 
 services.AddDbContextPool<AppDbContext>(options =>
@@ -100,7 +103,7 @@ services.AddSignalR(cfg =>
 });
 
 // Config for authentication
-services.ConfigureAuthentication(config);
+services.ConfigureAuthentication(_config);
 
 // Config for Identity
 //services.ConfigureIdentity();
@@ -114,13 +117,20 @@ services.ConfigureSettings(builder);
 
 // IoC for Configuration
 services.AddScoped<IJwtHandler, JwtHandler>();
-services.AddSingleton<IConfiguration>(config);
+services.AddSingleton<IConfiguration>(_config);
 
 // IoC for Repositories
 services.ConfigureIoCRepositories();
 
 // IoC for Services layer
 services.ConfigureIoCServices();
+
+// IoC For Profile
+services.AddSingleton(provider => new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new UserMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
+
+}).CreateMapper());
 
 // add http context accessor
 services.AddHttpContextAccessor();
@@ -132,7 +142,7 @@ services.ConfigureIoCSignalR();
 services.ConfigureIoCCronJob();
 
 // add redis cache
-var redisSetting = config["RedisSettings:ConnectionString"];
+var redisSetting = _config["RedisSettings:ConnectionString"];
 if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
 {
     redisSetting = Environment.GetEnvironmentVariable("RedisSettings:ConnectionString");

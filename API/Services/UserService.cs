@@ -1,4 +1,7 @@
-﻿using API.Models;
+﻿using API.AWS.S3;
+using API.Extensions;
+using API.Models;
+using API.Models.Response;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
@@ -13,11 +16,15 @@ namespace API.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
+        private readonly IFileService _fileService;
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration, IFileService fileService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _configuration = configuration;
+            _fileService = fileService;
         }
 
         public Task<bool> UpdateUser(User user)
@@ -55,6 +62,49 @@ namespace API.Services
             var user = _unitOfWork.Users.GetUsersByCode(userCodes);
 
             return user.ToList();
+        }
+
+        public async Task<Response> UpdateUserAvatar(string userCode, IFormFile file, Response successResponse, Response errorResponse)
+        {
+            var user = await _unitOfWork.Users.GetUserByCode(userCode).Include(x => x.File).FirstOrDefaultAsync();
+            var userFile = user.File;
+
+            // Process file
+            await using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+
+            var fileExt = Path.GetExtension(file.FileName);
+            var docName = $"{_configuration.GetConfigByEnv("AwsSettings:UserAvatarFolder")}{userCode}{fileExt}";
+
+            // update file path
+            await _unitOfWork.CreateTransactionAsync(); // open transaction
+
+            userFile.Path = docName;
+
+            if (!await _unitOfWork.Users.Update(user))
+            {
+                await _unitOfWork.Rollback(); // rollback
+                return errorResponse;
+            }
+
+            // call server
+            var s3Obj = new S3ObjectDto()
+            {
+                BucketName = _configuration.GetConfigByEnv("AwsSettings:BucketName") ?? "",
+                InputStream = memoryStream,
+                Name = docName
+            };
+
+            var result = await _fileService.UploadFileAsync(s3Obj, successResponse, errorResponse);
+
+            if (!result.Success)
+            {
+                await _unitOfWork.Rollback(); // rollback
+                return result;
+            }
+
+            await _unitOfWork.CommitAsync(); // commit
+            return result;
         }
     }
 }

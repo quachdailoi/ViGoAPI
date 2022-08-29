@@ -1,4 +1,6 @@
-﻿using API.JwtFeatures;
+﻿using API.AWS.S3;
+using API.Extensions;
+using API.JwtFeatures;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Quartz;
@@ -18,10 +20,14 @@ namespace API.Controllers
     public class AccountsController : BaseController<AccountsController>
     {
         private readonly IJwtHandler _jwtHandler;
+        private readonly IConfiguration _configuration;
+        private readonly IFileService _storageService;
 
-        public AccountsController(IJwtHandler jwtHandler)
+        public AccountsController(IJwtHandler jwtHandler, IConfiguration configuration, IFileService storageService)
         {
             _jwtHandler = jwtHandler;
+            _configuration = configuration;
+            _storageService = storageService;
         }
 
         [HttpPost("refresh-token")]
@@ -102,6 +108,33 @@ namespace API.Controllers
             await AppServices.Token.RevokeRefreshTokenAsync(token);
 
             return Ok(new Response(StatusCode: 200, Message: "Token revoked successfully."));
+        }
+
+        [Authorize]
+        [HttpPost("update-avatar")]
+        public async Task<IActionResult> UpdateAvatar(IFormFile file)
+        {
+            var userCode = LoggedInUser.Code;
+
+            var response = 
+                await AppServices.User.UpdateUserAvatar(
+                    userCode.ToString(),
+                    file,
+                    successResponse: new()
+                    {
+                        Message = "Update avatar successfully.",
+                        StatusCode = StatusCodes.Status200OK,
+                        Success = true
+                    },
+                    errorResponse: new()
+                    {
+                        Message = "Update avatar failed.",
+                        StatusCode = StatusCodes.Status500InternalServerError,
+                        Success = false
+                    }
+                );
+
+            return ApiResult(response);
         }
     }
 }

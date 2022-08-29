@@ -29,10 +29,8 @@ namespace API.Services.Constract
         Task<Response> CreateBookerAccount(
             UserRegisterRequest request,
             Response successResponse,
-            Response duplicatedAuthRegistrationResponse,
-            Response duplicatedOptionalRegistrationResponse,
-            Response failedResponse,
-            Response successButNotSendCodeResponse
+            Response duplicatedRegistrationResponse,
+            Response failedResponse
         );
     }
 }

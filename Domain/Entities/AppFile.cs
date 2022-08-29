@@ -12,7 +12,7 @@ namespace Domain.Entities
     {
         public Guid Code { get; set; } = Guid.NewGuid();
         public string Path { get; set; } = string.Empty;
-        public FileTypes Type { get; set; }
+        public FileTypes Type { get; set; } = FileTypes.Image;
         public bool Status { get; set; } = true;
 
         public User User { get; set; }

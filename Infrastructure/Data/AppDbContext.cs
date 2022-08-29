@@ -68,10 +68,7 @@ namespace Infrastructure.Data
             builder.Entity<AppFile>().HasData(new AppFile
             {
                 Id = 1,
-                Code = Guid.NewGuid(),
-                Path = "abcabc",
-                Type = FileTypes.Image,
-                Status = true
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User
@@ -82,7 +79,13 @@ namespace Infrastructure.Data
                 DateOfBirth = DateTime.UtcNow,
                 Gender = 1,
                 Status = 1,
-                FileId = 1
+                FileId = 1,
+            });
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 2,
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User
@@ -92,7 +95,14 @@ namespace Infrastructure.Data
                 Code = Guid.NewGuid(),
                 DateOfBirth = DateTime.UtcNow,
                 Gender = 1,
-                Status = 1
+                Status = 1,
+                FileId = 2,
+            });
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 3,
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User
@@ -103,6 +113,13 @@ namespace Infrastructure.Data
                 DateOfBirth = DateTime.UtcNow,
                 Gender = 1,
                 Status = 1,
+                FileId = 3,
+            });
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 4,
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User
@@ -113,16 +130,30 @@ namespace Infrastructure.Data
                 DateOfBirth = DateTime.UtcNow,
                 Gender = 1,
                 Status = 1,
+                FileId = 4,
             });
 
-            builder.Entity<User>().HasData(new User
+            builder.Entity<AppFile>().HasData(new AppFile
             {
                 Id = 5,
-                Name = "Loi Quach",
-                Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                Path = "user/avatar/default-user-avatar.png"
+            });
+
+            //builder.Entity<User>().HasData(new User
+            //{
+            //    Id = 5,
+            //    Name = "Loi Quach",
+            //    Code = Guid.NewGuid(),
+            //    DateOfBirth = DateTime.UtcNow,
+            //    Gender = 1,
+            //    Status = 1,
+            //    FileId = 5,
+            //});
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 6,
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User
@@ -133,6 +164,13 @@ namespace Infrastructure.Data
                 DateOfBirth = DateTime.UtcNow,
                 Gender = 1,
                 Status = 1,
+                FileId = 6,
+            });
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 7,
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User
@@ -143,6 +181,13 @@ namespace Infrastructure.Data
                 DateOfBirth = DateTime.UtcNow,
                 Gender = 1,
                 Status = 1,
+                FileId = 7,
+            });
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 8,
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User
@@ -153,6 +198,7 @@ namespace Infrastructure.Data
                 DateOfBirth = DateTime.UtcNow,
                 Gender = 1,
                 Status = 1,
+                FileId = 8,
             });
 
             builder.Entity<Account>().HasData(new Account
@@ -175,25 +221,25 @@ namespace Infrastructure.Data
                 UserId = 2
             });
 
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 3,
-                Registration = "loiqdse140970@fpt.edu.vn",
-                RegistrationType = RegistrationTypes.Gmail,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
-                Verified = false,
-                UserId = 5
-            });
+            //builder.Entity<Account>().HasData(new Account
+            //{
+            //    Id = 3,
+            //    Registration = "loiqdse140970@fpt.edu.vn",
+            //    RegistrationType = RegistrationTypes.Gmail,
+            //    RoleId = Domain.Shares.Enums.Roles.BOOKER,
+            //    Verified = false,
+            //    UserId = 5
+            //});
 
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 4,
-                Registration = "+84837226239",
-                RegistrationType = RegistrationTypes.Phone,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
-                Verified = true,
-                UserId = 5
-            });
+            //builder.Entity<Account>().HasData(new Account
+            //{
+            //    Id = 4,
+            //    Registration = "+84837226239",
+            //    RegistrationType = RegistrationTypes.Phone,
+            //    RoleId = Domain.Shares.Enums.Roles.BOOKER,
+            //    Verified = true,
+            //    UserId = 5
+            //});
 
             builder.Entity<Account>().HasData(new Account
             {

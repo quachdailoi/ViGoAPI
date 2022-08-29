@@ -34,7 +34,7 @@ namespace API.Controllers
             var response = await AppServices.Message.Create(
                                 request.Content, 
                                 request.RoomCode, 
-                                this.LoginedUser.Id,
+                                this.LoggedInUser.Id,
                                 successResponse: new()
                                 {
                                     Message = "Send message successfully",
@@ -61,7 +61,7 @@ namespace API.Controllers
         [HttpPut("last-seen-time")]
         public async Task<IActionResult> UpdateLastSeen([FromBody] LastSeenTimeMessageRequest request)
         {
-            var user = this.LoginedUser;
+            var user = this.LoggedInUser;
 
             var response = await AppServices.UserRoom.UpdateLastSeenTime(
                                                         user: new()
