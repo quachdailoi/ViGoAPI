@@ -32,7 +32,6 @@ namespace API.Controllers.Booker
         /// <remarks>SendOtpToLogin</remarks>
         /// <param name="request" example="{Registration: '+84837226239'}">Send Otp Request Schema</param>
         /// <response code = "200"> Send otp code successfully.</response>
-        /// <response code = "400"> Wait 1 minute since last sent.</response>
         /// <response code = "400"> Not found account with this phone number to send login otp.</response>
         /// <response code = "500"> Fail to send code to this phone number.</response>
         [HttpPost("phone/send-otp-to-login")]
@@ -148,7 +147,6 @@ namespace API.Controllers.Booker
         /// <param name="request" example="{Registration: 'abc@gmail.com'}">Send Otp Request Schema</param>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This email was verified by another account.</response>
-        /// <response code = "400"> Wait 1 minute since last sent.</response>
         /// <response code = "500"> Fail to send otp to this gmail.</response>
         [HttpPost("gmail/send-otp-to-verify")]
         public async Task<IActionResult> SendGmailOtpToVerify([FromBody] SendOtpRequest request)
@@ -272,7 +270,6 @@ namespace API.Controllers.Booker
         /// <param name="request" example="{Registration: '+84837226239'}">Send Otp Request Schema</param>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This phone number was verified by another account.</response>
-        /// <response code = "400"> Wait 1 minute since last sent.</response>
         /// <response code = "500"> Fail to send otp to this phone number.</response>
         [HttpPost("phone/send-otp-to-update")]
         public async Task<IActionResult> SendPhoneOtpForUpdate([FromBody] SendOtpRequest request)
@@ -407,7 +404,7 @@ namespace API.Controllers.Booker
             request.RegistrationTypes = RegistrationTypes.Gmail;
             request.OtpTypes = OtpTypes.VerificationOTP;
 
-            var loginedUser = LoginedUser;
+            var loginedUser = LoggedInUser;
 
             var updateResponse =
                     await AppServices.Booker.UpdateBookerAccount(
@@ -471,7 +468,7 @@ namespace API.Controllers.Booker
         [HttpGet("test")]
         public IActionResult TestAuthen()
         {
-            var user = LoginedUser;
+            var user = LoggedInUser;
             return Ok(user);
         }
 
@@ -482,7 +479,6 @@ namespace API.Controllers.Booker
         /// <param name="request" example="{Registration: '+84837226239'}">Send Otp Request Schema</param>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This phone number was verified by another account.</response>
-        /// <response code = "400"> Wait 1 minute since last sent.</response>
         /// <response code = "500"> Fail to send otp to this phone number.</response>
         [HttpPost("phone/send-otp-to-register")]
         [AllowAnonymous]
@@ -543,9 +539,8 @@ namespace API.Controllers.Booker
         /// <remarks>Register</remarks>
         /// <param name="request" example="{OptionalRegistration: 'abc@gmail.com', Name: 'ABC' , Gender: 1, DateOfBirth='2000-01-31', Registration='+84837226239'}">User Register Request Schema</param>
         /// <response code = "200"> Register account successfully.</response>
-        /// <response code = "200"> Register account successfully, but failed to send verification code. Please click resend code.</response>
         /// <response code="400"> Register account failed - This phone number was register by another account.</response>
-        /// <response code="400"> This gmail was verified by another account.</response>
+        /// <response code="400"> Wrong OTP to register.</response>
         /// <response code="500"> Failed to register account.</response>
         [HttpPost()]
         [AllowAnonymous]
@@ -555,6 +550,19 @@ namespace API.Controllers.Booker
             request.RegistrationTypes = RegistrationTypes.Phone;
             request.OptionalRegistrationTypes = RegistrationTypes.Gmail;
 
+            // verify OTP
+            var verifyResponse =
+                await AppServices.VerifiedCode.VerifyOtp(
+                    request,
+                    errorResponse: new()
+                    {
+                        Message = "Wrong or Expired OTP.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    }
+                );
+
+            if (verifyResponse != null) return ApiResult(verifyResponse);
+
             var createResponse =
                 await AppServices.Booker.CreateBookerAccount(
                     request,
@@ -563,25 +571,15 @@ namespace API.Controllers.Booker
                         Message = "Register account successfully.",
                         StatusCode = StatusCodes.Status200OK
                     },
-                    duplicatedAuthRegistrationResponse: new()
+                    duplicatedRegistrationResponse: new()
                     {
                         Message = "Register account failed - This phone number was register by another account.",
-                        StatusCode = StatusCodes.Status400BadRequest
-                    },
-                    duplicatedOptionalRegistrationResponse: new()
-                    {
-                        Message = "This gmail was verified by another account.",
                         StatusCode = StatusCodes.Status400BadRequest
                     },
                     failedResponse: new()
                     {
                         Message = "Failed to register account.",
                         StatusCode = StatusCodes.Status500InternalServerError
-                    },
-                    successButNotSendCodeResponse: new()
-                    {
-                        Message = "Register account successfully, but failed to send verification code. Please click resend code.",
-                        StatusCode = StatusCodes.Status200OK
                     }
                 );
 

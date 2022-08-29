@@ -12,7 +12,7 @@ namespace API.Services
 {
     public class DriverService : AccountService, IDriverService
     {
-        public DriverService(IVerifiedCodeService verifiedCodeService, IUnitOfWork unitOfWork, IMapper mapper) : base(verifiedCodeService, unitOfWork, mapper)
+        public DriverService(IVerifiedCodeService verifiedCodeService, IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration) : base(verifiedCodeService, unitOfWork, mapper, configuration)
         {
         }
 

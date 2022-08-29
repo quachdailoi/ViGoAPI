@@ -20,11 +20,11 @@ namespace API.Controllers
         protected IAppServices AppServices => _appServices ?? (_appServices = HttpContext.RequestServices.GetRequiredService<IAppServices>());
         protected IHttpContextAccessor HttpContextAccessor => _httpContextAccessor ?? (_httpContextAccessor = HttpContext.RequestServices.GetRequiredService<IHttpContextAccessor>());
 
-        protected UserViewModel? LoginedUser => ((UserViewModel?)(HttpContextAccessor.HttpContext?.Items["User"]));
+        protected UserViewModel? LoggedInUser => ((UserViewModel?)(HttpContextAccessor.HttpContext?.Items["User"]));
 
         protected Response? CheckLoginedUserToGetAccount(RegistrationTypes accountType, out UserViewModel? loginedUser, out Account? account)
         {
-            loginedUser = LoginedUser;
+            loginedUser = LoggedInUser;
             account = default(Account);
 
             if (loginedUser == null)

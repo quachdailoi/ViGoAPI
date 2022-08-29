@@ -13,7 +13,7 @@ namespace API.Services
 {
     public class BookerService : AccountService, IBookerService
     {
-        public BookerService(IVerifiedCodeService verifiedCodeService, IUnitOfWork unitOfWork, IMapper mapper) : base(verifiedCodeService, unitOfWork, mapper)
+        public BookerService(IVerifiedCodeService verifiedCodeService, IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration) : base(verifiedCodeService, unitOfWork, mapper, configuration)
         {
         }
 
@@ -74,19 +74,15 @@ namespace API.Services
 
         public Task<Response> CreateBookerAccount(UserRegisterRequest request,
             Response successResponse,
-            Response duplicatedAuthRegistrationResponse,
-            Response duplicatedOptionalRegistrationResponse,
-            Response failedResponse,
-            Response successButNotSendCodeResponse)
+            Response duplicatedRegistrationResponse,
+            Response failedResponse)
         {
             return base.CreateUserAccount(
                 Roles.BOOKER, 
                 request, 
                 successResponse, 
-                duplicatedAuthRegistrationResponse, 
-                duplicatedOptionalRegistrationResponse, 
-                failedResponse, 
-                successButNotSendCodeResponse
+                duplicatedRegistrationResponse,
+                failedResponse
             );
         }
     }

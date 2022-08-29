@@ -91,7 +91,6 @@ namespace API.Controllers.Driver
         /// <param name="request" example="{Registration: 'abc@gmail.com'}">Send Otp Request Schema</param>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This gmail was verified by another account.</response>
-        /// <response code = "400"> Wait 1 minute since last sent.</response>
         /// <response code = "500"> Fail to send otp to this gmail address.</response>
         [HttpPost("gmail/send-otp-to-update")]
         public async Task<IActionResult> SendGmailOtpToUpdate([FromBody] SendOtpRequest request)
@@ -218,7 +217,6 @@ namespace API.Controllers.Driver
         /// <param name="request" example="{Registration: '+84837226239'}">Send Otp Request Schema</param>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This phone number was verified by another account.</response>
-        /// <response code = "400"> Wait 1 minute since last sent.</response>
         /// <response code = "500"> Fail to send otp to this phone number.</response>
         [HttpPost("phone/send-otp-to-verify")]
         public async Task<IActionResult> SendPhoneOtpToVerify([FromBody] SendOtpRequest request)
@@ -351,7 +349,7 @@ namespace API.Controllers.Driver
             request.RegistrationTypes = RegistrationTypes.Gmail;
             request.OtpTypes = OtpTypes.VerificationOTP;
 
-            var loginedUser = LoginedUser;
+            var loginedUser = LoggedInUser;
 
             var updateResponse =
                     await AppServices.Driver.UpdateDriverAccount(
@@ -415,7 +413,7 @@ namespace API.Controllers.Driver
         [HttpGet("test")]
         public IActionResult TestAuthen()
         {
-            var user = LoginedUser;
+            var user = LoggedInUser;
             return Ok(user);
         }  
     }
