@@ -2,6 +2,7 @@
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Settings;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
@@ -9,6 +10,7 @@ using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using MailKit.Net.Smtp;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
@@ -18,15 +20,15 @@ namespace API.Services
     public class VerifiedCodeService : IVerifiedCodeService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IConfiguration configuration;
+        private readonly IConfiguration _configuration;
         private static Random random = new Random();
 
-        public VerifiedCodeService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration)
+        public VerifiedCodeService(
+            IUnitOfWork unitOfWork,
+            IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            this.configuration = configuration;
+            _configuration = configuration;
         }
 
         private string GenerateOtpCode(int length)
@@ -61,10 +63,13 @@ namespace API.Services
         {
             MimeMessage email = new();
 
-            var mailSettings = configuration.GetSection("MailSettings").Get<MailSettings>();
+            var mailBoxAddress = new MailboxAddress(
+                _configuration.GetConfigByEnv("MailSettings:DisplayName"),
+                _configuration.GetConfigByEnv("MailSettings:Mail")
+            );
 
-            email.Sender = new MailboxAddress(mailSettings.DisplayName, mailSettings.Mail);
-            email.From.Add(new MailboxAddress(mailSettings.DisplayName, mailSettings.Mail));
+            email.Sender = mailBoxAddress;
+            email.From.Add(mailBoxAddress);
             email.To.Add(MailboxAddress.Parse(mailContent.To));
             email.Subject = mailContent.Subject;
 
@@ -77,8 +82,8 @@ namespace API.Services
 
             try
             {
-                smtp.Connect(mailSettings.Host, mailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
-                smtp.Authenticate(mailSettings.Mail, mailSettings.Password);
+                smtp.Connect(_configuration.GetConfigByEnv("MailSettings:Host"), int.Parse(_configuration.GetConfigByEnv("MailSettings:Port") ?? "587"), MailKit.Security.SecureSocketOptions.StartTls);
+                smtp.Authenticate(_configuration.GetConfigByEnv("MailSettings:Mail"), _configuration.GetConfigByEnv("MailSettings:Password"));
                 return await smtp.SendAsync(email);
                 //logger.LogInformation($"Send mail to:  {mailContent.To}");
             }
@@ -96,12 +101,12 @@ namespace API.Services
 
         private Task<MessageResource?> SendSMS(string sms, string toPhoneNumber)
         {
-            string fromPhoneNumber = configuration.GetSection("Twilio:PhoneNumber").Value;
+            var fromPhoneNumber = _configuration.GetConfigByEnv("TwilioSettings:PhoneNumber");
 
             // get base on environment
 
-            var accountSid = configuration.GetConfigByEnv("Twilio:TWILIO_ACCOUNT_SID");
-            var authToken = configuration.GetConfigByEnv("Twilio:TWILIO_AUTH_TOKEN");
+            var accountSid = _configuration.GetConfigByEnv("TwilioSettings:AccountSID");
+            var authToken = _configuration.GetConfigByEnv("TwilioSettings:AuthToken");
 
             TwilioClient.Init(accountSid, authToken);
 
@@ -114,13 +119,15 @@ namespace API.Services
             
         private async Task<Response> SaveCode(SendOtpRequest request, string otp, Response successResponse, Response errorResponse)
         {
+            var minuteForExpired = int.Parse(_configuration.GetConfigByEnv("TwilioSettings:ExpiredTime") ?? "0");
             VerifiedCode verifiedCode = new()
             {
                 RegistrationType = request.RegistrationTypes,
                 Registration = request.Registration,
                 Code = otp,
-                ExpiredTime = DateTime.UtcNow.AddMinutes(5),
+                ExpiredTime = DateTime.UtcNow.AddMinutes(minuteForExpired),
                 Type = request.OtpTypes,
+                Status = true
             };
 
             var code = await _unitOfWork.VerifiedCodes.CreateVerifiedCode(verifiedCode);
@@ -142,7 +149,7 @@ namespace API.Services
                 );
             }
 
-            var minuteForExpired = int.Parse(configuration.GetSection("OTP:ExpiredTime").Value);
+            var minuteForExpired = int.Parse(_configuration.GetConfigByEnv("TwilioSettings:ExpiredTime") ?? "0");
 
             DateTime validTime = code.CreatedAt.AddMinutes(minuteForExpired);
 
@@ -153,6 +160,9 @@ namespace API.Services
                     Message: errorResponse.Message
                 );
             }
+
+            // disable OTP
+            await _unitOfWork.VerifiedCodes.DisableCode(code);
 
             return null;
         }
@@ -171,7 +181,7 @@ namespace API.Services
                 return true;
             }
 
-            var minuteForResend = int.Parse(configuration.GetSection("OTP:TimeResend").Value);
+            var minuteForResend = int.Parse(_configuration.GetConfigByEnv("TwilioSettings:TimeResend") ?? "0");
 
             DateTime timeToResend = code.CreatedAt.AddMinutes(minuteForResend);
 

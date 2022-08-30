@@ -13,7 +13,8 @@ namespace API.Services
 {
     public class BookerService : AccountService, IBookerService
     {
-        public BookerService(IVerifiedCodeService verifiedCodeService, IUnitOfWork unitOfWork, IMapper mapper) : base(verifiedCodeService, unitOfWork, mapper)
+        public BookerService(IVerifiedCodeService verifiedCodeService, IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration, IUserService userService) 
+            : base(verifiedCodeService, unitOfWork, mapper, configuration, userService)
         {
         }
 
@@ -58,8 +59,7 @@ namespace API.Services
             UserInfoRequest request,
             Response successResponse,
             Response duplicateReponse,
-            Response failedResponse,
-            Response successButNotSendCodeResponse)
+            Response failedResponse)
         {
             return base.UpdateUserAccount(
                 userCode, 
@@ -67,26 +67,21 @@ namespace API.Services
                 request, 
                 successResponse, 
                 duplicateReponse, 
-                failedResponse, 
-                successButNotSendCodeResponse
+                failedResponse
             );
         }
 
         public Task<Response> CreateBookerAccount(UserRegisterRequest request,
             Response successResponse,
-            Response duplicatedAuthRegistrationResponse,
-            Response duplicatedOptionalRegistrationResponse,
-            Response failedResponse,
-            Response successButNotSendCodeResponse)
+            Response duplicatedRegistrationResponse,
+            Response failedResponse)
         {
             return base.CreateUserAccount(
                 Roles.BOOKER, 
                 request, 
                 successResponse, 
-                duplicatedAuthRegistrationResponse, 
-                duplicatedOptionalRegistrationResponse, 
-                failedResponse, 
-                successButNotSendCodeResponse
+                duplicatedRegistrationResponse,
+                failedResponse
             );
         }
     }

@@ -17,12 +17,21 @@ namespace API.Services
         protected readonly IVerifiedCodeService _verifiedCodeService;
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
+        private readonly IUserService _userService;
 
-        public AccountService(IVerifiedCodeService verifiedCodeService, IUnitOfWork unitOfWork, IMapper mapper)
+        public AccountService(
+            IVerifiedCodeService verifiedCodeService, 
+            IUnitOfWork unitOfWork, 
+            IMapper mapper, 
+            IConfiguration configuration,
+            IUserService userService)
         {
             _verifiedCodeService = verifiedCodeService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _configuration = configuration;
+            _userService = userService;
         }
 
         public async Task<Account?> GetAccountByUserCodeAsync(string userCode, RegistrationTypes registrationTypes)
@@ -163,8 +172,7 @@ namespace API.Services
             UserInfoRequest request, 
             Response successResponse, 
             Response duplicateReponse, 
-            Response failedResponse,
-            Response successButNotSendCodeResponse)
+            Response failedResponse)
         {
             var existResponse = CheckNotExisted(userRole, request, duplicateReponse, isVerified: true);
             if (existResponse != null) return existResponse;
@@ -195,18 +203,18 @@ namespace API.Services
 
             //commit transaction
             await _unitOfWork.CommitAsync();
-            return await _verifiedCodeService.SendAndSaveOtp(request, successResponse, successButNotSendCodeResponse);
+
+            // transaction for update avatar
+            return await _userService.UpdateUserAvatar(userCode, request.Avatar, successResponse, failedResponse);
         }
 
         public async Task<Response> CreateUserAccount(
             Roles userRole, UserRegisterRequest request, 
             Response successResponse, 
-            Response duplicatedAuthRegistrationResponse, 
-            Response duplicatedOptionalRegistrationResponse,
-            Response failedResponse,
-            Response successButNotSendCodeResponse)
+            Response duplicatedRegistrationResponse,
+            Response failedResponse)
         {
-            var existResponse = CheckNotExisted(userRole, request, duplicatedAuthRegistrationResponse, isVerified: true);
+            var existResponse = CheckNotExisted(userRole, request, duplicatedRegistrationResponse, isVerified: true);
             if (existResponse != null) return existResponse;
 
             var authAccount = new Account()
@@ -221,31 +229,29 @@ namespace API.Services
 
             if (!string.IsNullOrEmpty(request.OptionalRegistration))
             {
-                SendOtpRequest optionRegistrationOtpRequest = new()
-                {
-                    Registration = request.OptionalRegistration,
-                    RegistrationTypes = request.OptionalRegistrationTypes,
-                };
-                existResponse = CheckNotExisted(userRole, optionRegistrationOtpRequest, duplicatedOptionalRegistrationResponse, true);
-                if (existResponse != null) return existResponse;
-                
                 // email or phone base user role
                 var optionalAccount = new Account()
                 {
                     Registration = request.OptionalRegistration,
                     RegistrationType = request.OptionalRegistrationTypes,
-                    RoleId = userRole
+                    RoleId = userRole,
+                    Verified = false
                 };
 
                 accounts.Add(optionalAccount);
             }
 
+            var defaultAvatar = new AppFile
+            {
+                Path = $"{_configuration.GetConfigByEnv("AwsSettings:UserAvatarFolder")}{_configuration.GetConfigByEnv("AwsSettings:DefaultAvatar")}",
+                Type = FileTypes.Image,
+            };
+
             var newUser = new User()
             {
                 Name = request.Name,
-                DateOfBirth = request.DateOfBirth,
-                Gender = request.Gender,
-                Accounts = accounts
+                Accounts = accounts,
+                File = defaultAvatar
             };
 
             // open transaction
@@ -261,7 +267,7 @@ namespace API.Services
 
             //commit transaction
             await _unitOfWork.CommitAsync();
-            return await _verifiedCodeService.SendAndSaveOtp(request, successResponse, successButNotSendCodeResponse);
+            return successResponse;
         }
     }
 }
