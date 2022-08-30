@@ -3,6 +3,7 @@ using Domain.Shares.Enums;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Domain.Entities
 {
     public class Booking : BaseEntity
     {
-        public TimeSpan Time { get; set; }
+        public TimeOnly Time { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
         public int Option { get; set; }

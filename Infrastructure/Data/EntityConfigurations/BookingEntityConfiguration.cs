@@ -33,7 +33,6 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("discount_price");
 
             builder.Property(e => e.Option)
-                //.HasConversion<List<int>>()
                 .HasColumnName("option");
 
             builder.Property(e => e.Type)
@@ -41,10 +40,7 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("type");
 
             builder.Property(e => e.Days)
-                .HasColumnType("json")
-                .HasConversion(
-                    obj => JsonConvert.SerializeObject(obj),
-                    json => JsonConvert.DeserializeObject<DaySchedule>(json))
+                .HasColumnType("jsonb")
                 .HasColumnName("days");
 
             builder.Property(e => e.IsShared)
@@ -58,17 +54,11 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("end_at");
 
             builder.Property(e => e.From)
-                .HasColumnType("json")
-                .HasConversion(
-                    obj => JsonConvert.SerializeObject(obj),
-                    json => JsonConvert.DeserializeObject<Location>(json))
+                .HasColumnType("jsonb")
                 .HasColumnName("from");
 
             builder.Property(e => e.To)
-                .HasColumnType("json")
-                .HasConversion(
-                    obj => JsonConvert.SerializeObject(obj),
-                    json => JsonConvert.DeserializeObject<Location>(json))
+                .HasColumnType("jsonb")
                 .HasColumnName("to");
 
             builder.Property(e => e.UserId)
