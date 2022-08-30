@@ -64,16 +64,16 @@ namespace API.Services
             return user.ToList();
         }
 
-        public async Task<Response> UpdateUserAvatar(string userCode, IFormFile file, Response successResponse, Response errorResponse)
+        public async Task<Response> UpdateUserAvatar(string userCode, IFormFile avatar, Response successResponse, Response errorResponse)
         {
             var user = await _unitOfWork.Users.GetUserByCode(userCode).Include(x => x.File).FirstOrDefaultAsync();
             var userFile = user.File;
 
             // Process file
             await using var memoryStream = new MemoryStream();
-            await file.CopyToAsync(memoryStream);
+            await avatar.CopyToAsync(memoryStream);
 
-            var fileExt = Path.GetExtension(file.FileName);
+            var fileExt = Path.GetExtension(avatar.FileName);
             var docName = $"{_configuration.GetConfigByEnv("AwsSettings:UserAvatarFolder")}{userCode}{fileExt}";
 
             // update file path

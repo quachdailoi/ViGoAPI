@@ -119,13 +119,15 @@ namespace API.Services
             
         private async Task<Response> SaveCode(SendOtpRequest request, string otp, Response successResponse, Response errorResponse)
         {
+            var minuteForExpired = int.Parse(_configuration.GetConfigByEnv("TwilioSettings:ExpiredTime") ?? "0");
             VerifiedCode verifiedCode = new()
             {
                 RegistrationType = request.RegistrationTypes,
                 Registration = request.Registration,
                 Code = otp,
-                ExpiredTime = DateTime.UtcNow.AddMinutes(5),
+                ExpiredTime = DateTime.UtcNow.AddMinutes(minuteForExpired),
                 Type = request.OtpTypes,
+                Status = true
             };
 
             var code = await _unitOfWork.VerifiedCodes.CreateVerifiedCode(verifiedCode);
@@ -158,6 +160,9 @@ namespace API.Services
                     Message: errorResponse.Message
                 );
             }
+
+            // disable OTP
+            await _unitOfWork.VerifiedCodes.DisableCode(code);
 
             return null;
         }

@@ -344,7 +344,7 @@ namespace API.Controllers.Driver
         /// <response code="400"> Update failed - This phone number was verified by another account.</response>
         /// <response code="500"> Update failed - Something went wrong.</response>
         [HttpPut("information")]
-        public async Task<IActionResult> UpdateInformation([FromBody] UserInfoRequest request)
+        public async Task<IActionResult> UpdateInformation([FromForm] UserInfoRequest request)
         {
             request.RegistrationTypes = RegistrationTypes.Gmail;
             request.OtpTypes = OtpTypes.VerificationOTP;
@@ -369,11 +369,6 @@ namespace API.Controllers.Driver
                         {
                             Message = "Failed to update driver's information.",
                             StatusCode = StatusCodes.Status500InternalServerError
-                        },
-                        successButNotSendCodeResponse: new()
-                        {
-                            Message = "Update driver's information successfully, but failed to send verification code - Please click resend code.",
-                            StatusCode = StatusCodes.Status200OK
                         }
                     );
 

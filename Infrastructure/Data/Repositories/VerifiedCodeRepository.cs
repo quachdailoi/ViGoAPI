@@ -21,6 +21,12 @@ namespace Infrastructure.Data.Repositories
             return await Add(verifiedCode);
         }
 
+        public async Task DisableCode(VerifiedCode verifiedCode)
+        {
+            verifiedCode.Status = false;
+            await Update(verifiedCode);
+        }
+
         public IQueryable<VerifiedCode> GetVerifiedCode(string registration, RegistrationTypes registrationType, OtpTypes codeType)
         {
             return List(x => x.Registration == registration && 
@@ -30,7 +36,7 @@ namespace Infrastructure.Data.Repositories
 
         public IQueryable<VerifiedCode> GetVerifiedCode(string otp, string registration, RegistrationTypes registrationType, OtpTypes codeType)
         {
-            return GetVerifiedCode(registration, registrationType, codeType).Where(x => x.Code == otp);
+            return GetVerifiedCode(registration, registrationType, codeType).Where(x => x.Code == otp && x.Status);
         }
     }
 }
