@@ -10,6 +10,6 @@ namespace API.Services.Constract
         IQueryable<User>? GetUserById(int? id);
         Task<UserViewModel?> GetUserViewModelById(int? userId);
         List<User> GetUsersByCode(List<Guid> userCodes);
-        Task<Response> UpdateUserAvatar(string userCode, IFormFile file, Response successResponse, Response errorResponse);
+        Task<Response> UpdateUserAvatar(string userCode, IFormFile avatar, Response successResponse, Response errorResponse);
     }
 }

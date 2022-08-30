@@ -10,6 +10,7 @@ namespace Domain.Interfaces.Repositories
 {
     public interface IVerifiedCodeRepository : IGenericRepository<VerifiedCode>
     {
+        Task DisableCode(VerifiedCode verifiedCode);
         Task<VerifiedCode> CreateVerifiedCode(VerifiedCode verifiedCode);
 
         IQueryable<VerifiedCode> GetVerifiedCode(string registration, RegistrationTypes registrationType, OtpTypes codeType);

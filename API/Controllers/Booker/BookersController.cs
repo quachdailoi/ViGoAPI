@@ -395,11 +395,10 @@ namespace API.Controllers.Booker
         /// <remarks>UpdateInformation</remarks>
         /// <param name="request" example="{Name: 'ABC' , Gender: 1, DateOfBirth='31-01-2000', Registration='abc@gmail.com'}">User Information Schema</param>
         /// <response code = "200"> Updated user's information successfully.</response>
-        /// <response code = "200"> Update user's information successfully, but send verification code failed. Please click resend code.</response>
         /// <response code="400"> This gmail was verified by another account.</response>
         /// <response code="500"> Failed to update user's information.</response>
         [HttpPut("information")]
-        public async Task<IActionResult> UpdateInformation([FromBody] UserInfoRequest request)
+        public async Task<IActionResult> UpdateInformation([FromForm] UserInfoRequest request)
         {
             request.RegistrationTypes = RegistrationTypes.Gmail;
             request.OtpTypes = OtpTypes.VerificationOTP;
@@ -424,11 +423,6 @@ namespace API.Controllers.Booker
                         {
                             Message = "Failed to update user's information.",
                             StatusCode = StatusCodes.Status500InternalServerError
-                        },
-                        successButNotSendCodeResponse: new()
-                        {
-                            Message = "Update user's information successfully, but send verification code failed. Please click resend code.",
-                            StatusCode = StatusCodes.Status200OK
                         }
                     );
 

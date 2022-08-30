@@ -23,8 +23,7 @@ namespace API.Services.Constract
             UserInfoRequest request,
             Response successResponse,
             Response duplicateReponse,
-            Response failedResponse,
-            Response successButNotSendCodeResponse
+            Response failedResponse
         );
 
         Task<Response> CreateUserAccount(

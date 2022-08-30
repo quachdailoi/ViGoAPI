@@ -112,14 +112,14 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPost("update-avatar")]
-        public async Task<IActionResult> UpdateAvatar(IFormFile file)
+        public async Task<IActionResult> UpdateAvatar(IFormFile avatar)
         {
             var userCode = LoggedInUser.Code;
 
             var response = 
                 await AppServices.User.UpdateUserAvatar(
                     userCode.ToString(),
-                    file,
+                    avatar,
                     successResponse: new()
                     {
                         Message = "Update avatar successfully.",
