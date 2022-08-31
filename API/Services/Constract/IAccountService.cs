@@ -23,17 +23,14 @@ namespace API.Services.Constract
             UserInfoRequest request,
             Response successResponse,
             Response duplicateReponse,
-            Response failedResponse,
-            Response successButNotSendCodeResponse
+            Response failedResponse
         );
 
         Task<Response> CreateUserAccount(
              Roles userRole, UserRegisterRequest request,
              Response successResponse,
-             Response duplicatedAuthRegistrationResponse,
-             Response duplicatedOptionalRegistrationResponse,
-             Response failedResponse,
-             Response successButNotSendCodeResponse
+             Response duplicatedRegistrationResponse,
+             Response failedResponse
          );
     }
 }

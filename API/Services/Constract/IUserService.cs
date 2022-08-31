@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using API.Models.Response;
 using Domain.Entities;
 
 namespace API.Services.Constract
@@ -9,5 +10,6 @@ namespace API.Services.Constract
         IQueryable<User>? GetUserById(int? id);
         Task<UserViewModel?> GetUserViewModelById(int? userId);
         List<User> GetUsersByCode(List<Guid> userCodes);
+        Task<Response> UpdateUserAvatar(string userCode, IFormFile avatar, Response successResponse, Response errorResponse);
     }
 }

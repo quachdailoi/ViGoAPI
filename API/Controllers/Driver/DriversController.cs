@@ -17,7 +17,7 @@ using Twilio.Rest.Api.V2010.Account;
 namespace API.Controllers.Driver
 {
     [Route("api/[controller]")]
-    [Authorize(Roles="DRIVER")]
+    [Authorize(Roles = "DRIVER")]
     [ApiController]
     public class DriversController : BaseController<DriversController>
     {
@@ -35,7 +35,7 @@ namespace API.Controllers.Driver
         /// <param name="request" example="{IdToken: 'abc......'}">Login By Email Request Schema</param>
         /// <response code = "200"> Login successfully.</response>
         /// <response code = "400"> Login failed - Something went wrong.</response>
-        /// <response code = "404"> Not found email of driver account in our system.</response>
+        /// <response code = "400"> Not found email of driver account in our system.</response>
         [HttpPost("login-by-email")]
         [AllowAnonymous]
         public async Task<IActionResult> LoginByEmail([FromBody] LoginByEmailRequest request)
@@ -64,7 +64,7 @@ namespace API.Controllers.Driver
                 return ApiResult(new()
                 {
                     Message = "Not found email of driver account in our system.",
-                    StatusCode = StatusCodes.Status404NotFound
+                    StatusCode = StatusCodes.Status400BadRequest
                 });
             }
 
@@ -91,23 +91,22 @@ namespace API.Controllers.Driver
         /// <param name="request" example="{Registration: 'abc@gmail.com'}">Send Otp Request Schema</param>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This gmail was verified by another account.</response>
-        /// <response code = "400"> Wait 1 minute since last sent.</response>
         /// <response code = "500"> Fail to send otp to this gmail address.</response>
-        [HttpGet("gmail/send-otp-to-update")]
-        public async Task<IActionResult> SendGmailOtpToUpdate([FromQuery] SendOtpRequest request)
+        [HttpPost("gmail/send-otp-to-update")]
+        public async Task<IActionResult> SendGmailOtpToUpdate([FromBody] SendOtpRequest request)
         {
             request.OtpTypes = OtpTypes.UpdateOTP;
             request.RegistrationTypes = RegistrationTypes.Gmail;
 
             // check not existed verify gmail to send otp if EXIST return error response
-            var existResponse = 
+            var existResponse =
                 AppServices.Driver.CheckNotExisted(
-                    request, 
+                    request,
                     errorResponse: new()
                     {
-                        Message = "This gmail was verified by another account.", 
+                        Message = "This gmail was verified by another account.",
                         StatusCode = StatusCodes.Status400BadRequest
-                    }, 
+                    },
                     isVerified: true
                 );
 
@@ -191,10 +190,10 @@ namespace API.Controllers.Driver
 
             if (verifyResponse != null) return ApiResult(verifyResponse);
 
-            var updateResult = 
+            var updateResult =
                 await AppServices.Account.UpdateAccountRegistration(
-                    account, 
-                    request, 
+                    account,
+                    request,
                     isVerified: true,
                     successResponse: new()
                     {
@@ -218,10 +217,9 @@ namespace API.Controllers.Driver
         /// <param name="request" example="{Registration: '+84837226239'}">Send Otp Request Schema</param>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This phone number was verified by another account.</response>
-        /// <response code = "400"> Wait 1 minute since last sent.</response>
         /// <response code = "500"> Fail to send otp to this phone number.</response>
-        [HttpGet("phone/send-otp-to-verify")]
-        public async Task<IActionResult> SendPhoneOtpToVerify([FromQuery] SendOtpRequest request)
+        [HttpPost("phone/send-otp-to-verify")]
+        public async Task<IActionResult> SendPhoneOtpToVerify([FromBody] SendOtpRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
             request.RegistrationTypes = RegistrationTypes.Phone;
@@ -319,7 +317,7 @@ namespace API.Controllers.Driver
             if (verifyResponse != null) return ApiResult(verifyResponse);
 
             // verify account
-            var result = 
+            var result =
                 await AppServices.Account.VerifyAccount(
                     account,
                     successResponse: new()
@@ -346,12 +344,12 @@ namespace API.Controllers.Driver
         /// <response code="400"> Update failed - This phone number was verified by another account.</response>
         /// <response code="500"> Update failed - Something went wrong.</response>
         [HttpPut("information")]
-        public async Task<IActionResult> UpdateInformation([FromBody] UserInfoRequest request)
+        public async Task<IActionResult> UpdateInformation([FromForm] UserInfoRequest request)
         {
             request.RegistrationTypes = RegistrationTypes.Gmail;
             request.OtpTypes = OtpTypes.VerificationOTP;
 
-            var loginedUser = LoginedUser;
+            var loginedUser = LoggedInUser;
 
             var updateResponse =
                     await AppServices.Driver.UpdateDriverAccount(
@@ -371,11 +369,6 @@ namespace API.Controllers.Driver
                         {
                             Message = "Failed to update driver's information.",
                             StatusCode = StatusCodes.Status500InternalServerError
-                        },
-                        successButNotSendCodeResponse: new()
-                        {
-                            Message = "Update driver's information successfully, but failed to send verification code - Please click resend code.",
-                            StatusCode = StatusCodes.Status200OK
                         }
                     );
 
@@ -415,8 +408,8 @@ namespace API.Controllers.Driver
         [HttpGet("test")]
         public IActionResult TestAuthen()
         {
-            var user = LoginedUser;
+            var user = LoggedInUser;
             return Ok(user);
-        }  
+        }
     }
 }

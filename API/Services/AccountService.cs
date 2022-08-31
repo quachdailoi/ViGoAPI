@@ -21,9 +21,9 @@ namespace API.Services
         private readonly IUserService _userService;
 
         public AccountService(
-            IVerifiedCodeService verifiedCodeService, 
-            IUnitOfWork unitOfWork, 
-            IMapper mapper, 
+            IVerifiedCodeService verifiedCodeService,
+            IUnitOfWork unitOfWork,
+            IMapper mapper,
             IConfiguration configuration,
             IUserService userService)
         {
@@ -168,10 +168,10 @@ namespace API.Services
         }
 
         public async Task<Response> UpdateUserAccount(
-            string userCode, Roles userRole, 
-            UserInfoRequest request, 
-            Response successResponse, 
-            Response duplicateReponse, 
+            string userCode, Roles userRole,
+            UserInfoRequest request,
+            Response successResponse,
+            Response duplicateReponse,
             Response failedResponse)
         {
             var existResponse = CheckNotExisted(userRole, request, duplicateReponse, isVerified: true);
@@ -209,8 +209,8 @@ namespace API.Services
         }
 
         public async Task<Response> CreateUserAccount(
-            Roles userRole, UserRegisterRequest request, 
-            Response successResponse, 
+            Roles userRole, UserRegisterRequest request,
+            Response successResponse,
             Response duplicatedRegistrationResponse,
             Response failedResponse)
         {
@@ -221,7 +221,7 @@ namespace API.Services
             {
                 Registration = request.Registration,
                 RegistrationType = request.RegistrationTypes,
-                RoleId = userRole, 
+                RoleId = userRole,
                 Verified = true
             };
 

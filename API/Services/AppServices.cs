@@ -15,8 +15,7 @@ namespace API.Services
                 IRoomService roomService,
                 IMessageService messageService,
                 IBookingService bookingService,
-                IBookingDetailService bookingDetailService,
-                IJsonService jsonService
+                IBookingDetailService bookingDetailService
             )
         {
             Account = accountService;
@@ -30,7 +29,6 @@ namespace API.Services
             Message = messageService;
             Booking = bookingService;
             BookingDetail = bookingDetailService;
-            Json = jsonService;
         }
 
         public IAccountService Account { get; }
@@ -44,6 +42,5 @@ namespace API.Services
         public IMessageService Message { get; }
         public IBookingService Booking { get; }
         public IBookingDetailService BookingDetail { get; }
-        public IJsonService Json { get; }
     }
 }

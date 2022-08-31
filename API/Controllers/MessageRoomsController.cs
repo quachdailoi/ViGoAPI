@@ -47,7 +47,7 @@ namespace API.Controllers
             var userCodes = new List<Guid>
             {
                 userCode,
-                this.LoginedUser.Code
+                this.LoggedInUser.Code
             };
 
             var response = AppServices.Room.GetViewModelByMemberCode(
@@ -113,7 +113,7 @@ namespace API.Controllers
         [HttpGet("support")]
         public async Task<IActionResult> GetSupportMessageRoom()
         {
-            var user = this.LoginedUser;
+            var user = this.LoggedInUser;
 
             var response = await AppServices.Room.GetByType(
                                         user.Id, 
@@ -149,7 +149,7 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateMessageRoom([FromBody] MessageRoomRequest request)
         { 
-            var user = this.LoginedUser;
+            var user = this.LoggedInUser;
 
             request.PartnerUserCodes.Add(user.Code);
 
