@@ -82,6 +82,7 @@ namespace API.Extensions
             services.AddScoped<IUserRoomRepository, UserRoomRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IFileRepository, FileRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)

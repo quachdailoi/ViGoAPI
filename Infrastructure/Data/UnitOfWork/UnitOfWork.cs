@@ -24,6 +24,8 @@ namespace Infrastructure.Data.UnitOfWork
 
         public IMessageRepository Messages { get; private set; }
 
+        public IFileRepository Files { get; private set; }
+
         public UnitOfWork(
             AppDbContext dbContext, 
             ILoggerFactory loggerFactory,
@@ -33,7 +35,8 @@ namespace Infrastructure.Data.UnitOfWork
             IVerifiedCodeRepository verifiedCodeRepository,
             IUserRoomRepository userRoomRepository,
             IRoomRepository roomRepository,
-            IMessageRepository messageRepository
+            IMessageRepository messageRepository,
+            IFileRepository fileRepository
         )
         {
             _dbContext = dbContext;
@@ -45,6 +48,7 @@ namespace Infrastructure.Data.UnitOfWork
             UserRooms = userRoomRepository;
             Rooms = roomRepository;
             Messages = messageRepository;
+            Files = fileRepository;
 
             _logger = loggerFactory.CreateLogger("logs");
         }

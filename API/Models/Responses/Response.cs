@@ -34,7 +34,7 @@ namespace API.Models.Response
             return this;
         }
 
-        public Response SetData(object data)
+        public Response SetData(object? data)
         {
             Data = data;
             return this;

@@ -209,7 +209,9 @@ namespace API.Services
                 // transaction for update avatar
                 return await _userService.UpdateUserAvatar(userCode, request.Avatar, successResponse, failedResponse);
 
-            return successResponse;
+            var newUserVM = await _userService.GetUserViewModelById(user.Id);
+
+            return successResponse.SetData(newUserVM);
         }
 
         public async Task<Response> CreateUserAccount(

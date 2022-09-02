@@ -25,8 +25,13 @@ namespace API.Controllers
 
             if (user == null) return NotFound("Not found user with code to delete.");
 
-            var rs = await _unitOfWork.Users.Remove(user);
-            if (!rs) return StatusCode(500, "Error when deleting.");
+            await _unitOfWork.Users.Remove(user);
+            foreach (var acc in user.Accounts)
+            {
+                await _unitOfWork.Accounts.Remove(acc);
+            }
+            if (user.File != null)
+            await _unitOfWork.Files.Remove(user.File);
 
             return Ok("Delete user successfully.");
         }

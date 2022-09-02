@@ -12,6 +12,8 @@ namespace Domain.Interfaces.UnitOfWork
         IRoomRepository Rooms { get; }
         IMessageRepository Messages { get; }
 
+        IFileRepository Files { get; }
+
         Task CreateTransactionAsync();
         Task CommitAsync();
         Task Rollback();
