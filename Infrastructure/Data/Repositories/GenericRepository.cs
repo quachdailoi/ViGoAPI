@@ -56,7 +56,7 @@ namespace Infrastructure.Data.Repositories
         {
             try
             {
-                var exist = await DbSet.FindAsync((IBaseEntity) entity);
+                var exist = await DbSet.FindAsync(((IBaseEntity)entity).Id);
 
                 if (exist == null) return false;
 

@@ -14,6 +14,7 @@ using API.Middleware;
 using AutoMapper;
 using API.Mapper;
 using API.Services.Constract;
+using System.Reflection;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -35,11 +36,17 @@ services.AddLogging();
 services.ConfigureCORS(MyAllowSpecificOrigins);
 
 // Add services to the container.
-services.AddControllers().AddJsonOptions(options =>
+services.AddControllers(option =>
+{
+    option.AllowEmptyInputInBodyModelBinding = true;
+}).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
+
+//services.AddFluentValidationAutoValidation();
+//services.AddValidatorsFromAssemblyContaining<InformationRequestValidator>();
 
 // Add route with lower case
 services.AddRouting(options => options.LowercaseUrls = true);

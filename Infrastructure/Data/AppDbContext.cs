@@ -76,9 +76,9 @@ namespace Infrastructure.Data
                 Id = 1,
                 Name = "Quach Dai Loi",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
                 FileId = 1,
             });
 
@@ -93,9 +93,9 @@ namespace Infrastructure.Data
                 Id = 2,
                 Name = "Do Trong Dat",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
                 FileId = 2,
             });
 
@@ -110,9 +110,9 @@ namespace Infrastructure.Data
                 Id = 3,
                 Name = "Nguyen Dang Khoa",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
                 FileId = 3,
             });
 
@@ -127,9 +127,9 @@ namespace Infrastructure.Data
                 Id = 4,
                 Name = "Than Thanh Duy",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
                 FileId = 4,
             });
 
@@ -144,9 +144,9 @@ namespace Infrastructure.Data
             //    Id = 5,
             //    Name = "Loi Quach",
             //    Code = Guid.NewGuid(),
-            //    DateOfBirth = DateTime.UtcNow,
-            //    Gender = 1,
-            //    Status = 1,
+            //    DateOfBirth = null,
+            //    Gender = Genders.Male,
+            //    Status = StatusTypes.User.Active,
             //    FileId = 5,
             //});
 
@@ -161,9 +161,9 @@ namespace Infrastructure.Data
                 Id = 6,
                 Name = "Dat Do",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
                 FileId = 6,
             });
 
@@ -178,9 +178,9 @@ namespace Infrastructure.Data
                 Id = 7,
                 Name = "Khoa Nguyen",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
                 FileId = 7,
             });
 
@@ -195,9 +195,9 @@ namespace Infrastructure.Data
                 Id = 8,
                 Name = "Thanh Duy",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
                 FileId = 8,
             });
 

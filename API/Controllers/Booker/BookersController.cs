@@ -1,7 +1,9 @@
-﻿using API.JwtFeatures;
+﻿using API.Extensions;
+using API.JwtFeatures;
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Settings;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -36,15 +38,16 @@ namespace API.Controllers.Booker
         /// <response code = "500"> Fail to send code to this phone number.</response>
         [HttpPost("phone/send-otp-to-login")]
         [AllowAnonymous]
-        public async Task<IActionResult> SendPhoneOtpToLogin([FromBody] SendOtpRequest request)
+        public async Task<IActionResult> SendPhoneOtpToLogin([FromForm] SendPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.LoginOTP;
-            request.RegistrationTypes = RegistrationTypes.Phone;
+
+            var genericRequest = request.ToGeneric();
 
             // check existed verified phone number to send otp if NOT return error response
             var notExistResponse = 
                 AppServices.Booker.CheckExisted(
-                    request, 
+                    genericRequest, 
                     errorResponse: new()
                     {
                         Message = "Not found account with this phone number to send login otp.",
@@ -58,7 +61,7 @@ namespace API.Controllers.Booker
             // check valid time to send otp
             var checkValidResponse = 
                 await AppServices.VerifiedCode.CheckValidTimeSendOtp(
-                    request, 
+                    genericRequest, 
                     errorResponse: new()
                     {
                         Message = "Wait 1 minute since last sent.", 
@@ -71,7 +74,7 @@ namespace API.Controllers.Booker
             // send and save otp code
             var sendAndSaveResponse = 
                 await AppServices.VerifiedCode.SendAndSaveOtp(
-                    request, 
+                    genericRequest, 
                     successResponse: new()
                     {
                         Message = "Send Otp Successfully.",
@@ -97,26 +100,32 @@ namespace API.Controllers.Booker
         /// <response code = "400"> Not found phone of booker account in our system.</response>
         [HttpPost("phone/login")]
         [AllowAnonymous]
-        public async Task<IActionResult> PhoneLogin([FromBody] VerifyOtpRequest request)
+        public async Task<IActionResult> PhoneLogin([FromForm] VerifyPhoneOtpRequest request)
         {
-            request.RegistrationTypes = RegistrationTypes.Phone;
             request.OtpTypes = OtpTypes.LoginOTP;
+
+            var genericRequest = request.ToGeneric();
 
             Response response = new();
 
             var loginFailedResponse = 
                 await AppServices.VerifiedCode.VerifyOtp(
-                    request, 
-                    errorResponse: new()
+                    genericRequest,
+                    wrongResponse: new()
                     {
-                        Message = "Wrong or Expired OTP.", 
+                        Message = "Wrong OTP.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    expiredResponse: new()
+                    {
+                        Message = "Expired OTP.",
                         StatusCode = StatusCodes.Status400BadRequest
                     }
                 );
 
             if (loginFailedResponse != null) return ApiResult(loginFailedResponse);
 
-            var user = await AppServices.Booker.GetUserViewModel(request);
+            var user = await AppServices.Booker.GetUserViewModel(genericRequest);
 
             if (user == null)
             {
@@ -133,7 +142,9 @@ namespace API.Controllers.Booker
                 .SetData(new LoginSuccessViewModel
                 {
                     AccessToken = token,
-                    RefreshAccessToken = refreshToken,
+                    AccessTokenExpiredTime = DateTime.UtcNow.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
+                    RefreshToken = refreshToken,
+                    RefreshTokenExpiredTime = DateTime.UtcNow.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
                     User = user
                 });
 
@@ -149,15 +160,16 @@ namespace API.Controllers.Booker
         /// <response code = "400"> This email was verified by another account.</response>
         /// <response code = "500"> Fail to send otp to this gmail.</response>
         [HttpPost("gmail/send-otp-to-verify")]
-        public async Task<IActionResult> SendGmailOtpToVerify([FromBody] SendOtpRequest request)
+        public async Task<IActionResult> SendGmailOtpToVerify([FromForm] SendGmailOtpRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
-            request.RegistrationTypes = RegistrationTypes.Gmail;
+
+            var genericRequest = request.ToGeneric();
 
             // check not existed verified gmail to send otp if EXIST return error response
             var existResponse = 
                 AppServices.Booker.CheckNotExisted(
-                    request, 
+                    genericRequest, 
                     errorResponse: new()
                     {
                         Message = "This email was verified by another account.", 
@@ -171,7 +183,7 @@ namespace API.Controllers.Booker
             // check valid time to send otp
             var checkValidResponse = 
                 await AppServices.VerifiedCode.CheckValidTimeSendOtp(
-                    request, 
+                    genericRequest, 
                     errorResponse: new()
                     {
                         Message = "Wait 1 minute since last sent.", 
@@ -184,7 +196,7 @@ namespace API.Controllers.Booker
             // send and save otp code
             var sendAndSaveResponse = 
                 await AppServices.VerifiedCode.SendAndSaveOtp(
-                    request, 
+                    genericRequest, 
                     successResponse: new()
                     {
                         Message = "Send Otp Successfully.",
@@ -210,10 +222,11 @@ namespace API.Controllers.Booker
         /// <response code = "400"> Wrong or Expired OTP.</response>
         /// <response code = "500"> Failed to verify gmail.</response>
         [HttpPost("gmail/verify")]
-        public async Task<IActionResult> VerifyGmail([FromBody] VerifyOtpRequest request)
+        public async Task<IActionResult> VerifyGmail([FromForm] VerifyGmailOtpRequest request)
         {
-            request.RegistrationTypes = RegistrationTypes.Gmail;
             request.OtpTypes = OtpTypes.VerificationOTP;
+
+            var genericRequest = request.ToGeneric();
 
             var authenResponse = CheckLoginedUserToGetAccount(RegistrationTypes.Gmail, out UserViewModel? loginedUser, out Account? account);
 
@@ -222,7 +235,7 @@ namespace API.Controllers.Booker
             // check not existed verified gmail to send otp if EXIST return error response
             var existResponse = 
                 AppServices.Booker.CheckNotExisted(
-                    request, 
+                    genericRequest, 
                     errorResponse: new()
                     {
                         Message = "This email was verified by another account.", 
@@ -235,10 +248,15 @@ namespace API.Controllers.Booker
 
             var verifyResponse = 
                 await AppServices.VerifiedCode.VerifyOtp(
-                    request, 
-                    errorResponse: new()
+                    genericRequest,
+                    wrongResponse: new()
                     {
-                        Message = "Wrong or Expired OTP.", 
+                        Message = "Wrong OTP.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    expiredResponse: new()
+                    {
+                        Message = "Expired OTP.",
                         StatusCode = StatusCodes.Status400BadRequest
                     }
                 );
@@ -272,15 +290,16 @@ namespace API.Controllers.Booker
         /// <response code = "400"> This phone number was verified by another account.</response>
         /// <response code = "500"> Fail to send otp to this phone number.</response>
         [HttpPost("phone/send-otp-to-update")]
-        public async Task<IActionResult> SendPhoneOtpForUpdate([FromBody] SendOtpRequest request)
+        public async Task<IActionResult> SendPhoneOtpForUpdate([FromForm] SendPhoneOtpRequest request)
         {
-            request.OtpTypes = OtpTypes.UpdateOTP; 
-            request.RegistrationTypes = RegistrationTypes.Phone; 
+            request.OtpTypes = OtpTypes.UpdateOTP;
+
+            var genericRequest = request.ToGeneric();
 
             // check not existed verified phone number to send otp if EXIST return error response 
             var existResponse = 
-                AppServices.Booker.CheckNotExisted( 
-                    request, 
+                AppServices.Booker.CheckNotExisted(
+                    genericRequest, 
                     errorResponse: new()
                     {
                         Message = "This phone number was belong to another verified account.", 
@@ -294,7 +313,7 @@ namespace API.Controllers.Booker
             // check valid time to send otp
             var checkValidResponse =
                 await AppServices.VerifiedCode.CheckValidTimeSendOtp(
-                    request,
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "Wait 1 minute since last sent",
@@ -307,7 +326,7 @@ namespace API.Controllers.Booker
             // send and save otp code
             var sendAndSaveResponse =
                 await AppServices.VerifiedCode.SendAndSaveOtp(
-                    request,
+                    genericRequest,
                     successResponse: new()
                     {
                         Message = "Send Otp Successfully.",
@@ -333,10 +352,11 @@ namespace API.Controllers.Booker
         /// <response code = "400"> Wrong or Expired OTP.</response>
         /// <response code = "500"> Failed to update phone number.</response>
         [HttpPut("phone")]
-        public async Task<IActionResult> UpdatePhone([FromBody] VerifyOtpRequest request)
-        {
-            request.RegistrationTypes = RegistrationTypes.Phone;
+        public async Task<IActionResult> UpdatePhone([FromForm] VerifyPhoneOtpRequest request) 
+        { 
             request.OtpTypes = OtpTypes.UpdateOTP;
+
+            var genericRequest = request.ToGeneric();
 
             var authenResponse = CheckLoginedUserToGetAccount(RegistrationTypes.Phone, out UserViewModel? loginedUser, out Account? account);
 
@@ -345,7 +365,7 @@ namespace API.Controllers.Booker
             // check not existed verified phone number to send otp if EXIST return error response
             var existResponse =
                 AppServices.Booker.CheckNotExisted(
-                    request,
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "This phone number was belong to another verified account.",
@@ -359,10 +379,15 @@ namespace API.Controllers.Booker
             // verify OTP
             var verifyResponse =
                 await AppServices.VerifiedCode.VerifyOtp(
-                    request,
-                    errorResponse: new()
+                    genericRequest,
+                    wrongResponse: new()
                     {
-                        Message = "Wrong or Expired OTP.",
+                        Message = "Wrong OTP.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    expiredResponse: new()
+                    {
+                        Message = "Expired OTP.",
                         StatusCode = StatusCodes.Status400BadRequest
                     }
                 );
@@ -371,8 +396,8 @@ namespace API.Controllers.Booker
 
             var updateResult = 
                 await AppServices.Account.UpdateAccountRegistration(
-                    account, 
-                    request, 
+                    account,
+                    genericRequest, 
                     isVerified: true,
                     successResponse: new()
                     {
@@ -397,18 +422,21 @@ namespace API.Controllers.Booker
         /// <response code = "200"> Updated user's information successfully.</response>
         /// <response code="400"> This gmail was verified by another account.</response>
         /// <response code="500"> Failed to update user's information.</response>
+        [RequestFormLimits(MultipartBodyLengthLimit = 209715200)]
+        [RequestSizeLimit(200 * 1024 * 1024)]
         [HttpPut("information")]
-        public async Task<IActionResult> UpdateInformation([FromForm] UserInfoRequest request)
+        public async Task<IActionResult> UpdateInformation([FromForm] UpdateBookerInfoRequest request)
         {
-            request.RegistrationTypes = RegistrationTypes.Gmail;
             request.OtpTypes = OtpTypes.VerificationOTP;
+
+            var genericRequest = request.ToGeneric();
 
             var loginedUser = LoggedInUser;
 
             var updateResponse =
                     await AppServices.Booker.UpdateBookerAccount(
-                        loginedUser.Code.ToString(), 
-                        request, 
+                        loginedUser.Code.ToString(),
+                        genericRequest, 
                         successResponse: new()
                         {
                             Message = "Updated user's information successfully.",
@@ -431,7 +459,7 @@ namespace API.Controllers.Booker
 
         [HttpPost("phone/loginFake")]
         [AllowAnonymous]
-        public async Task<IActionResult> LoginFake([FromBody] string phoneNumber)
+        public async Task<IActionResult> LoginFake([FromForm] string phoneNumber)
         {
             Response response = new();
 
@@ -452,7 +480,9 @@ namespace API.Controllers.Booker
                 .SetData(new LoginSuccessViewModel
                 {
                     AccessToken = token,
-                    RefreshAccessToken = refreshToken,
+                    AccessTokenExpiredTime = DateTime.UtcNow.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
+                    RefreshToken = refreshToken,
+                    RefreshTokenExpiredTime = DateTime.UtcNow.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
                     User = user
                 });
 
@@ -476,15 +506,16 @@ namespace API.Controllers.Booker
         /// <response code = "500"> Fail to send otp to this phone number.</response>
         [HttpPost("phone/send-otp-to-register")]
         [AllowAnonymous]
-        public async Task<IActionResult> SendOtpToRegister([FromBody] SendOtpRequest request)
+        public async Task<IActionResult> SendOtpToRegister([FromForm] SendPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.RegisterOTP;
-            request.RegistrationTypes = RegistrationTypes.Phone;
+
+            var genericRequest = request.ToGeneric();
 
             // check not existed verified phone number to send otp if EXIST return error response 
             var existResponse =
                 AppServices.Booker.CheckNotExisted(
-                    request,
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "This phone number was belong to another verified account.",
@@ -498,7 +529,7 @@ namespace API.Controllers.Booker
             // check valid time to send otp
             var checkValidResponse =
                 await AppServices.VerifiedCode.CheckValidTimeSendOtp(
-                    request,
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "Wait 1 minute since last sent.",
@@ -511,7 +542,7 @@ namespace API.Controllers.Booker
             // send and save otp code
             var sendAndSaveResponse =
                 await AppServices.VerifiedCode.SendAndSaveOtp(
-                    request,
+                    genericRequest,
                     successResponse: new()
                     {
                         Message = "Send Otp Successfully.",
@@ -538,19 +569,24 @@ namespace API.Controllers.Booker
         /// <response code="500"> Failed to register account.</response>
         [HttpPost()]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] UserRegisterRequest request)
+        public async Task<IActionResult> Register([FromBody] BookerRegisterRequest request)
         {
             request.OtpTypes = OtpTypes.RegisterOTP;
-            request.RegistrationTypes = RegistrationTypes.Phone;
-            request.OptionalRegistrationTypes = RegistrationTypes.Gmail;
+
+            var genericRequest = request.ToGeneric();
 
             // verify OTP
             var verifyResponse =
                 await AppServices.VerifiedCode.VerifyOtp(
-                    request,
-                    errorResponse: new()
+                    genericRequest,
+                    wrongResponse: new()
                     {
-                        Message = "Wrong or Expired OTP.",
+                        Message = "Wrong OTP.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    expiredResponse: new()
+                    {
+                        Message = "Expired OTP.",
                         StatusCode = StatusCodes.Status400BadRequest
                     }
                 );
@@ -559,7 +595,7 @@ namespace API.Controllers.Booker
 
             var createResponse =
                 await AppServices.Booker.CreateBookerAccount(
-                    request,
+                    genericRequest,
                     successResponse: new()
                     {
                         Message = "Register account successfully.",

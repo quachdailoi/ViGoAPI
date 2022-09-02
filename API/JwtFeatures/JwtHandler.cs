@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Models;
 using API.Models.Settings;
 using API.Services.Constract;
 using Domain.Entities;
@@ -13,24 +14,22 @@ namespace API.JwtFeatures
 {
     public class JwtHandler : IJwtHandler
     {
-		private readonly IConfiguration _configuration;
+		private readonly IConfiguration _config;
         private readonly IAppServices _appservice;
-        private readonly JwtSettings _jwtSettings;
 
 		private readonly SigningCredentials _signingCredentials;
 
-		public JwtHandler(IConfiguration configuration, IOptions<JwtSettings> jwtSettings, IAppServices appservice)
+		public JwtHandler(IConfiguration configuration, IAppServices appservice)
 		{
-			_configuration = configuration;
+			_config = configuration;
 			_appservice = appservice;
-            _jwtSettings = jwtSettings.Value;
 
 			_signingCredentials = GetSigningCredentials();
 		}
 
 		private SigningCredentials GetSigningCredentials()
 		{
-			var secretKeyBytes = Encoding.UTF8.GetBytes(_jwtSettings.Key);
+			var secretKeyBytes = Encoding.UTF8.GetBytes(_config.Get(JwtSettings.Key) ?? "");
 
 			var secretKey = new SymmetricSecurityKey(secretKeyBytes);
 
@@ -103,10 +102,10 @@ namespace API.JwtFeatures
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				SigningCredentials = _signingCredentials,
-				Issuer = _jwtSettings.Issuer,
-				Audience = _jwtSettings.Audience,
+				Issuer = _config.Get(JwtSettings.Issuer),
+				Audience = _config.Get(JwtSettings.Audience),
 				NotBefore = DateTime.UtcNow,
-				Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.AccessTokenTTLMinutes),
+				Expires = DateTime.UtcNow.AddMinutes(_config.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
 			};
 
 			return tokenDescriptor;
@@ -162,14 +161,14 @@ namespace API.JwtFeatures
 		private ClaimsPrincipal GetPrincipal(string token, out SecurityToken validatedToken)
         {
 			var tokenHandler = new JwtSecurityTokenHandler();
-			var secretKeyBytes = Encoding.UTF8.GetBytes(_jwtSettings.Key);
+			var secretKeyBytes = Encoding.UTF8.GetBytes(_config.Get(JwtSettings.Key) ?? "");
 
 			return tokenHandler.ValidateToken(token, new TokenValidationParameters
 			{
 				ValidateIssuer = true,
-				ValidIssuer = _jwtSettings.Issuer,
+				ValidIssuer = _config.Get(JwtSettings.Issuer),
 				ValidateAudience = true,
-				ValidAudience = _jwtSettings.Audience,
+				ValidAudience = _config.Get(JwtSettings.Audience),
 				ValidateLifetime = true,
 				ValidateIssuerSigningKey = true,
 				IssuerSigningKey = new SymmetricSecurityKey(secretKeyBytes),

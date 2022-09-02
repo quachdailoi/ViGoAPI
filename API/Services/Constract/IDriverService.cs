@@ -18,7 +18,7 @@ namespace API.Services.Constract
         Task<UserViewModel?> GetUserViewModel(string registration, RegistrationTypes registrationTypes);
         Task<Response> UpdateDriverAccount(
             string userCode,
-            UserInfoRequest request,
+            UpdateUserInfoRequest request,
             Response successResponse,
             Response duplicateReponse,
             Response failedResponse

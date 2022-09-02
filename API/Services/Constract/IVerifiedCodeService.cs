@@ -8,7 +8,7 @@ namespace API.Services.Constract
 {
     public interface IVerifiedCodeService
     {
-        Task<Response?> VerifyOtp(VerifyOtpRequest request, Response errorResponse);
+        Task<Response?> VerifyOtp(VerifyOtpRequest request, Response wrongResponse, Response expiredResponse);
         Task<Response?> CheckValidTimeSendOtp(SendOtpRequest request, Response errorResponse);
         Task<Response> SendAndSaveOtp(SendOtpRequest request, Response successResponse, Response errorResponse);
     }

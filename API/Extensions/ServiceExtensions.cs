@@ -151,9 +151,7 @@ namespace API.Extensions
         public static void ConfigureSettings(this IServiceCollection services, WebApplicationBuilder builder)
         {
             // configure strongly typed settings object
-            services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
-            services.Configure<TwilioSettings>(builder.Configuration.GetSection("TwilioSettings"));
-            services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            // this project not use because must load config by environment
         }
     }
 }

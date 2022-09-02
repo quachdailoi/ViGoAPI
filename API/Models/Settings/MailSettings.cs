@@ -2,10 +2,13 @@
 {
     public class MailSettings
     {
-        public string Mail { get; set; } = string.Empty;
-        public string DisplayName { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-        public string Host { get; set; } = string.Empty;
-        public int Port { get; set; }
+        private static string Section = "MailSettings:";
+
+        public static string Mail = $"{Section}Mail";
+
+        public static string DisplayName = $"{Section}DisplayName";
+        public static string Password { get; set; } = $"{Section}Password";
+        public static string Host { get; set; } = $"{Section}Host";
+        public static string Port { get; set; } = $"{Section}Port";
     }
 }

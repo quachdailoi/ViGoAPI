@@ -20,13 +20,13 @@ namespace API.Controllers
     public class AccountsController : BaseController<AccountsController>
     {
         private readonly IJwtHandler _jwtHandler;
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _config;
         private readonly IFileService _storageService;
 
         public AccountsController(IJwtHandler jwtHandler, IConfiguration configuration, IFileService storageService)
         {
             _jwtHandler = jwtHandler;
-            _configuration = configuration;
+            _config = configuration;
             _storageService = storageService;
         }
 

@@ -3,6 +3,7 @@ using API.JwtFeatures;
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Settings;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
@@ -38,7 +39,7 @@ namespace API.Controllers.Driver
         /// <response code = "400"> Not found email of driver account in our system.</response>
         [HttpPost("login-by-email")]
         [AllowAnonymous]
-        public async Task<IActionResult> LoginByEmail([FromBody] LoginByEmailRequest request)
+        public async Task<IActionResult> LoginByEmail([FromForm] LoginByEmailRequest request)
         {
             FirebaseAuth firebaseAuth = FirebaseAuth.DefaultInstance;
 
@@ -78,7 +79,9 @@ namespace API.Controllers.Driver
                 Data = new LoginSuccessViewModel
                 {
                     AccessToken = token,
-                    RefreshAccessToken = refreshToken,
+                    AccessTokenExpiredTime = DateTime.UtcNow.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
+                    RefreshToken = refreshToken,
+                    RefreshTokenExpiredTime = DateTime.UtcNow.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
                     User = user
                 }
             });
@@ -93,15 +96,16 @@ namespace API.Controllers.Driver
         /// <response code = "400"> This gmail was verified by another account.</response>
         /// <response code = "500"> Fail to send otp to this gmail address.</response>
         [HttpPost("gmail/send-otp-to-update")]
-        public async Task<IActionResult> SendGmailOtpToUpdate([FromBody] SendOtpRequest request)
+        public async Task<IActionResult> SendGmailOtpToUpdate([FromForm] SendGmailOtpRequest request)
         {
             request.OtpTypes = OtpTypes.UpdateOTP;
-            request.RegistrationTypes = RegistrationTypes.Gmail;
+
+            var genericRequest = request.ToGeneric();
 
             // check not existed verify gmail to send otp if EXIST return error response
             var existResponse = 
                 AppServices.Driver.CheckNotExisted(
-                    request, 
+                    genericRequest, 
                     errorResponse: new()
                     {
                         Message = "This gmail was verified by another account.", 
@@ -115,7 +119,7 @@ namespace API.Controllers.Driver
             // check valid time to send otp
             var checkValidResponse =
                 await AppServices.VerifiedCode.CheckValidTimeSendOtp(
-                    request,
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "Wait 1 minute since last sent, please.",
@@ -128,7 +132,7 @@ namespace API.Controllers.Driver
             // send and save otp code
             var sendAndSaveResponse =
                 await AppServices.VerifiedCode.SendAndSaveOtp(
-                    request,
+                    genericRequest,
                     successResponse: new()
                     {
                         Message = "Send Otp Successfully.",
@@ -154,10 +158,11 @@ namespace API.Controllers.Driver
         /// <response code = "400"> Wrong or Expired OTP.</response>
         /// <response code = "500"> Failed to update gmail.</response>
         [HttpPut("gmail")]
-        public async Task<IActionResult> UpdateGmail([FromBody] VerifyOtpRequest request)
+        public async Task<IActionResult> UpdateGmail([FromForm] VerifyGmailOtpRequest request)
         {
-            request.RegistrationTypes = RegistrationTypes.Gmail;
             request.OtpTypes = OtpTypes.UpdateOTP;
+
+            var genericRequest = request.ToGeneric();
 
             var authenResponse = CheckLoginedUserToGetAccount(RegistrationTypes.Phone, out UserViewModel? loginedUser, out Account? account);
 
@@ -166,7 +171,7 @@ namespace API.Controllers.Driver
             // check not existed verified gmail to send otp if EXIST return error response
             var existResponse =
                 AppServices.Driver.CheckNotExisted(
-                    request,
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "This gmail was belong to another verified account.",
@@ -180,10 +185,15 @@ namespace API.Controllers.Driver
             // verify OTP
             var verifyResponse =
                 await AppServices.VerifiedCode.VerifyOtp(
-                    request,
-                    errorResponse: new()
+                    genericRequest,
+                    wrongResponse: new()
                     {
-                        Message = "Wrong or Expired OTP.",
+                        Message = "Wrong OTP.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    expiredResponse: new()
+                    {
+                        Message = "Expired OTP.",
                         StatusCode = StatusCodes.Status400BadRequest
                     }
                 );
@@ -192,8 +202,8 @@ namespace API.Controllers.Driver
 
             var updateResult = 
                 await AppServices.Account.UpdateAccountRegistration(
-                    account, 
-                    request, 
+                    account,
+                    genericRequest, 
                     isVerified: true,
                     successResponse: new()
                     {
@@ -219,15 +229,16 @@ namespace API.Controllers.Driver
         /// <response code = "400"> This phone number was verified by another account.</response>
         /// <response code = "500"> Fail to send otp to this phone number.</response>
         [HttpPost("phone/send-otp-to-verify")]
-        public async Task<IActionResult> SendPhoneOtpToVerify([FromBody] SendOtpRequest request)
+        public async Task<IActionResult> SendPhoneOtpToVerify([FromForm] SendPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
-            request.RegistrationTypes = RegistrationTypes.Phone;
+
+            var genericRequest = request.ToGeneric();
 
             // check not existed verified phone number to send otp if EXIST return error response
             var existResponse =
                 AppServices.Driver.CheckNotExisted(
-                    request,
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "This phone number was verified by another account.",
@@ -241,7 +252,7 @@ namespace API.Controllers.Driver
             // check valid time to send otp
             var checkValidResponse =
                 await AppServices.VerifiedCode.CheckValidTimeSendOtp(
-                    request,
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "Wait 1 minute since last sent.",
@@ -254,7 +265,7 @@ namespace API.Controllers.Driver
             // send and save otp code
             var sendAndSaveResponse =
                 await AppServices.VerifiedCode.SendAndSaveOtp(
-                    request,
+                    genericRequest,
                     successResponse: new()
                     {
                         Message = "Send Otp Successfully.",
@@ -280,10 +291,11 @@ namespace API.Controllers.Driver
         /// <response code = "400"> Wrong or Expired OTP for verifying.</response>
         /// <response code = "500"> Failed to verify phone number.</response>
         [HttpPost("phone/verify")]
-        public async Task<IActionResult> VerifyPhoneNumber([FromBody] VerifyOtpRequest request)
+        public async Task<IActionResult> VerifyPhoneNumber([FromForm] VerifyPhoneOtpRequest request)
         {
-            request.RegistrationTypes = RegistrationTypes.Phone;
             request.OtpTypes = OtpTypes.VerificationOTP;
+
+            var genericRequest = request.ToGeneric();
 
             var authenResponse = CheckLoginedUserToGetAccount(RegistrationTypes.Gmail, out UserViewModel? loginedUser, out Account? account);
 
@@ -292,7 +304,7 @@ namespace API.Controllers.Driver
             // check not existed verified gmail to send otp if EXIST return error response
             var existResponse =
                 AppServices.Driver.CheckNotExisted(
-                    request,
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "This phone numner was verified by another account.",
@@ -306,10 +318,15 @@ namespace API.Controllers.Driver
             // verify OTP
             var verifyResponse =
                 await AppServices.VerifiedCode.VerifyOtp(
-                    request,
-                    errorResponse: new()
+                    genericRequest,
+                    wrongResponse: new()
                     {
-                        Message = "Wrong or Expired OTP for verifying.",
+                        Message = "Wrong OTP for verifying.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    expiredResponse: new()
+                    {
+                        Message = "Expired OTP for verifying.",
                         StatusCode = StatusCodes.Status400BadRequest
                     }
                 );
@@ -344,17 +361,18 @@ namespace API.Controllers.Driver
         /// <response code="400"> Update failed - This phone number was verified by another account.</response>
         /// <response code="500"> Update failed - Something went wrong.</response>
         [HttpPut("information")]
-        public async Task<IActionResult> UpdateInformation([FromForm] UserInfoRequest request)
+        public async Task<IActionResult> UpdateInformation([FromForm] UpdateDriverInfoRequest request)
         {
-            request.RegistrationTypes = RegistrationTypes.Gmail;
             request.OtpTypes = OtpTypes.VerificationOTP;
+
+            var genericRequest = request.ToGeneric();
 
             var loginedUser = LoggedInUser;
 
             var updateResponse =
                     await AppServices.Driver.UpdateDriverAccount(
                         loginedUser.Code.ToString(),
-                        request,
+                        genericRequest,
                         successResponse: new()
                         {
                             Message = "Update driver's information successfully, verification code was sent to your gmail.",
@@ -381,7 +399,7 @@ namespace API.Controllers.Driver
         {
             Response response = new();
 
-            var user = await AppServices.Driver.GetUserViewModel(gmail, RegistrationTypes.Phone);
+            var user = await AppServices.Driver.GetUserViewModel(gmail, RegistrationTypes.Gmail);
 
             if (user == null)
             {
@@ -398,11 +416,11 @@ namespace API.Controllers.Driver
                 .SetData(new LoginSuccessViewModel
                 {
                     AccessToken = token,
-                    RefreshAccessToken = refreshToken,
+                    RefreshToken = refreshToken,
                     User = user
                 });
 
-            return new JsonResult(response);
+            return ApiResult(response);
         }
 
         [HttpGet("test")]
