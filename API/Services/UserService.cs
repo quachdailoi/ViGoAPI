@@ -2,6 +2,7 @@
 using API.Extensions;
 using API.Models;
 using API.Models.Response;
+using API.Models.Settings;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
@@ -16,14 +17,14 @@ namespace API.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _config;
         private readonly IFileService _fileService;
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration, IFileService fileService)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration config, IFileService fileService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _configuration = configuration;
+            _config = config;
             _fileService = fileService;
         }
 
@@ -74,7 +75,7 @@ namespace API.Services
             await avatar.CopyToAsync(memoryStream);
 
             var fileExt = Path.GetExtension(avatar.FileName);
-            var docName = $"{_configuration.GetConfigByEnv("AwsSettings:UserAvatarFolder")}{userCode}{fileExt}";
+            var docName = $"{_config.Get(AwsSettings.UserAvatarFolder)}{userCode}{fileExt}";
 
             // update file path
             await _unitOfWork.CreateTransactionAsync(); // open transaction
@@ -90,7 +91,7 @@ namespace API.Services
             // call server
             var s3Obj = new S3ObjectDto()
             {
-                BucketName = _configuration.GetConfigByEnv("AwsSettings:BucketName") ?? "",
+                BucketName = _config.Get(AwsSettings.BucketName) ?? "",
                 InputStream = memoryStream,
                 Name = docName
             };

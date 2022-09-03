@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Quartz.Spi;
+using System.Reflection;
 using System.Text;
 
 namespace API.Extensions
@@ -82,6 +83,7 @@ namespace API.Extensions
             services.AddScoped<IUserRoomRepository, UserRoomRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IFileRepository, FileRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -143,7 +145,8 @@ namespace API.Extensions
                 });
 
                 // configure swagger xml description
-                var filePath = Path.Combine(System.AppContext.BaseDirectory, "API.xml");
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var filePath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(filePath);
             });
         }
@@ -151,9 +154,7 @@ namespace API.Extensions
         public static void ConfigureSettings(this IServiceCollection services, WebApplicationBuilder builder)
         {
             // configure strongly typed settings object
-            services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
-            services.Configure<TwilioSettings>(builder.Configuration.GetSection("TwilioSettings"));
-            services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            // this project not use because must load config by environment
         }
     }
 }

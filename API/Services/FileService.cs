@@ -5,6 +5,7 @@ using Amazon.S3.Transfer;
 using API.AWS.S3;
 using API.Extensions;
 using API.Models.Response;
+using API.Models.Settings;
 using API.Services.Constract;
 using Domain.Interfaces.UnitOfWork;
 using System.Net.Mime;
@@ -13,24 +14,24 @@ namespace API.Services
 {
     public class FileService : IFileService
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _config;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
 
         private readonly AmazonS3Client _s3Client;
 
-        public FileService(IConfiguration configuration, IUnitOfWork unitOfWork, ILogger<FileService> logger)
+        public FileService(IConfiguration config, IUnitOfWork unitOfWork, ILogger<FileService> logger)
         {
-            _configuration = configuration;
+            _config = config;
             _unitOfWork = unitOfWork;
             _logger = logger;
 
-            var credentials = new BasicAWSCredentials(_configuration.GetConfigByEnv("AwsSettings:AccessKey"), _configuration.GetConfigByEnv("AwsSettings:SecretKey"));
-            var config = new AmazonS3Config()
+            var credentials = new BasicAWSCredentials(_config.Get(AwsSettings.AccessKey), _config.Get(AwsSettings.SecretKey));
+            var clientConfig = new AmazonS3Config()
             {
                 RegionEndpoint = Amazon.RegionEndpoint.APSoutheast1
             };
-            _s3Client = new AmazonS3Client(credentials, config);
+            _s3Client = new AmazonS3Client(credentials, clientConfig);
         }
 
         public async Task<Response> UploadFileAsync(S3ObjectDto obj, Response successResponse, Response errorResponse)
@@ -64,7 +65,7 @@ namespace API.Services
         {
             var request = new GetPreSignedUrlRequest()
             {
-                BucketName = _configuration.GetConfigByEnv("AwsSettings:BucketName"),
+                BucketName = _config.Get(AwsSettings.BucketName),
                 Key = fileName,
                 Expires = DateTime.Now.AddHours(1),
                 Verb = HttpVerb.GET,

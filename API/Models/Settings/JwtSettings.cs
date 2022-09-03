@@ -2,10 +2,16 @@
 {
     public class JwtSettings
     {
-        public string Key { get; set; } = string.Empty;
-        public string Issuer { get; set; } = string.Empty;
-        public string Audience { get; set; } = string.Empty;
-        public int RefreshTokenTTLDays { get; set; }
-        public int AccessTokenTTLMinutes { get; set; }
+        private static string Section => "JwtSettings:";
+
+        public static string Key = $"{Section}Key";
+
+        public static string Issuer = $"{Section}Issuer";
+
+        public static string Audience = $"{Section}Audience";
+
+        public static string RefreshTokenTTLDays = $"{Section}RefreshTokenTTLDays";
+
+        public static string AccessTokenTTLMinutes = $"{Section}RefreshTokenTTLDays";
     }
 }

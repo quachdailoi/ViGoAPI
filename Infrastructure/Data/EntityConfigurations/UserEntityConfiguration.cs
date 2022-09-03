@@ -29,14 +29,15 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.Property(e => e.Gender)
                 .IsRequired()
+                .HasConversion<int>()
                 .HasColumnName("gender");            
 
             builder.Property(e => e.DateOfBirth)
-                .IsRequired()
                 .HasColumnName("date_of_birth");
 
             builder.Property(e => e.Status)
                 .IsRequired()
+                .HasConversion<int>()
                 .HasColumnName("status");
 
             builder.Property(e => e.FileId)

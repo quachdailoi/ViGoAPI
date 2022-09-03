@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Base;
+using Domain.Shares.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace Domain.Entities
     {
         public Guid Code { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = string.Empty;
-        public int Gender { get; set; } = 0;
-        public int Status { get; set; } = 1;
-        public DateTime DateOfBirth { get; set; } = DateTime.UtcNow;
+        public Genders Gender { get; set; } = 0;
+        public StatusTypes.User Status { get; set; } = StatusTypes.User.Active;
+        public DateTime? DateOfBirth { get; set; } = null;
         public int? FileId { get; set; }
 
         public List<Account> Accounts { get; set; } = new();

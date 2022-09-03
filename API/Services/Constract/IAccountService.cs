@@ -20,7 +20,7 @@ namespace API.Services.Constract
         Response? CheckExisted(Roles roles, SendOtpRequest request, Response notExistResponse, bool? isVerified = false);
         Task<Response> UpdateUserAccount(
             string userCode, Roles userRole,
-            UserInfoRequest request,
+            UpdateUserInfoRequest request,
             Response successResponse,
             Response duplicateReponse,
             Response failedResponse

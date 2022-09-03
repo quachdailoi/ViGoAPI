@@ -58,6 +58,7 @@
 		<Folder Include="Controllers\Admin\" />
 		<Folder Include="Controllers\Admin\" />
 		<Folder Include="Extensions\MapperSupport\" />
+		<Folder Include="Validators\" />
 	</ItemGroup>
 
 	<ItemGroup>

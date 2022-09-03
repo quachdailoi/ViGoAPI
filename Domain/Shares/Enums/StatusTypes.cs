@@ -40,5 +40,11 @@ namespace Domain.Shares.Enums
             Started,
             Completed
         }
+
+        public enum User
+        {
+            Inactive,
+            Active
+        }
     }
 }
