@@ -110,31 +110,31 @@ namespace API.Controllers
             return Ok(new Response(StatusCode: 200, Message: "Token revoked successfully."));
         }
 
-        [Authorize]
-        [HttpPost("update-avatar")]
-        public async Task<IActionResult> UpdateAvatar(IFormFile avatar)
-        {
-            var userCode = LoggedInUser.Code;
+        //[Authorize]
+        //[HttpPost("update-avatar")]
+        //public async Task<IActionResult> UpdateAvatar(IFormFile avatar)
+        //{
+        //    var userCode = LoggedInUser.Code;
 
-            var response = 
-                await AppServices.User.UpdateUserAvatar(
-                    userCode.ToString(),
-                    avatar,
-                    successResponse: new()
-                    {
-                        Message = "Update avatar successfully.",
-                        StatusCode = StatusCodes.Status200OK,
-                        Success = true
-                    },
-                    errorResponse: new()
-                    {
-                        Message = "Update avatar failed.",
-                        StatusCode = StatusCodes.Status500InternalServerError,
-                        Success = false
-                    }
-                );
+        //    var response = 
+        //        await AppServices.User.UpdateUserAvatar(
+        //            userCode.ToString(),
+        //            avatar,
+        //            successResponse: new()
+        //            {
+        //                Message = "Update avatar successfully.",
+        //                StatusCode = StatusCodes.Status200OK,
+        //                Success = true
+        //            },
+        //            errorResponse: new()
+        //            {
+        //                Message = "Update avatar failed.",
+        //                StatusCode = StatusCodes.Status500InternalServerError,
+        //                Success = false
+        //            }
+        //        );
 
-            return ApiResult(response);
-        }
+        //    return ApiResult(response);
+        //}
     }
 }

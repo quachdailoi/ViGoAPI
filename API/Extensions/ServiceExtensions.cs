@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Quartz.Spi;
+using System.Reflection;
 using System.Text;
 
 namespace API.Extensions
@@ -144,7 +145,8 @@ namespace API.Extensions
                 });
 
                 // configure swagger xml description
-                var filePath = Path.Combine(System.AppContext.BaseDirectory, "API.xml");
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var filePath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(filePath);
             });
         }

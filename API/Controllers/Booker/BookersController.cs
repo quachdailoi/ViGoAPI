@@ -31,8 +31,13 @@ namespace API.Controllers.Booker
         /// <summary>
         /// Send otp code to phone, which was used to login.
         /// </summary>
-        /// <remarks>SendOtpToLogin</remarks>
-        /// <param name="request" example="{Registration: '+84837226239'}">Send Otp Request Schema</param>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/bookers/phone/send-otp-to-login
+        ///     PhoneNumber: +84837226239
+        /// ```
+        /// </remarks>
         /// <response code = "200"> Send otp code successfully.</response>
         /// <response code = "400"> Not found account with this phone number to send login otp.</response>
         /// <response code = "500"> Fail to send code to this phone number.</response>
@@ -93,11 +98,20 @@ namespace API.Controllers.Booker
         /// <summary>
         /// Login by otp code, which was sent to phone.
         /// </summary>
-        /// <remarks>PhoneLogin</remarks>
-        /// <param name="request" example="{Registration: '+84837226239', OTP: '123123'}">Verify Otp Request Schema</param>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/bookers/phone/login
+        ///     PhoneNumber: +84837226239
+        ///     OTP: 123456
+        /// ```
+        /// </remarks>
         /// <response code = "200"> Login successfully.</response>
-        /// <response code = "400"> Wrong or Expired OTP.</response>
-        /// <response code = "400"> Not found phone of booker account in our system.</response>
+        /// <response code = "400"> 
+        ///     Wrong OTP to login.<br></br>
+        ///     Expired OTP to login.<br></br>
+        ///     Not found phone of booker account in our system.
+        /// </response>
         [HttpPost("phone/login")]
         [AllowAnonymous]
         public async Task<IActionResult> PhoneLogin([FromForm] VerifyPhoneOtpRequest request)
@@ -152,10 +166,15 @@ namespace API.Controllers.Booker
         }
 
         /// <summary>
-        /// Send otp code to gmail to verified it.
+        ///     Send otp code to gmail to verified it.
         /// </summary>
-        /// <remarks>SendGmailOtpToVerify</remarks>
-        /// <param name="request" example="{Registration: 'abc@gmail.com'}">Send Otp Request Schema</param>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/bookers/gmail/send-otp-to-verify
+        ///     Gmail: loiqd.work@gmail.com
+        /// ```
+        /// </remarks>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This email was verified by another account.</response>
         /// <response code = "500"> Fail to send otp to this gmail.</response>
@@ -213,13 +232,22 @@ namespace API.Controllers.Booker
         }
 
         /// <summary>
-        /// Verify gmail by otp code which was sent to it.
+        ///     Verify gmail by otp code which was sent to it.
         /// </summary>
-        /// <remarks>VerifyGmail</remarks>
-        /// <param name="request" example="{Registration: 'abc@gmail.com', OTP: '123123'}">Verify Otp Request Schema</param>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/bookers/gmail/verify
+        ///     Gmail: loiqd.work@gmail.com
+        ///     OTP: 123456
+        /// ```
+        /// </remarks>
         /// <response code = "200"> Verify gmail successfully.</response>
-        /// <response code = "400"> This email was verified by another account.</response>
-        /// <response code = "400"> Wrong or Expired OTP.</response>
+        /// <response code = "400"> 
+        ///     This email was verified by another account. <br></br>
+        ///     Wrong OTP to verify. <br></br>
+        ///     Expired OTP to verify.
+        /// </response>
         /// <response code = "500"> Failed to verify gmail.</response>
         [HttpPost("gmail/verify")]
         public async Task<IActionResult> VerifyGmail([FromForm] VerifyGmailOtpRequest request)
@@ -282,10 +310,15 @@ namespace API.Controllers.Booker
         }
 
         /// <summary>
-        /// Send otp code to phone and use otp to update account's phone number.
+        ///     Send otp code to phone and use otp to update account's phone number.
         /// </summary>
-        /// <remarks>SendPhoneOtpForUpdate</remarks>
-        /// <param name="request" example="{Registration: '+84837226239'}">Send Otp Request Schema</param>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/bookers/phone/send-otp-to-update
+        ///     PhoneNumber: +84837226239
+        /// ```
+        /// </remarks>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This phone number was verified by another account.</response>
         /// <response code = "500"> Fail to send otp to this phone number.</response>
@@ -343,13 +376,22 @@ namespace API.Controllers.Booker
         }
 
         /// <summary>
-        /// Update phone number with otp code which was send to it.
+        ///     Update phone number with otp code which was send to it.
         /// </summary>
-        /// <remarks>UpdatePhone</remarks>
-        /// <param name="request" example="{Registration: '+84837226239', OTP: '123123'}">Verify Otp Request Schema</param>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     PUT api/bookers/phone
+        ///     PhoneNumber: +84837226239
+        ///     OTP: 123123
+        /// ```
+        /// </remarks>
         /// <response code = "200"> Update phone number successfully.</response>
-        /// <response code = "400"> This phone number was belong to another verified account.</response>
-        /// <response code = "400"> Wrong or Expired OTP.</response>
+        /// <response code = "400"> 
+        ///     This phone number was belong to another verified account. <br></br>
+        ///     Wrong OTP to update phone number. <br></br>
+        ///     Expired OTP to update phone number.
+        /// </response>
         /// <response code = "500"> Failed to update phone number.</response>
         [HttpPut("phone")]
         public async Task<IActionResult> UpdatePhone([FromForm] VerifyPhoneOtpRequest request) 
@@ -415,10 +457,19 @@ namespace API.Controllers.Booker
         }
 
         /// <summary>
-        /// Update user's information if it includes valid gmail, then send verified code.
+        ///     Update user's information with avatar is optional.
         /// </summary>
-        /// <remarks>UpdateInformation</remarks>
-        /// <param name="request" example="{Name: 'ABC' , Gender: 1, DateOfBirth='31-01-2000', Registration='abc@gmail.com'}">User Information Schema</param>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     PUT api/bookers/information
+        ///     Name: Quach Dai Loi
+        ///     Gender: 1
+        ///     DateOfBirth: 2000-01-31T17:56:43.179Z
+        ///     Gmail: loiqd.work@gmail.com
+        ///     Avatar: >>Choose a file (optional)
+        /// ```
+        /// </remarks>
         /// <response code = "200"> Updated user's information successfully.</response>
         /// <response code="400"> This gmail was verified by another account.</response>
         /// <response code="500"> Failed to update user's information.</response>
@@ -497,10 +548,15 @@ namespace API.Controllers.Booker
         }
 
         /// <summary>
-        /// Send otp code to phone and use otp to register account.
+        ///     Send otp code to phone and use otp to register account.
         /// </summary>
-        /// <remarks>SendOtpToRegister</remarks>
-        /// <param name="request" example="{Registration: '+84837226239'}">Send Otp Request Schema</param>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/bookers/phone/send-otp-to-register
+        ///     PhoneNumber: +84837226239
+        /// ```
+        /// </remarks>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This phone number was verified by another account.</response>
         /// <response code = "500"> Fail to send otp to this phone number.</response>
@@ -559,16 +615,31 @@ namespace API.Controllers.Booker
         }
 
         /// <summary>
-        /// Register account.
+        ///     Register account.
         /// </summary>
-        /// <remarks>Register</remarks>
-        /// <param name="request" example="{OptionalRegistration: 'abc@gmail.com', Name: 'ABC' , Gender: 1, DateOfBirth='2000-01-31', Registration='+84837226239'}">User Register Request Schema</param>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/bookers 
+        ///     {
+        ///         "PhoneNumber": "+84837226239",
+        ///         "OTP": "123456",
+        ///         "Gmail": "loiqd.work@gmail.com",
+        ///         "Name": "Quach Dai Loi"
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <param name="request"></param>
         /// <response code = "200"> Register account successfully.</response>
-        /// <response code="400"> Register account failed - This phone number was register by another account.</response>
-        /// <response code="400"> Wrong OTP to register.</response>
+        /// <response code="400"> 
+        ///     Wrong OTP to register. <br></br>
+        ///     Expired OTP to regiser <br></br>
+        ///     Register account failed - This phone number was register by another account.
+        /// </response>
         /// <response code="500"> Failed to register account.</response>
         [HttpPost()]
         [AllowAnonymous]
+        [Produces("application/json")]
         public async Task<IActionResult> Register([FromBody] BookerRegisterRequest request)
         {
             request.OtpTypes = OtpTypes.RegisterOTP;
