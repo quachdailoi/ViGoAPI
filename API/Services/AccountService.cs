@@ -207,7 +207,7 @@ namespace API.Services
 
             if (request.Avatar != null)
                 // transaction for update avatar
-                return await _userService.UpdateUserAvatar(userCode, request.Avatar, successResponse, failedResponse);
+                await _userService.UpdateUserAvatar(userCode, request.Avatar, successResponse, failedResponse);
 
             var newUserVM = await _userService.GetUserViewModelById(user.Id);
 
