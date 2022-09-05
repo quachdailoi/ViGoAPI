@@ -15,8 +15,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class AccountsController : BaseController<AccountsController>
     {
         private readonly IJwtHandler _jwtHandler;
