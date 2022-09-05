@@ -6,9 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize]
+    [ApiVersion("1.0")]
     public class TestsController : BaseController<TestsController>
     {
         private readonly IUnitOfWork _unitOfWork;

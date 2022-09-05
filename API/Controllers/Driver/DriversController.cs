@@ -17,9 +17,10 @@ using Twilio.Rest.Api.V2010.Account;
 
 namespace API.Controllers.Driver
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles="DRIVER")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class DriversController : BaseController<DriversController>
     {
         private readonly IJwtHandler _jwtHandler;

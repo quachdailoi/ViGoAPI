@@ -13,9 +13,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.Booker
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles = "BOOKER")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class BookersController : BaseController<BookersController>
     {
 

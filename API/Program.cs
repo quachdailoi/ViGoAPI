@@ -35,6 +35,9 @@ services.AddLogging();
 //Config CORS
 services.ConfigureCORS(MyAllowSpecificOrigins);
 
+//API versioning
+services.ConfigureApiVersioning();
+
 // Add services to the container.
 services.AddControllers(option =>
 {
