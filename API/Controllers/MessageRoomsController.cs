@@ -41,7 +41,7 @@ namespace API.Controllers
         /// <response code="200">Send successfully</response>
         /// <response code="500">Failure</response>
         [Authorize]
-        [HttpGet]
+        [HttpGet("{userCode}")]
         public IActionResult GetMessageRoomByUserCode(Guid userCode)
         {
             var userCodes = new List<Guid>
@@ -79,7 +79,7 @@ namespace API.Controllers
         /// <param name="roomCode" example="613de7b4-db59-4a6c-b9a1-2b1e176460d3">Room Code</param>
         /// <response code="200">Send successfully</response>
         /// <response code="500">Failure</response>
-        [HttpGet("{roomCode}")]
+        [HttpGet("code/{roomCode}")]
         public async Task<IActionResult> GetMessageRoomByCode(Guid roomCode)
         {
             var response = await AppServices.Room.GetViewModelByCode(                                                            
@@ -165,6 +165,41 @@ namespace API.Controllers
                                 {
                                     Message = "Duplicate - Message room for there users is existed.",
                                     StatusCode= StatusCodes.Status400BadRequest
+                                },
+                                errorResponse: new()
+                                {
+                                    Message = "Fail to create message room.",
+                                    StatusCode = StatusCodes.Status500InternalServerError
+                                }
+                                );
+
+            return new JsonResult(response);
+        }
+
+        /// <summary>
+        /// Test api - Create message room with specific partners's code
+        /// </summary>
+        /// /// <remarks>Create message room</remarks>
+        /// <param name="request" example="['613de7b4-db59-4a6c-b9a1-2b1e176460d3']">MessageRoomRequest schema</param>
+        /// <response code="200">Send successfully</response>
+        /// <response code="500">Failure</response>
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var user = this.LoggedInUser;
+
+            var response = await AppServices.Room.GetAll(
+                                user.Id,
+                                successResponse: new()
+                                {
+                                    Message = "Get successfully.",
+                                    StatusCode = StatusCodes.Status200OK
+                                },
+                                notFoundResponse: new()
+                                {
+                                    Message = "Not exist message rooms of this user.",
+                                    StatusCode = StatusCodes.Status404NotFound
                                 },
                                 errorResponse: new()
                                 {
