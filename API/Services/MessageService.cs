@@ -16,13 +16,15 @@ namespace API.Services
         private readonly IMapper _mapper;
         private readonly IRoomService _roomService;
         private readonly ISignalRService _signalRService;
+        private readonly IUserRoomService _userRoomService;
 
-        public MessageService(IUnitOfWork unitOfWork, IMapper mapper, IRoomService roomService, ISignalRService signalRService)
+        public MessageService(IUnitOfWork unitOfWork, IMapper mapper, IRoomService roomService, ISignalRService signalRService, IUserRoomService userRoomService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _roomService = roomService;
             _signalRService = signalRService;
+            _userRoomService = userRoomService;
         }
         public async Task<Response> Create(string content, Guid roomCode, int userId, Response successResponse, Response errorResponse)
         {
@@ -35,7 +37,21 @@ namespace API.Services
                 Content = content
             };
 
+            await _unitOfWork.CreateTransactionAsync(); //open transaction
+
             message = await _unitOfWork.Messages.Add(message);
+
+            //update Last seen time
+            var result = await _userRoomService.UpdateLastSeenTime(userId, roomCode, DateTime.UtcNow);
+
+            if(message == null || !result)
+            {
+                await _unitOfWork.Rollback(); //roll back
+                return errorResponse;
+            }
+
+            await _unitOfWork.CommitAsync();// commit
+
 
             if (message == null) return errorResponse;
 

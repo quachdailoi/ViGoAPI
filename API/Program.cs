@@ -87,7 +87,8 @@ if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production"
     var database = hostSide.Split("/")[1].Split("?")[0];
 
     connectionString = $"Host={host};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true";
-} else
+}
+else
 {
     connectionString = _config.GetConnectionString("PostgreSQLMaaSConnection");
 }
@@ -139,6 +140,7 @@ services.ConfigureIoCServices();
 services.AddSingleton(provider => new MapperConfiguration(cfg =>
 {
     cfg.AddProfile(new UserMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
+    cfg.AddProfile(new MessageRoomMappingProfile());
 
 }).CreateMapper());
 
@@ -177,7 +179,7 @@ var app = builder.Build();
     app.UseSwaggerUI(c => {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "MaaS API v1");
         c.DisplayRequestDuration();
-        });
+    });
     IdentityModelEventSource.ShowPII = true;
 }
 

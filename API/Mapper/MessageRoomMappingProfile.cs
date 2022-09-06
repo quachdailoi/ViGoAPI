@@ -1,13 +1,12 @@
 ﻿using API.Models;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Shares.Enums;
 
 namespace API.Mapper
 {
-    public class RoomMessageMappingProfile : Profile
+    public class MessageRoomMappingProfile : Profile
     {
-        public RoomMessageMappingProfile()
+        public MessageRoomMappingProfile()
         {
 
             CreateMap<Message, MessageViewModel>()

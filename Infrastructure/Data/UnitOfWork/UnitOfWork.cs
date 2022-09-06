@@ -23,6 +23,8 @@ namespace Infrastructure.Data.UnitOfWork
         public IRoomRepository Rooms { get; private set; }
 
         public IMessageRepository Messages { get; private set; }
+        public IBookingRepository Bookings { get; private set; }
+        public IBookingDetailRepository BookingDetails { get; private set; }
 
         public IFileRepository Files { get; private set; }
 
@@ -36,6 +38,8 @@ namespace Infrastructure.Data.UnitOfWork
             IUserRoomRepository userRoomRepository,
             IRoomRepository roomRepository,
             IMessageRepository messageRepository,
+            IBookingRepository bookingRepository,
+            IBookingDetailRepository bookingDetailRepository,
             IFileRepository fileRepository
         )
         {
@@ -48,6 +52,8 @@ namespace Infrastructure.Data.UnitOfWork
             UserRooms = userRoomRepository;
             Rooms = roomRepository;
             Messages = messageRepository;
+            Bookings = bookingRepository;
+            BookingDetails = bookingDetailRepository;
             Files = fileRepository;
 
             _logger = loggerFactory.CreateLogger("logs");

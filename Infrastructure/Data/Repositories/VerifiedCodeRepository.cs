@@ -29,7 +29,7 @@ namespace Infrastructure.Data.Repositories
 
         public IQueryable<VerifiedCode> GetVerifiedCode(string registration, RegistrationTypes registrationType, OtpTypes codeType)
         {
-            return List(x => x.Registration == registration && 
+            return List(x => x.Registration == registration &&
                                 x.RegistrationType == registrationType &&
                                 x.Type == codeType).OrderByDescending(x => x.CreatedAt);
         }

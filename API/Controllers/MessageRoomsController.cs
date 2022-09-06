@@ -42,7 +42,7 @@ namespace API.Controllers
         /// <response code="200">Send successfully</response>
         /// <response code="500">Failure</response>
         [Authorize]
-        [HttpGet]
+        [HttpGet("{userCode}")]
         public IActionResult GetMessageRoomByUserCode(Guid userCode)
         {
             var userCodes = new List<Guid>
@@ -80,7 +80,7 @@ namespace API.Controllers
         /// <param name="roomCode" example="613de7b4-db59-4a6c-b9a1-2b1e176460d3">Room Code</param>
         /// <response code="200">Send successfully</response>
         /// <response code="500">Failure</response>
-        [HttpGet("{roomCode}")]
+        [HttpGet("code/{roomCode}")]
         public async Task<IActionResult> GetMessageRoomByCode(Guid roomCode)
         {
             var response = await AppServices.Room.GetViewModelByCode(                                                            
@@ -170,6 +170,41 @@ namespace API.Controllers
                                 errorResponse: new()
                                 {
                                     Message = "Fail to create message room.",
+                                    StatusCode = StatusCodes.Status500InternalServerError
+                                }
+                                );
+
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        /// Get all user's message rooms
+        /// </summary>
+        /// /// <remarks>Get all message room</remarks>
+        /// <response code="200">Get successfully</response>
+        /// <response code="404">Not exist any message room of this user</response>
+        /// <response code="500">Failure</response>
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var user = this.LoggedInUser;
+
+            var response = await AppServices.Room.GetAll(
+                                user.Id,
+                                successResponse: new()
+                                {
+                                    Message = "Get successfully.",
+                                    StatusCode = StatusCodes.Status200OK
+                                },
+                                notFoundResponse: new()
+                                {
+                                    Message = "Not exist message rooms of this user.",
+                                    StatusCode = StatusCodes.Status404NotFound
+                                },
+                                errorResponse: new()
+                                {
+                                    Message = "Fail to get message rooms.",
                                     StatusCode = StatusCodes.Status500InternalServerError
                                 }
                                 );

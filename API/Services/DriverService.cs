@@ -12,7 +12,7 @@ namespace API.Services
 {
     public class DriverService : AccountService, IDriverService
     {
-        public DriverService(IVerifiedCodeService verifiedCodeService, IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration, IUserService userService) 
+        public DriverService(IVerifiedCodeService verifiedCodeService, IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration, IUserService userService)
             : base(verifiedCodeService, unitOfWork, mapper, configuration, userService)
         {
         }
@@ -61,11 +61,11 @@ namespace API.Services
             Response failedResponse)
         {
             return base.UpdateUserAccount(
-                userCode, 
-                Roles.DRIVER, 
-                request, 
-                successResponse, 
-                duplicateReponse, 
+                userCode,
+                Roles.DRIVER,
+                request,
+                successResponse,
+                duplicateReponse,
                 failedResponse
             );
         }

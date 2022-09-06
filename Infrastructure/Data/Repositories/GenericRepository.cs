@@ -16,9 +16,9 @@ namespace Infrastructure.Data.Repositories
 
         public GenericRepository(AppDbContext dbContext, ILogger<GenericRepository<T>> logger)
         {
-            _dbContext = dbContext;
-            DbSet = dbContext.Set<T>();
-            _logger = logger;
+            this._dbContext = dbContext;
+            this.DbSet = dbContext.Set<T>();
+            this._logger = logger;
         }
 
         public async Task<T> Add(T entity)
