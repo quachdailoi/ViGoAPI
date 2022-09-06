@@ -18,6 +18,11 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.ToTable("bookings");
 
+            builder.Property(e => e.Code)
+                .IsRequired()
+                .HasDefaultValue(Guid.NewGuid())
+                .HasColumnName("code");
+
             builder.Property(e => e.Time)
                 .IsRequired()
                 .HasColumnName("time");
@@ -68,6 +73,8 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.Status)
                 .HasConversion<int>()
                 .HasColumnName("status");
+
+            builder.HasIndex(e => e.Code).IsUnique();
 
             builder.HasOne(e => e.User)
                 .WithMany(u => u.Bookings)

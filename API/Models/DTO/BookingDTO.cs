@@ -5,7 +5,7 @@ namespace API.Models.DTO
 {
     public class BookingDTO : BaseDTO
     {
-        public Guid Code { get; set; } = new Guid();
+        public Guid Code { get; set; } = Guid.NewGuid();
         public TimeOnly Time { get; set; }
         public TimeOnly EndTime { get; set; }
         public double TotalPrice { get; set; }

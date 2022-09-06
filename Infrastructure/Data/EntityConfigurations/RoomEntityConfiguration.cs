@@ -25,7 +25,7 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.Property(e => e.Code)
                 .IsRequired()
-                .HasDefaultValue(new Guid())
+                .HasDefaultValue(Guid.NewGuid())
                 .HasColumnName("code");
 
             builder.Property(e => e.Status)

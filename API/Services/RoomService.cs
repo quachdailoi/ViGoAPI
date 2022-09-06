@@ -174,7 +174,7 @@ namespace API.Services
 
                 return successResponse.SetData(rooms);
             }
-            catch
+            catch (Exception e)
             {
                 return errorResponse;
             }

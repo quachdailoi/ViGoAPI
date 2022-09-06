@@ -1,7 +1,6 @@
 ﻿using API.Models;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Shares.Enums;
 
 namespace API.Mapper
 {

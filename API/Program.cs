@@ -140,6 +140,7 @@ services.ConfigureIoCServices();
 services.AddSingleton(provider => new MapperConfiguration(cfg =>
 {
     cfg.AddProfile(new UserMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
+    cfg.AddProfile(new MessageRoomMappingProfile());
 
 }).CreateMapper());
 

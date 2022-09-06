@@ -178,11 +178,11 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Test api - Create message room with specific partners's code
+        /// Get all user's message rooms
         /// </summary>
-        /// /// <remarks>Create message room</remarks>
-        /// <param name="request" example="['613de7b4-db59-4a6c-b9a1-2b1e176460d3']">MessageRoomRequest schema</param>
-        /// <response code="200">Send successfully</response>
+        /// /// <remarks>Get all message room</remarks>
+        /// <response code="200">Get successfully</response>
+        /// <response code="404">Not exist any message room of this user</response>
         /// <response code="500">Failure</response>
         [Authorize]
         [HttpGet]
@@ -204,7 +204,7 @@ namespace API.Controllers
                                 },
                                 errorResponse: new()
                                 {
-                                    Message = "Fail to create message room.",
+                                    Message = "Fail to get message rooms.",
                                     StatusCode = StatusCodes.Status500InternalServerError
                                 }
                                 );

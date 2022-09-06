@@ -6,6 +6,7 @@ namespace Domain.Entities
 {
     public class Booking : BaseEntity
     {
+        public Guid Code { get; set; } = Guid.NewGuid();
         public TimeOnly Time { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
@@ -27,11 +28,4 @@ namespace Domain.Entities
         //Promotion
 
     }
-
-    //public class Location
-    //{
-    //    public double X { get; set; }
-    //    public double Y { get; set; }
-    //    public string LocationName { get; set; }
-    //}
 }
