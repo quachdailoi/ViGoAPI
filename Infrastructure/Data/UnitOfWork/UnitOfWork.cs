@@ -39,8 +39,7 @@ namespace Infrastructure.Data.UnitOfWork
             IRoomRepository roomRepository,
             IMessageRepository messageRepository,
             IBookingRepository bookingRepository,
-            IBookingDetailRepository bookingDetailRepository
-            IMessageRepository messageRepository,
+            IBookingDetailRepository bookingDetailRepository,
             IFileRepository fileRepository
         )
         {

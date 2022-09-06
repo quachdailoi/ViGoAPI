@@ -19,11 +19,11 @@ using System.Reflection;
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
-var config = builder.Configuration;
+var _config = builder.Configuration;
 
 // Config log
 var logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(config)
+    .ReadFrom.Configuration(_config)
     .Enrich.FromLogContext()
     .CreateLogger();
 
@@ -59,15 +59,15 @@ services.AddEndpointsApiExplorer();
 services.ConfigureSwagger();
 
 // private key
-var pathToKey = Path.Combine(Directory.GetCurrentDirectory(), config["Firebase:AdminSdkJsonFile"]);
+var pathToKey = Path.Combine(Directory.GetCurrentDirectory(), _config["Firebase:AdminSdkJsonFile"]);
 GoogleCredential credential = GoogleCredential.FromFile(pathToKey);
 
 // Create Firebase app
 FirebaseApp.Create(new AppOptions
 {
     Credential = credential,
-    ProjectId = config["Firebase:ProjectId"],
-    ServiceAccountId = config["Firebase:ServiceAccountId"]
+    ProjectId = _config["Firebase:ProjectId"],
+    ServiceAccountId = _config["Firebase:ServiceAccountId"]
 });
 
 string connectionString = string.Empty;
@@ -87,9 +87,10 @@ if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production"
     var database = hostSide.Split("/")[1].Split("?")[0];
 
     connectionString = $"Host={host};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true";
-} else
+}
+else
 {
-    connectionString = config.GetConnectionString("PostgreSQLMaaSConnection");
+    connectionString = _config.GetConnectionString("PostgreSQLMaaSConnection");
 }
 
 services.AddDbContextPool<AppDbContext>(options =>
@@ -113,7 +114,7 @@ services.AddSignalR(cfg =>
 });
 
 // Config for authentication
-services.ConfigureAuthentication(config);
+services.ConfigureAuthentication(_config);
 
 // Config for Identity
 //services.ConfigureIdentity();
@@ -134,6 +135,13 @@ services.ConfigureIoCRepositories();
 
 // IoC for Services layer
 services.ConfigureIoCServices();
+
+// IoC For Profile
+services.AddSingleton(provider => new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new UserMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
+
+}).CreateMapper());
 
 // add http context accessor
 services.AddHttpContextAccessor();
@@ -170,7 +178,7 @@ var app = builder.Build();
     app.UseSwaggerUI(c => {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "MaaS API v1");
         c.DisplayRequestDuration();
-        });
+    });
     IdentityModelEventSource.ShowPII = true;
 }
 

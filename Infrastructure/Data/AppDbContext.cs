@@ -72,10 +72,7 @@ namespace Infrastructure.Data
             builder.Entity<AppFile>().HasData(new AppFile
             {
                 Id = 1,
-                Code = Guid.NewGuid(),
-                Path = "abcabc",
-                Type = FileTypes.Image,
-                Status = true
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User
@@ -89,6 +86,12 @@ namespace Infrastructure.Data
                 FileId = 1,
             });
 
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 2,
+                Path = "user/avatar/default-user-avatar.png"
+            });
+
             builder.Entity<User>().HasData(new User
             {
                 Id = 2,
@@ -100,6 +103,12 @@ namespace Infrastructure.Data
                 FileId = 2,
             });
 
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 3,
+                Path = "user/avatar/default-user-avatar.png"
+            });
+
             builder.Entity<User>().HasData(new User
             {
                 Id = 3,
@@ -109,6 +118,12 @@ namespace Infrastructure.Data
                 Gender = Genders.Male,
                 Status = StatusTypes.User.Active,
                 FileId = 3,
+            });
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 4,
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User
@@ -137,6 +152,12 @@ namespace Infrastructure.Data
                 Gender = Genders.Male,
                 Status = StatusTypes.User.Active,
                 FileId = 5,
+            });
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 6,
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User

@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Shares.Classes;
 using Domain.Shares.Enums;
 using System.Text.Json.Serialization;
 
@@ -13,7 +14,7 @@ namespace API.Models
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
         public int Option { get; set; }
-        public BookingType Type { get; set; }
+        public BookingTypes Type { get; set; }
         public DaySchedule Days { get; set; }
         public bool IsShared { get; set; }
         public Location From { get; set; }

@@ -53,7 +53,7 @@ namespace API.Controllers.Booker
             // check existed verified phone number to send otp if NOT return error response
             var notExistResponse =
                 AppServices.Booker.CheckExisted(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "Not found account with this phone number to send login otp.",
@@ -67,7 +67,7 @@ namespace API.Controllers.Booker
             // check valid time to send otp
             var checkValidResponse =
                 await AppServices.VerifiedCode.CheckValidTimeSendOtp(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "Wait 1 minute since last sent.",
@@ -80,7 +80,7 @@ namespace API.Controllers.Booker
             // send and save otp code
             var sendAndSaveResponse =
                 await AppServices.VerifiedCode.SendAndSaveOtp(
-                    genericRequest, 
+                    genericRequest,
                     successResponse: new()
                     {
                         Message = "Send Otp Successfully.",
@@ -189,7 +189,7 @@ namespace API.Controllers.Booker
             // check not existed verified gmail to send otp if EXIST return error response
             var existResponse =
                 AppServices.Booker.CheckNotExisted(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "This email was verified by another account.",
@@ -203,7 +203,7 @@ namespace API.Controllers.Booker
             // check valid time to send otp
             var checkValidResponse =
                 await AppServices.VerifiedCode.CheckValidTimeSendOtp(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "Wait 1 minute since last sent.",
@@ -216,7 +216,7 @@ namespace API.Controllers.Booker
             // send and save otp code
             var sendAndSaveResponse =
                 await AppServices.VerifiedCode.SendAndSaveOtp(
-                    genericRequest, 
+                    genericRequest,
                     successResponse: new()
                     {
                         Message = "Send Otp Successfully.",
@@ -264,7 +264,7 @@ namespace API.Controllers.Booker
             // check not existed verified gmail to send otp if EXIST return error response
             var existResponse =
                 AppServices.Booker.CheckNotExisted(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "This email was verified by another account.",
@@ -331,9 +331,9 @@ namespace API.Controllers.Booker
             var genericRequest = request.ToGeneric();
 
             // check not existed verified phone number to send otp if EXIST return error response 
-            var existResponse = 
+            var existResponse =
                 AppServices.Booker.CheckNotExisted(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "This phone number was belong to another verified account.",
@@ -395,8 +395,8 @@ namespace API.Controllers.Booker
         /// </response>
         /// <response code = "500"> Failed to update phone number.</response>
         [HttpPut("phone")]
-        public async Task<IActionResult> UpdatePhone([FromForm] VerifyPhoneOtpRequest request) 
-        { 
+        public async Task<IActionResult> UpdatePhone([FromForm] VerifyPhoneOtpRequest request)
+        {
             request.OtpTypes = OtpTypes.UpdateOTP;
 
             var genericRequest = request.ToGeneric();
@@ -440,7 +440,7 @@ namespace API.Controllers.Booker
             var updateResult =
                 await AppServices.Account.UpdateAccountRegistration(
                     account,
-                    genericRequest, 
+                    genericRequest,
                     isVerified: true,
                     successResponse: new()
                     {
@@ -488,7 +488,7 @@ namespace API.Controllers.Booker
             var updateResponse =
                     await AppServices.Booker.UpdateBookerAccount(
                         loginedUser.Code.ToString(),
-                        genericRequest, 
+                        genericRequest,
                         successResponse: new()
                         {
                             Message = "Updated user's information successfully.",

@@ -1,4 +1,6 @@
-﻿using API.JwtFeatures;
+﻿using API.AWS.S3;
+using API.Extensions;
+using API.JwtFeatures;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Quartz;
@@ -22,7 +24,7 @@ namespace API.Controllers
         private readonly IConfiguration _config;
         private readonly IFileService _storageService;
 
-        public AccountsController(IJwtHandler jwtHandler)
+        public AccountsController(IJwtHandler jwtHandler, IConfiguration configuration, IFileService storageService)
         {
             _jwtHandler = jwtHandler;
             _config = configuration;

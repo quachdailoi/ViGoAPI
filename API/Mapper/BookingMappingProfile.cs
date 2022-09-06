@@ -19,12 +19,12 @@ namespace API.Mapper
                 .IncludeBase<Booking, BookingViewModel>();
 
             CreateMap<Booking, BookingDTO>()
-                .ForMember(
-                    dest => dest.EndTime,
-                    otp => otp.MapFrom(
-                        src => src.Time.AddMinutes(src.Duration/60)
-                        )
-                )
+                //.ForMember(
+                //    dest => dest.EndTime,
+                //    otp => otp.MapFrom(
+                //        src => src.Time.AddMinutes(src.Duration/60)
+                //        )
+                //)
                 .ReverseMap();
 
             CreateMap<CreateBookingRequestModel, BookingDTO>();

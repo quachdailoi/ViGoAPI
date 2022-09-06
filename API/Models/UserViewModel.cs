@@ -22,4 +22,9 @@ namespace API.Models
         public bool HasVerifiedPhoneNumber { get; set; } = false;
         public string RoleName { get; set; } = Roles.GUEST.GetName();
     }
+    public class DriverViewModel : UserViewModel
+    {
+
+    }
+
 }

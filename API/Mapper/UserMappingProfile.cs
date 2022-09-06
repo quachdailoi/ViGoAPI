@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -7,8 +8,12 @@ namespace API.Mapper
 {
     public class UserMappingProfile : Profile
     {
-        public UserMappingProfile()
+        private readonly IFileService _fileService;
+
+        public UserMappingProfile(IFileService fileService)
         {
+            _fileService = fileService;
+
             CreateMap<User, UserViewModel>()
                 .ForMember(
                     dest => dest.Gmail,
@@ -32,7 +37,7 @@ namespace API.Mapper
                 )
                 .ForMember(
                     dest => dest.AvatarUrl,
-                    opt => opt.MapFrom(user => user.File == null ? null : user.File.Path)
+                    opt => opt.MapFrom(user => user.File == null ? null : _fileService.GetPresignedUrl(user.File.Path))
                 )
                 .ForMember(
                     dest => dest.AvatarCode,
