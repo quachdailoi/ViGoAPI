@@ -56,26 +56,28 @@ namespace Infrastructure.Data.Repositories
         {
             try
             {
-                var exist = await DbSet.FindAsync((IBaseEntity) entity);
+                var exist = await DbSet.FindAsync(((IBaseEntity)entity).Id);
 
                 if (exist == null) return false;
 
-                if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))
-                {
-                    ((IBaseEntity) entity).DeletedAt = DateTime.UtcNow;
-                    DbSet.Update(entity);
-                }
-                else
-                {
-                    DbSet.Remove(entity);
-                }
+
+                DbSet.Remove(entity);
+                //if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))
+                //{
+                //    ((IBaseEntity) entity).DeletedAt = DateTime.UtcNow;
+                //    DbSet.Update(entity);
+                //}
+                //else
+                //{
+                //    DbSet.Remove(entity);
+                //}
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "{Repo} Remove function error.", typeof(T));
                 return false;
             }
-            //await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync();
             return true;
         }
 

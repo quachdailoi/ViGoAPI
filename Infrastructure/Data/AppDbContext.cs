@@ -1,10 +1,13 @@
 ﻿using Domain.Entities;
+using Domain.Interfaces.Entities;
 using Domain.Shares.Enums;
 using Infrastructure.Data.EntityConfigurations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,11 +17,12 @@ namespace Infrastructure.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //ConfigSoftDeleteQuery(builder);
+
             base.OnModelCreating(builder);
 
             new RoleEntityConfiguration()
@@ -79,10 +83,10 @@ namespace Infrastructure.Data
                 Id = 1,
                 Name = "Quach Dai Loi",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
-                FileId = 1
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = 1,
             });
 
             builder.Entity<User>().HasData(new User
@@ -90,9 +94,10 @@ namespace Infrastructure.Data
                 Id = 2,
                 Name = "Do Trong Dat",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = 2,
             });
 
             builder.Entity<User>().HasData(new User
@@ -100,9 +105,10 @@ namespace Infrastructure.Data
                 Id = 3,
                 Name = "Nguyen Dang Khoa",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = 3,
             });
 
             builder.Entity<User>().HasData(new User
@@ -110,29 +116,44 @@ namespace Infrastructure.Data
                 Id = 4,
                 Name = "Than Thanh Duy",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = 4,
             });
 
-            //builder.Entity<User>().HasData(new User
-            //{
-            //    Id = 5,
-            //    Name = "Loi Quach",
-            //    Code = Guid.NewGuid(),
-            //    DateOfBirth = DateTime.UtcNow,
-            //    Gender = 1,
-            //    Status = 1,
-            //});
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 5,
+                Path = "user/avatar/default-user-avatar.png"
+            });
+
+            builder.Entity<User>().HasData(new User
+            {
+                Id = 5,
+                Name = "Loi Quach",
+                Code = Guid.NewGuid(),
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = 5,
+            });
 
             builder.Entity<User>().HasData(new User
             {
                 Id = 6,
                 Name = "Dat Do",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = 6,
+            });
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 7,
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User
@@ -140,9 +161,16 @@ namespace Infrastructure.Data
                 Id = 7,
                 Name = "Khoa Nguyen",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = 7,
+            });
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 8,
+                Path = "user/avatar/default-user-avatar.png"
             });
 
             builder.Entity<User>().HasData(new User
@@ -150,9 +178,10 @@ namespace Infrastructure.Data
                 Id = 8,
                 Name = "Thanh Duy",
                 Code = Guid.NewGuid(),
-                DateOfBirth = DateTime.UtcNow,
-                Gender = 1,
-                Status = 1,
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = 8,
             });
 
             builder.Entity<Account>().HasData(new Account
@@ -175,25 +204,25 @@ namespace Infrastructure.Data
                 UserId = 2
             });
 
-            //builder.Entity<Account>().HasData(new Account
-            //{
-            //    Id = 3,
-            //    Registration = "loiqdse140970@fpt.edu.vn",
-            //    RegistrationType = RegistrationTypes.Gmail,
-            //    RoleId = Domain.Shares.Enums.Roles.BOOKER,
-            //    Verified = false,
-            //    UserId = 5
-            //});
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 3,
+                Registration = "loiqdse140970@fpt.edu.vn",
+                RegistrationType = RegistrationTypes.Gmail,
+                RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                Verified = false,
+                UserId = 5
+            });
 
-            //builder.Entity<Account>().HasData(new Account
-            //{
-            //    Id = 4,
-            //    Registration = "+84837226239",
-            //    RegistrationType = RegistrationTypes.Phone,
-            //    RoleId = Domain.Shares.Enums.Roles.BOOKER,
-            //    Verified = true,
-            //    UserId = 5
-            //});
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 4,
+                Registration = "+84837226239",
+                RegistrationType = RegistrationTypes.Phone,
+                RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                Verified = true,
+                UserId = 5
+            });
 
             builder.Entity<Account>().HasData(new Account
             {
@@ -314,6 +343,26 @@ namespace Infrastructure.Data
                 Verified = true,
                 UserId = 8
             });
+        }
+
+        private void ConfigSoftDeleteQuery(ModelBuilder builder)
+        {
+            Expression<Func<IBaseEntity, bool>> filterExpr = e => e.DeletedAt == null;
+
+            foreach (var mutableEntityType in builder.Model.GetEntityTypes())
+            {
+                // check if current entity type is child of BaseModel
+                if (mutableEntityType.ClrType.IsAssignableTo(typeof(IBaseEntity)))
+                {
+                    // modify expression to handle correct child type
+                    var parameter = Expression.Parameter(mutableEntityType.ClrType);
+                    var body = ReplacingExpressionVisitor.Replace(filterExpr.Parameters.First(), parameter, filterExpr.Body);
+                    var lambdaExpression = Expression.Lambda(body, parameter);
+
+                    // set filter
+                    mutableEntityType.SetQueryFilter(lambdaExpression);
+                }
+            }
         }
 
         public DbSet<Account> Accounts { get; set; }

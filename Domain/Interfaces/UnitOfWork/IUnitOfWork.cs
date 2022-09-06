@@ -14,6 +14,8 @@ namespace Domain.Interfaces.UnitOfWork
         IBookingRepository Bookings { get; }
         IBookingDetailRepository BookingDetails { get; }
 
+        IFileRepository Files { get; }
+
         Task CreateTransactionAsync();
         Task CommitAsync();
         Task Rollback();

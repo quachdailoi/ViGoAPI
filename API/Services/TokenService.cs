@@ -1,4 +1,5 @@
-﻿using API.Models.Settings;
+﻿using API.Extensions;
+using API.Models.Settings;
 using API.Services.Constract;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
@@ -10,16 +11,15 @@ namespace API.Services
     {
         private readonly IDistributedCache _cache;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly JwtSettings _jwtSettings;
+        private readonly IConfiguration _config;
 
         public TokenService(IDistributedCache cache,
                 IHttpContextAccessor httpContextAccessor,
-                IOptions<JwtSettings> jwtSettings
-            )
+                IConfiguration configuration)
         {
+            _config = configuration;
             _cache = cache;
             _httpContextAccessor = httpContextAccessor;
-            _jwtSettings = jwtSettings.Value;
         }
 
         public async Task<bool> IsCurrentRevokedAccessToken()
@@ -30,7 +30,7 @@ namespace API.Services
                 " ", new DistributedCacheEntryOptions
                 {
                     AbsoluteExpirationRelativeToNow =
-                        TimeSpan.FromMinutes(_jwtSettings.AccessTokenTTLMinutes)
+                        TimeSpan.FromMinutes(_config.Get<double>(JwtSettings.AccessTokenTTLMinutes))
                 });
 
         public async Task<bool> IsRevokedRefreshTokenAsync(string token)
@@ -42,7 +42,7 @@ namespace API.Services
                   " ", new DistributedCacheEntryOptions
                   {
                       AbsoluteExpirationRelativeToNow =
-                          TimeSpan.FromDays(_jwtSettings.RefreshTokenTTLDays)
+                          TimeSpan.FromDays(_config.Get<double>(JwtSettings.RefreshTokenTTLDays))
                   });
 
             await _cache.RemoveAsync(GetRefreshTokenKey(token, false));
@@ -65,7 +65,7 @@ namespace API.Services
                 userCode, new DistributedCacheEntryOptions
                 {
                     AbsoluteExpirationRelativeToNow =
-                        TimeSpan.FromDays(_jwtSettings.RefreshTokenTTLDays)
+                        TimeSpan.FromDays(_config.Get<double>(JwtSettings.RefreshTokenTTLDays))
                 });
 
         private static string GetAccessTokenKey(string token)

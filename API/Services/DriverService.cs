@@ -55,7 +55,7 @@ namespace API.Services
 
         public Task<Response> UpdateDriverAccount(
             string userCode,
-            UserInfoRequest request,
+            UpdateUserInfoRequest request,
             Response successResponse,
             Response duplicateReponse,
             Response failedResponse)

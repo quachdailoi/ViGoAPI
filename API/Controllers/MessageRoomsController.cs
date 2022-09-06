@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class MessageRoomsController : BaseController<MessageRoomsController>
     {
         /// <summary>

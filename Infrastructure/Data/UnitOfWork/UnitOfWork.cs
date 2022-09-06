@@ -26,6 +26,8 @@ namespace Infrastructure.Data.UnitOfWork
         public IBookingRepository Bookings { get; private set; }
         public IBookingDetailRepository BookingDetails { get; private set; }
 
+        public IFileRepository Files { get; private set; }
+
         public UnitOfWork(
             AppDbContext dbContext, 
             ILoggerFactory loggerFactory,
@@ -38,6 +40,8 @@ namespace Infrastructure.Data.UnitOfWork
             IMessageRepository messageRepository,
             IBookingRepository bookingRepository,
             IBookingDetailRepository bookingDetailRepository
+            IMessageRepository messageRepository,
+            IFileRepository fileRepository
         )
         {
             _dbContext = dbContext;
@@ -51,6 +55,7 @@ namespace Infrastructure.Data.UnitOfWork
             Messages = messageRepository;
             Bookings = bookingRepository;
             BookingDetails = bookingDetailRepository;
+            Files = fileRepository;
 
             _logger = loggerFactory.CreateLogger("logs");
         }

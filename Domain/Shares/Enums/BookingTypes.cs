@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public enum BookingType
+    public enum BookingTypes
     {
         Monthly,
         Weekly

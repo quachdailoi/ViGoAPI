@@ -8,9 +8,11 @@ using API.SignalR.Constract;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Quartz.Spi;
+using System.Reflection;
 using System.Text;
 
 namespace API.Extensions
@@ -84,6 +86,7 @@ namespace API.Extensions
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IBookingDetailRepository, BookingDetailRepository>();
+            services.AddScoped<IFileRepository, FileRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -147,7 +150,8 @@ namespace API.Extensions
                 });
 
                 // configure swagger xml description
-                var filePath = Path.Combine(System.AppContext.BaseDirectory, "API.xml");
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var filePath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(filePath);
             });
         }
@@ -155,9 +159,27 @@ namespace API.Extensions
         public static void ConfigureSettings(this IServiceCollection services, WebApplicationBuilder builder)
         {
             // configure strongly typed settings object
-            services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
-            services.Configure<TwilioSettings>(builder.Configuration.GetSection("TwilioSettings"));
-            services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            // this project not use because must load config by environment
+        }
+
+        public static void ConfigureApiVersioning(this IServiceCollection services)
+        {
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                options.ReportApiVersions = true;
+                options.ApiVersionReader = ApiVersionReader.Combine(
+                    //new QueryStringApiVersionReader("api-version"),
+                    //new HeaderApiVersionReader("X-Version"),
+                    new MediaTypeApiVersionReader("ver"));
+            });
+
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            });
         }
     }
 }

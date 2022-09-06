@@ -26,16 +26,11 @@ namespace Domain.Entities
         //Promotion
 
     }
-    public class Location
-    {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public string LocationName { get; set; }
-    }
-    public class DaySchedule
-    {
-        public List<int> DaysOfWeek { get; set; }
-        public List<int> DaysOfMonth { get; set; }
-        Dictionary<int,List<int>> IgnoreDaysByMonth { get; set; }
-    }
+
+    //public class Location
+    //{
+    //    public double X { get; set; }
+    //    public double Y { get; set; }
+    //    public string LocationName { get; set; }
+    //}
 }

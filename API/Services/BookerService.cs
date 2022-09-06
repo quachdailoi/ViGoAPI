@@ -56,7 +56,7 @@ namespace API.Services
 
         public Task<Response> UpdateBookerAccount(
             string userCode,
-            UserInfoRequest request,
+            UpdateUserInfoRequest request,
             Response successResponse,
             Response duplicateReponse,
             Response failedResponse)

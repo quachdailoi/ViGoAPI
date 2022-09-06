@@ -11,6 +11,10 @@ using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Logging;
 using API.SignalR;
 using API.Middleware;
+using AutoMapper;
+using API.Mapper;
+using API.Services.Constract;
+using System.Reflection;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -31,12 +35,21 @@ services.AddLogging();
 //Config CORS
 services.ConfigureCORS(MyAllowSpecificOrigins);
 
+//API versioning
+services.ConfigureApiVersioning();
+
 // Add services to the container.
-services.AddControllers().AddJsonOptions(options =>
+services.AddControllers(option =>
+{
+    option.AllowEmptyInputInBodyModelBinding = true;
+}).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
+
+//services.AddFluentValidationAutoValidation();
+//services.AddValidatorsFromAssemblyContaining<InformationRequestValidator>();
 
 // Add route with lower case
 services.AddRouting(options => options.LowercaseUrls = true);
@@ -114,7 +127,7 @@ services.ConfigureSettings(builder);
 
 // IoC for Configuration
 services.AddScoped<IJwtHandler, JwtHandler>();
-services.AddSingleton<IConfiguration>(config);
+services.AddSingleton<IConfiguration>(_config);
 
 // IoC for Repositories
 services.ConfigureIoCRepositories();
@@ -132,10 +145,10 @@ services.ConfigureIoCSignalR();
 services.ConfigureIoCCronJob();
 
 // add redis cache
-var redisSetting = config["RedisSettings:LocalConnectionString"];
+var redisSetting = _config["RedisSettings:ConnectionString"];
 if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
 {
-    redisSetting = Environment.GetEnvironmentVariable("RedisSettings:CloudConnectionString");
+    redisSetting = Environment.GetEnvironmentVariable("RedisSettings:ConnectionString");
 }
 services.AddStackExchangeRedisCache(r => r.Configuration = redisSetting);
 
@@ -164,7 +177,7 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 // add middlewares
-app.UseErrorHandlerMiddleware();
+//app.UseErrorHandlerMiddleware();
 app.UseJwtMiddleware();
 
 // Using CORS

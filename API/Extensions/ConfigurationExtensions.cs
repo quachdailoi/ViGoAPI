@@ -2,14 +2,24 @@
 {
     public static class ConfigurationExtensions
     {
-        public static string? GetConfigByEnv(this IConfiguration configuration, string configName)
+        public static T? Get<T>(this IConfiguration configuration, string configName)
         {
+            var config = "";
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
             {
-                return Environment.GetEnvironmentVariable(configName);
+                config = Environment.GetEnvironmentVariable(configName);
+            } 
+            else
+            {
+                config = configuration.GetSection(configName).Value;
             }
 
-            return configuration.GetSection(configName).Value;
+            return (T?)Convert.ChangeType(config, typeof(T));
+        }
+
+        public static string? Get(this IConfiguration configuration, string configName)
+        {
+            return configuration.Get<string>(configName);
         }
     }
 }

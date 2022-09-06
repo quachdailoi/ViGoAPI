@@ -15,10 +15,12 @@ namespace API.Controllers
         private IAppServices? _appServices;
         private ILogger<T>? _logger;
         private IHttpContextAccessor? _httpContextAccessor;
+        private IConfiguration? _config;
 
         protected ILogger<T>? Logger => _logger ?? (_logger = HttpContext.RequestServices.GetService<ILogger<T>>());
         protected IAppServices AppServices => _appServices ?? (_appServices = HttpContext.RequestServices.GetRequiredService<IAppServices>());
         protected IHttpContextAccessor HttpContextAccessor => _httpContextAccessor ?? (_httpContextAccessor = HttpContext.RequestServices.GetRequiredService<IHttpContextAccessor>());
+        protected IConfiguration Configuration => _config ?? (_config = HttpContext.RequestServices.GetRequiredService<IConfiguration>());
 
         protected UserViewModel? LoggedInUser => ((UserViewModel?)(HttpContextAccessor.HttpContext?.Items["User"]));
 

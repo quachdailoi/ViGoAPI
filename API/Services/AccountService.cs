@@ -2,6 +2,7 @@
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Settings;
 using API.Services.Constract;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -17,7 +18,7 @@ namespace API.Services
         protected readonly IVerifiedCodeService _verifiedCodeService;
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration _config;
         private readonly IUserService _userService;
 
         public AccountService(
@@ -30,7 +31,7 @@ namespace API.Services
             _verifiedCodeService = verifiedCodeService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _configuration = configuration;
+            _config = configuration;
             _userService = userService;
         }
 
@@ -168,10 +169,10 @@ namespace API.Services
         }
 
         public async Task<Response> UpdateUserAccount(
-            string userCode, Roles userRole,
-            UserInfoRequest request,
-            Response successResponse,
-            Response duplicateReponse,
+            string userCode, Roles userRole, 
+            UpdateUserInfoRequest request, 
+            Response successResponse, 
+            Response duplicateReponse, 
             Response failedResponse)
         {
             var existResponse = CheckNotExisted(userRole, request, duplicateReponse, isVerified: true);
@@ -204,15 +205,20 @@ namespace API.Services
             //commit transaction
             await _unitOfWork.CommitAsync();
 
-            // transaction for update avatar
-            return await _userService.UpdateUserAvatar(userCode, request.Avatar, successResponse, failedResponse);
+            if (request.Avatar != null)
+                // transaction for update avatar
+                await _userService.UpdateUserAvatar(userCode, request.Avatar, successResponse, failedResponse);
+
+            var newUserVM = await _userService.GetUserViewModelById(user.Id);
+
+            return successResponse.SetData(newUserVM);
         }
 
         public async Task<Response> CreateUserAccount(
-            Roles userRole, UserRegisterRequest request,
-            Response successResponse,
-            Response duplicatedRegistrationResponse,
-            Response failedResponse)
+            Roles userRole, UserRegisterRequest request, 
+            Response successResponse, 
+            Response duplicatedRegistrationResponse, 
+            Response failedResponse) 
         {
             var existResponse = CheckNotExisted(userRole, request, duplicatedRegistrationResponse, isVerified: true);
             if (existResponse != null) return existResponse;
@@ -243,7 +249,7 @@ namespace API.Services
 
             var defaultAvatar = new AppFile
             {
-                Path = $"{_configuration.GetConfigByEnv("AwsSettings:UserAvatarFolder")}{_configuration.GetConfigByEnv("AwsSettings:DefaultAvatar")}",
+                Path = $"{_config.Get(AwsSettings.UserAvatarFolder)}{_config.Get(AwsSettings.DefaultAvatar)}",
                 Type = FileTypes.Image,
             };
 
