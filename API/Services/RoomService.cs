@@ -158,5 +158,26 @@ namespace API.Services
 
             return await _unitOfWork.Rooms.Update(room) ? room : null;
         }
+
+        public async Task<Response> GetAll(int userId, Response successResponse, Response notFoundResponse, Response errorResponse)
+        {
+            try
+            {
+                var rooms = await _unitOfWork.Rooms.List(room => room.UserRooms
+                                                                .Select(userRoom => userRoom.UserId)
+                                                                .Contains(userId) && 
+                                                                 room.Status == StatusTypes.Room.Active)
+                                                    .MapTo<MessageRoomViewModel>(_mapper)
+                                                    .ToListAsync();
+
+                if (!rooms.Any()) return notFoundResponse;
+
+                return successResponse.SetData(rooms);
+            }
+            catch (Exception e)
+            {
+                return errorResponse;
+            }
+        }
     }
 }

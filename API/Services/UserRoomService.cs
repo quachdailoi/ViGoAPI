@@ -27,12 +27,9 @@ namespace API.Services
 
         public async Task<Response> UpdateLastSeenTime(UserDTO user,Guid roomCode, Response successResponse, Response errorResponse)
         {
-            var userRoom = _unitOfWork.UserRooms
-                                .List(userRoom => userRoom.UserId == user.Id && userRoom.Room.Code == roomCode && userRoom.Status == StatusTypes.UserRoom.Active)
-                                .FirstOrDefault();
-            userRoom.LastSeenTime = DateTime.UtcNow;
+            var now = DateTime.UtcNow;
 
-            var result = await _unitOfWork.UserRooms.Update(userRoom);
+            var result = await UpdateLastSeenTime(user.Id, roomCode, now);
 
             var room = await _roomService.GetViewModelByCode(roomCode);
 
@@ -45,10 +42,19 @@ namespace API.Services
                         {
                             RoomCode = roomCode,
                             UserCode = user.Code,
-                            LastSeenTime = userRoom.LastSeenTime
+                            LastSeenTime = now
                         });
 
-            return result ? successResponse.SetData(userRoom.LastSeenTime) : errorResponse;
+            return result ? successResponse.SetData(now) : errorResponse;
+        }
+
+        public Task<bool> UpdateLastSeenTime(int userId, Guid roomCode, DateTime now)
+        {
+            var userRoom = _unitOfWork.UserRooms
+                                .List(userRoom => userRoom.UserId == userId && userRoom.Room.Code == roomCode && userRoom.Status == StatusTypes.UserRoom.Active)
+                                .FirstOrDefault();
+            userRoom.LastSeenTime = now;
+            return _unitOfWork.UserRooms.Update(userRoom);
         }
     }
 }

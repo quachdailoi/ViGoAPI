@@ -462,3 +462,6 @@ Domain/obj/
 ## Visual Studio
 ##
 .vs/
+
+# Migration
+Migrations/

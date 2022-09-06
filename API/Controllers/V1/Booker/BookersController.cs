@@ -51,9 +51,9 @@ namespace API.Controllers.V1.Booker
             var genericRequest = request.ToGeneric();
 
             // check existed verified phone number to send otp if NOT return error response
-            var notExistResponse = 
+            var notExistResponse =
                 AppServices.Booker.CheckExisted(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
                         Message = "Not found account with this phone number to send login otp.",
@@ -65,12 +65,12 @@ namespace API.Controllers.V1.Booker
             if (notExistResponse != null) return ApiResult(notExistResponse);
 
             // check valid time to send otp
-            var checkValidResponse = 
+            var checkValidResponse =
                 await AppServices.VerifiedCode.CheckValidTimeSendOtp(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
-                        Message = "Wait 1 minute since last sent.", 
+                        Message = "Wait 1 minute since last sent.",
                         StatusCode = StatusCodes.Status400BadRequest
                     }
                 );
@@ -78,9 +78,9 @@ namespace API.Controllers.V1.Booker
             if (checkValidResponse != null) return ApiResult(checkValidResponse);
 
             // send and save otp code
-            var sendAndSaveResponse = 
+            var sendAndSaveResponse =
                 await AppServices.VerifiedCode.SendAndSaveOtp(
-                    genericRequest, 
+                    genericRequest,
                     successResponse: new()
                     {
                         Message = "Send Otp Successfully.",
@@ -88,7 +88,7 @@ namespace API.Controllers.V1.Booker
                     },
                     errorResponse: new()
                     {
-                        Message = "Fail to send code to this phone number.", 
+                        Message = "Fail to send code to this phone number.",
                         StatusCode = StatusCodes.Status500InternalServerError
                     }
                 );
@@ -123,7 +123,7 @@ namespace API.Controllers.V1.Booker
 
             Response response = new();
 
-            var loginFailedResponse = 
+            var loginFailedResponse =
                 await AppServices.VerifiedCode.VerifyOtp(
                     genericRequest,
                     wrongResponse: new()
@@ -187,26 +187,26 @@ namespace API.Controllers.V1.Booker
             var genericRequest = request.ToGeneric();
 
             // check not existed verified gmail to send otp if EXIST return error response
-            var existResponse = 
+            var existResponse =
                 AppServices.Booker.CheckNotExisted(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
-                        Message = "This email was verified by another account.", 
+                        Message = "This email was verified by another account.",
                         StatusCode = StatusCodes.Status400BadRequest
                     },
-                    isVerified:true
+                    isVerified: true
                 );
 
             if (existResponse != null) return ApiResult(existResponse);
 
             // check valid time to send otp
-            var checkValidResponse = 
+            var checkValidResponse =
                 await AppServices.VerifiedCode.CheckValidTimeSendOtp(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
-                        Message = "Wait 1 minute since last sent.", 
+                        Message = "Wait 1 minute since last sent.",
                         StatusCode = StatusCodes.Status400BadRequest
                     }
                 );
@@ -214,9 +214,9 @@ namespace API.Controllers.V1.Booker
             if (checkValidResponse != null) return ApiResult(checkValidResponse);
 
             // send and save otp code
-            var sendAndSaveResponse = 
+            var sendAndSaveResponse =
                 await AppServices.VerifiedCode.SendAndSaveOtp(
-                    genericRequest, 
+                    genericRequest,
                     successResponse: new()
                     {
                         Message = "Send Otp Successfully.",
@@ -224,7 +224,7 @@ namespace API.Controllers.V1.Booker
                     },
                     errorResponse: new()
                     {
-                        Message = "Fail to send otp to this gmail.", 
+                        Message = "Fail to send otp to this gmail.",
                         StatusCode = StatusCodes.Status500InternalServerError
                     }
                 );
@@ -262,12 +262,12 @@ namespace API.Controllers.V1.Booker
             if (authenResponse != null) return ApiResult(authenResponse);
 
             // check not existed verified gmail to send otp if EXIST return error response
-            var existResponse = 
+            var existResponse =
                 AppServices.Booker.CheckNotExisted(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
-                        Message = "This email was verified by another account.", 
+                        Message = "This email was verified by another account.",
                         StatusCode = StatusCodes.Status400BadRequest
                     },
                     isVerified: true
@@ -275,7 +275,7 @@ namespace API.Controllers.V1.Booker
 
             if (existResponse != null) return ApiResult(existResponse);
 
-            var verifyResponse = 
+            var verifyResponse =
                 await AppServices.VerifiedCode.VerifyOtp(
                     genericRequest,
                     wrongResponse: new()
@@ -293,7 +293,7 @@ namespace API.Controllers.V1.Booker
             if (verifyResponse != null) return ApiResult(verifyResponse);
 
             // verify account
-            var result = 
+            var result =
                 await AppServices.Account.VerifyAccount(
                     account,
                     successResponse: new()
@@ -331,14 +331,14 @@ namespace API.Controllers.V1.Booker
             var genericRequest = request.ToGeneric();
 
             // check not existed verified phone number to send otp if EXIST return error response 
-            var existResponse = 
+            var existResponse =
                 AppServices.Booker.CheckNotExisted(
-                    genericRequest, 
+                    genericRequest,
                     errorResponse: new()
                     {
-                        Message = "This phone number was belong to another verified account.", 
+                        Message = "This phone number was belong to another verified account.",
                         StatusCode = StatusCodes.Status400BadRequest
-                    }, 
+                    },
                     isVerified: true
                 );
 
@@ -395,8 +395,8 @@ namespace API.Controllers.V1.Booker
         /// </response>
         /// <response code = "500"> Failed to update phone number.</response>
         [HttpPut("phone")]
-        public async Task<IActionResult> UpdatePhone([FromForm] VerifyPhoneOtpRequest request) 
-        { 
+        public async Task<IActionResult> UpdatePhone([FromForm] VerifyPhoneOtpRequest request)
+        {
             request.OtpTypes = OtpTypes.UpdateOTP;
 
             var genericRequest = request.ToGeneric();
@@ -437,10 +437,10 @@ namespace API.Controllers.V1.Booker
 
             if (verifyResponse != null) return ApiResult(verifyResponse);
 
-            var updateResult = 
+            var updateResult =
                 await AppServices.Account.UpdateAccountRegistration(
                     account,
-                    genericRequest, 
+                    genericRequest,
                     isVerified: true,
                     successResponse: new()
                     {
@@ -488,7 +488,7 @@ namespace API.Controllers.V1.Booker
             var updateResponse =
                     await AppServices.Booker.UpdateBookerAccount(
                         loginedUser.Code.ToString(),
-                        genericRequest, 
+                        genericRequest,
                         successResponse: new()
                         {
                             Message = "Updated user's information successfully.",

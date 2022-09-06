@@ -13,7 +13,9 @@ namespace API.Services
                 IDriverService driverService,
                 IUserRoomService userRoomService,
                 IRoomService roomService,
-                IMessageService messageService
+                IMessageService messageService,
+                IBookingService bookingService,
+                IBookingDetailService bookingDetailService
             )
         {
             Account = accountService;
@@ -24,7 +26,9 @@ namespace API.Services
             Driver = driverService;
             UserRoom = userRoomService;
             Room = roomService;
-            Message = messageService; 
+            Message = messageService;
+            Booking = bookingService;
+            BookingDetail = bookingDetailService;
         }
 
         public IAccountService Account { get; }
@@ -36,5 +40,7 @@ namespace API.Services
         public IUserRoomService UserRoom { get; }
         public IRoomService Room { get; }
         public IMessageService Message { get; }
+        public IBookingService Booking { get; }
+        public IBookingDetailService BookingDetail { get; }
     }
 }

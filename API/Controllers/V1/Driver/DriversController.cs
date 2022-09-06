@@ -120,14 +120,14 @@ namespace API.Controllers.V1.Driver
             var genericRequest = request.ToGeneric();
 
             // check not existed verify gmail to send otp if EXIST return error response
-            var existResponse = 
+            var existResponse =
                 AppServices.Driver.CheckNotExisted(
                     genericRequest, 
                     errorResponse: new()
                     {
-                        Message = "This gmail was verified by another account.", 
+                        Message = "This gmail was verified by another account.",
                         StatusCode = StatusCodes.Status400BadRequest
-                    }, 
+                    },
                     isVerified: true
                 );
 
@@ -227,7 +227,7 @@ namespace API.Controllers.V1.Driver
 
             if (verifyResponse != null) return ApiResult(verifyResponse);
 
-            var updateResult = 
+            var updateResult =
                 await AppServices.Account.UpdateAccountRegistration(
                     account,
                     genericRequest, 
@@ -377,7 +377,7 @@ namespace API.Controllers.V1.Driver
             if (verifyResponse != null) return ApiResult(verifyResponse);
 
             // verify account
-            var result = 
+            var result =
                 await AppServices.Account.VerifyAccount(
                     account,
                     successResponse: new()
@@ -482,6 +482,6 @@ namespace API.Controllers.V1.Driver
         {
             var user = LoggedInUser;
             return Ok(user);
-        }  
+        }
     }
 }

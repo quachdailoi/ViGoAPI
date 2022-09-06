@@ -22,9 +22,9 @@ namespace API.Services
         private readonly IUserService _userService;
 
         public AccountService(
-            IVerifiedCodeService verifiedCodeService, 
-            IUnitOfWork unitOfWork, 
-            IMapper mapper, 
+            IVerifiedCodeService verifiedCodeService,
+            IUnitOfWork unitOfWork,
+            IMapper mapper,
             IConfiguration configuration,
             IUserService userService)
         {
@@ -227,7 +227,7 @@ namespace API.Services
             {
                 Registration = request.Registration,
                 RegistrationType = request.RegistrationTypes,
-                RoleId = userRole, 
+                RoleId = userRole,
                 Verified = true
             };
 

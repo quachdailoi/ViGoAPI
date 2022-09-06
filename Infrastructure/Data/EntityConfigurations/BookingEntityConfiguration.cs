@@ -2,8 +2,6 @@
 using Infrastructure.Data.EntityConfigurations.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +18,11 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.ToTable("bookings");
 
+            builder.Property(e => e.Code)
+                .IsRequired()
+                .HasDefaultValue(Guid.NewGuid())
+                .HasColumnName("code");
+
             builder.Property(e => e.Time)
                 .IsRequired()
                 .HasColumnName("time");
@@ -33,7 +36,6 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("discount_price");
 
             builder.Property(e => e.Option)
-                //.HasConversion<List<int>>()
                 .HasColumnName("option");
 
             builder.Property(e => e.Type)
@@ -41,9 +43,7 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("type");
 
             builder.Property(e => e.Days)
-                .HasConversion(
-                    x => JsonConvert.SerializeObject(x),
-                    x => JsonConvert.DeserializeObject<JObject>(x))
+                .HasColumnType("jsonb")
                 .HasColumnName("days");
 
             builder.Property(e => e.IsShared)
@@ -57,15 +57,11 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("end_at");
 
             builder.Property(e => e.From)
-                .HasConversion(
-                    x => JsonConvert.SerializeObject(x),
-                    x => JsonConvert.DeserializeObject<JObject>(x))
+                .HasColumnType("jsonb")
                 .HasColumnName("from");
 
             builder.Property(e => e.To)
-                .HasConversion(
-                    x => JsonConvert.SerializeObject(x),
-                    x => JsonConvert.DeserializeObject<JObject>(x))
+                .HasColumnType("jsonb")
                 .HasColumnName("to");
 
             builder.Property(e => e.UserId)
@@ -77,6 +73,8 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.Status)
                 .HasConversion<int>()
                 .HasColumnName("status");
+
+            builder.HasIndex(e => e.Code).IsUnique();
 
             builder.HasOne(e => e.User)
                 .WithMany(u => u.Bookings)
