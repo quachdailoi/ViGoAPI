@@ -15,6 +15,7 @@ using AutoMapper;
 using API.Mapper;
 using API.Services.Constract;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -175,9 +176,14 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 {
+    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
     app.UseSwagger();
     app.UseSwaggerUI(c => {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "MaaS API v1");
+        //c.SwaggerEndpoint("/swagger/v1/swagger.json", "MaaS API v1");
+        foreach (var desc in provider.ApiVersionDescriptions)
+        {
+            c.SwaggerEndpoint($"/swagger/{desc.GroupName}/swagger.json", $"Vigo API {desc.GroupName.ToUpperInvariant()}");
+        }
         c.DisplayRequestDuration();
     });
     IdentityModelEventSource.ShowPII = true;

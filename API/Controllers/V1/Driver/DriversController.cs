@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Twilio.Rest.Api.V2010.Account;
 
-namespace API.Controllers.Driver
+namespace API.Controllers.V1.Driver
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles="DRIVER")]
@@ -47,6 +47,7 @@ namespace API.Controllers.Driver
         ///     Login failed - Something went wrong. <br></br>
         ///     Not found email of driver account in our system.
         /// </response>
+        [MapToApiVersion("1.0")]
         [HttpPost("gmail/login")]
         [AllowAnonymous]
         public async Task<IActionResult> LoginByEmail([FromBody] LoginByEmailRequest request)
@@ -111,6 +112,7 @@ namespace API.Controllers.Driver
         /// <response code = "400"> This gmail was verified by another account.</response>
         /// <response code = "500"> Fail to send otp to this gmail address.</response>
         [HttpPost("gmail/send-otp-to-update")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> SendGmailOtpToUpdate([FromForm] SendGmailOtpRequest request)
         {
             request.OtpTypes = OtpTypes.UpdateOTP;
@@ -182,6 +184,7 @@ namespace API.Controllers.Driver
         /// </response>
         /// <response code = "500"> Failed to update gmail.</response>
         [HttpPut("gmail")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> UpdateGmail([FromForm] VerifyGmailOtpRequest request)
         {
             request.OtpTypes = OtpTypes.UpdateOTP;
@@ -258,6 +261,7 @@ namespace API.Controllers.Driver
         /// <response code = "400"> This phone number was verified by another account.</response>
         /// <response code = "500"> Fail to send otp to this phone number.</response>
         [HttpPost("phone/send-otp-to-verify")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> SendPhoneOtpToVerify([FromForm] SendPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
@@ -329,6 +333,7 @@ namespace API.Controllers.Driver
         /// </response>
         /// <response code = "500"> Failed to verify phone number.</response>
         [HttpPost("phone/verify")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> VerifyPhoneNumber([FromForm] VerifyPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
@@ -408,6 +413,7 @@ namespace API.Controllers.Driver
         /// <response code="400"> This phone number was verified by another account.</response>
         /// <response code="500"> Something went wrong.</response>
         [HttpPut("information")]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> UpdateInformation([FromForm] UpdateDriverInfoRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
@@ -471,6 +477,7 @@ namespace API.Controllers.Driver
         }
 
         [HttpGet("test")]
+        [MapToApiVersion("1.0")]
         public IActionResult TestAuthen()
         {
             var user = LoggedInUser;

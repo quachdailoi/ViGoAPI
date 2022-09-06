@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.Booker
+namespace API.Controllers.V1.Booker
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [Authorize(Roles = "BOOKER")]
@@ -542,6 +542,7 @@ namespace API.Controllers.Booker
         }
 
         [HttpGet("test")]
+        [MapToApiVersion("1.0")]
         public IActionResult TestAuthen()
         {
             var user = LoggedInUser;

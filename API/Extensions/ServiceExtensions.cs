@@ -123,7 +123,7 @@ namespace API.Extensions
         {
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "MaaS API Project", Version = "v1" });
+                //options.SwaggerDoc("v1", new OpenApiInfo { Title = "MaaS API Project", Version = "v1" });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Scheme = "Bearer",
@@ -154,6 +154,8 @@ namespace API.Extensions
                 var filePath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(filePath);
             });
+
+            services.ConfigureOptions<ConfigureSwaggerOptions>();
         }
 
         public static void ConfigureSettings(this IServiceCollection services, WebApplicationBuilder builder)
@@ -169,10 +171,10 @@ namespace API.Extensions
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
                 options.ReportApiVersions = true;
-                options.ApiVersionReader = ApiVersionReader.Combine(
+                //options.ApiVersionReader = ApiVersionReader.Combine(
                     //new QueryStringApiVersionReader("api-version"),
                     //new HeaderApiVersionReader("X-Version"),
-                    new MediaTypeApiVersionReader("ver"));
+                    //new MediaTypeApiVersionReader("ver")); // use this for input version in swagger UI
             });
 
             services.AddVersionedApiExplorer(options =>

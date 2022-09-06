@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Controllers
+namespace API.Controllers.V2
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [Authorize]
-    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     public class TestsController : BaseController<TestsController>
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -20,6 +20,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("user/{code}")]
+        
         public async Task<IActionResult> DeleteUser(string code)
         {
             var user = await _unitOfWork.Users.GetUserByCode(code).Include(x => x.Accounts).Include(x => x.File).FirstOrDefaultAsync();
