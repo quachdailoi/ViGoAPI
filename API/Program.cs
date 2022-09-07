@@ -136,6 +136,8 @@ services.ConfigureIoCRepositories();
 // IoC for Services layer
 services.ConfigureIoCServices();
 
+services.ConfigurationJobQueue();
+
 // IoC For Profile
 services.AddSingleton(provider => new MapperConfiguration(cfg =>
 {
