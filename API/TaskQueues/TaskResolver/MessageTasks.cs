@@ -14,11 +14,13 @@ namespace API.TaskQueues.TaskResolver
 
         public MessageTasks(IServiceProvider serviceProvider) : base(serviceProvider)
         {
+
         }
 
         public override async Task Solve()
         {
             _roomService = _serviceProvider.GetRequiredService<IRoomService>();
+
             subscriber.Subscribe(SUPPORT_MESSAGE_QUEUE).OnMessage(async (msg) =>
             {
                 var admin = await _redisMQService.GetValue(ADMIN_QUEUE);

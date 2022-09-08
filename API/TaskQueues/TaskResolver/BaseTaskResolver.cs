@@ -13,6 +13,13 @@ namespace API.TaskQueues.TaskResolver
             //_redisMQService = _serviceProvider.GetRequiredService<IRedisMQService>();
             //subscriber = _redisMQService.GetSubscriber();
         }
+
+        public CancellationToken ApplicationStarted => throw new NotImplementedException();
+
+        public CancellationToken ApplicationStopped => throw new NotImplementedException();
+
+        public CancellationToken ApplicationStopping => throw new NotImplementedException();
+
         public abstract Task Solve();
         public async Task StartAsync(CancellationToken cancellationToken)
         {
@@ -20,6 +27,11 @@ namespace API.TaskQueues.TaskResolver
             _redisMQService = _serviceProvider.GetRequiredService<IRedisMQService>();
             subscriber = _redisMQService.GetSubscriber();
             await Solve();
+        }
+
+        public void StopApplication()
+        {
+            throw new NotImplementedException();
         }
 
         public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

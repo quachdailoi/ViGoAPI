@@ -127,7 +127,6 @@ namespace API.Extensions
         public static void ConfigurationJobQueue(this IServiceCollection services)
         {
             services.AddHostedService<MessageTasks>();
-            //services.AddHostedService<TestTask>();
         }
         public static void ConfigureSwagger(this IServiceCollection services)
         {

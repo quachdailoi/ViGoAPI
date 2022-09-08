@@ -1,6 +1,8 @@
-﻿using Domain.Interfaces.UnitOfWork;
+﻿using API.TaskQueues;
+using API.Utils;
+using Domain.Interfaces.UnitOfWork;
+using Domain.Shares.Classes;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,10 +15,12 @@ namespace API.Controllers
     public class TestsController : BaseController<TestsController>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IRedisMQService _redisMQMessage;
 
-        public TestsController(IUnitOfWork unitOfWork)
+        public TestsController(IUnitOfWork unitOfWork, IRedisMQService redisMQMessage)
         {
             _unitOfWork = unitOfWork;
+            _redisMQMessage = redisMQMessage; 
         }
 
         [HttpDelete("user/{code}")]
@@ -35,6 +39,29 @@ namespace API.Controllers
             await _unitOfWork.Files.Remove(user.File);
 
             return Ok("Delete user successfully.");
+        }
+
+        [HttpGet("dump-routes")]
+        [AllowAnonymous]
+        public async Task<IActionResult> DumpRoute([FromQuery] int numberOfRoute, int minStepPerRoute, int maxStepPerRoute, int numberOfStation)
+        {
+            var result = DumpData.DumpRoute(
+                numberOfRoute, 
+                minStepPerRoute, 
+                maxStepPerRoute, 
+                numberOfStation, 
+                new Bound // HCM city bound (~~)
+                {
+                    South = 10.757931, 
+                    West = 106.599666,
+                    North = 10.858637,
+                    East = 106.832535
+                });
+            return new JsonResult(new
+            {
+                Routes = result.Item1,
+                Stations = result.Item2
+            });
         }
     }
 }

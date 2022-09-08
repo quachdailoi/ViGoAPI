@@ -20,8 +20,8 @@ namespace Domain.Entities
         public int DriverId { get; set; }
         public int MessageRoomId { get; set; }
 
-        public Booking Booking { get; set; }
-        public User Driver { get; set; }
-        public Room MessageRoom { get; set; }
+        public Booking? Booking { get; set; }
+        public User? Driver { get; set; }
+        public Room? MessageRoom { get; set; }
     }
 }
