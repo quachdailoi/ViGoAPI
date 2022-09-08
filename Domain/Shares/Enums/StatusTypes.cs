@@ -46,5 +46,23 @@ namespace Domain.Shares.Enums
             Inactive,
             Active
         }
+
+        public enum Station
+        {
+            Inactive,
+            Active
+        }
+
+        public enum RouteStation
+        {
+            Inactive,
+            Active
+        }
+
+        public enum Route
+        {
+            Inactive,
+            Active
+        }
     }
 }

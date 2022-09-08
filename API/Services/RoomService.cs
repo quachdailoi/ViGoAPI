@@ -22,15 +22,6 @@ namespace API.Services
             _mapper = mapper;
             _userService = userService;
         }
-
-        public Task<Room> Create(MessageRoomTypes type)
-        {
-            var room = new Room
-            {
-                Type = type
-            };
-            return _unitOfWork.Rooms.Add(room);
-        }
         public async Task<MessageRoomViewModel> GetViewModelByCode(Guid roomCode)
         {
                 var rooms = _unitOfWork.Rooms.GetRoomsByCode(roomCode);
@@ -103,15 +94,11 @@ namespace API.Services
         }
 
         public async Task<Room> GetByCode(Guid roomCode) => await _unitOfWork.Rooms.GetRoomsByCode(roomCode).FirstOrDefaultAsync();
-
-        public async Task<Response> Create(List<Guid> userCodes, MessageRoomTypes type, Response successResponse, Response duplicateResponse, Response errorResponse, MessageDTO? initMessage = null)
+        public async Task<Room> Create(List<Guid> userCodes, MessageRoomTypes type, MessageDTO? initMessage)
         {
             var userRooms = new List<UserRoom>();
 
-            if (GetByMemberCode(userCodes).Any())
-            {
-                return duplicateResponse;
-            }
+
 
             var users = _userService.GetUsersByCode(userCodes);
 
@@ -137,8 +124,17 @@ namespace API.Services
                     UserId = initMessage.UserId
                 });
             }
-            
-            var result = await _unitOfWork.Rooms.Add(room);
+
+            return await _unitOfWork.Rooms.Add(room);
+        }
+        public async Task<Response> Create(List<Guid> userCodes, MessageRoomTypes type, Response successResponse, Response duplicateResponse, Response errorResponse, MessageDTO? initMessage = null)
+        {
+            if (GetByMemberCode(userCodes).Any())
+            {
+                return duplicateResponse;
+            }
+
+            var result = await Create(userCodes,type,initMessage);
 
             if (result == null)
             {
