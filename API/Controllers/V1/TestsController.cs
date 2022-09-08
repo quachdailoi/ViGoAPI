@@ -44,7 +44,7 @@ namespace API.Controllers.V1
 
         [HttpGet("dump-routes")]
         [AllowAnonymous]
-        public async Task<IActionResult> DumpRoute([FromQuery] int numberOfRoute, int minStepPerRoute, int maxStepPerRoute, int numberOfStation)
+        public IActionResult DumpRoute([FromQuery] int numberOfRoute, int minStepPerRoute, int maxStepPerRoute, int numberOfStation)
         {
             var result = DumpData.DumpRoute(
                 numberOfRoute, 

@@ -16,7 +16,7 @@ namespace Domain.Entities
         public int RoomId { get; set; }
         public int UserId { get; set; }
 
-        public User? User { get; set; }
-        public Room? Room { get; set; }
+        public User User { get; set; } = new();
+        public Room Room { get; set; } = new();
     }
 }
