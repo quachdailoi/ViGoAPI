@@ -158,7 +158,8 @@ namespace API.Controllers.V1.Driver
                     errorResponse: new()
                     {
                         Message = "Fail to send otp to this gmail address.",
-                        StatusCode = StatusCodes.Status500InternalServerError
+                        StatusCode = StatusCodes.Status500InternalServerError,
+                        Success = false
                     }
                 );
 
@@ -307,7 +308,8 @@ namespace API.Controllers.V1.Driver
                     errorResponse: new()
                     {
                         Message = "Fail to send otp to this phone number.",
-                        StatusCode = StatusCodes.Status500InternalServerError
+                        StatusCode = StatusCodes.Status500InternalServerError,
+                        Success = false
                     }
                 );
 

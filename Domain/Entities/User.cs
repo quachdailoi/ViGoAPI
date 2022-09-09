@@ -25,5 +25,6 @@ namespace Domain.Entities
         public List<BookingDetail> BookingDetails { get; set; } = new();
 
         public AppFile? File { get; set; } = null;
+        public List<PromotionUser> PromotionUsers { get; set; }
     }
 }

@@ -1,0 +1,47 @@
+﻿using Domain.Entities;
+using Infrastructure.Data.EntityConfigurations.Base;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infrastructure.Data.EntityConfigurations
+{
+    public class PromotionConditionEntityConfiguration : BaseEntityConfiguration<PromotionCondition>
+    {
+        public override void Configure(EntityTypeBuilder<PromotionCondition> builder)
+        {
+            base.Configure(builder);
+
+            builder.ToTable("promotion_conditions");
+
+            builder.Property(e => e.PromotionId)
+                .HasColumnName("promotion_id");
+
+            builder.Property(e => e.TotalUsage)
+                .HasColumnName("total_usage");
+
+            builder.Property(e => e.UsagePerUser)
+                .HasColumnName("usage_per_user");
+
+            builder.Property(e => e.ValidFrom)
+                .HasColumnName("valid_from");
+
+            builder.Property(e => e.ValidUntil)
+                .HasColumnName("valid_until");
+
+            builder.Property(e => e.MinTotal)
+                .HasColumnName("min_total");
+
+            builder.Property(e => e.MinTicket)
+                .HasColumnName("min_ticket");
+
+            builder.Property(e => e.PaymentMethod)
+                .HasConversion<int>()
+                .HasColumnName("payment_method");
+        }
+    }
+}

@@ -89,7 +89,8 @@ namespace API.Controllers.V1.Booker
                     errorResponse: new()
                     {
                         Message = "Fail to send code to this phone number.",
-                        StatusCode = StatusCodes.Status500InternalServerError
+                        StatusCode = StatusCodes.Status500InternalServerError,
+                        Success = false
                     }
                 );
 
@@ -225,7 +226,8 @@ namespace API.Controllers.V1.Booker
                     errorResponse: new()
                     {
                         Message = "Fail to send otp to this gmail.",
-                        StatusCode = StatusCodes.Status500InternalServerError
+                        StatusCode = StatusCodes.Status500InternalServerError,
+                        Success = false
                     }
                 );
 
@@ -369,7 +371,8 @@ namespace API.Controllers.V1.Booker
                     errorResponse: new()
                     {
                         Message = "Fail to send otp to this phone number.",
-                        StatusCode = StatusCodes.Status500InternalServerError
+                        StatusCode = StatusCodes.Status500InternalServerError,
+                        Success = false
                     }
                 );
 
@@ -609,7 +612,8 @@ namespace API.Controllers.V1.Booker
                     errorResponse: new()
                     {
                         Message = "Fail to send otp to this phone number.",
-                        StatusCode = StatusCodes.Status500InternalServerError
+                        StatusCode = StatusCodes.Status500InternalServerError,
+                        Success = false
                     }
                 );
 

@@ -79,6 +79,11 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.HasOne(e => e.User)
                 .WithMany(u => u.Bookings)
                 .HasForeignKey(e => e.UserId);
+
+            builder.HasOne(e => e.Promotion)
+                .WithMany(e => e.Bookings)
+                .HasForeignKey(e => e.PromotionId)
+                .IsRequired();
         }
     }
 }

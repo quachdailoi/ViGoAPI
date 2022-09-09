@@ -21,39 +21,11 @@ namespace Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //ConfigSoftDeleteQuery(builder);
+            ConfigSoftDeleteQuery(builder);
 
             base.OnModelCreating(builder);
 
-            new RoleEntityConfiguration()
-                .Configure(builder.Entity<Role>());
-
-            new FileEntityConfiguration()
-                .Configure(builder.Entity<AppFile>());
-
-            new UserEntityConfiguration()
-                .Configure(builder.Entity<User>());
-
-            new AccountEntityConfiguration()
-                .Configure(builder.Entity<Account>());
-
-            new VerifiedCodeEntityConfiguration()
-                .Configure(builder.Entity<VerifiedCode>());
-
-            new UserRoomEntityConfiguration()
-                .Configure(builder.Entity<UserRoom>());
-
-            new RoomEntityConfiguration()
-                .Configure(builder.Entity<Room>());
-
-            new MessageEntityConfiguration()
-                .Configure(builder.Entity<Message>());
-
-            new BookingEntityConfiguration()
-                .Configure(builder.Entity<Booking>());
-
-            new BookingDetailEntityConfiguration()
-                .Configure(builder.Entity<BookingDetail>());
+            AddEntityConfiguration(builder);
 
             builder.Entity<Role>().HasData(new Role
             {
@@ -364,6 +336,116 @@ namespace Infrastructure.Data
                 Verified = true,
                 UserId = 8
             });
+
+            builder.Entity<Promotion>().HasData(new Promotion
+            {
+                Id = 1,
+                Name = "New User Promotion",
+                Code = "HELLO2022",
+                Details = "Promotion for new user: Discount 20% with max decrease 200k for the booking with minimum total price 500k.",
+                DiscountPercentage = 0.2,
+                MaxDecrease = 200000,
+                Status = Promotions.Status.Available,
+                Type = Promotions.Types.NewUser
+            });
+
+            builder.Entity<PromotionCondition>().HasData(new PromotionCondition
+            {
+                Id = 1,
+                PromotionId = 1,
+                TotalUsage = null,
+                UsagePerUser = 1,
+                ValidFrom = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-01-01T00:00:01Z")),
+                ValidUntil = null,
+                MinTotal = 500000,
+                MinTicket = null,
+                PaymentMethod = null
+            });
+
+            builder.Entity<PromotionUser>().HasData(new PromotionUser
+            {
+                Id = 1,
+                PromotionId = 1,
+                UserId = 5,
+                Used = 0,
+                ExpiredTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-10-01T00:00:01Z")),
+            });
+
+            builder.Entity<PromotionUser>().HasData(new PromotionUser
+            {
+                Id = 2,
+                PromotionId = 1,
+                UserId = 6,
+                Used= 1,
+                ExpiredTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-10-01T00:00:01Z")),
+            });
+
+            builder.Entity<PromotionUser>().HasData(new PromotionUser
+            {
+                Id = 3,
+                PromotionId = 1,
+                UserId = 7,
+                Used = 0,
+                ExpiredTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-09-01T00:00:01Z")),
+            });
+
+            builder.Entity<Promotion>().HasData(new Promotion
+            {
+                Id = 2,
+                Name = "Beautiful Month",
+                Code = "BDAY2022",
+                Details = "Promotion for September: Discount 10% with max decrease 150k for the booking with minimum total price 200k.",
+                DiscountPercentage = 0.1,
+                MaxDecrease = 150000,
+                Status = Promotions.Status.Available,
+                Type = Promotions.Types.Holiday
+            });
+
+            builder.Entity<PromotionUser>().HasData(new PromotionUser
+            {
+                Id = 4,
+                PromotionId = 2,
+                UserId = 7,
+                Used = 2
+            });
+
+            builder.Entity<PromotionCondition>().HasData(new PromotionCondition
+            {
+                Id = 2,
+                PromotionId = 2,
+                TotalUsage = 50,
+                UsagePerUser = 4,
+                ValidFrom = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-09-01T00:00:01Z")),
+                ValidUntil = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-09-30T23:59:59Z")),
+                MinTotal = 200000,
+                MinTicket = null,
+                PaymentMethod = null
+            });
+
+            builder.Entity<Promotion>().HasData(new Promotion
+            {
+                Id = 3,
+                Name = "Holiday Promotion",
+                Code = "HOLIDAY",
+                Details = "Promotion for 2/9 Holiday: Discount 30% with max decrease 300k for the booking with minimum total price 1000k.",
+                DiscountPercentage = 0.3,
+                MaxDecrease = 300000,
+                Status = Promotions.Status.Available,
+                Type = Promotions.Types.Holiday
+            });
+
+            builder.Entity<PromotionCondition>().HasData(new PromotionCondition
+            {
+                Id = 3,
+                PromotionId = 3,
+                TotalUsage = 50,
+                UsagePerUser = 1,
+                ValidFrom = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-09-02T00:00:01Z")),
+                ValidUntil = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-09-02T23:59:59Z")),
+                MinTotal = 1000000,
+                MinTicket = null,
+                PaymentMethod = null
+            });
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)
@@ -384,6 +466,48 @@ namespace Infrastructure.Data
                     mutableEntityType.SetQueryFilter(lambdaExpression);
                 }
             }
+        }
+
+        private void AddEntityConfiguration(ModelBuilder builder)
+        {
+            new RoleEntityConfiguration()
+                .Configure(builder.Entity<Role>());
+
+            new FileEntityConfiguration()
+                .Configure(builder.Entity<AppFile>());
+
+            new UserEntityConfiguration()
+                .Configure(builder.Entity<User>());
+
+            new AccountEntityConfiguration()
+                .Configure(builder.Entity<Account>());
+
+            new VerifiedCodeEntityConfiguration()
+                .Configure(builder.Entity<VerifiedCode>());
+
+            new UserRoomEntityConfiguration()
+                .Configure(builder.Entity<UserRoom>());
+
+            new RoomEntityConfiguration()
+                .Configure(builder.Entity<Room>());
+
+            new MessageEntityConfiguration()
+                .Configure(builder.Entity<Message>());
+
+            new BookingEntityConfiguration()
+                .Configure(builder.Entity<Booking>());
+
+            new BookingDetailEntityConfiguration()
+                .Configure(builder.Entity<BookingDetail>());
+
+            new PromotionConditionEntityConfiguration()
+                .Configure(builder.Entity<PromotionCondition>());
+
+            new PromotionEntityConfiguration()
+                .Configure(builder.Entity<Promotion>());
+
+            new PromotionUserEntityConfiguration()
+                .Configure(builder.Entity<PromotionUser>());
         }
 
         public DbSet<Account> Accounts { get; set; }

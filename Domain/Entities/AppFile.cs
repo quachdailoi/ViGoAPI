@@ -16,5 +16,6 @@ namespace Domain.Entities
         public bool Status { get; set; } = true;
 
         public User User { get; set; }
+        public Promotion Promotion { get; set; }
     }
 }

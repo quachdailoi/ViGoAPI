@@ -142,6 +142,7 @@ services.AddSingleton(provider => new MapperConfiguration(cfg =>
 {
     cfg.AddProfile(new UserMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
     cfg.AddProfile(new MessageRoomMappingProfile());
+    cfg.AddProfile(new PromotionMappingProfile());
 
 }).CreateMapper());
 
@@ -192,7 +193,7 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 // add middlewares
-//app.UseErrorHandlerMiddleware();
+app.UseErrorHandlerMiddleware();
 app.UseJwtMiddleware();
 
 // Using CORS

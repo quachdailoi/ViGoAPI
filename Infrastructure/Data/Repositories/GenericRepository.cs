@@ -34,7 +34,6 @@ namespace Infrastructure.Data.Repositories
                 await this._dbContext.SaveChangesAsync();
 
                 return entity; 
-                
             }
             catch (Exception ex)
             {
@@ -60,17 +59,16 @@ namespace Infrastructure.Data.Repositories
 
                 if (exist == null) return false;
 
-
-                DbSet.Remove(entity);
-                //if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))
-                //{
-                //    ((IBaseEntity) entity).DeletedAt = DateTime.UtcNow;
-                //    DbSet.Update(entity);
-                //}
-                //else
-                //{
-                //    DbSet.Remove(entity);
-                //}
+                //DbSet.Remove(entity);
+                if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))
+                {
+                    ((IBaseEntity)entity).DeletedAt = DateTime.UtcNow;
+                    DbSet.Update(entity);
+                }
+                else
+                {
+                    DbSet.Remove(entity);
+                }
             }
             catch (Exception ex)
             {

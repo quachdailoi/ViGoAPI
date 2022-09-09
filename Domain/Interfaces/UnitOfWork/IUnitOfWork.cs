@@ -13,6 +13,8 @@ namespace Domain.Interfaces.UnitOfWork
         IMessageRepository Messages { get; }
         IBookingRepository Bookings { get; }
         IBookingDetailRepository BookingDetails { get; }
+        IPromotionRepository Promotions { get; }
+        IPromotionUserRepository PromotionUsers { get; }
 
         IFileRepository Files { get; }
 

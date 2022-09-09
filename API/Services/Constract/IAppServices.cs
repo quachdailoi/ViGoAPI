@@ -16,5 +16,7 @@ namespace API.Services.Constract
         IUserRoomService UserRoom { get; }
         IRoomService Room { get; }
         IMessageService Message  { get; }
+
+        IPromotionService Promotion { get; }
     }
 }

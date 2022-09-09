@@ -37,5 +37,12 @@ namespace API.Controllers.V1
 
             return Ok("Delete user successfully.");
         }
+
+        [HttpGet("user")]
+        public async Task<IActionResult> GetUser(string code)
+        {
+            var user = await _unitOfWork.Users.GetUserByCode(code).FirstOrDefaultAsync();
+            return Ok(user);
+        }
     }
 }

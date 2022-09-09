@@ -25,7 +25,8 @@ namespace Infrastructure.Data.UnitOfWork
         public IMessageRepository Messages { get; private set; }
         public IBookingRepository Bookings { get; private set; }
         public IBookingDetailRepository BookingDetails { get; private set; }
-
+        public IPromotionRepository Promotions { get; }
+        public IPromotionUserRepository PromotionUsers { get; }
         public IFileRepository Files { get; private set; }
 
         public UnitOfWork(
@@ -40,6 +41,8 @@ namespace Infrastructure.Data.UnitOfWork
             IMessageRepository messageRepository,
             IBookingRepository bookingRepository,
             IBookingDetailRepository bookingDetailRepository,
+            IPromotionRepository promotionRepository,
+            IPromotionUserRepository promotionUserRepository,
             IFileRepository fileRepository
         )
         {
@@ -54,6 +57,8 @@ namespace Infrastructure.Data.UnitOfWork
             Messages = messageRepository;
             Bookings = bookingRepository;
             BookingDetails = bookingDetailRepository;
+            Promotions = promotionRepository;
+            PromotionUsers = promotionUserRepository;
             Files = fileRepository;
 
             _logger = loggerFactory.CreateLogger("logs");

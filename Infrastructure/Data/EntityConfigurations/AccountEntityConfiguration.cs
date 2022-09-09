@@ -52,9 +52,8 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder
                 .HasIndex(e => new { e.Registration, e.RoleId})
-                .HasFilter("verified = true")
+                .HasFilter("verified = true and deleted_at = null")
                 .IsUnique();
-
         }
     }
 }

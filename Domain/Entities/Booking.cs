@@ -26,6 +26,6 @@ namespace Domain.Entities
         public List<BookingDetail> BookingDetails { get; set; }
 
         //Promotion
-
+        public Promotion Promotion { get; set; }
     }
 }
