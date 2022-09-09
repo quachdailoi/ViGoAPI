@@ -84,7 +84,7 @@ namespace API.Services
                 return await smtp.SendAsync(email);
                 //logger.LogInformation($"Send mail to:  {mailContent.To}");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //logger.LogInformation($"Fail: Send mail to:  {mailContent.To}");
                 //logger.LogError(e.Message);

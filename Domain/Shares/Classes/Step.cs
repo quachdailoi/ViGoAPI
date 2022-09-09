@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,10 @@ namespace Domain.Shares.Classes
     {
         public double Distance { get; set; }
         public double Duration { get; set; }
-        public Location StartPoint { get; set; }
-        public Location EndPoint { get; set; }
-        public string Maneuver { get; set; }
-        public Bound Bound { get; set; }
+        public Location StartPoint { get; set; } = new();
+        public Location EndPoint { get; set; } = new();
+        public string Maneuver { get; set; } = String.Empty;
+        public Bound Bound { get; set; } = new();
+        public Station? Station { get; set; }
     }
 }

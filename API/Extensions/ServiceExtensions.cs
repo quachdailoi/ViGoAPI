@@ -1,6 +1,8 @@
-﻿using API.Models.Settings;
+﻿using API.Helper;
+using API.Models.Settings;
 using API.Quartz;
 using API.Quartz.Jobs;
+using API.TaskQueues;
 using API.Services;
 using API.Services.Constract;
 using API.SignalR;
@@ -14,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using Quartz.Spi;
 using System.Reflection;
 using System.Text;
+using API.TaskQueues.TaskResolver;
 
 namespace API.Extensions
 {
@@ -107,6 +110,7 @@ namespace API.Extensions
             services.AddTransient<IBookingDetailService, BookingDetailService>();
             services.AddTransient<IPromotionService, PromotionService>();
             services.AddTransient<IFileService, FileService>();
+            services.AddTransient<IRedisMQService, RedisMQService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)
@@ -121,6 +125,11 @@ namespace API.Extensions
 
             services.AddTransient<IJobFactory, JobFactory>();
             services.AddSingleton<IJobScheduler, JobScheduler>();
+        }
+
+        public static void ConfigurationJobQueue(this IServiceCollection services)
+        {
+            services.AddHostedService<MessageTasks>();
         }
         public static void ConfigureSwagger(this IServiceCollection services)
         {
