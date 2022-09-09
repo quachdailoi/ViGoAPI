@@ -57,8 +57,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controllers\Admin\" />
-		<Folder Include="Controllers\Admin\" />
 		<Folder Include="Extensions\MapperSupport\" />
 		<Folder Include="Validators\" />
 	</ItemGroup>
@@ -70,5 +68,13 @@
 
 	<Target Name="PrePublishTarget" AfterTargets="Publish">
 		<Exec Command="cd ../ &amp;&amp; dotnet ef database update --project=Infrastructure --startup-project=API" />
+	</Target>
+
+	<Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+		<ItemGroup>
+			<ReferencePath Condition="'%(FileName)' == 'StackExchange.Redis.StrongName'">
+				<Aliases>signed</Aliases>
+			</ReferencePath>
+		</ItemGroup>
 	</Target>
 </Project>

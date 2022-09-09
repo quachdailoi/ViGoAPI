@@ -8,9 +8,9 @@ namespace Domain.Shares.Classes
 {
     public class DaySchedule
     {
-        public List<DayOfWeek> DaysOfWeek { get; set; }
-        public List<int> DaysOfMonth { get; set; }
-        public Dictionary<int, List<int>> IgnoreDaysByMonth { get; set; }
-        public Dictionary<int, List<int>> AdditionalDaysByMonth { get; set; }
+        public List<DayOfWeek> DaysOfWeek { get; set; } = new();
+        public List<int> DaysOfMonth { get; set; } = new();
+        public Dictionary<int, List<int>> IgnoreDaysByMonth { get; set; } = new();
+        public Dictionary<int, List<int>> AdditionalDaysByMonth { get; set; } = new();
     }
 }

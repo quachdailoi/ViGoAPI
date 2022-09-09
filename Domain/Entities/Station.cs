@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Role 
+    public class Station : BaseEntity
     {
-        public Roles Id { get; set; }
-        public string Description { get; set; } = String.Empty;
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
         public string Name { get; set; } = String.Empty;
-
-        public List<Account> Accounts { get; set; } = new();
+        public StatusTypes.Station Status { get; set; } = StatusTypes.Station.Active;
     }
 }

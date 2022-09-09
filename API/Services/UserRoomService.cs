@@ -48,13 +48,17 @@ namespace API.Services
             return result ? successResponse.SetData(now) : errorResponse;
         }
 
-        public Task<bool> UpdateLastSeenTime(int userId, Guid roomCode, DateTime now)
+        public async Task<bool> UpdateLastSeenTime(int userId, Guid roomCode, DateTime now)
         {
             var userRoom = _unitOfWork.UserRooms
                                 .List(userRoom => userRoom.UserId == userId && userRoom.Room.Code == roomCode && userRoom.Status == StatusTypes.UserRoom.Active)
                                 .FirstOrDefault();
+
+            if (userRoom == null) return false; 
+
             userRoom.LastSeenTime = now;
-            return _unitOfWork.UserRooms.Update(userRoom);
+
+            return await _unitOfWork.UserRooms.Update(userRoom);
         }
     }
 }
