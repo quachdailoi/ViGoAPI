@@ -108,20 +108,27 @@ namespace API.Controllers.V1
         {
             var user = this.LoggedInUser;
 
-            var response = await AppServices.Room.GetByType(
-                                        user.Id, 
-                                        MessageRoomTypes.Support,
-                                        successResponse: new()
-                                        {
-                                            Message = "Get message room successfully.",
-                                            StatusCode = StatusCodes.Status200OK
-                                        },
-                                        notFoundResponse: new()
-                                        {
-                                            Message = "Not message room with this code.",
-                                            StatusCode = StatusCodes.Status404NotFound
-                                        }
-                                        );
+            var response =
+                await AppServices.Room.GetByType(
+                    user.Id,
+                    MessageRoomTypes.Support,
+                    successResponse: new()
+                    {
+                        Message = "Get message room successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    },
+                    notFoundResponse: new()
+                    {
+                        Message = "Not message room with this code.",
+                        StatusCode = StatusCodes.Status404NotFound
+                    },
+                    errorResponse: new()
+                    {
+                        Message = "Failed to et support message room.",
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    }
+                );
+
 
             return ApiResult(response);
         }
@@ -136,30 +143,31 @@ namespace API.Controllers.V1
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateMessageRoom([FromBody] MessageRoomRequest request)
-        { 
+        {
             var user = this.LoggedInUser;
 
             request.PartnerUserCodes.Add(user.Code);
 
-            var response = await AppServices.Room.Create(
-                                request.PartnerUserCodes, 
-                                MessageRoomTypes.Conversation,
-                                successResponse: new()
-                                {
-                                    Message = "Create successfully.",
-                                    StatusCode = StatusCodes.Status200OK
-                                },
-                                duplicateResponse: new()
-                                {
-                                    Message = "Duplicate - Message room for there users is existed.",
-                                    StatusCode= StatusCodes.Status400BadRequest
-                                },
-                                errorResponse: new()
-                                {
-                                    Message = "Fail to create message room.",
-                                    StatusCode = StatusCodes.Status500InternalServerError
-                                }
-                                );
+            var response = 
+                await AppServices.Room.Create(
+                    request.PartnerUserCodes,
+                    MessageRoomTypes.Conversation,
+                    successResponse: new()
+                    {
+                        Message = "Create successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    },
+                    duplicateResponse: new()
+                    {
+                        Message = "Duplicate - Message room for there users is existed.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    errorResponse: new()
+                    {
+                        Message = "Failed to create message room.",
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    }
+                );
 
             return ApiResult(response);
         }
@@ -177,19 +185,25 @@ namespace API.Controllers.V1
         {
             var user = this.LoggedInUser;
 
-            var response = await AppServices.Room.GetAll(
-                                user.Id,
-                                successResponse: new()
-                                {
-                                    Message = "Get successfully.",
-                                    StatusCode = StatusCodes.Status200OK
-                                },
-                                notFoundResponse: new()
-                                {
-                                    Message = "Not exist message rooms of this user.",
-                                    StatusCode = StatusCodes.Status404NotFound
-                                }
-                                );
+            var response =
+                await AppServices.Room.GetAll(
+                    user.Id,
+                    successResponse: new()
+                    {
+                        Message = "Get successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    },
+                    notFoundResponse: new()
+                    {
+                        Message = "Not exist message rooms of this user.",
+                        StatusCode = StatusCodes.Status404NotFound
+                    },
+                    errorResponse: new()
+                    {
+                        Message = "Failed to get all user's message rooms.",
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    }
+                );
 
             return ApiResult(response);
         }
