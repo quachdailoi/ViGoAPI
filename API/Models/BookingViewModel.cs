@@ -15,13 +15,16 @@ namespace API.Models
         public double DiscountPrice { get; set; }
         public int Option { get; set; }
         public BookingTypes Type { get; set; }
-        public DaySchedule Days { get; set; }
+        public DaySchedule Days { get; set; } = new();
         public bool IsShared { get; set; }
-        public Location From { get; set; }
-        public Location To { get; set; }
+        public Location StartPoint { get; set; } = new();
+        public Location EndPoint { get; set; } = new();
+        public List<Step> Steps { get; set; } = new();
+        public double Duration { get; set; }
+        public double Distance { get; set; }
+
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
-        public StatusTypes.Booking Status { get; set; }
 
         //promotion view model
     }

@@ -28,77 +28,57 @@ namespace API.Services
 
                 return await rooms.MapTo<MessageRoomViewModel>(_mapper).FirstOrDefaultAsync();
         }
-        public async Task<Response> GetViewModelByCode(Guid roomCode, Response successResponse, Response notFoundResponse, Response errorResponse)
+        public async Task<Response> GetViewModelByCode(Guid roomCode, Response successResponse, Response notFoundResponse)
         {
-            try
-            {
-                var rooms = _unitOfWork.Rooms.GetRoomsByCode(roomCode);
+            var rooms = _unitOfWork.Rooms.GetRoomsByCode(roomCode);
 
-                var room = await GetViewModelByCode(roomCode);
+            var room = await GetViewModelByCode(roomCode);
 
-                if (room == null) return notFoundResponse;
+            if (room == null) return notFoundResponse;
 
-                return successResponse.SetData(room);
-            }
-            catch
-            {
-                return errorResponse;
-            }
+            return successResponse.SetData(room);
         }
 
-        public async Task<Response> GetByType(int userId, MessageRoomTypes type, Response successResponse, Response notFoundResponse, Response errorResponse)
+        public async Task<Response> GetByType(int userId, MessageRoomTypes type, Response successResponse, Response notFoundResponse)
         {
-            try{
-                var rooms = _unitOfWork.Rooms.List(room => room.UserRooms.Exists(userRoom => userRoom.UserId == userId) && room.Type == type);
+            var rooms = _unitOfWork.Rooms.List(room => room.UserRooms.Exists(userRoom => userRoom.UserId == userId) && room.Type == type);
 
-                var roomViewModels = await rooms.MapTo<MessageRoomViewModel>(_mapper).ToListAsync();
+            var roomViewModels = await rooms.MapTo<MessageRoomViewModel>(_mapper).ToListAsync();
 
-                if(!roomViewModels.Any()) return notFoundResponse;
+            if(!roomViewModels.Any()) return notFoundResponse;
 
-                return successResponse.SetData(roomViewModels);
-            }
-            catch{
-                return errorResponse;
-            }
+            return successResponse.SetData(roomViewModels);
         }
         private IQueryable<Room> GetByMemberCode(List<Guid> memberCode)
         {
             var userCodeHashSet = memberCode.ToHashSet();
 
             var roomQueryable = _unitOfWork.Rooms
-                .List(room => room.UserRooms
-                                   .Select(userRoom => userRoom.User.Code)
-                                   .All(userCode => userCodeHashSet.Contains(userCode)) &&
-                              room.UserRooms
-                                   .Select(userRoom => userRoom.User.Code)
-                                   .Count() == userCodeHashSet.Count &&
-                              room.Status == StatusTypes.Room.Active);
+                                    .List(room => room.UserRooms
+                                    .Select(userRoom => userRoom.User.Code)
+                                    .All(userCode => userCodeHashSet.Contains(userCode)) &&
+                                            room.UserRooms
+                                            .Select(userRoom => userRoom.User.Code)
+                                            .Count() == userCodeHashSet.Count &&
+                                            room.Status == StatusTypes.Room.Active);
 
             return roomQueryable;
         }
-        public Response GetViewModelByMemberCode(List<Guid> memberCode, Response successResponse, Response notFoundResponse, Response errorResponse)
+        public Response GetViewModelByMemberCode(List<Guid> memberCode, Response successResponse, Response notFoundResponse)
         {
             var userCodeHashSet = memberCode.ToHashSet();
-            try
-            {
-                var messageRoomViewModel = GetByMemberCode(memberCode).MapTo<MessageRoomViewModel>(_mapper).FirstOrDefault();
 
-                if (messageRoomViewModel == null) return notFoundResponse;              
+            var messageRoomViewModel = GetByMemberCode(memberCode).MapTo<MessageRoomViewModel>(_mapper).FirstOrDefault();
 
-                return successResponse.SetData(messageRoomViewModel);
-            }
-            catch
-            {
-                return errorResponse;
-            }
+            if (messageRoomViewModel == null) return notFoundResponse;              
+
+            return successResponse.SetData(messageRoomViewModel);
         }
 
         public async Task<Room> GetByCode(Guid roomCode) => await _unitOfWork.Rooms.GetRoomsByCode(roomCode).FirstOrDefaultAsync();
         public async Task<Room> Create(List<Guid> userCodes, MessageRoomTypes type, MessageDTO? initMessage)
         {
             var userRooms = new List<UserRoom>();
-
-
 
             var users = _userService.GetUsersByCode(userCodes);
 
@@ -155,25 +135,17 @@ namespace API.Services
             return await _unitOfWork.Rooms.Update(room) ? room : null;
         }
 
-        public async Task<Response> GetAll(int userId, Response successResponse, Response notFoundResponse, Response errorResponse)
+        public async Task<Response> GetAll(int userId, Response successResponse, Response notFoundResponse)
         {
-            try
-            {
-                var rooms = await _unitOfWork.Rooms.List(room => room.UserRooms
-                                                                .Select(userRoom => userRoom.UserId)
-                                                                .Contains(userId) && 
-                                                                 room.Status == StatusTypes.Room.Active)
+            var rooms = await _unitOfWork.Rooms.List(room => room.UserRooms
+                                                            .Select(userRoom => userRoom.UserId).Contains(userId) && 
+                                                            room.Status == StatusTypes.Room.Active)
                                                     .MapTo<MessageRoomViewModel>(_mapper)
                                                     .ToListAsync();
 
-                if (!rooms.Any()) return notFoundResponse;
+             if (!rooms.Any()) return notFoundResponse;
 
-                return successResponse.SetData(rooms);
-            }
-            catch (Exception e)
-            {
-                return errorResponse;
-            }
+             return successResponse.SetData(rooms);
         }
     }
 }

@@ -148,7 +148,7 @@ namespace API.Utils
                     currentStep.Station = copyStations[_stationIndex];
 
                     steps.Add(currentStep);
-                    route.Stations.Add(currentStep.Station);
+                    route.RouteStations.Add(new RouteStation { Station = currentStep.Station });
 
                     startPoint = nextPoint;
                     copyStations.RemoveAt(_stationIndex);

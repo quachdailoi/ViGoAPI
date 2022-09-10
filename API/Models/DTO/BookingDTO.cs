@@ -18,7 +18,7 @@ namespace API.Models.DTO
         public Location EndPoint { get; set; }
         public double Distance { get; set; }
         public double Duration { get; set; }
-        public Bound Bound { get; set; }
+        public Bound Bound { get; set; } = new();
         public List<Step> Steps { get; set; }
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
