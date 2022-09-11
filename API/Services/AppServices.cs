@@ -15,7 +15,10 @@ namespace API.Services
                 IRoomService roomService,
                 IMessageService messageService,
                 IBookingService bookingService,
-                IBookingDetailService bookingDetailService
+                IBookingDetailService bookingDetailService,
+                IRouteService routeService,
+                IStationService stationService,
+                IRouteStationService routeStationService
             )
         {
             Account = accountService;
@@ -29,6 +32,9 @@ namespace API.Services
             Message = messageService;
             Booking = bookingService;
             BookingDetail = bookingDetailService;
+            Route = routeService;
+            Station = stationService;
+            RouteStation = routeStationService;
         }
 
         public IAccountService Account { get; }
@@ -42,5 +48,8 @@ namespace API.Services
         public IMessageService Message { get; }
         public IBookingService Booking { get; }
         public IBookingDetailService BookingDetail { get; }
+        public IRouteService Route { get; }
+        public IStationService Station { get; }
+        public IRouteStationService RouteStation { get; }
     }
 }

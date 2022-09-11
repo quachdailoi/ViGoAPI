@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Linq.Expressions;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace API.Extensions
 {
@@ -52,6 +54,61 @@ namespace API.Extensions
         protected override Expression VisitChildren(ExpressionVisitor visitor)
         {
             return base.VisitChildren(visitor);
+        }
+    }
+    public class DateOnlyConverter : JsonConverter<DateOnly>
+    {
+        private readonly string serializationFormat;
+        public DateOnlyConverter() : this(null)
+        {
+        }
+        public DateOnlyConverter(string? serializationFormat)
+        {
+            this.serializationFormat = serializationFormat ?? "dd-MM-yyyy";
+        }
+        public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            var value = reader.GetString();
+
+            return DateOnly.ParseExact(value!, serializationFormat);
+        }
+
+        public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
+        {
+            writer.WriteStringValue(value.ToString(serializationFormat));
+        }
+    }
+    public class TimeOnlyConverter : JsonConverter<TimeOnly>
+    {
+        private readonly string serializationFormat;
+
+        public TimeOnlyConverter() : this(null)
+        {
+        }
+
+        public TimeOnlyConverter(string? serializationFormat)
+        {
+            this.serializationFormat = serializationFormat ?? "HH:mm:ss";
+        }
+
+        public override TimeOnly Read(ref Utf8JsonReader reader,
+                                Type typeToConvert, JsonSerializerOptions options)
+        {
+            var value = reader.GetString();
+            return TimeOnly.ParseExact(value!, serializationFormat);
+        }
+
+        public override void Write(Utf8JsonWriter writer, TimeOnly value,
+                                            JsonSerializerOptions options)
+            => writer.WriteStringValue(value.ToString(serializationFormat));
+    }
+
+    public static class JsonConverterExtensions
+    {
+        public static void AddJsonConverters(this JsonSerializerOptions options)
+        {
+            options.Converters.Add(new DateOnlyConverter());
+            options.Converters.Add(new TimeOnlyConverter());
         }
     }
 }

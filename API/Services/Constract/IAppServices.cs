@@ -16,5 +16,10 @@ namespace API.Services.Constract
         IUserRoomService UserRoom { get; }
         IRoomService Room { get; }
         IMessageService Message  { get; }
+        IBookingService Booking { get; }
+        IBookingDetailService BookingDetail { get; }
+        IRouteService Route { get; }
+        IStationService Station { get; }
+        IRouteStationService RouteStation { get; }
     }
 }

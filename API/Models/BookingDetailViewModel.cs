@@ -7,7 +7,6 @@ namespace API.Models
     {
         [JsonIgnore]
         public int Id { get; set; }
-        public Guid Code { get; set; }
         public double Rating { get; set; }
         public string FeedBack { get; set; } = String.Empty;
         public DateOnly Date { get; set; }
