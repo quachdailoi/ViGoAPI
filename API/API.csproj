@@ -70,11 +70,11 @@
 		<Exec Command="cd ../ &amp;&amp; dotnet ef database update --project=Infrastructure --startup-project=API" />
 	</Target>
 
-	<Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+	<!--<Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
 		<ItemGroup>
 			<ReferencePath Condition="'%(FileName)' == 'StackExchange.Redis.StrongName'">
 				<Aliases>signed</Aliases>
 			</ReferencePath>
 		</ItemGroup>
-	</Target>
+	</Target>-->
 </Project>

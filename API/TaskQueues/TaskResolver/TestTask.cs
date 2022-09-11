@@ -8,10 +8,10 @@
 
         public override async Task Solve()
         {
-            subscriber.Subscribe("1").OnMessage((msg) =>
-            {
-                Console.WriteLine(msg);
-            });
+            //subscriber.Subscribe("1").OnMessage((msg) =>
+            //{
+            //    Console.WriteLine(msg);
+            //});
         }
     }
 }

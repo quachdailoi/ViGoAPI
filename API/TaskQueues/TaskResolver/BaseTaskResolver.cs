@@ -6,7 +6,7 @@ namespace API.TaskQueues.TaskResolver
     {
         protected IServiceProvider _serviceProvider;
         protected IRedisMQService _redisMQService;
-        protected ISubscriber subscriber;
+        //protected ISubscriber subscriber;
         public BaseTaskResolver(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
@@ -24,8 +24,8 @@ namespace API.TaskQueues.TaskResolver
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             _serviceProvider = _serviceProvider.CreateScope().ServiceProvider;
-            _redisMQService = _serviceProvider.GetRequiredService<IRedisMQService>();
-            subscriber = _redisMQService.GetSubscriber();
+            //_redisMQService = _serviceProvider.GetRequiredService<IRedisMQService>();
+            //subscriber = _redisMQService.GetSubscriber();
             await Solve();
         }
 

@@ -107,7 +107,7 @@ namespace API.Extensions
             services.AddTransient<IBookingService, BookingService>();
             services.AddTransient<IBookingDetailService, BookingDetailService>();
             services.AddTransient<IFileService, FileService>();
-            services.AddTransient<IRedisMQService, RedisMQService>();
+            //services.AddTransient<IRedisMQService, RedisMQService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)

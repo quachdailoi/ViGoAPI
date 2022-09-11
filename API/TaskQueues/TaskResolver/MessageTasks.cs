@@ -21,49 +21,49 @@ namespace API.TaskQueues.TaskResolver
         {
             _roomService = _serviceProvider.GetRequiredService<IRoomService>();
 
-            subscriber.Subscribe(SUPPORT_MESSAGE_QUEUE).OnMessage(async (msg) =>
-            {
-                var admin = await _redisMQService.GetValue(ADMIN_QUEUE);
+            //subscriber.Subscribe(SUPPORT_MESSAGE_QUEUE).OnMessage(async (msg) =>
+            //{
+            //    var admin = await _redisMQService.GetValue(ADMIN_QUEUE);
 
-                if (admin == null) return;
+            //    if (admin == null) return;
 
-                var task = await _redisMQService.GetValue(SUPPORT_MESSAGE_QUEUE);
+            //    var task = await _redisMQService.GetValue(SUPPORT_MESSAGE_QUEUE);
 
-                var userCode = JsonConvert.DeserializeObject<Guid>(task);
+            //    var userCode = JsonConvert.DeserializeObject<Guid>(task);
 
-                var adminCode = JsonConvert.DeserializeObject<Guid>(admin);
+            //    var adminCode = JsonConvert.DeserializeObject<Guid>(admin);
 
-                var result = false;
+            //    var result = false;
 
-                while (!result)
-                {
-                    result = (await _roomService.Create(new List<Guid> { userCode, adminCode }, MessageRoomTypes.Support)) != null;
-                }
+            //    while (!result)
+            //    {
+            //        result = (await _roomService.Create(new List<Guid> { userCode, adminCode }, MessageRoomTypes.Support)) != null;
+            //    }
 
-                await _redisMQService.Push(ADMIN_QUEUE, adminCode);
-            });
+            //    await _redisMQService.Push(ADMIN_QUEUE, adminCode);
+            //});
 
-            subscriber.Subscribe(ADMIN_QUEUE).OnMessage(async (msg) =>
-            {
-                var task = await _redisMQService.GetValue(SUPPORT_MESSAGE_QUEUE);
+            //subscriber.Subscribe(ADMIN_QUEUE).OnMessage(async (msg) =>
+            //{
+            //    var task = await _redisMQService.GetValue(SUPPORT_MESSAGE_QUEUE);
 
-                if (task == null) return;
+            //    if (task == null) return;
 
-                var admin = await _redisMQService.GetValue(ADMIN_QUEUE);
+            //    var admin = await _redisMQService.GetValue(ADMIN_QUEUE);
 
-                var userCode = JsonConvert.DeserializeObject<Guid>(task);
+            //    var userCode = JsonConvert.DeserializeObject<Guid>(task);
 
-                var adminCode = JsonConvert.DeserializeObject<Guid>(admin);
+            //    var adminCode = JsonConvert.DeserializeObject<Guid>(admin);
 
-                var result = false;
+            //    var result = false;
 
-                while (!result)
-                {
-                    result = (await _roomService.Create(new List<Guid> { userCode, adminCode }, MessageRoomTypes.Support)) != null;
-                }
+            //    while (!result)
+            //    {
+            //        result = (await _roomService.Create(new List<Guid> { userCode, adminCode }, MessageRoomTypes.Support)) != null;
+            //    }
 
-                await _redisMQService.Push(ADMIN_QUEUE, adminCode);
-            });
+            //    await _redisMQService.Push(ADMIN_QUEUE, adminCode);
+            //});
         }
     }
 }
