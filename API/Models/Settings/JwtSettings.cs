@@ -12,6 +12,6 @@
 
         public static string RefreshTokenTTLDays = $"{Section}RefreshTokenTTLDays";
 
-        public static string AccessTokenTTLMinutes = $"{Section}RefreshTokenTTLDays";
+        public static string AccessTokenTTLMinutes = $"{Section}AccessTokenTTLMinutes";
     }
 }

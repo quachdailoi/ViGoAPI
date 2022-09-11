@@ -125,7 +125,7 @@ namespace API.Services
                 RegistrationType = request.RegistrationTypes,
                 Registration = request.Registration,
                 Code = otp,
-                ExpiredTime = DateTime.UtcNow.AddMinutes(minuteForExpired),
+                ExpiredTime = DateTime.Now.AddMinutes(minuteForExpired),
                 Type = request.OtpTypes,
                 Status = true
             };
@@ -147,7 +147,7 @@ namespace API.Services
 
             DateTime validTime = code.CreatedAt.AddMinutes(minuteForExpired);
 
-            if (DateTime.Compare(validTime, DateTime.UtcNow) < 0)
+            if (DateTime.Compare(validTime, DateTime.Now) < 0)
             {
                 return expiredResponse;
             }
@@ -176,7 +176,7 @@ namespace API.Services
 
             DateTime timeToResend = code.CreatedAt.AddMinutes(minuteForResend);
 
-            var now = DateTime.UtcNow;
+            var now = DateTime.Now;
 
             if (DateTime.Compare(timeToResend, now) > 0)
             {

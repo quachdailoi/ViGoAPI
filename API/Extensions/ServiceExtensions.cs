@@ -54,6 +54,7 @@ namespace API.Extensions
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:Key"])),
+                    ClockSkew = TimeSpan.Zero
                 };
                 options.RequireHttpsMetadata = false;
 

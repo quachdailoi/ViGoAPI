@@ -27,7 +27,7 @@ namespace API.Services
 
         public async Task<Response> UpdateLastSeenTime(UserDTO user,Guid roomCode, Response successResponse, Response errorResponse)
         {
-            var now = DateTime.UtcNow;
+            var now = DateTime.Now;
 
             var result = await UpdateLastSeenTime(user.Id, roomCode, now);
 
