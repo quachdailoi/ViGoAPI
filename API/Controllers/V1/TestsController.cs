@@ -1,5 +1,6 @@
 ﻿using API.Models.DTO;
 using API.Models.Requests;
+using API.Models.Response;
 using API.TaskQueues;
 using API.Utils;
 using AutoMapper;
@@ -63,11 +64,18 @@ namespace API.Controllers.V1
                     North = 10.858637,
                     East = 106.832535
                 });
-            return new JsonResult(new
+            var response = new Response
             {
-                Routes = result.Item1,
-                Stations = result.Item3
-            });
+                Message = "Get successfully",
+                StatusCode = StatusCodes.Status200OK,
+                Data = new
+                {
+                    Routes = result.Item1,
+                    Stations = result.Item3
+                }
+            };
+
+            return ApiResult(response);
         }
     }
 }
