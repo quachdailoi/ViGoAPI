@@ -66,7 +66,7 @@ namespace API.Controllers.V1
             return new JsonResult(new
             {
                 Routes = result.Item1,
-                Stations = result.Item2
+                Stations = result.Item3
             });
         }
     }

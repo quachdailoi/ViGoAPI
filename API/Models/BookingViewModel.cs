@@ -14,8 +14,7 @@ namespace API.Models
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
         public int Option { get; set; }
-        public BookingTypes Type { get; set; }
-        public DaySchedule Days { get; set; } = new();
+        public BookingTypes Type { get; set; }       
         public bool IsShared { get; set; }
         public Location StartPoint { get; set; } = new();
         public Location EndPoint { get; set; } = new();
@@ -30,7 +29,8 @@ namespace API.Models
     }
     public class BookerBookingViewModel : BookingViewModel
     {
-        public List<BookerBookingDetailViewModel> BookingDetails { get; set; }
+        public DaySchedule Days { get; set; } = new();
+        //public List<BookerBookingDetailViewModel> BookingDetails { get; set; }
     }
     public class DriverBookingViewModel : BookingViewModel
     {
