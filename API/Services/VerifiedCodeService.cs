@@ -125,7 +125,7 @@ namespace API.Services
                 RegistrationType = request.RegistrationTypes,
                 Registration = request.Registration,
                 Code = otp,
-                ExpiredTime = DateTime.Now.AddMinutes(minuteForExpired),
+                ExpiredTime = DateTimeOffset.Now.AddMinutes(minuteForExpired),
                 Type = request.OtpTypes,
                 Status = true
             };
@@ -145,9 +145,9 @@ namespace API.Services
 
             var minuteForExpired = int.Parse(_config.Get(TwilioSettings.ExpiredTime) ?? "0");
 
-            DateTime validTime = code.CreatedAt.AddMinutes(minuteForExpired);
+            DateTimeOffset validTime = code.CreatedAt.AddMinutes(minuteForExpired);
 
-            if (DateTime.Compare(validTime, DateTime.Now) < 0)
+            if (DateTimeOffset.Compare(validTime, DateTimeOffset.Now) < 0)
             {
                 return expiredResponse;
             }
@@ -174,11 +174,11 @@ namespace API.Services
 
             var minuteForResend = int.Parse(_config.Get(TwilioSettings.TimeResend) ?? "0");
 
-            DateTime timeToResend = code.CreatedAt.AddMinutes(minuteForResend);
+            DateTimeOffset timeToResend = code.CreatedAt.AddMinutes(minuteForResend);
 
-            var now = DateTime.Now;
+            var now = DateTimeOffset.Now;
 
-            if (DateTime.Compare(timeToResend, now) > 0)
+            if (DateTimeOffset.Compare(timeToResend, now) > 0)
             {
                 return false;
             }

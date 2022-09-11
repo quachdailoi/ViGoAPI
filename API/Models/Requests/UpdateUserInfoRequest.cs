@@ -10,7 +10,7 @@ namespace API.Models.Requests
     {
         public UpdateUserInfoRequest() {}
 
-        public UpdateUserInfoRequest(string name, Genders gender, DateTime dateOfBirth, IFormFile avatar, 
+        public UpdateUserInfoRequest(string name, Genders gender, DateTimeOffset dateOfBirth, IFormFile avatar, 
             string registration, RegistrationTypes registrationTypes, OtpTypes otpTypes) 
             : base(registration, registrationTypes, otpTypes)
         {
@@ -22,7 +22,7 @@ namespace API.Models.Requests
 
         public string Name { get; set; } = string.Empty;
         public Genders Gender { get; set; } = 0;
-        public DateTime? DateOfBirth { get; set; } = null;
+        public DateTimeOffset? DateOfBirth { get; set; } = null;
         public IFormFile? Avatar { get; set; } = null!;
     }
 
@@ -66,7 +66,7 @@ namespace API.Models.Requests
         [Range((int)Genders.Female, (int)Genders.Male, ErrorMessage = "The Gender field has value 0 for female or 1 for male.")]
         public Genders Gender { get; set; } = 0;
 
-        public DateTime? DateOfBirth { get; set; } = null;
+        public DateTimeOffset? DateOfBirth { get; set; } = null;
         
         public IFormFile? Avatar { get; set; } = null!;
     }
@@ -79,7 +79,7 @@ namespace API.Models.Requests
         [Required]
         [Range((int)Genders.Female, (int)Genders.Male, ErrorMessage = "The Gender field has value 0 for female or 1 for male.")]
         public Genders Gender { get; set; } = 0;
-        public DateTime? DateOfBirth { get; set; } = null;
+        public DateTimeOffset? DateOfBirth { get; set; } = null;
         public IFormFile? Avatar { get; set; } = null!;
     }
 }

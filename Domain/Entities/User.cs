@@ -14,7 +14,7 @@ namespace Domain.Entities
         public string Name { get; set; } = string.Empty;
         public Genders Gender { get; set; } = 0;
         public StatusTypes.User Status { get; set; } = StatusTypes.User.Active;
-        public DateTime? DateOfBirth { get; set; } = null;
+        public DateTimeOffset? DateOfBirth { get; set; } = null;
         public int? FileId { get; set; }
 
         public List<Account> Accounts { get; set; } = new();

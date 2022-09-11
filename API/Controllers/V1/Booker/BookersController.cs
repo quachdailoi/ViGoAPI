@@ -158,9 +158,9 @@ namespace API.Controllers.V1.Booker
                 .SetData(new LoginSuccessViewModel
                 {
                     AccessToken = token,
-                    AccessTokenExpiredTime = DateTime.Now.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
+                    AccessTokenExpiredTime = DateTimeOffset.Now.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
                     RefreshToken = refreshToken,
-                    RefreshTokenExpiredTime = DateTime.Now.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
+                    RefreshTokenExpiredTime = DateTimeOffset.Now.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
                     User = user
                 });
 
@@ -533,10 +533,10 @@ namespace API.Controllers.V1.Booker
                 .SetData(new LoginSuccessViewModel
                 {
                     AccessToken = token,
-                    AccessTokenExpiredTime = DateTime.Now.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
+                    AccessTokenExpiredTime = DateTimeOffset.Now.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
                     RefreshToken = refreshToken,
-                    RefreshTokenExpiredTime = DateTime.Now.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
-                    User = user
+                    RefreshTokenExpiredTime = DateTimeOffset.Now.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
+                    User = user,
                 });
 
             return ApiResult(response);

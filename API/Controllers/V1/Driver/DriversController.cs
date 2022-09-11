@@ -90,9 +90,9 @@ namespace API.Controllers.V1.Driver
                 Data = new LoginSuccessViewModel
                 {
                     AccessToken = token,
-                    AccessTokenExpiredTime = DateTime.Now.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
+                    AccessTokenExpiredTime = DateTimeOffset.Now.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
                     RefreshToken = refreshToken,
-                    RefreshTokenExpiredTime = DateTime.Now.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
+                    RefreshTokenExpiredTime = DateTimeOffset.Now.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
                     User = user
                 }
             });
