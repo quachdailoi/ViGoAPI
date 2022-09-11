@@ -1,5 +1,8 @@
-﻿using API.TaskQueues;
+﻿using API.Models.DTO;
+using API.Models.Requests;
+using API.TaskQueues;
 using API.Utils;
+using AutoMapper;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Classes;
 using Microsoft.AspNetCore.Authorization;
@@ -16,11 +19,13 @@ namespace API.Controllers.V1
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRedisMQService _redisMQMessage;
+        private readonly IMapper _mapper;
 
-        public TestsController(IUnitOfWork unitOfWork, IRedisMQService redisMQMessage)
+        public TestsController(IUnitOfWork unitOfWork, IRedisMQService redisMQMessage, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _redisMQMessage = redisMQMessage; 
+            _mapper = mapper;
         }
 
         [HttpDelete("user/{code}")]
@@ -61,7 +66,7 @@ namespace API.Controllers.V1
             return new JsonResult(new
             {
                 Routes = result.Item1,
-                Stations = result.Item2
+                Stations = result.Item3
             });
         }
     }

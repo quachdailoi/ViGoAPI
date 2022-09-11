@@ -1,7 +1,12 @@
 ﻿using Domain.Entities;
 using Domain.Shares.Classes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace API.Utils
+namespace Domain.Shares.Utils
 {
     public class DumpData
     {
@@ -152,17 +157,13 @@ namespace API.Utils
 
                     steps.Add(currentStep);
 
-                    var routeStation = new RouteStation
+                    routeStations.Add(new RouteStation
                     {
                         StationId = currentStep.Station.Id,
-                        Station = currentStep.Station,
                         Index = stepIndex,
                         Id = routeStationId++,
                         RouteId = routeIndex
-                    };
-
-                    routeStations.Add(routeStation);
-                    route.RouteStations.Add(routeStation);
+                    });
                     //route.RouteStations.Add(new RouteStation
                     //{
                     //    Station = currentStep.Station,
