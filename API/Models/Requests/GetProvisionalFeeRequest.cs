@@ -2,7 +2,7 @@
 
 namespace API.Models.Requests
 {
-    public class GetProvisionalFeeRequestModel
+    public class GetProvisionalFeeRequest
     {
         public double Distance { get; set; }
         public TimeOnly Time { get; set; }

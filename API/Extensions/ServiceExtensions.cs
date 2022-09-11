@@ -17,6 +17,7 @@ using Quartz.Spi;
 using System.Reflection;
 using System.Text;
 using API.TaskQueues.TaskResolver;
+using Microsoft.AspNetCore.Http.Json;
 
 namespace API.Extensions
 {
@@ -90,6 +91,9 @@ namespace API.Extensions
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IBookingDetailRepository, BookingDetailRepository>();
             services.AddScoped<IFileRepository, FileRepository>();
+            services.AddScoped<IRouteRepository, RouteRepository>();
+            services.AddScoped<IStationRepository, StationRepository>();
+            services.AddScoped<IRouteStationRepository, RouteStationRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -108,6 +112,9 @@ namespace API.Extensions
             services.AddTransient<IBookingDetailService, BookingDetailService>();
             services.AddTransient<IFileService, FileService>();
             services.AddTransient<IRedisMQService, RedisMQService>();
+            services.AddTransient<IRouteService, RouteService>();
+            services.AddTransient<IStationService, StationService>();
+            services.AddTransient<IRouteStationService, RouteStationService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)
@@ -128,6 +135,7 @@ namespace API.Extensions
         {
             services.AddHostedService<MessageTasks>();
         }
+
         public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>

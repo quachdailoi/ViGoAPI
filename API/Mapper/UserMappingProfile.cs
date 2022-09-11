@@ -43,6 +43,9 @@ namespace API.Mapper
                     dest => dest.AvatarCode,
                     opt => opt.MapFrom(user => user.File == null ? Guid.Empty : user.File.Code)
                 );
+
+            CreateMap<User, DriverViewModel>()
+                .IncludeBase<User, UserViewModel>();
         }
     }
 }
