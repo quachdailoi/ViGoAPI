@@ -1,6 +1,7 @@
 ﻿using API.Extensions;
 using API.JwtFeatures;
 using API.Models;
+using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
@@ -158,9 +159,9 @@ namespace API.Controllers.V1.Booker
                 .SetData(new LoginSuccessViewModel
                 {
                     AccessToken = token,
-                    AccessTokenExpiredTime = DateTime.UtcNow.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
+                    AccessTokenExpiredTime = DateTimeOffset.Now.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
                     RefreshToken = refreshToken,
-                    RefreshTokenExpiredTime = DateTime.UtcNow.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
+                    RefreshTokenExpiredTime = DateTimeOffset.Now.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
                     User = user
                 });
 
@@ -535,10 +536,10 @@ namespace API.Controllers.V1.Booker
                 .SetData(new LoginSuccessViewModel
                 {
                     AccessToken = token,
-                    AccessTokenExpiredTime = DateTime.UtcNow.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
+                    AccessTokenExpiredTime = DateTimeOffset.Now.AddMinutes(Configuration.Get<double>(JwtSettings.AccessTokenTTLMinutes)),
                     RefreshToken = refreshToken,
-                    RefreshTokenExpiredTime = DateTime.UtcNow.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
-                    User = user
+                    RefreshTokenExpiredTime = DateTimeOffset.Now.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
+                    User = user,
                 });
 
             return ApiResult(response);
@@ -689,8 +690,139 @@ namespace API.Controllers.V1.Booker
                         StatusCode = StatusCodes.Status500InternalServerError
                     }
                 );
-
             return ApiResult(createResponse);
+        }
+
+        /// <summary>
+        ///     Create booking (updating ...).
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/bookers/booking 
+        ///     {
+        ///         "StartPoint": {
+        ///             "Longitude": 106.78967,
+        ///             "Latitude": 10.858,
+        ///             "LocationName":"Trạm 1"
+        ///         },
+        ///         "EndPoint": {
+        ///             "Longitude": 106.7008,
+        ///             "Latitude": 10.798,
+        ///             "LocationName": "12, đường D2, phường Tăng Nhơn Phú A, thành phố Thủ Đức, thành phố Hồ Chí Minh"
+        ///         },
+        ///         "Time": "04:30:00",
+        ///         "Days": {
+        ///              "DaysOfWeek": [],
+        ///              "DaysOfMonth": [1,4,6,29,30,31],
+        ///              "IgnoreDaysByMonth": { "2": [29,30,31], "4": [31] },
+        ///              "AdditionalDaysByMonth": { "3": [1,2,3], "5": [1]}
+        ///         },
+        ///         "StartAt": "15-02-2022" ,
+        ///         "EndAt": "25-06-2022",
+        ///         "IsShared": true,
+        ///         "Option": 0,
+        ///         "Type": 0 (0 if monthly or 1 if weekly)
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <response code = "200"> Create booking successfully.</response>
+        /// <response code = "400"> Conflict about the time schedule with your other bookings.</response>
+        /// <response code="500"> Failed to create booking.</response>
+        [HttpPost("booking")]
+        public async Task<IActionResult> CreateBooking([FromBody] CreateBookingRequest request)
+        {
+            var user = LoggedInUser;
+
+            var booking = new BookingDTO();
+
+            try
+            {
+                booking = _mapper.Map<BookingDTO>(request);
+            }
+            catch(Exception e)
+            {
+                Console.Write(e.Message);
+            }
+
+            booking.UserId = user.Id;
+
+            var response = await AppServices.Booking.Create(
+                                                    booking,
+                                                    successResponse: new()
+                                                    {
+                                                        Message = "Create booking successfully.",
+                                                        StatusCode = StatusCodes.Status200OK
+                                                    },
+                                                    duplicationResponse: new()
+                                                    {
+                                                        Message = "Your booking conflicts about the time schedule with your other bookings.",
+                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                    },
+                                                    errorReponse: new()
+                                                    {
+                                                        Message = "Fail to create booking.",
+                                                        StatusCode = StatusCodes.Status500InternalServerError
+                                                    }
+                                                    );
+
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        ///     Get all booking belong to user (updating ...).
+        /// </summary>
+        /// <response code = "200"> Get bookings successfully.</response>
+        /// <response code = "404"> Not found any bookings.</response>
+        /// <response code="500"> Failed to get bookings.</response>
+        [HttpGet("booking")]
+        public async Task<IActionResult> GetBooking()
+        {
+            var user = LoggedInUser;
+
+            var response = await AppServices.Booking.GetAll(
+                                            user.Id,
+                                            successReponse: new()
+                                            {
+                                                Message = "Get bookings successfully.",
+                                                StatusCode = StatusCodes.Status200OK
+                                            },
+                                            notFoundResponse: new()
+                                            {
+                                                Message = "Not exist any bookings with this user.",
+                                                StatusCode = StatusCodes.Status404NotFound
+                                            }
+                                            );
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        ///     Get next trip of this user.
+        /// </summary>
+        /// <response code = "200"> Get bookings successfully.</response>
+        /// <response code = "404"> Not found any bookings.</response>
+        /// <response code="500"> Failed to get bookings.</response>
+        [HttpGet("booking/next-booking-detail")]
+        public async Task<IActionResult> GetNextTrip()
+        {
+            var user = LoggedInUser;
+
+            var response = await AppServices.BookingDetail.GetNextBookingDetail(
+                                            user.Id,
+                                            successResponse: new()
+                                            {
+                                                Message = "Get next trip successfully.",
+                                                StatusCode = StatusCodes.Status200OK
+                                            },
+                                            notFoundResponse: new()
+                                            {
+                                                Message = "Not exist any trips in next time.",
+                                                StatusCode = StatusCodes.Status404NotFound
+                                            }
+                                            );
+
+            return ApiResult(response);
         }
     }
 }

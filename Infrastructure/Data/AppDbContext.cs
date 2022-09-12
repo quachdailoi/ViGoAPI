@@ -94,7 +94,12 @@ namespace Infrastructure.Data
 
             new BookingDetailEntityConfiguration()
                 .Configure(builder.Entity<BookingDetail>());
-
+			new RouteEntityConfiguration()
+                .Configure(builder.Entity<Route>());
+            new StationEntityConfiguration()
+                .Configure(builder.Entity<Station>());
+            new RouteStationEntityConfiguration()
+                .Configure(builder.Entity<RouteStation>());
             new PromotionConditionEntityConfiguration()
                 .Configure(builder.Entity<PromotionCondition>());
 

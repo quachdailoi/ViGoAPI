@@ -27,7 +27,7 @@ namespace API.Services
 
         public async Task<Response> UpdateLastSeenTime(UserDTO user,Guid roomCode, Response successResponse, Response errorResponse)
         {
-            var now = DateTime.UtcNow;
+            var now = DateTimeOffset.Now;
 
             var result = await UpdateLastSeenTime(user.Id, roomCode, now);
 
@@ -48,7 +48,7 @@ namespace API.Services
             return result ? successResponse.SetData(now) : errorResponse;
         }
 
-        public async Task<bool> UpdateLastSeenTime(int userId, Guid roomCode, DateTime now)
+        public async Task<bool> UpdateLastSeenTime(int userId, Guid roomCode, DateTimeOffset now)
         {
             var userRoom = _unitOfWork.UserRooms
                                 .List(userRoom => userRoom.UserId == userId && userRoom.Room.Code == roomCode && userRoom.Status == StatusTypes.UserRoom.Active)

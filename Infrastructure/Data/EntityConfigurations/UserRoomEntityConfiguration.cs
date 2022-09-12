@@ -35,7 +35,7 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.Property(e => e.LastSeenTime)
                 .HasColumnName("last_seen_time")
-                .HasDefaultValue(DateTime.UtcNow);
+                .HasDefaultValue(DateTimeOffset.Now);
 
             builder.HasOne(e => e.User)
                 .WithMany(u => u.UserRooms)

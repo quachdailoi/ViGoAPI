@@ -3,11 +3,11 @@
     public interface IBaseEntity
     {
         int Id { get; set; }
-        DateTime CreatedAt { get; set; }
-        int CreatedBy { get; set; } 
-        DateTime UpdatedAt { get; set; }
-        int UpdatedBy { get; set; } 
+        DateTimeOffset CreatedAt { get; set; }
+        int CreatedBy { get; set; }
+        DateTimeOffset UpdatedAt { get; set; }
+        int UpdatedBy { get; set; }
 
-        DateTime? DeletedAt { get; set; }
+        DateTimeOffset? DeletedAt { get; set; }
     }
 }

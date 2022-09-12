@@ -25,9 +25,13 @@ namespace Infrastructure.Data.UnitOfWork
         public IMessageRepository Messages { get; private set; }
         public IBookingRepository Bookings { get; private set; }
         public IBookingDetailRepository BookingDetails { get; private set; }
+        public IFileRepository Files { get; private set; }
+        public IRouteRepository Route { get; private set; }
+        public IStationRepository Station { get; private set; }
+        public IRouteStationRepository RouteStaion { get; private set; }
+
         public IPromotionRepository Promotions { get; }
         public IPromotionUserRepository PromotionUsers { get; }
-        public IFileRepository Files { get; private set; }
 
         public UnitOfWork(
             AppDbContext dbContext, 
@@ -41,10 +45,10 @@ namespace Infrastructure.Data.UnitOfWork
             IMessageRepository messageRepository,
             IBookingRepository bookingRepository,
             IBookingDetailRepository bookingDetailRepository,
-            IPromotionRepository promotionRepository,
-            IPromotionUserRepository promotionUserRepository,
-            IFileRepository fileRepository
-        )
+            IRouteRepository routeRepository,
+            IFileRepository fileRepository,
+            IStationRepository stationRepository,
+            IRouteStationRepository routeStaionRepository)
         {
             _dbContext = dbContext;
 
@@ -57,11 +61,13 @@ namespace Infrastructure.Data.UnitOfWork
             Messages = messageRepository;
             Bookings = bookingRepository;
             BookingDetails = bookingDetailRepository;
-            Promotions = promotionRepository;
-            PromotionUsers = promotionUserRepository;
+            Route = routeRepository;
             Files = fileRepository;
+            Station = stationRepository;
+            RouteStaion = routeStaionRepository;
 
             _logger = loggerFactory.CreateLogger("logs");
+            
         }
 
         public async Task CommitAsync()

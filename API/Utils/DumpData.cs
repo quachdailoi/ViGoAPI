@@ -29,7 +29,7 @@ namespace API.Utils
                     nextPoint.Latitude = startPoint.Latitude > middlePoint.Latitude ?
                                         bound.South + randValue * (middlePoint.Latitude - bound.South) :
                                         middlePoint.Latitude + randValue * (bound.North - middlePoint.Latitude);
-                }                
+                }
             }
             else
             {
@@ -39,13 +39,13 @@ namespace API.Utils
 
                 nextPoint.Latitude = (startPoint.Latitude - middlePoint.Latitude) / (startPoint.Longitude - middlePoint.Longitude) * (nextPoint.Longitude - startPoint.Longitude) + middlePoint.Latitude;
 
-                if(nextPoint.Latitude > bound.North || nextPoint.Latitude < bound.South)
+                if (nextPoint.Latitude > bound.North || nextPoint.Latitude < bound.South)
                 {
                     nextPoint.Latitude = nextPoint.Latitude > bound.North ? bound.North : bound.South;
                     nextPoint.Longitude = (nextPoint.Latitude - startPoint.Latitude) * (startPoint.Longitude - middlePoint.Longitude) / (startPoint.Latitude - middlePoint.Latitude) + startPoint.Longitude;
                 }
             }
-            return nextPoint;                   
+            return nextPoint;
         }
         private static Bound GetExtendStationBound(Station station, Bound bound)
         {
@@ -97,24 +97,27 @@ namespace API.Utils
         private static List<Station> DumpStation(int total, Bound bound)
         {
             List<Station> stations = new();
-            
 
-            for (var i = 0; i < total; i++)
+
+            for (var stationIndex = 1; stationIndex <= total; stationIndex++)
             {
-                stations.Add(DumpStationInBound(bound,i));
+                stations.Add(DumpStationInBound(bound, stationIndex));
             }
 
             return stations;
         }
 
-        public static Tuple<List<Domain.Entities.Route>, List<Station>> DumpRoute(int totalRoute, int minStep, int maxStep, int totalStation, Bound bound)
+        public static Tuple<List<Domain.Entities.Route>, List<RouteStation>, List<Station>> DumpRoute(int totalRoute, int minStep, int maxStep, int totalStation, Bound bound)
         {
             var stations = DumpStation(totalStation, bound);
             Random random = new Random();
 
             List<Domain.Entities.Route> routes = new(totalRoute);
+            List<RouteStation> routeStations = new();
 
-            for(var i = 0; i < totalRoute; i++)
+            var routeStationId = 1;
+
+            for (var routeIndex = 1; routeIndex <= totalRoute; routeIndex++)
             {
                 var route = new Domain.Entities.Route();
 
@@ -130,7 +133,7 @@ namespace API.Utils
 
                 for (var stepIndex = 0; stepIndex < totalStep; stepIndex++)
                 {
-                    var currentStep = new Step();                  
+                    var currentStep = new Step();
 
                     var _stationIndex = stepIndex == 0 ? stationIndex : random.Next(0, copyStations.Count - 1);
 
@@ -148,15 +151,35 @@ namespace API.Utils
                     currentStep.Station = copyStations[_stationIndex];
 
                     steps.Add(currentStep);
-                    route.Stations.Add(currentStep.Station);
+
+                    var routeStation = new RouteStation
+                    {
+                        StationId = currentStep.Station.Id,
+                        Station = currentStep.Station,
+                        Index = stepIndex,
+                        Id = routeStationId++,
+                        RouteId = routeIndex
+                    };
+
+                    routeStations.Add(routeStation);
+                    route.RouteStations.Add(routeStation);
+                    //route.RouteStations.Add(new RouteStation
+                    //{
+                    //    Station = currentStep.Station,
+                    //    StationId = currentStep.Station.Id,
+                    //    Index = stepIndex,
+                    //    Id = routeStationId++,
+                    //    RouteId = routeIndex
+                    //});
 
                     startPoint = nextPoint;
                     copyStations.RemoveAt(_stationIndex);
                 }
 
-                var distance = steps.Select(step => step.Distance).Aggregate((a, b) => a + b) ;
-                var duration = steps.Select(step => step.Distance).Aggregate((a,b) => a + b) ;
+                var distance = steps.Select(step => step.Distance).Aggregate((a, b) => a + b);
+                var duration = steps.Select(step => step.Distance).Aggregate((a, b) => a + b);
 
+                route.Id = routeIndex;
                 route.Steps = steps;
                 route.Distance = distance;
                 route.Duration = duration;
@@ -164,7 +187,7 @@ namespace API.Utils
                 routes.Add(route);
             }
 
-            return new Tuple<List<Domain.Entities.Route>, List<Station>>(routes, stations);
+            return new Tuple<List<Domain.Entities.Route>, List<RouteStation>, List<Station>>(routes, routeStations, stations);
         }
     }
 }

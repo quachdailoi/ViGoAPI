@@ -42,7 +42,7 @@ namespace API.Services
             message = await _unitOfWork.Messages.Add(message);
 
             //update Last seen time
-            var result = await _userRoomService.UpdateLastSeenTime(userId, roomCode, DateTime.UtcNow);
+            var result = await _userRoomService.UpdateLastSeenTime(userId, roomCode, DateTimeOffset.Now);
 
             if(message == null || !result)
             {
