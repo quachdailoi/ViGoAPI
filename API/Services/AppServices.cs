@@ -18,7 +18,8 @@ namespace API.Services
                 IBookingDetailService bookingDetailService,
                 IRouteService routeService,
                 IStationService stationService,
-                IRouteStationService routeStationService
+                IRouteStationService routeStationService,
+                IPromotionService promotionService
             )
         {
             Account = accountService;
@@ -35,6 +36,7 @@ namespace API.Services
             Route = routeService;
             Station = stationService;
             RouteStation = routeStationService;
+            Promotion = promotionService;
         }
 
         public IAccountService Account { get; }
@@ -51,5 +53,6 @@ namespace API.Services
         public IRouteService Route { get; }
         public IStationService Station { get; }
         public IRouteStationService RouteStation { get; }
+        public IPromotionService Promotion { get; }
     }
 }

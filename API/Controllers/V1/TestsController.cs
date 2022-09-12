@@ -77,5 +77,12 @@ namespace API.Controllers.V1
 
             return ApiResult(response);
         }
+
+		[HttpGet("user")]
+        public async Task<IActionResult> GetUser(string code)
+        {
+            var user = await _unitOfWork.Users.GetUserByCode(code).FirstOrDefaultAsync();
+            return Ok(user);
+        }
     }
 }

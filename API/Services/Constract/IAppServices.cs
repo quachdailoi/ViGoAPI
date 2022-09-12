@@ -21,5 +21,7 @@ namespace API.Services.Constract
         IRouteService Route { get; }
         IStationService Station { get; }
         IRouteStationService RouteStation { get; }
+
+		IPromotionService Promotion { get; }
     }
 }

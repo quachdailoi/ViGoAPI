@@ -149,7 +149,7 @@ services.AddSingleton(provider => new MapperConfiguration(cfg =>
     cfg.AddProfile(new MessageRoomMappingProfile());
     cfg.AddProfile(new BookingMappingProfile());
     cfg.AddProfile(new BookingDetailMappingProfile());
-
+	cfg.AddProfile(new PromotionMappingProfile());
 }).CreateMapper());
 
 // add http context accessor

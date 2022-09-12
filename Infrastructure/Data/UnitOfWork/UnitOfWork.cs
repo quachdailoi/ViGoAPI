@@ -30,6 +30,9 @@ namespace Infrastructure.Data.UnitOfWork
         public IStationRepository Station { get; private set; }
         public IRouteStationRepository RouteStaion { get; private set; }
 
+        public IPromotionRepository Promotions { get; }
+        public IPromotionUserRepository PromotionUsers { get; }
+
         public UnitOfWork(
             AppDbContext dbContext, 
             ILoggerFactory loggerFactory,
@@ -45,7 +48,9 @@ namespace Infrastructure.Data.UnitOfWork
             IRouteRepository routeRepository,
             IFileRepository fileRepository,
             IStationRepository stationRepository,
-            IRouteStationRepository routeStaionRepository)
+            IRouteStationRepository routeStaionRepository,
+            IPromotionRepository promotionRepository,
+            IPromotionUserRepository promotionUserRepository)
         {
             _dbContext = dbContext;
 
@@ -63,8 +68,10 @@ namespace Infrastructure.Data.UnitOfWork
             Station = stationRepository;
             RouteStaion = routeStaionRepository;
 
+            Promotions = promotionRepository;
+            PromotionUsers = promotionUserRepository;
+
             _logger = loggerFactory.CreateLogger("logs");
-            
         }
 
         public async Task CommitAsync()

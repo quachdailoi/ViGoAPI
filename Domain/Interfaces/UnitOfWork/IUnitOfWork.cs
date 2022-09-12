@@ -16,6 +16,8 @@ namespace Domain.Interfaces.UnitOfWork
         IRouteRepository Route { get; }
         IStationRepository Station { get; }
         IRouteStationRepository RouteStaion { get; }
+        IPromotionRepository Promotions { get; }
+        IPromotionUserRepository PromotionUsers { get; }
         IFileRepository Files { get; }
 
         Task CreateTransactionAsync();

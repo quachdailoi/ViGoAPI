@@ -39,6 +39,10 @@ namespace Infrastructure.Data
             builder.HasOne(e => e.User)
                 .WithOne(e => e.File)
                 .HasForeignKey<User>(e => e.FileId);
+
+            builder.HasOne(e => e.Promotion)
+                .WithOne(e => e.File)
+                .HasForeignKey<Promotion>(e => e.FileId);
         }
     }
 }

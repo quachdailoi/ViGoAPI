@@ -91,6 +91,8 @@ namespace API.Extensions
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IBookingDetailRepository, BookingDetailRepository>();
+            services.AddScoped<IPromotionUserRepository, PromotionUserRepository>();
+            services.AddScoped<IPromotionRepository, PromotionRepository>();
             services.AddScoped<IFileRepository, FileRepository>();
             services.AddScoped<IRouteRepository, RouteRepository>();
             services.AddScoped<IStationRepository, StationRepository>();
@@ -111,6 +113,7 @@ namespace API.Extensions
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IBookingService, BookingService>();
             services.AddTransient<IBookingDetailService, BookingDetailService>();
+            services.AddTransient<IPromotionService, PromotionService>();
             services.AddTransient<IFileService, FileService>();
             services.AddTransient<IRedisMQService, RedisMQService>();
             services.AddTransient<IRouteService, RouteService>();

@@ -7,6 +7,7 @@ using API.Extensions;
 using API.Models.Response;
 using API.Models.Settings;
 using API.Services.Constract;
+using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using System.Net.Mime;
 
@@ -61,12 +62,14 @@ namespace API.Services
             }
         }
 
-        public string? GetPresignedUrl(string fileName)
+        public string? GetPresignedUrl(string filePath)
         {
+            if (filePath == null) return null;
+
             var request = new GetPreSignedUrlRequest()
             {
                 BucketName = _config.Get(AwsSettings.BucketName),
-                Key = fileName,
+                Key = filePath,
                 Expires = DateTimeOffset.Now.AddHours(1).DateTime,
                 Verb = HttpVerb.GET,
                 Protocol = Protocol.HTTPS
@@ -74,6 +77,18 @@ namespace API.Services
 
             var presignedUrl = _s3Client.GetPreSignedURL(request);
             return presignedUrl;
+        }
+
+        public async Task<string> GetFilePathById(int id)
+        {
+            return (await _unitOfWork.Files.GetById(id)).Path;
+        }
+
+        public string? GetPresignedUrl(AppFile? file)
+        {
+            if (file == null) return null;
+
+            return GetPresignedUrl(file.Path);
         }
     }
 }

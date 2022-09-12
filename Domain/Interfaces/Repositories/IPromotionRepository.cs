@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Repositories
 {
-    public interface IFileRepository : IGenericRepository<AppFile>
+    public interface IPromotionRepository : IGenericRepository<Promotion>
     {
-        Task<AppFile> GetById(int id);
+        IQueryable<Promotion> GetAll();
     }
 }

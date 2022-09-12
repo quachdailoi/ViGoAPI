@@ -157,7 +157,7 @@ namespace API.Services
 
         public async Task<UserViewModel?> GetUserViewModel(Roles roles, string registration, RegistrationTypes registrationTypes)
         {
-            var account = await GetAccount(roles, registration, registrationTypes)?.FirstOrDefaultAsync() ?? null;
+            var account = await GetAccount(roles, registration, registrationTypes).FirstOrDefaultAsync() ?? null;
 
             if (account == null) return null;
 

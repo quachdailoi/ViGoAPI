@@ -38,18 +38,15 @@ namespace API.Services
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        private Task<MessageResource?> SendPhoneOtp(string phoneNumber, out string otp)
+        private Task<MessageResource?> SendPhoneOtp(string phoneNumber, string otp)
         {
-            otp = GenerateOtpCode(6);
-
             var message = $"Otp code from ViGo App: {otp}";
 
             return SendSMS(message, phoneNumber);
         }
 
-        private Task<string?> SendGmailOtp(string gmail, out string otp)
+        private Task<string?> SendGmailOtp(string gmail, string otp)
         {
-            otp = GenerateOtpCode(6);
             MailContent mailContent = new()
             {
                 To = gmail,
@@ -203,32 +200,50 @@ namespace API.Services
 
         private async Task<Response> SendAndSaveOtpPhoneNumber(SendOtpRequest request, Response successResponse, Response errorResponse)
         {
-            var messageResource = await SendPhoneOtp(request.Registration, out string otp);
+            var otp = GenerateOtpCode(6);
+
+            await _unitOfWork.CreateTransactionAsync();
+            var saveCodeResponse = await SaveCode(request, otp, successResponse, errorResponse);
+            if (!saveCodeResponse.Success)
+            {
+                await _unitOfWork.Rollback();
+                return errorResponse;
+            }
+
+            var messageResource = await SendPhoneOtp(request.Registration, otp);
 
             if (messageResource?.Status == MessageResource.StatusEnum.Failed)
             {
-                return new Response(
-                    StatusCode: errorResponse.StatusCode,
-                    Message: errorResponse.Message
-                );
+                await _unitOfWork.Rollback();
+                return errorResponse;
             }
 
-            return await SaveCode(request, otp, successResponse, errorResponse);
+            _unitOfWork.CommitAsync();
+            return successResponse;
         }
 
         private async Task<Response> SendAndSaveOtpGmail(SendOtpRequest request, Response successResponse, Response errorResponse)
         {
-            var mailResponse = await SendGmailOtp(request.Registration, out string otp);
+            var otp = GenerateOtpCode(6);
+
+            await _unitOfWork.CreateTransactionAsync();
+
+            var saveCodeResponse = await SaveCode(request, otp, successResponse, errorResponse);
+            if (!saveCodeResponse.Success)
+            {
+                await _unitOfWork.Rollback();
+                return errorResponse;
+            }
+
+            var mailResponse = await SendGmailOtp(request.Registration, otp);
 
             if (mailResponse == null || !mailResponse.Contains("2.0.0"))
             {
-                return new Response(
-                    StatusCode: errorResponse.StatusCode,
-                    Message: errorResponse.Message
-                );
+                return errorResponse;
             }
 
-            return await SaveCode(request, otp, successResponse, errorResponse);
+            _unitOfWork.CommitAsync();
+            return successResponse;
         }
 
         public async Task<Response> SendAndSaveOtp(SendOtpRequest request, Response successResponse, Response errorResponse)
