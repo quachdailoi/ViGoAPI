@@ -22,7 +22,7 @@ namespace API.Services
             _mapper = mapper;
             _userService = userService;
         }
-        public async Task<MessageRoomViewModel> GetViewModelByCode(Guid roomCode)
+        public async Task<MessageRoomViewModel?> GetViewModelByCode(Guid roomCode)
         {
                 var rooms = _unitOfWork.Rooms.GetRoomsByCode(roomCode);
 
@@ -93,12 +93,10 @@ namespace API.Services
             }
         }
 
-        public async Task<Room> GetByCode(Guid roomCode) => await _unitOfWork.Rooms.GetRoomsByCode(roomCode).FirstOrDefaultAsync();
+        public async Task<Room?> GetByCode(Guid roomCode) => await _unitOfWork.Rooms.GetRoomsByCode(roomCode).FirstOrDefaultAsync();
         public async Task<Room> Create(List<Guid> userCodes, MessageRoomTypes type, MessageDTO? initMessage)
         {
             var userRooms = new List<UserRoom>();
-
-
 
             var users = _userService.GetUsersByCode(userCodes);
 

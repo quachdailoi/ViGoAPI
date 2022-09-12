@@ -9,5 +9,6 @@ namespace Domain.Interfaces.Repositories
 {
     public interface IFileRepository : IGenericRepository<AppFile>
     {
+        Task<AppFile> GetById(int id);
     }
 }
