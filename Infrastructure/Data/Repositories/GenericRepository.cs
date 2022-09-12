@@ -27,7 +27,7 @@ namespace Infrastructure.Data.Repositories
             {
                 if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))
                 {
-                    ((IBaseEntity) entity).CreatedAt = DateTime.UtcNow;
+                    ((IBaseEntity) entity).CreatedAt = DateTimeOffset.Now;
                 }
                 entity = (await DbSet.AddAsync(entity)).Entity;
 
@@ -106,7 +106,7 @@ namespace Infrastructure.Data.Repositories
                 {
                     entities.ForEach(entity =>
                     {
-                        ((IBaseEntity)entity).CreatedAt = DateTime.UtcNow;
+                        ((IBaseEntity)entity).CreatedAt = DateTimeOffset.Now;
                     });                   
                 }
                 await DbSet.AddRangeAsync(entities);

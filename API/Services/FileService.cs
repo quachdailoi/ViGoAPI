@@ -70,7 +70,7 @@ namespace API.Services
             {
                 BucketName = _config.Get(AwsSettings.BucketName),
                 Key = filePath,
-                Expires = DateTime.Now.AddHours(1),
+                Expires = DateTimeOffset.Now.AddHours(1).DateTime,
                 Verb = HttpVerb.GET,
                 Protocol = Protocol.HTTPS
             };

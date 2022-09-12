@@ -56,7 +56,7 @@ namespace API.Services
                        on condition.PromotionId equals userPromotion.PromotionId
                        into joined
                        from up in joined.DefaultIfEmpty()
-                       where up == null || (condition.UsagePerUser > up.Used && (up.ExpiredTime == null || up.ExpiredTime > DateTime.UtcNow))
+                       where up == null || (condition.UsagePerUser > up.Used && (up.ExpiredTime == null || up.ExpiredTime > DateTimeOffset.Now))
                        select new PromotionViewModel
                        {
                            Code = condition.Promotion.Code,
@@ -87,11 +87,11 @@ namespace API.Services
 
             rightCondition = 
                 rightCondition.Where(x => x.ValidFrom == null || 
-                    (x.ValidFrom < DateTime.UtcNow));
+                    (x.ValidFrom < DateTimeOffset.Now));
 
             rightCondition =
                 rightCondition.Where(x => x.ValidUntil == null ||
-                    (x.ValidUntil > DateTime.UtcNow));
+                    (x.ValidUntil > DateTimeOffset.Now));
 
             return rightCondition;
         }

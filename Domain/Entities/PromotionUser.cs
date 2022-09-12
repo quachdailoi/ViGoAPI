@@ -12,7 +12,7 @@ namespace Domain.Entities
         public int PromotionId { get; set; }
         public int UserId { get; set; }
         public int Used { get; set; } = 0;
-        public DateTime? ExpiredTime { get; set; }
+        public DateTimeOffset? ExpiredTime { get; set; }
 
         public Promotion Promotion { get; set; }
         public User User { get; set; }
