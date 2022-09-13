@@ -1,4 +1,6 @@
-﻿using API.Models;
+﻿using API.Controllers.V1;
+using API.Extensions;
+using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
 using AutoMapper;
@@ -27,7 +29,19 @@ namespace API.Mapper
                 //)
                 .ReverseMap();
 
-            CreateMap<CreateBookingRequestModel, BookingDTO>();
+            CreateMap<CreateBookingRequest, BookingDTO>()
+                .ForMember(
+                    dest => dest.Time,
+                    otp => otp.MapFrom(
+                            src => new TimeOnly().ParseExact(src.Time)))
+                .ForMember(
+                    dest => dest.StartAt,
+                    otp => otp.MapFrom(
+                            src => new DateOnly().ParseExact(src.StartAt)))
+                .ForMember(
+                    dest => dest.EndAt,
+                    otp => otp.MapFrom(
+                            src => new DateOnly().ParseExact(src.EndAt)));
         }
     }
 }

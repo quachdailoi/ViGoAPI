@@ -33,11 +33,11 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.ValidUntil)
                 .HasColumnName("valid_until");
 
-            builder.Property(e => e.MinTotal)
-                .HasColumnName("min_total");
+            builder.Property(e => e.MinTotalPrice)
+                .HasColumnName("min_total_price");
 
-            builder.Property(e => e.MinTicket)
-                .HasColumnName("min_ticket");
+            builder.Property(e => e.MinTickets)
+                .HasColumnName("min_tickets");
 
             builder.Property(e => e.PaymentMethod)
                 .HasConversion<int>()

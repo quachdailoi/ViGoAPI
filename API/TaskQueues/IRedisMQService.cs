@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using API.Extensions;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 
 namespace API.TaskQueues
@@ -12,12 +13,13 @@ namespace API.TaskQueues
         Task<RedisValue?> GetValue(string key);
         Task<bool> IsEmptyQueue(string key);
     }
-    public class RedisMQService: IRedisMQService
+    public class RedisMQService : IRedisMQService
     {
         private readonly ConnectionMultiplexer _connection;
-        public RedisMQService()
+
+        public RedisMQService(IConfiguration configuration)
         {
-            _connection = ConnectionMultiplexer.Connect("localhost");
+            _connection = ConnectionMultiplexer.Connect(configuration.Get("RedisSettings:ConnectionString"));
         }
 
         public ChannelMessageQueue GetChannel(string key)

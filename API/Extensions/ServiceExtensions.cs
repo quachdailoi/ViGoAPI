@@ -17,6 +17,7 @@ using Quartz.Spi;
 using System.Reflection;
 using System.Text;
 using API.TaskQueues.TaskResolver;
+using Microsoft.AspNetCore.Http.Json;
 
 namespace API.Extensions
 {
@@ -54,6 +55,7 @@ namespace API.Extensions
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:Key"])),
+                    ClockSkew = TimeSpan.Zero
                 };
                 options.RequireHttpsMetadata = false;
 
@@ -92,6 +94,9 @@ namespace API.Extensions
             services.AddScoped<IPromotionUserRepository, PromotionUserRepository>();
             services.AddScoped<IPromotionRepository, PromotionRepository>();
             services.AddScoped<IFileRepository, FileRepository>();
+            services.AddScoped<IRouteRepository, RouteRepository>();
+            services.AddScoped<IStationRepository, StationRepository>();
+            services.AddScoped<IRouteStationRepository, RouteStationRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -111,6 +116,9 @@ namespace API.Extensions
             services.AddTransient<IPromotionService, PromotionService>();
             services.AddTransient<IFileService, FileService>();
             services.AddTransient<IRedisMQService, RedisMQService>();
+            services.AddTransient<IRouteService, RouteService>();
+            services.AddTransient<IStationService, StationService>();
+            services.AddTransient<IRouteStationService, RouteStationService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)
@@ -131,6 +139,7 @@ namespace API.Extensions
         {
             services.AddHostedService<MessageTasks>();
         }
+
         public static void ConfigureSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>

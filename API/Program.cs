@@ -47,6 +47,7 @@ services.AddControllers(option =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.AddJsonConverters();
 });
 
 //services.AddFluentValidationAutoValidation();
@@ -137,15 +138,18 @@ services.ConfigureIoCRepositories();
 // IoC for Services layer
 services.ConfigureIoCServices();
 
+// Add Host Service for Job Queue
 services.ConfigurationJobQueue();
+
 
 // IoC For Profile
 services.AddSingleton(provider => new MapperConfiguration(cfg =>
 {
     cfg.AddProfile(new UserMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
     cfg.AddProfile(new MessageRoomMappingProfile());
-    cfg.AddProfile(new PromotionMappingProfile());
-
+    cfg.AddProfile(new BookingMappingProfile());
+    cfg.AddProfile(new BookingDetailMappingProfile());
+	cfg.AddProfile(new PromotionMappingProfile());
 }).CreateMapper());
 
 // add http context accessor

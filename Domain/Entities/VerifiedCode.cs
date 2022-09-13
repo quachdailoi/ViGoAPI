@@ -10,7 +10,7 @@ namespace Domain.Entities
 {
     public class VerifiedCode : BaseEntity
     {
-        public DateTime ExpiredTime { get; set; }
+        public DateTimeOffset ExpiredTime { get; set; }
         public string Code { get; set; } // code to verify
         public string Registration { get; set; } // email or phone
         public RegistrationTypes RegistrationType { get; set; }

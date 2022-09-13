@@ -27,7 +27,7 @@ namespace Infrastructure.Data.Repositories
             {
                 if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))
                 {
-                    ((IBaseEntity) entity).CreatedAt = DateTime.UtcNow;
+                    ((IBaseEntity) entity).CreatedAt = DateTimeOffset.Now;
                 }
                 entity = (await DbSet.AddAsync(entity)).Entity;
 
@@ -62,7 +62,7 @@ namespace Infrastructure.Data.Repositories
                 //DbSet.Remove(entity);
                 if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))
                 {
-                    ((IBaseEntity)entity).DeletedAt = DateTime.UtcNow;
+                    ((IBaseEntity)entity).DeletedAt = DateTimeOffset.Now;
                     DbSet.Update(entity);
                 }
                 else
@@ -85,7 +85,7 @@ namespace Infrastructure.Data.Repositories
             {
                 if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))
                 {
-                    ((IBaseEntity)entity).UpdatedAt = DateTime.UtcNow;
+                    ((IBaseEntity)entity).UpdatedAt = DateTimeOffset.Now;
                 }
                 DbSet.Update(entity);
                 await _dbContext.SaveChangesAsync();
@@ -106,7 +106,7 @@ namespace Infrastructure.Data.Repositories
                 {
                     entities.ForEach(entity =>
                     {
-                        ((IBaseEntity)entity).CreatedAt = DateTime.UtcNow;
+                        ((IBaseEntity)entity).CreatedAt = DateTimeOffset.Now;
                     });                   
                 }
                 await DbSet.AddRangeAsync(entities);

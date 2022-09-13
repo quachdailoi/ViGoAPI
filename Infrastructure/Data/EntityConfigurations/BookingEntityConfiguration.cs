@@ -56,13 +56,25 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.EndAt)
                 .HasColumnName("end_at");
 
-            builder.Property(e => e.From)
+            builder.Property(e => e.StartPoint)
                 .HasColumnType("jsonb")
-                .HasColumnName("from");
+                .HasColumnName("start_point");
 
-            builder.Property(e => e.To)
+            builder.Property(e => e.EndPoint)
                 .HasColumnType("jsonb")
-                .HasColumnName("to");
+                .HasColumnName("end_point");
+
+            builder.Property(e => e.Steps)
+                .HasColumnType("jsonb[]")
+                .HasColumnName("steps");
+
+            builder.Property(e => e.Distance)
+                .IsRequired()
+                .HasColumnName("distance");
+
+            builder.Property(e => e.Duration)
+                .IsRequired()
+                .HasColumnName("duration");
 
             builder.Property(e => e.UserId)
                 .HasColumnName("user_id");

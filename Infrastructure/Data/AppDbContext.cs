@@ -2,6 +2,7 @@
 using Domain.Interfaces.Entities;
 using Domain.Shares.Enums;
 using Infrastructure.Data.EntityConfigurations;
+using Infrastructure.Data.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
@@ -17,6 +18,7 @@ namespace Infrastructure.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -27,425 +29,19 @@ namespace Infrastructure.Data
 
             AddEntityConfiguration(builder);
 
-            builder.Entity<Role>().HasData(new Role
-            {
-                Id = Domain.Shares.Enums.Roles.DRIVER,
-                Name = "DRIVER",
-                Description = "Role for driver"
-            });
+            new RoleSeeder(builder);
 
-            builder.Entity<Role>().HasData(new Role
-            {
-                Id = Domain.Shares.Enums.Roles.BOOKER,
-                Name = "BOOKER",
-                Description = "Role for booker"
-            });
+            new FileSeeder(builder);
 
-            builder.Entity<AppFile>().HasData(new AppFile
-            {
-                Id = 1,
-                Path = "user/avatar/default-user-avatar.png"
-            });
+            new UserSeeder(builder);
 
-            builder.Entity<User>().HasData(new User
-            {
-                Id = 1,
-                Name = "Quach Dai Loi",
-                Code = Guid.NewGuid(),
-                DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 1,
-            });
+            new AccountSeeder(builder);
 
-            builder.Entity<AppFile>().HasData(new AppFile
-            {
-                Id = 2,
-                Path = "user/avatar/default-user-avatar.png"
-            });
+            new PromotionSeeder(builder);
 
-            builder.Entity<User>().HasData(new User
-            {
-                Id = 2,
-                Name = "Do Trong Dat",
-                Code = Guid.NewGuid(),
-                DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 2,
-            });
+            new PromotionConditionSeeder(builder);
 
-            builder.Entity<AppFile>().HasData(new AppFile
-            {
-                Id = 3,
-                Path = "user/avatar/default-user-avatar.png"
-            });
-
-            builder.Entity<User>().HasData(new User
-            {
-                Id = 3,
-                Name = "Nguyen Dang Khoa",
-                Code = Guid.NewGuid(),
-                DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 3,
-            });
-
-            builder.Entity<AppFile>().HasData(new AppFile
-            {
-                Id = 4,
-                Path = "user/avatar/default-user-avatar.png"
-            });
-
-            builder.Entity<User>().HasData(new User
-            {
-                Id = 4,
-                Name = "Than Thanh Duy",
-                Code = Guid.NewGuid(),
-                DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 4,
-            });
-
-            builder.Entity<AppFile>().HasData(new AppFile
-            {
-                Id = 5,
-                Path = "user/avatar/default-user-avatar.png"
-            });
-
-            builder.Entity<User>().HasData(new User
-            {
-                Id = 5,
-                Name = "Loi Quach",
-                Code = Guid.NewGuid(),
-                DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 5,
-            });
-
-            builder.Entity<AppFile>().HasData(new AppFile
-            {
-                Id = 6,
-                Path = "user/avatar/default-user-avatar.png"
-            });
-
-            builder.Entity<User>().HasData(new User
-            {
-                Id = 6,
-                Name = "Dat Do",
-                Code = Guid.NewGuid(),
-                DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 6,
-            });
-
-            builder.Entity<AppFile>().HasData(new AppFile
-            {
-                Id = 7,
-                Path = "user/avatar/default-user-avatar.png"
-            });
-
-            builder.Entity<User>().HasData(new User
-            {
-                Id = 7,
-                Name = "Khoa Nguyen",
-                Code = Guid.NewGuid(),
-                DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 7,
-            });
-
-            builder.Entity<AppFile>().HasData(new AppFile
-            {
-                Id = 8,
-                Path = "user/avatar/default-user-avatar.png"
-            });
-
-            builder.Entity<User>().HasData(new User
-            {
-                Id = 8,
-                Name = "Thanh Duy",
-                Code = Guid.NewGuid(),
-                DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 8,
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 1,
-                Registration = "loiqdse140970@fpt.edu.vn",
-                RegistrationType = RegistrationTypes.Gmail,
-                RoleId = Domain.Shares.Enums.Roles.DRIVER,
-                Verified = true,
-                UserId = 2
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 2,
-                Registration = "+84837226239",
-                RegistrationType = RegistrationTypes.Phone,
-                RoleId = Domain.Shares.Enums.Roles.DRIVER,
-                Verified = false,
-                UserId = 2
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 3,
-                Registration = "loiqdse140970@fpt.edu.vn",
-                RegistrationType = RegistrationTypes.Gmail,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
-                Verified = false,
-                UserId = 5
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 4,
-                Registration = "+84837226239",
-                RegistrationType = RegistrationTypes.Phone,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
-                Verified = true,
-                UserId = 5
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 5,
-                Registration = "datdtse140920@fpt.edu.vn",
-                RegistrationType = RegistrationTypes.Gmail,
-                RoleId = Domain.Shares.Enums.Roles.DRIVER,
-                Verified = true,
-                UserId = 2
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 6,
-                Registration = "+84377322919",
-                RegistrationType = RegistrationTypes.Phone,
-                RoleId = Domain.Shares.Enums.Roles.DRIVER,
-                Verified = false,
-                UserId = 2
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 7,
-                Registration = "datdtse140920@fpt.edu.vn",
-                RegistrationType = RegistrationTypes.Gmail,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
-                Verified = false,
-                UserId = 6
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 8,
-                Registration = "+84377322919",
-                RegistrationType = RegistrationTypes.Phone,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
-                Verified = true,
-                UserId = 6
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 9,
-                Registration = "khoandse1409770@fpt.edu.vn",
-                RegistrationType = RegistrationTypes.Gmail,
-                RoleId = Domain.Shares.Enums.Roles.DRIVER,
-                Verified = true,
-                UserId = 3
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 10,
-                Registration = "+84914669962",
-                RegistrationType = RegistrationTypes.Phone,
-                RoleId = Domain.Shares.Enums.Roles.DRIVER,
-                Verified = false,
-                UserId = 3
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 11,
-                Registration = "khoandse140977@fpt.edu.vn",
-                RegistrationType = RegistrationTypes.Gmail,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
-                Verified = false,
-                UserId = 7
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 12,
-                Registration = "+84914669962",
-                RegistrationType = RegistrationTypes.Phone,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
-                Verified = true,
-                UserId = 7
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 13,
-                Registration = "duyttse140971@fpt.edu.vn",
-                RegistrationType = RegistrationTypes.Gmail,
-                RoleId = Domain.Shares.Enums.Roles.DRIVER,
-                Verified = true,
-                UserId = 4
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 14,
-                Registration = "+84376826328",
-                RegistrationType = RegistrationTypes.Phone,
-                RoleId = Domain.Shares.Enums.Roles.DRIVER,
-                Verified = false,
-                UserId = 4
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 15,
-                Registration = "duyttse140971@fpt.edu.vn",
-                RegistrationType = RegistrationTypes.Gmail,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
-                Verified = false,
-                UserId = 8
-            });
-
-            builder.Entity<Account>().HasData(new Account
-            {
-                Id = 16,
-                Registration = "+84376826328",
-                RegistrationType = RegistrationTypes.Phone,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
-                Verified = true,
-                UserId = 8
-            });
-
-            builder.Entity<Promotion>().HasData(new Promotion
-            {
-                Id = 1,
-                Name = "New User Promotion",
-                Code = "HELLO2022",
-                Details = "Promotion for new user: Discount 20% with max decrease 200k for the booking with minimum total price 500k.",
-                DiscountPercentage = 0.2,
-                MaxDecrease = 200000,
-                Status = Promotions.Status.Available,
-                Type = Promotions.Types.NewUser
-            });
-
-            builder.Entity<PromotionCondition>().HasData(new PromotionCondition
-            {
-                Id = 1,
-                PromotionId = 1,
-                TotalUsage = null,
-                UsagePerUser = 1,
-                ValidFrom = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-01-01T00:00:01Z")),
-                ValidUntil = null,
-                MinTotal = 500000,
-                MinTicket = null,
-                PaymentMethod = null
-            });
-
-            builder.Entity<PromotionUser>().HasData(new PromotionUser
-            {
-                Id = 1,
-                PromotionId = 1,
-                UserId = 5,
-                Used = 0,
-                ExpiredTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-10-01T00:00:01Z")),
-            });
-
-            builder.Entity<PromotionUser>().HasData(new PromotionUser
-            {
-                Id = 2,
-                PromotionId = 1,
-                UserId = 6,
-                Used= 1,
-                ExpiredTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-10-01T00:00:01Z")),
-            });
-
-            builder.Entity<PromotionUser>().HasData(new PromotionUser
-            {
-                Id = 3,
-                PromotionId = 1,
-                UserId = 7,
-                Used = 0,
-                ExpiredTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-09-01T00:00:01Z")),
-            });
-
-            builder.Entity<Promotion>().HasData(new Promotion
-            {
-                Id = 2,
-                Name = "Beautiful Month",
-                Code = "BDAY2022",
-                Details = "Promotion for September: Discount 10% with max decrease 150k for the booking with minimum total price 200k.",
-                DiscountPercentage = 0.1,
-                MaxDecrease = 150000,
-                Status = Promotions.Status.Available,
-                Type = Promotions.Types.Holiday
-            });
-
-            builder.Entity<PromotionUser>().HasData(new PromotionUser
-            {
-                Id = 4,
-                PromotionId = 2,
-                UserId = 7,
-                Used = 2
-            });
-
-            builder.Entity<PromotionCondition>().HasData(new PromotionCondition
-            {
-                Id = 2,
-                PromotionId = 2,
-                TotalUsage = 50,
-                UsagePerUser = 4,
-                ValidFrom = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-09-01T00:00:01Z")),
-                ValidUntil = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-09-30T23:59:59Z")),
-                MinTotal = 200000,
-                MinTicket = null,
-                PaymentMethod = null
-            });
-
-            builder.Entity<Promotion>().HasData(new Promotion
-            {
-                Id = 3,
-                Name = "Holiday Promotion",
-                Code = "HOLIDAY",
-                Details = "Promotion for 2/9 Holiday: Discount 30% with max decrease 300k for the booking with minimum total price 1000k.",
-                DiscountPercentage = 0.3,
-                MaxDecrease = 300000,
-                Status = Promotions.Status.Available,
-                Type = Promotions.Types.Holiday
-            });
-
-            builder.Entity<PromotionCondition>().HasData(new PromotionCondition
-            {
-                Id = 3,
-                PromotionId = 3,
-                TotalUsage = 50,
-                UsagePerUser = 1,
-                ValidFrom = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-09-02T00:00:01Z")),
-                ValidUntil = TimeZoneInfo.ConvertTimeToUtc(DateTime.Parse("2022-09-02T23:59:59Z")),
-                MinTotal = 1000000,
-                MinTicket = null,
-                PaymentMethod = null
-            });
+            new PromotionUserSeeder(builder);
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)
@@ -499,7 +95,12 @@ namespace Infrastructure.Data
 
             new BookingDetailEntityConfiguration()
                 .Configure(builder.Entity<BookingDetail>());
-
+			new RouteEntityConfiguration()
+                .Configure(builder.Entity<Route>());
+            new StationEntityConfiguration()
+                .Configure(builder.Entity<Station>());
+            new RouteStationEntityConfiguration()
+                .Configure(builder.Entity<RouteStation>());
             new PromotionConditionEntityConfiguration()
                 .Configure(builder.Entity<PromotionCondition>());
 

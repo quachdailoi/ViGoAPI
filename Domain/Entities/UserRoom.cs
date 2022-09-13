@@ -13,7 +13,7 @@ namespace Domain.Entities
         public int UserId { get; set; }
         public int RoomId { get; set; }
         public StatusTypes.UserRoom Status { get; set; } = StatusTypes.UserRoom.Active;
-        public DateTime LastSeenTime { get; set; } = DateTime.UtcNow;
+        public DateTimeOffset LastSeenTime { get; set; } = DateTimeOffset.Now;
 
         public User? User { get; set; }
         public Room? Room { get; set; }

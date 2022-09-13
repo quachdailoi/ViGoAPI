@@ -121,11 +121,6 @@ namespace API.Controllers.V1
                     {
                         Message = "Not message room with this code.",
                         StatusCode = StatusCodes.Status404NotFound
-                    },
-                    errorResponse: new()
-                    {
-                        Message = "Failed to et support message room.",
-                        StatusCode = StatusCodes.Status500InternalServerError
                     }
                 );
 
@@ -197,11 +192,6 @@ namespace API.Controllers.V1
                     {
                         Message = "Not exist message rooms of this user.",
                         StatusCode = StatusCodes.Status404NotFound
-                    },
-                    errorResponse: new()
-                    {
-                        Message = "Failed to get all user's message rooms.",
-                        StatusCode = StatusCodes.Status500InternalServerError
                     }
                 );
 

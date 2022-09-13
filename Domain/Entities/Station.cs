@@ -14,5 +14,7 @@ namespace Domain.Entities
         public double Latitude { get; set; }
         public string Name { get; set; } = String.Empty;
         public StatusTypes.Station Status { get; set; } = StatusTypes.Station.Active;
+
+        public List<RouteStation> RouteStations { get; set; } = new();
     }
 }

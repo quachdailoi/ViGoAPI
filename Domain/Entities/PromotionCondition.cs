@@ -13,10 +13,10 @@ namespace Domain.Entities
         public int? PromotionId { get; set; } = null;
         public int? TotalUsage { get; set; } = null;
         public int? UsagePerUser { get; set; } = null;
-        public DateTime? ValidFrom { get; set; } = null;
-        public DateTime? ValidUntil { get; set; } = null;
-        public float? MinTotal { get; set; } = null;
-        public int? MinTicket { get; set; } = null;
+        public DateTimeOffset? ValidFrom { get; set; } = null;
+        public DateTimeOffset? ValidUntil { get; set; } = null;
+        public float? MinTotalPrice { get; set; } = null;
+        public int? MinTickets { get; set; } = null;
         public PaymentMethod? PaymentMethod { get; set; } = null;
 
         public Promotion Promotion { get; set; }
