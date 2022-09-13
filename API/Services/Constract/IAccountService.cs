@@ -32,5 +32,7 @@ namespace API.Services.Constract
              Response duplicatedRegistrationResponse,
              Response failedResponse
          );
+
+        Task<Response> GetProfile(int userId, Response successResponse);
     }
 }

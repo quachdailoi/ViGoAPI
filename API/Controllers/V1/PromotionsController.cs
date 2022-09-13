@@ -1,4 +1,5 @@
-﻿using API.Models.Requests;
+﻿using API.Helpers.Attributes;
+using API.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ namespace API.Controllers.V1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    [Authorize(Roles = "BOOKER")]
+    [CustomAuthorize("BOOKER")]
     public class PromotionsController : BaseController<PromotionsController>
     {
         public PromotionsController()

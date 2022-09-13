@@ -1,4 +1,4 @@
-﻿using API.Helper;
+﻿using API.Helpers;
 using API.Models.Settings;
 using API.Quartz;
 using API.Quartz.Jobs;
