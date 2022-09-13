@@ -37,13 +37,15 @@ namespace API.Services
             booking.Distance = random.Next(3000, 10000);
             booking.Duration = booking.Distance / 12;
             
-            // fake data
+            // end of fake data
 
+            // generate booking detail by booking schedule
             booking.BookingDetails = _bookingDetailService.GenerateBookingDetail(booking);
 
             // filter in database server
-            var duplicateBookings = await _unitOfWork.Bookings.List(e => !(e.Time.ToTimeSpan().TotalSeconds + e.Duration < booking.Time.ToTimeSpan().TotalSeconds || e.Time.ToTimeSpan().TotalSeconds > booking.Time.ToTimeSpan().TotalSeconds + booking.Duration) &&
-                                                                        e.UserId == booking.UserId && !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
+            var duplicateBookings = await _unitOfWork.Bookings.List(e => !(e.Time.ToTimeSpan().TotalSeconds + e.Duration < booking.Time.ToTimeSpan().TotalSeconds || 
+                                                                           e.Time.ToTimeSpan().TotalSeconds > booking.Time.ToTimeSpan().TotalSeconds + booking.Duration) &&
+                                                                           e.UserId == booking.UserId && !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
                                                               .Include(e => e.BookingDetails)
                                                               .ToListAsync();
 
@@ -85,11 +87,10 @@ namespace API.Services
                                                                      .ToListAsync();
             return new();
         }
-        public async Task<Response> GetAll(int userId, Response successReponse, Response notFoundResponse)
+        public async Task<Response> GetAll(int userId, Response successReponse)
         {
             var bookingViewModels = await _unitOfWork.Bookings.List(booking => booking.UserId == userId).MapTo<BookerBookingViewModel>(_mapper).ToListAsync();
 
-            if (!bookingViewModels.Any()) return notFoundResponse;
 
             return successReponse.SetData(bookingViewModels);
         }

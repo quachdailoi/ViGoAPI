@@ -112,8 +112,15 @@ namespace Domain.Shares.Utils
             return stations;
         }
 
-        public static Tuple<List<Domain.Entities.Route>, List<RouteStation>, List<Station>> DumpRoute(int totalRoute, int minStep, int maxStep, int totalStation, Bound bound)
+        public static Tuple<List<Domain.Entities.Route>, List<RouteStation>, List<Station>> DumpRoute(int totalRoute, int minStep, int maxStep, int totalStation, Bound? bound = null)
         {
+            if (bound == null) bound = new Bound
+            {
+                South = 10.757931,
+                West = 106.599666,
+                North = 10.858637,
+                East = 106.832535
+            };
             var stations = DumpStation(totalStation, bound);
             Random random = new Random();
 
@@ -153,13 +160,13 @@ namespace Domain.Shares.Utils
 
                     currentStep.Distance = Math.Round(_distance * 100000); // meter
                     currentStep.Duration = Math.Round(_distance * 100000 / 18); // second
-                    currentStep.Station = copyStations[_stationIndex];
+                    //currentStep.Station = copyStations[_stationIndex];
 
                     steps.Add(currentStep);
 
                     routeStations.Add(new RouteStation
                     {
-                        StationId = currentStep.Station.Id,
+                        StationId = (int)currentStep.StationId,
                         Index = stepIndex,
                         Id = routeStationId++,
                         RouteId = routeIndex

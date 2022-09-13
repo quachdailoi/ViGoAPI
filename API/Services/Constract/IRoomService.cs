@@ -12,11 +12,11 @@ namespace API.Services.Constract
         Task<Response> Create(List<Guid> userCodes, MessageRoomTypes type, Response successResponse, Response duplicateResponse, Response errorResponse, MessageDTO? initMessage = null);
         Task<Room?> Disable(Guid roomCode);
         Task<Room?> GetByCode(Guid roomCode);
-        Task<MessageRoomViewModel?> GetViewModelByCode(Guid roomCode);
-        Task<Response> GetViewModelByCode (Guid roomCode, Response successResponse, Response notFoundResponse);
-        Response GetViewModelByMemberCode (List<Guid> memberCode, Response successResponse, Response notFoundResponse);
-        Task<Response> GetByType (int userId, MessageRoomTypes type, Response successResponse, Response notFoundResponse);
-        Task<Response> GetAll(int userId, Response successResponse, Response notFoundResponse);
+        Task<MessageRoomViewModel> GetViewModelByCode(Guid roomCode);
+        Task<Response> GetViewModelByCode (int userId, Guid roomCode, Response successResponse);
+        Response GetViewModelByMemberCode (List<Guid> memberCode, Response successResponse);
+        Task<Response> GetByType (int userId, MessageRoomTypes type, Response successResponse);
+        Task<Response> GetAll(int userId, Response successResponse);
 
     }
 }

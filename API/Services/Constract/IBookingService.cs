@@ -7,7 +7,7 @@ namespace API.Services.Constract
     public interface IBookingService
     {
         Task<Response> Create(BookingDTO dto, Response successResponse, Response duplicationResponse, Response errorReponse);
-        Task<Response> GetAll(int userId, Response successReponse, Response notFoundResponse);
+        Task<Response> GetAll(int userId, Response successReponse);
         Task<List<Booking>> GetAll();
     }
 }

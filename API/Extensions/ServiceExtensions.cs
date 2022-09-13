@@ -18,6 +18,7 @@ using System.Reflection;
 using System.Text;
 using API.TaskQueues.TaskResolver;
 using Microsoft.AspNetCore.Http.Json;
+using API.Utils;
 
 namespace API.Extensions
 {
@@ -138,6 +139,11 @@ namespace API.Extensions
         public static void ConfigurationJobQueue(this IServiceCollection services)
         {
             services.AddHostedService<MessageTasks>();
+        }
+
+        public static void ConfigurationSeedData(this IServiceCollection servicess)
+        {
+            servicess.AddHostedService<DumpRouteStationData>();
         }
 
         public static void ConfigureSwagger(this IServiceCollection services)

@@ -53,7 +53,7 @@ namespace API.Controllers.V1
         [AllowAnonymous]
         public IActionResult DumpRoute([FromQuery] int numberOfRoute, int minStepPerRoute, int maxStepPerRoute, int numberOfStation)
         {
-            var result = DumpData.DumpRoute(
+            var result = DumpRouteStationData.DumpRoute(
                 numberOfRoute, 
                 minStepPerRoute, 
                 maxStepPerRoute, 
