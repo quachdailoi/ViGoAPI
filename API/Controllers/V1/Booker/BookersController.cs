@@ -1,4 +1,5 @@
 ﻿using API.Extensions;
+using API.Helpers.Attributes;
 using API.JwtFeatures;
 using API.Models;
 using API.Models.DTO;
@@ -15,7 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers.V1.Booker
 {
     [Route("api/v{version:apiVersion}/[controller]")]
-    [Authorize(Roles = "BOOKER")]
+    [CustomAuthorize("BOOKER")]
     [ApiController]
     [ApiVersion("1.0")]
     public class BookersController : BaseController<BookersController>
@@ -37,7 +38,9 @@ namespace API.Controllers.V1.Booker
         /// ```
         /// Sample request:
         ///     POST api/bookers/phone/send-otp-to-login
-        ///     PhoneNumber: +84837226239
+        ///     {
+        ///         "PhoneNumber": "+84837226239"
+        ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Send otp code successfully.</response>
@@ -45,7 +48,7 @@ namespace API.Controllers.V1.Booker
         /// <response code = "500"> Fail to send code to this phone number.</response>
         [HttpPost("phone/send-otp-to-login")]
         [AllowAnonymous]
-        public async Task<IActionResult> SendPhoneOtpToLogin([FromForm] SendPhoneOtpRequest request)
+        public async Task<IActionResult> SendPhoneOtpToLogin([FromBody] SendPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.LoginOTP;
 
@@ -105,8 +108,10 @@ namespace API.Controllers.V1.Booker
         /// ```
         /// Sample request:
         ///     POST api/bookers/phone/login
-        ///     PhoneNumber: +84837226239
-        ///     OTP: 123456
+        ///     {
+        ///         "PhoneNumber": "+84837226239",
+        ///         "OTP": "123456"
+        ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Login successfully.</response>
@@ -117,7 +122,7 @@ namespace API.Controllers.V1.Booker
         /// </response>
         [HttpPost("phone/login")]
         [AllowAnonymous]
-        public async Task<IActionResult> PhoneLogin([FromForm] VerifyPhoneOtpRequest request)
+        public async Task<IActionResult> PhoneLogin([FromBody] VerifyPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.LoginOTP;
 
@@ -175,14 +180,16 @@ namespace API.Controllers.V1.Booker
         /// ```
         /// Sample request:
         ///     POST api/bookers/gmail/send-otp-to-verify
-        ///     Gmail: loiqd.work@gmail.com
+        ///     {
+        ///         "Gmail": "loiqd.work@gmail.com"
+        ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This email was verified by another account.</response>
         /// <response code = "500"> Fail to send otp to this gmail.</response>
         [HttpPost("gmail/send-otp-to-verify")]
-        public async Task<IActionResult> SendGmailOtpToVerify([FromForm] SendGmailOtpRequest request)
+        public async Task<IActionResult> SendGmailOtpToVerify([FromBody] SendGmailOtpRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
 
@@ -242,8 +249,10 @@ namespace API.Controllers.V1.Booker
         /// ```
         /// Sample request:
         ///     POST api/bookers/gmail/verify
-        ///     Gmail: loiqd.work@gmail.com
-        ///     OTP: 123456
+        ///     {
+        ///         "Gmail": "loiqd.work@gmail.com",
+        ///         "OTP": "123456"
+        ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Verify gmail successfully.</response>
@@ -254,13 +263,13 @@ namespace API.Controllers.V1.Booker
         /// </response>
         /// <response code = "500"> Failed to verify gmail.</response>
         [HttpPost("gmail/verify")]
-        public async Task<IActionResult> VerifyGmail([FromForm] VerifyGmailOtpRequest request)
+        public async Task<IActionResult> VerifyGmail([FromBody] VerifyGmailOtpRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
 
             var genericRequest = request.ToGeneric();
 
-            var authenResponse = CheckLoginedUserToGetAccount(RegistrationTypes.Gmail, out UserViewModel? loginedUser, out Account? account);
+            var authenResponse = CheckLoggedInUserToGetAccount(RegistrationTypes.Gmail, out UserViewModel? loggedInUser, out Account? account);
 
             if (authenResponse != null) return ApiResult(authenResponse);
 
@@ -320,14 +329,16 @@ namespace API.Controllers.V1.Booker
         /// ```
         /// Sample request:
         ///     POST api/bookers/phone/send-otp-to-update
-        ///     PhoneNumber: +84837226239
+        ///     {
+        ///         "PhoneNumber": "+84837226239"
+        ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Send Otp Successfully.</response>
         /// <response code = "400"> This phone number was verified by another account.</response>
         /// <response code = "500"> Fail to send otp to this phone number.</response>
         [HttpPost("phone/send-otp-to-update")]
-        public async Task<IActionResult> SendPhoneOtpForUpdate([FromForm] SendPhoneOtpRequest request)
+        public async Task<IActionResult> SendPhoneOtpForUpdate([FromBody] SendPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.UpdateOTP;
 
@@ -387,8 +398,10 @@ namespace API.Controllers.V1.Booker
         /// ```
         /// Sample request:
         ///     PUT api/bookers/phone
-        ///     PhoneNumber: +84837226239
-        ///     OTP: 123123
+        ///     {
+        ///         "PhoneNumber": "+84837226239",
+        ///         "OTP": "123123"
+        ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Update phone number successfully.</response>
@@ -399,13 +412,13 @@ namespace API.Controllers.V1.Booker
         /// </response>
         /// <response code = "500"> Failed to update phone number.</response>
         [HttpPut("phone")]
-        public async Task<IActionResult> UpdatePhone([FromForm] VerifyPhoneOtpRequest request)
+        public async Task<IActionResult> UpdatePhone([FromBody] VerifyPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.UpdateOTP;
 
             var genericRequest = request.ToGeneric();
 
-            var authenResponse = CheckLoginedUserToGetAccount(RegistrationTypes.Phone, out UserViewModel? loginedUser, out Account? account);
+            var authenResponse = CheckLoggedInUserToGetAccount(RegistrationTypes.Phone, out UserViewModel? loggedInUser, out Account? account);
 
             if (authenResponse != null) return ApiResult(authenResponse);
 
@@ -487,11 +500,11 @@ namespace API.Controllers.V1.Booker
 
             var genericRequest = request.ToGeneric();
 
-            var loginedUser = LoggedInUser;
+            var loggedInUser = LoggedInUser;
 
             var updateResponse =
                     await AppServices.Booker.UpdateBookerAccount(
-                        loginedUser.Code.ToString(),
+                        loggedInUser.Code.ToString(),
                         genericRequest,
                         successResponse: new()
                         {
@@ -546,7 +559,6 @@ namespace API.Controllers.V1.Booker
         }
 
         [HttpGet("test")]
-        [MapToApiVersion("1.0")]
         public IActionResult TestAuthen()
         {
             var user = LoggedInUser;
@@ -560,7 +572,9 @@ namespace API.Controllers.V1.Booker
         /// ```
         /// Sample request:
         ///     POST api/bookers/phone/send-otp-to-register
-        ///     PhoneNumber: +84837226239
+        ///     {
+        ///         "PhoneNumber": "+84837226239"
+        ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Send Otp Successfully.</response>
@@ -568,7 +582,7 @@ namespace API.Controllers.V1.Booker
         /// <response code = "500"> Fail to send otp to this phone number.</response>
         [HttpPost("phone/send-otp-to-register")]
         [AllowAnonymous]
-        public async Task<IActionResult> SendOtpToRegister([FromForm] SendPhoneOtpRequest request)
+        public async Task<IActionResult> SendOtpToRegister([FromBody] SendPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.RegisterOTP;
 
@@ -691,6 +705,24 @@ namespace API.Controllers.V1.Booker
                     }
                 );
             return ApiResult(createResponse);
+        }
+
+        [HttpGet("profile")] 
+        public async Task<IActionResult> GetProfile()
+        {
+            var loggedInUser = LoggedInUser;
+
+            var profileResponse = 
+                await AppServices.Account.GetProfile(
+                    loggedInUser.Id,
+                    successResponse: new()
+                    {
+                        StatusCode = StatusCodes.Status200OK,
+                        Message = "Get user's profile successfully."
+                    }
+                );
+
+            return ApiResult(profileResponse);
         }
 
         /// <summary>

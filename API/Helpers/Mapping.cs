@@ -1,7 +1,7 @@
 ﻿using API.Models.DTO;
 using Domain.Shares.Classes;
 
-namespace API.Helper
+namespace API.Helpers
 {
     public class Mapping
     {

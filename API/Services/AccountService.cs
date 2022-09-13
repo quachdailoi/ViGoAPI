@@ -275,5 +275,12 @@ namespace API.Services
             await _unitOfWork.CommitAsync();
             return successResponse;
         }
+
+        public async Task<Response> GetProfile(int userId, Response successResponse)
+        {
+            var profile = await _userService.GetUserViewModelById(userId);
+
+            return successResponse.SetData(profile);
+        }
     }
 }

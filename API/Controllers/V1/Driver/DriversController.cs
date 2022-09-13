@@ -1,4 +1,5 @@
 ﻿using API.Extensions;
+using API.Helpers.Attributes;
 using API.JwtFeatures;
 using API.Models;
 using API.Models.Requests;
@@ -18,7 +19,7 @@ using Twilio.Rest.Api.V2010.Account;
 namespace API.Controllers.V1.Driver
 {
     [Route("api/v{version:apiVersion}/[controller]")]
-    [Authorize(Roles="DRIVER")]
+    [CustomAuthorize("DRIVER")]
     [ApiController]
     [ApiVersion("1.0")]
     public class DriversController : BaseController<DriversController>
@@ -105,7 +106,9 @@ namespace API.Controllers.V1.Driver
         /// ```
         /// Sample request:
         ///     POST api/drivers/gmail/send-otp-to-update
-        ///     Gmail: loiqd.work@gmail.com
+        ///     {
+        ///         "Gmail": "loiqd.work@gmail.com"
+        ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Send Otp Successfully.</response>
@@ -113,7 +116,7 @@ namespace API.Controllers.V1.Driver
         /// <response code = "500"> Fail to send otp to this gmail address.</response>
         [HttpPost("gmail/send-otp-to-update")]
         [MapToApiVersion("1.0")]
-        public async Task<IActionResult> SendGmailOtpToUpdate([FromForm] SendGmailOtpRequest request)
+        public async Task<IActionResult> SendGmailOtpToUpdate([FromBody] SendGmailOtpRequest request)
         {
             request.OtpTypes = OtpTypes.UpdateOTP;
 
@@ -173,8 +176,10 @@ namespace API.Controllers.V1.Driver
         /// ```
         /// Sample request:
         ///     PUT api/drivers/gmail
-        ///     Gmail: loiqd.work@gmail.com
-        ///     OTP: 123123
+        ///     {
+        ///         "Gmail": "loiqd.work@gmail.com",
+        ///         "OTP: "123123"
+        ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Update gmail successfully.</response>
@@ -186,13 +191,13 @@ namespace API.Controllers.V1.Driver
         /// <response code = "500"> Failed to update gmail.</response>
         [HttpPut("gmail")]
         [MapToApiVersion("1.0")]
-        public async Task<IActionResult> UpdateGmail([FromForm] VerifyGmailOtpRequest request)
+        public async Task<IActionResult> UpdateGmail([FromBody] VerifyGmailOtpRequest request)
         {
             request.OtpTypes = OtpTypes.UpdateOTP;
 
             var genericRequest = request.ToGeneric();
 
-            var authenResponse = CheckLoginedUserToGetAccount(RegistrationTypes.Phone, out UserViewModel? loginedUser, out Account? account);
+            var authenResponse = CheckLoggedInUserToGetAccount(RegistrationTypes.Phone, out UserViewModel? loggedInUser, out Account? account);
 
             if (authenResponse != null) return ApiResult(authenResponse);
 
@@ -255,7 +260,9 @@ namespace API.Controllers.V1.Driver
         /// ```
         /// Sample request:
         ///     POST api/drivers/phone/send-otp-to-verify
-        ///     PhoneNumber: +84837226239
+        ///     {
+        ///         "PhoneNumber": "+84837226239"
+        ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Send Otp Successfully.</response>
@@ -263,7 +270,7 @@ namespace API.Controllers.V1.Driver
         /// <response code = "500"> Fail to send otp to this phone number.</response>
         [HttpPost("phone/send-otp-to-verify")]
         [MapToApiVersion("1.0")]
-        public async Task<IActionResult> SendPhoneOtpToVerify([FromForm] SendPhoneOtpRequest request)
+        public async Task<IActionResult> SendPhoneOtpToVerify([FromBody] SendPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
 
@@ -323,8 +330,10 @@ namespace API.Controllers.V1.Driver
         /// ```
         /// Sample request:
         ///     POST api/drivers/phone/verify
-        ///     PhoneNumber: +84837226239
-        ///     OTP: 123123
+        ///     {
+        ///         "PhoneNumber": "+84837226239",
+        ///         "OTP": "123123"
+        ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Verify phone number successfully.</response>
@@ -336,13 +345,13 @@ namespace API.Controllers.V1.Driver
         /// <response code = "500"> Failed to verify phone number.</response>
         [HttpPost("phone/verify")]
         [MapToApiVersion("1.0")]
-        public async Task<IActionResult> VerifyPhoneNumber([FromForm] VerifyPhoneOtpRequest request)
+        public async Task<IActionResult> VerifyPhoneNumber([FromBody] VerifyPhoneOtpRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
 
             var genericRequest = request.ToGeneric();
 
-            var authenResponse = CheckLoginedUserToGetAccount(RegistrationTypes.Gmail, out UserViewModel? loginedUser, out Account? account);
+            var authenResponse = CheckLoggedInUserToGetAccount(RegistrationTypes.Gmail, out UserViewModel? loggedInUser, out Account? account);
 
             if (authenResponse != null) return ApiResult(authenResponse);
 
@@ -422,11 +431,11 @@ namespace API.Controllers.V1.Driver
 
             var genericRequest = request.ToGeneric();
 
-            var loginedUser = LoggedInUser;
+            var loggedInUser = LoggedInUser;
 
             var updateResponse =
                     await AppServices.Driver.UpdateDriverAccount(
-                        loginedUser.Code.ToString(),
+                        loggedInUser.Code.ToString(),
                         genericRequest,
                         successResponse: new()
                         {

@@ -24,18 +24,18 @@ namespace API.Controllers
 
         protected UserViewModel? LoggedInUser => ((UserViewModel?)(HttpContextAccessor.HttpContext?.Items["User"]));
 
-        protected Response? CheckLoginedUserToGetAccount(RegistrationTypes accountType, out UserViewModel? loginedUser, out Account? account)
+        protected Response? CheckLoggedInUserToGetAccount(RegistrationTypes accountType, out UserViewModel? loggedInUser, out Account? account)
         {
-            loginedUser = LoggedInUser;
+            loggedInUser = LoggedInUser;
             account = default(Account);
 
-            if (loginedUser == null)
+            if (loggedInUser == null)
                 return new(
                     StatusCode: StatusCodes.Status401Unauthorized,
                     Message: "Please login again for this action."
                 );
 
-            account = AppServices.Account.GetAccountByUserCode(loginedUser.Code.ToString(), accountType)?.FirstOrDefault();
+            account = AppServices.Account.GetAccountByUserCode(loggedInUser.Code.ToString(), accountType)?.FirstOrDefault();
 
             if (account == null)
             {

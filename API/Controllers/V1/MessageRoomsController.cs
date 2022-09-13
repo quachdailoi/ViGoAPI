@@ -1,4 +1,5 @@
-﻿using API.Models.Requests;
+﻿using API.Helpers.Attributes;
+using API.Models.Requests;
 using API.Models.Response;
 using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +20,7 @@ namespace API.Controllers.V1
         /// <response code="200">Create successfully</response>
         /// <response code="102">Waiting to connect with support staff</response>
         /// <response code="500">Failure</response>
-        [Authorize]
+        [CustomAuthorize]
         [HttpPost("support")]
         public async Task<IActionResult> CreateSupportMessageRoom()
         {
@@ -41,7 +42,7 @@ namespace API.Controllers.V1
         ///// <param name="userCode" example="613de7b4-db59-4a6c-b9a1-2b1e176460d3">Users Code</param>
         ///// <response code="200">Send successfully</response>
         ///// <response code="500">Failure</response>
-        //[Authorize]
+        //[CustomAuthorize]
         //[HttpGet("{userCode}")]
         //public IActionResult GetMessageRoomByUserCode(Guid userCode)
         //{
@@ -76,7 +77,7 @@ namespace API.Controllers.V1
         ///// <response code="200">Send successfully</response>
         ///// <response code="500">Failure</response>
 
-        //[Authorize]
+        //[CustomAuthorize]
         //[HttpGet("code/{roomCode}")]
         //public async Task<IActionResult> GetMessageRoomByCode(Guid roomCode)
         //{
@@ -135,7 +136,7 @@ namespace API.Controllers.V1
         /// <param name="request" example="['613de7b4-db59-4a6c-b9a1-2b1e176460d3']">MessageRoomRequest schema</param>
         /// <response code="200">Send successfully</response>
         /// <response code="500">Failure</response>
-        [Authorize]
+        [CustomAuthorize]
         [HttpPost]
         public async Task<IActionResult> CreateMessageRoom([FromBody] MessageRoomRequest request)
         {
@@ -174,7 +175,7 @@ namespace API.Controllers.V1
         /// <response code="200">Get successfully</response>
         /// <response code="404">Not exist any message room of this user</response>
         /// <response code="500">Failure</response>
-        [Authorize]
+        [CustomAuthorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

@@ -111,7 +111,7 @@ namespace API.Controllers.V1
             return Ok(new Response(StatusCode: 200, Message: "Token revoked successfully."));
         }
 
-        //[Authorize]
+        //[CustomAuthorize]
         //[HttpPost("update-avatar")]
         //public async Task<IActionResult> UpdateAvatar(IFormFile avatar)
         //{

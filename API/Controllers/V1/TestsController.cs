@@ -1,4 +1,5 @@
-﻿using API.Models.DTO;
+﻿using API.Helpers.Attributes;
+using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.TaskQueues;
@@ -14,7 +15,7 @@ namespace API.Controllers.V1
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    [Authorize]
+    [CustomAuthorize]
     [ApiVersion("1.0")]
     public class TestsController : BaseController<TestsController>
     {

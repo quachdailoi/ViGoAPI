@@ -20,7 +20,7 @@ namespace Infrastructure.Data.Seeders
                 RegistrationType = RegistrationTypes.Gmail,
                 RoleId = Domain.Shares.Enums.Roles.DRIVER,
                 Verified = true,
-                UserId = 2
+                UserId = 1
             });
 
             builder.Entity<Account>().HasData(new Account
@@ -30,7 +30,7 @@ namespace Infrastructure.Data.Seeders
                 RegistrationType = RegistrationTypes.Phone,
                 RoleId = Domain.Shares.Enums.Roles.DRIVER,
                 Verified = false,
-                UserId = 2
+                UserId = 1
             });
 
             builder.Entity<Account>().HasData(new Account

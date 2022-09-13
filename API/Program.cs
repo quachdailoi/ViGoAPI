@@ -199,8 +199,8 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 // add middlewares
-app.UseErrorHandlerMiddleware();
 app.UseJwtMiddleware();
+app.UseErrorHandlerMiddleware();
 
 // Using CORS
 app.UseCors(MyAllowSpecificOrigins);
