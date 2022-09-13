@@ -375,18 +375,13 @@ namespace Infrastructure.Data
                 Verified = true,
                 UserId = 8
             });
+
             //SeedRouteStationData(builder);
         }
 
         private void SeedRouteStationData(ModelBuilder builder)
         {
-            var dumpData = DumpData.DumpRoute(10, 5, 8, 20, new Bound // (~) inner HCM city bound
-            {
-                South = 10.757931,
-                West = 106.599666,
-                North = 10.858637,
-                East = 106.832535
-            });
+            var dumpData = DumpData.DumpRoute(10, 5, 8, 20);
 
             var routes = dumpData.Item1;
             var routeStations = dumpData.Item2;

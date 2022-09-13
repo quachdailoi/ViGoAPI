@@ -15,6 +15,6 @@ namespace Domain.Shares.Classes
         public Location EndPoint { get; set; } = new();
         public string Maneuver { get; set; } = String.Empty;
         public Bound Bound { get; set; } = new();
-        public Station? Station { get; set; }
+        public int? StationId { get; set; } = null;
     }
 }

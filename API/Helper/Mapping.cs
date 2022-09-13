@@ -9,6 +9,7 @@ namespace API.Helper
         public static List<List<BookingDTO>> GetMapping(List<BookingDTO> bookings, int k)
         {
             //sort by pick-up time
+            bookings = bookings.OrderBy(booking => booking.Time).ToList();
             List<Tuple<Bound, List<BookingDTO>, List<Step>>> sharingBookings = new(bookings.Count());
             for(var i = 1; i < bookings.Count()-1; i++)
             {

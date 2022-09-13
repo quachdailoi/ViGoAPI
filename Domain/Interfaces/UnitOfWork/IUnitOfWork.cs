@@ -13,9 +13,9 @@ namespace Domain.Interfaces.UnitOfWork
         IMessageRepository Messages { get; }
         IBookingRepository Bookings { get; }
         IBookingDetailRepository BookingDetails { get; }
-        IRouteRepository Route { get; }
-        IStationRepository Station { get; }
-        IRouteStationRepository RouteStaion { get; }
+        IRouteRepository Routes { get; }
+        IStationRepository Stations { get; }
+        IRouteStationRepository RouteStaions { get; }
         IFileRepository Files { get; }
 
         Task CreateTransactionAsync();

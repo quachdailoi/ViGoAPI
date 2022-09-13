@@ -783,11 +783,6 @@ namespace API.Controllers.V1.Booker
                                             {
                                                 Message = "Get bookings successfully.",
                                                 StatusCode = StatusCodes.Status200OK
-                                            },
-                                            notFoundResponse: new()
-                                            {
-                                                Message = "Not exist any bookings with this user.",
-                                                StatusCode = StatusCodes.Status404NotFound
                                             }
                                             );
             return ApiResult(response);
@@ -797,7 +792,6 @@ namespace API.Controllers.V1.Booker
         ///     Get next trip of this user.
         /// </summary>
         /// <response code = "200"> Get bookings successfully.</response>
-        /// <response code = "404"> Not found any bookings.</response>
         /// <response code="500"> Failed to get bookings.</response>
         [HttpGet("booking/next-booking-detail")]
         public async Task<IActionResult> GetNextTrip()
@@ -810,11 +804,6 @@ namespace API.Controllers.V1.Booker
                                             {
                                                 Message = "Get next trip successfully.",
                                                 StatusCode = StatusCodes.Status200OK
-                                            },
-                                            notFoundResponse: new()
-                                            {
-                                                Message = "Not exist any trips in next time.",
-                                                StatusCode = StatusCodes.Status404NotFound
                                             }
                                             );
 

@@ -81,7 +81,7 @@ namespace API.Services
             return bookingDetails;
         }
 
-        public async Task<Response> GetNextBookingDetail(int userId, Response successResponse, Response notFoundResponse)
+        public async Task<Response> GetNextBookingDetail(int userId, Response successResponse)
         {
             var bookingDetailsIQueryable = _unitOfWork.BookingDetails.List(b => b.Booking.UserId == userId && b.Status != StatusTypes.BookingDetail.Completed)
                                                                 .OrderBy(b => b.Date)
@@ -89,7 +89,6 @@ namespace API.Services
 
 
             var bookingDetail = await _mapper.ProjectTo<BookerBookingDetailViewModel>(bookingDetailsIQueryable).FirstOrDefaultAsync();
-            if (bookingDetail == null) return notFoundResponse;
 
             return successResponse.SetData(bookingDetail);
         }

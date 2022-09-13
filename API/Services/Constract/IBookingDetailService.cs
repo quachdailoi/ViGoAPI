@@ -6,6 +6,6 @@ namespace API.Services.Constract
     public interface IBookingDetailService
     {
         List<BookingDetail> GenerateBookingDetail(Booking booking);
-        Task<Response> GetNextBookingDetail(int userId, Response successResponse, Response notFoundResponse);
+        Task<Response> GetNextBookingDetail(int userId, Response successResponse);
     }
 }
