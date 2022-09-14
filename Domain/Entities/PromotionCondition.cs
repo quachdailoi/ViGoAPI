@@ -17,7 +17,8 @@ namespace Domain.Entities
         public DateTimeOffset? ValidUntil { get; set; } = null;
         public float? MinTotalPrice { get; set; } = null;
         public int? MinTickets { get; set; } = null;
-        public PaymentMethod? PaymentMethod { get; set; } = null;
+        public PaymentMethods? PaymentMethods { get; set; } = null;
+        public VehicleTypes? VehicleTypes { get; set; } = null;
 
         public Promotion Promotion { get; set; }
         public List<PromotionUser> UserPromotionConditions { get; set; }

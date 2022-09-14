@@ -1,5 +1,6 @@
 ﻿using API.Extensions;
 using API.Models;
+using API.Models.Requests;
 using API.Models.Response;
 using API.Services.Constract;
 using AutoMapper;
@@ -14,13 +15,16 @@ namespace API.Services
 {
     public class PromotionService : IPromotionService
     {
+        private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFileService _fileService;
 
         public PromotionService(
+            IMapper mapper,
             IUnitOfWork unitOfWork,
             IFileService fileService)
         {
+            _mapper = mapper;
             _unitOfWork = unitOfWork;
             _fileService = fileService;
         }
@@ -34,66 +38,88 @@ namespace API.Services
             return successResponse.SetData(availablePromotions);
         }
 
-        public async Task<Response> GetAvailablePromotion(int userId, double? totalPrice, int? totalTickets, Response successResponse, Response emptyResponse)
+        public async Task<Response> GetAvailablePromotion(int userId, BookingPromotionRequest request, Response successResponse, Response emptyResponse)
         {
-            var availablePromotions = await GetAvailablePromotion(userId ,totalPrice, totalTickets);
+            var availablePromotions = await GetAvailablePromotion(userId , request.TotalPrice, request.TotalTickets, request.PaymentMethods, request.VehicleTypes);
 
             if (!availablePromotions.Any()) return emptyResponse;
 
             return successResponse.SetData(availablePromotions);
         }
 
-        private async Task<List<PromotionViewModel>> GetAvailablePromotion(int userId, double? totalPrice = null, int? totalTickets = null)
+        private async Task<List<PromotionViewModel>> GetAvailablePromotion(int userId, double? totalPrice = null, int? totalTickets = null, PaymentMethods? paymentMethods = null, VehicleTypes? vehicleTypes = null)
         {
             var userPromotions = _unitOfWork.PromotionUsers.GetUsedPromotion(userId);
 
-            var promotionConditions = 
-                ValidateCondition(_unitOfWork.Promotions.GetAll().Select(x => x.PromotionCondition));
+            var validPromotions = ValidatePromotionCondition(_unitOfWork.Promotions.GetAll());
 
-            var availablePromotions =
-                await (from condition in promotionConditions
+            var availablePromotions = 
+                await (from validPromotion in validPromotions
                        join userPromotion in userPromotions
-                       on condition.PromotionId equals userPromotion.PromotionId
+                       on validPromotion.Id equals userPromotion.PromotionId
                        into joined
                        from up in joined.DefaultIfEmpty()
-                       where up == null || (condition.UsagePerUser > up.Used && (up.ExpiredTime == null || up.ExpiredTime > DateTimeOffset.Now))
+                       where up == null || (validPromotion.PromotionCondition.UsagePerUser > up.Used && (up.ExpiredTime == null || up.ExpiredTime > DateTimeOffset.Now))
                        select new PromotionViewModel
                        {
-                           Code = condition.Promotion.Code,
-                           Details = condition.Promotion.Details,
-                           Name = condition.Promotion.Name,
-                           Quantity = (condition.UsagePerUser - (up != null ? up.Used : 0)) ?? 0,
-                           FilePath = _fileService.GetPresignedUrl(condition.Promotion.File),
-                           Available = CheckBookingAvailable(condition, totalPrice, totalTickets)
+                           Code = validPromotion.Code,
+                           Details = validPromotion.Details,
+                           Name = validPromotion.Name,
+                           Quantity = (validPromotion.PromotionCondition.UsagePerUser - (up != null ? up.Used : 0)) ?? 0,
+                           FilePath = _fileService.GetPresignedUrl(validPromotion.File),
+                           Available = CheckBookingAvailable(validPromotion.PromotionCondition, totalPrice, totalTickets, paymentMethods, vehicleTypes)
                        }).ToListAsync();
 
             return availablePromotions;
         }
 
-        private static bool CheckBookingAvailable(PromotionCondition condition, double? totalPrice, int? totalTickets)
+        private static bool CheckBookingAvailable(PromotionCondition condition, double? totalPrice, int? totalTickets, PaymentMethods? paymentMethods, VehicleTypes? vehicleTypes)
         {
-            if (totalPrice != null && totalPrice < condition.MinTotalPrice) return false;
+            if (totalPrice != null && condition.MinTotalPrice != null && totalPrice < condition.MinTotalPrice) return false;
 
-            if (totalTickets != null && totalTickets < condition.MinTickets) return false;
+            if (totalTickets != null && condition.MinTickets != null && totalTickets < condition.MinTickets) return false;
+
+            if (paymentMethods != null && condition.PaymentMethods != null && paymentMethods !=  condition.PaymentMethods) return false;
+
+            if (vehicleTypes != null && condition.VehicleTypes != null && vehicleTypes != condition.VehicleTypes) return false;
 
             return true;
         }
 
-        private IQueryable<PromotionCondition> ValidateCondition(IQueryable<PromotionCondition> conditions)
+        private IQueryable<Promotion> ValidatePromotionCondition(IQueryable<Promotion> promotion)
         {
-            var rightCondition = 
-                conditions.Where(x => x.TotalUsage == null || 
-                    (x.TotalUsage > 0));
+            var availablePromotion =
+                promotion.Where(CheckPromotionTotalUsageExp);
 
-            rightCondition = 
-                rightCondition.Where(x => x.ValidFrom == null || 
-                    (x.ValidFrom < DateTimeOffset.Now));
+            availablePromotion =
+                availablePromotion.Where(CheckPromotionValidFrom);
 
-            rightCondition =
-                rightCondition.Where(x => x.ValidUntil == null ||
-                    (x.ValidUntil > DateTimeOffset.Now));
+            availablePromotion =
+                availablePromotion.Where(CheckPromotionValidUntil);
 
-            return rightCondition;
+            return availablePromotion;
+        }
+
+        private Expression<Func<Promotion, bool>> CheckPromotionTotalUsageExp =>
+            x => x.PromotionCondition.TotalUsage == null || (x.PromotionCondition.TotalUsage > 0);
+
+        private Expression<Func<Promotion, bool>> CheckPromotionValidFrom =>
+            x => x.PromotionCondition.ValidFrom == null || (x.PromotionCondition.ValidFrom < DateTimeOffset.Now);
+
+        private Expression<Func<Promotion, bool>> CheckPromotionValidUntil =>
+            x => x.PromotionCondition.ValidUntil == null || (x.PromotionCondition.ValidUntil > DateTimeOffset.Now);
+
+        public async Task<Response> GetBannerPromotion(Response successResponse, Response emptyResponse)
+        {
+            var bannerPromotions = 
+                await _unitOfWork.Promotions.List().Where(CheckPromotionValidFrom).Where(CheckPromotionValidUntil)
+                    .OrderByDescending(x => x.CreatedAt)
+                    .MapTo<PromotionViewModel>(_mapper)
+                    .ToListAsync();
+
+            if (!bannerPromotions.Any()) return emptyResponse;
+
+            return successResponse.SetData(bannerPromotions);
         }
     }
 }

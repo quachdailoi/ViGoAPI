@@ -52,7 +52,7 @@ namespace Infrastructure.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    code = table.Column<Guid>(type: "uuid", nullable: false, defaultValue: new Guid("92d4a63c-7658-4122-b4a4-7a239887f565")),
+                    code = table.Column<Guid>(type: "uuid", nullable: false, defaultValue: new Guid("aa182707-3927-454f-b60b-95bbc5e9cbb3")),
                     status = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
                     type = table.Column<int>(type: "integer", nullable: false),
                     name = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
@@ -239,7 +239,8 @@ namespace Infrastructure.Migrations
                     valid_until = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     min_total_price = table.Column<float>(type: "real", nullable: true),
                     min_tickets = table.Column<int>(type: "integer", nullable: true),
-                    payment_method = table.Column<int>(type: "integer", nullable: true),
+                    payment_methods = table.Column<int>(type: "integer", nullable: true),
+                    vehicle_types = table.Column<int>(type: "integer", nullable: true),
                     created_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     created_by = table.Column<int>(type: "integer", nullable: false),
                     updated_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -296,7 +297,7 @@ namespace Infrastructure.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    code = table.Column<Guid>(type: "uuid", nullable: false, defaultValue: new Guid("f8eadaba-3654-44fe-80ef-2240d76d0d77")),
+                    code = table.Column<Guid>(type: "uuid", nullable: false, defaultValue: new Guid("397e58da-b352-4d38-b928-f25f963e7723")),
                     time = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     total_price = table.Column<double>(type: "double precision", nullable: false),
                     discount_price = table.Column<double>(type: "double precision", nullable: false),
@@ -379,7 +380,7 @@ namespace Infrastructure.Migrations
                     user_id = table.Column<int>(type: "integer", nullable: false),
                     room_id = table.Column<int>(type: "integer", nullable: false),
                     status = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
-                    last_seen_time = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 117, DateTimeKind.Unspecified).AddTicks(2748), new TimeSpan(0, 7, 0, 0, 0))),
+                    last_seen_time = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 975, DateTimeKind.Unspecified).AddTicks(8458), new TimeSpan(0, 7, 0, 0, 0))),
                     created_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     created_by = table.Column<int>(type: "integer", nullable: false),
                     updated_at = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -489,23 +490,28 @@ namespace Infrastructure.Migrations
                 columns: new[] { "id", "code", "created_at", "created_by", "deleted_at", "path", "status", "type", "updated_at", "updated_by" },
                 values: new object[,]
                 {
-                    { 1, new Guid("61824d75-2450-4409-a086-135e17356ab9"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8897), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8913), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 2, new Guid("7c9f6ff2-af6b-42bb-a016-2098e2d2c2cc"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8925), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8926), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 3, new Guid("950d2f50-2e90-4fc7-bdd0-d7af2b42b922"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8935), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8935), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 4, new Guid("a1635fa7-75c0-4cb0-81a6-dba959bfdc5f"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8957), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8958), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 5, new Guid("cf207879-b7df-49e7-a47a-0ef4b69487f6"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8966), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8966), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 6, new Guid("87b56f08-06e5-43ec-b75d-a4630c4e854b"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8976), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8976), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 7, new Guid("7bccc9a7-564e-4326-9304-f13652157650"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8983), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(8984), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 8, new Guid("e36035b7-41fb-44a2-b177-69a52d3478db"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9027), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9028), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 9, new Guid("302d5f9d-db99-4478-9748-962a14d7e723"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9044), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "promotion/285640182_5344668362254863_4230282646432249568_n.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9044), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 10, new Guid("965ad7bb-994a-45cf-bab5-f742e83db3a3"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9058), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "promotion/292718124_1043378296364294_8747140355237126885_n.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9059), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 11, new Guid("a2f53c10-4c03-48ae-a594-5598d06bf640"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9070), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "promotion/300978304_2290809087749954_8259423704505319939_n.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9071), new TimeSpan(0, 7, 0, 0, 0)), 0 }
+                    { 1, new Guid("fa6234db-0287-4d91-a08b-882b53e35698"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4625), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4638), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 2, new Guid("ce7f0204-2afb-4202-a9fd-fc890762746b"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4651), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4652), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 3, new Guid("afb4fd67-1748-4389-9a04-53db1453fe5f"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4660), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4661), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 4, new Guid("13ed7bb0-3e0b-43c1-993f-78d0e21cc010"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4668), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4668), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 5, new Guid("dbc97a0e-4cd9-42cd-81f2-d048b520f77c"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4675), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4676), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 6, new Guid("789065fc-2c09-4526-9942-7a7337c19a62"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4685), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4686), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 7, new Guid("bb7b3ef4-81b3-4e8d-9ff2-ec09258b87a7"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4699), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4700), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 8, new Guid("31b249a2-e0d7-478f-b0c5-734ca5002e2d"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4707), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "user/avatar/default-user-avatar.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4707), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 9, new Guid("e21c2b71-e3ee-4a89-91d1-08cba663dd36"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4714), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "promotion/285640182_5344668362254863_4230282646432249568_n.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4715), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 10, new Guid("16d31616-91fc-4254-9830-e73448c75c84"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4723), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "promotion/292718124_1043378296364294_8747140355237126885_n.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4724), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 11, new Guid("33f7c47c-aff9-4672-b26b-453a9d98fce9"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4731), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "promotion/300978304_2290809087749954_8259423704505319939_n.png", true, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4732), new TimeSpan(0, 7, 0, 0, 0)), 0 }
                 });
 
             migrationBuilder.InsertData(
                 table: "promotions",
                 columns: new[] { "id", "code", "created_at", "created_by", "deleted_at", "details", "discount_percentage", "file_id", "max_decrease", "name", "status", "type", "updated_at", "updated_by" },
-                values: new object[] { 3, "HOLIDAY", new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9391), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "Promotion for 2/9 Holiday: Discount 30% with max decrease 300k for the booking with minimum total price 1000k.", 0.29999999999999999, null, 300000.0, "Holiday Promotion", 1, 0, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9391), new TimeSpan(0, 7, 0, 0, 0)), 0 });
+                values: new object[,]
+                {
+                    { 3, "HOLIDAY", new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4993), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "Promotion for 2/9 Holiday: Discount 30% with max decrease 300k for the booking with minimum total price 1000k.", 0.29999999999999999, null, 300000.0, "Holiday Promotion", 1, 0, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4993), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 4, "ABC", new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5001), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "Promotion for users booking alot: Discount 10% with max decrease 300k for the booking with minimum total price 500k.", 0.10000000000000001, null, 300000.0, "ABC Promotion", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5002), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 5, "VIRIDE2022", new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5009), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "Promotion for ViRide: Discount 10% with max decrease 100k for the booking with minimum total price 300k.", 0.10000000000000001, null, 100000.0, "ViRide Promotion", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5009), new TimeSpan(0, 7, 0, 0, 0)), 0 }
+                });
 
             migrationBuilder.InsertData(
                 table: "roles",
@@ -518,17 +524,22 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "promotion_conditions",
-                columns: new[] { "id", "created_at", "created_by", "deleted_at", "min_tickets", "min_total_price", "payment_method", "promotion_id", "total_usage", "updated_at", "updated_by", "usage_per_user", "valid_from", "valid_until" },
-                values: new object[] { 3, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9529), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 1000000f, null, 3, 50, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9529), new TimeSpan(0, 7, 0, 0, 0)), 0, 1, new DateTimeOffset(new DateTime(2022, 9, 2, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2022, 9, 2, 23, 59, 59, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) });
+                columns: new[] { "id", "created_at", "created_by", "deleted_at", "min_tickets", "min_total_price", "payment_methods", "promotion_id", "total_usage", "updated_at", "updated_by", "usage_per_user", "valid_from", "valid_until", "vehicle_types" },
+                values: new object[,]
+                {
+                    { 3, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5144), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 1000000f, null, 3, 50, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5144), new TimeSpan(0, 7, 0, 0, 0)), 0, 1, new DateTimeOffset(new DateTime(2022, 9, 2, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2022, 9, 2, 23, 59, 59, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null },
+                    { 4, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5162), new TimeSpan(0, 7, 0, 0, 0)), 0, null, 20, 500000f, null, 4, 50, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5162), new TimeSpan(0, 7, 0, 0, 0)), 0, 1, new DateTimeOffset(new DateTime(2022, 9, 2, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2022, 9, 30, 23, 59, 59, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null },
+                    { 5, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5178), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 300000f, null, 5, 500, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5179), new TimeSpan(0, 7, 0, 0, 0)), 0, 3, new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2022, 12, 31, 23, 59, 59, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 1 }
+                });
 
             migrationBuilder.InsertData(
                 table: "promotions",
                 columns: new[] { "id", "code", "created_at", "created_by", "deleted_at", "details", "discount_percentage", "file_id", "max_decrease", "name", "status", "type", "updated_at", "updated_by" },
                 values: new object[,]
                 {
-                    { 1, "HELLO2022", new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9372), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "Promotion for new user: Discount 20% with max decrease 200k for the booking with minimum total price 500k.", 0.20000000000000001, 9, 200000.0, "New User Promotion", 1, 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9372), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 2, "BDAY2022", new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9383), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "Promotion for September: Discount 10% with max decrease 150k for the booking with minimum total price 200k.", 0.10000000000000001, 10, 150000.0, "Beautiful Month", 1, 0, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9383), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 4, "ABC", new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9398), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "Promotion for users booking alot: Discount 10% with max decrease 300k for the booking with minimum total price 500k.", 0.10000000000000001, 11, 300000.0, "ABC Promotion", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9398), new TimeSpan(0, 7, 0, 0, 0)), 0 }
+                    { 1, "HELLO2022", new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4968), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "Promotion for new user: Discount 20% with max decrease 200k for the booking with minimum total price 500k.", 0.20000000000000001, 9, 200000.0, "New User Promotion", 1, 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4969), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 2, "BDAY2022", new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4980), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "Promotion for September: Discount 10% with max decrease 150k for the booking with minimum total price 200k.", 0.10000000000000001, 10, 150000.0, "Beautiful Month", 1, 0, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4981), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 6, "VICAR2022", new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5018), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "Promotion for ViCar: Discount 15% with max decrease 350k for the booking with minimum total price 500k.", 0.14999999999999999, 11, 350000.0, "ViCar Promotion", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5018), new TimeSpan(0, 7, 0, 0, 0)), 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -536,28 +547,28 @@ namespace Infrastructure.Migrations
                 columns: new[] { "id", "code", "created_at", "created_by", "date_of_birth", "deleted_at", "file_id", "gender", "name", "status", "updated_at", "updated_by" },
                 values: new object[,]
                 {
-                    { 1, new Guid("939c2add-4091-4aa3-8e6e-8da678500174"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9101), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 1, 1, "Quach Dai Loi", 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9101), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 2, new Guid("294b7d78-bfbb-4c4b-a929-a1666db3c75e"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9126), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 2, 1, "Do Trong Dat", 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9127), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 3, new Guid("6dbcaa80-a1a1-49ab-98f2-ce4952c3d2c5"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9144), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 3, 1, "Nguyen Dang Khoa", 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9145), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 4, new Guid("f38c8dfb-ed7b-4f6c-8875-e70af511ea6a"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9157), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 4, 1, "Than Thanh Duy", 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9157), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 5, new Guid("43b6fcef-0507-4f6c-8600-e8007d9e1df5"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9168), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 5, 1, "Loi Quach", 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9169), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 6, new Guid("69a4d5aa-754f-4f23-baab-d83469e15eee"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9180), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 6, 1, "Dat Do", 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9180), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 7, new Guid("885c3164-776e-4829-868c-75bfc8c9bd95"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9189), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 7, 1, "Khoa Nguyen", 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9190), new TimeSpan(0, 7, 0, 0, 0)), 0 },
-                    { 8, new Guid("bacd7055-6a58-46c4-9f01-3275d5ca0ddf"), new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9199), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 8, 1, "Thanh Duy", 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9200), new TimeSpan(0, 7, 0, 0, 0)), 0 }
+                    { 1, new Guid("55f0fd47-127f-4e48-9a82-05b737b203ad"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4749), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 1, 1, "Quach Dai Loi", 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4750), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 2, new Guid("3b575930-9f45-49ce-81f1-5cadcc6512e1"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4762), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 2, 1, "Do Trong Dat", 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4763), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 3, new Guid("a5299332-3737-4526-98aa-5f36eded02c5"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4774), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 3, 1, "Nguyen Dang Khoa", 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4775), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 4, new Guid("5f3767d1-0a62-46e9-9ef2-762a6132cca1"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4784), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 4, 1, "Than Thanh Duy", 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4785), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 5, new Guid("86bcffba-7ea4-45b7-9d5e-5249daed500b"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4795), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 5, 1, "Loi Quach", 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4795), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 6, new Guid("b4d2acff-5e58-4590-8cc5-13477983187d"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4812), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 6, 1, "Dat Do", 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4812), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 7, new Guid("494816a8-f213-4331-a9bd-3892274666b3"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4824), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 7, 1, "Khoa Nguyen", 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4825), new TimeSpan(0, 7, 0, 0, 0)), 0 },
+                    { 8, new Guid("c63085cb-5e59-4d06-933b-efa8b2e3407f"), new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4834), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 8, 1, "Thanh Duy", 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4835), new TimeSpan(0, 7, 0, 0, 0)), 0 }
                 });
 
             migrationBuilder.InsertData(
                 table: "accounts",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id", "verified" },
-                values: new object[] { 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9217), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "loiqdse140970@fpt.edu.vn", 0, 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9218), new TimeSpan(0, 7, 0, 0, 0)), 0, 2, true });
+                values: new object[] { 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4848), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "loiqdse140970@fpt.edu.vn", 0, 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4849), new TimeSpan(0, 7, 0, 0, 0)), 0, 1, true });
 
             migrationBuilder.InsertData(
                 table: "accounts",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id" },
                 values: new object[,]
                 {
-                    { 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9227), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84837226239", 1, 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9227), new TimeSpan(0, 7, 0, 0, 0)), 0, 2 },
-                    { 3, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9234), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "loiqdse140970@fpt.edu.vn", 0, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9235), new TimeSpan(0, 7, 0, 0, 0)), 0, 5 }
+                    { 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4858), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84837226239", 1, 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4859), new TimeSpan(0, 7, 0, 0, 0)), 0, 1 },
+                    { 3, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4865), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "loiqdse140970@fpt.edu.vn", 0, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4865), new TimeSpan(0, 7, 0, 0, 0)), 0, 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -565,26 +576,8 @@ namespace Infrastructure.Migrations
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id", "verified" },
                 values: new object[,]
                 {
-                    { 4, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9241), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84837226239", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9242), new TimeSpan(0, 7, 0, 0, 0)), 0, 5, true },
-                    { 5, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9248), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "datdtse140920@fpt.edu.vn", 0, 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9249), new TimeSpan(0, 7, 0, 0, 0)), 0, 2, true }
-                });
-
-            migrationBuilder.InsertData(
-                table: "accounts",
-                columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id" },
-                values: new object[,]
-                {
-                    { 6, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9287), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84377322919", 1, 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9287), new TimeSpan(0, 7, 0, 0, 0)), 0, 2 },
-                    { 7, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9295), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "datdtse140920@fpt.edu.vn", 0, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9296), new TimeSpan(0, 7, 0, 0, 0)), 0, 6 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "accounts",
-                columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id", "verified" },
-                values: new object[,]
-                {
-                    { 8, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9302), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84377322919", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9302), new TimeSpan(0, 7, 0, 0, 0)), 0, 6, true },
-                    { 9, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9308), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "khoandse1409770@fpt.edu.vn", 0, 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9309), new TimeSpan(0, 7, 0, 0, 0)), 0, 3, true }
+                    { 4, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4872), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84837226239", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4872), new TimeSpan(0, 7, 0, 0, 0)), 0, 5, true },
+                    { 5, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4878), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "datdtse140920@fpt.edu.vn", 0, 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4879), new TimeSpan(0, 7, 0, 0, 0)), 0, 2, true }
                 });
 
             migrationBuilder.InsertData(
@@ -592,8 +585,8 @@ namespace Infrastructure.Migrations
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id" },
                 values: new object[,]
                 {
-                    { 10, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9316), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84914669962", 1, 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9317), new TimeSpan(0, 7, 0, 0, 0)), 0, 3 },
-                    { 11, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9323), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "khoandse140977@fpt.edu.vn", 0, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9324), new TimeSpan(0, 7, 0, 0, 0)), 0, 7 }
+                    { 6, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4886), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84377322919", 1, 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4887), new TimeSpan(0, 7, 0, 0, 0)), 0, 2 },
+                    { 7, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4894), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "datdtse140920@fpt.edu.vn", 0, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4894), new TimeSpan(0, 7, 0, 0, 0)), 0, 6 }
                 });
 
             migrationBuilder.InsertData(
@@ -601,8 +594,8 @@ namespace Infrastructure.Migrations
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id", "verified" },
                 values: new object[,]
                 {
-                    { 12, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9330), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84914669962", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9331), new TimeSpan(0, 7, 0, 0, 0)), 0, 7, true },
-                    { 13, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9337), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "duyttse140971@fpt.edu.vn", 0, 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9338), new TimeSpan(0, 7, 0, 0, 0)), 0, 4, true }
+                    { 8, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4901), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84377322919", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4901), new TimeSpan(0, 7, 0, 0, 0)), 0, 6, true },
+                    { 9, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4907), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "khoandse1409770@fpt.edu.vn", 0, 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4908), new TimeSpan(0, 7, 0, 0, 0)), 0, 3, true }
                 });
 
             migrationBuilder.InsertData(
@@ -610,44 +603,62 @@ namespace Infrastructure.Migrations
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id" },
                 values: new object[,]
                 {
-                    { 14, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9344), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84376826328", 1, 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9345), new TimeSpan(0, 7, 0, 0, 0)), 0, 4 },
-                    { 15, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9351), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "duyttse140971@fpt.edu.vn", 0, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9352), new TimeSpan(0, 7, 0, 0, 0)), 0, 8 }
+                    { 10, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4916), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84914669962", 1, 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4916), new TimeSpan(0, 7, 0, 0, 0)), 0, 3 },
+                    { 11, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4922), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "khoandse140977@fpt.edu.vn", 0, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4923), new TimeSpan(0, 7, 0, 0, 0)), 0, 7 }
                 });
 
             migrationBuilder.InsertData(
                 table: "accounts",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id", "verified" },
-                values: new object[] { 16, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9358), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84376826328", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9359), new TimeSpan(0, 7, 0, 0, 0)), 0, 8, true });
+                values: new object[,]
+                {
+                    { 12, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4929), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84914669962", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4930), new TimeSpan(0, 7, 0, 0, 0)), 0, 7, true },
+                    { 13, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4936), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "duyttse140971@fpt.edu.vn", 0, 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4936), new TimeSpan(0, 7, 0, 0, 0)), 0, 4, true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "accounts",
+                columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id" },
+                values: new object[,]
+                {
+                    { 14, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4943), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84376826328", 1, 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4943), new TimeSpan(0, 7, 0, 0, 0)), 0, 4 },
+                    { 15, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4949), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "duyttse140971@fpt.edu.vn", 0, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4950), new TimeSpan(0, 7, 0, 0, 0)), 0, 8 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "accounts",
+                columns: new[] { "id", "created_at", "created_by", "deleted_at", "registration", "registration_type", "role_id", "updated_at", "updated_by", "user_id", "verified" },
+                values: new object[] { 16, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4956), new TimeSpan(0, 7, 0, 0, 0)), 0, null, "+84376826328", 1, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(4956), new TimeSpan(0, 7, 0, 0, 0)), 0, 8, true });
 
             migrationBuilder.InsertData(
                 table: "promotion_conditions",
-                columns: new[] { "id", "created_at", "created_by", "deleted_at", "min_tickets", "min_total_price", "payment_method", "promotion_id", "total_usage", "updated_at", "updated_by", "usage_per_user", "valid_from", "valid_until" },
+                columns: new[] { "id", "created_at", "created_by", "deleted_at", "min_tickets", "min_total_price", "payment_methods", "promotion_id", "total_usage", "updated_at", "updated_by", "usage_per_user", "valid_from", "valid_until", "vehicle_types" },
                 values: new object[,]
                 {
-                    { 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9410), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 500000f, null, 1, null, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9411), new TimeSpan(0, 7, 0, 0, 0)), 0, 1, new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null },
-                    { 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9507), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 200000f, null, 2, 50, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9508), new TimeSpan(0, 7, 0, 0, 0)), 0, 4, new DateTimeOffset(new DateTime(2022, 9, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2022, 9, 30, 23, 59, 59, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
-                    { 4, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9547), new TimeSpan(0, 7, 0, 0, 0)), 0, null, 20, 500000f, null, 4, 50, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9547), new TimeSpan(0, 7, 0, 0, 0)), 0, 1, new DateTimeOffset(new DateTime(2022, 9, 2, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2022, 9, 30, 23, 59, 59, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) }
+                    { 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5030), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 500000f, null, 1, null, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5031), new TimeSpan(0, 7, 0, 0, 0)), 0, 1, new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, null },
+                    { 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5121), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 200000f, null, 2, 50, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5122), new TimeSpan(0, 7, 0, 0, 0)), 0, 4, new DateTimeOffset(new DateTime(2022, 9, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2022, 9, 30, 23, 59, 59, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null },
+                    { 6, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5198), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, 500000f, null, 6, 500, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5199), new TimeSpan(0, 7, 0, 0, 0)), 0, 3, new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(2022, 12, 31, 23, 59, 59, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "promotion_users",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "expired_time", "PromotionConditionId", "promotion_id", "updated_at", "updated_by", "user_id" },
-                values: new object[] { 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9566), new TimeSpan(0, 7, 0, 0, 0)), 0, null, new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9567), new TimeSpan(0, 7, 0, 0, 0)), 0, 5 });
+                values: new object[] { 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5217), new TimeSpan(0, 7, 0, 0, 0)), 0, null, new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5218), new TimeSpan(0, 7, 0, 0, 0)), 0, 5 });
 
             migrationBuilder.InsertData(
                 table: "promotion_users",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "expired_time", "PromotionConditionId", "promotion_id", "updated_at", "updated_by", "used", "user_id" },
-                values: new object[] { 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9582), new TimeSpan(0, 7, 0, 0, 0)), 0, null, new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9583), new TimeSpan(0, 7, 0, 0, 0)), 0, 1, 6 });
+                values: new object[] { 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5232), new TimeSpan(0, 7, 0, 0, 0)), 0, null, new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5233), new TimeSpan(0, 7, 0, 0, 0)), 0, 1, 6 });
 
             migrationBuilder.InsertData(
                 table: "promotion_users",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "expired_time", "PromotionConditionId", "promotion_id", "updated_at", "updated_by", "user_id" },
-                values: new object[] { 3, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9595), new TimeSpan(0, 7, 0, 0, 0)), 0, null, new DateTimeOffset(new DateTime(2022, 9, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, 1, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9595), new TimeSpan(0, 7, 0, 0, 0)), 0, 7 });
+                values: new object[] { 3, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5244), new TimeSpan(0, 7, 0, 0, 0)), 0, null, new DateTimeOffset(new DateTime(2022, 9, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, 1, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5245), new TimeSpan(0, 7, 0, 0, 0)), 0, 7 });
 
             migrationBuilder.InsertData(
                 table: "promotion_users",
                 columns: new[] { "id", "created_at", "created_by", "deleted_at", "expired_time", "PromotionConditionId", "promotion_id", "updated_at", "updated_by", "used", "user_id" },
-                values: new object[] { 4, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9656), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, null, 2, new DateTimeOffset(new DateTime(2022, 9, 12, 14, 48, 11, 121, DateTimeKind.Unspecified).AddTicks(9656), new TimeSpan(0, 7, 0, 0, 0)), 0, 2, 6 });
+                values: new object[] { 4, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5280), new TimeSpan(0, 7, 0, 0, 0)), 0, null, null, null, 2, new DateTimeOffset(new DateTime(2022, 9, 14, 16, 22, 35, 980, DateTimeKind.Unspecified).AddTicks(5281), new TimeSpan(0, 7, 0, 0, 0)), 0, 2, 6 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_accounts_registration_role_id",

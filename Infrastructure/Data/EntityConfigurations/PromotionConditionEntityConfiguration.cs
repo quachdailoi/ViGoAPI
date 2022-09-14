@@ -39,9 +39,13 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.MinTickets)
                 .HasColumnName("min_tickets");
 
-            builder.Property(e => e.PaymentMethod)
+            builder.Property(e => e.PaymentMethods)
                 .HasConversion<int>()
-                .HasColumnName("payment_method");
+                .HasColumnName("payment_methods");
+
+            builder.Property(e => e.VehicleTypes)
+                .HasConversion<int>()
+                .HasColumnName("vehicle_types");
         }
     }
 }
