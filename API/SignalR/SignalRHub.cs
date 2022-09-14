@@ -1,5 +1,4 @@
-﻿using API.Helpers.Attributes;
-using API.JwtFeatures;
+﻿using API.JwtFeatures;
 using API.Models;
 using API.SignalR.Constract;
 using Domain.Shares.Enums;
@@ -15,7 +14,7 @@ namespace API.SignalR
         {
             _jwtHandler = jwtHandler;
         }
-        [CustomAuthorize]
+        [Authorize]
         public async Task Login()
         {
             var token = Context.GetHttpContext()?.Request.Query["access_token"].FirstOrDefault();
@@ -28,7 +27,7 @@ namespace API.SignalR
             await Clients.Client(Context.ConnectionId).SendAsync("User", user);
         }
 
-        [CustomAuthorize]
+        [Authorize]
         public async Task Logout()
         {
             var token = Context.GetHttpContext()?.Request.Query["access_token"].FirstOrDefault();

@@ -76,7 +76,6 @@ namespace API.Extensions
                     }
                 };
             });
-
         }
 
         public static void ConfigureIoCRepositories(this IServiceCollection services)

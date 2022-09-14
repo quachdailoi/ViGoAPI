@@ -1,5 +1,4 @@
-﻿using API.Helpers.Attributes;
-using Domain.Interfaces.UnitOfWork;
+﻿using Domain.Interfaces.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +8,7 @@ namespace API.Controllers.V2
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    [CustomAuthorize]
+    [Authorize]
     [ApiVersion("2.0")]
     public class TestsController : BaseController<TestsController>
     {

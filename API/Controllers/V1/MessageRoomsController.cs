@@ -1,5 +1,4 @@
-﻿using API.Helpers.Attributes;
-using API.Models.Requests;
+﻿using API.Models.Requests;
 using API.Models.Response;
 using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +19,7 @@ namespace API.Controllers.V1
         /// <response code="200">Create successfully</response>
         /// <response code="102">Waiting to connect with support staff</response>
         /// <response code="500">Failure</response>
-        [CustomAuthorize]
+        [Authorize]
         [HttpPost("support")]
         public async Task<IActionResult> CreateSupportMessageRoom()
         {
@@ -136,7 +135,7 @@ namespace API.Controllers.V1
         /// <param name="request" example="['613de7b4-db59-4a6c-b9a1-2b1e176460d3']">MessageRoomRequest schema</param>
         /// <response code="200">Send successfully</response>
         /// <response code="500">Failure</response>
-        [CustomAuthorize]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateMessageRoom([FromBody] MessageRoomRequest request)
         {
@@ -175,7 +174,7 @@ namespace API.Controllers.V1
         /// <response code="200">Get successfully</response>
         /// <response code="404">Not exist any message room of this user</response>
         /// <response code="500">Failure</response>
-        [CustomAuthorize]
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

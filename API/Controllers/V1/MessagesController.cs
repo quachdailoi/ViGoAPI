@@ -1,5 +1,4 @@
-﻿using API.Helpers.Attributes;
-using API.JwtFeatures;
+﻿using API.JwtFeatures;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Quartz;
@@ -29,7 +28,7 @@ namespace API.Controllers.V1
         /// <param name="request" example="{Content: 'Hello world!' ,RoomCode: '613de7b4-db59-4a6c-b9a1-2b1e176460d3'}">MessageRequest schema</param>
         /// <response code="200">Send successfully</response>
         /// <response code="500">Failure</response>
-        [CustomAuthorize]
+        [Authorize]
         [HttpPost()]
         public async Task<IActionResult> SendMessage([FromBody] MessageRequest request)
         {
@@ -59,7 +58,7 @@ namespace API.Controllers.V1
         /// <response code="200">Mark read successfully</response>
         /// <response code="400">Fail to mark read</response>
         /// <response code="500">Failure</response>
-        [CustomAuthorize]
+        [Authorize]
         [HttpPut("last-seen-time")]
         public async Task<IActionResult> UpdateLastSeen([FromBody] LastSeenTimeMessageRequest request)
         {

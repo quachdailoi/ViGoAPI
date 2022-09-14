@@ -16,6 +16,7 @@ using API.Mapper;
 using API.Services.Constract;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Newtonsoft.Json.Serialization;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -199,6 +200,7 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 // add middlewares
+app.UseRouting();
 app.UseJwtMiddleware();
 app.UseErrorHandlerMiddleware();
 
