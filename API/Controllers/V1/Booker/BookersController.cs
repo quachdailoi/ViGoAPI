@@ -1,5 +1,4 @@
 ﻿using API.Extensions;
-using API.Helpers.Attributes;
 using API.JwtFeatures;
 using API.Models;
 using API.Models.DTO;
@@ -16,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers.V1.Booker
 {
     [Route("api/v{version:apiVersion}/[controller]")]
-    [CustomAuthorize("BOOKER")]
+    [Authorize(Roles = "BOOKER")]
     [ApiController]
     [ApiVersion("1.0")]
     public class BookersController : BaseController<BookersController>

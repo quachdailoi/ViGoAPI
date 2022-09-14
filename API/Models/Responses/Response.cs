@@ -4,8 +4,11 @@ namespace API.Models.Response
 {
     public class Response
     {
+        [JsonPropertyName("StatusCode")]
         public int StatusCode { get; set; } = 200;
+        [JsonPropertyName("Message")]
         public string Message { get; set; } = string.Empty;
+        [JsonPropertyName("Data")]
         public object? Data { get; set; } = null;
         [JsonIgnore]
         public bool Success { get; set; } = true;

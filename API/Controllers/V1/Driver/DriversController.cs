@@ -1,5 +1,4 @@
 ﻿using API.Extensions;
-using API.Helpers.Attributes;
 using API.JwtFeatures;
 using API.Models;
 using API.Models.Requests;
@@ -19,7 +18,7 @@ using Twilio.Rest.Api.V2010.Account;
 namespace API.Controllers.V1.Driver
 {
     [Route("api/v{version:apiVersion}/[controller]")]
-    [CustomAuthorize("DRIVER")]
+    [Authorize(Roles = "DRIVER")]
     [ApiController]
     [ApiVersion("1.0")]
     public class DriversController : BaseController<DriversController>

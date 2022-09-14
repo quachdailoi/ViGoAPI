@@ -1,4 +1,5 @@
-﻿using Infrastructure.Exceptions;
+﻿using API.Models.Response;
+using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System.Net;
@@ -22,6 +23,10 @@ namespace API.Middleware
             try
             {
                 await _next(context);
+                if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException("Token Validation Has Failed. Request Access Denied");
+                }
             }
             catch (Exception error)
             {
@@ -47,8 +52,11 @@ namespace API.Middleware
                         break;
                 }
 
-                var result = JsonSerializer.Serialize(new { message = error?.Message });
-                await response.WriteAsync(result);
+                await response.WriteAsJsonAsync<Response>(new()
+                {
+                    StatusCode = response.StatusCode,
+                    Message = error.Message
+                });
 
                 logger.LogError(error, "Request {method} {url} => {statusCode}", 
                     context.Request?.Method, 
