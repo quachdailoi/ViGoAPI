@@ -63,6 +63,32 @@ namespace Infrastructure.Data.Seeders
                 Type = Promotions.Types.MoreAndMore,
                 FileId = 11
             });
+
+            builder.Entity<Promotion>().HasData(new Promotion
+            {
+                Id = 5,
+                Name = "ViRide Promotion",
+                Code = "VIRIDE2022",
+                Details = "Promotion for ViRide: Discount 10% with max decrease 100k for the booking with minimum total price 300k.",
+                DiscountPercentage = 0.1,
+                MaxDecrease = 100000,
+                Status = Promotions.Status.Available,
+                Type = Promotions.Types.MoreAndMore,
+                FileId = 11
+            });
+
+            builder.Entity<Promotion>().HasData(new Promotion
+            {
+                Id = 6,
+                Name = "ViCar Promotion",
+                Code = "VICAR2022",
+                Details = "Promotion for ViCar: Discount 15% with max decrease 350k for the booking with minimum total price 500k.",
+                DiscountPercentage = 0.15,
+                MaxDecrease = 350000,
+                Status = Promotions.Status.Available,
+                Type = Promotions.Types.MoreAndMore,
+                FileId = 11
+            });
         }
     }
 }

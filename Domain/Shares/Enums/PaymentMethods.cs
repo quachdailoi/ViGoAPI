@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public enum PaymentMethod
+    public enum PaymentMethods
     {
         COD = 0,
         Momo = 1,
