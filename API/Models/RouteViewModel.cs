@@ -6,9 +6,9 @@ using System.Text.Json.Serialization;
 namespace API.Models
 {
     public class RouteViewModel
-    {
-        public Location StartPoint { get; set; } = new();
-        public Location EndPoint { get; set; } = new();
+    { 
+        //public Location StartPoint { get; set; } = new();
+        //public Location EndPoint { get; set; } = new();
         public List<Step> Steps { get; set; } = new();
         public double Distance { get; set; }
         public double Duration { get; set; }

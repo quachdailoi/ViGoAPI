@@ -5,8 +5,9 @@ namespace API.Models.DTO
 {
     public class RouteDTO : BaseDTO
     {
-        public Location StartPoint { get; set; } = new();
-        public Location EndPoint { get; set; } = new();
+        public Guid Code { get; set; } = Guid.NewGuid();
+        //public Location StartPoint { get; set; } = new();
+        //public Location EndPoint { get; set; } = new();
         public List<Step> Steps { get; set; } = new();
         public double Distance { get; set; }
         public double Duration { get; set; }

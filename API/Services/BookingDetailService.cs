@@ -23,7 +23,7 @@ namespace API.Services
         public List<BookingDetail> GenerateBookingDetail(Booking booking)
         {
             List<BookingDetail> bookingDetails = new();
-            if (booking.Type == BookingTypes.Monthly)
+            if (booking.Type == Bookings.Type.Monthly)
             {
                 var daysOfMonthHashSet = booking.Days.DaysOfMonth.ToHashSet();
                 for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
@@ -32,13 +32,13 @@ namespace API.Services
                     {
                         bool isIgnoreDate = false;
 
-                        if (booking.Days.IgnoreDaysByMonth.TryGetValue(day.Month, out List<int> ignoreDaysInMonth))
-                        {
-                            if (ignoreDaysInMonth.Contains(day.Day))
-                            {
-                                isIgnoreDate = true;
-                            }
-                        }
+                        //if (booking.Days.IgnoreDaysByMonth.TryGetValue(day.Month, out List<int> ignoreDaysInMonth))
+                        //{
+                        //    if (ignoreDaysInMonth.Contains(day.Day))
+                        //    {
+                        //        isIgnoreDate = true;
+                        //    }
+                        //}
 
                         if(!isIgnoreDate)
                             bookingDetails.Add(new BookingDetail

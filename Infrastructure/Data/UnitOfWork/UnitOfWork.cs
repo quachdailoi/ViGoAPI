@@ -28,7 +28,7 @@ namespace Infrastructure.Data.UnitOfWork
         public IFileRepository Files { get; private set; }
         public IRouteRepository Routes { get; private set; }
         public IStationRepository Stations { get; private set; }
-        public IRouteStationRepository RouteStaions { get; private set; }
+        public IRouteStationRepository RouteStations { get; private set; }
 
         public IPromotionRepository Promotions { get; }
         public IPromotionUserRepository PromotionUsers { get; }
@@ -66,8 +66,7 @@ namespace Infrastructure.Data.UnitOfWork
             Routes = routeRepository;
             Files = fileRepository;
             Stations = stationRepository;
-            RouteStaions = routeStaionRepository;
-
+            RouteStations = routeStaionRepository;
             Promotions = promotionRepository;
             PromotionUsers = promotionUserRepository;
 

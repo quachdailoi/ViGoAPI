@@ -18,15 +18,10 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.ToTable("routes");
 
-            builder.Property(e => e.StartPoint)
-                .IsRequired()
-                .HasColumnType("jsonb")
-                .HasColumnName("start_point");
-
-            builder.Property(e => e.EndPoint)
-                .IsRequired()
-                .HasColumnType("jsonb")
-                .HasColumnName("end_point");
+            //builder.Property(e => e.StationIds)
+            //    .IsRequired()
+            //    .HasColumnType("int[]")
+            //    .HasColumnName("station_ids");
 
             builder.Property(e => e.Steps)
                 .IsRequired()

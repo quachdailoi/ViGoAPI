@@ -95,5 +95,10 @@ namespace API.Services
 
             return rightCondition;
         }
+
+        public Task<Promotion?> GetByCode(string code)
+        {
+            return _unitOfWork.Promotions.List(promotion => promotion.Code == code).FirstOrDefaultAsync();
+        }
     }
 }

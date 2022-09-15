@@ -49,36 +49,6 @@ namespace API.Controllers.V1
             return Ok("Delete user successfully.");
         }
 
-        [HttpGet("dump-routes")]
-        [AllowAnonymous]
-        public IActionResult DumpRoute([FromQuery] int numberOfRoute, int minStepPerRoute, int maxStepPerRoute, int numberOfStation)
-        {
-            var result = DumpRouteStationData.DumpRoute(
-                numberOfRoute, 
-                minStepPerRoute, 
-                maxStepPerRoute, 
-                numberOfStation, 
-                new Bound // HCM city bound (~~)
-                {
-                    South = 10.757931, 
-                    West = 106.599666,
-                    North = 10.858637,
-                    East = 106.832535
-                });
-            var response = new Response
-            {
-                Message = "Get successfully",
-                StatusCode = StatusCodes.Status200OK,
-                Data = new
-                {
-                    Routes = result.Item1,
-                    Stations = result.Item3
-                }
-            };
-
-            return ApiResult(response);
-        }
-
 		[HttpGet("user")]
         public async Task<IActionResult> GetUser(string code)
         {

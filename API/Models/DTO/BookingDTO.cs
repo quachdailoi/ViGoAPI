@@ -11,7 +11,7 @@ namespace API.Models.DTO
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; } = 0;
         public int Option { get; set; }
-        public BookingTypes Type { get; set; }
+        public Bookings.Type Type { get; set; }
         public DaySchedule Days { get; set; }
         public bool IsShared { get; set; } = false;
         public Location StartPoint { get; set; }
@@ -24,5 +24,6 @@ namespace API.Models.DTO
         public DateOnly EndAt { get; set; }
         public StatusTypes.Booking Status { get; set; } = StatusTypes.Booking.Started;
         public int UserId { get; set; }
+        public string PromotionCode { get; set; } = string.Empty;
     }
 }

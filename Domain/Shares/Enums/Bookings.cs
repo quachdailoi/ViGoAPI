@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public enum BookingTypes
+    public class Bookings
     {
-        Monthly,
-        Weekly
+        public enum Type{
+            Monthly,
+            Weekly
+        }
+        
     }
 }

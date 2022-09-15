@@ -53,5 +53,15 @@ namespace API.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<RouteViewModel> GetSteps(Station station, Location endPoint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> IsExistData()
+        {
+            return _unitOfWork.Routes.List().AnyAsync();
+        }
     }
 }

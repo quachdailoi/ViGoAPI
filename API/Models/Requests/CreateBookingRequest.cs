@@ -10,7 +10,7 @@ namespace API.Models.Requests
         public string Time { get; set; }
         //public TimeOnly Time { get; set; }
         public int Option { get; set; }
-        public BookingTypes Type { get; set; }
+        public Bookings.Type Type { get; set; }
         public DaySchedule Days { get; set; } = new();
         public bool IsShared { get; set; }
         public Location StartPoint { get; set; } = new();
@@ -21,7 +21,7 @@ namespace API.Models.Requests
 
         public string StartAt { get; set; }
         public string EndAt { get; set; }
-        //public DateOnly StartAt { get; set; }
-        //public DateOnly EndAt { get; set; }
+
+        public string PromotionCode { get; set; } = string.Empty;
     }
 }

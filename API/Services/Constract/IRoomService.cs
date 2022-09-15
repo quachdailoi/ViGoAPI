@@ -13,6 +13,7 @@ namespace API.Services.Constract
         Task<Room?> Disable(Guid roomCode);
         Task<Room?> GetByCode(Guid roomCode);
         Task<MessageRoomViewModel> GetViewModelByCode(Guid roomCode);
+        Task<Room?> GetRoomByCode(Guid roomCode);
         Task<Response> GetViewModelByCode (int userId, Guid roomCode, Response successResponse);
         Response GetViewModelByMemberCode (List<Guid> memberCode, Response successResponse);
         Task<Response> GetByType (int userId, MessageRoomTypes type, Response successResponse);

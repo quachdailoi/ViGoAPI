@@ -142,5 +142,13 @@ namespace API.Services
 
              return successResponse.SetData(rooms);
         }
+
+        public async Task<Room?> GetRoomByCode(Guid roomCode)
+        {
+            return await _unitOfWork.Rooms.List(room => room.Code == roomCode && room.Status == StatusTypes.Room.Active)
+                                              .Include(room => room.UserRooms)
+                                              .ThenInclude(userRoom => userRoom.User)
+                                              .FirstOrDefaultAsync();
+        }
     }
 }

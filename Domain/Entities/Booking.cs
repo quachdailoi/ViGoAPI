@@ -11,7 +11,7 @@ namespace Domain.Entities
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
         public int Option { get; set; }
-        public BookingTypes Type { get; set; }
+        public Bookings.Type Type { get; set; }
         public DaySchedule Days { get; set; } = new();
         public bool IsShared { get; set; }
         public Location StartPoint { get; set; } = new();
@@ -23,7 +23,7 @@ namespace Domain.Entities
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
         public int UserId { get; set; }
-        public int PromotionId { get; set; }
+        public int? PromotionId { get; set; } = null;
         public StatusTypes.Booking Status { get; set; } = StatusTypes.Booking.Started;
 
         public User User { get; set; }

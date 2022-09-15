@@ -42,6 +42,8 @@ namespace Infrastructure.Data
             new PromotionConditionSeeder(builder);
 
             new PromotionUserSeeder(builder);
+
+            new StationSeeder(builder);
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)
@@ -95,12 +97,16 @@ namespace Infrastructure.Data
 
             new BookingDetailEntityConfiguration()
                 .Configure(builder.Entity<BookingDetail>());
+
 			new RouteEntityConfiguration()
                 .Configure(builder.Entity<Route>());
+
             new StationEntityConfiguration()
                 .Configure(builder.Entity<Station>());
+
             new RouteStationEntityConfiguration()
                 .Configure(builder.Entity<RouteStation>());
+
             new PromotionConditionEntityConfiguration()
                 .Configure(builder.Entity<PromotionCondition>());
 
@@ -109,11 +115,12 @@ namespace Infrastructure.Data
 
             new PromotionUserEntityConfiguration()
                 .Configure(builder.Entity<PromotionUser>());
+
         }
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<User> Files { get; set; }
+        public DbSet<AppFile> Files { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<VerifiedCode> VerifiedCodes { get; set; }
         public DbSet<UserRoom> UserRooms { get; set; }
@@ -121,5 +128,11 @@ namespace Infrastructure.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<BookingDetail> BookingDetails { get; set; }
+        public DbSet<Route> Routes { get; set; }
+        public DbSet<Station> Stations { get; set; }
+        public DbSet<RouteStation> RouteStations { get; set; }
+        public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<PromotionUser> PromotionUsers { get; set; }
+        public DbSet<PromotionCondition> PromotionConditions { get; set; }
     }
 }

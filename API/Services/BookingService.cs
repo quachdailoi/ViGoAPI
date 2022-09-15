@@ -16,12 +16,14 @@ namespace API.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IBookingDetailService _bookingDetailService;
+        private readonly IPromotionService _promotionService;
 
-        public BookingService(IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService)
+        public BookingService(IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, IPromotionService promotionService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _bookingDetailService = bookingDetailService;
+            _promotionService = promotionService;
         }
 
         public async Task<Response> Create(BookingDTO dto, Response successResponse, Response duplicateResponse, Response errorReponse)
@@ -36,20 +38,27 @@ namespace API.Services
             booking.DiscountPrice = 10000 + random.NextDouble() * 15000.0;
             booking.Distance = random.Next(3000, 10000);
             booking.Duration = booking.Distance / 12;
-            
+
             // end of fake data
+
+            if (!String.IsNullOrEmpty(dto.PromotionCode))
+            {
+                var promotion = await _promotionService.GetByCode(dto.PromotionCode);
+
+                booking.PromotionId = promotion.Id;
+            }
 
             // generate booking detail by booking schedule
             booking.BookingDetails = _bookingDetailService.GenerateBookingDetail(booking);
 
-            // filter in database server
+            // filter in database
             var duplicateBookings = await _unitOfWork.Bookings.List(e => !(e.Time.ToTimeSpan().TotalSeconds + e.Duration < booking.Time.ToTimeSpan().TotalSeconds || 
                                                                            e.Time.ToTimeSpan().TotalSeconds > booking.Time.ToTimeSpan().TotalSeconds + booking.Duration) &&
                                                                            e.UserId == booking.UserId && !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
                                                               .Include(e => e.BookingDetails)
                                                               .ToListAsync();
 
-            // filter in app client
+            // filter in server
             if (duplicateBookings.Any())
             {
                 var bookingDetailDateHashSet = duplicateBookings.Select(b => b.BookingDetails.Select(_b => _b.Date))

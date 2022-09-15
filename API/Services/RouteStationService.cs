@@ -18,7 +18,7 @@ namespace API.Services
 
         public Task<List<RouteStation>> Create(List<RouteStation> routeStations)
         {
-            return _unitOfWork.RouteStaions.Add(routeStations);
+            return _unitOfWork.RouteStations.Add(routeStations);
         }
     }
 }

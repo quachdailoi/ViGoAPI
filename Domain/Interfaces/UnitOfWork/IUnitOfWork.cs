@@ -15,10 +15,7 @@ namespace Domain.Interfaces.UnitOfWork
         IBookingDetailRepository BookingDetails { get; }
         IRouteRepository Routes { get; }
         IStationRepository Stations { get; }
-        IRouteStationRepository RouteStaions { get; }
-        IRouteRepository Route { get; }
-        IStationRepository Station { get; }
-        IRouteStationRepository RouteStaion { get; }
+        IRouteStationRepository RouteStations { get; }
         IPromotionRepository Promotions { get; }
         IPromotionUserRepository PromotionUsers { get; }
         IFileRepository Files { get; }

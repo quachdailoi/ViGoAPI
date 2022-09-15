@@ -53,7 +53,7 @@ namespace API.Controllers.V1
         /// </response>
         /// <response code="500">Failure</response>
         [HttpPost]
-        [Authorize(Roles = "ADMIN")]
+        //[Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> Create([FromBody] List<CreateStationRequest> request)
         {
             var user = this.LoggedInUser;
