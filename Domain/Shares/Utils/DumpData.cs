@@ -10,6 +10,28 @@ namespace Domain.Shares.Utils
 {
     public class DumpData
     {
+        private const int AVERAGE_SPEED_KM_PER_HOUR = 36;
+        private static void CaculateDuration(in List<Domain.Entities.Route> routes)
+        {
+            var meter_per_second = AVERAGE_SPEED_KM_PER_HOUR / 3.6;
+
+            routes.ForEach(route =>
+            {
+                double totalDuration = 0;
+                double totalDistance = 0;
+
+                route.Steps.ForEach(step =>
+                {
+                    var duration = step.Distance / meter_per_second;
+                    step.Duration = duration;
+                    totalDuration += duration;
+                    totalDistance += step.Distance;
+                });
+
+                route.Distance = totalDistance;
+                route.Duration = totalDuration;
+            });
+        }
         public static List<Station> DumpStations()
         {
             return new List<Station>
@@ -697,7 +719,7 @@ namespace Domain.Shares.Utils
         }
         public static List<Domain.Entities.Route> DumpRoutes()
         {
-            return new List<Domain.Entities.Route>
+            var routes = new List<Domain.Entities.Route>
             {
                 // Ga Metro khu CNC - Saigon Silicon
                 new Domain.Entities.Route
@@ -816,7 +838,8 @@ namespace Domain.Shares.Utils
                             {
                                 Longitude = 106.79643766186621,
                                 Latitude = 10.853179473980733
-                            }
+                            },
+                            Distance = 100
                         },
                         new Step
                         {
@@ -1492,6 +1515,10 @@ namespace Domain.Shares.Utils
                     }
                 }
             };
+
+            CaculateDuration(routes);
+
+            return routes;
         }
         public static List<RouteStation> DumpRouteStations(List<Domain.Entities.Route> routes)
         {
