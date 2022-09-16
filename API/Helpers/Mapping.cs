@@ -1,12 +1,14 @@
 ﻿using API.Models.DTO;
+using Domain.Entities;
 using Domain.Shares.Classes;
+using Domain.Shares.Enums;
 
 namespace API.Helpers
 {
     public class Mapping
     {
         public const int MAXIMUM_WAITING_TIME = 60 * 8; 
-        public static List<List<BookingDTO>> GetMapping(List<BookingDTO> bookings, int k)
+        public static List<List<BookingDTO>> GetSharingMapping(List<BookingDTO> bookings, int k)
         {
             //sort by pick-up time
             bookings = bookings.OrderBy(booking => booking.Time).ToList();
@@ -145,6 +147,62 @@ namespace API.Helpers
                         index--;
                     }
                 }
+            }
+        }
+
+
+        public static Graph<Station> InitialGraph(List<RouteStation> routeStations)
+        {
+            var routeStationInGroups = 
+                routeStations
+                .Where(routeStation =>
+                routeStation.Index != 1 &&
+                routeStation.Status == StatusTypes.RouteStation.Active &&
+                routeStation.Station.Status == StatusTypes.Station.Active)
+                .Where(routeStation =>
+                    routeStations
+                    .Where(srcRouteStation =>
+                        srcRouteStation.StationId == routeStation.StationId)
+                    .Count() > 1)
+                .GroupBy(routeStation => routeStation.StationId)
+                .ToList();
+
+            var graph = new Graph<Station>();
+
+            routeStationInGroups.ForEach(_routeStations =>
+            {
+                VertexStation? prevVertex = null;
+                double prevDistance = 0;
+                foreach(var routeStation in _routeStations.OrderBy(_routeStation => _routeStation.Index))
+                {
+                    var vertex = new VertexStation { Value = routeStation.Station };
+                    graph.Add(vertex);
+                    if(prevVertex != null)
+                    {
+                        graph.AddEdge(prevVertex, vertex, routeStation.DistanceFromFirstStationInRoute - prevDistance);
+                    }
+                    else
+                    {
+                        prevDistance = routeStation.DistanceFromFirstStationInRoute;
+                    }
+
+                    prevVertex = vertex;
+                }
+            });
+
+            return graph;
+        }
+        class VertexStation : Vertex<Station>
+        {
+            public override bool Equals(object obj)
+            {
+                 obj = ((Vertex<Station>)obj).Value;
+                return this.Value.Longitude == ((Station)obj).Longitude && this.Value.Latitude == ((Station)obj).Latitude;
+            }
+
+            public override int GetHashCode()
+            {
+                return $"{this.Value.Longitude},{this.Value.Latitude}".GetHashCode();
             }
         }
     }

@@ -15,7 +15,7 @@ namespace API.Controllers.V1
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    [CustomAuthorize]
+    [Authorize]
     [ApiVersion("1.0")]
     public class TestsController : BaseController<TestsController>
     {

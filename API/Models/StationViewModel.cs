@@ -19,4 +19,10 @@ namespace API.Models
         public string Address { get; set; } = string.Empty;
         public StatusTypes.Station Status { get; set; } = StatusTypes.Station.Active;
     }
+
+    public class StationInRouteViewModel : StationViewModel
+    {
+        public double DistanceFromFirstStationInRoute { get; set; }
+        public int Index { get; set; }
+    }
 }

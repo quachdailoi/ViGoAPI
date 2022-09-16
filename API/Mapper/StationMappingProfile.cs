@@ -12,6 +12,17 @@ namespace API.Mapper
         {
             CreateMap<Station, StationViewModel>();
 
+            CreateMap<Station, StationInRouteViewModel>()
+                .ForMember(
+                    dest => dest.Index,
+                    opt => opt.MapFrom(
+                        src => src.RouteStations.First().Index))
+                .ForMember(
+                    dest => dest.DistanceFromFirstStationInRoute,
+                    opt => opt.MapFrom(
+                        src => src.RouteStations.First().DistanceFromFirstStationInRoute))
+                .IncludeBase<Station, StationViewModel>();
+
             CreateMap<StationDTO, Station>();
 
             CreateMap<CreateStationRequest, StationDTO>()

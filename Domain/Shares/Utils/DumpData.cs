@@ -1529,16 +1529,29 @@ namespace Domain.Shares.Utils
 
                 var stationsId = route.Steps.Select(step => step.StationId).Where(stationId => stationId != null).ToList();
 
-                for (int stationIndex = 0; stationIndex < stationsId.Count; stationIndex++)
+                double DistanceFromFirstStationInRoute = 0;
+                int stationIndex = 0;
+
+                route.Steps.ForEach(step =>
                 {
-                    routeStations.Add(new RouteStation
+                    if(step.StationId.HasValue)
                     {
-                        Id = routeStations.Count() + 1,
-                        Index = stationIndex,
-                        StationId = (int)stationsId[stationIndex],
-                        RouteId = route.Id
-                    });
-                }
+                        routeStations.Add(new RouteStation
+                        {
+                            Id = routeStations.Count() + 1,
+                            Index = stationIndex,
+                            DistanceFromFirstStationInRoute = DistanceFromFirstStationInRoute,
+                            StationId = (int)step.StationId,
+                            RouteId = route.Id
+                        });
+                        stationIndex = 0;
+                    }
+                    else
+                    {
+                        DistanceFromFirstStationInRoute += step.Distance;
+                        stationIndex++;
+                    }
+                });
             }
 
             return routeStations;
