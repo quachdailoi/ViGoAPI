@@ -26,7 +26,7 @@ namespace API.Services
             _promotionService = promotionService;
         }
 
-        public async Task<Response> Create(BookingDTO dto, Response successResponse, Response duplicateResponse, Response errorReponse)
+        public async Task<Response> Create(BookingDTO dto, Response successResponse, Response duplicateResponse, Response invalidResponse, Response errorReponse)
         {
             var booking = _mapper.Map<BookingDTO, Booking>(dto);
 
@@ -41,30 +41,41 @@ namespace API.Services
 
             // end of fake data
 
+            // generate booking detail by booking schedule
+            booking.BookingDetails = _bookingDetailService.GenerateBookingDetail(booking);
+
             if (!String.IsNullOrEmpty(dto.PromotionCode))
             {
-                var promotion = await _promotionService.GetByCode(dto.PromotionCode);
+                var promotion = await _promotionService.GetAvailablePromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count);
+
+                if (promotion == null) return invalidResponse;
 
                 booking.PromotionId = promotion.Id;
             }
 
-            // generate booking detail by booking schedule
-            booking.BookingDetails = _bookingDetailService.GenerateBookingDetail(booking);
+            
 
             // filter in database
-            var duplicateBookings = await _unitOfWork.Bookings.List(e => !(e.Time.ToTimeSpan().TotalSeconds + e.Duration < booking.Time.ToTimeSpan().TotalSeconds || 
-                                                                           e.Time.ToTimeSpan().TotalSeconds > booking.Time.ToTimeSpan().TotalSeconds + booking.Duration) &&
-                                                                           e.UserId == booking.UserId && !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
-                                                              .Include(e => e.BookingDetails)
-                                                              .ToListAsync();
+            var duplicateBookings = 
+                await _unitOfWork.Bookings
+                .List(e => 
+                    !(e.Time.ToTimeSpan().TotalSeconds + e.Duration < booking.Time.ToTimeSpan().TotalSeconds || 
+                    e.Time.ToTimeSpan().TotalSeconds > booking.Time.ToTimeSpan().TotalSeconds + booking.Duration) &&
+                    e.UserId == booking.UserId && !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
+                .Include(e => e.BookingDetails)
+                .ToListAsync();
 
             // filter in server
             if (duplicateBookings.Any())
             {
-                var bookingDetailDateHashSet = duplicateBookings.Select(b => b.BookingDetails.Select(_b => _b.Date))
-                                                               .Aggregate((current, next) => current.Union(next))
-                                                               .ToHashSet();
-                var insertedBookingDetailDateHashSet = booking.BookingDetails.Select(b => b.Date).ToHashSet();
+                var bookingDetailDateHashSet = 
+                    duplicateBookings
+                    .Select(b => b.BookingDetails.Select(_b => _b.Date))
+                    .Aggregate((current, next) => current.Union(next))
+                    .ToHashSet();
+
+                var insertedBookingDetailDateHashSet = 
+                    booking.BookingDetails.Select(b => b.Date).ToHashSet();
 
                 insertedBookingDetailDateHashSet.IntersectWith(bookingDetailDateHashSet);
 
@@ -74,7 +85,11 @@ namespace API.Services
 
             booking = await _unitOfWork.Bookings.Add(booking);
 
-            var bookingViewModel = await _unitOfWork.Bookings.List(booking => booking.Id == booking.Id).MapTo<BookerBookingViewModel>(_mapper).FirstOrDefaultAsync();
+            var bookingViewModel = 
+                await _unitOfWork.Bookings
+                    .List(booking => booking.Id == booking.Id)
+                    .MapTo<BookerBookingViewModel>(_mapper)
+                    .FirstOrDefaultAsync();
 
             if (bookingViewModel == null) return errorReponse;
 
@@ -84,21 +99,15 @@ namespace API.Services
         }
         public async Task<List<Booking>> GetAll()
         {
-            var booking = await _unitOfWork.Bookings.List(booking => EF.Functions.JsonContains(booking.Days.DaysOfMonth, "4")).FirstOrDefaultAsync();
-
-            var result = await _unitOfWork.BookingDetails.List(bookingDetail => bookingDetail.Booking.Status == StatusTypes.Booking.Started)
-                                                                     .Where(bookingDetail =>
-                                                                                    booking.BookingDetails.Any(b =>
-                                                                                                        (b.Booking.Time.ToTimeSpan().TotalSeconds + b.Booking.Duration) < booking.Time.ToTimeSpan().TotalSeconds ||
-                                                                                                        b.Booking.Time.ToTimeSpan().TotalSeconds > booking.Time.ToTimeSpan().TotalSeconds + booking.Duration))
-                                                                     .Select(bookingDetail => bookingDetail.Date)
-                                                                     .Where(date => booking.BookingDetails.Select(bookingDetail => bookingDetail.Date).Contains(date))
-                                                                     .ToListAsync();
             return new();
         }
         public async Task<Response> GetAll(int userId, Response successReponse)
         {
-            var bookingViewModels = await _unitOfWork.Bookings.List(booking => booking.UserId == userId).MapTo<BookerBookingViewModel>(_mapper).ToListAsync();
+            var bookingViewModels = 
+                await _unitOfWork.Bookings
+                    .List(booking => booking.UserId == userId)
+                    .MapTo<BookerBookingViewModel>(_mapper)
+                    .ToListAsync();
 
 
             return successReponse.SetData(bookingViewModels);

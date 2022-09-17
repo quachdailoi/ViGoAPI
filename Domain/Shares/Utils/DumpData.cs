@@ -1539,19 +1539,21 @@ namespace Domain.Shares.Utils
                         routeStations.Add(new RouteStation
                         {
                             Id = routeStations.Count() + 1,
-                            Index = stationIndex,
+                            Index = stationIndex++,
                             DistanceFromFirstStationInRoute = DistanceFromFirstStationInRoute,
                             StationId = (int)step.StationId,
                             RouteId = route.Id
                         });
-                        stationIndex = 0;
                     }
                     else
                     {
-                        DistanceFromFirstStationInRoute += step.Distance;
-                        stationIndex++;
+                        //DistanceFromFirstStationInRoute += step.Distance;
+                        //stationIndex++;
                     }
+                    DistanceFromFirstStationInRoute += step.Distance;
                 });
+
+                routeStations.Last().Index = -1;
             }
 
             return routeStations;

@@ -18,5 +18,16 @@ namespace Domain.Entities
         public StatusTypes.Station Status { get; set; } = StatusTypes.Station.Active;
 
         public List<RouteStation> RouteStations { get; set; } = new();
+
+        public override bool Equals(object? obj)
+        {
+            var _obj = obj as Station;
+            return this.Longitude == _obj.Longitude && this.Latitude == _obj.Latitude;
+        }
+
+        public override int GetHashCode()
+        {
+            return $"{this.Longitude},{this.Latitude}".GetHashCode();
+        }
     }
 }

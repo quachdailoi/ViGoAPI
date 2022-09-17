@@ -14,8 +14,8 @@ namespace API.Controllers.V1
         /// </summary>
         /// <response code="200">Get routes successfully</response>
         /// <response code="500">Fail to get routes</response>
-        [HttpGet("route")]
-        //[Authorize(Roles = "DRIVER,ADMIN")]
+        [HttpGet]
+        [Authorize(Roles = "DRIVER,ADMIN")]
         public async Task<IActionResult> GetRoutes()
         {
             var response = await AppServices.Route.GetAll(

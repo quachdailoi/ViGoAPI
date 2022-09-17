@@ -8,6 +8,6 @@ namespace API.Services.Constract
     {
         Task<Response> GetAvailablePromotion(int userId, Response successResponse, Response emptyResponse);
         Task<Response> GetAvailablePromotion(int userId, double? totalPrice, int? totalTickets, Response successResponse, Response emptyResponse);
-        Task<Promotion?> GetByCode(string code);
+        Task<Promotion?> GetAvailablePromotionByCode(string code, int userId, double totalPrice, int totalTickets);
     }
 }

@@ -41,7 +41,11 @@ namespace API.Services
 
         public async Task<Response> GetByType(int userId, MessageRoomTypes type, Response successResponse)
         {
-            var rooms = _unitOfWork.Rooms.List(room => room.UserRooms.Exists(userRoom => userRoom.UserId == userId) && room.Type == type);
+            var rooms = 
+                _unitOfWork.Rooms
+                    .List(room => room.UserRooms
+                        .Exists(userRoom => userRoom.UserId == userId) && 
+                        room.Type == type);
 
             var roomViewModels = await rooms.MapTo<MessageRoomViewModel>(_mapper).ToListAsync();
 
@@ -134,21 +138,26 @@ namespace API.Services
 
         public async Task<Response> GetAll(int userId, Response successResponse)
         {
-            var rooms = await _unitOfWork.Rooms.List(room => room.UserRooms
-                                                            .Select(userRoom => userRoom.UserId).Contains(userId) && 
-                                                            room.Status == StatusTypes.Room.Active)
-                                                    .MapTo<MessageRoomViewModel>(_mapper)
-                                                    .ToListAsync();
+            var rooms = 
+                await _unitOfWork.Rooms
+                    .List(room => room.UserRooms
+                            .Select(userRoom => userRoom.UserId)
+                            .Contains(userId) && 
+                             room.Status == StatusTypes.Room.Active)
+                    .MapTo<MessageRoomViewModel>(_mapper)
+                    .ToListAsync();
 
              return successResponse.SetData(rooms);
         }
 
         public async Task<Room?> GetRoomByCode(Guid roomCode)
         {
-            return await _unitOfWork.Rooms.List(room => room.Code == roomCode && room.Status == StatusTypes.Room.Active)
-                                              .Include(room => room.UserRooms)
-                                              .ThenInclude(userRoom => userRoom.User)
-                                              .FirstOrDefaultAsync();
+            return 
+                await _unitOfWork.Rooms
+                    .List(room => room.Code == roomCode && room.Status == StatusTypes.Room.Active)                                              
+                    .Include(room => room.UserRooms)                                              
+                    .ThenInclude(userRoom => userRoom.User)                                              
+                    .FirstOrDefaultAsync();
         }
     }
 }

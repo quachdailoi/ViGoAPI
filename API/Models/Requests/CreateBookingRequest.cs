@@ -5,8 +5,9 @@ namespace API.Models.Requests
 {
     public class CreateBookingRequest
     {
-        //public double TotalPrice { get; set; }
-        //public double DiscountPrice { get; set; }
+        public double TotalPrice { get; set; }
+        public double DiscountPrice { get; set; }
+        public VehicleTypes VehicleType { get; set; } = VehicleTypes._4_SEAT_CAR;
         public string Time { get; set; }
         //public TimeOnly Time { get; set; }
         public int Option { get; set; }
@@ -15,9 +16,9 @@ namespace API.Models.Requests
         public bool IsShared { get; set; }
         public Location StartPoint { get; set; } = new();
         public Location EndPoint { get; set; } = new();
-        //public double Duration { get; set; }
-        //public double Distance { get; set; }
-        //public List<Step> Steps { get; set; } = new();
+        public double Duration { get; set; }
+        public double Distance { get; set; }
+        public List<Step> Steps { get; set; } = new();
 
         public string StartAt { get; set; }
         public string EndAt { get; set; }

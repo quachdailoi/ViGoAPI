@@ -57,6 +57,7 @@ namespace API.Services
                        into joined
                        from up in joined.DefaultIfEmpty()
                        where up == null || (condition.UsagePerUser > up.Used && (up.ExpiredTime == null || up.ExpiredTime > DateTimeOffset.Now))
+                       
                        select new PromotionViewModel
                        {
                            Code = condition.Promotion.Code,
@@ -67,6 +68,25 @@ namespace API.Services
                            Available = CheckBookingAvailable(condition, totalPrice, totalTickets)
                        }).ToListAsync();
 
+            return availablePromotions;
+        }
+
+        private IQueryable<Promotion> GetAvailableBookingPromotion(int userId)
+        {
+            var userPromotions = _unitOfWork.PromotionUsers.GetUsedPromotion(userId);
+
+            var promotionConditions =
+                ValidateCondition(_unitOfWork.Promotions.GetAll().Select(x => x.PromotionCondition));
+
+            var availablePromotions =
+                    (from condition in promotionConditions
+                     join userPromotion in userPromotions
+                      on condition.PromotionId equals userPromotion.PromotionId
+                      into joined
+                     from up in joined.DefaultIfEmpty()
+                     where up == null || (condition.UsagePerUser > up.Used && (up.ExpiredTime == null || up.ExpiredTime > DateTimeOffset.Now))
+                     select condition.Promotion
+                     );
             return availablePromotions;
         }
 
@@ -96,9 +116,16 @@ namespace API.Services
             return rightCondition;
         }
 
-        public Task<Promotion?> GetByCode(string code)
+        public async Task<Promotion?> GetAvailablePromotionByCode(string code, int userId, double totalPrice, int totalTickets)
         {
-            return _unitOfWork.Promotions.List(promotion => promotion.Code == code).FirstOrDefaultAsync();
+            var promotion = 
+                await GetAvailableBookingPromotion(userId)
+                .Where(promotion => 
+                    promotion.Code == code &&
+                    CheckBookingAvailable(promotion.PromotionCondition,totalPrice,totalTickets))
+                 .FirstOrDefaultAsync();
+
+            return promotion;
         }
     }
 }

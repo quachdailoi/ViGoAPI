@@ -9,13 +9,14 @@ namespace API.Models
     { 
         //public Location StartPoint { get; set; } = new();
         //public Location EndPoint { get; set; } = new();
+        public int Id { get; set; }
         public List<Step> Steps { get; set; } = new();
         public double Distance { get; set; }
         public double Duration { get; set; }
         public Bound Bound { get; set; } = new();
         public StatusTypes.Route Status { get; set; } = StatusTypes.Route.Active;
 
-        public List<StationViewModel> Stations = new();
+        public List<StationInRouteViewModel> Stations = new();
     }
 
     public class StepViewModel

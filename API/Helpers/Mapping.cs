@@ -155,55 +155,36 @@ namespace API.Helpers
         {
             var routeStationInGroups = 
                 routeStations
-                .Where(routeStation =>
-                routeStation.Index != 1 &&
-                routeStation.Status == StatusTypes.RouteStation.Active &&
-                routeStation.Station.Status == StatusTypes.Station.Active)
-                .Where(routeStation =>
-                    routeStations
-                    .Where(srcRouteStation =>
-                        srcRouteStation.StationId == routeStation.StationId)
-                    .Count() > 1)
-                .GroupBy(routeStation => routeStation.StationId)
+                .GroupBy(routeStation => routeStation.RouteId)
+                .Where(group => group.Key > 1 || group.ElementAt(0).Index == 0 || group.ElementAt(0).Index == -1)
                 .ToList();
 
             var graph = new Graph<Station>();
 
             routeStationInGroups.ForEach(_routeStations =>
             {
-                VertexStation? prevVertex = null;
+                Station prevStation = null;
+
                 double prevDistance = 0;
+
                 foreach(var routeStation in _routeStations.OrderBy(_routeStation => _routeStation.Index))
                 {
-                    var vertex = new VertexStation { Value = routeStation.Station };
-                    graph.Add(vertex);
-                    if(prevVertex != null)
+                    var station = routeStation.Station;
+                    graph.Add(station);
+                    if(prevStation != null)
                     {
-                        graph.AddEdge(prevVertex, vertex, routeStation.DistanceFromFirstStationInRoute - prevDistance);
+                        graph.AddEdge(prevStation, station, routeStation.DistanceFromFirstStationInRoute - prevDistance, true, routeStation.RouteId);
                     }
                     else
                     {
                         prevDistance = routeStation.DistanceFromFirstStationInRoute;
                     }
 
-                    prevVertex = vertex;
+                    prevStation = station;
                 }
             });
 
             return graph;
-        }
-        class VertexStation : Vertex<Station>
-        {
-            public override bool Equals(object obj)
-            {
-                 obj = ((Vertex<Station>)obj).Value;
-                return this.Value.Longitude == ((Station)obj).Longitude && this.Value.Latitude == ((Station)obj).Latitude;
-            }
-
-            public override int GetHashCode()
-            {
-                return $"{this.Value.Longitude},{this.Value.Latitude}".GetHashCode();
-            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using API.Models.DTO;
 using API.Models.Requests;
+using API.Models.Response;
 using AutoMapper;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -89,6 +90,11 @@ namespace API.Controllers.V1
                                                         Message = "Your booking conflicts about the time schedule with your other bookings.",
                                                         StatusCode = StatusCodes.Status400BadRequest
                                                     },
+                                                    invalidResponse: new()
+                                                    {
+                                                        Message = "Your promotion is invalid.",
+                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                    },
                                                     errorReponse: new()
                                                     {
                                                         Message = "Fail to create booking.",
@@ -148,7 +154,63 @@ namespace API.Controllers.V1
         [HttpGet("booking/route-fee")]
         public async Task<IActionResult> GetRouteAndFee([FromQuery] GetRouteFeeRequest request)
         {
-            return Ok("not support");
+            var stations = await AppServices.Station.GetByCode(new List<Guid> { request.StartStationCode, request.EndStationCode });
+
+            if(stations == null || stations.Count() != 2)
+            {
+                return ApiResult(new Response
+                {
+                    Message = "These stations are not exist",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+            }
+
+            var startStation = stations.Where(station => station.Code == request.StartStationCode).First();
+
+            var endStation = stations.Where(station => station.Code == request.StartStationCode).First();
+
+            var response =
+                await AppServices.Route.GetRouteByPairOfStation(
+                    startStation.Id,
+                    endStation.Id,
+                    successResponse: new()
+                    {
+                        Message = "Get route successfully",
+                        StatusCode= StatusCodes.Status200OK
+                    });
+
+            return ApiResult(response);
+        }
+
+        [HttpGet("booking/route-fee/multiple-routes")]
+        public async Task<IActionResult> GetRoutesAndFee([FromQuery] GetRouteFeeRequest request)
+        {
+            var stations = await AppServices.Station.GetByCode(new List<Guid> { request.StartStationCode, request.EndStationCode });
+
+            if (stations == null || stations.Count() != 2)
+            {
+                return ApiResult(new Response
+                {
+                    Message = "These stations are not exist",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+            }
+
+            var startStation = stations.Where(station => station.Code == request.StartStationCode).First();
+
+            var endStation = stations.Where(station => station.Code == request.StartStationCode).First();
+
+            var response =
+                await AppServices.Route.GetRouteByPairOfStation(
+                    startStation.Id,
+                    endStation.Id,
+                    successResponse: new()
+                    {
+                        Message = "Get routes successfully",
+                        StatusCode = StatusCodes.Status200OK
+                    });
+
+            return ApiResult(response);
         }
     }
 }
