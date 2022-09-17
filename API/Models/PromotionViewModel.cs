@@ -10,5 +10,7 @@ namespace API.Models
         public string Details { get; set; } = string.Empty;
         public string? FilePath { get; set; } = string.Empty;
         public bool Available { get; set; } = true;
+        public DateTimeOffset? ValidFrom { get; set; } = null;
+        public DateTimeOffset? ValidUntil { get; set; } = null;
     }
 }

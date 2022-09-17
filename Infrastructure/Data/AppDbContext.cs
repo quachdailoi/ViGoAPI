@@ -42,6 +42,8 @@ namespace Infrastructure.Data
             new PromotionConditionSeeder(builder);
 
             new PromotionUserSeeder(builder);
+
+            new StationSeeder(builder);
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)
