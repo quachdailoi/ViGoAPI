@@ -21,7 +21,7 @@ namespace API.Services
 
         public async Task<Response> GetNearByStationsByCoordinates(CoordinatesDTO coordinates, Response success, Response failed)
         {
-            try
+            
             {
                 var distanceStations = GetNearByStationsBy2DFormula(coordinates);
 
@@ -29,11 +29,7 @@ namespace API.Services
 
                 return success.SetData(sortedDistanceStations);
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                return failed;
-            }
+            
         }
 
         public List<DistanceStationDTO> GetNearByStationsBy2DFormula(CoordinatesDTO coordinates)
