@@ -23,7 +23,7 @@ namespace API.Controllers.V1
                     failed: new()
                     {
                         StatusCode = StatusCodes.Status500InternalServerError,
-                        Message = "Loead nearby station failed."
+                        Message = "Load nearby station failed."
                     }
                 );
 
