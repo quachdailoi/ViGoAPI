@@ -17,7 +17,7 @@ namespace API.Controllers
         private IHttpContextAccessor? _httpContextAccessor;
         private IConfiguration? _config;
 
-        protected ILogger<T>? Logger => _logger ?? (_logger = HttpContext.RequestServices.GetService<ILogger<T>>());
+        protected ILogger<T> Logger => _logger ?? (_logger = HttpContext.RequestServices.GetRequiredService<ILogger<T>>());
         protected IAppServices AppServices => _appServices ?? (_appServices = HttpContext.RequestServices.GetRequiredService<IAppServices>());
         protected IHttpContextAccessor HttpContextAccessor => _httpContextAccessor ?? (_httpContextAccessor = HttpContext.RequestServices.GetRequiredService<IHttpContextAccessor>());
         protected IConfiguration Configuration => _config ?? (_config = HttpContext.RequestServices.GetRequiredService<IConfiguration>());

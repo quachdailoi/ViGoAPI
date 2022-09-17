@@ -18,6 +18,10 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.ToTable("stations");
 
+            builder.Property(e => e.Code)
+                .IsRequired()
+                .HasColumnName("code");
+
             builder.Property(e => e.Latitude)
                 .IsRequired()
                 .HasColumnName("latitude");
@@ -27,11 +31,18 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("longitude");
 
             builder.Property(e => e.Name)
-                .HasMaxLength(30)
+                .HasMaxLength(256)
                 .HasColumnName("name");
+
+            builder.Property(e => e.Address)
+                .HasMaxLength(256)
+                .HasColumnName("address");
 
             builder.Property(e => e.Status)
                 .HasColumnName("status");
+
+            builder.HasIndex(e => e.Code)
+                .IsUnique();
         }
     }
 }

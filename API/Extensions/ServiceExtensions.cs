@@ -118,6 +118,7 @@ namespace API.Extensions
             services.AddTransient<IRouteService, RouteService>();
             services.AddTransient<IStationService, StationService>();
             services.AddTransient<IRouteStationService, RouteStationService>();
+            services.AddTransient<ITrueWayMatrixApiService, TrueWayMatrixApiService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)

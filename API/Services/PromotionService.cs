@@ -67,7 +67,9 @@ namespace API.Services
                            Name = validPromotion.Name,
                            Quantity = (validPromotion.PromotionCondition.UsagePerUser - (up != null ? up.Used : 0)) ?? 0,
                            FilePath = _fileService.GetPresignedUrl(validPromotion.File),
-                           Available = CheckBookingAvailable(validPromotion.PromotionCondition, totalPrice, totalTickets, paymentMethods, vehicleTypes)
+                           Available = CheckBookingAvailable(validPromotion.PromotionCondition, totalPrice, totalTickets, paymentMethods, vehicleTypes),
+                           ValidFrom = validPromotion.PromotionCondition.ValidFrom,
+                           ValidUntil = validPromotion.PromotionCondition.ValidUntil,
                        }).ToListAsync();
 
             return availablePromotions;

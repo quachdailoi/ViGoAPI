@@ -26,6 +26,7 @@ var _config = builder.Configuration;
 // Config log
 var logger = new LoggerConfiguration()
     .ReadFrom.Configuration(_config)
+    .WriteTo.Console()
     .Enrich.FromLogContext()
     .CreateLogger();
 
@@ -49,6 +50,7 @@ services.AddControllers(option =>
     options.JsonSerializerOptions.PropertyNamingPolicy = null;
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.JsonSerializerOptions.AddJsonConverters();
+    options.JsonSerializerOptions.Converters.Add(new NetTopologySuite.IO.Converters.GeoJsonConverterFactory());
 });
 
 //services.AddFluentValidationAutoValidation();

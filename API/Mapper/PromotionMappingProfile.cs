@@ -15,6 +15,14 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.FilePath,
                     opt => opt.MapFrom(promotion => promotion.File == null ? null : _fileService.GetPresignedUrl(promotion.File.Path))
+                )
+                .ForMember(
+                    dest => dest.ValidFrom,
+                    otp => otp.MapFrom(promotion => promotion.PromotionCondition.ValidFrom)
+                )
+                .ForMember(
+                    dest => dest.ValidUntil,
+                    otp => otp.MapFrom(promotion => promotion.PromotionCondition.ValidUntil)
                 );
         }
     }
