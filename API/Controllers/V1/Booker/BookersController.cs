@@ -495,8 +495,8 @@ namespace API.Controllers.V1.Booker
         [HttpPut("information")]
         public async Task<IActionResult> UpdateInformation([FromForm] UpdateBookerInfoRequest request)
         {
-            Logger.Log(LogLevel.Information, "---> Update with file: " + request.Avatar?.FileName);
-            Logger.Log(LogLevel.Information, "---> Size: " + request.Avatar.Length + " bytes");
+            Logger.Log(LogLevel.Information, "---> Update with file: " + request.Avatar?.FileName ?? "null");
+            Logger.Log(LogLevel.Information, "---> Size: " + request.Avatar?.Length ?? 0 + " bytes");
             request.OtpTypes = OtpTypes.VerificationOTP;
 
             var genericRequest = request.ToGeneric();
