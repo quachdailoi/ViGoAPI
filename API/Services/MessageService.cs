@@ -26,25 +26,23 @@ namespace API.Services
             _signalRService = signalRService;
             _userRoomService = userRoomService;
         }
-        public async Task<Response> Create(string content, Guid roomCode, int userId, Response successResponse, Response errorResponse)
+        public async Task<Response> Create(string content, Guid roomCode, UserViewModel user, Response successResponse, Response errorResponse)
         {
             var room = await _roomService.GetViewModelByCode(roomCode);
 
             var message = new Message
             {
                 RoomId = room.Id,
-                UserId = userId,
+                UserId = user.Id,
                 Content = content
             };
 
             await _unitOfWork.CreateTransactionAsync(); //open transaction
 
-            message = await _unitOfWork.Messages.Add(message);
-
             //update Last seen time
-            var result = await _userRoomService.UpdateLastSeenTime(userId, roomCode, DateTimeOffset.Now);
+            var result = await _userRoomService.UpdateLastSeenTime(user.Id, roomCode, DateTimeOffset.Now);
 
-            if(message == null || !result)
+            if((await _unitOfWork.Messages.Add(message)) == null || !result)
             {
                 await _unitOfWork.Rollback(); //roll back
                 return errorResponse;
@@ -52,8 +50,7 @@ namespace API.Services
 
             await _unitOfWork.CommitAsync();// commit
 
-
-            if (message == null) return errorResponse;
+            message.User = new User { Code = user.Code };
 
             var messageViewModel = GetViewModel(message);
 
@@ -73,7 +70,7 @@ namespace API.Services
 
         public MessageViewModel GetViewModel(Message message)
         {
-            return _unitOfWork.Messages.List(msg => msg.Id == message.Id).MapTo<MessageViewModel>(_mapper).FirstOrDefault();
+            return _mapper.Map<MessageViewModel>(message);
         }
     }
 }

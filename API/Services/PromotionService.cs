@@ -123,5 +123,32 @@ namespace API.Services
 
             return successResponse.SetData(bannerPromotions);
         }
+
+        public async Task<Promotion?> GetPromotionByCode(string code, int userId, double totalPrice, int totalTickets)
+        {
+            var userPromotions = _unitOfWork.PromotionUsers.GetUsedPromotion(userId);
+
+            var promotionConditions =
+                ValidateCondition(_unitOfWork.Promotions.GetAll().Select(x => x.PromotionCondition));
+
+            var promotions = _unitOfWork.Promotions.List(promotion => promotion.Code == code);
+
+            var result =
+               await (from condition in promotionConditions
+                     join userPromotion in userPromotions
+                        on condition.PromotionId equals userPromotion.PromotionId
+                        into joined
+                     from up in joined.DefaultIfEmpty()
+                     where up == null || (condition.UsagePerUser > up.Used && (up.ExpiredTime == null || up.ExpiredTime > DateTimeOffset.Now))
+                     join _promotion in promotions
+                        on condition.PromotionId equals _promotion.Id
+                        into _joined
+                     from _up in _joined.DefaultIfEmpty()
+                     select new {Promotion = _up, IsBookingAvailable = CheckBookingAvailable(condition, totalPrice, totalTickets)}
+                     ).FirstOrDefaultAsync();
+
+
+            return result != null && result.IsBookingAvailable ? result.Promotion : null;
+        }
     }
 }

@@ -13,6 +13,7 @@ namespace Domain.Entities
         public int RouteId { get; set; }
         public int StationId { get; set; }
         public int Index { get; set; }
+        public double DistanceFromFirstStationInRoute { get; set; }
         public StatusTypes.RouteStation Status { get; set; } = StatusTypes.RouteStation.Active;
 
         public Route Route { get; set; }

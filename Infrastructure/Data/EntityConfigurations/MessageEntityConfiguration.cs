@@ -43,6 +43,9 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.HasOne(e => e.User)
                 .WithMany(u => u.Messages)
                 .HasForeignKey(e => e.UserId);
+
+            builder.HasIndex(e => e.RoomId)
+                .HasMethod("hash");
         }
     }
 }
