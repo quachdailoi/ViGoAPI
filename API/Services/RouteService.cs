@@ -165,17 +165,21 @@ namespace API.Services
             return routeViewModels;
         }
 
-        public async Task<Response> GetRouteByPairOfStation(int startStationId, int endStationId, Response successResponse)
+        public async Task<Response> GetRouteByPairOfStation(int startStationId, int endStationId, VehicleTypes vehicleType, Response successResponse, Response notFoundResponse)
         {
             var route =
                await _unitOfWork.Routes
-               .List(
-                       route => route.RouteStations
-                           .Select(routeStation => routeStation.StationId)
-                           .Intersect(new List<int> { startStationId, endStationId })
-                           .Count() == 2)
+               .List(route => 
+                        route.RouteStations
+                        .Select(routeStation =>
+                            routeStation.StationId)
+                        .Where(stationId => 
+                            stationId == startStationId || stationId == endStationId)
+                        .Count() == 2)
                .MapTo<RouteViewModel>(_mapper)
                .FirstOrDefaultAsync();
+
+            if(route == null) return notFoundResponse;
 
             List<Step> steps = new();
 
@@ -183,18 +187,36 @@ namespace API.Services
 
             double totalDuration = 0;
 
-            for(var index = 0; index < route.Steps.Count; index++)
+            bool foundStartStationInStep = false;
+            bool foundEndStationInStep = false;
+            while (!foundEndStationInStep)
             {
-                var step = route.Steps[index];
-                var stationId = step.StationId;
-
-                if (!stationId.HasValue || stationId.Value != endStationId)
+                foreach(var step in route.Steps)
                 {
-                    steps.Add(step);
-                    totalDistance += step.Distance;
-                    totalDuration += step.Duration;
+                    var stationId = step.StationId;
+
+                    if (!foundStartStationInStep)
+                    {
+                        if (stationId.HasValue && stationId.Value == startStationId)
+                        {
+                            steps.Add(step);
+                            totalDistance += step.Distance;
+                            totalDuration += step.Duration;
+                            foundStartStationInStep = true;
+                        }
+                    }
+                    else
+                    {
+                        if (!stationId.HasValue || stationId.Value != endStationId)
+                        {
+                            steps.Add(step);
+                            totalDistance += step.Distance;
+                            totalDuration += step.Duration;
+                            foundEndStationInStep = true;
+                        }
+                        else break;
+                    }
                 }
-                else break;
             }
 
             route.Steps = steps;

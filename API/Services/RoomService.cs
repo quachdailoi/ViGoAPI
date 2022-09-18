@@ -131,6 +131,8 @@ namespace API.Services
         {
             var room = _unitOfWork.Rooms.List(room => room.Code == roomCode).FirstOrDefault();
 
+            if (room == null) return null;
+
             room.Status = StatusTypes.Room.InActive;
 
             return await _unitOfWork.Rooms.Update(room) ? room : null;

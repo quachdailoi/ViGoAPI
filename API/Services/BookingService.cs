@@ -30,30 +30,23 @@ namespace API.Services
         {
             var booking = _mapper.Map<BookingDTO, Booking>(dto);
 
-            // fake data
-
-            Random random = new Random();
-
-            booking.TotalPrice =  100000 + random.NextDouble() * 150000.0;
-            booking.DiscountPrice = 10000 + random.NextDouble() * 15000.0;
-            booking.Distance = random.Next(3000, 10000);
-            booking.Duration = booking.Distance / 12;
-
-            // end of fake data
-
             // generate booking detail by booking schedule
             booking.BookingDetails = _bookingDetailService.GenerateBookingDetail(booking);
 
             if (!String.IsNullOrEmpty(dto.PromotionCode))
             {
-                var promotion = await _promotionService.GetAvailablePromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count);
+                var promotion = await _promotionService.GetPromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count);
 
                 if (promotion == null) return invalidResponse;
 
+                // get discount price by promotion
+                var discountPriceByPercentage = booking.TotalPrice * (1 - promotion.DiscountPercentage);
+
+                // compare with promotion max descrease
+                booking.DiscountPrice = discountPriceByPercentage < promotion.MaxDecrease ? discountPriceByPercentage : promotion.MaxDecrease;
+
                 booking.PromotionId = promotion.Id;
             }
-
-            
 
             // filter in database
             var duplicateBookings = 

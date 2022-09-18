@@ -8,10 +8,16 @@ namespace Domain.Shares.Enums
 {
     public class Bookings
     {
-        public enum Type{
+        public enum Types{
             Monthly,
             Weekly
         }
         
+        public enum Options
+        {
+            None,
+            IgnoreSunDay,
+            IgnoreSaturdayAndSunDay
+        }
     }
 }

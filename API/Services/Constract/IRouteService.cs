@@ -15,7 +15,7 @@ namespace API.Services.Constract
         Task<Response> GetAll(Response successResponse);
         Task<bool> IsExistData();
         Task<List<RouteViewModel>> GetRouteByListOfStations(Station startStation, List<Tuple<Station, double, object>> stepStations);
-        Task<Response> GetRouteByPairOfStation(int startStationId, int endStationId, Response successResponse);
-        Task<Response> GetStepsByPairOfStations(Station startStation, Station endStation, VehicleTypes vehicleType,Response successResposne);
+        Task<Response> GetRouteByPairOfStation(int startStationId, int endStationId, VehicleTypes vehicleType, Response successResponse, Response notFoundResponse);
+        Task<Response> GetStepsByPairOfStations(Station startStation, Station endStation, VehicleTypes vehicleType, Response successResponse);
     }
 }

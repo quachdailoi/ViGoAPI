@@ -10,12 +10,13 @@ namespace Domain.Entities
         public TimeOnly Time { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
-        public int Option { get; set; }
-        public Bookings.Type Type { get; set; }
+        public VehicleTypes VehicleType { get; set; } = VehicleTypes.MOTORCYCLE;
+        public Bookings.Options Option { get; set; }
+        public Bookings.Types Type { get; set; }
         public DaySchedule Days { get; set; } = new();
         public bool IsShared { get; set; }
-        public Location StartPoint { get; set; } = new();
-        public Location EndPoint { get; set; } = new();
+        public int StartStationId { get; set; } = new();
+        public int EndStationId { get; set; } = new();
         public List<Step> Steps { get; set; } = new();
         public double Duration { get; set; }
         public double Distance { get; set; }
@@ -27,6 +28,8 @@ namespace Domain.Entities
         public StatusTypes.Booking Status { get; set; } = StatusTypes.Booking.Started;
 
         public User User { get; set; }
+        public Station StartStation { get; set; }
+        public Station EndStation { get; set; }
         public List<BookingDetail> BookingDetails { get; set; } = new();
 
         //Promotion

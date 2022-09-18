@@ -12,7 +12,7 @@ namespace API.Services.Constract
         Task<Response> Create(List<Guid> userCodes, MessageRoomTypes type, Response successResponse, Response duplicateResponse, Response errorResponse, MessageDTO? initMessage = null);
         Task<Room?> Disable(Guid roomCode);
         Task<Room?> GetByCode(Guid roomCode);
-        Task<MessageRoomViewModel> GetViewModelByCode(Guid roomCode);
+        Task<MessageRoomViewModel?> GetViewModelByCode(Guid roomCode);
         Task<Room?> GetRoomByCode(Guid roomCode);
         Task<Response> GetViewModelByCode (int userId, Guid roomCode, Response successResponse);
         Response GetViewModelByMemberCode (List<Guid> memberCode, Response successResponse);

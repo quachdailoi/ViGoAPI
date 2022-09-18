@@ -1541,7 +1541,7 @@ namespace Domain.Shares.Utils
                             Id = routeStations.Count() + 1,
                             Index = stationIndex++,
                             DistanceFromFirstStationInRoute = DistanceFromFirstStationInRoute,
-                            StationId = (int)step.StationId,
+                            StationId = step.StationId.Value,
                             RouteId = route.Id
                         });
                     }

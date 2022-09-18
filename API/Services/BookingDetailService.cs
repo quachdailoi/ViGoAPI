@@ -23,7 +23,7 @@ namespace API.Services
         public List<BookingDetail> GenerateBookingDetail(Booking booking)
         {
             List<BookingDetail> bookingDetails = new();
-            if (booking.Type == Bookings.Type.Monthly)
+            if (booking.Type == Bookings.Types.Monthly)
             {
                 var daysOfMonthHashSet = booking.Days.DaysOfMonth.ToHashSet();
                 for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
@@ -39,6 +39,19 @@ namespace API.Services
                         //        isIgnoreDate = true;
                         //    }
                         //}
+
+                        //if(!isIgnoreDate)
+
+                        switch (booking.Option) 
+                        {
+                            case Bookings.Options.IgnoreSunDay: 
+                                isIgnoreDate = day.DayOfWeek == DayOfWeek.Sunday; 
+                                break;
+                            case Bookings.Options.IgnoreSaturdayAndSunDay: 
+                                isIgnoreDate = day.DayOfWeek == DayOfWeek.Saturday || day.DayOfWeek == DayOfWeek.Sunday; 
+                                break;
+                            default: break;
+                        }
 
                         if(!isIgnoreDate)
                             bookingDetails.Add(new BookingDetail

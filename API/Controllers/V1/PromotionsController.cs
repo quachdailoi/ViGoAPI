@@ -9,7 +9,7 @@ namespace API.Controllers.V1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    [CustomAuthorize("BOOKER")]
+    [Authorize("BOOKER")]
     public class PromotionsController : BaseController<PromotionsController>
     {
         public PromotionsController()
