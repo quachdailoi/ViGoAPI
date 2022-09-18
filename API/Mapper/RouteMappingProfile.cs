@@ -1,6 +1,4 @@
 ﻿using API.Extensions;
-using API.Mapper.Action;
-using API.Mapper.Resolver;
 using API.Models;
 using AutoMapper;
 using Domain.Shares.Classes;

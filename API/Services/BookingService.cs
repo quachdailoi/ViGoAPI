@@ -35,7 +35,7 @@ namespace API.Services
 
             if (!String.IsNullOrEmpty(dto.PromotionCode))
             {
-                var promotion = await _promotionService.GetPromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count);
+                var promotion = await _promotionService.GetPromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count, booking.PaymentMethod, booking.VehicleType);
 
                 if (promotion == null) return invalidResponse;
 
@@ -90,10 +90,7 @@ namespace API.Services
 
             return successResponse.SetData(bookingViewModel);
         }
-        public async Task<List<Booking>> GetAll()
-        {
-            return new();
-        }
+
         public async Task<Response> GetAll(int userId, Response successReponse)
         {
             var bookingViewModels = 

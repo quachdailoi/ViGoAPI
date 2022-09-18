@@ -13,7 +13,7 @@ namespace API.Models
         public TimeOnly Time { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
-        public VehicleTypes VehicleType { get; set; } = VehicleTypes.MOTORCYCLE;
+        public VehicleTypes VehicleType { get; set; } = VehicleTypes.ViRide;
         public int Option { get; set; }
         public Bookings.Types Type { get; set; }
         public bool IsShared { get; set; }
@@ -22,6 +22,7 @@ namespace API.Models
         public List<Step> Steps { get; set; } = new();
         public double Duration { get; set; }
         public double Distance { get; set; }
+        public PaymentMethods PaymentMethod { get; set }
 
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }

@@ -10,6 +10,6 @@ namespace API.Models.Requests
 
         public Guid StartStationCode { get; set; }
         public Guid EndStationCode { get; set; }
-        public VehicleTypes VehicleType { get; set; } = VehicleTypes.MOTORCYCLE;
+        public VehicleTypes VehicleType { get; set; } = VehicleTypes.ViRide;
     }
 }

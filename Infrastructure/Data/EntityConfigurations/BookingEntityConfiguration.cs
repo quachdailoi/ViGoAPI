@@ -65,6 +65,9 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.VehicleType)
                 .HasColumnName("vehicle_type");
 
+            builder.Property(e => e.PaymentMethod)
+                .HasColumnName("payment_method");
+
             builder.Property(e => e.Steps)
                 .HasColumnType("jsonb[]")
                 .HasColumnName("steps");

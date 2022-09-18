@@ -7,11 +7,12 @@ namespace API.Models.Requests
     {
         public double TotalPrice { get; set; }
         //public double DiscountPrice { get; set; }
-        public VehicleTypes VehicleType { get; set; } = VehicleTypes._4_SEAT_CAR;
+        public VehicleTypes VehicleType { get; set; } = VehicleTypes.ViRide;
         public string Time { get; set; }
         //public TimeOnly Time { get; set; }
         public Bookings.Options Option { get; set; } = Bookings.Options.None;
         public Bookings.Types Type { get; set; }
+        public PaymentMethods PaymentMethod { get; set; } = PaymentMethods.COD;
         public DaySchedule Days { get; set; } = new();
         public bool IsShared { get; set; }
         public Guid StartStationCode { get; set; } = new();

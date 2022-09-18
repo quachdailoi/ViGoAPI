@@ -100,7 +100,8 @@ namespace API.Controllers.V1
         /// </summary>
         /// /// <remarks>Get support message room</remarks>
         /// <response code="200">Get successfully</response>
-        /// <response code="500">Failure</response>
+        /// <response code="500">Failure</response> 
+        [Authorize(Roles = "BOOKER,DRIVER")]
         [HttpGet("support")]
         public async Task<IActionResult> GetSupportMessageRoom()
         {

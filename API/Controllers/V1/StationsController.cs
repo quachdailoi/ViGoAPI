@@ -4,7 +4,6 @@ using API.Models.Response;
 using AutoMapper;
 using Domain.Interfaces.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.V1
@@ -19,11 +18,30 @@ namespace API.Controllers.V1
         private readonly IMapper _mapper;
 
         public StationsController(IUnitOfWork unitOfWork, IMapper mapper)
-        [HttpGet("nearby")]
-        public async Task<IActionResult> GetStationNearby([FromQuery] CoordinatesDTO request)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+
+
+        [HttpGet("nearby")]
+        public async Task<IActionResult> GetStationNearby([FromQuery] CoordinatesDTO request)
+        {
+            var stationResponse =
+                await AppServices.Station.GetNearByStationsByCoordinates(
+                    request,
+                    success: new()
+                    {
+                        StatusCode = StatusCodes.Status200OK,
+                        Message = "Load nearby station successfully."
+                    },
+                    failed: new()
+                    {
+                        Message = "Load nearby station failed.",
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    }
+                    );
+            return ApiResult(stationResponse);
         }
 
         /// <summary>
@@ -55,12 +73,8 @@ namespace API.Controllers.V1
         /// </response>
         /// <response code="500">Failure</response>
         [HttpPost]
-        //[Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> Create([FromBody] List<CreateStationRequest> request)
-            var stationResponse = 
-                await AppServices.Station.GetNearByStationsByCoordinates(
-                    request,
-                    success: new()
         {
             var user = this.LoggedInUser;
 
@@ -78,7 +92,7 @@ namespace API.Controllers.V1
             var response = await AppServices.Station.Create(
                                         stations,
                                         user.Id,
-                                        successResposne: new()
+                                        successResponse: new()
                                         {
                                             Message = "Create stations successfully.",
                                             StatusCode = StatusCodes.Status200OK
@@ -87,22 +101,18 @@ namespace API.Controllers.V1
                                         {
                                             Message = "Exist duplicate stations coordinate within database.",
                                             StatusCode = StatusCodes.Status400BadRequest
-                        StatusCode = StatusCodes.Status200OK,
-                        Message = "Load nearby station successfully."
                                         },
-                                        errorResponse: new()
-                    failed: new()
+                                        errorResponse: new()              
                                         {
-                                            Message = "Fail to create stations."
-                        StatusCode = StatusCodes.Status500InternalServerError,
-                        Message = "Load nearby station failed."
+                                            Message = "Fail to create stations.",
+                                            StatusCode = StatusCodes.Status500InternalServerError
                                         }
                                     );
             return ApiResult(response);
         }
 
         /// <summary>
-        /// Get list of stations (query update in future)
+        /// Get list of stations - test api
         /// </summary>
         /// <response code="200">Get stations successfully</response>
         /// <response code="404">Not exist any stations</response>
@@ -118,7 +128,6 @@ namespace API.Controllers.V1
                                 });
 
             return ApiResult(response);
-            return ApiResult(stationResponse);
         }
 
 

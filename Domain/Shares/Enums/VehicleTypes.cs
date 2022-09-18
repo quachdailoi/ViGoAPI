@@ -8,8 +8,8 @@ namespace Domain.Shares.Enums
 {
     public enum VehicleTypes
     {
-        MOTORCYCLE,
-        _4_SEAT_CAR,
-        _7_SEAT_CAR
+        ViRide,
+        ViCar_4,
+        ViCar_7
     }
 }

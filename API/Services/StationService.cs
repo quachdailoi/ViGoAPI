@@ -3,18 +3,12 @@ using API.Models.DTO;
 using API.Models.Response;
 using API.Extensions;
 using API.Helpers;
-using API.Models;
-using API.Models.DTO;
-using API.Models.Response;
 using API.Services.Constract;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using Domain.Entities;
-using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 
@@ -24,16 +18,20 @@ namespace API.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITrueWayMatrixApiService _trueWayMatrixApiService;
+        private readonly IMapper _mapper;
+        private readonly IDistributedCache _cache;
 
-        public StationService(ILogger<StationService> logger, IUnitOfWork unitOfWork, ITrueWayMatrixApiService trueWayMatrixApiService) : base(logger)
+        public StationService(ILogger<StationService> logger, IUnitOfWork unitOfWork, ITrueWayMatrixApiService trueWayMatrixApiService, IMapper mapper, IDistributedCache cache) : base(logger)
         {
             _unitOfWork = unitOfWork;
             _trueWayMatrixApiService = trueWayMatrixApiService;
+            _mapper = mapper;
+            _cache = cache;
         }
 
         public async Task<Response> GetNearByStationsByCoordinates(CoordinatesDTO coordinates, Response success, Response failed)
         {
-            
+
             {
                 var distanceStations = GetNearByStationsBy2DFormula(coordinates);
 
@@ -41,16 +39,16 @@ namespace API.Services
 
                 return success.SetData(sortedDistanceStations);
             }
-            
+
         }
 
         public List<DistanceStationDTO> GetNearByStationsBy2DFormula(CoordinatesDTO coordinates)
         {
-            var stations = _unitOfWork.Station.List()
+            var stations = _unitOfWork.Stations.List()
                 .ToList()
                 .Select(x => new DistanceStationDTO
                 {
-                    Station = new ()
+                    Station = new()
                     {
                         Code = x.Code,
                         Latitude = x.Latitude,
@@ -84,18 +82,6 @@ namespace API.Services
 
             return distance;
         }
-    public class StationService : IStationService
-    {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IDistributedCache _cache;
-
-        public StationService(IUnitOfWork unitOfWork, IMapper mapper, IDistributedCache cache)
-        {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _cache = cache;
-        }
 
         public Task<List<Station>> Create(List<Station> stations)
         {
@@ -114,10 +100,10 @@ namespace API.Services
         }
         public async Task<Response> Create(List<StationDTO> stations, int userId, Response successResponse, Response duplicateResponse, Response errorResponse)
         {
-            
+
             if (!(await CheckDulpicateStationsWithinDatabase(stations))) return duplicateResponse;
 
-            foreach(var station in stations)
+            foreach (var station in stations)
             {
                 station.CreatedBy = userId;
                 station.UpdatedBy = userId;
@@ -145,15 +131,15 @@ namespace API.Services
             return successResponse.SetData(stations);
         }
 
-        public async Task<List<Tuple<Station,double,object?>>?> GetStationSteps(Station startStation, Station endStation)
+        public async Task<List<Tuple<Station, double, object?>>?> GetStationSteps(Station startStation, Station endStation)
         {
             var serializableGraph = await _cache.GetStringAsync("graph");
 
             Graph<Station> graph;
 
-            if(serializableGraph == null)
+            if (serializableGraph == null)
             {
-                var routeStations = 
+                var routeStations =
                     await _unitOfWork.RouteStations
                         .List(routeStation =>
                                 routeStation.Status == StatusTypes.RouteStation.Active &&
@@ -174,7 +160,7 @@ namespace API.Services
 
             if (!graph.Contains(endStation)) AddStationToGraph(endStation, graph);
 
-            return graph.GetShortestPath(startStation,endStation,2);
+            return graph.GetShortestPath(startStation, endStation, 2);
 
         }
 
@@ -203,10 +189,10 @@ namespace API.Services
 
         public Task<List<Station>> GetByCode(List<Guid> stationCodes)
         {
-            return 
+            return
                 _unitOfWork.Stations
-                .List(station => 
-                    stationCodes.Contains(station.Code) && 
+                .List(station =>
+                    stationCodes.Contains(station.Code) &&
                     station.Status == StatusTypes.Station.Active)
                 .Include(station => station.RouteStations)
                 .ThenInclude(routeStation => routeStation.Route)
@@ -214,3 +200,4 @@ namespace API.Services
         }
     }
 }
+

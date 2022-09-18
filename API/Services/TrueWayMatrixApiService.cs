@@ -2,11 +2,7 @@
 using API.Models.DTO;
 using API.Models.Settings;
 using API.Services.Constract;
-using Domain.Shares.Classes;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Linq;
-using System.Text.Json.Serialization;
 
 namespace API.Services
 {
