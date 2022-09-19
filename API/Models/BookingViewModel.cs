@@ -22,7 +22,7 @@ namespace API.Models
         public List<Step> Steps { get; set; } = new();
         public double Duration { get; set; }
         public double Distance { get; set; }
-        public PaymentMethods PaymentMethod { get; set }
+        public PaymentMethods PaymentMethod { get; set; }
 
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
