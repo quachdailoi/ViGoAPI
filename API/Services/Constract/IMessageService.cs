@@ -6,7 +6,7 @@ namespace API.Services.Constract
 {
     public interface IMessageService
     {
-        Task<Response> Create(string content, Guid roomCode, int userId, Response successResponse, Response errorResponse);
+        Task<Response> Create(string content, Guid roomCode, UserViewModel user, Response successResponse, Response errorResponse);
         MessageViewModel GetViewModel(Message message);
     }
 }

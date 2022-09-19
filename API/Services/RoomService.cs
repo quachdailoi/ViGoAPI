@@ -28,24 +28,26 @@ namespace API.Services
 
                 return await rooms.MapTo<MessageRoomViewModel>(_mapper).FirstOrDefaultAsync();
         }
-        public async Task<Response> GetViewModelByCode(Guid roomCode, Response successResponse, Response notFoundResponse)
+        public async Task<Response> GetViewModelByCode(int userId, Guid roomCode, Response successResponse)
         {
-            var rooms = _unitOfWork.Rooms.GetRoomsByCode(roomCode);
+            var rooms = _unitOfWork.Rooms.GetRoomsByCode(roomCode)
+                                         .Where(room => room.UserRooms.Select(userRoom => userRoom.UserId).Contains(userId) && 
+                                                        room.Status == StatusTypes.Room.Active);
 
-            var room = await GetViewModelByCode(roomCode);
-
-            if (room == null) return notFoundResponse;
+            var room = await rooms.MapTo<MessageRoomViewModel>(_mapper).FirstOrDefaultAsync();
 
             return successResponse.SetData(room);
         }
 
-        public async Task<Response> GetByType(int userId, MessageRoomTypes type, Response successResponse, Response notFoundResponse)
+        public async Task<Response> GetByType(int userId, MessageRoomTypes type, Response successResponse)
         {
-            var rooms = _unitOfWork.Rooms.List(room => room.UserRooms.Exists(userRoom => userRoom.UserId == userId) && room.Type == type);
+            var rooms = 
+                _unitOfWork.Rooms
+                    .List(room => room.UserRooms
+                        .Exists(userRoom => userRoom.UserId == userId) && 
+                        room.Type == type);
 
             var roomViewModels = await rooms.MapTo<MessageRoomViewModel>(_mapper).ToListAsync();
-
-            if(!roomViewModels.Any()) return notFoundResponse;
 
             return successResponse.SetData(roomViewModels);
         }
@@ -64,13 +66,12 @@ namespace API.Services
 
             return roomQueryable;
         }
-        public Response GetViewModelByMemberCode(List<Guid> memberCode, Response successResponse, Response notFoundResponse)
+        public Response GetViewModelByMemberCode(List<Guid> memberCode, Response successResponse)
         {
             var userCodeHashSet = memberCode.ToHashSet();
 
             var messageRoomViewModel = GetByMemberCode(memberCode).MapTo<MessageRoomViewModel>(_mapper).FirstOrDefault();
-
-            if (messageRoomViewModel == null) return notFoundResponse;              
+            
 
             return successResponse.SetData(messageRoomViewModel);
         }
@@ -130,22 +131,35 @@ namespace API.Services
         {
             var room = _unitOfWork.Rooms.List(room => room.Code == roomCode).FirstOrDefault();
 
+            if (room == null) return null;
+
             room.Status = StatusTypes.Room.InActive;
 
             return await _unitOfWork.Rooms.Update(room) ? room : null;
         }
 
-        public async Task<Response> GetAll(int userId, Response successResponse, Response notFoundResponse)
+        public async Task<Response> GetAll(int userId, Response successResponse)
         {
-            var rooms = await _unitOfWork.Rooms.List(room => room.UserRooms
-                                                            .Select(userRoom => userRoom.UserId).Contains(userId) && 
-                                                            room.Status == StatusTypes.Room.Active)
-                                                    .MapTo<MessageRoomViewModel>(_mapper)
-                                                    .ToListAsync();
-
-             if (!rooms.Any()) return notFoundResponse;
+            var rooms = 
+                await _unitOfWork.Rooms
+                    .List(room => room.UserRooms
+                            .Select(userRoom => userRoom.UserId)
+                            .Contains(userId) && 
+                             room.Status == StatusTypes.Room.Active)
+                    .MapTo<MessageRoomViewModel>(_mapper)
+                    .ToListAsync();
 
              return successResponse.SetData(rooms);
+        }
+
+        public async Task<Room?> GetRoomByCode(Guid roomCode)
+        {
+            return 
+                await _unitOfWork.Rooms
+                    .List(room => room.Code == roomCode && room.Status == StatusTypes.Room.Active)                                              
+                    .Include(room => room.UserRooms)                                              
+                    .ThenInclude(userRoom => userRoom.User)                                              
+                    .FirstOrDefaultAsync();
         }
     }
 }

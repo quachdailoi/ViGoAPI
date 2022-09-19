@@ -5,6 +5,7 @@ using Domain.Shares.Classes;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -13,9 +14,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220918181427_InitialDB")]
+    partial class InitialDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -889,38 +891,6 @@ namespace Infrastructure.Migrations
                             Type = 1,
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 9, 19, 1, 14, 26, 576, DateTimeKind.Unspecified).AddTicks(3955), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Code = "VIRIDE2022",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 9, 15, 21, 37, 45, 804, DateTimeKind.Unspecified).AddTicks(5526), new TimeSpan(0, 7, 0, 0, 0)),
-                            CreatedBy = 0,
-                            Details = "Promotion for ViRide: Discount 10% with max decrease 100k for the booking with minimum total price 300k.",
-                            DiscountPercentage = 0.10000000000000001,
-                            FileId = 11,
-                            MaxDecrease = 100000.0,
-                            Name = "ViRide Promotion",
-                            Status = 1,
-                            Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 9, 15, 21, 37, 45, 804, DateTimeKind.Unspecified).AddTicks(5527), new TimeSpan(0, 7, 0, 0, 0)),
-                            UpdatedBy = 0
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Code = "VICAR2022",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 9, 15, 21, 37, 45, 804, DateTimeKind.Unspecified).AddTicks(5535), new TimeSpan(0, 7, 0, 0, 0)),
-                            CreatedBy = 0,
-                            Details = "Promotion for ViCar: Discount 15% with max decrease 350k for the booking with minimum total price 500k.",
-                            DiscountPercentage = 0.14999999999999999,
-                            FileId = 11,
-                            MaxDecrease = 350000.0,
-                            Name = "ViCar Promotion",
-                            Status = 1,
-                            Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 9, 15, 21, 37, 45, 804, DateTimeKind.Unspecified).AddTicks(5535), new TimeSpan(0, 7, 0, 0, 0)),
-                            UpdatedBy = 0
                         });
                 });
 
@@ -953,9 +923,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("real")
                         .HasColumnName("min_total_price");
 
-                    b.Property<int?>("PaymentMethods")
+                    b.Property<int?>("PaymentMethod")
                         .HasColumnType("integer")
-                        .HasColumnName("payment_methods");
+                        .HasColumnName("payment_method");
 
                     b.Property<int?>("PromotionId")
                         .IsRequired()
@@ -985,10 +955,6 @@ namespace Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("ValidUntil")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("valid_until");
-
-                    b.Property<int?>("VehicleTypes")
-                        .HasColumnType("integer")
-                        .HasColumnName("vehicle_types");
 
                     b.HasKey("Id");
 
@@ -1052,36 +1018,6 @@ namespace Infrastructure.Migrations
                             UsagePerUser = 1,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 9, 2, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ValidUntil = new DateTimeOffset(new DateTime(2022, 9, 30, 23, 59, 59, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 9, 15, 21, 37, 45, 804, DateTimeKind.Unspecified).AddTicks(5692), new TimeSpan(0, 7, 0, 0, 0)),
-                            CreatedBy = 0,
-                            MinTotalPrice = 300000f,
-                            PromotionId = 5,
-                            TotalUsage = 500,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 9, 15, 21, 37, 45, 804, DateTimeKind.Unspecified).AddTicks(5692), new TimeSpan(0, 7, 0, 0, 0)),
-                            UpdatedBy = 0,
-                            UsagePerUser = 3,
-                            ValidFrom = new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            ValidUntil = new DateTimeOffset(new DateTime(2022, 12, 31, 23, 59, 59, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            VehicleTypes = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 9, 15, 21, 37, 45, 804, DateTimeKind.Unspecified).AddTicks(5710), new TimeSpan(0, 7, 0, 0, 0)),
-                            CreatedBy = 0,
-                            MinTotalPrice = 500000f,
-                            PromotionId = 6,
-                            TotalUsage = 500,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 9, 15, 21, 37, 45, 804, DateTimeKind.Unspecified).AddTicks(5711), new TimeSpan(0, 7, 0, 0, 0)),
-                            UpdatedBy = 0,
-                            UsagePerUser = 3,
-                            ValidFrom = new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            ValidUntil = new DateTimeOffset(new DateTime(2022, 12, 31, 23, 59, 59, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            VehicleTypes = 2
                         });
                 });
 

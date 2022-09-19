@@ -90,7 +90,7 @@ namespace Infrastructure.Data.Seeders
                 MinTotalPrice = 500000,
                 MinTickets = null,
                 PaymentMethods = null,
-                VehicleTypes = VehicleTypes.ViCar
+                VehicleTypes = VehicleTypes.ViCar_4
             });
         }
     }

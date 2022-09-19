@@ -1,10 +1,18 @@
-﻿using Domain.Entities;
+﻿using API.Services.Constract;
+using Domain.Entities;
 using Domain.Shares.Classes;
 
 namespace API.Utils
 {
-    public class DumpData
+    public class DumpRouteStationData : IHostedService
     {
+        private readonly IServiceProvider _serviceProvider;
+        
+        public DumpRouteStationData(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider; 
+        }
+
         private static double Distance(Location firstLocation, Location secondLocation)
         {
             return Math.Sqrt(Math.Pow(firstLocation.Latitude - secondLocation.Latitude, 2) + Math.Pow(firstLocation.Longitude - secondLocation.Longitude, 2));
@@ -107,8 +115,15 @@ namespace API.Utils
             return stations;
         }
 
-        public static Tuple<List<Domain.Entities.Route>, List<RouteStation>, List<Station>> DumpRoute(int totalRoute, int minStep, int maxStep, int totalStation, Bound bound)
+        public static Tuple<List<Domain.Entities.Route>, List<RouteStation>, List<Station>> DumpRoute(int totalRoute, int minStep, int maxStep, int totalStation, Bound? bound = null)
         {
+            if (bound == null) bound = new Bound
+            {
+                South = 10.757931,
+                West = 106.599666,
+                North = 10.858637,
+                East = 106.832535
+            };
             var stations = DumpStation(totalStation, bound);
             Random random = new Random();
 
@@ -148,21 +163,17 @@ namespace API.Utils
 
                     currentStep.Distance = Math.Round(_distance * 100000); // meter
                     currentStep.Duration = Math.Round(_distance * 100000 / 18); // second
-                    currentStep.Station = copyStations[_stationIndex];
+                    currentStep.StationId = copyStations[_stationIndex].Id;
 
                     steps.Add(currentStep);
 
-                    var routeStation = new RouteStation
+                    routeStations.Add(new RouteStation
                     {
-                        StationId = currentStep.Station.Id,
-                        Station = currentStep.Station,
+                        StationId = (int)currentStep.StationId,
                         Index = stepIndex,
                         Id = routeStationId++,
                         RouteId = routeIndex
-                    };
-
-                    routeStations.Add(routeStation);
-                    route.RouteStations.Add(routeStation);
+                    });
                     //route.RouteStations.Add(new RouteStation
                     //{
                     //    Station = currentStep.Station,
@@ -189,5 +200,33 @@ namespace API.Utils
 
             return new Tuple<List<Domain.Entities.Route>, List<RouteStation>, List<Station>>(routes, routeStations, stations);
         }
+
+        public async Task StartAsync(CancellationToken cancellationToken)
+        {
+            var scope = _serviceProvider.CreateScope().ServiceProvider;
+
+            var _stationService = scope.GetService<IStationService>();
+            var _routeService = scope.GetService<IRouteService>();
+            var _routeStationService = scope.GetService<IRouteStationService>();
+
+            if (await _stationService.ExistSeedData()) return;
+
+            var dumpData = DumpRoute(10, 5, 8, 20);
+
+            var routes = dumpData.Item1;
+            var routeStations = dumpData.Item2;
+            var stations = dumpData.Item3;
+
+            
+
+            await _stationService.Create(stations);
+
+            await _routeService.Create(routes);
+
+            await _routeStationService.Create(routeStations);
+
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
     }
 }
