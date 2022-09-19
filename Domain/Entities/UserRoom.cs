@@ -15,7 +15,7 @@ namespace Domain.Entities
         public StatusTypes.UserRoom Status { get; set; } = StatusTypes.UserRoom.Active;
         public DateTimeOffset LastSeenTime { get; set; } = DateTimeOffset.Now;
 
-        public User? User { get; set; }
-        public Room? Room { get; set; }
+        public User User { get; set; }
+        public Room Room { get; set; }
     }
 }

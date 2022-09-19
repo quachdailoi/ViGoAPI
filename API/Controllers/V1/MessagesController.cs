@@ -14,12 +14,6 @@ namespace API.Controllers.V1
     [ApiVersion("1.0")]
     public class MessagesController : BaseController<MessagesController>
     {
-        private readonly ISignalRService _signalRService;
-
-        public MessagesController(ISignalRService signalRService)
-        {
-            _signalRService = signalRService;
-        }
 
         /// <summary>
         /// Send message to specific room
@@ -35,7 +29,7 @@ namespace API.Controllers.V1
             var response = await AppServices.Message.Create(
                                 request.Content, 
                                 request.RoomCode, 
-                                this.LoggedInUser.Id,
+                                this.LoggedInUser,
                                 successResponse: new()
                                 {
                                     Message = "Send message successfully",

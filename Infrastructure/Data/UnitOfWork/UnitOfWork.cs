@@ -26,9 +26,9 @@ namespace Infrastructure.Data.UnitOfWork
         public IBookingRepository Bookings { get; private set; }
         public IBookingDetailRepository BookingDetails { get; private set; }
         public IFileRepository Files { get; private set; }
-        public IRouteRepository Route { get; private set; }
-        public IStationRepository Station { get; private set; }
-        public IRouteStationRepository RouteStaion { get; private set; }
+        public IRouteRepository Routes { get; private set; }
+        public IStationRepository Stations { get; private set; }
+        public IRouteStationRepository RouteStations { get; private set; }
 
         public IPromotionRepository Promotions { get; }
         public IPromotionUserRepository PromotionUsers { get; }
@@ -66,11 +66,10 @@ namespace Infrastructure.Data.UnitOfWork
             Messages = messageRepository;
             Bookings = bookingRepository;
             BookingDetails = bookingDetailRepository;
-            Route = routeRepository;
+            Routes = routeRepository;
             Files = fileRepository;
-            Station = stationRepository;
-            RouteStaion = routeStaionRepository;
-
+            Stations = stationRepository;
+            RouteStations = routeStaionRepository;
             Promotions = promotionRepository;
             PromotionUsers = promotionUserRepository;
 

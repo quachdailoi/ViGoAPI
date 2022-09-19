@@ -144,6 +144,8 @@ services.ConfigureIoCServices();
 // Add Host Service for Job Queue
 services.ConfigurationJobQueue();
 
+// Seed Data
+services.ConfigurationSeedData();
 
 // IoC For Profile
 services.AddSingleton(provider => new MapperConfiguration(cfg =>
@@ -153,6 +155,8 @@ services.AddSingleton(provider => new MapperConfiguration(cfg =>
     cfg.AddProfile(new BookingMappingProfile());
     cfg.AddProfile(new BookingDetailMappingProfile());
 	cfg.AddProfile(new PromotionMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
+    cfg.AddProfile(new RouteMappingProfile());
+    cfg.AddProfile(new StationMappingProfile());
     cfg.AddProfile(new BannerMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
 }).CreateMapper());
 

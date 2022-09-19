@@ -56,13 +56,17 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.EndAt)
                 .HasColumnName("end_at");
 
-            builder.Property(e => e.StartPoint)
-                .HasColumnType("jsonb")
-                .HasColumnName("start_point");
+            builder.Property(e => e.StartStationId)
+                .HasColumnName("start_station_id");
 
-            builder.Property(e => e.EndPoint)
-                .HasColumnType("jsonb")
-                .HasColumnName("end_point");
+            builder.Property(e => e.EndStationId)
+                .HasColumnName("end_station_id");
+
+            builder.Property(e => e.VehicleType)
+                .HasColumnName("vehicle_type");
+
+            builder.Property(e => e.PaymentMethod)
+                .HasColumnName("payment_method");
 
             builder.Property(e => e.Steps)
                 .HasColumnType("jsonb[]")

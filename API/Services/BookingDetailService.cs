@@ -23,7 +23,7 @@ namespace API.Services
         public List<BookingDetail> GenerateBookingDetail(Booking booking)
         {
             List<BookingDetail> bookingDetails = new();
-            if (booking.Type == BookingTypes.Monthly)
+            if (booking.Type == Bookings.Types.Monthly)
             {
                 var daysOfMonthHashSet = booking.Days.DaysOfMonth.ToHashSet();
                 for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
@@ -32,12 +32,25 @@ namespace API.Services
                     {
                         bool isIgnoreDate = false;
 
-                        if (booking.Days.IgnoreDaysByMonth.TryGetValue(day.Month, out List<int> ignoreDaysInMonth))
+                        //if (booking.Days.IgnoreDaysByMonth.TryGetValue(day.Month, out List<int> ignoreDaysInMonth))
+                        //{
+                        //    if (ignoreDaysInMonth.Contains(day.Day))
+                        //    {
+                        //        isIgnoreDate = true;
+                        //    }
+                        //}
+
+                        //if(!isIgnoreDate)
+
+                        switch (booking.Option) 
                         {
-                            if (ignoreDaysInMonth.Contains(day.Day))
-                            {
-                                isIgnoreDate = true;
-                            }
+                            case Bookings.Options.IgnoreSunDay: 
+                                isIgnoreDate = day.DayOfWeek == DayOfWeek.Sunday; 
+                                break;
+                            case Bookings.Options.IgnoreSaturdayAndSunDay: 
+                                isIgnoreDate = day.DayOfWeek == DayOfWeek.Saturday || day.DayOfWeek == DayOfWeek.Sunday; 
+                                break;
+                            default: break;
                         }
 
                         if(!isIgnoreDate)
@@ -81,7 +94,7 @@ namespace API.Services
             return bookingDetails;
         }
 
-        public async Task<Response> GetNextBookingDetail(int userId, Response successResponse, Response notFoundResponse)
+        public async Task<Response> GetNextBookingDetail(int userId, Response successResponse)
         {
             var bookingDetailsIQueryable = _unitOfWork.BookingDetails.List(b => b.Booking.UserId == userId && b.Status != StatusTypes.BookingDetail.Completed)
                                                                 .OrderBy(b => b.Date)
@@ -89,7 +102,6 @@ namespace API.Services
 
 
             var bookingDetail = await _mapper.ProjectTo<BookerBookingDetailViewModel>(bookingDetailsIQueryable).FirstOrDefaultAsync();
-            if (bookingDetail == null) return notFoundResponse;
 
             return successResponse.SetData(bookingDetail);
         }

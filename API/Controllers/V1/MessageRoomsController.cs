@@ -76,33 +76,32 @@ namespace API.Controllers.V1
         ///// <response code="200">Send successfully</response>
         ///// <response code="500">Failure</response>
 
-        //[CustomAuthorize]
-        //[HttpGet("code/{roomCode}")]
-        //public async Task<IActionResult> GetMessageRoomByCode(Guid roomCode)
-        //{
-        //    var response = await AppServices.Room.GetViewModelByCode(                                                            
-        //                                roomCode,                                                            
-        //                                successResponse: new()                                                            
-        //                                {                                                                
-        //                                    Message = "Get message room successfully",                                                               
-        //                                    StatusCode = StatusCodes.Status200OK                                                            
-        //                                },                                                            
-        //                                notFoundResponse: new()                                                          
-        //                                {                                                                
-        //                                    Message = "Not message room with this code.",                                                               
-        //                                    StatusCode = StatusCodes.Status404NotFound                                                            
-        //                                }                                                           
-        //                                );
+        [Authorize]
+        [HttpGet("code/{roomCode}")]
+        public async Task<IActionResult> GetMessageRoomByCode(Guid roomCode)
+        {
+            var user = this.LoggedInUser;
+            var response = 
+                await AppServices.Room.GetViewModelByCode(
+                    user.Id,
+                    roomCode,
+                    successResponse: new()
+                    {
+                        Message = "Get message room successfully",
+                        StatusCode = StatusCodes.Status200OK
+                    }
+                );
 
-        //    return ApiResult(response);
-        //}
+            return ApiResult(response);
+        }
 
         /// <summary>
         /// Get support message room
         /// </summary>
         /// /// <remarks>Get support message room</remarks>
         /// <response code="200">Get successfully</response>
-        /// <response code="500">Failure</response>
+        /// <response code="500">Failure</response> 
+        [Authorize(Roles = "BOOKER,DRIVER")]
         [HttpGet("support")]
         public async Task<IActionResult> GetSupportMessageRoom()
         {
@@ -116,11 +115,6 @@ namespace API.Controllers.V1
                     {
                         Message = "Get message room successfully.",
                         StatusCode = StatusCodes.Status200OK
-                    },
-                    notFoundResponse: new()
-                    {
-                        Message = "Not message room with this code.",
-                        StatusCode = StatusCodes.Status404NotFound
                     }
                 );
 
@@ -172,7 +166,6 @@ namespace API.Controllers.V1
         /// </summary>
         /// /// <remarks>Get all message room</remarks>
         /// <response code="200">Get successfully</response>
-        /// <response code="404">Not exist any message room of this user</response>
         /// <response code="500">Failure</response>
         [Authorize]
         [HttpGet]
@@ -187,11 +180,6 @@ namespace API.Controllers.V1
                     {
                         Message = "Get successfully.",
                         StatusCode = StatusCodes.Status200OK
-                    },
-                    notFoundResponse: new()
-                    {
-                        Message = "Not exist message rooms of this user.",
-                        StatusCode = StatusCodes.Status404NotFound
                     }
                 );
 
