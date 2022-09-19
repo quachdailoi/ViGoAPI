@@ -24,5 +24,9 @@ namespace API.Services.Constract
 
 		IPromotionService Promotion { get; }
         ITrueWayMatrixApiService TrueWayMatrixApi{ get; }
+
+        IBannerService Banner { get; }
+
+        ILocationService Location { get; }
     }
 }

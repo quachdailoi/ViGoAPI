@@ -96,6 +96,7 @@ namespace API.Extensions
             services.AddScoped<IRouteRepository, RouteRepository>();
             services.AddScoped<IStationRepository, StationRepository>();
             services.AddScoped<IRouteStationRepository, RouteStationRepository>();
+            services.AddScoped<IBannerRepository, BannerRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -119,6 +120,8 @@ namespace API.Extensions
             services.AddTransient<IStationService, StationService>();
             services.AddTransient<IRouteStationService, RouteStationService>();
             services.AddTransient<ITrueWayMatrixApiService, TrueWayMatrixApiService>();
+            services.AddTransient<IBannerService, BannerService>();
+            services.AddTransient<ILocationService, LocationService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)

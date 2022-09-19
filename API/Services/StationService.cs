@@ -12,11 +12,16 @@ namespace API.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ITrueWayMatrixApiService _trueWayMatrixApiService;
+        private readonly ILocationService _locationService;
 
-        public StationService(ILogger<StationService> logger, IUnitOfWork unitOfWork, ITrueWayMatrixApiService trueWayMatrixApiService) : base(logger)
+        public StationService(ILogger<StationService> logger, 
+            IUnitOfWork unitOfWork, 
+            ITrueWayMatrixApiService trueWayMatrixApiService,
+            ILocationService locationService) : base(logger)
         {
             _unitOfWork = unitOfWork;
             _trueWayMatrixApiService = trueWayMatrixApiService;
+            _locationService = locationService;
         }
 
         public async Task<Response> GetNearByStationsByCoordinates(CoordinatesDTO coordinates, Response success, Response failed)
@@ -45,32 +50,12 @@ namespace API.Services
                         Longitude = x.Longitude,
                         Name = x.Name
                     },
-                    Distance = CalculateDistanceBy2DFormula(coordinates.Latitude, coordinates.Longitude, x.Latitude, x.Longitude),
+                    Distance = ILocationService.CalculateDistanceAsTheCrowFlies(coordinates.Latitude, coordinates.Longitude, x.Latitude, x.Longitude),
                 })
                 .OrderBy(x => x.Distance)
                 .Take(25);
 
             return stations.ToList();
-        }
-
-        private static double CalculateDistanceBy2DFormula(double lat1, double long1, double lat2, double long2)
-        {
-            var phi1 = lat1 * Math.PI / 180;
-            var phi2 = lat2 * Math.PI / 180;
-
-            var delta_phi = (lat2 - lat1) * Math.PI / 180;
-            var delta_lambda = (long2 - long1) * Math.PI / 180;
-
-            var a = Math.Sin(delta_phi / 2) * Math.Sin(delta_phi / 2) +
-                Math.Cos(phi1) * Math.Cos(phi2) * Math.Sin(delta_lambda / 2) * Math.Sin(delta_lambda / 2);
-
-            double R = 6371e3; // earthRadius
-
-            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-
-            var distance = R * c;
-
-            return distance;
         }
     }
 }

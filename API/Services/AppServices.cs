@@ -20,7 +20,9 @@ namespace API.Services
                 IStationService stationService,
                 IRouteStationService routeStationService,
                 IPromotionService promotionService,
-                ITrueWayMatrixApiService trueWayMatrixApiService
+                ITrueWayMatrixApiService trueWayMatrixApiService,
+                IBannerService bannerService,
+                ILocationService locationService
             )
         {
             Account = accountService;
@@ -39,6 +41,8 @@ namespace API.Services
             RouteStation = routeStationService;
             Promotion = promotionService;
             TrueWayMatrixApi = trueWayMatrixApiService;
+            Banner = bannerService;
+            Location = locationService;
         }
 
         public IAccountService Account { get; }
@@ -57,5 +61,7 @@ namespace API.Services
         public IRouteStationService RouteStation { get; }
         public IPromotionService Promotion { get; }
         public ITrueWayMatrixApiService TrueWayMatrixApi { get; }
+        public IBannerService Banner { get; }
+        public ILocationService Location { get; }
     }
 }

@@ -19,7 +19,7 @@ namespace Domain.Interfaces.UnitOfWork
         IPromotionRepository Promotions { get; }
         IPromotionUserRepository PromotionUsers { get; }
         IFileRepository Files { get; }
-
+        IBannerRepository Banners { get; }
         Task CreateTransactionAsync();
         Task CommitAsync();
         Task Rollback();

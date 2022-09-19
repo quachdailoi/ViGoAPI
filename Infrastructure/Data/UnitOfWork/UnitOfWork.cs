@@ -33,6 +33,8 @@ namespace Infrastructure.Data.UnitOfWork
         public IPromotionRepository Promotions { get; }
         public IPromotionUserRepository PromotionUsers { get; }
 
+        public IBannerRepository Banners { get; }
+
         public UnitOfWork(
             AppDbContext dbContext, 
             ILoggerFactory loggerFactory,
@@ -50,7 +52,8 @@ namespace Infrastructure.Data.UnitOfWork
             IStationRepository stationRepository,
             IRouteStationRepository routeStaionRepository,
             IPromotionRepository promotionRepository,
-            IPromotionUserRepository promotionUserRepository)
+            IPromotionUserRepository promotionUserRepository,
+            IBannerRepository bannerRepository)
         {
             _dbContext = dbContext;
 
@@ -70,6 +73,8 @@ namespace Infrastructure.Data.UnitOfWork
 
             Promotions = promotionRepository;
             PromotionUsers = promotionUserRepository;
+
+            Banners = bannerRepository;
 
             _logger = loggerFactory.CreateLogger("logs");
         }
