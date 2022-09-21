@@ -257,5 +257,10 @@ namespace API.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<Domain.Entities.Route> CreateRoute(Domain.Entities.Route route)
+        {
+            return await _unitOfWork.Routes.CreateRoute(route);
+        }
     }
 }

@@ -60,7 +60,7 @@ namespace Infrastructure.Data.Seeders
                 Path = "user/avatar/default-user-avatar.png"
             });
 
-            // promotion file
+            // banner files
             builder.Entity<AppFile>().HasData(new AppFile
             {
                 Id = 9,
@@ -76,6 +76,12 @@ namespace Infrastructure.Data.Seeders
             builder.Entity<AppFile>().HasData(new AppFile
             {
                 Id = 11,
+                Path = "promotion/300978304_2290809087749954_8259423704505319939_n.png"
+            });
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 12,
                 Path = "promotion/300978304_2290809087749954_8259423704505319939_n.png"
             });
         }

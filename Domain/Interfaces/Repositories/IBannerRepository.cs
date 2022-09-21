@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Repositories
 {
-    public interface IRouteRepository : IGenericRepository<Route>
+    public interface IBannerRepository : IGenericRepository<Banner>
     {
-        Task<Route> CreateRoute(Route route);
+        IQueryable<Banner> GetAll();
     }
 }

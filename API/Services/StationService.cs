@@ -17,35 +17,69 @@ namespace API.Services
     public class StationService : BaseService<StationService>, IStationService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ITrueWayMatrixApiService _trueWayMatrixApiService;
+        private readonly IRapidApiService _rapidApiService;
         private readonly IMapper _mapper;
         private readonly IDistributedCache _cache;
+        private readonly ILocationService _locationService;
 
-        public StationService(ILogger<StationService> logger, IUnitOfWork unitOfWork, ITrueWayMatrixApiService trueWayMatrixApiService, IMapper mapper, IDistributedCache cache) : base(logger)
+        public StationService(
+			ILogger<StationService> logger, 
+			IUnitOfWork unitOfWork, 
+			IMapper mapper,
+			IRapidApiService rapidApiService,  
+			IDistributedCache cache,
+			ILocationService locationService) : base(logger)
         {
             _unitOfWork = unitOfWork;
-            _trueWayMatrixApiService = trueWayMatrixApiService;
+            _rapidApiService = rapidApiService;
             _mapper = mapper;
             _cache = cache;
+			_locationService = locationService;
         }
 
         public async Task<Response> GetNearByStationsByCoordinates(CoordinatesDTO coordinates, Response success, Response failed)
         {
+                var distanceStations = GetNearByStationsAsTheCrowFlies(coordinates);
 
-            {
-                var distanceStations = GetNearByStationsBy2DFormula(coordinates);
-
-                var sortedDistanceStations = await _trueWayMatrixApiService.CalculateDrivingMatrix(coordinates, distanceStations);
+                var sortedDistanceStations = await _rapidApiService.CalculateDrivingMatrix(coordinates, distanceStations);
 
                 return success.SetData(sortedDistanceStations);
-            }
-
         }
 
-        public List<DistanceStationDTO> GetNearByStationsBy2DFormula(CoordinatesDTO coordinates)
+        public List<DistanceStationDTO> GetNearByStationsAsTheCrowFlies(CoordinatesDTO coordinates)
         {
-            var stations = _unitOfWork.Stations.List()
-                .ToList()
+            var startStationCode = coordinates.StartStationCode;
+            int? startStationId = null;
+            if (startStationCode != null)
+            {
+                var startStation = _unitOfWork.Stations.GetStationsByCodes(new() { startStationCode }).FirstOrDefault();
+
+                if (startStation != null)
+                {
+                    startStationId = startStation.Id;
+                }
+            }
+
+            var stations = _unitOfWork.Stations.List();
+
+            if (startStationId != null)
+            {
+                var routeIdsOfStartStation = 
+                    _unitOfWork.RouteStations.List().Where(x => x.StationId == startStationId).Select(x => x.RouteId);
+
+                if (routeIdsOfStartStation == null) throw new Exception("Start station does not belong to any routes.");
+
+                var stationIdsInSameRouteOfStart = 
+                    _unitOfWork.RouteStations.List().Where(x => x.StationId != startStationId && routeIdsOfStartStation.Contains(x.RouteId))
+                    .GroupBy(x => x.StationId)    
+                    .Select(x => x.Key);
+
+                if (stationIdsInSameRouteOfStart == null) throw new Exception("Not found any station in the same routes with start station.");
+
+                stations = stations.Where(x => stationIdsInSameRouteOfStart.Contains(x.Id));
+            }
+
+            var reasonableStations = stations.ToList()
                 .Select(x => new DistanceStationDTO
                 {
                     Station = new()
@@ -53,34 +87,15 @@ namespace API.Services
                         Code = x.Code,
                         Latitude = x.Latitude,
                         Longitude = x.Longitude,
-                        Name = x.Name
+                        Name = x.Name,
+                        Address = x.Address,
                     },
-                    Distance = CalculateDistanceBy2DFormula(coordinates.Latitude, coordinates.Longitude, x.Latitude, x.Longitude),
+                    Distance = ILocationService.CalculateDistanceAsTheCrowFlies(coordinates.Latitude, coordinates.Longitude, x.Latitude, x.Longitude),
                 })
                 .OrderBy(x => x.Distance)
-                .Take(25);
+                .Take(10);
 
-            return stations.ToList();
-        }
-
-        private static double CalculateDistanceBy2DFormula(double lat1, double long1, double lat2, double long2)
-        {
-            var phi1 = lat1 * Math.PI / 180;
-            var phi2 = lat2 * Math.PI / 180;
-
-            var delta_phi = (lat2 - lat1) * Math.PI / 180;
-            var delta_lambda = (long2 - long1) * Math.PI / 180;
-
-            var a = Math.Sin(delta_phi / 2) * Math.Sin(delta_phi / 2) +
-                Math.Cos(phi1) * Math.Cos(phi2) * Math.Sin(delta_lambda / 2) * Math.Sin(delta_lambda / 2);
-
-            double R = 6371e3; // earthRadius
-
-            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-
-            var distance = R * c;
-
-            return distance;
+            return reasonableStations.ToList();
         }
 
         public Task<List<Station>> Create(List<Station> stations)
@@ -196,6 +211,22 @@ namespace API.Services
                     station.Status == StatusTypes.Station.Active)
                 .Include(station => station.RouteStations)
                 .ThenInclude(routeStation => routeStation.Route)
+                .ToListAsync();
+        }
+
+        public async Task<List<StationDTO>> GetStationDTOsByCodes(List<string> stationCodes)
+        {
+            return await _unitOfWork.Stations
+                .GetStationsByCodes(stationCodes)
+                .MapTo<StationDTO>(_mapper)
+                .ToListAsync();
+        }
+
+        public async Task<List<StationDTO>> GetStationDTOsByIds(List<int> stationIds)
+        {
+            return await _unitOfWork.Stations
+                .GetStationsByIds(stationIds)
+                .MapTo<StationDTO>(_mapper)
                 .ToListAsync();
         }
     }
