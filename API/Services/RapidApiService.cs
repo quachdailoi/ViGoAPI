@@ -37,7 +37,7 @@ namespace API.Services
             if (keyStrs == null) throw new Exception("Failed to use api from rapidapi flatform.");
 
             _apiKeys = keyStrs.Split(",").ToList();
-            Console.WriteLine($"Total rapid api keys: {_apiKeys.Count}");
+            Console.WriteLine($"----------------------> Total rapid api keys: {_apiKeys.Count}");
         }
 
         public async Task<List<DistanceStationDTO>> CalculateDrivingMatrix(CoordinatesDTO origin, List<DistanceStationDTO> destinations)
@@ -76,7 +76,7 @@ namespace API.Services
 
                 using (var response = await _client.SendAsync(request))
                 {
-                    if ((int)response.StatusCode == StatusCodes.Status429TooManyRequests)
+                    if ((int)response.StatusCode != StatusCodes.Status200OK)
                     {
                         continue;
                     }
