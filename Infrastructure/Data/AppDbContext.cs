@@ -117,8 +117,11 @@ namespace Infrastructure.Data
 
             new PromotionUserEntityConfiguration()
                 .Configure(builder.Entity<PromotionUser>());
+
 			new BannerEntityConfiguration()
                 .Configure(builder.Entity<Banner>());
+
+
         }
 
         public DbSet<Account> Accounts { get; set; }

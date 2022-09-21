@@ -714,7 +714,8 @@ namespace Domain.Shares.Utils
                     Latitude = 10.80656432638495,
                     Name = "Trường Đại học Ngoại thương - Cơ sở 2",
                     Address = "15 Đường D5, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh"
-                }
+                },
+
             };
         }
         public static List<Domain.Entities.Route> DumpRoutes()

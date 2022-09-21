@@ -23,7 +23,7 @@ namespace API.Mapper
                         src => src.RouteStations.First().DistanceFromFirstStationInRoute))
                 .IncludeBase<Station, StationViewModel>();
 
-            CreateMap<StationDTO, Station>();
+            CreateMap<StationDTO, Station>().ReverseMap();
 
             CreateMap<CreateStationRequest, StationDTO>()
                 .ForMember(
@@ -31,6 +31,8 @@ namespace API.Mapper
                     opt => opt.MapFrom(
                             src => $"{src.Street}, {src.Ward}, {src.District}, {src.Province}"
                         ));
+
+            CreateMap<Station, DistanceStationDTO>();
         }
     }
 }

@@ -9,5 +9,6 @@ namespace Domain.Interfaces.Repositories
 {
     public interface IRouteRepository : IGenericRepository<Route>
     {
+        Task<Route> CreateRoute(Route route);
     }
 }

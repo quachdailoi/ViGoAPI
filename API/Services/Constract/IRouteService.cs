@@ -1,7 +1,7 @@
-﻿using API.Models;
+﻿using Domain.Entities;
+using API.Models;
 using API.Models.DTO;
 using API.Models.Response;
-using Domain.Entities;
 using Domain.Shares.Classes;
 using Domain.Shares.Enums;
 
@@ -17,5 +17,7 @@ namespace API.Services.Constract
         Task<List<RouteViewModel>> GetRouteByListOfStations(Station startStation, List<Tuple<Station, double, object>> stepStations);
         Task<Response> GetRouteByPairOfStation(int startStationId, int endStationId, VehicleTypes vehicleType, Response successResponse, Response notFoundResponse);
         Task<Response> GetStepsByPairOfStations(Station startStation, Station endStation, VehicleTypes vehicleType, Response successResponse);
+
+        Task<Domain.Entities.Route> CreateRoute(Domain.Entities.Route route);
     }
 }

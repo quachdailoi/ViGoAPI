@@ -14,5 +14,10 @@ namespace Infrastructure.Data.Repositories
         public RouteRepository(AppDbContext dbContext, ILogger<GenericRepository<Route>> logger) : base(dbContext, logger)
         {
         }
+
+        public async Task<Route> CreateRoute(Route route)
+        {
+            return await Add(route);
+        }
     }
 }

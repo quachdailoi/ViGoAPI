@@ -21,12 +21,9 @@ namespace API.Services.Constract
         IRouteService Route { get; }
         IStationService Station { get; }
         IRouteStationService RouteStation { get; }
-
 		IPromotionService Promotion { get; }
-        ITrueWayMatrixApiService TrueWayMatrixApi{ get; }
-
+        IRapidApiService RapidApi { get; }
         IBannerService Banner { get; }
-
         ILocationService Location { get; }
     }
 }
