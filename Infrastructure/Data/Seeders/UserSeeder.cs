@@ -100,6 +100,17 @@ namespace Infrastructure.Data.Seeders
                 Status = StatusTypes.User.Active,
                 FileId = 8,
             });
+
+            builder.Entity<User>().HasData(new User
+            {
+                Id = 9,
+                Name = "Admin Quach Dai Loi",
+                Code = Guid.NewGuid(),
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = 13,
+            });
         }
     }
 }

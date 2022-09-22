@@ -22,7 +22,8 @@ namespace API.Services
                 IPromotionService promotionService,
                 IRapidApiService rapidApiService,
                 IBannerService bannerService,
-                ILocationService locationService
+                ILocationService locationService,
+                IAdminService adminService
             )
         {
             Account = accountService;
@@ -43,6 +44,7 @@ namespace API.Services
             RapidApi = rapidApiService;
             Banner = bannerService;
             Location = locationService;
+            Admin = adminService;
         }
 
         public IAccountService Account { get; }
@@ -63,5 +65,6 @@ namespace API.Services
         public IRapidApiService RapidApi { get; }
         public IBannerService Banner { get; }
         public ILocationService Location { get; }
+        public IAdminService Admin { get; }
     }
 }

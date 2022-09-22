@@ -13,7 +13,7 @@ namespace API.Models
         public int Gender { get; set; }
         public int Status { get; set; }
         public DateTimeOffset? DateOfBirth { get; set; } = null;
-        public string AvatarUrl { get; set; } = string.Empty;
+        public string? AvatarUrl { get; set; } = string.Empty;
         public Guid AvatarCode { get; set; } = Guid.NewGuid();
 
         public string Gmail { get; set; } = string.Empty ;

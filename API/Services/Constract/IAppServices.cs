@@ -13,6 +13,8 @@ namespace API.Services.Constract
 
         IDriverService Driver { get; }
 
+        IAdminService Admin { get; }
+
         IUserRoomService UserRoom { get; }
         IRoomService Room { get; }
         IMessageService Message  { get; }

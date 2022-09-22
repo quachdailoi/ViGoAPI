@@ -172,6 +172,26 @@ namespace Infrastructure.Data.Seeders
                 Verified = true,
                 UserId = 8
             });
+
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 17,
+                Registration = "+84376826328",
+                RegistrationType = RegistrationTypes.Phone,
+                RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                Verified = true,
+                UserId = 9
+            });
+
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 18,
+                Registration = "loiqdse140970@fpt.edu.vn",
+                RegistrationType = RegistrationTypes.Phone,
+                RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                Verified = true,
+                UserId = 9
+            });
         }
     }
 }
