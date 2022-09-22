@@ -119,11 +119,6 @@ namespace API.Controllers.V1
                                                     },
                                                     duplicationResponse: new()
                                                     {
-                                                        Message = "Route is not exist.",
-                                                        StatusCode = StatusCodes.Status400BadRequest
-                                                    },
-                                                    duplicateResponse: new()
-                                                    {
                                                         Message = "Conflict about the time schedule with your other bookings.",
                                                         StatusCode = StatusCodes.Status400BadRequest
                                                     },
