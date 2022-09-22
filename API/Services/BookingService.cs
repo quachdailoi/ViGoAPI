@@ -27,7 +27,7 @@ namespace API.Services
             _promotionService = promotionService;
         }
 
-        public async Task<Response> Create(BookingDTO dto, Response successResponse, Response duplicateResponse, Response invalidResponse, Response notAvailableResponse,Response errorReponse)
+        public async Task<Response> Create(BookingDTO dto, Response successResponse, Response invalidRouteResponse, Response duplicateResponse, Response invalidPromotionResponse, Response notAvailableResponse,Response errorReponse)
         {
             var booking = _mapper.Map<BookingDTO, Booking>(dto);
 
@@ -42,7 +42,9 @@ namespace API.Services
 
             var route = await _unitOfWork.Routes
                 .List(route => route.Id == dto.RouteId)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
+
+            if (route == null) return invalidRouteResponse;
 
             var startStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.StartStationCode).First();
             var endStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.EndStationCode).First();
@@ -68,7 +70,7 @@ namespace API.Services
             {
                 var promotion = await _promotionService.GetPromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count, booking.PaymentMethod, booking.VehicleType);
 
-                if (promotion == null) return invalidResponse;
+                if (promotion == null) return invalidPromotionResponse;
 
                 // get discount price by promotion
                 var discountPriceByPercentage = booking.TotalPrice * promotion.DiscountPercentage;

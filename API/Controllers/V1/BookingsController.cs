@@ -59,6 +59,7 @@ namespace API.Controllers.V1
         ///     Start station and end station are not exist. <br></br>
         ///     Start station is not exist. <br></br>
         ///     End station is not exist. <br></br>
+        ///     Route is not exist.<br></br>
         ///     Conflict about the time schedule with your other bookings. <br></br>
         ///     Promotion code is not available. <br></br>
         /// </response>
@@ -116,12 +117,17 @@ namespace API.Controllers.V1
                                                         Message = "Create booking successfully.",
                                                         StatusCode = StatusCodes.Status200OK
                                                     },
-                                                    duplicationResponse: new()
+                                                    invalidRouteResponse: new()
+                                                    {
+                                                        Message = "Route is not exist.",
+                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                    },
+                                                    duplicateResponse: new()
                                                     {
                                                         Message = "Conflict about the time schedule with your other bookings.",
                                                         StatusCode = StatusCodes.Status400BadRequest
                                                     },
-                                                    invalidResponse: new()
+                                                    invalidPromotionResponse: new()
                                                     {
                                                         Message = "Promotion code is not available.",
                                                         StatusCode = StatusCodes.Status400BadRequest
@@ -146,7 +152,7 @@ namespace API.Controllers.V1
         /// <response code = "200"> Get bookings successfully.</response>
         /// <response code = "404"> Not found any bookings.</response>
         /// <response code="500"> Failed to get bookings.</response>
-        [HttpGet("booking")]
+        [HttpGet]
         [Authorize(Roles = "BOOKER")]
         public async Task<IActionResult> GetBooking()
         {
@@ -168,7 +174,7 @@ namespace API.Controllers.V1
         /// </summary>
         /// <response code = "200"> Get bookings successfully.</response>
         /// <response code="500"> Failed to get bookings.</response>
-        [HttpGet("booking/next-booking-detail")]
+        [HttpGet("next-booking-detail")]
         [Authorize(Roles = "BOOKER")]
         public async Task<IActionResult> GetNextTrip()
         {
@@ -216,7 +222,7 @@ namespace API.Controllers.V1
         ///     End station is not exist. <br></br>
         /// </response>
         /// <response code="500"> Failed to get route and fee.</response>
-        [HttpGet("booking/route-fee")]
+        [HttpGet("route-fee")]
         [Authorize(Roles = "BOOKER")]
         public async Task<IActionResult> GetRouteAndFee([FromQuery] GetRouteFeeRequest request)
         {
