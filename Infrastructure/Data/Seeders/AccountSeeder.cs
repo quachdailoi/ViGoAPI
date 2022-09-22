@@ -178,7 +178,7 @@ namespace Infrastructure.Data.Seeders
                 Id = 17,
                 Registration = "+84376826328",
                 RegistrationType = RegistrationTypes.Phone,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                RoleId = Domain.Shares.Enums.Roles.ADMIN,
                 Verified = true,
                 UserId = 9
             });
@@ -187,10 +187,70 @@ namespace Infrastructure.Data.Seeders
             {
                 Id = 18,
                 Registration = "loiqdse140970@fpt.edu.vn",
-                RegistrationType = RegistrationTypes.Phone,
-                RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                RegistrationType = RegistrationTypes.Gmail,
+                RoleId = Domain.Shares.Enums.Roles.ADMIN,
                 Verified = true,
                 UserId = 9
+            });
+
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 19,
+                Registration = "khoandse1409770@fpt.edu.vn",
+                RegistrationType = RegistrationTypes.Gmail,
+                RoleId = Domain.Shares.Enums.Roles.ADMIN,
+                Verified = true,
+                UserId = 11
+            });
+
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 20,
+                Registration = "+84914669962",
+                RegistrationType = RegistrationTypes.Phone,
+                RoleId = Domain.Shares.Enums.Roles.ADMIN,
+                Verified = false,
+                UserId = 11
+            });
+
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 21,
+                Registration = "duyttse140971@fpt.edu.vn",
+                RegistrationType = RegistrationTypes.Gmail,
+                RoleId = Domain.Shares.Enums.Roles.ADMIN,
+                Verified = true,
+                UserId = 10
+            });
+
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 22,
+                Registration = "+84376826328",
+                RegistrationType = RegistrationTypes.Phone,
+                RoleId = Domain.Shares.Enums.Roles.ADMIN,
+                Verified = false,
+                UserId = 10
+            });
+
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 23,
+                Registration = "datdtse140920@fpt.edu.vn",
+                RegistrationType = RegistrationTypes.Gmail,
+                RoleId = Domain.Shares.Enums.Roles.ADMIN,
+                Verified = true,
+                UserId = 12
+            });
+
+            builder.Entity<Account>().HasData(new Account
+            {
+                Id = 24,
+                Registration = "+84377322919",
+                RegistrationType = RegistrationTypes.Phone,
+                RoleId = Domain.Shares.Enums.Roles.ADMIN,
+                Verified = false,
+                UserId = 12
             });
         }
     }

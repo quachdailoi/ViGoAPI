@@ -111,6 +111,39 @@ namespace Infrastructure.Data.Seeders
                 Status = StatusTypes.User.Active,
                 FileId = 13,
             });
+
+            builder.Entity<User>().HasData(new User
+            {
+                Id = 10,
+                Name = "Admin Than Thanh Duy",
+                Code = Guid.NewGuid(),
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = null,
+            });
+
+            builder.Entity<User>().HasData(new User
+            {
+                Id = 11,
+                Name = "Admin Nguyen Dang Khoa",
+                Code = Guid.NewGuid(),
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = null,
+            });
+
+            builder.Entity<User>().HasData(new User
+            {
+                Id = 12,
+                Name = "Admin Do Trong Dat",
+                Code = Guid.NewGuid(),
+                DateOfBirth = null,
+                Gender = Genders.Male,
+                Status = StatusTypes.User.Active,
+                FileId = null,
+            });
         }
     }
 }
