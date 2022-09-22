@@ -64,7 +64,7 @@ namespace API.Utils
 
             var total = feePerTrip * bookingTypeDetail.TempTotalDate * totalTickets * (1 - bookingTypeDetail.Discount);
 
-            return total;
+            return Math.Round(total/100) * 100;
         }
 
         class Fare

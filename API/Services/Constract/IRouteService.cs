@@ -15,5 +15,7 @@ namespace API.Services.Constract
         Task<bool> IsExistData();
         Task<Response> GetRouteFeeByPairOfStation(StationWithScheduleDTO dto, Response successResponse, Response notFoundResponse);
         Task<Response> GetRoutesByPairsOfStation(List<int> startStationIds, List<int> endStationIds, Response successResposne);
+
+        Task<Domain.Entities.Route> CreateRoute(Domain.Entities.Route route);
     }
 }

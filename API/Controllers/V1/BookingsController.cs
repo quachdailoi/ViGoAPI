@@ -30,7 +30,6 @@ namespace API.Controllers.V1
         /// Sample request:
         ///     POST api/booking 
         ///     {
-        ///         "TotalPrice": 50000,
         ///         "VehicleType": 0,  // 0: ViRide, 1: ViCar_4, 2: ViCar_7
         ///         "Time": "04:30:00", // format("hh:mm:ss")
         ///         "Option": 0, // 0: StartAtFollowingTime, 1: StartAtNextDay
@@ -39,12 +38,8 @@ namespace API.Controllers.V1
         ///         "IsShared": true,
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
-        ///         "Duration": 600, //(seconds) // get from get route and fee api
-        ///         "Distance": 3000, //(meters) // get from get route and fee api
         ///         "RouteId": 1, // get from get route and fee api
         ///         "StartAt": "15-02-2022", // format("dd-MM-yyyy")
-        ///         "Distance": 2500, //(meters)
-        ///         "Duration": 360, //(seconds)
         ///         "EndAt": "25-06-2022",
         ///         "PromotionCode": "HELLO2022"
         ///     }
@@ -116,12 +111,17 @@ namespace API.Controllers.V1
                                                         Message = "Create booking successfully.",
                                                         StatusCode = StatusCodes.Status200OK
                                                     },
+                                                    invalidRouteResponse: new()
+                                                    {
+                                                        Message = "Route is not exist.",
+                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                    },
                                                     duplicationResponse: new()
                                                     {
                                                         Message = "Conflict about the time schedule with your other bookings.",
                                                         StatusCode = StatusCodes.Status400BadRequest
                                                     },
-                                                    invalidResponse: new()
+                                                    invalidPromotionResponse: new()
                                                     {
                                                         Message = "Promotion code is not available.",
                                                         StatusCode = StatusCodes.Status400BadRequest
@@ -146,7 +146,7 @@ namespace API.Controllers.V1
         /// <response code = "200"> Get bookings successfully.</response>
         /// <response code = "404"> Not found any bookings.</response>
         /// <response code="500"> Failed to get bookings.</response>
-        [HttpGet("booking")]
+        [HttpGet]
         [Authorize(Roles = "BOOKER")]
         public async Task<IActionResult> GetBooking()
         {
@@ -168,7 +168,7 @@ namespace API.Controllers.V1
         /// </summary>
         /// <response code = "200"> Get bookings successfully.</response>
         /// <response code="500"> Failed to get bookings.</response>
-        [HttpGet("booking/next-booking-detail")]
+        [HttpGet("next-booking-detail")]
         [Authorize(Roles = "BOOKER")]
         public async Task<IActionResult> GetNextTrip()
         {
@@ -216,7 +216,7 @@ namespace API.Controllers.V1
         ///     End station is not exist. <br></br>
         /// </response>
         /// <response code="500"> Failed to get route and fee.</response>
-        [HttpGet("booking/route-fee")]
+        [HttpGet("route-fee")]
         [Authorize(Roles = "BOOKER")]
         public async Task<IActionResult> GetRouteAndFee([FromQuery] GetRouteFeeRequest request)
         {
