@@ -52,22 +52,13 @@ namespace API.Controllers.V1.Driver
         [AllowAnonymous]
         public async Task<IActionResult> LoginByEmail([FromBody] LoginByEmailRequest request)
         {
-            FirebaseAuth firebaseAuth = FirebaseAuth.DefaultInstance;
+            var authWithFireBaseResponse = await AppServices.User.GetEmailWithFireBaseAuthAsync(request);
 
-            FirebaseToken verifiedIdToken = await firebaseAuth.VerifyIdTokenAsync(request.IdToken);
+            if (!authWithFireBaseResponse.Success) return ApiResult(authWithFireBaseResponse);
 
-            if (verifiedIdToken == null)
-            {
-                return ApiResult(new()
-                {
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = "Login failed - Something went wrong."
-                });
-            }
+            var gmail = (string?) authWithFireBaseResponse.Data;
 
-            IReadOnlyDictionary<string, dynamic> claims = verifiedIdToken.Claims;
-
-            string gmail = claims["email"];
+            if (string.IsNullOrEmpty(gmail)) throw new UnauthorizedAccessException();
 
             var user = await AppServices.Driver.GetUserViewModel(gmail, RegistrationTypes.Gmail);
 

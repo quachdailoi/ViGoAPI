@@ -84,6 +84,12 @@ namespace Infrastructure.Data.Seeders
                 Id = 12,
                 Path = "promotion/300978304_2290809087749954_8259423704505319939_n.png"
             });
+
+            builder.Entity<AppFile>().HasData(new AppFile
+            {
+                Id = 13,
+                Path = "user/avatar/default-user-avatar.png"
+            });
         }
     }
 }

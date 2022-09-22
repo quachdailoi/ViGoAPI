@@ -1,8 +1,11 @@
-﻿using Domain.Interfaces.UnitOfWork;
+﻿using Domain.Entities;
+using Domain.Interfaces.UnitOfWork;
+using Domain.Shares.Classes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace API.Controllers.V2
 {
@@ -36,6 +39,6 @@ namespace API.Controllers.V2
             await _unitOfWork.Files.Remove(user.File);
 
             return Ok("Delete user successfully.");
-        }
+        }      
     }
 }

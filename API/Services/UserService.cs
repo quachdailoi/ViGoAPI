@@ -1,6 +1,7 @@
 ﻿using API.AWS.S3;
 using API.Extensions;
 using API.Models;
+using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
 using API.Services.Constract;
@@ -8,6 +9,7 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
+using FirebaseAdmin.Auth;
 using Infrastructure.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -106,6 +108,34 @@ namespace API.Services
 
             await _unitOfWork.CommitAsync(); // commit
             return result;
+        }
+
+        public async Task<Response> GetEmailWithFireBaseAuthAsync(LoginByEmailRequest request)
+        {
+            FirebaseAuth firebaseAuth = FirebaseAuth.DefaultInstance;
+
+            FirebaseToken verifiedIdToken = await firebaseAuth.VerifyIdTokenAsync(request.IdToken);
+
+            if (verifiedIdToken == null)
+            {
+                return new()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "Login failed - Something went wrong.",
+                    Success = false
+                };
+            }
+
+            IReadOnlyDictionary<string, dynamic> claims = verifiedIdToken.Claims;
+
+            string gmail = claims["email"];
+
+            return new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Get email from firebase auth successfully.",
+                Data = gmail
+            };
         }
     }
 }

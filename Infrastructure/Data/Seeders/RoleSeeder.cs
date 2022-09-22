@@ -27,6 +27,12 @@ namespace Infrastructure.Data.Seeders
             });
 
             // admin
+            builder.Entity<Role>().HasData(new Role
+            {
+                Id = Domain.Shares.Enums.Roles.ADMIN,
+                Name = "ADMIN",
+                Description = "Role for admin"
+            });
         }
     }
 }
