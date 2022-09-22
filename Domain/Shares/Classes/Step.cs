@@ -13,7 +13,7 @@ namespace Domain.Shares.Classes
         public double Duration { get; set; }
         public Location StartPoint { get; set; } = new();
         public Location EndPoint { get; set; } = new();
-        public string Maneuver { get; set; } = String.Empty;
+        public string Maneuver { get; set; } = string.Empty;
         public Bound Bound { get; set; } = new();
         public int? StationId { get; set; } = null;
     }

@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class RouteRepository : GenericRepository<Route>, IRouteRepository
+    public class BannerRepository : GenericRepository<Banner>, IBannerRepository
     {
-        public RouteRepository(AppDbContext dbContext, ILogger<GenericRepository<Route>> logger) : base(dbContext, logger)
+        public BannerRepository(AppDbContext dbContext, ILogger<GenericRepository<Banner>> logger) : base(dbContext, logger)
         {
         }
 
-        public async Task<Route> CreateRoute(Route route)
+        public IQueryable<Banner> GetAll()
         {
-            return await Add(route);
+            return List();
         }
     }
 }

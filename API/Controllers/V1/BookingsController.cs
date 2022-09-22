@@ -54,6 +54,7 @@ namespace API.Controllers.V1
         ///     Start station and end station are not exist. <br></br>
         ///     Start station is not exist. <br></br>
         ///     End station is not exist. <br></br>
+        ///     Route is not exist.<br></br>
         ///     Conflict about the time schedule with your other bookings. <br></br>
         ///     Promotion code is not available. <br></br>
         /// </response>
@@ -117,6 +118,11 @@ namespace API.Controllers.V1
                                                         StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     duplicationResponse: new()
+                                                    {
+                                                        Message = "Route is not exist.",
+                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                    },
+                                                    duplicateResponse: new()
                                                     {
                                                         Message = "Conflict about the time schedule with your other bookings.",
                                                         StatusCode = StatusCodes.Status400BadRequest

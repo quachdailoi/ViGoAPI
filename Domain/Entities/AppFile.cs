@@ -17,5 +17,6 @@ namespace Domain.Entities
 
         public User User { get; set; }
         public Promotion Promotion { get; set; }
+        public Banner Banner { get; set; }
     }
 }

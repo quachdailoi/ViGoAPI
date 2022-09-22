@@ -198,5 +198,10 @@ namespace API.Services
             //rou
             return null;
         }
+
+        public async Task<Domain.Entities.Route> CreateRoute(Domain.Entities.Route route)
+        {
+            return await _unitOfWork.Routes.CreateRoute(route);
+        }
     }
 }

@@ -44,6 +44,8 @@ namespace Infrastructure.Data
             new PromotionUserSeeder(builder);
 
             new StationSeeder(builder);
+
+            new BannerSeeder(builder);
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)
@@ -115,6 +117,10 @@ namespace Infrastructure.Data
 
             new PromotionUserEntityConfiguration()
                 .Configure(builder.Entity<PromotionUser>());
+
+			new BannerEntityConfiguration()
+                .Configure(builder.Entity<Banner>());
+
 
         }
 

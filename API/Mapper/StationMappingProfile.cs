@@ -24,7 +24,7 @@ namespace API.Mapper
                 //        src => src.RouteStations.First().DistanceFromFirstStationInRoute))
                 .IncludeBase<Station, StationViewModel>();
 
-            CreateMap<StationDTO, Station>();
+            CreateMap<StationDTO, Station>().ReverseMap();
 
             CreateMap<CreateStationRequest, StationDTO>()
                 .ForMember(

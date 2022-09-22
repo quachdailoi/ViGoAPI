@@ -40,8 +40,7 @@ namespace API.Controllers.V1
                         Message = "Load nearby station failed.",
                         StatusCode = StatusCodes.Status500InternalServerError
                     }
-                    );
-
+                );
             return ApiResult(stationResponse);
         }
 

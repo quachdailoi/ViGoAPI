@@ -1,7 +1,7 @@
-﻿using API.Models;
+﻿using Domain.Entities;
+using API.Models;
 using API.Models.DTO;
 using API.Models.Response;
-using Domain.Entities;
 using Domain.Shares.Classes;
 using Domain.Shares.Enums;
 
