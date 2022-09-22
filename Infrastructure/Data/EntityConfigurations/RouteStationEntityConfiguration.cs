@@ -30,6 +30,9 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.DistanceFromFirstStationInRoute)
                 .HasColumnName("distance_from_first_station_in_route");
 
+            builder.Property(e => e.DurationFromFirstStationInRoute)
+                .HasColumnName("duration_from_first_station_in_route");
+
             builder.Property(e => e.Status)
                 .HasColumnName("status");
 
