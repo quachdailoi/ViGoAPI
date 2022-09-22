@@ -15,9 +15,14 @@ namespace API.Models
         public string Address { get; set; } = string.Empty;
     }
 
-    public class StationInRouteViewModel : StationViewModel
+    public class StationInRouteViewModel : StationViewModel , IComparable<StationInRouteViewModel>
     {
-        public double DistanceFromFirstStationInRoute { get; set; }
+        //public double DistanceFromFirstStationInRoute { get; set; }
         public int Index { get; set; }
+
+        public int CompareTo(StationInRouteViewModel? other)
+        {
+            return this.Index - other.Index;
+        }
     }
 }

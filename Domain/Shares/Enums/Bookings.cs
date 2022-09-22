@@ -9,15 +9,15 @@ namespace Domain.Shares.Enums
     public class Bookings
     {
         public enum Types{
-            Monthly,
-            Weekly
+            WeekTicket,
+            MonthTicket,
+            QuaterTicket
         }
         
         public enum Options
         {
-            None,
-            IgnoreSunDay,
-            IgnoreSaturdayAndSunDay
+            StartAtFollowingTime,
+            StartAtNextDay
         }
     }
 }

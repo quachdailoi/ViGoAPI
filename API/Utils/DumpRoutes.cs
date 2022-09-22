@@ -23,7 +23,7 @@ namespace API.Utils
 
             if (await _routeService.IsExistData()) return;
 
-            //var routes = DumpData.DumpRoutes();
+            //var routes = DumpData.DumpRoutes(20);
             //var routeStations = DumpData.DumpRouteStations(routes);
             
 
