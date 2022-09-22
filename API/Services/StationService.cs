@@ -198,6 +198,13 @@ namespace API.Services
                 .ThenInclude(routeStation => routeStation.Route)
                 .ToListAsync();
         }
+
+        public async Task<List<DistanceStationDTO>> GetNearByStationsByCoordinates(CoordinatesDTO coordinates)
+        {
+            var distanceStations = GetNearByStationsBy2DFormula(coordinates);
+
+            return await _trueWayMatrixApiService.CalculateDrivingMatrix(coordinates, distanceStations);
+        }
     }
 }
 

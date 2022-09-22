@@ -3,6 +3,7 @@ using API.Models;
 using API.Models.DTO;
 using API.Models.Response;
 using API.Services.Constract;
+using API.Utils;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
@@ -26,9 +27,39 @@ namespace API.Services
             _promotionService = promotionService;
         }
 
-        public async Task<Response> Create(BookingDTO dto, Response successResponse, Response duplicateResponse, Response invalidResponse, Response errorReponse)
+        public async Task<Response> Create(BookingDTO dto, Response successResponse, Response duplicateResponse, Response invalidResponse, Response notAvailableResponse,Response errorReponse)
         {
             var booking = _mapper.Map<BookingDTO, Booking>(dto);
+
+            var routeStations =
+                await _unitOfWork.RouteStations
+                .List(routeStation =>
+                    routeStation.Station.Code == dto.StartStationCode ||
+                    routeStation.Station.Code == dto.EndStationCode &&
+                    routeStation.RouteId == dto.RouteId)
+                .Include(routeStation => routeStation.Station)
+                .ToListAsync();
+
+            var route = await _unitOfWork.Routes
+                .List(route => route.Id == dto.RouteId)
+                .FirstAsync();
+
+            var startStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.StartStationCode).First();
+            var endStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.EndStationCode).First();
+            
+            // estimate distance
+            booking.Distance = (startStation.Index <= endStation.Index) ?
+                endStation.DistanceFromFirstStationInRoute - startStation.DistanceFromFirstStationInRoute :
+                route.Distance - (startStation.DistanceFromFirstStationInRoute - endStation.DistanceFromFirstStationInRoute);
+            
+
+            // estimate time
+            booking.Duration = (startStation.Index <= endStation.Index) ?
+                endStation.DurationFromFirstStationInRoute - startStation.DurationFromFirstStationInRoute :
+                route.Distance - (startStation.DurationFromFirstStationInRoute - endStation.DurationFromFirstStationInRoute);
+
+            // caculate price
+            booking.TotalPrice = Fee.CaculateBookingFee(dto.Type, dto.VehicleType, booking.Distance, dto.StartAt, dto.EndAt);
 
             // generate booking detail by booking schedule
             booking.BookingDetails = _bookingDetailService.GenerateBookingDetail(booking);
@@ -40,7 +71,7 @@ namespace API.Services
                 if (promotion == null) return invalidResponse;
 
                 // get discount price by promotion
-                var discountPriceByPercentage = booking.TotalPrice * (1 - promotion.DiscountPercentage);
+                var discountPriceByPercentage = booking.TotalPrice * promotion.DiscountPercentage;
 
                 // compare with promotion max descrease
                 booking.DiscountPrice = discountPriceByPercentage < promotion.MaxDecrease ? discountPriceByPercentage : promotion.MaxDecrease;
@@ -76,29 +107,43 @@ namespace API.Services
                     return duplicateResponse;
             }
 
+            // check for exist available driver for this trip 
+
             booking = await _unitOfWork.Bookings.Add(booking);
 
             var bookingViewModel = 
                 await _unitOfWork.Bookings
-                    .List(booking => booking.Id == booking.Id)
+                    .List(_booking => _booking.Id == booking.Id)
                     .MapTo<BookerBookingViewModel>(_mapper)
                     .FirstOrDefaultAsync();
 
             if (bookingViewModel == null) return errorReponse;
 
             //add job queue to map with specific driver
+            bookingViewModel.Stations = bookingViewModel.ProcessStationOrder().Stations;
 
             return successResponse.SetData(bookingViewModel);
         }
 
         public async Task<Response> GetAll(int userId, Response successReponse)
         {
+            var bookings = _unitOfWork.Bookings
+                .List(booking => booking.UserId == userId);
+
+            var routes = _unitOfWork.Routes.List();
+
+            var routeStations = _unitOfWork.RouteStations.List();
+
             var bookingViewModels = 
                 await _unitOfWork.Bookings
                     .List(booking => booking.UserId == userId)
                     .MapTo<BookerBookingViewModel>(_mapper)
                     .ToListAsync();
 
+            foreach(var booking in bookingViewModels)
+            {
+                booking.Stations = booking.ProcessStationOrder().Stations;
+            }
 
             return successReponse.SetData(bookingViewModels);
         }

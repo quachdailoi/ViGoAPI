@@ -329,6 +329,7 @@ namespace Domain.Shares.Utils
                     Id = 36,
                     Longitude = 106.80277007274188,
                     Latitude = 10.871997549994893,
+                    Name = "Đại học Khoa học Xã hội và Nhân văn",
                     Address = "VRC2+QR9, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
                 },
                 new Station
@@ -717,15 +718,12 @@ namespace Domain.Shares.Utils
                 }
             };
         }
-        public static List<Domain.Entities.Route> DumpRoutes()
+        private static Domain.Entities.Route CreateNewRoute (int id)
         {
-            var routes = new List<Domain.Entities.Route>
+             return new Domain.Entities.Route
             {
-                // Ga Metro khu CNC - Saigon Silicon
-                new Domain.Entities.Route
-                {
-                    Id = 1,
-                    Steps = new List<Step>
+                Id = id,
+                Steps = new List<Step>
                     {
                         new Step
                         {
@@ -1513,8 +1511,17 @@ namespace Domain.Shares.Utils
                             Distance = 210
                         }
                     }
-                }
             };
+
+        }
+        public static List<Domain.Entities.Route> DumpRoutes(int totalRecords)
+        {
+            var routes = new List<Domain.Entities.Route>();
+
+            for(var i = 1; i <= totalRecords; i++)
+            {
+                routes.Add(CreateNewRoute(i));
+            }
 
             CaculateDuration(routes);
 
@@ -1530,6 +1537,7 @@ namespace Domain.Shares.Utils
                 var stationsId = route.Steps.Select(step => step.StationId).Where(stationId => stationId != null).ToList();
 
                 double DistanceFromFirstStationInRoute = 0;
+                double DurationFromFirstStationInRoute = 0;
                 int stationIndex = 0;
 
                 route.Steps.ForEach(step =>
@@ -1541,6 +1549,7 @@ namespace Domain.Shares.Utils
                             Id = routeStations.Count() + 1,
                             Index = stationIndex++,
                             DistanceFromFirstStationInRoute = DistanceFromFirstStationInRoute,
+                            DurationFromFirstStationInRoute = DurationFromFirstStationInRoute,
                             StationId = step.StationId.Value,
                             RouteId = route.Id
                         });
@@ -1551,9 +1560,8 @@ namespace Domain.Shares.Utils
                         //stationIndex++;
                     }
                     DistanceFromFirstStationInRoute += step.Distance;
+                    DurationFromFirstStationInRoute += step.Duration;
                 });
-
-                routeStations.Last().Index = -1;
             }
 
             return routeStations;

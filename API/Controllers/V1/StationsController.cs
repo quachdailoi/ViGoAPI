@@ -41,6 +41,7 @@ namespace API.Controllers.V1
                         StatusCode = StatusCodes.Status500InternalServerError
                     }
                     );
+
             return ApiResult(stationResponse);
         }
 

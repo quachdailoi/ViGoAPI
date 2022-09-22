@@ -5,21 +5,18 @@ namespace API.Models.Requests
 {
     public class CreateBookingRequest
     {
-        public double TotalPrice { get; set; }
-        //public double DiscountPrice { get; set; }
-        public VehicleTypes VehicleType { get; set; } = VehicleTypes.ViRide;
+        //public double TotalPrice { get; set; }
+        public VehicleTypes? VehicleType { get; set; } = null;
         public string Time { get; set; }
-        //public TimeOnly Time { get; set; }
-        public Bookings.Options Option { get; set; } = Bookings.Options.None;
-        public Bookings.Types Type { get; set; }
+        public Bookings.Options Option { get; set; } = Bookings.Options.StartAtNextDay;
+        public Bookings.Types Type { get; set; } = Bookings.Types.MonthTicket;
         public PaymentMethods PaymentMethod { get; set; } = PaymentMethods.COD;
-        public DaySchedule Days { get; set; } = new();
         public bool IsShared { get; set; }
         public Guid StartStationCode { get; set; } = new();
         public Guid EndStationCode { get; set; } = new();
-        public double Duration { get; set; }
-        public double Distance { get; set; }
-        public List<Step> Steps { get; set; } = new();
+        public int RouteId { get; set; }
+        //public double Distance { get; set; }
+        //public double Duration { get; set; }
 
         public string StartAt { get; set; }
         public string EndAt { get; set; }

@@ -20,9 +20,14 @@ namespace API.Models
         public StatusTypes.Station Status { get; set; } = StatusTypes.Station.Active;
     }
 
-    public class StationInRouteViewModel : StationViewModel
+    public class StationInRouteViewModel : StationViewModel , IComparable<StationInRouteViewModel>
     {
-        public double DistanceFromFirstStationInRoute { get; set; }
+        //public double DistanceFromFirstStationInRoute { get; set; }
         public int Index { get; set; }
+
+        public int CompareTo(StationInRouteViewModel? other)
+        {
+            return this.Index - other.Index;
+        }
     }
 }

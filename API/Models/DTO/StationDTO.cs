@@ -10,4 +10,14 @@ namespace API.Models.DTO
         public string Address { get; set; } = String.Empty;
         public StatusTypes.Station Status { get; set; } = StatusTypes.Station.Active;
     }
+    public class StationWithScheduleDTO
+    {
+        public int StartStationId { get; set; }
+        public int EndStationId { get; set; }
+        public Bookings.Types BookingType { get; set; } = Bookings.Types.MonthTicket;
+
+        public DateOnly StartAt { get; set; }
+        public DateOnly EndAt { get; set; }
+        public VehicleTypes VehicleType { get; set; } = VehicleTypes.ViRide;
+    }
 }

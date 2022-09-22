@@ -18,5 +18,6 @@ namespace Domain.Entities
         public StatusTypes.Route Status { get; set; } = StatusTypes.Route.Active;
 
         public List<RouteStation> RouteStations { get; set; } = new();
+        public List<Booking> Bookings { get; set; } = new();
     }
 }
