@@ -123,6 +123,7 @@ namespace API.Extensions
             services.AddTransient<IRapidApiService, RapidApiService>();
             services.AddTransient<IBannerService, BannerService>();
             services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<IAdminService, AdminService>();
         }
 
