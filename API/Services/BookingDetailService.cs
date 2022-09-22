@@ -20,80 +20,98 @@ namespace API.Services
             _mapper = mapper;
         }
 
+        //public List<BookingDetail> GenerateBookingDetail(Booking booking)
+        //{
+        //    List<BookingDetail> bookingDetails = new();
+        //    if (booking.Type == Bookings.Types.Monthly)
+        //    {
+        //        var daysOfMonthHashSet = booking.Days.DaysOfMonth.ToHashSet();
+
+        //        var startYear = booking.StartAt.Year;
+        //        var endYear = booking.EndAt.Year;
+
+        //        var bookingDetailsDic = new Dictionary<DateOnly, BookingDetail>();
+
+        //        for(var year = startYear; year <= endYear; year++)
+        //        {
+        //            var startMonth = booking.StartAt.Month;
+        //            var endMonth = booking.EndAt.Month;
+        //            if (year != endYear)
+        //            {
+        //                endMonth = 12;
+        //            }
+
+        //            if(year != startYear)
+        //            {
+        //                startMonth = 1;
+        //            }
+
+        //            for(var month = startMonth; month <= endMonth; month++)
+        //            {
+        //                var totalApplyChangeInNextMonth = 0;
+        //                foreach (var day in daysOfMonthHashSet)
+        //                {                         
+        //                    try
+        //                    {
+        //                        DateOnly date = new DateOnly(year, month, day);
+        //                        bookingDetailsDic.Add(date,new BookingDetail
+        //                        {
+        //                            Booking = booking,
+        //                            Date = date,
+        //                        });
+        //                    }
+        //                    catch
+        //                    {
+        //                        if(booking.Option == Bookings.Options.ChangeToNextDayOfNextMonth)
+        //                        {
+        //                            totalApplyChangeInNextMonth++;
+        //                        }
+        //                    }                            
+        //                }
+
+        //                for (var day = 1; day <= totalApplyChangeInNextMonth; day++)
+        //                {
+        //                    DateOnly date = new DateOnly(year, month + 1, day);                               
+        //                    bookingDetailsDic.Add(date, new BookingDetail
+        //                    {
+        //                        Booking = booking,
+        //                        Date = date,
+        //                    });
+        //                }
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        var daysOfWeekHashSet = booking.Days.DaysOfWeek.ToHashSet();
+        //        for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
+        //        {
+        //            if (daysOfWeekHashSet.Contains(day.DayOfWeek))
+        //            {
+        //                bookingDetails.Add(new BookingDetail
+        //                {
+        //                    Booking = booking,
+        //                    Date = day,
+        //                });
+        //            }
+        //        };
+        //    }
+        //    return bookingDetails;
+        //}
+
         public List<BookingDetail> GenerateBookingDetail(Booking booking)
         {
             List<BookingDetail> bookingDetails = new();
-            if (booking.Type == Bookings.Types.Monthly)
+            for(var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
             {
-                var daysOfMonthHashSet = booking.Days.DaysOfMonth.ToHashSet();
-                for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
+                bookingDetails.Add(new BookingDetail
                 {
-                    if (daysOfMonthHashSet.Contains(day.Day))
-                    {
-                        bool isIgnoreDate = false;
-
-                        //if (booking.Days.IgnoreDaysByMonth.TryGetValue(day.Month, out List<int> ignoreDaysInMonth))
-                        //{
-                        //    if (ignoreDaysInMonth.Contains(day.Day))
-                        //    {
-                        //        isIgnoreDate = true;
-                        //    }
-                        //}
-
-                        //if(!isIgnoreDate)
-
-                        switch (booking.Option) 
-                        {
-                            case Bookings.Options.IgnoreSunDay: 
-                                isIgnoreDate = day.DayOfWeek == DayOfWeek.Sunday; 
-                                break;
-                            case Bookings.Options.IgnoreSaturdayAndSunDay: 
-                                isIgnoreDate = day.DayOfWeek == DayOfWeek.Saturday || day.DayOfWeek == DayOfWeek.Sunday; 
-                                break;
-                            default: break;
-                        }
-
-                        if(!isIgnoreDate)
-                            bookingDetails.Add(new BookingDetail
-                            {
-                                Booking = booking,
-                                Date = day,
-                            });
-                    }
-                    else
-                    {
-                        if(booking.Days.AdditionalDaysByMonth.TryGetValue(day.Month, out List<int> additionalDaysInMonth))
-                        {
-                            if (additionalDaysInMonth.Contains(day.Day))
-                            {
-                                bookingDetails.Add(new BookingDetail
-                                {
-                                    Booking = booking,
-                                    Date = day,
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                var daysOfWeekHashSet = booking.Days.DaysOfWeek.ToHashSet();
-                for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
-                {
-                    if (daysOfWeekHashSet.Contains(day.DayOfWeek))
-                    {
-                        bookingDetails.Add(new BookingDetail
-                        {
-                            Booking = booking,
-                            Date = day,
-                        });
-                    }
-                };
+                    Booking = booking,
+                    Date = day
+                });
             }
             return bookingDetails;
         }
-
         public async Task<Response> GetNextBookingDetail(int userId, Response successResponse)
         {
             var bookingDetailsIQueryable = _unitOfWork.BookingDetails.List(b => b.Booking.UserId == userId && b.Status != StatusTypes.BookingDetail.Completed)

@@ -42,10 +42,6 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasConversion<int>()
                 .HasColumnName("type");
 
-            builder.Property(e => e.Days)
-                .HasColumnType("jsonb")
-                .HasColumnName("days");
-
             builder.Property(e => e.IsShared)
                 .HasDefaultValue(false)
                 .HasColumnName("is_shared");
@@ -56,11 +52,11 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.EndAt)
                 .HasColumnName("end_at");
 
-            builder.Property(e => e.StartStationId)
-                .HasColumnName("start_station_id");
+            builder.Property(e => e.StartStationCode)
+                .HasColumnName("start_station_code");
 
-            builder.Property(e => e.EndStationId)
-                .HasColumnName("end_station_id");
+            builder.Property(e => e.EndStationCode)
+                .HasColumnName("end_station_code");
 
             builder.Property(e => e.VehicleType)
                 .HasColumnName("vehicle_type");
@@ -68,9 +64,8 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.PaymentMethod)
                 .HasColumnName("payment_method");
 
-            builder.Property(e => e.Steps)
-                .HasColumnType("jsonb[]")
-                .HasColumnName("steps");
+            builder.Property(e => e.RouteId)
+                .HasColumnName("route_id");
 
             builder.Property(e => e.Distance)
                 .IsRequired()
@@ -99,6 +94,11 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.HasOne(e => e.Promotion)
                 .WithMany(e => e.Bookings)
                 .HasForeignKey(e => e.PromotionId)
+                .IsRequired();
+
+            builder.HasOne(e => e.Route)
+                .WithMany(route => route.Bookings)
+                .HasForeignKey(e => e.RouteId)
                 .IsRequired();
         }
     }

@@ -14,6 +14,7 @@ namespace API.Services.Constract
         bool CheckDuplicateStations(List<StationDTO> stations);
         Task<bool> ExistSeedData();
         Task<List<Tuple<Station, double, object?>>?> GetStationSteps(Station startStation, Station endStation);
+        Task<List<DistanceStationDTO>> GetNearByStationsByCoordinates(CoordinatesDTO coordinates);
         Task<Response> GetNearByStationsByCoordinates(CoordinatesDTO coordinates, Response success, Response failed);
 
         Task<List<StationDTO>> GetStationDTOsByCodes(List<string> stationCodes);

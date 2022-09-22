@@ -13,13 +13,9 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.Stations,
                     opt => opt.MapFrom(src => src.RouteStations.Select(item => item.Station)));
-                //.AfterMap<AddStationToStepAction>();
-                //.ForMember(
-                //    dest => dest.Steps,
-                //    opt => opt.MapFrom<StepResolver>()
-                //);
 
-            //CreateMap<Step, StepViewModel>();
+            CreateMap<Domain.Entities.Route, BookerRouteViewModel>()
+                .IncludeBase<Domain.Entities.Route, RouteViewModel>();
         }
     }
 }

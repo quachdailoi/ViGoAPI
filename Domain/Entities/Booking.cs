@@ -14,11 +14,9 @@ namespace Domain.Entities
         public PaymentMethods PaymentMethod { get; set; } = PaymentMethods.COD;
         public Bookings.Options Option { get; set; }
         public Bookings.Types Type { get; set; }
-        public DaySchedule Days { get; set; } = new();
         public bool IsShared { get; set; }
-        public int StartStationId { get; set; } = new();
-        public int EndStationId { get; set; } = new();
-        public List<Step> Steps { get; set; } = new();
+        public Guid StartStationCode { get; set; }
+        public Guid EndStationCode { get; set; }
         public double Duration { get; set; }
         public double Distance { get; set; }
 
@@ -26,11 +24,11 @@ namespace Domain.Entities
         public DateOnly EndAt { get; set; }
         public int UserId { get; set; }
         public int? PromotionId { get; set; } = null;
+        public int RouteId { get; set; }
         public StatusTypes.Booking Status { get; set; } = StatusTypes.Booking.Started;
 
         public User User { get; set; }
-        public Station StartStation { get; set; }
-        public Station EndStation { get; set; }
+        public Route Route { get; set; }
         public List<BookingDetail> BookingDetails { get; set; } = new();
 
         //Promotion

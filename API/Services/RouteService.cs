@@ -3,6 +3,7 @@ using API.Models;
 using API.Models.DTO;
 using API.Models.Response;
 using API.Services.Constract;
+using API.Utils;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
@@ -46,15 +47,9 @@ namespace API.Services
 
         public async Task<Response> GetAll(Response successResponse)
         {
-            //var _routes = await _unitOfWork.Routes.List(route => route.Status == StatusTypes.Route.Active).ToListAsync();
             var routes = await _unitOfWork.Routes.List(route => route.Status == StatusTypes.Route.Active).MapTo<RouteViewModel>(_mapper).ToListAsync();
 
             return successResponse.SetData(routes);
-        }
-
-        public Task<Response> GetSteps(Location startPoint, Location endPoint)
-        {
-            throw new NotImplementedException();
         }
 
         public Task<bool> IsExistData()
@@ -62,200 +57,146 @@ namespace API.Services
             return _unitOfWork.Routes.List().AnyAsync();
         }
 
-        public async Task<List<RouteViewModel>> GetRouteByListOfStations(Station startStation, List<Tuple<Station,double,object>> stepStations)
+
+        public async Task<Response> GetRouteFeeByPairOfStation(StationWithScheduleDTO dto, Response successResponse, Response notFoundResponse)
         {
-            var routeIds = stepStations.Select(stepStation => stepStation.Item3).Cast<int>();
+            var routeStations =
+                _unitOfWork.RouteStations
+                .List(routeStation =>
+                    routeStation.Status == StatusTypes.RouteStation.Active)
+                .Where(routeStation =>
+                    routeStation.StationId == dto.StartStationId ||
+                    routeStation.StationId == dto.EndStationId);
+
+            var startRouteStations =
+                routeStations
+                .Where(routeStation => routeStation.StationId == dto.StartStationId);
+
+            var endRouteStations =
+                routeStations
+                .Where(routeStation => routeStation.StationId == dto.EndStationId);
 
             var routes =
-                (await _unitOfWork.Routes
-                    .List(route => routeIds.Contains(route.Id))
-                    .ToListAsync())
-                .ToDictionary<Domain.Entities.Route, int>(e => e.Id);
+                _unitOfWork.Routes
+                .List(route =>
+                    route.Status == StatusTypes.Route.Active &&
+                    route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.StartStationId) &&
+                    route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.EndStationId));
 
-            //var stationIds = stationsWithDistance.Keys.Select(station => station.Id).Append(startStation.Id);
-            //var routes = 
-            //    await _unitOfWork.Routes
-            //        .List(route => 
-            //            route.RouteStations
-            //            .Select(routeStation => routeStation.StationId)
-            //            .Intersect(stationIds)
-            //            .Any())
-            //        .Include(route => route.RouteStations)
-            //        .ToListAsync();
+            // Get list of route satisfied start station and end station that order by distance from start station to end station in route
+            var query =
+              await (from _route in routes
+                     join startStation in startRouteStations on _route.Id equals startStation.RouteId
+                         into startStationJoineds
+                     from startStationJoined in startStationJoineds.DefaultIfEmpty()
+                     let startStationDistance = startStationJoined.DistanceFromFirstStationInRoute
+                     join endStation in endRouteStations on _route.Id equals endStation.RouteId
+                         into endStationJoineds
+                     from endStationJoined in endStationJoineds.DefaultIfEmpty()
+                     let endStationDistance = endStationJoined.DistanceFromFirstStationInRoute
+                     let distance = (endStationDistance - startStationDistance) > 0 ? endStationDistance - startStationDistance : _route.Distance - (startStationDistance - endStationDistance)
+                     orderby distance ascending
 
-            //RouteViewModel routeViewModel = new();
-            //routeViewModel.Stations.Add(_mapper.Map<StationInRouteViewModel>(stations[0]));
+                     select new
+                     {
+                         RouteId = _route.Id,
+                         StartStationIndex = startStationJoined.Index,
+                         EndStationIndex = endStationJoined.Index,
+                         Distance = distance
+                     })
+                    .Take(3)
+                    .ToListAsync();
 
-            //for (int i = 0; i < stations.Count -1 ; i++)
-            //{
-            //    var routeContainStations = routes.Where(_route => 
-            //                        _route.RouteStations
-            //                        .Select(_routeStation => _routeStation.StationId)
-            //                        .Intersect(new List<int> { stations[i].Id, stations[i+1].Id })
-            //                        .Count() == 2)
-            //                      .ToList();
+            var routeDic = query.ToDictionary(x => x.RouteId, x => x);
+            var routeIds = query.Select(x => x.RouteId);
+            var matchRoutes = await _unitOfWork.Routes.List(route => routeIds.Contains(route.Id)).MapTo<BookerRouteViewModel>(_mapper).ToListAsync();
 
-            //    //=================== stuck here ===========================
-
-
-            //    routeViewModel.Stations.Add(_mapper.Map<StationInRouteViewModel>(stations[i+1]));
-            //}
-
-            List<RouteViewModel> routeViewModels = new();
-
-            Tuple<Station, double, object> prevStepStation = null;
-
-            foreach (var stepStation in stepStations)
+            foreach(var route in matchRoutes)
             {
-                var station = stepStation.Item1;
-                var distanceFromStartStation = stepStation.Item2;
-                var routeId = (int)stepStation.Item3;
+                var value = routeDic[route.Id];
 
-                var route = routes[routeId];
+                var startStationIndex = value.StartStationIndex;
+                var endStationIndex = value.EndStationIndex;
 
-                var routeViewModel = _mapper.Map<RouteViewModel>(route);
-
-                var prevStationViewModel = _mapper.Map<StationInRouteViewModel>(prevStepStation == null ? startStation : prevStepStation.Item1);
-
-                var currentStationViewModel = _mapper.Map<StationInRouteViewModel>(station);
-
-                routeViewModel.Stations.AddRange(new List<StationInRouteViewModel> { prevStationViewModel, currentStationViewModel });
-
-                List<Step> steps = new();
-
-                double totalDistance = 0;
-                double totalDuration = 0;
-
-                foreach (var step in route.Steps)
+                if(startStationIndex <= endStationIndex)
                 {
-                    if (step.StationId != station.Id)
-                    {
-                        steps.Add(step);
-
-                        totalDistance += step.Distance;
-                        totalDuration += step.Duration;
-
-                        route.Steps.Remove(step);
-                    }
-                    else break;
-                };
-
-                routeViewModel.Steps = steps;
-                routeViewModel.Distance = totalDistance;
-                routeViewModel.Duration = totalDuration;
-
-                if (routeViewModels.Any() && routeViewModels.Last().Id == routeId)
-                {
-                    routeViewModels.Last().Stations.Add(currentStationViewModel);
-
-                    routeViewModels.Last().Steps.Concat(steps);
-
-                    routeViewModels.Last().Distance += totalDistance;
-
-                    routeViewModels.Last().Duration += totalDuration;
+                    route.Stations = route.Stations
+                    .Where(station => station.Index >= startStationIndex && station.Index <= endStationIndex)
+                    .OrderBy(station => station.Index)
+                    .ToList();
                 }
                 else
                 {
-                    routeViewModels.Add(routeViewModel);
+                    var stationBeforeEndStation = route.Stations
+                    .Where(station => station.Index <= endStationIndex)
+                    .ToList();
+
+                    var stationAfterStartStation = route.Stations
+                    .Where(station => station.Index >= startStationIndex)
+                    .ToList();
+
+                    route.Stations = stationAfterStartStation.Concat(stationBeforeEndStation).ToList();
                 }
 
-                prevStepStation = stepStation;
-            }
-               
-            return routeViewModels;
-        }
-
-        public async Task<Response> GetRouteByPairOfStation(int startStationId, int endStationId, VehicleTypes vehicleType, Response successResponse, Response notFoundResponse)
-        {
-            var route =
-               await _unitOfWork.Routes
-               .List(route => 
-                        route.RouteStations
-                        .Select(routeStation =>
-                            routeStation.StationId)
-                        .Where(stationId => 
-                            stationId == startStationId || stationId == endStationId)
-                        .Count() == 2)
-               .MapTo<RouteViewModel>(_mapper)
-               .FirstOrDefaultAsync();
-
-            if(route == null) return notFoundResponse;
-
-            List<Step> steps = new();
-
-            double totalDistance = 0;
-
-            double totalDuration = 0;
-
-            bool foundStartStationInStep = false;
-            bool foundEndStationInStep = false;
-            while (!foundEndStationInStep)
-            {
-                foreach(var step in route.Steps)
-                {
-                    var stationId = step.StationId;
-
-                    if (!foundStartStationInStep)
-                    {
-                        if (stationId.HasValue && stationId.Value == startStationId)
-                        {
-                            steps.Add(step);
-                            totalDistance += step.Distance;
-                            totalDuration += step.Duration;
-                            foundStartStationInStep = true;
-                        }
-                    }
-                    else
-                    {
-                        if (!stationId.HasValue || stationId.Value != endStationId)
-                        {
-                            steps.Add(step);
-                            totalDistance += step.Distance;
-                            totalDuration += step.Duration;
-                            foundEndStationInStep = true;
-                        }
-                        else break;
-                    }
-                }
+                route.Fee = Fee.CaculateBookingFee(dto.BookingType, dto.VehicleType, value.Distance, dto.StartAt, dto.EndAt);
             }
 
-            route.Steps = steps;
-            route.Distance = totalDistance;
-            route.Duration = totalDuration;
-
-            var fee = totalDistance / 1000 * 12000;
-
-            return successResponse.SetData(new
-            {
-                Route = route,
-                Fee = fee
-            });
+            return successResponse.SetData(matchRoutes);
         }
 
-        public async Task<Response> GetStepsByPairOfStations(Station startStation, Station endStation, VehicleTypes vehicleType, Response successResposne)
+        public async Task<Response> GetRoutesByPairsOfStation(List<int> startStationIds, List<int> endStationIds, Response successResposne)
         {
-            var stepStations = await _stationService.GetStationSteps(startStation, endStation);
+            ////var routeStations =
+            ////    _unitOfWork.RouteStations
+            ////    .List(routeStation =>
+            ////        startStationIds.Contains(routeStation.StationId) ||
+            ////        endStationIds.Contains(routeStation.StationId));
 
+            //var startRouteStations =
+            //     _unitOfWork.RouteStations
+            //    .List(routeStation =>
+            //        startStationIds.Contains(routeStation.StationId));
 
+            //var endRouteStations =
+            //     _unitOfWork.RouteStations
+            //    .List(routeStation =>
+            //        endStationIds.Contains(routeStation.StationId));
 
-            var routes = await this.GetRouteByListOfStations(startStation,stepStations);
+            //var routes =
+            //    _unitOfWork.Routes
+            //    .List(route =>
+            //        route.Status == StatusTypes.Route.Active &&
+            //        route.RouteStations
+            //        .Exists(routeStation => startStationIds.Contains(routeStation.StationId)) &&
+            //        route.RouteStations
+            //        .Exists(routeStation => endStationIds.Contains(routeStation.StationId)));
 
-            var totalDistance = routes.Select(route => route.Distance).Aggregate((current, next) => current + next);
+            //var result =
+            //    (from route in routes
+            //     join startRouteStation in startRouteStations on route.Id equals startRouteStation.RouteId
+            //     join endRouteStation in endRouteStations on route.Id equals endRouteStation.RouteId
+            //     orderby endRouteStation.DistanceFromFirstStationInRoute - startRouteStation.DistanceFromFirstStationInRoute
+            //     select new
+            //     {
+            //         Route = route,
+            //         StartRouteStation = startRouteStation,
+            //         EndRouteStation = endRouteStation
+            //     }
 
-            // caculate fee
+            //     )
 
-            var fee = totalDistance / 1000 * 12000;
+            //var routes = 
+            //    await _unitOfWork.Routes
+            //    .List(route => 
+            //        route.RouteStations
+            //        .Exists(routeStation => startStationIds.Contains(routeStation.StationId)) &&
+            //        route.RouteStations
+            //        .Exists(routeStation => endStationIds.Contains(routeStation.StationId)))
+            //    .GroupBy(route => route.Id)
+            //    .ToListAsync();
 
-            return successResposne.SetData(new
-            {
-                Path = routes,
-                Fee = fee
-            });
-        }
-
-        public Task<Response> GetRoutesByPairOfStation(Station startStation, Station endStation, Response successResponse)
-        {
-            throw new NotImplementedException();
+            //rou
+            return null;
         }
 
         public async Task<Domain.Entities.Route> CreateRoute(Domain.Entities.Route route)
