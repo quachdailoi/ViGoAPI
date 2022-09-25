@@ -140,18 +140,37 @@ namespace API.Services
         {
             var constructedRoute = await TrueWayDirection_FindDrivingRoute(stations);
 
+            await _unitOfWork.CreateTransactionAsync();
+
+            var isSuccessTransaction = true;
+
             var createdRoute = await _unitOfWork.Routes.CreateRoute(constructedRoute);
 
-            if (createdRoute == null)
+            if (isSuccessTransaction = createdRoute != null)
             {
+                //connect last station and first station in circle route
+                if (stations.Last().Id == stations.First().Id)
+                {
+                    createdRoute.RouteStations.Last().NextRouteStationId = createdRoute.RouteStations.First().Id;
+                    if (!await _unitOfWork.Routes.Update(createdRoute))
+                    {
+                        isSuccessTransaction = false;
+                    }
+                }
+            }
+
+            if (!isSuccessTransaction) 
+            { 
+                await _unitOfWork.Rollback();
                 return failed;
             }
+            else await _unitOfWork.CommitAsync();
 
             var routeVM = 
                 (await _unitOfWork.Routes.List()
                     .Where(x => x.Id == createdRoute.Id)
                     .MapTo<RouteViewModel>(_mapper)
-                    .ToListAsync()).FirstOrDefault();
+                    .FirstAsync()).ProcessStation();
 
             return success.SetData(routeVM);
         }
@@ -300,7 +319,10 @@ namespace API.Services
             double distance = 0;
             double duration = 0;
 
-            for (var index = 0; index < stations.Count; index++)
+            var isCircleRoute = stations.First().Id == stations.Last().Id;
+            var totalStation = isCircleRoute ? stations.Count - 1 : stations.Count; 
+
+            for (var index = 0; index < totalStation; index++)
             {
                 var station = stations[index];
                 
@@ -317,12 +339,7 @@ namespace API.Services
                 };
 
                 if (routestations.Any()) routestations.Last().NextRouteStation = routeStation;
-
-                // check for circle route
-                if (index == stations.Count -1 && station.Id == stations.First().Id)
-                {
-                    routeStation = routestations.First();
-                }else routestations.Add(routeStation);                           
+                routestations.Add(routeStation);                           
             }
 
             return routestations;

@@ -16,7 +16,7 @@ namespace Infrastructure.Data.EntityConfigurations
         {
             base.Configure(builder);
 
-            builder.ToTable("Vehicles");
+            builder.ToTable("vehicles");
 
             builder.Property(e => e.Code)
                 .HasColumnName("code");

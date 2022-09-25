@@ -49,6 +49,8 @@ namespace API.Services
         {
             var routes = await _unitOfWork.Routes.List(route => route.Status == StatusTypes.Route.Active).MapTo<RouteViewModel>(_mapper).ToListAsync();
 
+            foreach(var route in routes) route.ProcessStation();
+
             return successResponse.SetData(routes);
         }
 
@@ -158,7 +160,10 @@ namespace API.Services
             foreach (var routeViewModel in routeViewModels)
             {
                 List<StationInRouteViewModel> stations = new();
-                var stationDic = routeViewModel.Stations.ToDictionary(e => e.Id);
+                var stationDic = routeViewModel.Stations
+                    .DistinctBy(e => e.Id)
+                    .ToDictionary(e => e.Id);
+
                 var routeStationDic = routeViewModel.RouteStations.ToDictionary(e => e.Id);
 
                 var startStation = stationDic[startStationId];

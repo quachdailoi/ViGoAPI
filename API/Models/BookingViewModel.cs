@@ -25,7 +25,7 @@ namespace API.Models
         public StatusTypes.Booking Status { get; set; } = StatusTypes.Booking.Started;
         public List<StationInRouteViewModel> Stations { get; set; } = new();
 
-        public BookingViewModel ProcessStationOrder()
+        public virtual BookingViewModel ProcessStationOrder()
         {
             var startIndex = this.Stations.Where(station => station.Code == this.StartStationCode).First().Index;
             var endIndex = this.Stations.Where(station => station.Code == this.EndStationCode).First().Index;
@@ -47,6 +47,11 @@ namespace API.Models
         public DateOnly EndAt { get; set; }
         public int Option { get; set; }
         public Bookings.Types Type { get; set; }
+
+        public override BookerBookingViewModel ProcessStationOrder()
+        {
+            return (BookerBookingViewModel)base.ProcessStationOrder();
+        }
         //public List<BookerBookingDetailViewModel> BookingDetails { get; set; }
     }
     public class DriverBookingViewModel : BookingViewModel

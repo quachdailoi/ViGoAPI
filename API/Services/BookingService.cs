@@ -122,9 +122,8 @@ namespace API.Services
             if (bookingViewModel == null) return errorReponse;
 
             //add job queue to map with specific driver
-            bookingViewModel.Stations = bookingViewModel.ProcessStationOrder().Stations;
 
-            return successResponse.SetData(bookingViewModel);
+            return successResponse.SetData(bookingViewModel.ProcessStationOrder());
         }
 
         public async Task<Response> GetAll(int userId, Response successReponse)
@@ -144,7 +143,7 @@ namespace API.Services
 
             foreach(var booking in bookingViewModels)
             {
-                booking.Stations = booking.ProcessStationOrder().Stations;
+                booking.ProcessStationOrder();
             }
 
             return successReponse.SetData(bookingViewModels);
