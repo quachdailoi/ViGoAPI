@@ -158,6 +158,7 @@ services.AddSingleton(provider => new MapperConfiguration(cfg =>
     cfg.AddProfile(new RouteMappingProfile());
     cfg.AddProfile(new StationMappingProfile());
     cfg.AddProfile(new BannerMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
+    cfg.AddProfile(new VehicleMappingProfile());
 }).CreateMapper());
 
 // add http context accessor

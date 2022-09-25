@@ -46,6 +46,8 @@ namespace Infrastructure.Data
             new StationSeeder(builder);
 
             new BannerSeeder(builder);
+
+            new VehicleTypeSeeder(builder);
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)

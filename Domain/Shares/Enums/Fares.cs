@@ -6,14 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public class VehicleTypes
+    public class Fares
     {
-        public enum Type
-        {
-            ViRide,
-            ViCar
-        }
-        
         public enum Status
         {
             Active,

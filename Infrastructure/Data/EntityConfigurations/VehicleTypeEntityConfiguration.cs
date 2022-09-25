@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Shares.Enums;
 using Infrastructure.Data.EntityConfigurations.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -29,6 +30,14 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.Slot)
                 .HasColumnName("slot")
                 .IsRequired();
+
+            builder.Property(e => e.Type)
+                .HasColumnName("type")
+                .IsRequired();
+
+            builder.Property(e => e.Status)
+                .HasDefaultValue(VehicleTypes.Status.Active)
+                .HasColumnName("status");
 
             builder.HasIndex(e => e.Code)
                 .IsUnique();
