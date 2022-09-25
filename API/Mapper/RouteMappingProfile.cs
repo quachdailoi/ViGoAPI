@@ -12,7 +12,9 @@ namespace API.Mapper
             CreateMap<Domain.Entities.Route, RouteViewModel>()
                 .ForMember(
                     dest => dest.Stations,
-                    opt => opt.MapFrom(src => src.RouteStations.Select(item => item.Station)));
+                    opt => opt.MapFrom(src => src.RouteStations.Last().NextRouteStationId == src.RouteStations.First().Id ? 
+                                              src.RouteStations.Select(item => item.Station).Prepend(src.RouteStations.First().Station):
+                                              src.RouteStations.Select(item => item.Station)));
 
             CreateMap<Domain.Entities.Route, BookerRouteViewModel>()
                 .IncludeBase<Domain.Entities.Route, RouteViewModel>();

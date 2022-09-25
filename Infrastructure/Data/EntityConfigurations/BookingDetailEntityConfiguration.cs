@@ -59,10 +59,6 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.HasOne(e => e.Driver)
                 .WithMany(u => u.BookingDetails)
                 .HasForeignKey(e => e.DriverId);
-
-            builder.HasOne(e => e.MessageRoom)
-                .WithOne(r => r.Booking)
-                .HasForeignKey<BookingDetail>(e => e.MessageRoomId);
         }
     }
 }

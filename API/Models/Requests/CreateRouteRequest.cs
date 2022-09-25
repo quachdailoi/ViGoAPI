@@ -2,6 +2,6 @@
 {
     public class CreateRouteRequest
     {
-        public List<string> StationCodes { get; set; }
+        public List<Guid> StationCodes { get; set; } = new();
     }
 }

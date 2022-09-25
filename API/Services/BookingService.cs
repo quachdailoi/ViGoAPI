@@ -68,7 +68,7 @@ namespace API.Services
 
             if (!String.IsNullOrEmpty(dto.PromotionCode))
             {
-                var promotion = await _promotionService.GetPromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count, booking.PaymentMethod, booking.VehicleType);
+                var promotion = await _promotionService.GetPromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count, booking.PaymentMethod, dto.VehicleType);
 
                 if (promotion == null) return invalidPromotionResponse;
 

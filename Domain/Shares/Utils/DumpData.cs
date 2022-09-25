@@ -1545,7 +1545,7 @@ namespace Domain.Shares.Utils
                 {
                     if(step.StationId.HasValue)
                     {
-                        routeStations.Add(new RouteStation
+                        var routeStation = new RouteStation
                         {
                             Id = routeStations.Count() + 1,
                             Index = stationIndex++,
@@ -1553,7 +1553,9 @@ namespace Domain.Shares.Utils
                             DurationFromFirstStationInRoute = DurationFromFirstStationInRoute,
                             StationId = step.StationId.Value,
                             RouteId = route.Id
-                        });
+                        };
+                        if (routeStations.Count > 0 && routeStations.Last().RouteId == routeStation.RouteId) routeStations.Last().NextRouteStation = routeStation;
+                        routeStations.Add(routeStation);
                     }
                     else
                     {

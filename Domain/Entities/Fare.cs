@@ -14,7 +14,7 @@ namespace Domain.Entities
         public int BaseDistance { get; set; }
         public int VehicleTypeId { get; set; }
 
-        public VehicleType? VehicleType { get; set; }
+        public VehicleType VehicleType { get; set; }
         public List<FareTimeline> FareTimelines { get; set; } = new();
     }
 }

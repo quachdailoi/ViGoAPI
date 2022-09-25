@@ -11,10 +11,12 @@ namespace API.Models
         //public Location EndPoint { get; set; } = new();
         public int Id { get; set; }
         //public List<Step> Steps { get; set; } = new();
-        //public double Distance { get; set; }
-        //public double Duration { get; set; }
+        public double Distance { get; set; }
+        public double Duration { get; set; }
         //public Bound Bound { get; set; } = new();
         public StatusTypes.Route Status { get; set; } = StatusTypes.Route.Active;
+        [JsonIgnore]
+        public List<RouteStation> RouteStations { get; set; } = new();
         public List<StationInRouteViewModel> Stations { get; set; } = new();
     }
 

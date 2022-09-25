@@ -10,7 +10,6 @@ namespace Domain.Entities
         public TimeOnly Time { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
-        public VehicleTypes VehicleType { get; set; } = VehicleTypes.ViRide;
         public PaymentMethods PaymentMethod { get; set; } = PaymentMethods.COD;
         public Bookings.Options Option { get; set; }
         public Bookings.Types Type { get; set; }
@@ -25,10 +24,12 @@ namespace Domain.Entities
         public int UserId { get; set; }
         public int? PromotionId { get; set; } = null;
         public int RouteId { get; set; }
+        public int VehicleTypeId { get; set; }
         public StatusTypes.Booking Status { get; set; } = StatusTypes.Booking.Started;
 
         public User User { get; set; }
         public Route Route { get; set; }
+        public VehicleType VehicleType { get; set; }
         public List<BookingDetail> BookingDetails { get; set; } = new();
 
         //Promotion

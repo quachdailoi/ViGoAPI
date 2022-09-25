@@ -13,11 +13,14 @@ namespace Domain.Entities
         public int RouteId { get; set; }
         public int StationId { get; set; }
         public int Index { get; set; }
+        public int? NextRouteStationId { get; set; } = null;
         public double DistanceFromFirstStationInRoute { get; set; }
         public double DurationFromFirstStationInRoute { get; set; }
         public StatusTypes.RouteStation Status { get; set; } = StatusTypes.RouteStation.Active;
 
         public Route Route { get; set; }
         public Station Station { get; set; }
+        public RouteStation? NextRouteStation { get; set; } = null;
+        //public RouteStation? PrevRouteStation { get; set; } = null;
     }
 }

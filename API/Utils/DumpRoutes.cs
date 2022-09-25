@@ -23,13 +23,13 @@ namespace API.Utils
 
             if (await _routeService.IsExistData()) return;
 
-            //var routes = DumpData.DumpRoutes(20);
-            //var routeStations = DumpData.DumpRouteStations(routes);
-            
+            var routes = DumpData.DumpRoutes(20);
+            var routeStations = DumpData.DumpRouteStations(routes);
 
-            //var result2 = await _routeService.Create(routes);
 
-            //var result3 = await _routeStationService.Create(routeStations);
+            await _routeService.Create(routes);
+
+            await _routeStationService.Create(routeStations);
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

@@ -50,9 +50,9 @@ namespace API.Services
         {
             var startStationCode = coordinates.StartStationCode;
             int? startStationId = null;
-            if (startStationCode != null)
+            if (startStationCode.HasValue)
             {
-                var startStation = _unitOfWork.Stations.GetStationsByCodes(new() { startStationCode }).FirstOrDefault();
+                var startStation = _unitOfWork.Stations.GetStationsByCodes(new() { startStationCode.Value }).FirstOrDefault();
 
                 if (startStation != null)
                 {
@@ -214,20 +214,38 @@ namespace API.Services
                 .ToListAsync();
         }
 
-        public async Task<List<StationDTO>> GetStationDTOsByCodes(List<string> stationCodes)
+        public async Task<List<StationDTO>> GetStationDTOsByCodes(List<Guid> stationCodes)
         {
-            return await _unitOfWork.Stations
+            var stationDtoDic = (await _unitOfWork.Stations
                 .GetStationsByCodes(stationCodes)
                 .MapTo<StationDTO>(_mapper)
-                .ToListAsync();
+                .ToListAsync())
+                .ToDictionary(e => e.Code);
+
+            List<StationDTO> stationDtos = new();
+            foreach (var code in stationCodes)
+            {
+                stationDtos.Add(stationDtoDic[code]);
+            }
+
+            return stationDtos;
         }
 
         public async Task<List<StationDTO>> GetStationDTOsByIds(List<int> stationIds)
         {
-            return await _unitOfWork.Stations
+            var stationDtoDic = (await _unitOfWork.Stations
                 .GetStationsByIds(stationIds)
                 .MapTo<StationDTO>(_mapper)
-                .ToListAsync();
+                .ToListAsync())
+                .ToDictionary(e => e.Id);
+
+            List <StationDTO> stationDtos = new();
+            foreach (var id in stationIds)
+            {
+                stationDtos.Add(stationDtoDic[id]);
+            }
+
+            return stationDtos;
         }
     }
 }
