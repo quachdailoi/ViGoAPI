@@ -27,10 +27,18 @@ namespace API.Services
                     .List(vehicleType => 
                         vehicleType.Status == VehicleTypes.Status.Active)
                     .MapTo<VehicleTypeViewModel>(_mapper)
-                    .ToListAsync())
-                    .GroupBy(e => e.Type);
+                    .ToListAsync());
 
-            return successResponse.SetData(vehicleTypes);
+            var vehicleTypesGrouping = vehicleTypes
+                .GroupBy(e => new { Type = e.Type, TypeName = e.TypeName })
+                .Select(e => new
+                {
+                    Type = e.Key.Type,
+                    TypeName = e.Key.TypeName,
+                    VehicleTypes = e.ToList()
+                });
+
+            return successResponse.SetData(vehicleTypesGrouping);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace API.Models
         public TimeOnly Time { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
-        public VehicleTypes VehicleType { get; set; } = VehicleTypes.ViRide;
+        public VehicleTypeViewModel VehicleType { get; set; }
         public bool IsShared { get; set; }
         public double Duration { get; set; }
         public double Distance { get; set; }

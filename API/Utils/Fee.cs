@@ -10,11 +10,11 @@ namespace API.Utils
         private const int MAX_QUANTITY_DAY_IN_QUARTER = 92;
         private static readonly List<int> StartMonthInQuarter = new List<int> { 1, 4, 7, 10 };
 
-        private static readonly Dictionary<VehicleTypes, Fare> FaresByVehicle = new Dictionary<VehicleTypes, Fare>
+        private static readonly Dictionary<VehicleTypes.Type, Fare> FaresByVehicle = new Dictionary<VehicleTypes.Type, Fare>
         {
-            { VehicleTypes.ViRide, new Fare { BasePrice =  10000, PricePerKilometers = 3000}},
-            { VehicleTypes.ViCar_4, new Fare { BasePrice =  17000, PricePerKilometers = 10000}},
-            { VehicleTypes.ViCar_7, new Fare { BasePrice = 22000, PricePerKilometers = 11000 }}
+            { VehicleTypes.Type.ViRide, new Fare { BasePrice =  10000, PricePerKilometers = 3000}},
+            { VehicleTypes.Type.ViCar, new Fare { BasePrice =  17000, PricePerKilometers = 10000}},
+            //{ VehicleTypes.ViCar_7, new Fare { BasePrice = 22000, PricePerKilometers = 11000 }}
         };
 
         private static readonly Dictionary<Bookings.Types, BookingTypeDetail> FeeDiscountByBookingType = new Dictionary<Bookings.Types, BookingTypeDetail>
@@ -52,7 +52,7 @@ namespace API.Utils
             return totalTicket;
         }
 
-        public static double CaculateBookingFee(Bookings.Types bookingType, VehicleTypes vehicleType,double distance, DateOnly startDate, DateOnly endDate)
+        public static double CaculateBookingFee(Bookings.Types bookingType, VehicleTypes.Type vehicleType,double distance, DateOnly startDate, DateOnly endDate)
         {
             double feePerTrip = FaresByVehicle.GetValueOrDefault(vehicleType).BasePrice;
 

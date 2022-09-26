@@ -20,4 +20,17 @@ namespace Domain.Shares.Enums
             Inactive
         }
     }
+
+    public static class VehicleTypesExtensions
+    {
+        public static string GetString(this VehicleTypes.Type type)
+        {
+            return type switch
+            {
+                VehicleTypes.Type.ViRide => "ViRide",
+                VehicleTypes.Type.ViCar => "ViCar",
+                _ => String.Empty,
+            };
+        }
+    }
 }
