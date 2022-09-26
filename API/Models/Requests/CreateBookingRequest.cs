@@ -7,6 +7,7 @@ namespace API.Models.Requests
     {
         //public double TotalPrice { get; set; }
         public VehicleTypes VehicleType { get; set; }
+        public Guid VehicleTypeCode { get; set; }
         public string Time { get; set; }
         public Bookings.Options Option { get; set; } = Bookings.Options.StartAtNextDay;
         public Bookings.Types Type { get; set; } = Bookings.Types.MonthTicket;

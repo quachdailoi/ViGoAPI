@@ -9,7 +9,7 @@ namespace API.Models.DTO
         public TimeOnly Time { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
-        public int VehicleTypeId { get; set; }
+        public Guid VehicleTypeCode { get; set; }
         public VehicleTypes.Type VehicleType { get; set; }
         public PaymentMethods PaymentMethod { get; set; } = PaymentMethods.COD;
         public Bookings.Options Option { get; set; }

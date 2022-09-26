@@ -10,6 +10,7 @@ namespace API.Models.Requests
 
         public string StartAt { get; set; }
         public string EndAt { get; set; }
+        public VehicleTypes.Type VehicleType { get; set; }
         public Guid VehicleTypeCode { get; set; }
     }
 }
