@@ -31,8 +31,8 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("vehicle_type_id");
 
             builder.HasOne(e => e.VehicleType)
-                .WithMany(v => v.Fares)
-                .HasForeignKey(e => e.VehicleTypeId)
+                .WithOne(v => v.Fare)
+                .HasForeignKey<Fare>(e => e.VehicleTypeId)
                 .IsRequired();
         }
     }

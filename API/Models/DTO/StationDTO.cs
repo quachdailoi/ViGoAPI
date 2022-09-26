@@ -19,7 +19,7 @@ namespace API.Models.DTO
 
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
-        public Guid VehicleTypeCode { get; set; }
-        public VehicleTypes.Type VehicleType { get; set; }
+        public int VehicleTypeId { get; set; }
+        public TimeOnly Time { get; set; }
     }
 }

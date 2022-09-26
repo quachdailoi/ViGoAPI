@@ -18,13 +18,13 @@ namespace API.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        private readonly IStationService _stationService;
+        private readonly IFareService _fareService;
 
-        public RouteService(IUnitOfWork unitOfWork, IMapper mapper, IStationService stationService)
+        public RouteService(IUnitOfWork unitOfWork, IMapper mapper, IFareService fareService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _stationService = stationService;
+            _fareService = fareService;
         }
 
         public Task<List<Domain.Entities.Route>> Create(List<Domain.Entities.Route> routes)
@@ -191,7 +191,7 @@ namespace API.Services
                     routeViewModel.Stations = stations;
                     routeViewModel.Distance = distance >= 0 ? distance : routeViewModel.Distance + distance;
                     routeViewModel.Duration = duration >= 0 ? duration : routeViewModel.Duration + duration;
-                    routeViewModel.Fee = Fee.CaculateBookingFee(dto.BookingType, dto.VehicleType, routeViewModel.Distance, dto.StartAt, dto.EndAt);
+                    routeViewModel.Fee = await _fareService.CaculateFeeByDistance(dto.VehicleTypeId, routeViewModel.Distance, dto.Time);
                 }
                 else removeRouteIdHashSet.Add(routeViewModel.Id);
             }

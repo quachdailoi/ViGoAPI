@@ -23,11 +23,20 @@ namespace API.Utils
             { Bookings.Types.MonthTicket, new BookingTypeDetail { Discount = 0.02, TempTotalDate = 28, DateBoundary = 15}},
             { Bookings.Types.QuaterTicket, new BookingTypeDetail { Discount = 0.03, TempTotalDate = 28 * 3}}
         };
+        public static double RoundToHundreds(double fee) => Math.Round(fee / 100) * 100;
+        public static double CaculateFeeByBookingType(Bookings.Types bookingType, double feePerTrip, DateOnly startDate, DateOnly endDate)
+        {
+            var bookingTypeDetail = FeeDiscountByBookingType[bookingType];
+            var totalTickets = CaculateTotalTicket(bookingType, startDate, endDate);
+            return RoundToHundreds(feePerTrip * bookingTypeDetail.TempTotalDate * totalTickets * (1 - bookingTypeDetail.Discount));
+        }
 
-        private static double CaculateTotalTicket(Bookings.Types bookingType, DateOnly startDate, DateOnly endDate)
+        public static double CaculateTotalTicket(Bookings.Types bookingType, DateOnly startDate, DateOnly endDate)
         {
             double totalTicket = 0;
+
             var totalDate = endDate.ToDateTime(TimeOnly.MinValue).Subtract(startDate.ToDateTime(TimeOnly.MinValue)).TotalDays;
+
             switch (bookingType)
             {
                 case Bookings.Types.WeekTicket:
@@ -58,13 +67,7 @@ namespace API.Utils
 
             if (distance > BASE_DISTANCE) feePerTrip += (distance - BASE_DISTANCE) * (FaresByVehicle.GetValueOrDefault(vehicleType).PricePerKilometers / 1000);
 
-            var totalTickets = CaculateTotalTicket(bookingType,startDate,endDate);
-
-            var bookingTypeDetail = FeeDiscountByBookingType[bookingType];
-
-            var total = feePerTrip * bookingTypeDetail.TempTotalDate * totalTickets * (1 - bookingTypeDetail.Discount);
-
-            return Math.Round(total/100) * 100;
+            return CaculateFeeByBookingType(bookingType, feePerTrip, startDate, endDate);
         }
 
         class Fare

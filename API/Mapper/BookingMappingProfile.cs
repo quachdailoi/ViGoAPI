@@ -3,8 +3,10 @@ using API.Extensions;
 using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
+using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Shares.Enums;
 
 namespace API.Mapper
 {
@@ -12,6 +14,7 @@ namespace API.Mapper
     {
         public BookingMappingProfile()
         {
+
             CreateMap<Booking, BookingViewModel>();
 
             CreateMap<Booking, BookerBookingViewModel>()
@@ -41,15 +44,28 @@ namespace API.Mapper
                 .IncludeBase<Booking, BookingViewModel>();
 
             CreateMap<Booking, BookingDTO>()
-                //.ForMember(
-                //    dest => dest.EndTime,
-                //    otp => otp.MapFrom(
-                //        src => src.Time.AddMinutes(src.Duration/60)
-                //        )
-                //)
                 .ReverseMap();
 
             CreateMap<CreateBookingRequest, BookingDTO>()
+                .ForMember(
+                    dest => dest.Time,
+                    otp => otp.MapFrom(
+                            src => new TimeOnly().ParseExact(src.Time)))
+                .ForMember(
+                    dest => dest.StartAt,
+                    otp => otp.MapFrom(
+                            src => new DateOnly().ParseExact(src.StartAt)))
+                .ForMember(
+                    dest => dest.EndAt,
+                    otp => otp.MapFrom(
+                            src => new DateOnly().ParseExact(src.EndAt)))
+                .ForMember(
+                    dest => dest.Option,
+                    otp => otp.MapFrom(
+                        src => (new DateOnly().ParseExact(src.EndAt).Day == 1) ? 
+                        Bookings.Options.StartAtFollowingTime : Bookings.Options.StartAtNextDay));
+
+            CreateMap<GetProvisionalBookingRequest, BookingDTO>()
                 .ForMember(
                     dest => dest.Time,
                     otp => otp.MapFrom(

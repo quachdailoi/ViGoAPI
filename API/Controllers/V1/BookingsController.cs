@@ -3,6 +3,7 @@ using API.Models.Requests;
 using API.Models.Response;
 using AutoMapper;
 using Domain.Entities;
+using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -94,13 +95,14 @@ namespace API.Controllers.V1
             try
             {
                 booking = _mapper.Map<BookingDTO>(request);
-                if (booking.EndAt.CompareTo(booking.StartAt) < 0) return ApiResult(badRequestResponse.SetMessage("Start time must be before end time."));
+                if (booking.EndAt.CompareTo(booking.StartAt) < 0) return ApiResult(badRequestResponse.SetMessage("Start time must be before end time."));           
             }
             catch (Exception e)
             {
                 return ApiResult(badRequestResponse.SetMessage("Wrong format of date parameter."));
             }
 
+            booking.VehicleTypeId = (await AppServices.VehicleType.GetByCode(request.VehicleTypeCode)).Id;
             booking.UserId = user.Id;
             //booking.StartStationId = startStation.Id;
             //booking.EndStationId = endStation.Id;
@@ -240,7 +242,6 @@ namespace API.Controllers.V1
 
             var pairOfStation = await AppServices.Station.GetByCode(new List<Guid> { request.StartStationCode, request.EndStationCode });
 
-
             if (!pairOfStation.Any())
                 return ApiResult(badRequestResponse.SetMessage("Start station and end station are not exist."));
 
@@ -260,7 +261,7 @@ namespace API.Controllers.V1
 
             dto.StartStationId = startStation.Id;
             dto.EndStationId = endStation.Id;
-
+            dto.VehicleTypeId = (await AppServices.VehicleType.GetByCode(request.VehicleTypeCode)).Id;
 
             var response =
                 await AppServices.Route.GetRouteFeeByPairOfStation(
@@ -279,6 +280,107 @@ namespace API.Controllers.V1
             return ApiResult(response);
         }
 
+        /// <summary>
+        ///     Get booking provisional.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/booking 
+        ///     {
+        ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
+        ///         "Time": "04:30:00", // format("hh:mm:ss")
+        ///         "Type": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuaterTicket
+        ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
+        ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
+        ///         "RouteId": 1, // get from get route and fee api
+        ///         "StartAt": "15-02-2022", // format("dd-MM-yyyy")
+        ///         "EndAt": "25-06-2022",
+        ///         "PromotionCode": "HELLO2022"
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <response code = "200"> Create booking successfully.</response>
+        /// <response code = "202"> Not exist any available driver for this booking.</response>
+        /// <response code = "400"> 
+        ///     Start time must be before end time. <br></br>
+        ///     Wrong format of date parameter. <br></br>
+        ///     Start station and end station are not exist. <br></br>
+        ///     Start station is not exist. <br></br>
+        ///     End station is not exist. <br></br>
+        ///     Route is not exist.<br></br>
+        ///     Conflict about the time schedule with your other bookings. <br></br>
+        ///     Promotion code is not available. <br></br>
+        /// </response>
+        /// <response code="500"> Failed to create booking.</response>
+        [HttpGet("booking-provision")]
+        [Authorize(Roles = "BOOKER")]
+        public async Task<IActionResult> GetProvisionalBooking([FromQuery] GetProvisionalBookingRequest request)
+        {
+            var user = LoggedInUser;
+
+            var pairOfStation = await AppServices.Station.GetByCode(new List<Guid> { request.StartStationCode, request.EndStationCode });
+
+            var badRequestResponse = new Response
+            {
+                StatusCode = StatusCodes.Status400BadRequest
+            };
+
+            if (!pairOfStation.Any())
+                return ApiResult(badRequestResponse.SetMessage("Start station and end station are not exist."));
+
+            var startStation = pairOfStation
+                .Where(station => station.Code == request.StartStationCode)
+                .FirstOrDefault();
+
+            var endStation = pairOfStation
+                .Where(station => station.Code == request.EndStationCode)
+                .FirstOrDefault();
+
+            if (startStation == null)
+                return ApiResult(badRequestResponse.SetMessage("Start station is not exist."));
+
+            if (endStation == null)
+                return ApiResult(badRequestResponse.SetMessage("End station is not exist."));
+
+            var booking = new BookingDTO();
+
+            try
+            {
+                booking = _mapper.Map<BookingDTO>(request);
+                if (booking.EndAt.CompareTo(booking.StartAt) < 0) return ApiResult(badRequestResponse.SetMessage("Start time must be before end time."));
+            }
+            catch (Exception e)
+            {
+                return ApiResult(badRequestResponse.SetMessage("Wrong format of date parameter."));
+            }
+
+            booking.VehicleTypeId = (await AppServices.VehicleType.GetByCode(request.VehicleTypeCode)).Id;
+
+            //booking.StartStationId = startStation.Id;
+            //booking.EndStationId = endStation.Id;
+
+            var response = await AppServices.Booking.GetProvision(
+                                                    booking,
+                                                    successResponse: new()
+                                                    {
+                                                        Message = "Create booking successfully.",
+                                                        StatusCode = StatusCodes.Status200OK
+                                                    },
+                                                    invalidRouteResponse: new()
+                                                    {
+                                                        Message = "Route is not exist.",
+                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                    },                                                   
+                                                    invalidPromotionResponse: new()
+                                                    {
+                                                        Message = "Promotion code is not available.",
+                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                    }
+                                                    );
+            return ApiResult(response);
+        }
         /// <summary>
         ///     Get route and fee from pair of stations (cross multiple routes is possible) - updating ...
         /// </summary>
@@ -308,42 +410,42 @@ namespace API.Controllers.V1
         //[Authorize(Roles = "BOOKER")]
         //public async Task<IActionResult> GetRoutesAndFee([FromQuery] GetRouteFeeRequest request)
         //{
-            //var pairOfStation = await AppServices.Station.GetByCode(new List<Guid> { request.StartStationCode, request.EndStationCode });
+        //var pairOfStation = await AppServices.Station.GetByCode(new List<Guid> { request.StartStationCode, request.EndStationCode });
 
-            //var inValidStationResponse = new Response
-            //{
-            //    StatusCode = StatusCodes.Status400BadRequest
-            //};
+        //var inValidStationResponse = new Response
+        //{
+        //    StatusCode = StatusCodes.Status400BadRequest
+        //};
 
-            //if (!pairOfStation.Any())
-            //    return ApiResult(inValidStationResponse.SetMessage("Start station and end station are not exist."));
+        //if (!pairOfStation.Any())
+        //    return ApiResult(inValidStationResponse.SetMessage("Start station and end station are not exist."));
 
-            //var startStation = pairOfStation
-            //    .Where(station => station.Code == request.StartStationCode)
-            //    .FirstOrDefault();
+        //var startStation = pairOfStation
+        //    .Where(station => station.Code == request.StartStationCode)
+        //    .FirstOrDefault();
 
-            //var endStation = pairOfStation
-            //    .Where(station => station.Code == request.EndStationCode)
-            //    .FirstOrDefault();
+        //var endStation = pairOfStation
+        //    .Where(station => station.Code == request.EndStationCode)
+        //    .FirstOrDefault();
 
-            //if (startStation == null)
-            //    return ApiResult(inValidStationResponse.SetMessage("Start station is not exist."));
+        //if (startStation == null)
+        //    return ApiResult(inValidStationResponse.SetMessage("Start station is not exist."));
 
-            //if (endStation == null)
-            //    return ApiResult(inValidStationResponse.SetMessage("End station is not exist."));
+        //if (endStation == null)
+        //    return ApiResult(inValidStationResponse.SetMessage("End station is not exist."));
 
-            //var response =
-            //    await AppServices.Route.GetStepsByPairOfStations(
-            //        startStation,
-            //        endStation,
-            //        request.VehicleType,
-            //        successResponse: new()
-            //        {
-            //            Message = "Get routes successfully",
-            //            StatusCode = StatusCodes.Status200OK
-            //        });
+        //var response =
+        //    await AppServices.Route.GetStepsByPairOfStations(
+        //        startStation,
+        //        endStation,
+        //        request.VehicleType,
+        //        successResponse: new()
+        //        {
+        //            Message = "Get routes successfully",
+        //            StatusCode = StatusCodes.Status200OK
+        //        });
 
-            //return ApiResult(response);
+        //return ApiResult(response);
         //}
     }
 }

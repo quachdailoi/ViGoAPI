@@ -17,7 +17,7 @@ namespace Domain.Entities
         public VehicleTypes.Type Type { get; set; } = VehicleTypes.Type.ViRide;
         public VehicleTypes.Status Status { get; set; } = VehicleTypes.Status.Active;
 
-        public List<Fare> Fares { get; set; } = new();
+        public Fare Fare { get; set; }
         public List<Vehicle> Vehicles { get; set; } = new();
         public List<Booking> Bookings { get; set; } = new();
     }

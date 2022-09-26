@@ -14,6 +14,6 @@ namespace Domain.Entities
         public int FareId { get; set; }
         public double ExtraFeePerKm { get; set; }
 
-        public Fare Fare { get; set; } = new();
+        public Fare Fare { get; set; }
     }
 }

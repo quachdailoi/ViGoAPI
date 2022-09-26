@@ -111,5 +111,15 @@ namespace API.Extensions
             options.Converters.Add(new DateOnlyConverter());
             options.Converters.Add(new TimeOnlyConverter());
         }
+
+        //public static string Serializable<T>(this T _object)
+        //{
+        //    return Newtonsoft.Json.JsonConvert.SerializeObject(_object, new Newtonsoft.Json.JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore } );
+        //}
+
+        //public static T Serializable<T>(this T _object, string str)
+        //{
+        //    return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str);
+        //}
     }
 }

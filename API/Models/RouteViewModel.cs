@@ -37,7 +37,7 @@ namespace API.Models
 
     public class BookerRouteViewModel : RouteViewModel
     {
-        public double Fee { get; set; }
+        public FeeViewModel Fee { get; set; }
 
         public override BookerRouteViewModel ProcessStation()
         {

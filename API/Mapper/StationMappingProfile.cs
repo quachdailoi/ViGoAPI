@@ -41,7 +41,11 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.EndAt,
                     otp => otp.MapFrom(
-                            src => new DateOnly().ParseExact(src.EndAt)));
+                            src => new DateOnly().ParseExact(src.EndAt)))
+                .ForMember(
+                    dest => dest.Time,
+                    otp => otp.MapFrom(
+                            src => new TimeOnly().ParseExact(src.Time)));
         }
     }
 }
