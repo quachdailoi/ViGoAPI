@@ -31,12 +31,9 @@ namespace API.Controllers.V1
         /// Sample request:
         ///     POST api/booking 
         ///     {
-        ///         "VehicleType": 0,  // 0: ViRide, 1: ViCar_4, 2: ViCar_7
+        ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "Time": "04:30:00", // format("hh:mm:ss")
-        ///         "Option": 0, // 0: StartAtFollowingTime, 1: StartAtNextDay
         ///         "Type": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuaterTicket
-        ///         "PaymentMethod": 0, //COD = 0,Momo = 1,VNPay = 2, BankCard = 3
-        ///         "IsShared": true,
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "RouteId": 1, // get from get route and fee api
@@ -286,7 +283,7 @@ namespace API.Controllers.V1
         /// <remarks>
         /// ```
         /// Sample request:
-        ///     POST api/booking 
+        ///     POST api/bookings/booking-provision 
         ///     {
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "Time": "04:30:00", // format("hh:mm:ss")
@@ -301,8 +298,7 @@ namespace API.Controllers.V1
         /// ```
         /// </remarks>
         /// <param name="request"></param>
-        /// <response code = "200"> Create booking successfully.</response>
-        /// <response code = "202"> Not exist any available driver for this booking.</response>
+        /// <response code = "200"> Get booking provision successfully.</response>
         /// <response code = "400"> 
         ///     Start time must be before end time. <br></br>
         ///     Wrong format of date parameter. <br></br>
@@ -310,7 +306,6 @@ namespace API.Controllers.V1
         ///     Start station is not exist. <br></br>
         ///     End station is not exist. <br></br>
         ///     Route is not exist.<br></br>
-        ///     Conflict about the time schedule with your other bookings. <br></br>
         ///     Promotion code is not available. <br></br>
         /// </response>
         /// <response code="500"> Failed to create booking.</response>

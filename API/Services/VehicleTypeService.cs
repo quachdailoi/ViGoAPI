@@ -54,7 +54,6 @@ namespace API.Services
 
         public async Task<List<VehicleType>> GetWithFare()
         {
-            await _cache.RemoveAsync("vehicle_type_fares");
             var vehicleTypeWithFaresCacheStr = await _cache.GetStringAsync("vehicle_type_fares");
 
             var vehicleTypeWithFares = new List<VehicleType>();
