@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace Infrastructure.Data.Repositories
         public async Task<Route> CreateRoute(Route route)
         {
             return await Add(route);
+        }
+
+        public Task<Route> GetRouteByCode(string code)
+        {
+            return List().Where(x => x.Code.ToString() == code).FirstOrDefaultAsync();
         }
     }
 }

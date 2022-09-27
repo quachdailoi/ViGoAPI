@@ -23,6 +23,7 @@
 		<PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.2" />
 		<PackageReference Include="AWSSDK.S3" Version="3.7.9.44" />
 		<PackageReference Include="FirebaseAdmin" Version="2.3.0" />
+		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
 		<PackageReference Include="MailKit" Version="3.3.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
@@ -60,7 +61,6 @@
 
 	<ItemGroup>
 		<Folder Include="Extensions\MapperSupport\" />
-		<Folder Include="Validators\" />
 	</ItemGroup>
 
 	<ItemGroup>

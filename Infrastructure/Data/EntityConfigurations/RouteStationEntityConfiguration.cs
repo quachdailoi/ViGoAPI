@@ -44,8 +44,8 @@ namespace Infrastructure.Data.EntityConfigurations
                 .WithMany(s => s.RouteStations)
                 .HasForeignKey(e => e.StationId);
 
-            //builder.HasIndex(e => new { e.RouteId, e.StationId })
-            //    .IsUnique();
+            builder.HasIndex(e => new { e.RouteId, e.StationId })
+                .IsUnique();
         }
     }
 }

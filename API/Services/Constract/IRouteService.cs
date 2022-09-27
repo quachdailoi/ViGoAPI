@@ -17,5 +17,7 @@ namespace API.Services.Constract
         Task<Response> GetRoutesByPairsOfStation(List<int> startStationIds, List<int> endStationIds, Response successResposne);
 
         Task<Domain.Entities.Route> CreateRoute(Domain.Entities.Route route);
+
+        Task<Domain.Entities.Route> GetRouteByCode(string code);
     }
 }

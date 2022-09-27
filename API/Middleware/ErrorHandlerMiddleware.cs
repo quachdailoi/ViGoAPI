@@ -1,4 +1,5 @@
 ﻿using API.Models.Response;
+using FluentValidation;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +46,9 @@ namespace API.Middleware
                         break;
                     case UnauthorizedAccessException e:
                         response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        break;
+                    case ValidationException e:
+                        response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
                     default:
                         // unhandled error

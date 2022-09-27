@@ -20,6 +20,7 @@ namespace Domain.Interfaces.UnitOfWork
         IPromotionUserRepository PromotionUsers { get; }
         IFileRepository Files { get; }
         IBannerRepository Banners { get; }
+        IRouteRoutineRepository RouteRoutines { get; }
         Task CreateTransactionAsync();
         Task CommitAsync();
         Task Rollback();

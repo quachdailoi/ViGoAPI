@@ -27,5 +27,6 @@ namespace API.Services.Constract
         IRapidApiService RapidApi { get; }
         IBannerService Banner { get; }
         ILocationService Location { get; }
+        IRouteRoutineService RouteRoutine { get; }
     }
 }

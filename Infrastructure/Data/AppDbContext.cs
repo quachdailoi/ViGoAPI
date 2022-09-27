@@ -121,7 +121,8 @@ namespace Infrastructure.Data
 			new BannerEntityConfiguration()
                 .Configure(builder.Entity<Banner>());
 
-
+            new RouteRoutineEntityConfiguration()
+                .Configure(builder.Entity<RouteRoutine>());
         }
 
         public DbSet<Account> Accounts { get; set; }
@@ -140,5 +141,6 @@ namespace Infrastructure.Data
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<PromotionUser> PromotionUsers { get; set; }
         public DbSet<PromotionCondition> PromotionConditions { get; set; }
+        public DbSet<RouteRoutine> RouteRoutines { get; set; }
     }
 }

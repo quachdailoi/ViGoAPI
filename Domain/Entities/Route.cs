@@ -11,6 +11,7 @@ namespace Domain.Entities
 {
     public class Route : BaseEntity
     {
+        public Guid Code { get; set; } = Guid.NewGuid();
         public List<Step> Steps { get; set; } = new();
         public double Distance { get; set; }
         public double Duration { get; set; }
@@ -19,5 +20,6 @@ namespace Domain.Entities
 
         public List<RouteStation> RouteStations { get; set; } = new();
         public List<Booking> Bookings { get; set; } = new();
+        public List<RouteRoutine> RouteRoutines { get; set; } = new();
     }
 }

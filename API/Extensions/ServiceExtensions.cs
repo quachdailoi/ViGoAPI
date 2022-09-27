@@ -19,6 +19,8 @@ using System.Text;
 using API.TaskQueues.TaskResolver;
 using Microsoft.AspNetCore.Http.Json;
 using API.Utils;
+using FluentValidation;
+using API.Validators;
 
 namespace API.Extensions
 {
@@ -98,6 +100,7 @@ namespace API.Extensions
             services.AddScoped<IStationRepository, StationRepository>();
             services.AddScoped<IRouteStationRepository, RouteStationRepository>();
             services.AddScoped<IBannerRepository, BannerRepository>();
+            services.AddScoped<IRouteRoutineRepository, RouteRoutineRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -124,6 +127,7 @@ namespace API.Extensions
             services.AddTransient<IBannerService, BannerService>();
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<IRouteRoutineService, RouteRoutineService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)
@@ -213,6 +217,11 @@ namespace API.Extensions
                 options.GroupNameFormat = "'v'VVV";
                 options.SubstituteApiVersionInUrl = true;
             });
+        }
+
+        public static void ConfigureValidator(this IServiceCollection services)
+        {
+            services.LoadAllValidators();
         }
     }
 }
