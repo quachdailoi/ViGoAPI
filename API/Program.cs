@@ -17,6 +17,9 @@ using API.Services.Constract;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Newtonsoft.Json.Serialization;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -53,8 +56,7 @@ services.AddControllers(option =>
     options.JsonSerializerOptions.Converters.Add(new NetTopologySuite.IO.Converters.GeoJsonConverterFactory());
 });
 
-//services.AddFluentValidationAutoValidation();
-//services.AddValidatorsFromAssemblyContaining<InformationRequestValidator>();
+services.ConfigureValidator();
 
 // Add route with lower case
 services.AddRouting(options => options.LowercaseUrls = true);
@@ -125,8 +127,8 @@ services.ConfigureAuthentication(_config);
 //services.ConfigureIdentity();
 
 // Config for automapper
-services.AddAutoMapper(typeof(Program));
-//services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+//services.AddAutoMapper(typeof(Program));
+services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // config class for settings: JwtSettings
 services.ConfigureSettings(builder);
@@ -159,6 +161,7 @@ services.AddSingleton(provider => new MapperConfiguration(cfg =>
     cfg.AddProfile(new StationMappingProfile());
     cfg.AddProfile(new BannerMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
     cfg.AddProfile(new VehicleMappingProfile());
+    cfg.AddProfile(new RouteRoutineMappingProfile());
 }).CreateMapper());
 
 // add http context accessor
@@ -220,6 +223,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
 
 app.MapHub<SignalRHub>("hubs");
 

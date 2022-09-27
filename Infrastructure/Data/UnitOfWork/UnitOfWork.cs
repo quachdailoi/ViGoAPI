@@ -38,6 +38,7 @@ namespace Infrastructure.Data.UnitOfWork
         public IVehicleRepository Vehicles { get; }
         public IFareRepository Fares { get; }
         public IFareTimelineRepository FareTimelines { get; }
+        public IRouteRoutineRepository RouteRoutines { get; }
 
         public UnitOfWork(
             AppDbContext dbContext, 
@@ -61,7 +62,8 @@ namespace Infrastructure.Data.UnitOfWork
             IVehicleTypeRepository vehicleTypeRepository,
             IVehicleRepository vehicleRepository,
             IFareRepository fareRepository,
-            IFareTimelineRepository fareTimelineRepository)
+            IFareTimelineRepository fareTimelineRepository,
+            IRouteRoutineRepository routeRoutineRepository)
         {
             _dbContext = dbContext;
 
@@ -85,6 +87,7 @@ namespace Infrastructure.Data.UnitOfWork
             Vehicles = vehicleRepository;
             Fares = fareRepository;
             FareTimelines = fareTimelineRepository;
+            RouteRoutines = routeRoutineRepository;
 
             _logger = loggerFactory.CreateLogger("logs");
         }

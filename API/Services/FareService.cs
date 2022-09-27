@@ -23,7 +23,6 @@ namespace API.Services
         {
             var feePerTrip = await CaculateFeeByDistance(vehicleTypeId, distance, time);
 
-
             var bookingFee = Fee.CaculateFeeByBookingType(bookingType, feePerTrip.TotalFee, startDate, endDate);
 
             var discountFee = discount;

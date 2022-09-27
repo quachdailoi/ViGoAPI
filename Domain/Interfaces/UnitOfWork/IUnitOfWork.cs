@@ -24,6 +24,8 @@ namespace Domain.Interfaces.UnitOfWork
         IVehicleRepository Vehicles { get; }
         IFareRepository Fares { get; }
         IFareTimelineRepository FareTimelines { get; }
+        IRouteRoutineRepository RouteRoutines { get; }
+
         Task CreateTransactionAsync();
         Task CommitAsync();
         Task Rollback();

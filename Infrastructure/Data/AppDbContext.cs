@@ -129,8 +129,8 @@ namespace Infrastructure.Data
 
             new VehicleTypeEntityConfiguration()
                 .Configure(builder.Entity<VehicleType>());
-
-            new VehicleEntityConfiguration()
+            
+			new VehicleEntityConfiguration()
                 .Configure(builder.Entity<Vehicle>());
 
             new FareEntityConfiguration()
@@ -139,7 +139,8 @@ namespace Infrastructure.Data
             new FareTimelineEntityConfiguration()
                 .Configure(builder.Entity<FareTimeline>());
 
-
+            new RouteRoutineEntityConfiguration()
+                .Configure(builder.Entity<RouteRoutine>());
         }
 
         public DbSet<Account> Accounts { get; set; }
@@ -162,5 +163,6 @@ namespace Infrastructure.Data
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Fare> Fares { get; set; }
         public DbSet<FareTimeline> FareTimelines { get; set; }
+        public DbSet<RouteRoutine> RouteRoutines { get; set; }
     }
 }

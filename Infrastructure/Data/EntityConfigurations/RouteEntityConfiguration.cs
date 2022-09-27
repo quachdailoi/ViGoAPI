@@ -23,6 +23,10 @@ namespace Infrastructure.Data.EntityConfigurations
             //    .HasColumnType("int[]")
             //    .HasColumnName("station_ids");
 
+            builder.Property(e => e.Code)
+                .IsRequired()
+                .HasColumnName("code");
+
             builder.Property(e => e.Steps)
                 .IsRequired()
                 .HasColumnType("jsonb[]")

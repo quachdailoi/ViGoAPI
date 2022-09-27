@@ -265,5 +265,10 @@ namespace API.Services
         {
             return await _unitOfWork.Routes.CreateRoute(route);
         }
+
+        public Task<Domain.Entities.Route> GetRouteByCode(string code)
+        {
+            return _unitOfWork.Routes.GetRouteByCode(code);
+        }
     }
 }

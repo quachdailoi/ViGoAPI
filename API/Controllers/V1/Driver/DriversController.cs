@@ -414,7 +414,6 @@ namespace API.Controllers.V1.Driver
         /// <response code="400"> This phone number was verified by another account.</response>
         /// <response code="500"> Something went wrong.</response>
         [HttpPut("information")]
-        [MapToApiVersion("1.0")]
         public async Task<IActionResult> UpdateInformation([FromForm] UpdateDriverInfoRequest request)
         {
             request.OtpTypes = OtpTypes.VerificationOTP;
@@ -478,7 +477,6 @@ namespace API.Controllers.V1.Driver
         }
 
         [HttpGet("test")]
-        [MapToApiVersion("1.0")]
         public IActionResult TestAuthen()
         {
             var user = LoggedInUser;
