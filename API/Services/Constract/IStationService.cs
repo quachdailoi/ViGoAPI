@@ -16,7 +16,7 @@ namespace API.Services.Constract
         Task<List<Tuple<Station, double, object?>>?> GetStationSteps(Station startStation, Station endStation);
         Task<Response> GetNearByStationsByCoordinates(CoordinatesDTO coordinates, Response success, Response failed);
 
-        Task<List<StationDTO>> GetStationDTOsByCodes(List<string> stationCodes);
+        Task<List<StationDTO>> GetStationDTOsByCodes(List<Guid> stationCodes);
 
         Task<List<StationDTO>> GetStationDTOsByIds(List<int> stationIds);
     }

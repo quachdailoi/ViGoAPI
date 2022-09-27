@@ -26,5 +26,22 @@
 
             return timeOnly;
         }
+
+        public static bool CheckIntersect(DateOnly start1, DateOnly end1, DateOnly start2, DateOnly end2)
+        {
+            return start1 <= end2 && end1 >= start2;
+        }
+
+        public static bool CheckIntersect(TimeOnly start1, TimeOnly end1, TimeOnly start2, TimeOnly end2)
+        {
+            return start1 <= end2 && end1 >= start2;
+        }
+
+        public static TimeOnly RoundUp(this TimeOnly time, int minutes = 30)
+        {
+            if (time.Minute <= minutes) return new TimeOnly(time.Hour, minutes);
+
+            return new TimeOnly(time.Hour + 1, 0);
+        }
     }
 }

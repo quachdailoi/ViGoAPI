@@ -9,9 +9,9 @@ namespace API.Models.DTO
         public TimeOnly Time { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
-        public VehicleTypes VehicleType { get; set; } = VehicleTypes.ViRide;
+        public int VehicleTypeId { get; set; }
         public PaymentMethods PaymentMethod { get; set; } = PaymentMethods.COD;
-        public Bookings.Options Option { get; set; }
+        public Bookings.Options Option { get; set; } 
         public Bookings.Types Type { get; set; }
         public bool IsShared { get; set; }
         public Guid StartStationCode { get; set; }

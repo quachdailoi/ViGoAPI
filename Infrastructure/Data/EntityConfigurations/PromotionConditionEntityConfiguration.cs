@@ -46,6 +46,9 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.VehicleTypes)
                 .HasConversion<int>()
                 .HasColumnName("vehicle_types");
+
+            //builder.Property(e => e.VehicleTypeId)
+            //    .HasColumnName("vehicle_type_id");
         }
     }
 }

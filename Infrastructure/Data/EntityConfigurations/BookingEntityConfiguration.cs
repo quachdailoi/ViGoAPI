@@ -58,8 +58,8 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.EndStationCode)
                 .HasColumnName("end_station_code");
 
-            builder.Property(e => e.VehicleType)
-                .HasColumnName("vehicle_type");
+            builder.Property(e => e.VehicleTypeId)
+                .HasColumnName("vehicle_type_id");
 
             builder.Property(e => e.PaymentMethod)
                 .HasColumnName("payment_method");
@@ -92,13 +92,18 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasForeignKey(e => e.UserId);
 
             builder.HasOne(e => e.Promotion)
-                .WithMany(e => e.Bookings)
+                .WithMany(p => p.Bookings)
                 .HasForeignKey(e => e.PromotionId)
                 .IsRequired();
 
             builder.HasOne(e => e.Route)
                 .WithMany(route => route.Bookings)
                 .HasForeignKey(e => e.RouteId)
+                .IsRequired();
+
+            builder.HasOne(e => e.VehicleType)
+                .WithMany(v => v.Bookings)
+                .HasForeignKey(e => e.VehicleTypeId)
                 .IsRequired();
         }
     }

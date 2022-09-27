@@ -100,6 +100,10 @@ namespace API.Extensions
             services.AddScoped<IStationRepository, StationRepository>();
             services.AddScoped<IRouteStationRepository, RouteStationRepository>();
             services.AddScoped<IBannerRepository, BannerRepository>();
+            services.AddScoped<IVehicleTypeRepository, VehicleTypeRepository>();
+            services.AddScoped<IVehicleRepository, VehicleRepository>();
+            services.AddScoped<IFareRepository, FareRepository>();
+            services.AddScoped<IFareTimelineRepository, FareTimelineRepository>();
             services.AddScoped<IRouteRoutineRepository, RouteRoutineRepository>();
         }
 
@@ -126,7 +130,12 @@ namespace API.Extensions
             services.AddTransient<IRapidApiService, RapidApiService>();
             services.AddTransient<IBannerService, BannerService>();
             services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<IVehicleTypeService, VehicleTypeService>();
+            services.AddTransient<IVehicleService, VehicleService>();
+            services.AddTransient<IFareService, FareService>();
+            services.AddTransient<IFareTimelineService, FareTimelineService>();
             services.AddTransient<IRouteRoutineService, RouteRoutineService>();
         }
 
@@ -151,7 +160,7 @@ namespace API.Extensions
 
         public static void ConfigurationSeedData(this IServiceCollection servicess)
         {
-            servicess.AddHostedService<DumpRoutes>();
+            //servicess.AddHostedService<DumpRoutes>();
         }
 
         public static void ConfigureSwagger(this IServiceCollection services)
@@ -218,7 +227,6 @@ namespace API.Extensions
                 options.SubstituteApiVersionInUrl = true;
             });
         }
-
         public static void ConfigureValidator(this IServiceCollection services)
         {
             services.LoadAllValidators();

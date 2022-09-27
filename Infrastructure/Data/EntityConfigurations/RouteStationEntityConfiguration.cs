@@ -36,6 +36,9 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.Status)
                 .HasColumnName("status");
 
+            builder.Property(e => e.NextRouteStationId)
+                .HasColumnName("next_route_station_id");
+
             builder.HasOne(e => e.Route)
                 .WithMany(r => r.RouteStations)
                 .HasForeignKey(e => e.RouteId);
@@ -44,8 +47,15 @@ namespace Infrastructure.Data.EntityConfigurations
                 .WithMany(s => s.RouteStations)
                 .HasForeignKey(e => e.StationId);
 
-            builder.HasIndex(e => new { e.RouteId, e.StationId })
+            builder.HasOne(e => e.NextRouteStation)
+                .WithOne()
+                .HasForeignKey<RouteStation>(e => e.NextRouteStationId);
+
+            builder.HasIndex(e => e.NextRouteStationId)
                 .IsUnique();
+
+            //builder.HasIndex(e => new { e.RouteId, e.StationId })
+            //    .IsUnique();
         }
     }
 }

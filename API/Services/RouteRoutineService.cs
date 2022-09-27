@@ -40,8 +40,8 @@ namespace API.Services
 
             if (driverRouteRoutineCurrent == null || !driverRouteRoutineCurrent.Any()) return true;
 
-            return !driverRouteRoutineCurrent
-                .Where(x => (NewStartAt <= x.EndAt && NewEndAt >= x.StartAt && NewStartTime <= x.EndTime && NewEndTime >= x.StartTime))
+            return !driverRouteRoutineCurrent.ToList()
+                .Where(x => (NewStartAt <= x.EndAt && NewEndAt >= x.StartAt && NewStartTime < x.EndTime.RoundUp(30) && NewEndTime.RoundUp(30) > x.StartTime))
                 .Any();
         }
 

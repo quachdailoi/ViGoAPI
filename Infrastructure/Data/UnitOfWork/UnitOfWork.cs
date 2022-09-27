@@ -34,6 +34,10 @@ namespace Infrastructure.Data.UnitOfWork
         public IPromotionUserRepository PromotionUsers { get; }
 
         public IBannerRepository Banners { get; }
+        public IVehicleTypeRepository VehicleTypes { get; }
+        public IVehicleRepository Vehicles { get; }
+        public IFareRepository Fares { get; }
+        public IFareTimelineRepository FareTimelines { get; }
         public IRouteRoutineRepository RouteRoutines { get; }
 
         public UnitOfWork(
@@ -55,6 +59,10 @@ namespace Infrastructure.Data.UnitOfWork
             IPromotionRepository promotionRepository,
             IPromotionUserRepository promotionUserRepository,
             IBannerRepository bannerRepository,
+            IVehicleTypeRepository vehicleTypeRepository,
+            IVehicleRepository vehicleRepository,
+            IFareRepository fareRepository,
+            IFareTimelineRepository fareTimelineRepository,
             IRouteRoutineRepository routeRoutineRepository)
         {
             _dbContext = dbContext;
@@ -74,9 +82,13 @@ namespace Infrastructure.Data.UnitOfWork
             RouteStations = routeStaionRepository;
             Promotions = promotionRepository;
             PromotionUsers = promotionUserRepository;
-
             Banners = bannerRepository;
+            VehicleTypes = vehicleTypeRepository;
+            Vehicles = vehicleRepository;
+            Fares = fareRepository;
+            FareTimelines = fareTimelineRepository;
             RouteRoutines = routeRoutineRepository;
+
             _logger = loggerFactory.CreateLogger("logs");
         }
 

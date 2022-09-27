@@ -47,7 +47,7 @@ namespace API.Services
             return successResponse.SetData(availablePromotions);
         }
 
-        private async Task<List<PromotionViewModel>> GetAvailablePromotion(int userId, double? totalPrice = null, int? totalTickets = null, PaymentMethods? paymentMethods = null, VehicleTypes? vehicleTypes = null)
+        private async Task<List<PromotionViewModel>> GetAvailablePromotion(int userId, double? totalPrice = null, int? totalTickets = null, PaymentMethods? paymentMethods = null, VehicleTypes.Type? vehicleTypes = null)
         {
             var userPromotions = _unitOfWork.PromotionUsers.GetUsedPromotion(userId);
 
@@ -75,7 +75,7 @@ namespace API.Services
             return availablePromotions;
         }
 
-        private static bool CheckBookingAvailable(PromotionCondition condition, double? totalPrice, int? totalTickets, PaymentMethods? paymentMethods, VehicleTypes? vehicleTypes)
+        private static bool CheckBookingAvailable(PromotionCondition condition, double? totalPrice, int? totalTickets, PaymentMethods? paymentMethods, VehicleTypes.Type? vehicleTypes)
         {
             if (totalPrice != null && condition.MinTotalPrice != null && totalPrice < condition.MinTotalPrice) return false;
 
@@ -124,7 +124,7 @@ namespace API.Services
             return successResponse.SetData(bannerPromotions);
         }
 
-        public async Task<Promotion?> GetPromotionByCode(string code, int userId, double totalPrice, int totalTickets, PaymentMethods paymentMethods, VehicleTypes vehicleTypes)
+        public async Task<Promotion?> GetPromotionByCode(string code, int userId, double totalPrice, int totalTickets, PaymentMethods paymentMethods)
         {
             var userPromotions = _unitOfWork.PromotionUsers.GetUsedPromotion(userId);
 
@@ -140,7 +140,7 @@ namespace API.Services
                       into joined
                       from up in joined.DefaultIfEmpty()
                       where up == null || (validPromotion.PromotionCondition.UsagePerUser > up.Used && (up.ExpiredTime == null || up.ExpiredTime > DateTimeOffset.Now))
-                     select new {Promotion = validPromotion, IsBookingAvailable = CheckBookingAvailable(validPromotion.PromotionCondition, totalPrice, totalTickets,paymentMethods,vehicleTypes)}
+                     select new {Promotion = validPromotion, IsBookingAvailable = CheckBookingAvailable(validPromotion.PromotionCondition, totalPrice, totalTickets,paymentMethods,null)}
                      ).FirstOrDefaultAsync();
 
 

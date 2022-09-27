@@ -24,6 +24,10 @@ namespace API.Services
                 IBannerService bannerService,
                 ILocationService locationService,
                 IAdminService adminService,
+                IVehicleTypeService vehicleTypeService,
+                IVehicleService vehicleService,
+                IFareService fareService,
+                IFareTimelineService fareTimelineService,
                 IRouteRoutineService routeRoutineService
             )
         {
@@ -46,6 +50,10 @@ namespace API.Services
             Banner = bannerService;
             Location = locationService;
             Admin = adminService;
+            VehicleType = vehicleTypeService;
+            Vehicle = vehicleService;
+            Fare = fareService;
+            FareTimeline = fareTimelineService;
             RouteRoutine = routeRoutineService;
         }
 
@@ -68,6 +76,10 @@ namespace API.Services
         public IBannerService Banner { get; }
         public ILocationService Location { get; }
         public IAdminService Admin { get; }
+        public IVehicleTypeService VehicleType { get; }
+        public IVehicleService Vehicle { get; }
+        public IFareService Fare { get; }
+        public IFareTimelineService FareTimeline { get; }
         public IRouteRoutineService RouteRoutine { get; }
     }
 }

@@ -18,16 +18,17 @@ namespace API.Services
         private readonly IMapper _mapper;
         private readonly IBookingDetailService _bookingDetailService;
         private readonly IPromotionService _promotionService;
+        private readonly IFareService _fareService;
 
-        public BookingService(IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, IPromotionService promotionService)
+        public BookingService(IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, IPromotionService promotionService, IFareService fareService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _bookingDetailService = bookingDetailService;
             _promotionService = promotionService;
+            _fareService = fareService;
         }
-
-        public async Task<Response> Create(BookingDTO dto, Response successResponse, Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorReponse)
+        private async Task<Booking> GenerateBooking(BookingDTO dto)
         {
             var booking = _mapper.Map<BookingDTO, Booking>(dto);
 
@@ -44,49 +45,62 @@ namespace API.Services
                 .List(route => route.Id == dto.RouteId && route.Status == StatusTypes.Route.Active)
                 .FirstOrDefaultAsync();
 
-            if(route == null) return invalidRouteResponse;
-
-            var startStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.StartStationCode).First();
-            var endStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.EndStationCode).First();
-            
-            // estimate distance
-            booking.Distance = (startStation.Index <= endStation.Index) ?
-                endStation.DistanceFromFirstStationInRoute - startStation.DistanceFromFirstStationInRoute :
-                route.Distance - (startStation.DistanceFromFirstStationInRoute - endStation.DistanceFromFirstStationInRoute);
-            
-
-            // estimate time
-            booking.Duration = (startStation.Index <= endStation.Index) ?
-                endStation.DurationFromFirstStationInRoute - startStation.DurationFromFirstStationInRoute :
-                route.Distance - (startStation.DurationFromFirstStationInRoute - endStation.DurationFromFirstStationInRoute);
-
-            // caculate price
-            booking.TotalPrice = Fee.CaculateBookingFee(dto.Type, dto.VehicleType, booking.Distance, dto.StartAt, dto.EndAt);
-
-            // generate booking detail by booking schedule
-            booking.BookingDetails = _bookingDetailService.GenerateBookingDetail(booking);
-
-            if (!String.IsNullOrEmpty(dto.PromotionCode))
+            if (route != null && routeStations.GroupBy(e => e.StationId).Count() == 2)
             {
-                var promotion = await _promotionService.GetPromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count, booking.PaymentMethod, booking.VehicleType);
+                var startStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.StartStationCode).First();
+                var endStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.EndStationCode).First();
 
-                if (promotion == null) return invalidPromotionResponse;
+                // estimate distance
+                booking.Distance = (startStation.Index <= endStation.Index) ?
+                    endStation.DistanceFromFirstStationInRoute - startStation.DistanceFromFirstStationInRoute :
+                    route.Distance - (startStation.DistanceFromFirstStationInRoute - endStation.DistanceFromFirstStationInRoute);
 
-                // get discount price by promotion
-                var discountPriceByPercentage = booking.TotalPrice * promotion.DiscountPercentage;
 
-                // compare with promotion max descrease
-                booking.DiscountPrice = discountPriceByPercentage < promotion.MaxDecrease ? discountPriceByPercentage : promotion.MaxDecrease;
+                // estimate time
+                booking.Duration = (startStation.Index <= endStation.Index) ?
+                    endStation.DurationFromFirstStationInRoute - startStation.DurationFromFirstStationInRoute :
+                    route.Distance - (startStation.DurationFromFirstStationInRoute - endStation.DurationFromFirstStationInRoute);
 
-                booking.PromotionId = promotion.Id;
+                // caculate price
+                booking.TotalPrice = (await _fareService.CaculateBookingFee(dto.Type, dto.VehicleTypeId, dto.StartAt, dto.EndAt, booking.Distance, dto.Time)).TotalFee;
+
+                // generate booking detail by booking schedule
+                booking.BookingDetails = _bookingDetailService.GenerateBookingDetail(booking);
+
+                if (!String.IsNullOrEmpty(dto.PromotionCode))
+                {
+                    var promotion = await _promotionService.GetPromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count, booking.PaymentMethod);
+
+                    //if (promotion == null) return invalidPromotionResponse;
+
+                    if(promotion != null)
+                    {
+                        // get discount price by promotion
+                        var discountPriceByPercentage = booking.TotalPrice * promotion.DiscountPercentage;
+
+                        // compare with promotion max descrease
+                        booking.DiscountPrice = discountPriceByPercentage < promotion.MaxDecrease ? discountPriceByPercentage : promotion.MaxDecrease;
+
+                        booking.PromotionId = promotion.Id;
+                    }                 
+                }
             }
+
+            return booking;
+        }
+        public async Task<Response> Create(BookingDTO dto, Response successResponse, Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorReponse)
+        {
+            var booking = await GenerateBooking(dto);
+
+            if (booking.BookingDetails.Count == 0) return invalidRouteResponse;
+            if (!booking.PromotionId.HasValue && !String.IsNullOrEmpty(dto.PromotionCode)) return invalidPromotionResponse; 
 
             // filter in database
             var duplicateBookings = 
                 await _unitOfWork.Bookings
                 .List(e => 
-                    !(e.Time.ToTimeSpan().TotalSeconds + e.Duration < booking.Time.ToTimeSpan().TotalSeconds || 
-                    e.Time.ToTimeSpan().TotalSeconds > booking.Time.ToTimeSpan().TotalSeconds + booking.Duration) &&
+                    !(e.Time.AddMinutes(e.Duration / 60) < booking.Time || 
+                    e.Time > booking.Time.AddMinutes(booking.Duration / 60)) &&
                     e.UserId == booking.UserId && !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
                 .Include(e => e.BookingDetails)
                 .ToListAsync();
@@ -113,18 +127,19 @@ namespace API.Services
 
             booking = await _unitOfWork.Bookings.Add(booking);
 
+            if (booking == null) return errorReponse;
+
             var bookingViewModel = 
                 await _unitOfWork.Bookings
                     .List(_booking => _booking.Id == booking.Id)
                     .MapTo<BookerBookingViewModel>(_mapper)
                     .FirstOrDefaultAsync();
 
-            if (bookingViewModel == null) return errorReponse;
+            
 
             //add job queue to map with specific driver
-            bookingViewModel.Stations = bookingViewModel.ProcessStationOrder().Stations;
 
-            return successResponse.SetData(bookingViewModel);
+            return successResponse.SetData(bookingViewModel.ProcessStationOrder());
         }
 
         public async Task<Response> GetAll(int userId, Response successReponse)
@@ -144,10 +159,25 @@ namespace API.Services
 
             foreach(var booking in bookingViewModels)
             {
-                booking.Stations = booking.ProcessStationOrder().Stations;
+                booking.ProcessStationOrder();
             }
 
             return successReponse.SetData(bookingViewModels);
+        }
+
+        public async Task<Response> GetProvision(BookingDTO dto, Response successResponse, Response invalidRouteResponse, Response invalidPromotionResponse)
+        {
+            var booking = await GenerateBooking(dto);
+
+            if (booking.BookingDetails.Count == 0) return invalidRouteResponse;
+            if (!booking.PromotionId.HasValue && !String.IsNullOrEmpty(dto.PromotionCode)) return invalidPromotionResponse;
+
+            return successResponse.SetData(new FeeViewModel
+            {
+                Fee = booking.TotalPrice,
+                DiscountFee = booking.DiscountPrice,
+                TotalFee = booking.TotalPrice - booking.DiscountPrice
+            });
         }
     }
 }

@@ -16,9 +16,9 @@ namespace Infrastructure.Data.Repositories
         {
         }
 
-        public IQueryable<Station> GetStationsByCodes(List<string> codes)
+        public IQueryable<Station> GetStationsByCodes(List<Guid> codes)
         {
-            return List().Where(s => s.Status == StatusTypes.Station.Active && codes.Contains(s.Code.ToString()));
+            return List().Where(s => s.Status == StatusTypes.Station.Active && codes.Contains(s.Code));
         }
 
         public IQueryable<Station> GetStationsByIds(List<int> ids)
