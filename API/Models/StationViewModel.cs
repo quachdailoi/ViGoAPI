@@ -18,6 +18,7 @@ namespace API.Models
     public class StationInRouteViewModel : StationViewModel , IComparable<StationInRouteViewModel>
     {
         //public double DistanceFromFirstStationInRoute { get; set; }
+        [JsonIgnore]
         public int Index { get; set; }
 
         public int CompareTo(StationInRouteViewModel? other)

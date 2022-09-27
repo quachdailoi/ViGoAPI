@@ -140,18 +140,37 @@ namespace API.Services
         {
             var constructedRoute = await TrueWayDirection_FindDrivingRoute(stations);
 
+            await _unitOfWork.CreateTransactionAsync();
+
+            var isSuccessTransaction = true;
+
             var createdRoute = await _unitOfWork.Routes.CreateRoute(constructedRoute);
 
-            if (createdRoute == null)
+            if (isSuccessTransaction = createdRoute != null)
             {
+                //connect last station and first station in circle route
+                if (stations.Last().Id == stations.First().Id)
+                {
+                    createdRoute.RouteStations.Last().NextRouteStationId = createdRoute.RouteStations.First().Id;
+                    if (!await _unitOfWork.Routes.Update(createdRoute))
+                    {
+                        isSuccessTransaction = false;
+                    }
+                }
+            }
+
+            if (!isSuccessTransaction) 
+            { 
+                await _unitOfWork.Rollback();
                 return failed;
             }
+            else await _unitOfWork.CommitAsync();
 
             var routeVM = 
                 (await _unitOfWork.Routes.List()
                     .Where(x => x.Id == createdRoute.Id)
                     .MapTo<RouteViewModel>(_mapper)
-                    .ToListAsync()).FirstOrDefault();
+                    .FirstAsync()).ProcessStation();
 
             return success.SetData(routeVM);
         }
@@ -210,7 +229,7 @@ namespace API.Services
 
                     route.Steps = steps;
 
-                    route.RouteStations = await GenerateRouteStation(stations, route, stationCoorStrs);
+                    route.RouteStations = GenerateRouteStation(stations, route, legs);
                 }
 
                 return route;
@@ -285,27 +304,42 @@ namespace API.Services
             return steps;
         }
 
-        private async Task<List<RouteStation>> GenerateRouteStation(List<StationDTO> stations, Domain.Entities.Route route, string stationCoorStrs)
+        private List<RouteStation> GenerateRouteStation(List<StationDTO> stations, Domain.Entities.Route route, dynamic legs)
         {
-            var firstStation = stations.First();
             List<RouteStation> routestations = new();
+            //var routeStationDic = new Dictionary<int,RouteStation>();
 
-            string firstStationCoorStr = $"{stations.First().Latitude},{stations.First().Longitude}";
+            //string firstStationCoorStr = $"{stations.First().Latitude},{stations.First().Longitude}";
 
-            var distanceAndTimeJson = await TrueWayMatrix_CalculateDrivingMatrix(firstStationCoorStr, stationCoorStrs);
+            //var distanceAndTimeJson = await TrueWayMatrix_CalculateDrivingMatrix(firstStationCoorStr, stationCoorStrs);
 
-            var distances = distanceAndTimeJson.distances[0];
-            var durations = distanceAndTimeJson.durations[0];
+            //var distances = distanceAndTimeJson.distances[0];
+            //var durations = distanceAndTimeJson.durations[0];
 
-            for (var index = 0; index < stations.Count; index++)
+            double distance = 0;
+            double duration = 0;
+
+            var isCircleRoute = stations.First().Id == stations.Last().Id;
+            var totalStation = isCircleRoute ? stations.Count - 1 : stations.Count; 
+
+            for (var index = 0; index < totalStation; index++)
             {
-                routestations.Add(new()
+                var station = stations[index];
+                
+                distance += (index > 0) ? (double)(legs[index - 1].distance) : 0;
+                duration += (index > 0) ? (double)(legs[index - 1].duration) : 0;
+
+                var routeStation = new RouteStation
                 {
                     Route = route,
-                    StationId = stations[index].Id,
+                    StationId = station.Id,
                     Index = index + 1,
-                    DistanceFromFirstStationInRoute = distances[index],
-                });
+                    DistanceFromFirstStationInRoute = distance,
+                    DurationFromFirstStationInRoute = duration,
+                };
+
+                if (routestations.Any()) routestations.Last().NextRouteStation = routeStation;
+                routestations.Add(routeStation);                           
             }
 
             return routestations;

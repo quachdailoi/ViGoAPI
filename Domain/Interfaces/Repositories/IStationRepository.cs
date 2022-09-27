@@ -9,7 +9,7 @@ namespace Domain.Interfaces.Repositories
 {
     public interface IStationRepository : IGenericRepository<Station>
     {
-        IQueryable<Station> GetStationsByCodes(List<string> codes);
+        IQueryable<Station> GetStationsByCodes(List<Guid> codes);
 
         IQueryable<Station> GetStationsByIds(List<int> ids);
     }

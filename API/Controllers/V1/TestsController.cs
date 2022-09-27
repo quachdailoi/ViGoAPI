@@ -54,5 +54,27 @@ namespace API.Controllers.V1
             var user = await _unitOfWork.Users.GetUserByCode(code).FirstOrDefaultAsync();
             return Ok(user);
         }
+
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public IActionResult Test()
+        //{
+        //    var total = 5;
+        //    var current = 0;
+        //    var numbers = new List<Number>();
+
+        //    while(current < total)
+        //    {
+
+        //    }
+
+        //    return Ok();
+        //}
+
+        //class Number
+        //{
+        //    public int Value { get; set; }
+        //    public Number? NextNumber { get; set; } = null;
+        //}
     }
 }

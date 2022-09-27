@@ -46,6 +46,12 @@ namespace Infrastructure.Data
             new StationSeeder(builder);
 
             new BannerSeeder(builder);
+
+            new VehicleTypeSeeder(builder);
+
+            new FareSeeder(builder);
+
+            new FareTimelineSeeder(builder);
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)
@@ -121,6 +127,18 @@ namespace Infrastructure.Data
 			new BannerEntityConfiguration()
                 .Configure(builder.Entity<Banner>());
 
+            new VehicleTypeEntityConfiguration()
+                .Configure(builder.Entity<VehicleType>());
+
+            new VehicleEntityConfiguration()
+                .Configure(builder.Entity<Vehicle>());
+
+            new FareEntityConfiguration()
+                .Configure(builder.Entity<Fare>());
+
+            new FareTimelineEntityConfiguration()
+                .Configure(builder.Entity<FareTimeline>());
+
 
         }
 
@@ -140,5 +158,9 @@ namespace Infrastructure.Data
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<PromotionUser> PromotionUsers { get; set; }
         public DbSet<PromotionCondition> PromotionConditions { get; set; }
+        public DbSet<VehicleType> VehicleTypes { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<Fare> Fares { get; set; }
+        public DbSet<FareTimeline> FareTimelines { get; set; }
     }
 }

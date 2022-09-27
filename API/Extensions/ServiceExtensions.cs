@@ -98,6 +98,10 @@ namespace API.Extensions
             services.AddScoped<IStationRepository, StationRepository>();
             services.AddScoped<IRouteStationRepository, RouteStationRepository>();
             services.AddScoped<IBannerRepository, BannerRepository>();
+            services.AddScoped<IVehicleTypeRepository, VehicleTypeRepository>();
+            services.AddScoped<IVehicleRepository, VehicleRepository>();
+            services.AddScoped<IFareRepository, FareRepository>();
+            services.AddScoped<IFareTimelineRepository, FareTimelineRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -123,7 +127,12 @@ namespace API.Extensions
             services.AddTransient<IRapidApiService, RapidApiService>();
             services.AddTransient<IBannerService, BannerService>();
             services.AddTransient<ILocationService, LocationService>();
+            services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<IVehicleTypeService, VehicleTypeService>();
+            services.AddTransient<IVehicleService, VehicleService>();
+            services.AddTransient<IFareService, FareService>();
+            services.AddTransient<IFareTimelineService, FareTimelineService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)
@@ -147,7 +156,7 @@ namespace API.Extensions
 
         public static void ConfigurationSeedData(this IServiceCollection servicess)
         {
-            servicess.AddHostedService<DumpRoutes>();
+            //servicess.AddHostedService<DumpRoutes>();
         }
 
         public static void ConfigureSwagger(this IServiceCollection services)

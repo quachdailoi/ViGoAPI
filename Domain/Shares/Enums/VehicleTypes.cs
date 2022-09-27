@@ -6,10 +6,31 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public enum VehicleTypes
+    public class VehicleTypes
     {
-        ViRide,
-        ViCar_4,
-        ViCar_7
+        public enum Type
+        {
+            ViRide,
+            ViCar
+        }
+        
+        public enum Status
+        {
+            Active,
+            Inactive
+        }
+    }
+
+    public static class VehicleTypesExtensions
+    {
+        public static string GetString(this VehicleTypes.Type type)
+        {
+            return type switch
+            {
+                VehicleTypes.Type.ViRide => "ViRide",
+                VehicleTypes.Type.ViCar => "ViCar",
+                _ => String.Empty,
+            };
+        }
     }
 }
