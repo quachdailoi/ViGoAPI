@@ -133,6 +133,7 @@ namespace API.Extensions
             services.AddTransient<IVehicleService, VehicleService>();
             services.AddTransient<IFareService, FareService>();
             services.AddTransient<IFareTimelineService, FareTimelineService>();
+            services.AddTransient<IPaymentService, PaymentService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)

@@ -55,6 +55,35 @@ namespace API.Controllers.V1
             return Ok(user);
         }
 
+        [HttpGet("momo-link")]
+        public async Task<IActionResult> GetMomoLink()
+        {
+            var result =
+                await AppServices.PaymentService.GenerateMomoPaymentUrl(
+                    orderId: 1,
+                    amount: 100000,
+                    items: new()
+                    {
+                        new()
+                        {
+                            Id = "1",
+                            Name = "Items 1",
+                            Category = "Cate 1",
+                            Price = 50000,
+                            Quantity = 2,
+                            Unit = "Ticket"
+                        }
+                    },
+                    userInfo: new()
+                    {
+                        Email = "test@gmail.com",
+                        PhoneNumber = "0916220535",
+                        Name = "Passenger 1"
+                    }
+                    );
+            return Ok(result);
+        }
+
         //[HttpGet]
         //[AllowAnonymous]
         //public IActionResult Test()
