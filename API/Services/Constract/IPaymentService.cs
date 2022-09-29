@@ -9,6 +9,8 @@ namespace API.Services.Constract
 {
     public interface IPaymentService
     {
-        Task<Dictionary<string,string>> GenerateMomoPaymentUrl(int orderId, long amount, List<MomoItemRequestDTO> items, MomoUserInfoDTO userInfo);
+        Task<string> GenerateMomoPaymentUrl(int orderId, long amount, List<MomoItemRequestDTO>? items = null, MomoUserInfoDTO? userInfo = null);
+        Task<string> GenerateMomoPaymentUrl(MomoCollectionLinkRequestDTO dto);
+        string GetMomoSignature(string text);
     }
 }

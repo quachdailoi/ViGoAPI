@@ -6,6 +6,8 @@ using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace API.Services
 {
@@ -18,50 +20,81 @@ namespace API.Services
             _client = new HttpClient();
             _config = config;
         }
-        public async Task<Dictionary<string,string>> GenerateMomoPaymentUrl(int orderId, long amount, List<MomoItemRequestDTO> items, MomoUserInfoDTO userInfo)
+        public async Task<string> GenerateMomoPaymentUrl(int orderId, long amount, List<MomoItemRequestDTO> items, MomoUserInfoDTO userInfo)
+        {
+            var dto = new MomoCollectionLinkRequestDTO
+            {
+                partnerCode = _config.Get(MomoSettings.PartnerCode),
+                partnerName = _config.Get(MomoSettings.PartnerName),
+                storeId = _config.Get(MomoSettings.StoreId),
+                requestId = Guid.NewGuid().ToString(),
+                amount = amount,
+                orderId = Guid.NewGuid().ToString(),
+                //items = items,
+                //userInfo = userInfo
+            };
+
+            var rawSignature = $"amount={dto.amount}&extraData={dto.extraData}&ipnUrl={dto.ipnUrl}" +
+                $"&orderId={dto.orderId}&orderInfo={dto.orderInfo}&partnerCode={dto.partnerCode}&redirectUrl={dto.redirectUrl}" +
+                $"&requestId={dto.requestId}&requestType={dto.requestType}";
+
+            dto.signature = GetMomoSignature(rawSignature);
+
+            StringContent httpContent = new(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("https://test-payment.momo.vn/v2/gateway/api/create", httpContent);
+            
+            var body = await response.Content.ReadAsStringAsync();
+
+            var bodyJson = JToken.Parse(body);
+
+            //return new Dictionary<string, string>
+            //{
+            //    { "WebLink", bodyJson.Value<string>("payUrl") ?? String.Empty},
+            //    { "DeepLink", bodyJson.Value<string>("deepLink") ?? String.Empty }
+            //};
+            return bodyJson.Value<string>("payUrl") ?? String.Empty;
+        }
+
+        public async Task<string> GenerateMomoPaymentUrl(MomoCollectionLinkRequestDTO dto)
+        {
+            dto.partnerCode = _config.Get(MomoSettings.PartnerCode);
+            dto.partnerName = _config.Get(MomoSettings.PartnerName);
+            dto.storeId = _config.Get(MomoSettings.StoreId);
+            dto.requestId = Guid.NewGuid().ToString();
+
+            var rawSignature = $"amount={dto.amount}&extraData={dto.extraData}&ipnUrl={dto.ipnUrl}" +
+                $"&orderId={dto.orderId}&orderInfo={dto.orderInfo}&partnerCode={dto.partnerCode}&redirectUrl={dto.redirectUrl}" +
+                $"&requestId={dto.requestId}&requestType={dto.requestType}";
+
+            dto.signature = GetMomoSignature(rawSignature);
+
+            StringContent httpContent = new(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync("https://test-payment.momo.vn/v2/gateway/api/create", httpContent);
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            var bodyJson = JToken.Parse(body);
+
+            //return new Dictionary<string, string>
+            //{
+            //    { "WebLink", bodyJson.Value<string>("payUrl") ?? String.Empty},
+            //    { "DeepLink", bodyJson.Value<string>("deepLink") ?? String.Empty }
+            //};
+            return bodyJson.Value<string>("payUrl") ?? String.Empty;
+        }
+        public string GetMomoSignature(string text)
         {
             var accessKey = _config.Get(MomoSettings.AccessKey);
             var secretKey = _config.Get(MomoSettings.SecretKey);
 
-            var dto = new MomoCollectionLinkRequestDTO
-            {
-                PartnerCode = _config.Get(MomoSettings.PartnerCode),
-                PartnerName = _config.Get(MomoSettings.PartnerName),
-                StoreId = _config.Get(MomoSettings.StoreId),
-                RequestId = Guid.NewGuid().ToString(),
-                Amount = amount,
-                OrderId = orderId.ToString(),
-                Items = items,
-                UserInfo = userInfo
-            };
+            var rawSignature = $"accessKey={accessKey}&{text}";
 
-            var rawSignature = $"accessKey={accessKey}&amount={dto.Amount}&extraData={dto.ExtraData}&ipnUrl={dto.IpnUrl}" +
-                $"&orderId={dto.OrderId}&orderInfo={dto.OrderInfo}&partnerCode={dto.PartnerCode}&redirectUrl={dto.RedirectUrl}" +
-                $"&requestId={dto.RequestId}&requestType={dto.RequestType}";
-
-            dto.Signature = GetMomoSignature(rawSignature, secretKey);
-
-            StringContent httpContent = new StringContent(JsonSerializer.Serialize(dto), System.Text.Encoding.UTF8, "application/json");
-
-            var response = await _client.PostAsync("https://test-payment.momo.vn/v2/gateway/api/create", httpContent);
-            
-            var body = response.Content.ReadAsStringAsync().Result;
-
-            dynamic bodyJson = JToken.Parse(body);
-
-            return new Dictionary<string, string>
-            {
-                {"WebLink", bodyJson.payUrl },
-                {"DeepLink", bodyJson.deepLink }
-            };
-        }
-
-        private string GetMomoSignature(string text, string key)
-        {
             ASCIIEncoding encoding = new ASCIIEncoding();
 
-            Byte[] textBytes = encoding.GetBytes(text);
-            Byte[] keyBytes = encoding.GetBytes(key);
+            Byte[] textBytes = encoding.GetBytes(rawSignature);
+            Byte[] keyBytes = encoding.GetBytes(secretKey);
 
             Byte[] hashBytes;
 

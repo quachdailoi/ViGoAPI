@@ -19,14 +19,16 @@ namespace API.Services
         private readonly IBookingDetailService _bookingDetailService;
         private readonly IPromotionService _promotionService;
         private readonly IFareService _fareService;
+        private readonly IPaymentService _paymentService;
 
-        public BookingService(IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, IPromotionService promotionService, IFareService fareService)
+        public BookingService(IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, IPromotionService promotionService, IFareService fareService, IPaymentService paymentService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _bookingDetailService = bookingDetailService;
             _promotionService = promotionService;
             _fareService = fareService;
+            _paymentService = paymentService;
         }
         private async Task<Booking> GenerateBooking(BookingDTO dto)
         {
@@ -88,7 +90,7 @@ namespace API.Services
 
             return booking;
         }
-        public async Task<Response> Create(BookingDTO dto, Response successResponse, Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorReponse)
+        public async Task<Response> Create(BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorReponse)
         {
             var booking = await GenerateBooking(dto);
 
@@ -105,23 +107,23 @@ namespace API.Services
                 .Include(e => e.BookingDetails)
                 .ToListAsync();
 
-            // filter in server
-            if (duplicateBookings.Any())
-            {
-                var bookingDetailDateHashSet = 
-                    duplicateBookings
-                    .Select(b => b.BookingDetails.Select(_b => _b.Date))
-                    .Aggregate((current, next) => current.Union(next))
-                    .ToHashSet();
+            //// filter in server
+            //if (duplicateBookings.Any())
+            //{
+            //    var bookingDetailDateHashSet = 
+            //        duplicateBookings
+            //        .Select(b => b.BookingDetails.Select(_b => _b.Date))
+            //        .Aggregate((current, next) => current.Union(next))
+            //        .ToHashSet();
 
-                var insertedBookingDetailDateHashSet = 
-                    booking.BookingDetails.Select(b => b.Date).ToHashSet();
+            //    var insertedBookingDetailDateHashSet = 
+            //        booking.BookingDetails.Select(b => b.Date).ToHashSet();
 
-                insertedBookingDetailDateHashSet.IntersectWith(bookingDetailDateHashSet);
+            //    insertedBookingDetailDateHashSet.IntersectWith(bookingDetailDateHashSet);
 
-                if(insertedBookingDetailDateHashSet.Any())
-                    return duplicationResponse;
-            }
+            //    if(insertedBookingDetailDateHashSet.Any())
+            //        return duplicationResponse;
+            //}
 
             // check for exist available driver for this trip 
 
@@ -135,11 +137,27 @@ namespace API.Services
                     .MapTo<BookerBookingViewModel>(_mapper)
                     .FirstOrDefaultAsync();
 
+            var paymentUrl = String.Empty;
+
+            switch (booking.PaymentMethod)
+            {
+                case PaymentMethods.Momo:
+                    ((MomoCollectionLinkRequestDTO) paymentDto).amount = (long)booking.TotalPrice;
+                    ((MomoCollectionLinkRequestDTO) paymentDto).orderId = booking.Id.ToString();
+                    paymentUrl = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
+                    break;
+                default: break;
+            }
             
 
             //add job queue to map with specific driver
 
-            return successResponse.SetData(bookingViewModel.ProcessStationOrder());
+            return successResponse.SetData(new 
+            { 
+                Booking = bookingViewModel.ProcessStationOrder(),
+                PaymentUrl = paymentUrl
+            } 
+            );
         }
 
         public async Task<Response> GetAll(int userId, Response successReponse)
@@ -179,5 +197,7 @@ namespace API.Services
                 TotalFee = booking.TotalPrice - booking.DiscountPrice
             });
         }
+        public Task<Booking?> GetById(int id) => _unitOfWork.Bookings.List(booking => booking.Id == id).FirstOrDefaultAsync();
+        public Task<bool> Update(Booking booking) => _unitOfWork.Bookings.Update(booking);
     }
 }

@@ -25,7 +25,7 @@ namespace Domain.Entities
         public int? PromotionId { get; set; } = null;
         public int RouteId { get; set; }
         public int VehicleTypeId { get; set; }
-        public StatusTypes.Booking Status { get; set; } = StatusTypes.Booking.Started;
+        public Bookings.Status Status { get; set; } = Bookings.Status.Unpaid;
 
         public User User { get; set; }
         public Route Route { get; set; }

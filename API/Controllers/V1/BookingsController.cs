@@ -7,6 +7,8 @@ using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace API.Controllers.V1
 {
@@ -104,8 +106,22 @@ namespace API.Controllers.V1
             //booking.StartStationId = startStation.Id;
             //booking.EndStationId = endStation.Id;
 
+            CollectionLinkRequestDTO paymentDto = new();
+
+            switch (booking.PaymentMethod)
+            {
+                case PaymentMethods.Momo:
+                    paymentDto = new MomoCollectionLinkRequestDTO
+                    {
+                        ipnUrl = $"{Request.Scheme}://{Request.Host}{Request.Path}/ipn/momo"
+                    };
+                    break;
+                default: break;
+            }
+
             var response = await AppServices.Booking.Create(
                                                     booking,
+                                                    paymentDto,
                                                     successResponse: new()
                                                     {
                                                         Message = "Create booking successfully.",
@@ -375,6 +391,42 @@ namespace API.Controllers.V1
                                                     }
                                                     );
             return ApiResult(response);
+        }
+
+        [HttpPost("ipn/momo")]
+        public async Task<IActionResult> HandleBookingMomoPaymentIPN([FromBody] JsonElement request)
+        {
+            var dto = JsonSerializer.Deserialize<MomoPaymentNotificationRequest>(request.GetRawText());
+
+            if (dto.resultCode == 0)
+            {
+                var rawSignature = $"amount={dto.amount}&" +
+                    $"extraData={dto.extraData}&" +
+                    $"message={dto.message}&" +
+                    $"orderId={dto.orderId}&" +
+                    $"orderInfo={dto.orderInfo}&" +
+                    $"orderType={dto.orderType}&" +
+                    $"partnerCode={dto.partnerCode}&" +
+                    $"payType={dto.payType}&" +
+                    $"requestId={dto.requestId}&" +
+                    $"responseTime={dto.responseTime}&" +
+                    $"resultCode={dto.resultCode}&" +
+                    $"transId={dto.transId}";
+
+                var signature = AppServices.Payment.GetMomoSignature(rawSignature);
+
+                //if (signature == dto.signature)
+                //{
+                    var booking = await AppServices.Booking.GetById(int.Parse(dto.orderId));
+
+                    if (booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.amount)
+                    {
+                        booking.Status = Bookings.Status.Started;
+                        await AppServices.Booking.Update(booking);
+                    }
+                //}
+            }
+            return NoContent();
         }
         /// <summary>
         ///     Get route and fee from pair of stations (cross multiple routes is possible) - updating ...

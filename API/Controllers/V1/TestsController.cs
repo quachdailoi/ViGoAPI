@@ -56,10 +56,14 @@ namespace API.Controllers.V1
         }
 
         [HttpGet("momo-link")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetMomoLink()
         {
+            //var req = Request;
+            //var host = HttpContext.Request.Host;
+            var api = $"{Request.Scheme}://{Request.Host}{Request.Path}";
             var result =
-                await AppServices.PaymentService.GenerateMomoPaymentUrl(
+                await AppServices.Payment.GenerateMomoPaymentUrl(
                     orderId: 1,
                     amount: 100000,
                     items: new()
@@ -82,6 +86,7 @@ namespace API.Controllers.V1
                     }
                     );
             return Ok(result);
+            //return Ok(api);
         }
 
         //[HttpGet]

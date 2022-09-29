@@ -1,9 +1,9 @@
 ﻿namespace API.Models.Settings
 {
-    public abstract class PaymentSettings
+    public class PaymentSettings
     {
-        protected static string? PaymentService;
-        protected static string Section = $"PaymentSettings:{PaymentService}:";
+        public static string PaymentService;
+        public static string Section = $"PaymentSettings:{PaymentService}:";
         public static string AccessKey = $"{Section}AccessKey";
         public static string SecretKey = $"{Section}SecretKey";
         public static string PublicKey = $"{Section}PublicKey";
@@ -11,13 +11,14 @@
     }
 
     public class MomoSettings : PaymentSettings
-    {
-        public static string PartnerCode = $"{Section}PartnerCode";
-        public static string PartnerName = $"{Section}PartnerName";
-        public static string StoreId = $"{Section}StoreId";
-        MomoSettings()
-        {
-            PaymentService = "Momo";
-        }
+    {    
+        protected new static string PaymentService = "Momo";
+        protected new static string Section = $"PaymentSettings:{PaymentService}:";
+        public static new string AccessKey = $"{Section}AccessKey";
+        public static new string SecretKey = $"{Section}SecretKey";
+        public static new string PublicKey = $"{Section}PublicKey";
+        public static new string PartnerCode = $"{Section}PartnerCode";
+        public static new string PartnerName = $"{Section}PartnerName";
+        public static new string StoreId = $"{Section}StoreId";
     }
 }
