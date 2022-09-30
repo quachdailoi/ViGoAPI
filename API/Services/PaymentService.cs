@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Domain.Shares.Enums;
 
 namespace API.Services
 {
@@ -15,74 +16,47 @@ namespace API.Services
     {
         private readonly HttpClient _client;
         private readonly IConfiguration _config;
+        private const string MOMO_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/create";
+        private const string MOMO_REFUND_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/refund";
         public PaymentService(IConfiguration config)
         {
             _client = new HttpClient();
             _config = config;
         }
-        public async Task<string> GenerateMomoPaymentUrl(int orderId, long amount, List<MomoItemRequestDTO> items, MomoUserInfoDTO userInfo)
-        {
-            var dto = new MomoCollectionLinkRequestDTO
-            {
-                partnerCode = _config.Get(MomoSettings.PartnerCode),
-                partnerName = _config.Get(MomoSettings.PartnerName),
-                storeId = _config.Get(MomoSettings.StoreId),
-                requestId = Guid.NewGuid().ToString(),
-                amount = amount,
-                orderId = Guid.NewGuid().ToString(),
-                //items = items,
-                //userInfo = userInfo
-            };
 
-            var rawSignature = $"amount={dto.amount}&extraData={dto.extraData}&ipnUrl={dto.ipnUrl}" +
-                $"&orderId={dto.orderId}&orderInfo={dto.orderInfo}&partnerCode={dto.partnerCode}&redirectUrl={dto.redirectUrl}" +
-                $"&requestId={dto.requestId}&requestType={dto.requestType}";
-
-            dto.signature = GetMomoSignature(rawSignature);
-
-            StringContent httpContent = new(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
-
-            var response = await _client.PostAsync("https://test-payment.momo.vn/v2/gateway/api/create", httpContent);
-            
-            var body = await response.Content.ReadAsStringAsync();
-
-            var bodyJson = JToken.Parse(body);
-
-            //return new Dictionary<string, string>
-            //{
-            //    { "WebLink", bodyJson.Value<string>("payUrl") ?? String.Empty},
-            //    { "DeepLink", bodyJson.Value<string>("deepLink") ?? String.Empty }
-            //};
-            return bodyJson.Value<string>("payUrl") ?? String.Empty;
-        }
-
-        public async Task<string> GenerateMomoPaymentUrl(MomoCollectionLinkRequestDTO dto)
+        public async Task<string?> GenerateMomoPaymentUrl(MomoCollectionLinkRequestDTO dto)
         {
             dto.partnerCode = _config.Get(MomoSettings.PartnerCode);
             dto.partnerName = _config.Get(MomoSettings.PartnerName);
             dto.storeId = _config.Get(MomoSettings.StoreId);
             dto.requestId = Guid.NewGuid().ToString();
 
-            var rawSignature = $"amount={dto.amount}&extraData={dto.extraData}&ipnUrl={dto.ipnUrl}" +
-                $"&orderId={dto.orderId}&orderInfo={dto.orderInfo}&partnerCode={dto.partnerCode}&redirectUrl={dto.redirectUrl}" +
-                $"&requestId={dto.requestId}&requestType={dto.requestType}";
+            var rawSignature = $"amount={dto.amount}&" +
+                $"extraData={dto.extraData}&" +
+                $"ipnUrl={dto.ipnUrl}&" +
+                $"orderId={dto.orderId}&" +
+                $"orderInfo={dto.orderInfo}&" +
+                $"partnerCode={dto.partnerCode}&" +
+                $"redirectUrl={dto.redirectUrl}&" +
+                $"requestId={dto.requestId}&" +
+                $"requestType={dto.requestType}";
 
             dto.signature = GetMomoSignature(rawSignature);
 
             StringContent httpContent = new(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
 
-            var response = await _client.PostAsync("https://test-payment.momo.vn/v2/gateway/api/create", httpContent);
+            var response = await _client.PostAsync(MOMO_ENDPOINT, httpContent);
 
             var body = await response.Content.ReadAsStringAsync();
 
             var bodyJson = JToken.Parse(body);
 
-            //return new Dictionary<string, string>
-            //{
-            //    { "WebLink", bodyJson.Value<string>("payUrl") ?? String.Empty},
-            //    { "DeepLink", bodyJson.Value<string>("deepLink") ?? String.Empty }
-            //};
-            return bodyJson.Value<string>("payUrl") ?? String.Empty;
+            var resultCode = bodyJson.Value<int>("resultCode");
+            var message = bodyJson.Value<string>("message");
+
+            if (resultCode != MomoStatusCodes.Successed) throw new Exception(message);
+
+            return bodyJson.Value<string>("payUrl");
         }
         public string GetMomoSignature(string text)
         {
@@ -99,9 +73,43 @@ namespace API.Services
             Byte[] hashBytes;
 
             using (HMACSHA256 hash = new HMACSHA256(keyBytes))
-                hashBytes = hash.ComputeHash(textBytes);
+                hashBytes = hash.ComputeHash(textBytes);     
 
             return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+        }
+
+        public async Task<bool> MomoRefund(long transId, long amount, string description = "")
+        {
+            var dto = new MomoRefundDTO
+            {
+                partnerCode = _config.Get(MomoSettings.PartnerCode),
+                orderId = Guid.NewGuid().ToString(),
+                requestId = Guid.NewGuid().ToString(),
+                amount = amount,
+                transId = transId,
+                description = description
+            };
+
+            var rawSignature = $"amount={dto.amount}&" +
+                $"description={dto.description}&" +
+                $"orderId={dto.orderId}&" +
+                $"partnerCode={dto.partnerCode}&" +
+                $"requestId={dto.requestId}&" +
+                $"transId={dto.transId}";
+
+            dto.signature = GetMomoSignature(rawSignature);
+
+            StringContent httpContent = new(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync(MOMO_REFUND_ENDPOINT, httpContent);
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            var bodyJson = JToken.Parse(body);
+
+            var resultCode = bodyJson.Value<int>("resultCode");
+
+            return resultCode == MomoStatusCodes.Successed;
         }
     }
 }

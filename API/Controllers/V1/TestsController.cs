@@ -62,31 +62,31 @@ namespace API.Controllers.V1
             //var req = Request;
             //var host = HttpContext.Request.Host;
             var api = $"{Request.Scheme}://{Request.Host}{Request.Path}";
-            var result =
-                await AppServices.Payment.GenerateMomoPaymentUrl(
-                    orderId: 1,
-                    amount: 100000,
-                    items: new()
-                    {
-                        new()
-                        {
-                            Id = "1",
-                            Name = "Items 1",
-                            Category = "Cate 1",
-                            Price = 50000,
-                            Quantity = 2,
-                            Unit = "Ticket"
-                        }
-                    },
-                    userInfo: new()
-                    {
-                        Email = "test@gmail.com",
-                        PhoneNumber = "0916220535",
-                        Name = "Passenger 1"
-                    }
-                    );
-            return Ok(result);
-            //return Ok(api);
+            //var result =
+            //    await AppServices.Payment.GenerateMomoPaymentUrl(
+            //        orderId: 1,
+            //        amount: 100000,
+            //        items: new()
+            //        {
+            //            new()
+            //            {
+            //                Id = "1",
+            //                Name = "Items 1",
+            //                Category = "Cate 1",
+            //                Price = 50000,
+            //                Quantity = 2,
+            //                Unit = "Ticket"
+            //            }
+            //        },
+            //        userInfo: new()
+            //        {
+            //            Email = "test@gmail.com",
+            //            PhoneNumber = "0916220535",
+            //            Name = "Passenger 1"
+            //        }
+            //        );
+            //return Ok(result);
+            return Ok(api);
         }
 
         //[HttpGet]

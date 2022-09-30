@@ -53,15 +53,15 @@ namespace API.Services
                 var endStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.EndStationCode).First();
 
                 // estimate distance
-                booking.Distance = (startStation.Index <= endStation.Index) ?
+                booking.Distance = (startStation.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute) ?
                     endStation.DistanceFromFirstStationInRoute - startStation.DistanceFromFirstStationInRoute :
                     route.Distance - (startStation.DistanceFromFirstStationInRoute - endStation.DistanceFromFirstStationInRoute);
 
 
                 // estimate time
-                booking.Duration = (startStation.Index <= endStation.Index) ?
+                booking.Duration = (startStation.DurationFromFirstStationInRoute <= endStation.DurationFromFirstStationInRoute) ?
                     endStation.DurationFromFirstStationInRoute - startStation.DurationFromFirstStationInRoute :
-                    route.Distance - (startStation.DurationFromFirstStationInRoute - endStation.DurationFromFirstStationInRoute);
+                    route.Duration - (startStation.DurationFromFirstStationInRoute - endStation.DurationFromFirstStationInRoute);
 
                 // caculate price
                 booking.TotalPrice = (await _fareService.CaculateBookingFee(dto.Type, dto.VehicleTypeId, dto.StartAt, dto.EndAt, booking.Distance, dto.Time)).TotalFee;
@@ -127,6 +127,8 @@ namespace API.Services
 
             // check for exist available driver for this trip 
 
+            await _unitOfWork.CreateTransactionAsync();
+
             booking = await _unitOfWork.Bookings.Add(booking);
 
             if (booking == null) return errorReponse;
@@ -138,17 +140,25 @@ namespace API.Services
                     .FirstOrDefaultAsync();
 
             var paymentUrl = String.Empty;
-
-            switch (booking.PaymentMethod)
+            try
             {
-                case PaymentMethods.Momo:
-                    ((MomoCollectionLinkRequestDTO) paymentDto).amount = (long)booking.TotalPrice;
-                    ((MomoCollectionLinkRequestDTO) paymentDto).orderId = booking.Id.ToString();
-                    paymentUrl = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
-                    break;
-                default: break;
+                switch (booking.PaymentMethod)
+                {
+                    case PaymentMethods.Momo:
+                        ((MomoCollectionLinkRequestDTO)paymentDto).amount = (long)booking.TotalPrice;
+                        ((MomoCollectionLinkRequestDTO)paymentDto).orderId = booking.Code.ToString();
+                        paymentUrl = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
+                        break;
+                    default: break;
+                }
+            }
+            catch(Exception ex)
+            {
+                await _unitOfWork.Rollback();
+                return errorReponse;
             }
             
+            await _unitOfWork.CommitAsync();
 
             //add job queue to map with specific driver
 
@@ -197,7 +207,7 @@ namespace API.Services
                 TotalFee = booking.TotalPrice - booking.DiscountPrice
             });
         }
-        public Task<Booking?> GetById(int id) => _unitOfWork.Bookings.List(booking => booking.Id == id).FirstOrDefaultAsync();
+        public Task<Booking?> GetByCode(Guid code) => _unitOfWork.Bookings.List(booking => booking.Code == code).FirstOrDefaultAsync();
         public Task<bool> Update(Booking booking) => _unitOfWork.Bookings.Update(booking);
     }
 }

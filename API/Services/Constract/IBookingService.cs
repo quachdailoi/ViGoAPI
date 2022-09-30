@@ -11,6 +11,6 @@ namespace API.Services.Constract
         Task<Response> GetProvision(BookingDTO dto, Response successResponse, Response invalidRouteResponse, Response invalidPromotionResponse);
         Task<Response> GetAll(int userId, Response successReponse);
         Task<bool> Update(Booking booking);
-        Task<Booking?> GetById(int id);
+        Task<Booking?> GetByCode(Guid code);
     }
 }

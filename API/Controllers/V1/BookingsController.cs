@@ -367,7 +367,11 @@ namespace API.Controllers.V1
                 return ApiResult(badRequestResponse.SetMessage("Wrong format of date parameter."));
             }
 
-            booking.VehicleTypeId = (await AppServices.VehicleType.GetByCode(request.VehicleTypeCode)).Id;
+            VehicleType? vehicleType = await AppServices.VehicleType.GetByCode(request.VehicleTypeCode);
+
+            if (vehicleType == null) return ApiResult(badRequestResponse.SetMessage("VehicleTypeCode is invalid"));
+
+            booking.VehicleTypeId = vehicleType.Id;
 
             //booking.StartStationId = startStation.Id;
             //booking.EndStationId = endStation.Id;
@@ -393,12 +397,13 @@ namespace API.Controllers.V1
             return ApiResult(response);
         }
 
+        [ApiExplorerSettings(IgnoreApi =true)]
         [HttpPost("ipn/momo")]
         public async Task<IActionResult> HandleBookingMomoPaymentIPN([FromBody] JsonElement request)
         {
             var dto = JsonSerializer.Deserialize<MomoPaymentNotificationRequest>(request.GetRawText());
 
-            if (dto.resultCode == 0)
+            if (dto.resultCode == MomoStatusCodes.Successed)
             {
                 var rawSignature = $"amount={dto.amount}&" +
                     $"extraData={dto.extraData}&" +
@@ -417,9 +422,9 @@ namespace API.Controllers.V1
 
                 //if (signature == dto.signature)
                 //{
-                    var booking = await AppServices.Booking.GetById(int.Parse(dto.orderId));
+                    var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
 
-                    if (booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.amount)
+                    if (booking?.Status == Bookings.Status.Unpaid && booking?.TotalPrice == dto.amount)
                     {
                         booking.Status = Bookings.Status.Started;
                         await AppServices.Booking.Update(booking);

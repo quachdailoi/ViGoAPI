@@ -13,4 +13,15 @@ namespace Domain.Shares.Enums
         VNPay = 2,
         BankCard = 3
     }
+    public class MomoStatusCodes
+    {
+        public readonly static int Successed = 0;
+        public readonly static int AccessDenied = 11;
+        public readonly static int InvalidFormat = 20;
+        public readonly static int InvalidAmount = 22;
+        public readonly static int DuplicateOrderId = 41;
+        public readonly static int Cancelled = 1003;
+        public readonly static int SystemMaintance = 10;
+        public readonly static int Unknown = 99;
+    }
 }
