@@ -13,15 +13,15 @@ namespace Domain.Shares.Enums
         VNPay = 2,
         BankCard = 3
     }
-    public class MomoStatusCodes
+    public enum MomoStatusCodes
     {
-        public readonly static int Successed = 0;
-        public readonly static int AccessDenied = 11;
-        public readonly static int InvalidFormat = 20;
-        public readonly static int InvalidAmount = 22;
-        public readonly static int DuplicateOrderId = 41;
-        public readonly static int Cancelled = 1003;
-        public readonly static int SystemMaintance = 10;
-        public readonly static int Unknown = 99;
+        Successed = 0,
+        AccessDenied = 11,
+        InvalidFormat = 20,
+        InvalidAmount = 22,
+        DuplicateOrderId = 41,
+        Cancelled = 1003,
+        SystemMaintance = 10,
+        Unknown = 99
     }
 }

@@ -28,8 +28,7 @@ namespace API.Services
                 IVehicleService vehicleService,
                 IFareService fareService,
                 IFareTimelineService fareTimelineService,
-                IPaymentService paymentService
-                IFareTimelineService fareTimelineService,
+                IPaymentService paymentService,
                 IRouteRoutineService routeRoutineService
             )
         {

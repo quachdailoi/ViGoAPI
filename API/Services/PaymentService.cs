@@ -54,7 +54,7 @@ namespace API.Services
             var resultCode = bodyJson.Value<int>("resultCode");
             var message = bodyJson.Value<string>("message");
 
-            if (resultCode != MomoStatusCodes.Successed) throw new Exception(message);
+            if (resultCode != (int)MomoStatusCodes.Successed) throw new Exception(message);
 
             return bodyJson.Value<string>("payUrl");
         }
@@ -109,7 +109,7 @@ namespace API.Services
 
             var resultCode = bodyJson.Value<int>("resultCode");
 
-            return resultCode == MomoStatusCodes.Successed;
+            return resultCode == (int)MomoStatusCodes.Successed;
         }
     }
 }
