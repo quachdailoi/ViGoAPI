@@ -6,10 +6,12 @@ using System.Text.Json.Serialization;
 namespace API.Models
 {
     public class RouteViewModel
-    { 
+    {
         //public Location StartPoint { get; set; } = new();
         //public Location EndPoint { get; set; } = new();
+        [JsonIgnore]
         public int Id { get; set; }
+        public Guid Code { get; set; }
         //public List<Step> Steps { get; set; } = new();
         public double Distance { get; set; }
         public double Duration { get; set; }

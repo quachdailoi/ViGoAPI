@@ -40,7 +40,7 @@ namespace API.Controllers.V1
         ///         "IsShared": true,
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
-        ///         "RouteId": 1, // get from get route and fee api
+        ///         "RouteCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657", // get from get route and fee api
         ///         "StartAt": "15-02-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "25-06-2022",
         ///         "PromotionCode": "HELLO2022",

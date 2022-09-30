@@ -39,16 +39,18 @@ namespace API.Services
                 .List(routeStation =>
                     routeStation.Station.Code == dto.StartStationCode ||
                     routeStation.Station.Code == dto.EndStationCode &&
-                    routeStation.RouteId == dto.RouteId)
+                    routeStation.Route.Code == dto.RouteCode)
                 .Include(routeStation => routeStation.Station)
                 .ToListAsync();
 
             var route = await _unitOfWork.Routes
-                .List(route => route.Id == dto.RouteId && route.Status == StatusTypes.Route.Active)
+                .List(route => route.Code == dto.RouteCode && route.Status == StatusTypes.Route.Active)
                 .FirstOrDefaultAsync();
 
             if (route != null && routeStations.GroupBy(e => e.StationId).Count() == 2)
             {
+                booking.RouteId = route.Id;
+
                 var startStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.StartStationCode).First();
                 var endStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.EndStationCode).First();
 

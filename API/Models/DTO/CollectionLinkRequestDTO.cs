@@ -6,10 +6,14 @@
     }
     public class MomoCollectionLinkRequestDTO : CollectionLinkRequestDTO
     {
+        private string _redirectUrl;
         public string orderInfo { get; set; } = "Pay with Momo";
         public string partnerCode { get; set; }
-        public string redirectUrl { get; set; } = "fb://profile/33138223345";
-        public string ipnUrl { get; set; } = "https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b";
+        public string redirectUrl {
+            get => _redirectUrl;
+            set => _redirectUrl = String.IsNullOrEmpty(value) ? "vigo://12asdxxx" : value;
+        }
+        public string ipnUrl { get; set; }
         public long amount { get; set; }
         public string orderId { get; set; }
         public string requestId { get; set; }

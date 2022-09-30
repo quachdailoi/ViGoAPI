@@ -12,7 +12,7 @@ namespace API.Models.Requests
         public bool IsShared { get; set; }
         public Guid StartStationCode { get; set; } = new();
         public Guid EndStationCode { get; set; } = new();
-        public int RouteId { get; set; }
+        public Guid RouteCode { get; set; }
         public string StartAt { get; set; }
         public string EndAt { get; set; }
 

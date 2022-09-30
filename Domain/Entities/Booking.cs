@@ -33,6 +33,6 @@ namespace Domain.Entities
         public List<BookingDetail> BookingDetails { get; set; } = new();
 
         //Promotion
-        public Promotion Promotion { get; set; }
+        public Promotion? Promotion { get; set; } = null;
     }
 }

@@ -18,7 +18,7 @@ namespace API.Models.DTO
         public Guid EndStationCode { get; set; }
         public double Distance { get; set; }
         public double Duration { get; set; }
-        public int RouteId { get; set; }
+        public Guid RouteCode { get; set; }
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
         public Bookings.Status Status { get; set; } = Bookings.Status.Unpaid;
