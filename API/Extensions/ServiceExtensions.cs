@@ -136,6 +136,7 @@ namespace API.Extensions
             services.AddTransient<IVehicleService, VehicleService>();
             services.AddTransient<IFareService, FareService>();
             services.AddTransient<IFareTimelineService, FareTimelineService>();
+            services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<IRouteRoutineService, RouteRoutineService>();
         }
 
