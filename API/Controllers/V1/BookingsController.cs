@@ -117,6 +117,8 @@ namespace API.Controllers.V1
 
             switch (booking.PaymentMethod)
             {
+                case PaymentMethods.COD:
+                    break;
                 case PaymentMethods.Momo:
                     paymentDto = new MomoCollectionLinkRequestDTO
                     {
