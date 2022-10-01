@@ -49,7 +49,7 @@ namespace API.Services
 
             feePerTrip = Math.Round(feePerTrip / 100) * 100;
 
-            var extraFee = extraByTimeline != null ? Fee.RoundToHundreds(distance / 1000 * extraByTimeline.ExtraFeePerKm) : 0;
+            var extraFee = extraByTimeline != null ? Fee.RoundToThousands(distance / 1000 * extraByTimeline.ExtraFeePerKm) : 0;
 
             return new FeeViewModel
             {

@@ -28,6 +28,7 @@ namespace API.Services
                 IVehicleService vehicleService,
                 IFareService fareService,
                 IFareTimelineService fareTimelineService,
+                IPaymentService paymentService,
                 IRouteRoutineService routeRoutineService
             )
         {
@@ -55,6 +56,7 @@ namespace API.Services
             Fare = fareService;
             FareTimeline = fareTimelineService;
             RouteRoutine = routeRoutineService;
+            Payment = paymentService;
         }
 
         public IAccountService Account { get; }
@@ -81,5 +83,6 @@ namespace API.Services
         public IFareService Fare { get; }
         public IFareTimelineService FareTimeline { get; }
         public IRouteRoutineService RouteRoutine { get; }
+        public IPaymentService Payment { get; }
     }
 }

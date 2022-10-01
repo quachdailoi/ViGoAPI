@@ -6,22 +6,26 @@
     }
     public class MomoCollectionLinkRequestDTO : CollectionLinkRequestDTO
     {
-        public string OrderInfo { get; set; }
-        public string PartnerCode { get; set; }
-        public string RedirectUrl { get; set; }
-        public string IpnUrl { get; set; }
-        public long Amount { get; set; }
-        public string OrderId { get; set; }
-        public string RequestId { get; set; }
-        public string ExtraData { get; set; }
-        public string PartnerName { get; set; }
-        public string StoreId { get; set; }
-        public string RequestType { get; set; }
-        public string OrderGroupId { get; set; }
-        public bool AutoCapture { get; set; }
-        public string Lang { get; set; }
-        public string Signature { get; set; }
-        public MomoUserInfoDTO UserInfo { get; set; }
-        public List<MomoItemRequestDTO> Items { get; set; } = new();
+        private string _redirectUrl;
+        public string orderInfo { get; set; } = "Pay with Momo";
+        public string partnerCode { get; set; }
+        public string redirectUrl {
+            get => _redirectUrl;
+            set => _redirectUrl = String.IsNullOrEmpty(value) ? "vigo://12asdxxx" : value;
+        }
+        public string ipnUrl { get; set; }
+        public long amount { get; set; }
+        public string orderId { get; set; }
+        public string requestId { get; set; }
+        public string extraData { get; set; } = String.Empty;
+        public string partnerName { get; set; }
+        public string storeId { get; set; }
+        public string requestType { get; set; } = "captureWallet";
+        public string orderGroupId { get; set; } = String.Empty;
+        public bool autoCapture { get; set; } = true;
+        public string lang { get; set; } = "vi";
+        public string signature { get; set; }
+        public MomoUserInfoDTO userInfo { get; set; }
+        public List<MomoItemRequestDTO> items { get; set; } = new();
     }
 }
