@@ -483,7 +483,20 @@ namespace API.Controllers.V1.Driver
             return Ok(user);
         }
 
-        [HttpGet("bookings")]
+        /// <summary>
+        ///     Get driver's schedule by day paging.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/drivers/schedules
+        ///     Name: Quach Dai Loi
+        ///     Page: 1,
+        ///     PageSize: 3
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Get schedules of driver successfully.</response>
+        [HttpGet("schedules")]
         public async Task<IActionResult> GetBookingsByDay([FromQuery] PagingRequest request)
         {
             var driver = LoggedInUser;
@@ -494,7 +507,7 @@ namespace API.Controllers.V1.Driver
                     success: new()
                     {
                         StatusCode = StatusCodes.Status200OK,
-                        Message = "Get bookings of driver successfully."
+                        Message = "Get schedules of driver successfully."
                     },
                     request
                 );
