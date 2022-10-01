@@ -482,5 +482,37 @@ namespace API.Controllers.V1.Driver
             var user = LoggedInUser;
             return Ok(user);
         }
+
+        /// <summary>
+        ///     Get driver's schedule by day paging.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/drivers/schedules
+        ///     Name: Quach Dai Loi
+        ///     Page: 1,
+        ///     PageSize: 3
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Get schedules of driver successfully.</response>
+        [HttpGet("schedules")]
+        public async Task<IActionResult> GetBookingsByDay([FromQuery] PagingRequest request)
+        {
+            var driver = LoggedInUser;
+
+            var response = 
+                await AppServices.BookingDetail.GetBookingsOfDriver(
+                    driver.Id,
+                    success: new()
+                    {
+                        StatusCode = StatusCodes.Status200OK,
+                        Message = "Get schedules of driver successfully."
+                    },
+                    request
+                );
+
+            return ApiResult(response);
+        }
     }
 }

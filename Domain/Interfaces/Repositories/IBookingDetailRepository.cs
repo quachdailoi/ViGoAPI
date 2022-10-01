@@ -9,5 +9,6 @@ namespace Domain.Interfaces.Repositories
 {
     public interface IBookingDetailRepository : IGenericRepository<BookingDetail>
     {
+        IQueryable<BookingDetail> GetBookingDetailsByDriverId(int driverId);
     }
 }
