@@ -27,11 +27,13 @@ var services = builder.Services;
 var _config = builder.Configuration;
 
 // Config log
-var logger = new LoggerConfiguration()
+var loggerConfig = new LoggerConfiguration()
     .ReadFrom.Configuration(_config)
-    .WriteTo.Console()
-    .Enrich.FromLogContext()
-    .CreateLogger();
+    .Enrich.FromLogContext();
+
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "production") loggerConfig = loggerConfig.WriteTo.Console();
+
+var logger = loggerConfig.CreateLogger();
 
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);

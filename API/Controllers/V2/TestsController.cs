@@ -16,10 +16,12 @@ namespace API.Controllers.V2
     public class TestsController : BaseController<TestsController>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger _logger;
 
-        public TestsController(IUnitOfWork unitOfWork)
+        public TestsController(IUnitOfWork unitOfWork, ILogger<TestsController> logger)
         {
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         [HttpDelete("user/{code}")]
@@ -39,6 +41,14 @@ namespace API.Controllers.V2
             await _unitOfWork.Files.Remove(user.File);
 
             return Ok("Delete user successfully.");
-        }      
+        }  
+        
+        [HttpGet()]
+        [AllowAnonymous]
+        public IActionResult TestLogMultipleFiles()
+        {
+            _logger.LogError("ABC");
+            return Ok();
+        }
     }
 }
