@@ -43,7 +43,7 @@ namespace API.Mapper
             CreateMap<Booking, DriverBookingViewModel>()
                 .IncludeBase<Booking, BookingViewModel>();
 
-            CreateMap<Booking, BookingDTO>()
+            CreateMap<BookingDTO, Booking>()
                 .ReverseMap();
 
             CreateMap<CreateBookingRequest, BookingDTO>()

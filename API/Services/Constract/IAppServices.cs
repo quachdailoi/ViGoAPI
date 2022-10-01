@@ -31,6 +31,7 @@ namespace API.Services.Constract
         IVehicleService Vehicle { get; }
         IFareService Fare { get; }
         IFareTimelineService FareTimeline { get; }
+        IPaymentService Payment { get; }
         IRouteRoutineService RouteRoutine { get; }
     }
 }

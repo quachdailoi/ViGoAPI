@@ -13,4 +13,15 @@ namespace Domain.Shares.Enums
         VNPay = 2,
         BankCard = 3
     }
+    public enum MomoStatusCodes
+    {
+        Successed = 0,
+        AccessDenied = 11,
+        InvalidFormat = 20,
+        InvalidAmount = 22,
+        DuplicateOrderId = 41,
+        Cancelled = 1003,
+        SystemMaintance = 10,
+        Unknown = 99
+    }
 }

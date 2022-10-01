@@ -7,6 +7,8 @@ using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace API.Controllers.V1
 {
@@ -34,12 +36,15 @@ namespace API.Controllers.V1
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "Time": "04:30:00", // format("hh:mm:ss")
         ///         "Type": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuaterTicket
+        ///         "PaymentMethod": 1, // 0: COD, 1: Momo, 2: VNPay, 3: BankCard
+        ///         "IsShared": true,
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
-        ///         "RouteId": 1, // get from get route and fee api
+        ///         "RouteCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657", // get from get route and fee api
         ///         "StartAt": "15-02-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "25-06-2022",
-        ///         "PromotionCode": "HELLO2022"
+        ///         "PromotionCode": "HELLO2022",
+        ///         "Applink": "vigo://abcxyz" // redirect to app after pay via e-wallet app
         ///     }
         /// ```
         /// </remarks>
@@ -53,6 +58,8 @@ namespace API.Controllers.V1
         ///     Start station is not exist. <br></br>
         ///     End station is not exist. <br></br>
         ///     Route is not exist.<br></br>
+        ///     VehicleTypeCode is invalid.<br></br>
+        ///     Payment method is not supported.<br></br>
         ///     Conflict about the time schedule with your other bookings. <br></br>
         ///     Promotion code is not available. <br></br>
         /// </response>
@@ -99,13 +106,30 @@ namespace API.Controllers.V1
                 return ApiResult(badRequestResponse.SetMessage("Wrong format of date parameter."));
             }
 
-            booking.VehicleTypeId = (await AppServices.VehicleType.GetByCode(request.VehicleTypeCode)).Id;
+            VehicleType? vehicleType = await AppServices.VehicleType.GetByCode(request.VehicleTypeCode);
+
+            if (vehicleType == null) return ApiResult(badRequestResponse.SetMessage("VehicleTypeCode is invalid."));
+
+            booking.VehicleTypeId = vehicleType.Id;
             booking.UserId = user.Id;
-            //booking.StartStationId = startStation.Id;
-            //booking.EndStationId = endStation.Id;
+
+            CollectionLinkRequestDTO paymentDto = new();
+
+            switch (booking.PaymentMethod)
+            {
+                case PaymentMethods.Momo:
+                    paymentDto = new MomoCollectionLinkRequestDTO
+                    {
+                        ipnUrl = $"{Request.Scheme}://{Request.Host}{Request.Path}/ipn/momo",
+                        redirectUrl = request.Applink
+                    };
+                    break;
+                default: return ApiResult(badRequestResponse.SetMessage("Payment method is not supported."));
+            }
 
             var response = await AppServices.Booking.Create(
                                                     booking,
+                                                    paymentDto,
                                                     successResponse: new()
                                                     {
                                                         Message = "Create booking successfully.",
@@ -199,7 +223,8 @@ namespace API.Controllers.V1
         ///         "BookingType": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuarterTicket
         ///         "StartAt": "15-09-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "31-10-2022",
-        ///         "VehicleType": 0,  // 0: ViRide, 1: ViCar_4, 2: ViCar_7
+        ///         "Time": "08:00:00",
+        ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657"
         ///     }
         /// ```
         /// </remarks>
@@ -214,6 +239,8 @@ namespace API.Controllers.V1
         ///     Start station and end station are not exist. <br></br>
         ///     Start station is not exist. <br></br>
         ///     End station is not exist. <br></br>
+        ///     Route is not exist.<br></br>
+        ///     VehicleTypeCode is invalid.<br></br>
         /// </response>
         /// <response code="500"> Failed to get route and fee.</response>
         [HttpGet("route-fee")]
@@ -258,7 +285,12 @@ namespace API.Controllers.V1
 
             dto.StartStationId = startStation.Id;
             dto.EndStationId = endStation.Id;
-            dto.VehicleTypeId = (await AppServices.VehicleType.GetByCode(request.VehicleTypeCode)).Id;
+
+            VehicleType? vehicleType = await AppServices.VehicleType.GetByCode(request.VehicleTypeCode);
+
+            if (vehicleType == null) return ApiResult(badRequestResponse.SetMessage("VehicleTypeCode is invalid"));
+
+            dto.VehicleTypeId = vehicleType.Id;
 
             var response =
                 await AppServices.Route.GetRouteFeeByPairOfStation(
@@ -306,6 +338,8 @@ namespace API.Controllers.V1
         ///     Start station is not exist. <br></br>
         ///     End station is not exist. <br></br>
         ///     Route is not exist.<br></br>
+        ///     VehicleTypeCode is invalid.<br></br>
+        ///     Payment method is not supported.<br></br>
         ///     Promotion code is not available. <br></br>
         /// </response>
         /// <response code="500"> Failed to create booking.</response>
@@ -351,7 +385,11 @@ namespace API.Controllers.V1
                 return ApiResult(badRequestResponse.SetMessage("Wrong format of date parameter."));
             }
 
-            booking.VehicleTypeId = (await AppServices.VehicleType.GetByCode(request.VehicleTypeCode)).Id;
+            VehicleType? vehicleType = await AppServices.VehicleType.GetByCode(request.VehicleTypeCode);
+
+            if (vehicleType == null) return ApiResult(badRequestResponse.SetMessage("VehicleTypeCode is invalid"));
+
+            booking.VehicleTypeId = vehicleType.Id;
 
             //booking.StartStationId = startStation.Id;
             //booking.EndStationId = endStation.Id;
@@ -375,6 +413,43 @@ namespace API.Controllers.V1
                                                     }
                                                     );
             return ApiResult(response);
+        }
+
+        [ApiExplorerSettings(IgnoreApi =true)]
+        [HttpPost("ipn/momo")]
+        public async Task<IActionResult> HandleBookingMomoPaymentIPN([FromBody] JsonElement request)
+        {
+            var dto = JsonSerializer.Deserialize<MomoPaymentNotificationRequest>(request.GetRawText());
+
+            if (dto.resultCode == (int)MomoStatusCodes.Successed)
+            {
+                var rawSignature = $"amount={dto.amount}&" +
+                    $"extraData={dto.extraData}&" +
+                    $"message={dto.message}&" +
+                    $"orderId={dto.orderId}&" +
+                    $"orderInfo={dto.orderInfo}&" +
+                    $"orderType={dto.orderType}&" +
+                    $"partnerCode={dto.partnerCode}&" +
+                    $"payType={dto.payType}&" +
+                    $"requestId={dto.requestId}&" +
+                    $"responseTime={dto.responseTime}&" +
+                    $"resultCode={dto.resultCode}&" +
+                    $"transId={dto.transId}";
+
+                var signature = AppServices.Payment.GetMomoSignature(rawSignature);
+
+                //if (signature == dto.signature)
+                //{
+                    var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
+
+                    if (booking?.Status == Bookings.Status.Unpaid && booking?.TotalPrice == dto.amount)
+                    {
+                        booking.Status = Bookings.Status.Started;
+                        await AppServices.Booking.Update(booking);
+                    }
+                //}
+            }
+            return NoContent();
         }
         /// <summary>
         ///     Get route and fee from pair of stations (cross multiple routes is possible) - updating ...

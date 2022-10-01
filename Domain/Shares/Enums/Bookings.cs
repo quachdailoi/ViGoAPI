@@ -19,5 +19,13 @@ namespace Domain.Shares.Enums
             StartAtFollowingTime,
             StartAtNextDay
         }
+        public enum Status
+        {
+            Unpaid,
+            PaymentFailed,
+            Started,
+            Completed,
+            Cancelled
+        }
     }
 }
