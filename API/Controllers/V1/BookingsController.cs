@@ -330,7 +330,7 @@ namespace API.Controllers.V1
         /// ```
         /// </remarks>
         /// <param name="request"></param>
-        /// <response code = "200"> Get booking provision successfully.</response>
+        /// <response code = "200"> Get booking provisional successfully.</response>
         /// <response code = "400"> 
         ///     Start time must be before end time. <br></br>
         ///     Wrong format of date parameter. <br></br>
@@ -398,7 +398,7 @@ namespace API.Controllers.V1
                                                     booking,
                                                     successResponse: new()
                                                     {
-                                                        Message = "Create booking successfully.",
+                                                        Message = "Get booking provisional successfully.",
                                                         StatusCode = StatusCodes.Status200OK
                                                     },
                                                     invalidRouteResponse: new()
@@ -415,7 +415,7 @@ namespace API.Controllers.V1
             return ApiResult(response);
         }
 
-        [ApiExplorerSettings(IgnoreApi =true)]
+        [ApiExplorerSettings(IgnoreApi =true)] // api for momo return result of transaction
         [HttpPost("ipn/momo")]
         public async Task<IActionResult> HandleBookingMomoPaymentIPN([FromBody] JsonElement request)
         {

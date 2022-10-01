@@ -1,5 +1,6 @@
 ﻿using API.Models.Requests;
 using API.Models.Response;
+using Domain.Entities;
 
 namespace API.Services.Constract
 {
@@ -10,5 +11,6 @@ namespace API.Services.Constract
         Task<Response> CreateRouteRoutine(CreateRouteRoutineRequest request, Response success, Response failed);
 
         Task<Response> GetRouteRoutineOfDriver(int driverId, Response success);
+        Task<List<RouteRoutine>> CreateRouteRoutines(List<RouteRoutine> routines);
     }
 }

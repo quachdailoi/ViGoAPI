@@ -25,6 +25,7 @@ namespace Infrastructure.Data.UnitOfWork
         public IMessageRepository Messages { get; private set; }
         public IBookingRepository Bookings { get; private set; }
         public IBookingDetailRepository BookingDetails { get; private set; }
+        public IBookingDetailDriverRepository BookingDetailDrivers { get; protected set; }
         public IFileRepository Files { get; private set; }
         public IRouteRepository Routes { get; private set; }
         public IStationRepository Stations { get; private set; }
@@ -52,6 +53,7 @@ namespace Infrastructure.Data.UnitOfWork
             IMessageRepository messageRepository,
             IBookingRepository bookingRepository,
             IBookingDetailRepository bookingDetailRepository,
+            IBookingDetailDriverRepository bookingDetailDrivers,
             IRouteRepository routeRepository,
             IFileRepository fileRepository,
             IStationRepository stationRepository,
@@ -76,6 +78,7 @@ namespace Infrastructure.Data.UnitOfWork
             Messages = messageRepository;
             Bookings = bookingRepository;
             BookingDetails = bookingDetailRepository;
+            BookingDetailDrivers = bookingDetailDrivers;
             Routes = routeRepository;
             Files = fileRepository;
             Stations = stationRepository;
@@ -89,7 +92,7 @@ namespace Infrastructure.Data.UnitOfWork
             FareTimelines = fareTimelineRepository;
             RouteRoutines = routeRoutineRepository;
 
-            _logger = loggerFactory.CreateLogger("logs");
+            _logger = loggerFactory.CreateLogger("logs");           
         }
 
         public async Task CommitAsync()

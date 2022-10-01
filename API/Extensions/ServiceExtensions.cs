@@ -93,6 +93,7 @@ namespace API.Extensions
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IBookingDetailRepository, BookingDetailRepository>();
+            services.AddScoped<IBookingDetailDriverRepository, BookingDetailDriverRepository>();
             services.AddScoped<IPromotionUserRepository, PromotionUserRepository>();
             services.AddScoped<IPromotionRepository, PromotionRepository>();
             services.AddScoped<IFileRepository, FileRepository>();
@@ -121,6 +122,7 @@ namespace API.Extensions
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IBookingService, BookingService>();
             services.AddTransient<IBookingDetailService, BookingDetailService>();
+            services.AddTransient<IBookingDetailDriverService, BookingDetailDriverService>();
             services.AddTransient<IPromotionService, PromotionService>();
             services.AddTransient<IFileService, FileService>();
             services.AddTransient<IRedisMQService, RedisMQService>();
@@ -161,7 +163,7 @@ namespace API.Extensions
 
         public static void ConfigurationSeedData(this IServiceCollection servicess)
         {
-            //servicess.AddHostedService<DumpRoutes>();
+            servicess.AddHostedService<DumpRoutes>();
         }
 
         public static void ConfigureSwagger(this IServiceCollection services)
