@@ -57,4 +57,10 @@ namespace API.Models
         public int? StationId = null;
         public StationViewModel? Station { get; set; } = null;
     }
+
+    public class RouteScheduleViewModel
+    {
+        public string RouteCode { get; set; }
+        public List<StopStationViewModel> StopStations { get; set; } = new();
+    }
 }

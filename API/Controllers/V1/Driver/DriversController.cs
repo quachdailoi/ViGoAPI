@@ -482,5 +482,24 @@ namespace API.Controllers.V1.Driver
             var user = LoggedInUser;
             return Ok(user);
         }
+
+        [HttpGet("bookings")]
+        public async Task<IActionResult> GetBookingsByDay([FromQuery] PagingRequest request)
+        {
+            var driver = LoggedInUser;
+
+            var response = 
+                await AppServices.BookingDetail.GetBookingsOfDriver(
+                    driver.Id,
+                    success: new()
+                    {
+                        StatusCode = StatusCodes.Status200OK,
+                        Message = "Get bookings of driver successfully."
+                    },
+                    request
+                );
+
+            return ApiResult(response);
+        }
     }
 }

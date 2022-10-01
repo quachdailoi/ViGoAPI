@@ -26,4 +26,12 @@ namespace API.Models
             return this.Index - other.Index;
         }
     }
+
+    public class StopStationViewModel
+    {
+        public TimeOnly Time { get; set; }
+        public string Code { get; set; } = string.Empty;
+        //public List<ContactUserViewModel> Users { get; set; } = new();
+        //public StopStations.Types Type { get; set; } = StopStations.Types.Pickup;
+    }
 }
