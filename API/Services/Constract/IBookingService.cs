@@ -12,5 +12,6 @@ namespace API.Services.Constract
         Task<Response> GetAll(int userId, Response successReponse);
         Task<bool> Update(Booking booking);
         Task<Booking?> GetByCode(Guid code);
+        Task<bool> Mapping(Booking booking);
     }
 }
