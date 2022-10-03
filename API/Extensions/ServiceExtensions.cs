@@ -158,8 +158,9 @@ namespace API.Extensions
 
         public static void ConfigurationJobQueue(this IServiceCollection services)
         {
-            services.AddHostedService<MessageTasks>();
+            //services.AddHostedService<MessageTasks>();
             services.AddHostedService<MappingBookingTask>();
+            services.AddHostedService<TestTask>();
         }
 
         public static void ConfigurationSeedData(this IServiceCollection servicess)

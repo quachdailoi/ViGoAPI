@@ -55,60 +55,12 @@ namespace API.Controllers.V1
             return Ok(user);
         }
 
-        [HttpGet("momo-link")]
+        [HttpGet("test")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetMomoLink()
+        public async Task<IActionResult> Test([FromQuery] int number)
         {
-            //var req = Request;
-            //var host = HttpContext.Request.Host;
-            var api = $"{Request.Scheme}://{Request.Host}{Request.Path}";
-            //var result =
-            //    await AppServices.Payment.GenerateMomoPaymentUrl(
-            //        orderId: 1,
-            //        amount: 100000,
-            //        items: new()
-            //        {
-            //            new()
-            //            {
-            //                Id = "1",
-            //                Name = "Items 1",
-            //                Category = "Cate 1",
-            //                Price = 50000,
-            //                Quantity = 2,
-            //                Unit = "Ticket"
-            //            }
-            //        },
-            //        userInfo: new()
-            //        {
-            //            Email = "test@gmail.com",
-            //            PhoneNumber = "0916220535",
-            //            Name = "Passenger 1"
-            //        }
-            //        );
-            //return Ok(result);
-            return Ok(api);
+            await _redisMQMessage.Publish("number",number);
+            return Ok(number);
         }
-
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult Test()
-        //{
-        //    var total = 5;
-        //    var current = 0;
-        //    var numbers = new List<Number>();
-
-        //    while(current < total)
-        //    {
-
-        //    }
-
-        //    return Ok();
-        //}
-
-        //class Number
-        //{
-        //    public int Value { get; set; }
-        //    public Number? NextNumber { get; set; } = null;
-        //}
     }
 }

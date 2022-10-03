@@ -25,7 +25,9 @@ namespace Domain.Shares.Enums
             PaymentFailed,
             Started,
             Completed,
-            Cancelled
+            CancelledByBooker,
+            CancelledBySystem,
+            RefundComplete
         }
     }
 }

@@ -119,7 +119,7 @@ namespace API.Services
                 .Include(e => e.BookingDetails)
                 .ToListAsync();
 
-            if (duplicateBookings.Any()) return duplicationResponse;
+            //if (duplicateBookings.Any()) return duplicationResponse;
 
             //// filter in server
             //if (duplicateBookings.Any())
@@ -178,7 +178,7 @@ namespace API.Services
 
             //add job queue to map with specific driver
 
-            await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, JsonConvert.SerializeObject(booking));
+            await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
 
             return successResponse.SetData(new 
             { 
@@ -264,15 +264,27 @@ namespace API.Services
 
             return FindPositionInOrderMappingWithRouteRoutine(bookingDetailMappedsInRouteRoutine, bookingDetail, routeStationDic) != null;
         }
-        public async Task<bool> Mapping(Booking booking)
+        public async Task<Booking?> Mapping(int bookingId)
         {
+            var booking =
+                await _unitOfWork.Bookings
+                .List(e => e.Id == bookingId)
+                .Include(e => e.User)
+                .Include(e => e.BookingDetails)
+                .Include(e => e.Route)
+                .ThenInclude(route => route.RouteStations)
+                .ThenInclude(routeStation => routeStation.Station)
+                .FirstOrDefaultAsync();
+
+            if (booking == null) return null;
+
             var bookingDetails = booking.BookingDetails;
             var bookingDetailDrivers = new List<BookingDetailDriver>();
 
             var routeRoutines = 
                 await _unitOfWork.RouteRoutines
                 .List(routeRoutine => !(routeRoutine.StartAt > booking.EndAt || routeRoutine.EndAt < booking.StartAt) &&
-                                      !(routeRoutine.EndTime > booking.Time || routeRoutine.StartTime < booking.Time.AddMinutes(booking.Duration/60)) &&
+                                      !(routeRoutine.EndTime < booking.Time || routeRoutine.StartTime > booking.Time.AddMinutes(booking.Duration/60)) &&
                                       routeRoutine.RouteId == booking.RouteId)
                 .Include(e => e.User)
                 .ThenInclude(u => u.BookingDetailDrivers)
@@ -282,25 +294,25 @@ namespace API.Services
 
             foreach(var bookingDetail in bookingDetails)
             {
-                bool isSatisfied = false;
-                while (!isSatisfied)
-                {                 
-                    foreach(var routeRoutine in routeRoutines)
+                foreach (var routeRoutine in routeRoutines)
+                {
+                    if (IsSatisfiedRouteRoutineCondition(routeRoutine, bookingDetail))
                     {
-                        if (IsSatisfiedRouteRoutineCondition(routeRoutine, bookingDetail))
+                        bookingDetailDrivers.Add(new BookingDetailDriver
                         {
-                            bookingDetailDrivers.Add(new BookingDetailDriver
-                            {
-                                BookingDetail = bookingDetail,
-                                Driver = routeRoutine.User
-                            });
-                            isSatisfied = true;
-                            break;
-                        }
+                            BookingDetail = bookingDetail,
+                            Driver = routeRoutine.User
+                        });
+                        break;
                     }
                 }
             }
-            return _bookingDetailDriverService.Create(bookingDetailDrivers).Result != null;
+
+            if (bookingDetailDrivers.Any()) bookingDetailDrivers = await _bookingDetailDriverService.Create(bookingDetailDrivers);
+
+            booking.BookingDetails = bookingDetails.UnionBy(bookingDetailDrivers.Select(bdr => bdr.BookingDetail), e => e.Id).ToList();
+
+            return booking;
         }
 
         public async Task<Response> GetAll(int userId, Response successReponse)
