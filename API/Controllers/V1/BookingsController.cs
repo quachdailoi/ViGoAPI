@@ -1,6 +1,8 @@
 ﻿using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
+using API.TaskQueues;
+using API.TaskQueues.TaskResolver;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -18,10 +20,12 @@ namespace API.Controllers.V1
     public class BookingsController : BaseController<BookingsController>
     {
         private readonly IMapper _mapper;
+        private readonly IRedisMQService _redisMQService;
 
-        public BookingsController(IMapper mapper)
+        public BookingsController(IMapper mapper, IRedisMQService redisMQService)
         {
             _mapper = mapper;
+            _redisMQService = redisMQService;
         }
 
 
@@ -444,9 +448,12 @@ namespace API.Controllers.V1
 
                     if (booking?.Status == Bookings.Status.Unpaid && booking?.TotalPrice == dto.amount)
                     {
-                        booking.Status = Bookings.Status.Started;
+                        booking.Status = Bookings.Status.PendingMapping;
                         await AppServices.Booking.Update(booking);
-                    }
+                        
+                        //add job queue to map with specific driver
+                        await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                }
                 //}
             }
             return NoContent();

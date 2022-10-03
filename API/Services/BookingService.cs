@@ -119,7 +119,7 @@ namespace API.Services
                 .Include(e => e.BookingDetails)
                 .ToListAsync();
 
-            //if (duplicateBookings.Any()) return duplicationResponse;
+            if (duplicateBookings.Any()) return duplicationResponse;
 
             //// filter in server
             //if (duplicateBookings.Any())
@@ -173,12 +173,6 @@ namespace API.Services
             }
             
             await _unitOfWork.CommitAsync();
-
-
-
-            //add job queue to map with specific driver
-
-            await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
 
             return successResponse.SetData(new 
             { 
@@ -268,7 +262,7 @@ namespace API.Services
         {
             var booking =
                 await _unitOfWork.Bookings
-                .List(e => e.Id == bookingId)
+                .List(e => e.Id == bookingId && e.Status == Bookings.Status.PendingMapping)
                 .Include(e => e.User)
                 .Include(e => e.BookingDetails)
                 .Include(e => e.Route)

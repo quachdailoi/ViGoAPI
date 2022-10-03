@@ -33,12 +33,14 @@ namespace API.TaskQueues.TaskResolver
                         {
                             var isMappedSuccess = booking.BookingDetails.Any(bd => bd.BookingDetailDrivers.Any());
                             await signalRService.SendToUserAsync(booking.User.Code.ToString(), "BookingMappingResult", new { Code = booking.Code, IsMappedSuccess = isMappedSuccess });
-                            // implement refund when can not mapping
+
                             if (!isMappedSuccess)
                             {
                                 booking.Status = Bookings.Status.CancelledBySystem;
-                                await bookingService.Update(booking);
+                                // implement refund when can not mapping
                             }
+                            else booking.Status = Bookings.Status.Started;
+                            await bookingService.Update(booking);
                         } 
                     }
                 }
