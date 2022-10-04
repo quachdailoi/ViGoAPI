@@ -169,7 +169,7 @@ namespace API.Services
             catch(Exception ex)
             {
                 await _unitOfWork.Rollback();
-                return errorReponse;
+                return errorReponse.SetMessage(ex.Message);
             }
             
             await _unitOfWork.CommitAsync();
