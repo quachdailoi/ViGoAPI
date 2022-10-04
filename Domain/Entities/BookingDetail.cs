@@ -23,5 +23,6 @@ namespace Domain.Entities
         public Booking Booking { get; set; }
         public User? Driver { get; set; } = null;
         public Room? MessageRoom { get; set; } = null;
+        public List<BookingDetailDriver> BookingDetailDrivers { get; set; } = new();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
+using API.TaskQueues;
+using API.TaskQueues.TaskResolver;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -18,10 +20,12 @@ namespace API.Controllers.V1
     public class BookingsController : BaseController<BookingsController>
     {
         private readonly IMapper _mapper;
+        private readonly IRedisMQService _redisMQService;
 
-        public BookingsController(IMapper mapper)
+        public BookingsController(IMapper mapper, IRedisMQService redisMQService)
         {
             _mapper = mapper;
+            _redisMQService = redisMQService;
         }
 
 
@@ -332,7 +336,7 @@ namespace API.Controllers.V1
         /// ```
         /// </remarks>
         /// <param name="request"></param>
-        /// <response code = "200"> Get booking provision successfully.</response>
+        /// <response code = "200"> Get booking provisional successfully.</response>
         /// <response code = "400"> 
         ///     Start time must be before end time. <br></br>
         ///     Wrong format of date parameter. <br></br>
@@ -400,7 +404,7 @@ namespace API.Controllers.V1
                                                     booking,
                                                     successResponse: new()
                                                     {
-                                                        Message = "Create booking successfully.",
+                                                        Message = "Get booking provisional successfully.",
                                                         StatusCode = StatusCodes.Status200OK
                                                     },
                                                     invalidRouteResponse: new()
@@ -417,7 +421,7 @@ namespace API.Controllers.V1
             return ApiResult(response);
         }
 
-        [ApiExplorerSettings(IgnoreApi =true)]
+        [ApiExplorerSettings(IgnoreApi =true)] // api for momo return result of transaction
         [HttpPost("ipn/momo")]
         public async Task<IActionResult> HandleBookingMomoPaymentIPN([FromBody] JsonElement request)
         {
@@ -446,9 +450,12 @@ namespace API.Controllers.V1
 
                     if (booking?.Status == Bookings.Status.Unpaid && booking?.TotalPrice == dto.amount)
                     {
-                        booking.Status = Bookings.Status.Started;
+                        booking.Status = Bookings.Status.PendingMapping;
                         await AppServices.Booking.Update(booking);
-                    }
+                        
+                        //add job queue to map with specific driver
+                        await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                }
                 //}
             }
             return NoContent();

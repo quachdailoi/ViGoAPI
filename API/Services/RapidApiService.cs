@@ -135,14 +135,13 @@ namespace API.Services
 
             return this.BuildCoordinateString(param);
         }
-
-        public async Task<Response> CreateRoute(List<StationDTO> stations, Response success, Response failed)
+        public async Task<Domain.Entities.Route?> CreateRouteByListOfStation(List<StationDTO> stations)
         {
             var constructedRoute = await TrueWayDirection_FindDrivingRoute(stations);
 
             await _unitOfWork.CreateTransactionAsync();
 
-            var isSuccessTransaction = true;
+            bool isSuccessTransaction = true;
 
             var createdRoute = await _unitOfWork.Routes.CreateRoute(constructedRoute);
 
@@ -159,13 +158,19 @@ namespace API.Services
                 }
             }
 
-            if (!isSuccessTransaction) 
-            { 
+            if (!isSuccessTransaction)
+            {
                 await _unitOfWork.Rollback();
-                return failed;
+                return null;
             }
             else await _unitOfWork.CommitAsync();
 
+            return createdRoute;
+        }
+        public async Task<Response> CreateRoute(List<StationDTO> stations, Response success, Response failed)
+        {
+            var createdRoute = await this.CreateRouteByListOfStation(stations);
+            if (createdRoute == null) return failed;
             var routeVM = 
                 (await _unitOfWork.Routes.List()
                     .Where(x => x.Id == createdRoute.Id)

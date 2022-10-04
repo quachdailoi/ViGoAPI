@@ -16,7 +16,7 @@ namespace API.Models.Requests
         public string StartAt { get; set; }
         public string EndAt { get; set; }
 
-        public string PromotionCode { get; set; } = string.Empty;
-        public string Applink { get; set; } = string.Empty;
+        public string PromotionCode { get; set; } = String.Empty;
+        public string? Applink { get; set; } = null;
     }
 }

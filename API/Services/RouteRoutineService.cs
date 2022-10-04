@@ -45,6 +45,8 @@ namespace API.Services
                 .Any();
         }
 
+        public Task<List<RouteRoutine>> CreateRouteRoutines(List<RouteRoutine> routines) => _unitOfWork.RouteRoutines.Add(routines);
+
         public async Task<Response> CreateRouteRoutine(CreateRouteRoutineRequest request, Response success, Response failed)
         {
             var newRouteData = _mapper.Map<RouteRoutine>(request);
