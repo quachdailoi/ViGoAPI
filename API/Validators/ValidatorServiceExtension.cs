@@ -11,6 +11,9 @@ namespace API.Validators
             services.AddFluentValidationAutoValidation();
 
             services.AddScoped<IValidator<CreateRouteRoutineRequest>, CreateRouteRoutineRequestValidator>();
+            services.AddScoped<IValidator<CreateBookingRequest>, CreateBookingRequestValidator>();
+            services.AddScoped<IValidator<GetRouteFeeRequest>, GetRouteFeeRequestValidator>();
+            services.AddScoped<IValidator<GetProvisionalBookingRequest>, GetProvisionalBookingRequestValidator>();
         }
     }
 }

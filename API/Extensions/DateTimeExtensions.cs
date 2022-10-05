@@ -27,6 +27,14 @@
             return timeOnly;
         }
 
+        public static DateTime ParseExactDateTime(string dateOnlyStr, string timeOnlyStr)
+        {
+            dateOnlyStr.TryParseExact(out DateOnly dateOnly);
+            timeOnlyStr.TryParseExact(out TimeOnly timeOnly);
+
+            return dateOnly.ToDateTime(timeOnly);
+        }
+
         public static bool CheckIntersect(DateOnly start1, DateOnly end1, DateOnly start2, DateOnly end2)
         {
             return start1 <= end2 && end1 >= start2;

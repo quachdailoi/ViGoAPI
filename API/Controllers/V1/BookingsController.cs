@@ -98,17 +98,7 @@ namespace API.Controllers.V1
             if (endStation == null) 
                 return ApiResult(badRequestResponse.SetMessage("End station is not exist."));
 
-            var booking = new BookingDTO();
-
-            try
-            {
-                booking = _mapper.Map<BookingDTO>(request);
-                if (booking.EndAt.CompareTo(booking.StartAt) < 0) return ApiResult(badRequestResponse.SetMessage("Start time must be before end time."));           
-            }
-            catch (Exception e)
-            {
-                return ApiResult(badRequestResponse.SetMessage("Wrong format of date parameter."));
-            }
+            var booking = _mapper.Map<BookingDTO>(request);             
 
             VehicleType? vehicleType = await AppServices.VehicleType.GetByCode(request.VehicleTypeCode);
 
@@ -253,22 +243,12 @@ namespace API.Controllers.V1
         [Authorize(Roles = "BOOKER")]
         public async Task<IActionResult> GetRouteAndFee([FromQuery] GetRouteFeeRequest request)
         {
-            var dto = new StationWithScheduleDTO();
+            var dto = _mapper.Map<StationWithScheduleDTO>(request);
 
             var badRequestResponse = new Response
             {
                 StatusCode = StatusCodes.Status400BadRequest
             };
-
-            try
-            {
-                dto = _mapper.Map<StationWithScheduleDTO>(request);
-                if (dto.EndAt.CompareTo(dto.StartAt) < 0) return ApiResult(badRequestResponse.SetMessage("Start time must be before end time."));
-            }
-            catch(Exception e)
-            {
-                return ApiResult(badRequestResponse.SetMessage("Wrong format of date parameter."));
-            }
 
             var pairOfStation = await AppServices.Station.GetByCode(new List<Guid> { request.StartStationCode, request.EndStationCode });
 
@@ -379,17 +359,7 @@ namespace API.Controllers.V1
             if (endStation == null)
                 return ApiResult(badRequestResponse.SetMessage("End station is not exist."));
 
-            var booking = new BookingDTO();
-
-            try
-            {
-                booking = _mapper.Map<BookingDTO>(request);
-                if (booking.EndAt.CompareTo(booking.StartAt) < 0) return ApiResult(badRequestResponse.SetMessage("Start time must be before end time."));
-            }
-            catch (Exception e)
-            {
-                return ApiResult(badRequestResponse.SetMessage("Wrong format of date parameter."));
-            }
+            var booking = _mapper.Map<BookingDTO>(request);
 
             VehicleType? vehicleType = await AppServices.VehicleType.GetByCode(request.VehicleTypeCode);
 

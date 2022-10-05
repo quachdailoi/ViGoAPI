@@ -42,10 +42,15 @@ namespace API.Validators
             return new TimeOnly().ParseExact(timeOnlyString);
         }
 
+        protected DateTimeOffset ToDateTime(string dateOnlyStr, string timeOnlyStr)
+        {
+            return DateTimeExtensions.ParseExactDateTime(dateOnlyStr, timeOnlyStr);
+        }
+
         public override ValidationResult Validate(ValidationContext<T> context)
         {
             var validationResult = base.Validate(context);
-            
+            var dic = validationResult.ToDictionary();
             if (!validationResult.IsValid)
             {
                 throw new ValidationException(validationResult.Errors[0].ErrorMessage);
