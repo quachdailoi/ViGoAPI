@@ -13,7 +13,7 @@ namespace API.Utils
         {
             { Bookings.Types.WeekTicket, new BookingTypeDetail { Discount = 0.01, TempTotalDate = 7, DateBoundary = 4}},
             { Bookings.Types.MonthTicket, new BookingTypeDetail { Discount = 0.02, TempTotalDate = 28, DateBoundary = 15}},
-            { Bookings.Types.QuaterTicket, new BookingTypeDetail { Discount = 0.03, TempTotalDate = 28 * 3}}
+            { Bookings.Types.QuaterTicket, new BookingTypeDetail { Discount = 0.03, TempTotalDate = 31 + 28 + 31}}
         };
         public static double RoundToThousands(double fee) => Math.Ceiling(fee / 1000) * 1000;
         public static double CaculateFeeByBookingType(Bookings.Types bookingType, double feePerTrip, DateOnly startDate, DateOnly endDate)
@@ -22,12 +22,12 @@ namespace API.Utils
             var totalTickets = CaculateTotalTicket(bookingType, startDate, endDate);
             return RoundToThousands(feePerTrip * bookingTypeDetail.TempTotalDate * totalTickets * (1 - bookingTypeDetail.Discount));
         }
-
+        public static double TotalDays(DateOnly startDate, DateOnly endDate) => endDate.ToDateTime(TimeOnly.MinValue).Subtract(startDate.ToDateTime(TimeOnly.MinValue)).TotalDays;
         public static double CaculateTotalTicket(Bookings.Types bookingType, DateOnly startDate, DateOnly endDate)
         {
             double totalTicket = 0;
 
-            var totalDate = endDate.ToDateTime(TimeOnly.MinValue).Subtract(startDate.ToDateTime(TimeOnly.MinValue)).TotalDays;
+            var totalDate = TotalDays(startDate, endDate);
 
             switch (bookingType)
             {

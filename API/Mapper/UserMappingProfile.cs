@@ -44,8 +44,8 @@ namespace API.Mapper
                     opt => opt.MapFrom(user => user.File == null ? Guid.Empty : user.File.Code)
                 );
 
-            CreateMap<User, DriverViewModel>()
-                .IncludeBase<User, UserViewModel>();
+            CreateMap<User, DriverViewModel>();
+            CreateMap<User, ContactUserViewModel>();
         }
     }
 }

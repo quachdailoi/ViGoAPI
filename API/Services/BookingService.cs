@@ -163,6 +163,9 @@ namespace API.Services
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = booking.Code.ToString();
                         paymentUrl = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
                         break;
+                    case PaymentMethods.COD:
+                        await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                        break;
                     default: break;
                 }
             }
