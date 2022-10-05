@@ -41,10 +41,7 @@ namespace API.Models
     {
         public FeeViewModel Fee { get; set; }
 
-        public override BookerRouteViewModel ProcessStation()
-        {
-            return (BookerRouteViewModel)base.ProcessStation();
-        }
+        public override BookerRouteViewModel ProcessStation() => (BookerRouteViewModel)base.ProcessStation();
     }
 
     public class StepViewModel

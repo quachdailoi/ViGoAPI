@@ -27,6 +27,7 @@ namespace Domain.Entities
         public AppFile? File { get; set; } = null;
         public List<PromotionUser> PromotionUsers { get; set; } = null!;
         public List<RouteRoutine> RouteRoutines { get; set; } = null!;
+        public List<BookingDetailDriver> BookingDetailDrivers { get; set; } = new();
         public Vehicle Vehicle { get; set; }
     }
 }

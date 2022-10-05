@@ -20,6 +20,7 @@ namespace API.Services.Constract
         IMessageService Message  { get; }
         IBookingService Booking { get; }
         IBookingDetailService BookingDetail { get; }
+        IBookingDetailDriverService BookingDetailDriver { get; }
         IRouteService Route { get; }
         IStationService Station { get; }
         IRouteStationService RouteStation { get; }

@@ -23,9 +23,12 @@ namespace Domain.Shares.Enums
         {
             Unpaid,
             PaymentFailed,
+            PendingMapping,
             Started,
             Completed,
-            Cancelled
+            CancelledByBooker,
+            CancelledBySystem,
+            RefundComplete
         }
     }
 }

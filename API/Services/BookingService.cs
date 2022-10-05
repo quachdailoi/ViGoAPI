@@ -3,12 +3,15 @@ using API.Models;
 using API.Models.DTO;
 using API.Models.Response;
 using API.Services.Constract;
+using API.TaskQueues;
+using API.TaskQueues.TaskResolver;
 using API.Utils;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace API.Services
 {
@@ -20,8 +23,13 @@ namespace API.Services
         private readonly IPromotionService _promotionService;
         private readonly IFareService _fareService;
         private readonly IPaymentService _paymentService;
+        private readonly IBookingDetailDriverService _bookingDetailDriverService;
+        private readonly IRedisMQService _redisMQService;
 
-        public BookingService(IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, IPromotionService promotionService, IFareService fareService, IPaymentService paymentService)
+        public BookingService
+            (IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, 
+            IPromotionService promotionService, IFareService fareService, IPaymentService paymentService, 
+            IBookingDetailDriverService bookingDetailDriverService, IRedisMQService redisMQService)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -29,6 +37,8 @@ namespace API.Services
             _promotionService = promotionService;
             _fareService = fareService;
             _paymentService = paymentService;
+            _bookingDetailDriverService = bookingDetailDriverService;
+            _redisMQService = redisMQService;
         }
         private async Task<Booking> GenerateBooking(BookingDTO dto)
         {
@@ -109,6 +119,8 @@ namespace API.Services
                 .Include(e => e.BookingDetails)
                 .ToListAsync();
 
+            if (duplicateBookings.Any()) return duplicationResponse;
+
             //// filter in server
             //if (duplicateBookings.Any())
             //{
@@ -151,18 +163,19 @@ namespace API.Services
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = booking.Code.ToString();
                         paymentUrl = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
                         break;
+                    case PaymentMethods.COD:
+                        await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                        break;
                     default: break;
                 }
             }
             catch(Exception ex)
             {
                 await _unitOfWork.Rollback();
-                return errorReponse;
+                return errorReponse.SetMessage(ex.Message);
             }
             
             await _unitOfWork.CommitAsync();
-
-            //add job queue to map with specific driver
 
             return successResponse.SetData(new 
             { 
@@ -170,6 +183,133 @@ namespace API.Services
                 PaymentUrl = paymentUrl
             } 
             );
+        }
+
+        private bool IsSatisfiedTripInRouteRoutineOrderCondition(BookingDetail? prevBookingDetail, BookingDetail? nextBookingDetail, BookingDetail bookingDetail, Dictionary<Guid,RouteStation> routeStationDic)
+        {
+            var isSatisfiedPrevBookingDetail = true;
+            var isSatisfiedNextBookingDetail = true;
+
+            var curBookingDetailStartTime = bookingDetail.Booking.Time;
+            var curBookingDetailEndTime = bookingDetail.Booking.Time.AddMinutes(bookingDetail.Booking.Duration / 60);
+
+            var curStartStation = routeStationDic[bookingDetail.Booking.StartStationCode];
+            var curEndStation = routeStationDic[bookingDetail.Booking.EndStationCode];
+
+            if (prevBookingDetail != null)
+            {
+                var prevEndStation = routeStationDic[prevBookingDetail.Booking.EndStationCode];
+                var prevBookingDetailEndTime = prevBookingDetail.Booking.Time.AddMinutes(prevBookingDetail.Booking.Duration);
+                var timeArriveCur = prevBookingDetailEndTime.AddMinutes((curStartStation.DurationFromFirstStationInRoute - prevEndStation.DurationFromFirstStationInRoute) / 60);
+
+                isSatisfiedPrevBookingDetail = timeArriveCur >= prevBookingDetailEndTime && timeArriveCur <= curBookingDetailStartTime;
+            }
+
+            if(nextBookingDetail != null)
+            {
+                var nextStartStation = routeStationDic[nextBookingDetail.Booking.StartStationCode];
+                var nextBookingDetailStartTime = nextBookingDetail?.Booking.Time;
+                var timeArriveNext = curBookingDetailEndTime.AddMinutes((nextStartStation.DurationFromFirstStationInRoute - curEndStation.DurationFromFirstStationInRoute) / 60);
+
+                isSatisfiedNextBookingDetail = timeArriveNext <= nextBookingDetailStartTime && timeArriveNext >= curBookingDetailEndTime;
+            }
+
+            return isSatisfiedPrevBookingDetail && isSatisfiedNextBookingDetail;
+        }
+        private bool IsSatisfiedTimeCondition(TimeOnly? prevEndTime, TimeOnly? nextStartTime, TimeOnly curStartTime, TimeOnly curEndTime)
+        {
+            return (prevEndTime == null || prevEndTime < curStartTime) &&  (nextStartTime ==null || nextStartTime > curEndTime);
+        }
+        private int? FindPositionInOrderMappingWithRouteRoutine(List<BookingDetail> bookingDetailMappeds, BookingDetail bookingDetail, Dictionary<Guid, RouteStation> routeStationDic)
+        {
+            BookingDetail? prevBookingDetail = null;
+            for(var index = 0; index <= bookingDetailMappeds.Count; index++)
+            {
+                BookingDetail? nextBookingDetail = index < bookingDetailMappeds.Count ? bookingDetailMappeds[index] : null;
+
+                TimeOnly? prevEndTime = prevBookingDetail?.Booking.Time.AddMinutes(prevBookingDetail.Booking.Duration / 60);
+                TimeOnly? nextStartTime = nextBookingDetail?.Booking.Time;
+
+                var curStartTime = bookingDetail.Booking.Time;
+                var curEndTime = bookingDetail.Booking.Time.AddMinutes(bookingDetail.Booking.Duration/60);
+
+                if (IsSatisfiedTimeCondition(prevEndTime, nextStartTime, curStartTime, curEndTime) &&
+                    IsSatisfiedTripInRouteRoutineOrderCondition(prevBookingDetail, nextBookingDetail, bookingDetail, routeStationDic)){
+                    return index;
+                }
+            }
+            return null;
+        }
+        private bool IsSatisfiedRouteRoutineCondition(RouteRoutine routeRoutine, BookingDetail bookingDetail)
+        {
+            if (bookingDetail.Date < routeRoutine.StartAt || bookingDetail.Date > routeRoutine.EndAt) return false;
+
+            var bookingDetailMappedsInRouteRoutine = routeRoutine.User.BookingDetailDrivers
+                .Select(bdr => bdr.BookingDetail)
+                .Where(bd => 
+                    bd.Date == bookingDetail.Date && 
+                    bd.Booking.Time >= routeRoutine.StartTime &&
+                    bd.Booking.Time <= routeRoutine.EndTime)
+                //.Select(bd => new Tuple<TimeOnly,TimeOnly>(bd.Booking.Time, bd.Booking.Time.AddMinutes(bd.Booking.Duration/60)))
+                .OrderBy(bd => bd.Booking.Time)
+                .ToList();
+
+            var bookingStartTime = bookingDetail.Booking.Time;
+            var bookingEndTime = bookingDetail.Booking.Time.AddMinutes(bookingDetail.Booking.Duration/60);
+
+            var routeStationDic = bookingDetail.Booking.Route.RouteStations.ToDictionary(e => e.Station.Code);
+
+            return FindPositionInOrderMappingWithRouteRoutine(bookingDetailMappedsInRouteRoutine, bookingDetail, routeStationDic) != null;
+        }
+        public async Task<Booking?> Mapping(int bookingId)
+        {
+            var booking =
+                await _unitOfWork.Bookings
+                .List(e => e.Id == bookingId && e.Status == Bookings.Status.PendingMapping)
+                .Include(e => e.User)
+                .Include(e => e.BookingDetails)
+                .Include(e => e.Route)
+                .ThenInclude(route => route.RouteStations)
+                .ThenInclude(routeStation => routeStation.Station)
+                .FirstOrDefaultAsync();
+
+            if (booking == null) return null;
+
+            var bookingDetails = booking.BookingDetails;
+            var bookingDetailDrivers = new List<BookingDetailDriver>();
+
+            var routeRoutines = 
+                await _unitOfWork.RouteRoutines
+                .List(routeRoutine => !(routeRoutine.StartAt > booking.EndAt || routeRoutine.EndAt < booking.StartAt) &&
+                                      !(routeRoutine.EndTime < booking.Time || routeRoutine.StartTime > booking.Time.AddMinutes(booking.Duration/60)) &&
+                                      routeRoutine.RouteId == booking.RouteId)
+                .Include(e => e.User)
+                .ThenInclude(u => u.BookingDetailDrivers)
+                .ThenInclude(bdr => bdr.BookingDetail)
+                .ThenInclude(bd => bd.Booking)
+                .ToListAsync();
+
+            foreach(var bookingDetail in bookingDetails)
+            {
+                foreach (var routeRoutine in routeRoutines)
+                {
+                    if (IsSatisfiedRouteRoutineCondition(routeRoutine, bookingDetail))
+                    {
+                        bookingDetailDrivers.Add(new BookingDetailDriver
+                        {
+                            BookingDetail = bookingDetail,
+                            Driver = routeRoutine.User
+                        });
+                        break;
+                    }
+                }
+            }
+
+            if (bookingDetailDrivers.Any()) bookingDetailDrivers = await _bookingDetailDriverService.Create(bookingDetailDrivers);
+
+            booking.BookingDetails = bookingDetails.UnionBy(bookingDetailDrivers.Select(bdr => bdr.BookingDetail), e => e.Id).ToList();
+
+            return booking;
         }
 
         public async Task<Response> GetAll(int userId, Response successReponse)

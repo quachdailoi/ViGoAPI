@@ -46,19 +46,12 @@ namespace Infrastructure.Data.EntityConfigurations
                 .IsRequired()
                 .HasColumnName("booking_id");
 
-            builder.Property(e => e.DriverId)
-                .HasColumnName("driver_id");
-
             builder.Property(e => e.MessageRoomId)
                 .HasColumnName("message_room_id");
 
             builder.HasOne(e => e.Booking)
                 .WithMany(b => b.BookingDetails)
                 .HasForeignKey(e => e.BookingId);
-
-            builder.HasOne(e => e.Driver)
-                .WithMany(u => u.BookingDetails)
-                .HasForeignKey(e => e.DriverId);
         }
     }
 }

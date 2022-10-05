@@ -7,8 +7,6 @@ namespace API.TaskQueues.TaskResolver
 {
     public class MessageTasks : BaseTaskResolver
     {
-        private IRoomService _roomService;
-
         public const string SUPPORT_MESSAGE_QUEUE = "Support_Message";
         public const string ADMIN_QUEUE = "Admin";
 
@@ -19,7 +17,7 @@ namespace API.TaskQueues.TaskResolver
 
         public override async Task Solve()
         {
-            _roomService = _serviceProvider.GetRequiredService<IRoomService>();
+            var _roomService = _serviceProvider.GetRequiredService<IRoomService>();
 
             subscriber.Subscribe(SUPPORT_MESSAGE_QUEUE).OnMessage(async (msg) =>
             {
