@@ -12,5 +12,7 @@ namespace Domain.Interfaces.Repositories
         IQueryable<Station> GetStationsByCodes(List<Guid> codes);
 
         IQueryable<Station> GetStationsByIds(List<int> ids);
+
+        IQueryable<Station> GetStationByCode(string code);
     }
 }

@@ -4,6 +4,7 @@ using API.Models.DTO;
 using API.Models.Response;
 using Domain.Shares.Classes;
 using Domain.Shares.Enums;
+using API.Models.Requests;
 
 namespace API.Services.Constract
 {
@@ -11,7 +12,7 @@ namespace API.Services.Constract
     {
         Task<List<Domain.Entities.Route>> Create(List<Domain.Entities.Route> routes);      
         Task<Response> CreateRange(List<RouteDTO> routes, Response successResponse, Response dupplicateResponse, Response errorResponse);
-        Task<Response> GetAll(Response successResponse);
+        Task<Response> GetAll(StartStationRequest request, Response successResponse);
         Task<bool> IsExistData();
         Task<Response> GetRouteFeeByPairOfStation(StationWithScheduleDTO dto, Response successResponse, Response notFoundResponse);
         Task<Response> GetRoutesByPairsOfStation(List<int> startStationIds, List<int> endStationIds, Response successResposne);

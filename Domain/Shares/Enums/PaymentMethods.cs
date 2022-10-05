@@ -24,4 +24,9 @@ namespace Domain.Shares.Enums
         SystemMaintance = 10,
         Unknown = 99
     }
+    public enum PaymentStatus
+    {
+        Unpaid,
+        Paid
+    }
 }

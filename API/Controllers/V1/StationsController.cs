@@ -118,9 +118,10 @@ namespace API.Controllers.V1
         /// <response code="404">Not exist any stations</response>
         /// <response code="500">Failure</response>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] StartStationRequest request)
         {
             var response = await AppServices.Station.Get(
+                                startStationCode: request.StartStationCode,
                                 successResponse: new()
                                 {
                                     Message = "Get stations successfully.",

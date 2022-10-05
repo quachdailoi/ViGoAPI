@@ -18,9 +18,10 @@ namespace API.Controllers.V1
         /// <response code="500">Fail to get routes</response>
         [HttpGet]
         //[Authorize(Roles = "DRIVER,ADMIN")]
-        public async Task<IActionResult> GetRoutes()
+        public async Task<IActionResult> GetRoutes([FromQuery] StartStationRequest request)
         {
             var response = await AppServices.Route.GetAll(
+                                    request,
                                     successResponse: new()
                                     {
                                         Message = "Get routes successfully.",

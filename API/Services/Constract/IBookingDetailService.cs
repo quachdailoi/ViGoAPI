@@ -9,6 +9,6 @@ namespace API.Services.Constract
         List<BookingDetail> GenerateBookingDetail(Booking booking);
         Task<Response> GetNextBookingDetail(int userId, Response successResponse);
 
-        Task<Response> GetBookingsOfDriver(int driverId, Response success, PagingRequest? request = null);
+        Task<Response> GetBookingsOfDriver(int driverId, PagingRequest pagingRequest, DateFilterRequest dateFilterRequest, Response success);
     }
 }

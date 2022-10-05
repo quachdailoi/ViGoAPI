@@ -1,6 +1,7 @@
 ﻿using Domain.Entities.Base;
 using Domain.Shares.Classes;
 using Domain.Shares.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
@@ -34,5 +35,9 @@ namespace Domain.Entities
 
         //Promotion
         public Promotion? Promotion { get; set; } = null;
+
+        // Virtual Relationship
+        public Station StartStation { get; set; }
+        public Station EndStation { get; set; }
     }
 }

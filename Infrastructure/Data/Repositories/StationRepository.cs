@@ -16,6 +16,11 @@ namespace Infrastructure.Data.Repositories
         {
         }
 
+        public IQueryable<Station> GetStationByCode(string code)
+        {
+            return List().Where(s => s.Code.ToString() == code);
+        }
+
         public IQueryable<Station> GetStationsByCodes(List<Guid> codes)
         {
             return List().Where(s => s.Status == StatusTypes.Station.Active && codes.Contains(s.Code));
@@ -25,5 +30,7 @@ namespace Infrastructure.Data.Repositories
         {
             return List().Where(s => s.Status == StatusTypes.Station.Active && ids.Contains(s.Id));
         }
+
+
     }
 }

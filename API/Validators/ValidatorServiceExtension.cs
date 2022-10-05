@@ -11,6 +11,8 @@ namespace API.Validators
             services.AddFluentValidationAutoValidation();
 
             services.AddScoped<IValidator<CreateRouteRoutineRequest>, CreateRouteRoutineRequestValidator>();
+
+            services.AddScoped<IValidator<DateFilterRequest>, DateFilterRequestValidator>();
         }
     }
 }
