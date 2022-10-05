@@ -125,7 +125,6 @@ namespace API.Extensions
             services.AddTransient<IBookingDetailDriverService, BookingDetailDriverService>();
             services.AddTransient<IPromotionService, PromotionService>();
             services.AddTransient<IFileService, FileService>();
-            services.AddTransient<IRedisMQService, RedisMQService>();
             services.AddTransient<IRouteService, RouteService>();
             services.AddTransient<IStationService, StationService>();
             services.AddTransient<IRouteStationService, RouteStationService>();
@@ -140,6 +139,10 @@ namespace API.Extensions
             services.AddTransient<IFareTimelineService, FareTimelineService>();
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<IRouteRoutineService, RouteRoutineService>();
+        }
+        public static void ConfigureIoCRedisMessageQueue(this IServiceCollection services)
+        {
+            services.AddSingleton<IRedisMQService, RedisMQService>();
         }
 
         public static void ConfigureIoCSignalR(this IServiceCollection services)

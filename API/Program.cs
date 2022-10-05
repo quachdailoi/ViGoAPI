@@ -173,6 +173,9 @@ services.ConfigureIoCSignalR();
 // IoC for CronJobs
 services.ConfigureIoCCronJob();
 
+// IoC for RedisMQ
+services.ConfigureIoCRedisMessageQueue();
+
 // add redis cache
 var redisSetting = _config["RedisSettings:ConnectionString"];
 if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
