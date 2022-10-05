@@ -3,6 +3,7 @@ using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Responses;
 using API.Services.Constract;
+using API.Utils;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
@@ -104,12 +105,14 @@ namespace API.Services
         public List<BookingDetail> GenerateBookingDetail(Booking booking)
         {
             List<BookingDetail> bookingDetails = new();
+            var price = booking.TotalPrice / Fee.TotalDays(booking.StartAt, booking.EndAt);
             for(var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
             {
                 bookingDetails.Add(new BookingDetail
                 {
                     Booking = booking,
-                    Date = day
+                    Date = day,
+                    Price = price
                 });
             }
             return bookingDetails;

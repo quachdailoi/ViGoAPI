@@ -22,6 +22,6 @@ namespace API.Models
     }
     public class DriverBookingDetailViewModel : BookingDetailViewModel
     {
-
+        public ContactUserViewModel User { get; set; }
     }
 }
