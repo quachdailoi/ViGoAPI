@@ -19,12 +19,10 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.ToTable("booking_detail_drivers");
 
             builder.Property(e => e.StartTime)
-                .HasColumnName("start_time")
-                .IsRequired();
+                .HasColumnName("start_time");
 
             builder.Property(e => e.EndTime)
-                .HasColumnName("end_time")
-                .IsRequired();
+                .HasColumnName("end_time");
 
             builder.Property(e => e.DriverId)
                 .HasColumnName("driver_id")
@@ -32,6 +30,11 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.Property(e => e.BookingDetailId)
                 .HasColumnName("booking_detail_id")
+                .IsRequired();
+
+            builder.Property(e => e.Status)
+                .HasColumnName("status")
+                .HasConversion<int>()
                 .IsRequired();
 
             builder.HasOne(e => e.Driver)

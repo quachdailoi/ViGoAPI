@@ -133,7 +133,7 @@ namespace API.Services
 
         public async Task<Response> GetBookingsOfDriver(int driverId, PagingRequest request, DateFilterRequest dateFilter, Response success)
         {
-            var bookingDetails = _unitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId);
+            var bookingDetails = _unitOfWork.BookingDetailDrivers.GetByDriverId(driverId).Select(x => x.BookingDetail);
 
             if (dateFilter.FromDate != null && dateFilter.ToDate != null)
             {

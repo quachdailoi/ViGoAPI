@@ -14,8 +14,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221002154014_AddVirtualRelationship")]
-    partial class AddVirtualRelationship
+    [Migration("20221005044101_InitDB")]
+    partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -95,12 +95,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(521), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4256), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "loiqdse140970@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(522), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4257), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 1,
                             Verified = true
@@ -108,12 +108,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(534), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4267), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84837226239",
                             RegistrationType = 1,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(535), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4267), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 1,
                             Verified = false
@@ -121,12 +121,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(543), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4275), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "loiqdse140970@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(544), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4276), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 5,
                             Verified = false
@@ -134,12 +134,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(552), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4284), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84837226239",
                             RegistrationType = 1,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(553), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4285), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 5,
                             Verified = true
@@ -147,12 +147,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(586), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4310), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "datdtse140920@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(587), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4310), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 2,
                             Verified = true
@@ -160,12 +160,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(597), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4319), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84377322919",
                             RegistrationType = 1,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(597), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4319), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 2,
                             Verified = false
@@ -173,12 +173,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(605), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4327), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "datdtse140920@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(606), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4328), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 6,
                             Verified = false
@@ -186,12 +186,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(614), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4335), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84377322919",
                             RegistrationType = 1,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(615), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4336), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 6,
                             Verified = true
@@ -199,12 +199,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(623), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4343), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "khoandse1409770@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(623), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4344), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 3,
                             Verified = true
@@ -212,12 +212,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(634), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4351), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84914669962",
                             RegistrationType = 1,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(635), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4352), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 3,
                             Verified = false
@@ -225,12 +225,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(642), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4360), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "khoandse140977@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(643), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4360), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 7,
                             Verified = false
@@ -238,12 +238,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(651), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4368), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84914669962",
                             RegistrationType = 1,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(651), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4369), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 7,
                             Verified = true
@@ -251,12 +251,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(659), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4376), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "duyttse140971@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(660), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4376), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 4,
                             Verified = true
@@ -264,12 +264,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(693), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4383), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84376826328",
                             RegistrationType = 1,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(694), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4384), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 4,
                             Verified = false
@@ -277,12 +277,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(703), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4391), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "duyttse140971@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(703), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4392), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 8,
                             Verified = false
@@ -290,12 +290,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(711), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4404), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84376826328",
                             RegistrationType = 1,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(712), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4405), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 8,
                             Verified = true
@@ -303,12 +303,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(720), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4413), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84376826328",
                             RegistrationType = 1,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(720), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4413), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 9,
                             Verified = true
@@ -316,12 +316,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(730), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4422), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "loiqdse140970@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(731), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4422), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 9,
                             Verified = true
@@ -329,12 +329,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(739), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4430), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "khoandse1409770@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(739), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4430), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 11,
                             Verified = true
@@ -342,12 +342,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(747), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4437), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84914669962",
                             RegistrationType = 1,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(748), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4438), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 11,
                             Verified = false
@@ -355,12 +355,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(756), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4445), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "duyttse140971@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(757), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4446), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 10,
                             Verified = true
@@ -368,12 +368,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(764), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4453), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84376826328",
                             RegistrationType = 1,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(765), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4454), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 10,
                             Verified = false
@@ -381,12 +381,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(773), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4460), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "datdtse140920@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(774), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4461), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 12,
                             Verified = true
@@ -394,12 +394,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(782), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4468), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84377322919",
                             RegistrationType = 1,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(783), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4468), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 12,
                             Verified = false
@@ -460,157 +460,157 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Code = new Guid("0888d837-b6ee-4a87-aca6-0eac9cfbdd28"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(152), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("031db6ee-04cf-4e56-b7d9-d7fc6347a072"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(3961), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(169), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(3974), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
-                            Code = new Guid("bbdd3632-0f89-4c78-afd7-b47c467771a8"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(213), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("39e41341-5771-439f-bdfe-ff5ca68a2f6b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(3988), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(214), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(3989), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
-                            Code = new Guid("eea5c462-df72-4d7f-a014-0c318db3e017"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(225), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("e3d55ac9-78d6-487e-939b-1169ab07b588"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(3997), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(226), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(3997), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 4,
-                            Code = new Guid("574636d4-c6a7-4825-8624-506f9d4ea3b7"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(235), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("20944034-204c-411a-9541-7b463f7924a3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4005), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(235), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4006), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 5,
-                            Code = new Guid("666565a2-690a-4b9f-b4ee-03c60a9a110c"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(244), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("43f4d7cd-af7a-4568-9da7-49617ab0b436"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4020), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(244), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4020), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 6,
-                            Code = new Guid("ab4ff8ee-d48f-497c-8da2-e443e1b0ccd5"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(255), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("adacf37c-08dc-485e-8e92-67b3464babbd"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4030), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(255), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4031), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 7,
-                            Code = new Guid("0d4eaea0-d9a9-40e7-8e99-9af510d04d8c"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(272), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("9fa0a282-38bb-4dfe-b812-7b7f108428d3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4039), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(273), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4040), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 8,
-                            Code = new Guid("7f090d4d-31e2-41a8-8363-0533c852dc8c"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(281), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("39d0e7d8-9710-4190-ad44-aaef999bd29b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4056), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(282), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4056), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 9,
-                            Code = new Guid("6305301c-45f6-4500-93d5-7edb545c9804"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(290), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("0a06dafe-d050-4b34-95db-f0dca2ed5136"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4064), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "promotion/285640182_5344668362254863_4230282646432249568_n.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(291), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4065), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 10,
-                            Code = new Guid("b883948e-ba52-4239-845d-c8d70d577f34"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(300), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("6a490999-e17b-445f-ba55-59f6a037698c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4073), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "promotion/292718124_1043378296364294_8747140355237126885_n.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(301), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4074), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 11,
-                            Code = new Guid("41fccbd7-36ef-4160-a8e3-1aded708e643"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(309), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("1f16d10d-f52a-4c29-82df-da805b453b84"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4081), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "promotion/300978304_2290809087749954_8259423704505319939_n.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(309), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4082), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 12,
-                            Code = new Guid("5ccadff3-7762-4f63-8cff-8a9ca873c85b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(318), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("b34d8178-710f-45d4-b4d5-12d4fa14a15d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4090), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "promotion/300978304_2290809087749954_8259423704505319939_n.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(318), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4091), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 13,
-                            Code = new Guid("60769926-0044-46f0-9713-b0afc03f36dd"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(327), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("2fc276a0-383e-49dc-a07a-bcd5b894d2a1"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4098), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(327), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4099), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -676,11 +676,11 @@ namespace Infrastructure.Migrations
                             Id = 1,
                             Active = true,
                             Content = "Banner 1",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1527), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5063), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 9,
                             Priority = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1528), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5064), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
@@ -688,11 +688,11 @@ namespace Infrastructure.Migrations
                             Id = 2,
                             Active = true,
                             Content = "Banner 2",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1532), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5067), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 10,
                             Priority = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1532), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5067), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
@@ -700,11 +700,11 @@ namespace Infrastructure.Migrations
                             Id = 3,
                             Active = true,
                             Content = "Banner 3",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1533), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5068), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 11,
                             Priority = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1534), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5069), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
@@ -712,10 +712,10 @@ namespace Infrastructure.Migrations
                             Id = 4,
                             Active = true,
                             Content = "Banner 4",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1535), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5070), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 12,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1535), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5070), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -732,7 +732,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Code")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasDefaultValue(new Guid("7fc28ddb-70c0-4d49-bb75-489b3f4d1221"))
+                        .HasDefaultValue(new Guid("e94c4683-9b01-4230-b862-37875dc925a0"))
                         .HasColumnName("code");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -930,6 +930,63 @@ namespace Infrastructure.Migrations
                     b.ToTable("booking_details", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.BookingDetailDriver", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BookingDetailId")
+                        .HasColumnType("integer")
+                        .HasColumnName("booking_detail_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<int>("DriverId")
+                        .HasColumnType("integer")
+                        .HasColumnName("driver_id");
+
+                    b.Property<TimeOnly>("EndTime")
+                        .HasColumnType("time without time zone")
+                        .HasColumnName("end_time");
+
+                    b.Property<TimeOnly>("StartTime")
+                        .HasColumnType("time without time zone")
+                        .HasColumnName("start_time");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("updated_by");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookingDetailId");
+
+                    b.HasIndex("DriverId");
+
+                    b.ToTable("booking_detail_drivers", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Fare", b =>
                 {
                     b.Property<int>("Id")
@@ -988,10 +1045,10 @@ namespace Infrastructure.Migrations
                             Id = 1,
                             BaseDistance = 2000,
                             BasePrice = 12000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1608), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5132), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             PricePerKm = 4000.0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1609), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5133), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             VehicleTypeId = 1
                         },
@@ -1000,10 +1057,10 @@ namespace Infrastructure.Migrations
                             Id = 2,
                             BaseDistance = 2000,
                             BasePrice = 20000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1612), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5136), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             PricePerKm = 10000.0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1612), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5136), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             VehicleTypeId = 2
                         },
@@ -1012,10 +1069,10 @@ namespace Infrastructure.Migrations
                             Id = 3,
                             BaseDistance = 2000,
                             BasePrice = 30000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1614), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5138), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             PricePerKm = 12000.0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1614), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5138), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             VehicleTypeId = 3
                         });
@@ -1076,145 +1133,145 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1670), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5150), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(8, 0, 0),
                             ExtraFeePerKm = 0.12,
                             FareId = 1,
                             StartTime = new TimeOnly(6, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1671), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5151), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1714), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5186), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(10, 0, 0),
                             ExtraFeePerKm = 0.10000000000000001,
                             FareId = 1,
                             StartTime = new TimeOnly(8, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1715), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5187), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1722), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5193), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(17, 0, 0),
                             ExtraFeePerKm = 0.14999999999999999,
                             FareId = 1,
                             StartTime = new TimeOnly(15, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1722), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5194), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1728), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5200), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(19, 0, 0),
                             ExtraFeePerKm = 0.10000000000000001,
                             FareId = 1,
                             StartTime = new TimeOnly(17, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1729), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5200), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1735), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5206), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(8, 0, 0),
                             ExtraFeePerKm = 0.12,
                             FareId = 2,
                             StartTime = new TimeOnly(6, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1735), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5207), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1742), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5219), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(10, 0, 0),
                             ExtraFeePerKm = 0.10000000000000001,
                             FareId = 2,
                             StartTime = new TimeOnly(8, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1743), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5219), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1749), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5225), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(17, 0, 0),
                             ExtraFeePerKm = 0.14999999999999999,
                             FareId = 2,
                             StartTime = new TimeOnly(15, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1750), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5226), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1755), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5232), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(19, 0, 0),
                             ExtraFeePerKm = 0.10000000000000001,
                             FareId = 2,
                             StartTime = new TimeOnly(17, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1756), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5232), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1762), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5238), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(8, 0, 0),
                             ExtraFeePerKm = 0.12,
                             FareId = 3,
                             StartTime = new TimeOnly(6, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1762), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5239), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1769), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5245), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(10, 0, 0),
                             ExtraFeePerKm = 0.10000000000000001,
                             FareId = 3,
                             StartTime = new TimeOnly(8, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1770), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5246), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1776), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5251), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(17, 0, 0),
                             ExtraFeePerKm = 0.14999999999999999,
                             FareId = 3,
                             StartTime = new TimeOnly(15, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1777), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5252), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1782), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5258), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(19, 0, 0),
                             ExtraFeePerKm = 0.10000000000000001,
                             FareId = 3,
                             StartTime = new TimeOnly(17, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1783), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5258), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -1356,7 +1413,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Code = "HELLO2022",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(799), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4482), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for new user: Discount 20% with max decrease 200k for the booking with minimum total price 500k.",
                             DiscountPercentage = 0.20000000000000001,
@@ -1365,14 +1422,14 @@ namespace Infrastructure.Migrations
                             Name = "New User Promotion",
                             Status = 1,
                             Type = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(800), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4482), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
                             Code = "BDAY2022",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(812), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4492), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for September: Discount 10% with max decrease 150k for the booking with minimum total price 200k.",
                             DiscountPercentage = 0.10000000000000001,
@@ -1381,14 +1438,14 @@ namespace Infrastructure.Migrations
                             Name = "Beautiful Month",
                             Status = 1,
                             Type = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(812), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4493), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
                             Code = "HOLIDAY",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(821), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4500), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for 2/9 Holiday: Discount 30% with max decrease 300k for the booking with minimum total price 1000k.",
                             DiscountPercentage = 0.29999999999999999,
@@ -1396,14 +1453,14 @@ namespace Infrastructure.Migrations
                             Name = "Holiday Promotion",
                             Status = 1,
                             Type = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(821), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4501), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 4,
                             Code = "ABC",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(829), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4508), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for users booking alot: Discount 10% with max decrease 300k for the booking with minimum total price 500k.",
                             DiscountPercentage = 0.10000000000000001,
@@ -1412,14 +1469,14 @@ namespace Infrastructure.Migrations
                             Name = "ABC Promotion",
                             Status = 1,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(830), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4509), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 5,
                             Code = "VIRIDE2022",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(838), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4516), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for ViRide: Discount 10% with max decrease 100k for the booking with minimum total price 300k.",
                             DiscountPercentage = 0.10000000000000001,
@@ -1428,14 +1485,14 @@ namespace Infrastructure.Migrations
                             Name = "ViRide Promotion",
                             Status = 1,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(839), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4517), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 6,
                             Code = "VICAR2022",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(848), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4524), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for ViCar: Discount 15% with max decrease 350k for the booking with minimum total price 500k.",
                             DiscountPercentage = 0.14999999999999999,
@@ -1444,7 +1501,7 @@ namespace Infrastructure.Migrations
                             Name = "ViCar Promotion",
                             Status = 1,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(849), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4525), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -1526,11 +1583,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(862), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4535), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTotalPrice = 500000f,
                             PromotionId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(863), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4536), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 1,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -1538,12 +1595,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(968), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4630), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTotalPrice = 200000f,
                             PromotionId = 2,
                             TotalUsage = 50,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(969), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4630), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 4,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 9, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -1552,12 +1609,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(990), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4653), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTotalPrice = 1000000f,
                             PromotionId = 3,
                             TotalUsage = 50,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(991), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4654), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 1,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 9, 2, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -1566,13 +1623,13 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1009), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4671), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTickets = 20,
                             MinTotalPrice = 500000f,
                             PromotionId = 4,
                             TotalUsage = 50,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1010), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4672), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 1,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 9, 2, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -1581,12 +1638,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1053), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4688), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTotalPrice = 300000f,
                             PromotionId = 5,
                             TotalUsage = 500,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1054), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4689), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 3,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -1596,12 +1653,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1076), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4712), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTotalPrice = 500000f,
                             PromotionId = 6,
                             TotalUsage = 500,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1076), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4713), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 3,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -1675,11 +1732,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1099), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4738), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             ExpiredTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             PromotionId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1100), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4739), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             Used = 0,
                             UserId = 5
@@ -1687,11 +1744,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1118), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4755), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             ExpiredTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             PromotionId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1119), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4756), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             Used = 1,
                             UserId = 6
@@ -1699,11 +1756,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1133), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4769), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             ExpiredTime = new DateTimeOffset(new DateTime(2022, 9, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             PromotionId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1134), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4770), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             Used = 0,
                             UserId = 7
@@ -1711,10 +1768,10 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1148), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4783), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             PromotionId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1149), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4784), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             Used = 2,
                             UserId = 6
@@ -1779,7 +1836,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Code")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasDefaultValue(new Guid("f9f9239c-2f83-4d0f-b6f5-e9a6dc97eb42"))
+                        .HasDefaultValue(new Guid("48fd58e0-45b6-429d-bf1d-dd5934c14306"))
                         .HasColumnName("code");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -2092,1190 +2149,1190 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Address = "80 Xa lộ Hà Nội, Bình An, Dĩ An, Bình Dương",
-                            Code = new Guid("5ad708db-cccf-4bdc-9f48-aa1d64054a61"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1170), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("08f0d2cf-faee-462b-8b0f-1a81370691fe"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4800), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.879650683124561,
                             Longitude = 106.81402589177823,
                             Name = "Ga Metro Bến Xe Suối Tiên",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1171), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4801), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
                             Address = "39708 Xa lộ Hà Nội, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("27fee003-a4a9-4a9e-9023-dbfdaffd1f26"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1178), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("440cc2d9-c498-47e5-b7c7-cacf073676e6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4805), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.8664854431366,
                             Longitude = 106.80126112015681,
                             Name = "Ga Metro Đại học Quốc Gia",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1179), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4806), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
                             Address = "4/16B Xa lộ Hà Nội, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("d3c0e47f-ddbe-44e6-9c59-f1c8560c7364"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1181), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("11989dca-3d19-480d-8ba0-b50c1e6b53cb"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4811), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.85917304306453,
                             Longitude = 106.78884645537156,
                             Name = "Ga Metro Công Viên Công Nghệ Cao",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1181), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4812), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 4,
                             Address = "RQWC+GJX Xa lộ Hà Nội, Bình Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("3d93b4b9-bb6d-4c1d-804a-45406e624de9"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1183), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("91bc4678-5f65-480b-a803-a6fcb652e7e3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4814), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.846402468851362,
                             Longitude = 106.77154946668446,
                             Name = "Ga Metro Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1184), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4814), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 5,
                             Address = "88 Nguyễn Văn Bá, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("7435d232-1028-4342-90e6-10059b14d7d7"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1186), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("cd2a5b7f-e0f2-4e4c-b8cd-d46ce73ed519"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4816), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.821402021794112,
                             Longitude = 106.75836408336727,
                             Name = "Ga Metro Phước Long",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1186), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4817), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 6,
                             Address = "RQ54+93V Xa lộ Hà Nội, An Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("1dfc6038-2b73-42e9-b57c-c9ea92ff66e1"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1189), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("cd476fb9-6002-4584-8e6b-243a79636364"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4819), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.808505238748038,
                             Longitude = 106.75523952123311,
                             Name = "Ga Metro Gạch Chiếc",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1190), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4820), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 7,
                             Address = "RP2R+VV9 Xa lộ Hà Nội, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("21c00b15-c577-47d3-9f76-cab4ef937b50"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1192), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("80646d59-6090-4d37-a43a-25fb232fe3a7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4822), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.802254217820691,
                             Longitude = 106.74223332879555,
                             Name = "Ga Metro An Phú",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1192), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4822), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 8,
                             Address = "763J Quốc Hương, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("42a635ac-3590-4b8a-82ec-495d5d29c812"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1195), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("c996837d-b1a4-48b2-8f66-07ae9ee68a40"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4824), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.800728306627473,
                             Longitude = 106.73370791313042,
                             Name = "Ga Metro Thảo Điền",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1195), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4825), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 9,
                             Address = "QPXF+C8J Nguyễn Hữu Cảnh, 25, Bình Thạnh, Thành phố Hồ Chí Minh, Việt Nam",
-                            Code = new Guid("445a1900-f20e-4ef5-a1d4-df8b8c1c89c5"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1197), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("84f84a67-8a29-4201-89ad-6ee491ae6dd8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4827), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.798621063183687,
                             Longitude = 106.72327125155881,
                             Name = "Ga Metro Tân Cảng",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1198), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4827), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 10,
                             Address = "QPW8+C5Q, Phường 22, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("e6ca19eb-b7b0-49a0-9cd6-c31dab06c644"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1202), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("37092464-e4d3-48cc-858d-023df7c3542c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4829), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.796160596763055,
                             Longitude = 106.71548797723645,
                             Name = "Ga Metro Khu du lịch Văn Thánh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1202), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4830), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 11,
                             Address = "39761 Nguyễn Văn Bá, Phước Long B, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("826c0670-9820-4f97-ae48-6ac069512989"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1204), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("a1d9e871-6246-4fe4-a913-f2593640d498"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4833), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.836558412392224,
                             Longitude = 106.76576466834388,
                             Name = "Ga Metro Bình Thái",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1205), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4834), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 12,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("3da8c9ff-a064-4fed-aa2f-d1846283474b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1207), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("55535d4c-dcbd-4caf-b564-b0d73cc55e9f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4836), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.855748533595877,
                             Longitude = 106.78914067676806,
                             Name = "AI InnovationHub",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1207), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4836), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 13,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("e6e52692-c21c-44f8-a6fd-04bdc027ab4e"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1209), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("b4bd2fd3-dbbc-4dbc-92a1-a4a204d7ba83"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4838), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.853144521692798,
                             Longitude = 106.79643313765459,
                             Name = "Tòa nhà HD Bank",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1210), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4839), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 14,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh ",
-                            Code = new Guid("346aa298-ec2c-4c65-b798-a064fecfacc1"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1212), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d7a139c4-1e34-4ff4-83d2-c9e42e6a038e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4840), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.851138424399943,
                             Longitude = 106.79857191639908,
                             Name = "FPT Software - Ftown 1,2",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1212), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4841), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 15,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("8189de3d-a8f5-4e6f-8c6f-c5fe249aaecc"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1214), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("283081f0-b799-401e-a81e-2c390e4dcfdc"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4843), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.842755223277589,
                             Longitude = 106.80737654998441,
                             Name = "Tòa nhà VPI phía Nam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1214), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4843), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 16,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("0fd60bd9-1aa1-43e7-89ac-af92479b4140"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1216), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("0256cc1f-eb03-4a81-b212-8b6be8f1aaf3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4845), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.841160382489567,
                             Longitude = 106.80898373894351,
                             Name = "Viện công nghệ cao Hutech",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1217), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4845), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 17,
                             Address = "RRP7+CJ7 đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("860609ce-a233-4f09-8c22-87af75b6dcd1"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1220), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("538e6f8b-bed7-455a-9bdb-9bd858248aee"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4847), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.836238463608794,
                             Longitude = 106.814245107947,
                             Name = "Cổng Jabil Việt Nam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1220), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4848), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 18,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("e84daf14-d104-44bd-a1d5-4d6347618e7e"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1225), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("6aa76cc4-fe77-4859-915e-c3c10ded5688"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4850), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.832233088594503,
                             Longitude = 106.82046132230808,
                             Name = "Saigon Silicon",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1225), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4850), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 19,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("b8ccf413-082e-467e-b3d4-8ca863770cad"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1227), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("bedbded5-6ae0-4897-b700-8fd71ad259de"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4854), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.836776238894464,
                             Longitude = 106.81401100053891,
                             Name = "ISMARTCITY (ISC)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1228), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4854), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 20,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("8b61d53d-d73e-43a0-b269-643875ef0a2a"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1255), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("45f84de0-61d9-4503-9b27-27e40f37008f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4856), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.840578398658391,
                             Longitude = 106.8099978721756,
                             Name = "Trường đại học FPT",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1256), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4857), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 21,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("cf5a5f8c-917d-4d04-a1c2-9e5dc9f031d2"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1258), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("40f5b364-02b9-46a5-b135-90bb7cb8ad97"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4858), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.84578835745819,
                             Longitude = 106.80454376198392,
                             Name = "Công Ty CP Công Nghệ Sinh Học Dược Nanogen",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1258), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4859), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 22,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("cb18850c-e2b8-4fad-87d9-4dd244e38680"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1260), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("06acce02-6db9-4d80-8cbf-17a37e9f1590"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4866), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.853375488919204,
                             Longitude = 106.79658230436019,
                             Name = "Intel VietNam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1261), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4867), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 88,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("ef07348e-a349-4d22-a6f8-ece0c4af37b7"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1263), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("0dd91cf8-b1a4-4b8a-a500-f2680cdab863"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4869), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.854367872934622,
                             Longitude = 106.79375338625633,
                             Name = "Nidec VietNam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1263), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4869), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 23,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("b5abf2af-acd3-4328-849b-94765c4ef572"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1265), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("fd17a679-4882-42b1-96a9-62ab7bae1144"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4871), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.854860900718421,
                             Longitude = 106.79189382870402,
                             Name = "CMC Data Center",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1266), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4872), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 24,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("ceecae51-862a-4a9f-950e-bc2b78b4d839"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1268), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("3a454a8c-d032-417a-bf4d-691f31dcac25"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4873), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.856082809107784,
                             Longitude = 106.78924956530844,
                             Name = "Inverter ups Sài Gòn",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1268), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4874), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 25,
                             Address = "Đường Võ Chí Công, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("a521900b-86a7-4eb8-a214-3f351210e2df"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1272), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("e34e2995-6a37-4490-87fd-c38a239b64fe"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4876), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.838027429470513,
                             Longitude = 106.81035219090674,
                             Name = "Trường đại học Nguyễn Tất Thành",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1272), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4876), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 26,
                             Address = "Đường Võ Chí Công, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("35551470-08ea-408d-988a-b223c5d289a8"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1274), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("73eb6c5d-c307-44ac-8491-42c9da2f0ee7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4880), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.834922120966135,
                             Longitude = 106.80776601621393,
                             Name = "FPT Software - Ftown 3",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1275), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4880), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 27,
                             Address = "RRM4+VMQ đường Võ Chí Công, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("ac66a400-3bc4-4472-b284-b3dc9ebaced4"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1277), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("b1890d65-7ae7-4864-9725-800074437bc5"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4883), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.834215900566933,
                             Longitude = 106.80727419233645,
                             Name = "Công ty Cổ phần Hàng không VietJet",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1277), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4883), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 28,
                             Address = "RRJ4+X9F đường Võ Chí Công, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("fdffb6c7-a057-441a-948d-6bd27bce656c"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1279), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("ac3663fe-8fa4-487d-ba32-3099805c2b58"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4885), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.832245246386895,
                             Longitude = 106.80598499131753,
                             Name = "Sài Gòn Trapoco",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1280), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4886), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 29,
                             Address = "RRJ4+G2J đường Võ Chí Công, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("60a70a2d-b756-43ec-a013-374309dd7a11"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1281), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("bdef6941-3427-48c2-9cf5-7ad3757ebbf4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4887), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.830911650064834,
                             Longitude = 106.80503995362199,
                             Name = "Công ty kỹ thuật công nghệ cao sài gòn",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1282), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4888), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 30,
                             Address = "Đường D2, Tăng Nhơn Phú B, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("8d3c4438-cef4-421d-a8d2-1d682311dc1d"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1284), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("7aaa50cf-5b23-4b5b-a062-5858a029beaf"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4890), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.825858875527519,
                             Longitude = 106.79860212469366,
                             Name = "Nhà máy Samsung Khu CNC",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1284), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4890), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 31,
                             Address = "Đường D2, Tăng Nhơn Phú B, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("1d3868aa-19c8-42f6-8b69-24c2b30fd238"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1286), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d2f3887b-fabc-492d-bb8b-dd62db28bbae"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4892), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.826685687856866,
                             Longitude = 106.8001755286645,
                             Name = "Công ty công nghệ cao Điện Quang",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1287), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4892), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 32,
                             Address = "G23 Lã Xuân Oai, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("c6338adb-d324-4a01-a646-89ae42e9cab4"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1289), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("e6100286-84d8-451a-b058-19a019ffd391"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4894), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.829932294153192,
                             Longitude = 106.80446003004153,
                             Name = "Công ty Thảo Dược Việt Nam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1289), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4895), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 33,
                             Address = "1-2 đường D2, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("b7b98f95-110e-4852-a894-10d2588189e2"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1294), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("150eba10-22a4-481a-8dd6-0bddf7c8f7db"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4897), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.830577375598693,
                             Longitude = 106.80512235256614,
                             Name = "Công ty Daihan Vina",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1294), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4898), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 34,
                             Address = "VQ8Q+W5W QL 1A, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("285148a5-991e-436b-9322-4668c51e8622"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1296), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("f507d55b-213b-4875-aa3e-32cec74edd3b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4901), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.867306661370069,
                             Longitude = 106.78773791444128,
                             Name = "Trường Đại học Nông Lâm",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1297), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4902), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 35,
                             Address = "QL 1A, Linh Xuân, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("2e370379-5d78-4e35-8883-711e0c4c55ae"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1299), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("7ab7276e-6fd7-4549-8a55-0f4ffdc3ea1b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4903), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.869235667646493,
                             Longitude = 106.77793783791677,
                             Name = "Trường đại học Kinh Tế Luật",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1299), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4904), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 36,
                             Address = "VRC2+QR9, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("be8eb715-e276-48a2-86ab-40ec8bd0c65a"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1301), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("03ce0cf3-e7ee-468e-b1e5-5a81fcfcb428"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4906), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.871997549994893,
                             Longitude = 106.80277007274188,
                             Name = "Đại học Khoa học Xã hội và Nhân văn",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1301), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4906), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 37,
                             Address = "VRF2+XFW đường Quảng Trường Sáng Tạo, Đông Hoà, Dĩ An, Bình Dương",
-                            Code = new Guid("7277d4d9-ab28-4906-9255-d9813f462bf6"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1304), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("b3664113-93a5-4027-bda1-7340e747ad11"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4908), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.875092307642346,
                             Longitude = 106.80144678877895,
                             Name = "Nhà Văn Hóa Sinh Viên ĐHQG",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1304), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4908), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 38,
                             Address = "Đường Hàn Thuyên, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("271008cd-719e-4826-a8fc-c06b82af271d"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1306), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("5f3a09b6-3ec7-4a42-9a84-1935ec78a62b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4910), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.870481440652956,
                             Longitude = 106.80198596270417,
                             Name = "Cổng A - Trường đại học Công Nghệ Thông Tin",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1306), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4911), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 39,
                             Address = "VQCW+FG2, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("79de474f-7ffa-4344-8be0-df4e8c336862"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1309), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("9cec8677-5729-4c3a-b572-d3e9fafbb336"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4912), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.870503469555034,
                             Longitude = 106.79628492520538,
                             Name = "Trường đại học Thể dục Thể thao",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1310), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4913), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 40,
                             Address = "Đường T1, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("e37cd633-562a-4c72-8820-86853cb8e66d"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1312), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("e8d248d8-1613-400b-93f8-a5f59eee944d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4915), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.875477130935243,
                             Longitude = 106.79903376051722,
                             Name = "Trường đại học Khoa học Tự nhiên (cơ sở Linh Trung)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1312), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4915), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 41,
                             Address = "Đường Quảng Trường Sáng Tạo, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("25ac5fbc-3fc8-4ff1-aca7-8d916103b735"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1316), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("7613eeec-eba1-46df-84af-51ed3e0d63b8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4917), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.876446815885343,
                             Longitude = 106.80177999819321,
                             Name = "Trường đại học Quốc Tế",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1317), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4917), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 42,
                             Address = "Đường Tạ Quang Bửu, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("7a2628c2-2387-45c9-8d0b-43a5ef04f614"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1319), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("3f8ed834-9519-41a9-ab23-2f54ce211ded"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4921), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.878197830285536,
                             Longitude = 106.80614795287057,
                             Name = "Cổng kí túc xá khu A (đại học quốc gia TP Hồ Chí Minh)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1319), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4921), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 43,
                             Address = "Đường Tạ Quang Bửu, Đông Hòa, Dĩ An, Bình Dương",
-                            Code = new Guid("65173429-0186-4e10-b37f-fa540b034bb6"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1321), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d93f5d3a-9770-4a59-8dc1-fce53e85b94b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4923), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.879768516539494,
                             Longitude = 106.80697880277312,
                             Name = "Trường đại học Bách Khoa (cơ sở 2)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1321), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4924), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 44,
                             Address = "Đường Tạ Quang Bửu, Đông Hòa, Dĩ An, Bình Dương",
-                            Code = new Guid("ca9bd108-cbc8-4c9f-8abc-74fd74683c30"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1323), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("43e696aa-b333-4708-b2f6-8bc57372da89"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4925), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.877545337230165,
                             Longitude = 106.80552329008295,
                             Name = "Trung tâm ngoại ngữ đại học Bách Khoa (BK English)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1324), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4926), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 45,
                             Address = "Số 1 đường Võ Văn Ngân, Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("f31215d0-3945-4915-9f99-63767ee79969"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1326), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("0dddf9f4-7142-4807-b958-ba653f25f535"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4928), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.849721027334326,
                             Longitude = 106.77164269167564,
                             Name = "Trường đại học Sư phạm Kĩ thuật Thành phố Hồ Chí Minh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1326), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4928), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 46,
                             Address = "VQ25+JWQ đường Chương Dương, Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("dff48f84-ecc8-4375-a1ff-532fd862cf25"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1328), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("fa08a674-3587-49d4-8245-794cb8a77a93"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4930), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.851623294286195,
                             Longitude = 106.7599477126918,
                             Name = "Trường Cao đẳng Công nghệ Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1328), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4930), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 50,
                             Address = "26 đường Chương Dương, Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("0bbf5ea2-de07-465c-b4b8-732b09ecd241"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1352), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("9821e317-dc7c-42c3-b787-5a538f9b56b0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4932), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.852653003274197,
                             Longitude = 106.76018734231964,
                             Name = "Trung tâm thể dục thể thao Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1353), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4933), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 51,
                             Address = "19A đường số 17, Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("f598cffc-31bd-4eb2-9c73-488e2962ce0f"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1355), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("9c7014c1-bd43-47dd-9e6e-967d577171e6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4934), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.854723648720167,
                             Longitude = 106.76032173572378,
                             Name = "Trường Cao đẳng Nghề Thành phố Hồ Chí Minh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1356), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4935), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 52,
                             Address = "VQ46+9J3 đường số 17, Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("8aaafc4b-e628-4398-9e9e-0a42a9d819f2"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1360), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("ba1957ea-7f0a-465c-b180-f04a8abec1b2"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4936), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.855800383594074,
                             Longitude = 106.76151598927879,
                             Name = "Trường đại học Ngân hàng",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1360), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4937), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 53,
                             Address = "356 Xa lộ Hà Nội, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("0e5ecd4b-7fe5-4770-bb3e-f93aeb387646"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1362), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("8d452ded-b922-4206-934a-dc8f74a36f62"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4947), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.83090741994997,
                             Longitude = 106.76359240459003,
                             Name = "Trường đại học Điện Lực",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1363), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4948), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 54,
                             Address = "360 Xa lộ Hà Nội, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("efc403ba-eedf-409c-baf4-b6876f6c1f72"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1364), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("6aa99eca-1d3b-4a8a-8629-0384fbb73e70"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4950), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.831781684548069,
                             Longitude = 106.76462343340792,
                             Name = "Metro Star - Quận 9 | Tập đoàn CT Group+",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1365), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4950), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 55,
                             Address = "354-356B Xa lộ Hà Nội, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("aeecfc60-d121-4b63-89f2-75fc9bf99e74"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1367), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("21c2e856-33c1-4b4f-93b6-e0b4872218ce"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4952), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.830438851236304,
                             Longitude = 106.76388396745739,
                             Name = "Chi nhánh công ty CyberTech Việt Nam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1367), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4953), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 56,
                             Address = "RQH7+XP4 Xa lộ, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("0cb01b08-7a83-4f99-87a4-81a5356555e5"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1369), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("1c42fd42-d55e-4687-ae0a-9db35550bd18"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4955), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.829834904338366,
                             Longitude = 106.76426274528296,
                             Name = "Zenpix Việt Nam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1370), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4955), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 57,
                             Address = "12 Đặng Văn Bi, Trường Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("9e5f5b8e-e055-4d5b-931d-b082e0972544"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1372), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("03b12b9c-cfa9-486a-bd34-9d401e045707"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4957), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.840946385700587,
                             Longitude = 106.76509820241216,
                             Name = "Nhà máy sữa Thống Nhất (Vinamilk)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1372), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4957), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 58,
                             Address = "10/42 đường Số 4, Trường Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("2355a95e-8b42-4671-b7f8-590aa6ae8edc"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1374), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("664f1d67-13bb-4029-a868-caa0a07f9dfa"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4959), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.840432688988782,
                             Longitude = 106.76088713432273,
                             Name = "Công ty xuất nhập khẩu Tây Tiến",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1375), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4960), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 59,
                             Address = "102 Đặng Văn Bi, Bình Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("5e4c2121-8642-42ae-8973-1626030f2724"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1377), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("00047605-fc19-47db-ac2a-7fb16b664b9b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4961), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.844257732572313,
                             Longitude = 106.76276736279874,
                             Name = "Trung tâm tiêm chủng vắc xin VNVC",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1377), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4962), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 60,
                             Address = "Km9 Xa lộ Hà Nội, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("7e27da73-8ff3-41b2-9f95-1a1320333267"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1381), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("bb773b6e-9c16-4658-8638-028ed7376b6b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4963), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.825780208240717,
                             Longitude = 106.75924170740572,
                             Name = "Công ty cổ phần Thép Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1381), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4964), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 61,
                             Address = "Km9 Xa lộ Hà Nội, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("37df6e06-ca52-418e-9dda-3d5570c89878"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1383), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("05c2fd63-6690-4248-af4d-4fddaa09458d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4967), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.82825779372371,
                             Longitude = 106.76092968863129,
                             Name = "Công Ty Cổ Phần Cơ Điện Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1384), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4968), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 62,
                             Address = "RQH5+324 đường Số 1, Trường Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("e5b26e90-dfcf-40f6-8552-254f4ff72af1"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1385), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("5acc04fe-41a3-4292-b393-ac4a719ce5ce"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4970), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.827423240919156,
                             Longitude = 106.75761821078893,
                             Name = "Công ty TNHH Nhiệt điện Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1386), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4970), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 63,
                             Address = "Đường Số 1, Trường Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("beb5d41d-a53b-48a3-b97a-b6920a8af254"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1388), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("84aefa5d-c24f-48d5-bd01-bf8ed142bb9a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4972), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.827933659643358,
                             Longitude = 106.75322566624341,
                             Name = "Cảng Trường Thọ",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1388), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4973), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 64,
                             Address = "96 Nam Hòa, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("234f3e51-8468-4d71-bf9e-6dc0d2401f97"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1390), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("91d23916-7985-426a-bf5a-80ac7d9e46fa"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4974), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.82037580579453,
                             Longitude = 106.75928223003976,
                             Name = "Công ty TNHH BeuHomes",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1391), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4975), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 65,
                             Address = "9 Nam Hòa, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("116d9ae5-f5c7-4211-b970-d30af977d218"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1393), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("669ca350-d019-43ca-8f52-cbb7c3464351"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4977), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.821744734671684,
                             Longitude = 106.76019934624064,
                             Name = "Công ty TNHH Creative Engineering",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1394), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4977), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 66,
                             Address = "22/15 đường số 440, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("66598b02-d5b0-4a7f-bad4-7d465a9c9da2"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1396), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("a82e08a6-5a16-4c85-9b18-d715fc8c362f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4979), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.82220109625001,
                             Longitude = 106.75952721927021,
                             Name = "Công Ty Công Nghệ Trí Tuệ Nhân Tạo AITT",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1397), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4979), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 67,
                             Address = "628C Xa lộ Hà Nội, An Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("fc4ae6c5-e3f4-4ee4-8714-54a63d3d6d8f"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1398), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("9b3a78cf-162a-42cd-b8e8-bb246c2dfd5d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4981), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.805200229819087,
                             Longitude = 106.75206770837505,
                             Name = "Golfzon Park Thảo Điền",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1399), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4981), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 68,
                             Address = "Đường Giang Văn Minh, An Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("6b5c245f-7447-48aa-919b-d271da55cd93"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1403), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("0cb1f87b-3d86-4d2e-99fc-ce8ec04dabfc"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4984), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.803332925851043,
                             Longitude = 106.7488580702081,
                             Name = "Saigon Town and Country Club",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1404), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4984), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 69,
                             Address = "30 đường số 11, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("018a0f53-e009-49da-9f2f-aa6f46ea0004"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1406), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("df18bbb8-0c97-4641-84db-2b31716ada05"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4988), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.804563036954756,
                             Longitude = 106.74393815975716,
                             Name = "The Nassim Thảo Điền",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1406), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4988), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 70,
                             Address = "RP4W+V3J đường Mai Chí Thọ, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("3fa3c85d-bfa3-4e6f-a64f-afa24e788d8b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1408), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d3ab69e5-fd1e-49b1-95e7-9bc28dcf3079"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4990), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.807262850388623,
                             Longitude = 106.74530677686282,
                             Name = "Blue Mangoo Software",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1409), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4990), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 71,
                             Address = "51 đường Quốc Hương, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("da7fcf5d-6218-4389-9a83-26152a5d436f"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1411), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("84f6cf05-79e5-4fd8-81d9-ee7179af83a5"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4992), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.805401459108982,
                             Longitude = 106.73134189331353,
                             Name = "Trường Đại học Văn hóa TP.HCM - Cơ sở 1",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1411), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4993), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 72,
                             Address = "6-6A 8 đường số 44, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("c2c3b3af-7959-49d4-bfdf-04fe426bb56b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1413), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("16f9a6dc-869f-4efe-a550-ab8a2ac1bf4d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4994), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.806048021383644,
                             Longitude = 106.72928364712546,
                             Name = "Trường song ngữ quốc tế Horizon",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1414), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4995), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 73,
                             Address = "45 đường số 44, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("2628f75a-2d31-4519-90a1-d44b9e6e240d"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1415), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("736537b8-81dc-434a-b257-d00b57be77fc"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4997), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.809270864831371,
                             Longitude = 106.72846844993934,
                             Name = "Công Ty TNHH Dịch Vụ Địa Ốc Thảo Điền",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1416), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4997), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 74,
                             Address = "40 đường Nguyễn Văn Hưởng, Thảo Điền, Thành phố Thủ Đức, Thành Phố Hồ Chí Minh",
-                            Code = new Guid("c0ad77ec-7a5c-4bd7-b7fb-5a023076896c"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1418), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("e8982b4e-4eaa-46da-91ff-7e204b159cdd"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4999), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.806246963358644,
                             Longitude = 106.72589627507526,
                             Name = "Công Ty TNHH Một Thành Viên Ánh Sáng Hoàng ĐP",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1418), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4999), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 75,
                             Address = "1 đường Xuân Thủy, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("b028c4d0-89fd-4d98-94ce-16096bf04dab"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1420), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("a22eb3c0-5541-471f-9e5a-63e22e265d04"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5001), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.803458791026568,
                             Longitude = 106.72806621661472,
                             Name = "Trường đại học Quốc Tế Thành phố Hồ Chí Minh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1421), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5002), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 76,
                             Address = "91B đường Trần Não, Bình Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("8526cbe4-758c-4058-8cdb-dcdd430dece3"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1425), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("57ad5218-72c0-41e7-96bb-6dd70a7f47ee"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5003), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.797897644669561,
                             Longitude = 106.73143206816108,
                             Name = "SCB Trần Não - Ngân hàng TMCP Sài Gòn",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1425), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5004), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 77,
                             Address = "6 đường số 26, Bình Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("437e1a3d-4f54-4038-b8a3-6611aee9dc57"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1467), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("be5c8a7c-7c9a-45e7-acad-06efafe3f329"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5007), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.793905585531592,
                             Longitude = 106.7293406127999,
                             Name = "Công Ty TNHH Xuất Nhập Khẩu Máy Móc Và Phụ Tùng Ô Tô Hưng Thịnh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1467), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5008), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 78,
                             Address = "220 đường Trần Não, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("8e97be37-3405-43a6-be36-e2653cd239a8"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1471), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("1f802bf5-da3b-4c3b-a618-f2c77fa68daa"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5010), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.789891277804319,
                             Longitude = 106.72895399848618,
                             Name = "Tòa nhà Microspace Building",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1471), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5010), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 79,
                             Address = "18/2 đường số 35, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("01587279-4a3d-458e-9883-b1998b460c64"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1473), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("daf25289-f67d-4f0e-a3b9-781815de61e4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5012), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.786711346588366,
                             Longitude = 106.72783903612815,
                             Name = "Công ty TNHH vận tải - thi công cơ giới Xuân Thao",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1474), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5012), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 80,
                             Address = "9 đường Trần Não, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("ee41eeb0-74ff-43b0-8ecc-651cc1e8c104"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1475), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("feb87c04-a80a-4198-b971-59ad39bb890e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5020), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.780549913195312,
                             Longitude = 106.72849002239546,
                             Name = "Công Ty TNHH Ch Resource Vietnam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1476), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5020), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 81,
                             Address = "10 đường số 39, Bình Trưng Tây, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("48725a9f-9958-463e-adbe-d2b74a551c16"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1478), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d6470429-4cdf-4fb8-9393-bb7b73a1cb3d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5022), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.786744237747117,
                             Longitude = 106.72969521262236,
                             Name = "Công Ty TNHH Thương Mại Và Dịch Vụ Nhật Vượng",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1478), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5023), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 82,
                             Address = "125 đường Trần Não, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("becd55a8-c2a1-41f3-905a-c765c9104b12"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1480), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("a937a1e4-0575-41d2-a1d3-f3f0b6b0abfe"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5024), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.792554668741762,
                             Longitude = 106.73067177064897,
                             Name = "Ngân hàng TMCP Kỹ thương Việt Nam (Techcombank)- Chi nhánh Gia Định - PGD Trần Não",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1481), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5025), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 83,
                             Address = "25 Ung Văn Khiêm, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("5f28e85e-35b7-4bcb-86ef-e7244a8335c2"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1483), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("e49bb901-d5e6-4011-99d1-3d544fbcdc8b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5026), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.798737294717368,
                             Longitude = 106.72126763097279,
                             Name = "Tòa Nhà Melody Tower, Cty Toi",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1483), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5027), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 84,
                             Address = "561A đường Điện Biên Phủ, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("be4abbaa-ab8d-4634-a844-caed4df2b120"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1487), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("dfc81392-6d8c-4ce4-a2ee-fa4e028ae4aa"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5029), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.799795706410299,
                             Longitude = 106.71843607604076,
                             Name = "Pearl Plaza Văn Thánh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1487), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5029), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 85,
                             Address = "15 Nguyễn Văn Thương, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("0e97fa10-ce5f-4b27-afc0-0f45d07eee56"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1489), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d815f1d1-b174-4dcd-8982-2aa962fc7f33"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5033), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.802303255825205,
                             Longitude = 106.71812789316297,
                             Name = "Căn hộ Wilton Tower",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1490), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5033), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 86,
                             Address = "02 Võ Oanh, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("95f77259-b16c-4751-9d2b-49f0ea85b088"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1492), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("a6453bbd-8806-499e-96fa-d6abd60ca7c6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5035), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.804470786914793,
                             Longitude = 106.7167285754774,
                             Name = "Trường đại học Giao Thông Vận Tải",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1493), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5035), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 87,
                             Address = "15 Đường D5, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("40281978-1ab3-486f-ae00-5e35ce0e827b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1495), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d6f56f12-1bcb-4c88-9079-9adeced1bb5f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5037), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.806564326384949,
                             Longitude = 106.71296786250547,
                             Name = "Trường Đại học Ngoại thương - Cơ sở 2",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1495), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5038), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -3349,154 +3406,154 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Code = new Guid("d078a522-8403-4918-bf8a-7d665fdeb339"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(346), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("521888e1-fb81-46a8-8b1e-3265ac1e2c3d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4118), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 1,
                             Gender = 1,
                             Name = "Quach Dai Loi",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(347), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4119), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
-                            Code = new Guid("9ec57144-d93a-49ae-9a2c-42bdb0487d8a"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(364), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d9121ca9-6712-4af9-88bd-fbc8cd323078"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4133), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 2,
                             Gender = 1,
                             Name = "Do Trong Dat",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(365), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4133), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
-                            Code = new Guid("3beaf7f9-564a-4086-b054-3d2cf947f1ab"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(375), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("fbd9c356-ab82-4696-ad9a-e2ff13ce2896"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4143), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 3,
                             Gender = 1,
                             Name = "Nguyen Dang Khoa",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(376), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4144), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 4,
-                            Code = new Guid("fd984c06-730f-403b-8a1f-e9c254641f8f"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(389), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("2c56319b-b428-4448-8c13-30fd197afdf8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4153), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 4,
                             Gender = 1,
                             Name = "Than Thanh Duy",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(389), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4154), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 5,
-                            Code = new Guid("e150a5ea-acd1-4b63-9a4d-b6d42312c5a4"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(399), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("a9836fac-8a63-423c-8f03-93253eb7ed65"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4163), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 5,
                             Gender = 1,
                             Name = "Loi Quach",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(399), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4163), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 6,
-                            Code = new Guid("9e3d1378-683b-4fb4-a14b-edb7844e1e6a"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(412), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("4362851c-a7eb-4cb4-a0a2-12cf3d46efd0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4175), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 6,
                             Gender = 1,
                             Name = "Dat Do",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(413), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4175), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 7,
-                            Code = new Guid("b5b2ce2b-e459-406e-a0ce-22d8a7250302"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(448), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("f68b13fc-4dde-4afc-ad05-2d09385605de"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4184), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 7,
                             Gender = 1,
                             Name = "Khoa Nguyen",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(448), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4185), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 8,
-                            Code = new Guid("c55c5856-029d-4123-84aa-5d103f2e07ad"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(460), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("7851d289-235f-4c9f-a791-98d8b0f03a3f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4199), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 8,
                             Gender = 1,
                             Name = "Thanh Duy",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(461), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4199), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 9,
-                            Code = new Guid("a1e64b25-292a-4148-aab7-f60da9724834"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(470), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("cb1da414-afc4-4e0b-850b-9950f406b12e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4209), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 13,
                             Gender = 1,
                             Name = "Admin Quach Dai Loi",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(471), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4210), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 10,
-                            Code = new Guid("7e8082eb-4741-4d53-99a0-09ca2951af1e"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(484), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("9a48edd8-0f79-4da7-9db7-242110802e94"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4222), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Gender = 1,
                             Name = "Admin Than Thanh Duy",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(485), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4223), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 11,
-                            Code = new Guid("905241f0-dd8b-4829-97bf-e26d4c154543"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(494), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("1e547eb9-2eea-48e3-afdc-9a279f94a44a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4232), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Gender = 1,
                             Name = "Admin Nguyen Dang Khoa",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(495), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4233), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 12,
-                            Code = new Guid("048b2ac8-e651-4105-90e5-7bd9b3e75415"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(505), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("6fcc6019-cb20-48b1-9acb-31de2db8d5f4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4242), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Gender = 1,
                             Name = "Admin Do Trong Dat",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(505), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(4243), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -3525,7 +3582,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTimeOffset>("LastSeenTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 847, DateTimeKind.Unspecified).AddTicks(9884), new TimeSpan(0, 7, 0, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 887, DateTimeKind.Unspecified).AddTicks(282), new TimeSpan(0, 7, 0, 0, 0)))
                         .HasColumnName("last_seen_time");
 
                     b.Property<int>("RoomId")
@@ -3687,40 +3744,40 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Code = new Guid("91cccd3a-537e-45c0-a868-13d4ee57a36d"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1573), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("370f397a-1108-4841-a4ee-ecb5e53d4795"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5100), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Name = "ViRide",
                             Slot = 2,
                             Status = 0,
                             Type = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1574), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5100), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
-                            Code = new Guid("8327d1d9-8e33-497b-ac1a-c14872a634f9"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1588), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("30c2d395-9434-4718-8e2a-07a45385bc3a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5112), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Name = "ViCar-4",
                             Slot = 4,
                             Status = 0,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1589), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5113), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
-                            Code = new Guid("9ee8b4f7-edb2-40f8-8523-1924615c38da"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1601), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("570609da-465d-42f5-a3e4-6695013c92ae"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5123), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Name = "ViCar-7",
                             Slot = 7,
                             Status = 0,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 2, 22, 40, 13, 857, DateTimeKind.Unspecified).AddTicks(1602), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 5, 11, 41, 0, 894, DateTimeKind.Unspecified).AddTicks(5124), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -3887,6 +3944,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("Driver");
 
                     b.Navigation("MessageRoom");
+                });
+
+            modelBuilder.Entity("Domain.Entities.BookingDetailDriver", b =>
+                {
+                    b.HasOne("Domain.Entities.BookingDetail", "BookingDetail")
+                        .WithMany("BookingDetailDrivers")
+                        .HasForeignKey("BookingDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "Driver")
+                        .WithMany("BookingDetailDrivers")
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BookingDetail");
+
+                    b.Navigation("Driver");
                 });
 
             modelBuilder.Entity("Domain.Entities.Fare", b =>
@@ -4081,6 +4157,11 @@ namespace Infrastructure.Migrations
                     b.Navigation("BookingDetails");
                 });
 
+            modelBuilder.Entity("Domain.Entities.BookingDetail", b =>
+                {
+                    b.Navigation("BookingDetailDrivers");
+                });
+
             modelBuilder.Entity("Domain.Entities.Fare", b =>
                 {
                     b.Navigation("FareTimelines");
@@ -4137,6 +4218,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Navigation("Accounts");
+
+                    b.Navigation("BookingDetailDrivers");
 
                     b.Navigation("BookingDetails");
 

@@ -716,7 +716,14 @@ namespace Domain.Shares.Utils
                     Name = "Trường Đại học Ngoại thương - Cơ sở 2",
                     Address = "15 Đường D5, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh"
                 },
-
+                new Station
+                {
+                    Id = 89,
+                    Longitude = 106.81262497275418,
+                    Latitude = 10.840147321061634,
+                    Name = "Vườn ươm doanh nghiệp Công Nghệ Cao - SHTP",
+                    Address = "Lô E2a-10 Đường, D2b Đ. D1, TP. Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam"
+                }
             };
         }
         private static Domain.Entities.Route CreateNewRoute (int id)
