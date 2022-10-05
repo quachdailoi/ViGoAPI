@@ -23,6 +23,6 @@ namespace API.Models.DTO
         public DateOnly EndAt { get; set; }
         public Bookings.Status Status { get; set; } = Bookings.Status.Unpaid;
         public int UserId { get; set; }
-        public string PromotionCode { get; set; } = string.Empty;
+        public string? PromotionCode { get; set; } = null;
     }
 }
