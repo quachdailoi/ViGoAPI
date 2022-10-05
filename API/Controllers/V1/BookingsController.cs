@@ -1,6 +1,7 @@
 ﻿using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
+using API.SignalR.Constract;
 using API.TaskQueues;
 using API.TaskQueues.TaskResolver;
 using AutoMapper;
@@ -21,11 +22,13 @@ namespace API.Controllers.V1
     {
         private readonly IMapper _mapper;
         private readonly IRedisMQService _redisMQService;
+        private readonly ISignalRService _signalRService;
 
-        public BookingsController(IMapper mapper, IRedisMQService redisMQService)
+        public BookingsController(IMapper mapper, IRedisMQService redisMQService, ISignalRService signalRService)
         {
             _mapper = mapper;
             _redisMQService = redisMQService;
+            _signalRService = signalRService;
         }
 
 
@@ -397,9 +400,7 @@ namespace API.Controllers.V1
         {
             var dto = JsonSerializer.Deserialize<MomoPaymentNotificationRequest>(request.GetRawText());
 
-            if (dto.resultCode == (int)MomoStatusCodes.Successed)
-            {
-                var rawSignature = $"amount={dto.amount}&" +
+            var rawSignature = $"amount={dto.amount}&" +
                     $"extraData={dto.extraData}&" +
                     $"message={dto.message}&" +
                     $"orderId={dto.orderId}&" +
@@ -412,22 +413,34 @@ namespace API.Controllers.V1
                     $"resultCode={dto.resultCode}&" +
                     $"transId={dto.transId}";
 
-                var signature = AppServices.Payment.GetMomoSignature(rawSignature);
+            var signature = AppServices.Payment.GetMomoSignature(rawSignature);
+            var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
 
-                //if (signature == dto.signature)
-                //{
-                    var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
-
-                    if (booking?.Status == Bookings.Status.Unpaid && booking?.TotalPrice == dto.amount)
+            if(booking != null)
+            {
+                if (dto.resultCode == (int)MomoStatusCodes.Successed)
+                {
+                    if (booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.amount)
                     {
                         booking.Status = Bookings.Status.PendingMapping;
                         await AppServices.Booking.Update(booking);
-                        
+
                         //add job queue to map with specific driver
                         await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                    }
                 }
-                //}
-            }
+
+                await _signalRService.SendToUserAsync(booking.User.Code.ToString(), "PaymentResult",
+                    new
+                    {
+                        BookingCode = dto.orderId,
+                        PaymentMethod = PaymentMethods.Momo,
+                        IsSuccess = dto.resultCode == (int)MomoStatusCodes.Successed
+                    });
+            } 
+
+            //if (signature == dto.signature)
+            //{
             return NoContent();
         }
         /// <summary>

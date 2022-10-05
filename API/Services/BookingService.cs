@@ -161,6 +161,7 @@ namespace API.Services
                     case PaymentMethods.Momo:
                         ((MomoCollectionLinkRequestDTO)paymentDto).amount = (long)booking.TotalPrice;
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = booking.Code.ToString();
+                        ((MomoCollectionLinkRequestDTO)paymentDto).orderInfo = "Pay for ViGo booking";
                         paymentUrl = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
                         break;
                     case PaymentMethods.COD:
@@ -218,7 +219,7 @@ namespace API.Services
         }
         private bool IsSatisfiedTimeCondition(TimeOnly? prevEndTime, TimeOnly? nextStartTime, TimeOnly curStartTime, TimeOnly curEndTime)
         {
-            return (prevEndTime == null || prevEndTime < curStartTime) &&  (nextStartTime ==null || nextStartTime > curEndTime);
+            return (prevEndTime == null || prevEndTime < curStartTime) &&  (nextStartTime == null || nextStartTime > curEndTime);
         }
         private int? FindPositionInOrderMappingWithRouteRoutine(List<BookingDetail> bookingDetailMappeds, BookingDetail bookingDetail, Dictionary<Guid, RouteStation> routeStationDic)
         {
@@ -244,20 +245,12 @@ namespace API.Services
         {
             if (bookingDetail.Date < routeRoutine.StartAt || bookingDetail.Date > routeRoutine.EndAt) return false;
 
-            var bookingDetailMappedsInRouteRoutine = routeRoutine.User.BookingDetailDrivers
-                .Select(bdr => bdr.BookingDetail)
-                .Where(bd => 
-                    bd.Date == bookingDetail.Date && 
-                    bd.Booking.Time >= routeRoutine.StartTime &&
-                    bd.Booking.Time <= routeRoutine.EndTime)
-                //.Select(bd => new Tuple<TimeOnly,TimeOnly>(bd.Booking.Time, bd.Booking.Time.AddMinutes(bd.Booking.Duration/60)))
-                .OrderBy(bd => bd.Booking.Time)
-                .ToList();
-
             var bookingStartTime = bookingDetail.Booking.Time;
             var bookingEndTime = bookingDetail.Booking.Time.AddMinutes(bookingDetail.Booking.Duration/60);
 
             var routeStationDic = bookingDetail.Booking.Route.RouteStations.ToDictionary(e => e.Station.Code);
+
+            var bookingDetailMappedsInRouteRoutine = routeRoutine.User.BookingDetailDrivers.Select(bdr => bdr.BookingDetail).ToList();
 
             return FindPositionInOrderMappingWithRouteRoutine(bookingDetailMappedsInRouteRoutine, bookingDetail, routeStationDic) != null;
         }
@@ -291,7 +284,25 @@ namespace API.Services
 
             foreach(var bookingDetail in bookingDetails)
             {
-                foreach (var routeRoutine in routeRoutines)
+                routeRoutines.ForEach(routeRoutine =>
+                {
+                    routeRoutine.User.BookingDetailDrivers = routeRoutine.User.BookingDetailDrivers
+                            .Where(bdr =>
+                                bdr.BookingDetail.Date == bookingDetail.Date &&
+                                bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
+                                bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime &&
+                                bdr.Status == BookingDetailDrivers.Status.Pending)
+                            .OrderBy(bdr => bdr.BookingDetail.Booking.Time)
+                            .ToList();
+                });
+
+                //order by total number of mapped booking with driver in detail booking datetime
+                var orderedRouteRoutines = routeRoutines
+                    .OrderBy(routeRoutine => routeRoutine.User.BookingDetailDrivers.Count);
+
+                //then order by driver point
+
+                foreach (var routeRoutine in orderedRouteRoutines)
                 {
                     if (IsSatisfiedRouteRoutineCondition(routeRoutine, bookingDetail))
                     {
@@ -349,7 +360,7 @@ namespace API.Services
                 TotalFee = booking.TotalPrice - booking.DiscountPrice
             });
         }
-        public Task<Booking?> GetByCode(Guid code) => _unitOfWork.Bookings.List(booking => booking.Code == code).FirstOrDefaultAsync();
+        public Task<Booking?> GetByCode(Guid code) => _unitOfWork.Bookings.List(booking => booking.Code == code).Include(booking => booking.User).FirstOrDefaultAsync();
         public Task<bool> Update(Booking booking) => _unitOfWork.Bookings.Update(booking);
     }
 }

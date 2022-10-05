@@ -9,7 +9,7 @@ namespace API.Models.Requests
         public string Time { get; set; }
         public Bookings.Types Type { get; set; } = Bookings.Types.MonthTicket;
         public PaymentMethods PaymentMethod { get; set; } = PaymentMethods.COD;
-        public bool IsShared { get; set; }
+        public bool IsShared { get; set; } = false;
         public Guid StartStationCode { get; set; } = new();
         public Guid EndStationCode { get; set; } = new();
         public Guid RouteCode { get; set; }
