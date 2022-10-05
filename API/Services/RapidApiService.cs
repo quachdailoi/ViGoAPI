@@ -151,7 +151,7 @@ namespace API.Services
                 if (stations.Last().Id == stations.First().Id)
                 {
                     createdRoute.RouteStations.Last().NextRouteStationId = createdRoute.RouteStations.First().Id;
-                    if (!await _unitOfWork.Routes.Update(createdRoute))
+                    if (!(await _unitOfWork.Routes.Update(createdRoute)))
                     {
                         isSuccessTransaction = false;
                     }
