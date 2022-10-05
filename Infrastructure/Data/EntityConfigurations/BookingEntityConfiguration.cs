@@ -104,6 +104,18 @@ namespace Infrastructure.Data.EntityConfigurations
                 .WithMany(v => v.Bookings)
                 .HasForeignKey(e => e.VehicleTypeId)
                 .IsRequired();
+
+
+            // config for virtual relationship
+            builder.HasOne(x => x.StartStation)
+                .WithMany(s => s.StartStationBookings)
+                .HasForeignKey(e => e.StartStationCode)
+                .HasPrincipalKey(s => s.Code);
+
+            builder.HasOne(x => x.EndStation)
+                .WithMany(s => s.EndStationBookings)
+                .HasForeignKey(e => e.EndStationCode)
+                .HasPrincipalKey(s => s.Code);
         }
     }
 }

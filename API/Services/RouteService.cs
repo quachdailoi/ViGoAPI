@@ -1,6 +1,7 @@
 ﻿using API.Extensions;
 using API.Models;
 using API.Models.DTO;
+using API.Models.Requests;
 using API.Models.Response;
 using API.Services.Constract;
 using API.Utils;
@@ -45,13 +46,22 @@ namespace API.Services
             return successResponse.SetData(routeEntities);
         }
 
-        public async Task<Response> GetAll(Response successResponse)
+        public async Task<Response> GetAll(StartStationRequest request, Response successResponse)
         {
-            var routes = await _unitOfWork.Routes.List(route => route.Status == StatusTypes.Route.Active).MapTo<RouteViewModel>(_mapper).ToListAsync();
 
-            foreach(var route in routes) route.ProcessStation();
 
-            return successResponse.SetData(routes);
+            var routes = _unitOfWork.Routes.List(route => route.Status == StatusTypes.Route.Active);
+
+            if (!string.IsNullOrEmpty(request.StartStationCode))
+            {
+                routes = routes.Where(route => route.RouteStations.Where(rs => rs.Station.Code.ToString() == request.StartStationCode).Any());
+            }
+                
+            var result = await routes.MapTo<RouteViewModel>(_mapper).ToListAsync();
+
+            foreach(var route in result) route.ProcessStation();
+
+            return successResponse.SetData(result);
         }
 
         public Task<bool> ExistSeedData()

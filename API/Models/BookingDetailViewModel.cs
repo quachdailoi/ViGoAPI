@@ -24,4 +24,14 @@ namespace API.Models
     {
         public ContactUserViewModel User { get; set; }
     }
+
+    public class ScheduleBookingDetailViewModel
+    {
+        public TimeOnly Time { get; set; }
+        public ScheduleStationViewModel StartStation { get; set; }
+        public ScheduleStationViewModel EndStation { get; set; }
+        public double Distance { get; set; }
+
+        public List<ScheduleUserViewModel> Users { get; set; } = new();
+    }
 }

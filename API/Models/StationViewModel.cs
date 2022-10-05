@@ -27,11 +27,10 @@ namespace API.Models
         }
     }
 
-    public class StopStationViewModel
+    public class ScheduleStationViewModel
     {
-        public TimeOnly Time { get; set; }
-        public string Code { get; set; } = string.Empty;
-        //public List<ContactUserViewModel> Users { get; set; } = new();
-        //public StopStations.Types Type { get; set; } = StopStations.Types.Pickup;
+        public string? Name { get; set; }
+        public Guid Code { get; set; }
+        public string? Address { get; set; }
     }
 }

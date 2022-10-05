@@ -47,4 +47,15 @@ namespace API.Models
         public Guid AvatarCode { get; set; } = Guid.NewGuid();
         public string PhoneNumber { get; set; } = string.Empty;
     }
+
+    public class ScheduleUserViewModel
+    {
+        public Guid Code { get; set; }
+        public string Name { get; set; }
+        public string? PhoneNumber { get; set; }
+        public Genders Gender { get; set; }
+        public Guid? ChattingRoomCode { get; set; }
+        public PaymentMethods PaymentMethod { get; set; }
+        public Bookings.Status PaymentStatus { get; set; }
+    }
 }

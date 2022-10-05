@@ -9,7 +9,7 @@ namespace API.Services.Constract
     {
         Task<List<Station>> Create(List<Station> stations);
         Task<Response> Create(List<StationDTO> stations, int userId, Response successResponse, Response duplicateResponse, Response errorResponse);
-        Task<Response> Get(Response successResponse);
+        Task<Response> Get(string? startStationCode, Response successResponse);
         Task<List<Station>> GetByCode(List<Guid> stationCodes);
         bool CheckDuplicateStations(List<StationDTO> stations);
         Task<bool> ExistSeedData();

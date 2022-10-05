@@ -448,7 +448,7 @@ namespace API.Controllers.V1.Driver
 
         [HttpPost("gmail/loginFake")]
         [AllowAnonymous]
-        public async Task<IActionResult> LoginFake([FromBody] string gmail)
+        public async Task<IActionResult> LoginFake([FromForm] string gmail)
         {
             Response response = new();
 
@@ -490,26 +490,26 @@ namespace API.Controllers.V1.Driver
         /// ```
         /// Sample request:
         ///     GET api/drivers/schedules
-        ///     Name: Quach Dai Loi
         ///     Page: 1,
         ///     PageSize: 3
         /// ```
         /// </remarks>
         /// <response code = "200"> Get schedules of driver successfully.</response>
         [HttpGet("schedules")]
-        public async Task<IActionResult> GetBookingsByDay([FromQuery] PagingRequest request)
+        public async Task<IActionResult> GetBookingsByDay([FromQuery] PagingRequest pagingRequest, [FromQuery] DateFilterRequest dateFilterRequest)
         {
             var driver = LoggedInUser;
 
             var response = 
                 await AppServices.BookingDetail.GetBookingsOfDriver(
                     driver.Id,
+                    pagingRequest: pagingRequest,
+                    dateFilterRequest: dateFilterRequest,
                     success: new()
                     {
                         StatusCode = StatusCodes.Status200OK,
                         Message = "Get schedules of driver successfully."
-                    },
-                    request
+                    }
                 );
 
             return ApiResult(response);

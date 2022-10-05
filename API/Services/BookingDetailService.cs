@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Responses;
@@ -130,22 +131,32 @@ namespace API.Services
             return successResponse.SetData(bookingDetail);
         }
 
-        public async Task<Response> GetBookingsOfDriver(int driverId, Response success, PagingRequest? request = null)
+        public async Task<Response> GetBookingsOfDriver(int driverId, PagingRequest request, DateFilterRequest dateFilter, Response success)
         {
-            var bookingDetails = _unitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId).OrderByDescending(x => x.Date);
+            var bookingDetails = _unitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId);
+
+            if (dateFilter.FromDate != null && dateFilter.ToDate != null)
+            {
+                var fromDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilter.FromDate);
+                var toDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilter.ToDate);
+
+                bookingDetails = bookingDetails.Where(x => x.Date >= fromDateParse && x.Date <= toDateParse);
+            }
+
+            bookingDetails = bookingDetails.OrderByDescending(x => x.Date);
 
             List<DriverScheduleViewModel> driverSchedules = new();
 
-            IQueryable<DateOnly> scheduleDates = bookingDetails.Select(x => x.Date).Distinct();
+            var scheduleDates = bookingDetails.Select(x => x.Date).Distinct().OrderBy(x => x);
+
+            var paging = scheduleDates.Paging(page: request.Page, pageSize: request.PageSize);
+
+            scheduleDates = paging.Items.OrderBy(x => x);
 
             if (scheduleDates == null)
             {
                 return success;
             }
-
-            var paging = scheduleDates.Paging(page: request.Page, pageSize: request.PageSize);
-
-            if (request != null) scheduleDates = paging.Items;
 
             foreach (var date in scheduleDates)
             {
@@ -159,7 +170,7 @@ namespace API.Services
             {
                 var detailsByDay = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time);
 
-                var routes = detailsByDay.Select(x => x.Booking.Route).ToList().DistinctBy(x => x.Id);
+                var routes = (await detailsByDay.Select(x => x.Booking.Route).ToListAsync()).DistinctBy(x => x.Id);
 
                 foreach (var route in routes)
                 {
@@ -170,21 +181,38 @@ namespace API.Services
 
                     var detailsInRoute = detailsByDay.Where(x => x.Booking.RouteId == route.Id);
 
-                    var startStations = detailsInRoute.Select(x => new StopStationViewModel
+                    var schedules = detailsInRoute.Select(x => new ScheduleBookingDetailViewModel
                     {
                         Time = x.Booking.Time,
-                        Code = x.Booking.StartStationCode.ToString()
+                        StartStation = new()
+                        {
+                            Code = x.Booking.StartStationCode,
+                            Name = x.Booking.StartStation.Name,
+                            Address = x.Booking.StartStation.Address
+                        },
+                        EndStation = new()
+                        {
+                            Code = x.Booking.EndStationCode,
+                            Name = x.Booking.EndStation.Name,
+                            Address = x.Booking.EndStation.Address
+                        },
+                        Distance = CalculateDistanceFromStartToEndStation(x.Booking.Route.RouteStations, x.Booking.StartStation.Id, x.Booking.EndStation.Id, x.Booking.Route.Distance),
+                        Users = new()
+                        {
+                            new()
+                            {
+                                Code = x.Booking.User.Code,
+                                Name = x.Booking.User.Name,
+                                Gender = x.Booking.User.Gender,
+                                PhoneNumber = GetUserPhoneNumber(x.Booking.User.Accounts),
+                                ChattingRoomCode = GetMessageRoomCode(x.MessageRoom),
+                                PaymentMethod = x.Booking.PaymentMethod,
+                                PaymentStatus = x.Booking.Status
+                            }
+                        }
                     });
 
-                    var endStations = detailsInRoute.Select(x => new StopStationViewModel
-                    {
-                        Time = CalculateTimeToEndStation(x.Booking.Time, x.Booking.Route.RouteStations.Where(y => y.Station.Code == x.Booking.StartStationCode).FirstOrDefault(), x.Booking.Route.RouteStations.Where(y => y.Station.Code == x.Booking.EndStationCode).FirstOrDefault(), x.Booking.Route.Duration),
-                        Code = x.Booking.EndStationCode.ToString()
-                    });
-
-                    var stopStations = (await startStations.ToListAsync()).Union(endStations).DistinctBy(x => x.Time).OrderBy(x => x.Time);
-
-                    routeSchedule.StopStations.AddRange(stopStations);
+                    routeSchedule.Schedules.AddRange(schedules);
 
                     driverSchedule.Routes.Add(routeSchedule);
                 }
@@ -202,17 +230,25 @@ namespace API.Services
             return success.SetData(result);
         }
 
-        private static TimeOnly CalculateTimeToEndStation(TimeOnly startTime, RouteStation? startStation, RouteStation? endStation, double routeDuration)
+        private static double CalculateDistanceFromStartToEndStation(List<RouteStation> routeStations, int startStationId, int endStationId, double routeDistance)
         {
+            var startStation = routeStations.Where(x => x.StationId == startStationId).FirstOrDefault();
+            var endStation = routeStations.Where(x => x.StationId == endStationId).FirstOrDefault();
+
             if (startStation == null || endStation == null) throw new Exception("Exception not found station in booking.");
 
             int startIndex = startStation.Index;
             int endIndex = endStation.Index;
 
-            double duration = endStation.DurationFromFirstStationInRoute - startStation.DurationFromFirstStationInRoute;
-            if (startIndex > endIndex) duration = routeDuration - duration;
+            double distance = endStation.DistanceFromFirstStationInRoute - startStation.DistanceFromFirstStationInRoute;
+            if (startIndex > endIndex) distance = routeDistance - distance;
 
-            return startTime.AddMinutes(duration / 60);
+            return distance;
         }
+
+        private static string? GetUserPhoneNumber(List<Account> accounts)
+            => accounts.Where(x => x.RegistrationType == RegistrationTypes.Phone).FirstOrDefault()?.Registration;
+
+        private static Guid? GetMessageRoomCode(Room? messageRoom) => messageRoom?.Code ?? null;
     }
 }

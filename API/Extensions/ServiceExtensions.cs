@@ -172,6 +172,9 @@ namespace API.Extensions
         {
             services.AddSwaggerGen(options =>
             {
+                options.MapType<DateOnly>(() => new OpenApiSchema { Format = "date", Type = "string" });
+                options.MapType<TimeOnly>(() => new OpenApiSchema { Format = "time", Type = "string" });
+
                 //options.SwaggerDoc("v1", new OpenApiInfo { Title = "MaaS API Project", Version = "v1" });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

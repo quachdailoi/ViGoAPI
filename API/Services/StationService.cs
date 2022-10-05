@@ -11,6 +11,7 @@ using AutoMapper;
 using Domain.Shares.Enums;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using FluentValidation;
 
 namespace API.Services
 {
@@ -139,11 +140,18 @@ namespace API.Services
             return _unitOfWork.Stations.List().AnyAsync();
         }
 
-        public async Task<Response> Get(Response successResponse)
+        public async Task<Response> Get(string? startStationCode, Response successResponse)
         {
-            var stations = await _unitOfWork.Stations.List(station => station.Status == StatusTypes.Station.Active).MapTo<StationViewModel>(_mapper).ToListAsync();
+            var stations = _unitOfWork.Stations.List(station => station.Status == StatusTypes.Station.Active);
 
-            return successResponse.SetData(stations);
+            if (startStationCode != null)
+            {
+                var startStation = _unitOfWork.Stations.GetStationByCode(startStationCode).FirstOrDefault();
+                if (startStation == null) throw new ValidationException("Not found start station with this code.");
+                stations = stations.Where(station => station.Code.ToString() != startStationCode && station.RouteStations.Where(rs => rs.Route.RouteStations.Where(rs => rs.StationId == startStation.Id).Any()).Any());
+            }
+
+            return successResponse.SetData(await stations.MapTo<StationViewModel>(_mapper).ToListAsync());
         }
 
         public async Task<List<Tuple<Station, double, object?>>?> GetStationSteps(Station startStation, Station endStation)

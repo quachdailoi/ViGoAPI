@@ -25,14 +25,15 @@ namespace API.Validators
             return x;
         }
 
-        protected bool DateOnlyTryParse(string timeStr)
+        protected bool DateOnlyTryParse(string? timeStr)
         {
             DateOnly date;
+            if (timeStr == null) return true;
             var x = DateTimeExtensions.TryParseExact(timeStr, out date);
             return x;
         }
 
-        protected DateOnly DateOnlyParse(string dateOnlyString)
+        protected DateOnly? DateOnlyParse(string dateOnlyString)
         {
             return new DateOnly().ParseExact(dateOnlyString);
         }
