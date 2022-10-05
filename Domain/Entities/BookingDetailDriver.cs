@@ -10,8 +10,8 @@ namespace Domain.Entities
 {
     public class BookingDetailDriver : BaseEntity
     {
-        public TimeOnly StartTime { get; set; }
-        public TimeOnly EndTime { get; set; }
+        public TimeOnly? StartTime { get; set; } = null;
+        public TimeOnly? EndTime { get; set; } = null;
         public BookingDetailDrivers.Status Status { get; set; } = BookingDetailDrivers.Status.Pending;
         public int BookingDetailId { get; set; }
         public int DriverId { get; set; }

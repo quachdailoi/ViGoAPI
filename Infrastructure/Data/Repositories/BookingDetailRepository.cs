@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
+using Domain.Shares.Enums;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Infrastructure.Data.Repositories
 
         public IQueryable<BookingDetail> GetBookingDetailsByDriverId(int driverId)
         {
-            return List().Where(x => x.DriverId == driverId);
+            return List().Where(x => x.BookingDetailDrivers.Any(bdr => bdr.DriverId == driverId));
         }
     }
 }

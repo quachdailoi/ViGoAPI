@@ -17,11 +17,9 @@ namespace Domain.Entities
         public double DiscountPrice { get; set; }
         public StatusTypes.BookingDetail Status { get; set; } = StatusTypes.BookingDetail.Pending;
         public int BookingId { get; set; }
-        public int? DriverId { get; set; } = null;
         public int? MessageRoomId { get; set; } = null;
 
         public Booking Booking { get; set; }
-        public User? Driver { get; set; } = null;
         public Room? MessageRoom { get; set; } = null;
         public List<BookingDetailDriver> BookingDetailDrivers { get; set; } = new();
     }
