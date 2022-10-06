@@ -51,7 +51,20 @@ namespace API.Services
             .List(vehicleType => 
                 vehicleType.Code == code && vehicleType.Status == VehicleTypes.Status.Active)
             .FirstOrDefaultAsync();
+        private Task<List<VehicleType>> GetAllWithFare() =>
+            _unitOfWork.VehicleTypes
+                    .List(vehicleType => vehicleType.Status == VehicleTypes.Status.Active)
+                    .Include(vehicleType => vehicleType.Fare)
+                    .ThenInclude(fare => fare.FareTimelines)
+                    .ToListAsync();
+        private Task SetVehicleTypeCache(out List<VehicleType> vehicleTypes)
+        {
+            vehicleTypes = GetAllWithFare().Result;
 
+            var vehicleTypeCacheStr = JsonConvert.SerializeObject(vehicleTypes, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+
+            return _cache.SetStringAsync("vehicle_type_fares", vehicleTypeCacheStr);
+        }
         public async Task<List<VehicleType>> GetWithFare()
         {
             var vehicleTypeWithFaresCacheStr = await _cache.GetStringAsync("vehicle_type_fares");
@@ -60,22 +73,18 @@ namespace API.Services
 
             if(vehicleTypeWithFaresCacheStr == null)
             {
-                vehicleTypeWithFares =
-                    await _unitOfWork.VehicleTypes
-                    .List(vehicleType => vehicleType.Status == VehicleTypes.Status.Active)
-                    .Include(vehicleType => vehicleType.Fare)
-                    .ThenInclude(fare => fare.FareTimelines)
-                    .ToListAsync();
-
-
-
-                vehicleTypeWithFaresCacheStr = JsonConvert.SerializeObject(vehicleTypeWithFares , new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
-
-                await _cache.SetStringAsync("vehicle_type_fares", vehicleTypeWithFaresCacheStr);
+                await SetVehicleTypeCache(out vehicleTypeWithFares);
             }
             else
             {
-                vehicleTypeWithFares = JsonConvert.DeserializeObject<List<VehicleType>>(vehicleTypeWithFaresCacheStr);
+                try
+                {
+                    vehicleTypeWithFares = JsonConvert.DeserializeObject<List<VehicleType>>(vehicleTypeWithFaresCacheStr);
+                }
+                catch
+                {
+                    await SetVehicleTypeCache(out vehicleTypeWithFares);
+                }
             }
 
             return vehicleTypeWithFares;

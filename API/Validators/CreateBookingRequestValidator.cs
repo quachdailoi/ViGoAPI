@@ -9,36 +9,36 @@ namespace API.Validators
         {
             RuleFor(x => x.RouteCode)
                 .NotEmpty()
-                .WithMessage("Must be not empty")
+                .WithMessage("{PropertyName} must be not empty")
                 .NotNull()
-                .WithMessage("Must be not null");
+                .WithMessage("{PropertyName} must be not null");
 
             RuleFor(x => x.VehicleTypeCode)
                 .NotEmpty()
-                .WithMessage("Must be not empty")
+                .WithMessage("{PropertyName} must be not empty")
                 .NotNull()
-                .WithMessage("Must be not null");
+                .WithMessage("{PropertyName} must be not null");
 
             RuleFor(x => x.StartStationCode)
                 .NotEmpty()
-                .WithMessage("Must be not empty")
+                .WithMessage("{PropertyName} must be not empty")
                 .NotNull()
-                .WithMessage("Must be not null");
+                .WithMessage("{PropertyName} must be not null");
 
             RuleFor(x => x.EndStationCode)
                 .NotEmpty()
-                .WithMessage("Must be not empty")
+                .WithMessage("{PropertyName} must be not empty")
                 .NotNull()
-                .WithMessage("Must be not null");
+                .WithMessage("{PropertyName} must be not null");
 
             RuleFor(x => x.StartAt)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty()
-                .WithMessage("Must be not empty")
+                .WithMessage("{PropertyName} must be not empty")
                 .NotNull()
-                .WithMessage("Must be not null")
+                .WithMessage("{PropertyName} must be not null")
                 .Must(DateOnlyTryParse)
-                .WithMessage("Invalid date")
+                .WithMessage("{PropertyName} is invalid date")
                 .DependentRules(() =>
                 {
                     RuleFor(x => DateOnlyParse(x.StartAt))
@@ -49,11 +49,11 @@ namespace API.Validators
             RuleFor(x => x.EndAt)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty()
-                .WithMessage("Must be not empty")
+                .WithMessage("{PropertyName} must be not empty")
                 .NotNull()
-                .WithMessage("Must be not null")
+                .WithMessage("{PropertyName} must be not null")
                 .Must(DateOnlyTryParse)
-                .WithMessage("Invalid date")
+                .WithMessage("{PropertyName} is invalid date")
                 .DependentRules(() =>
                 {
                     RuleFor(x => DateOnlyParse(x.EndAt))
@@ -64,11 +64,11 @@ namespace API.Validators
             RuleFor(x => x.Time)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty()
-                .WithMessage("Must be not empty")
+                .WithMessage("{PropertyName} must be not empty")
                 .NotNull()
-                .WithMessage("Must be not null")
+                .WithMessage("{PropertyName} must be not null")
                 .Must(TimeOnlyTryParse)
-                .WithMessage("Invalid time")
+                .WithMessage("{PropertyName} is invalid time")
                 .DependentRules(() =>
                 {
                     RuleFor(x => ToDateTime(x.StartAt, x.Time))
