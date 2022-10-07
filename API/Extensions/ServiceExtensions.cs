@@ -106,6 +106,7 @@ namespace API.Extensions
             services.AddScoped<IFareRepository, FareRepository>();
             services.AddScoped<IFareTimelineRepository, FareTimelineRepository>();
             services.AddScoped<IRouteRoutineRepository, RouteRoutineRepository>();
+            services.AddScoped<IAffiliateAccountRepository, AffiliateAccountRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -139,6 +140,7 @@ namespace API.Extensions
             services.AddTransient<IFareTimelineService, FareTimelineService>();
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<IRouteRoutineService, RouteRoutineService>();
+            services.AddTransient<IAffiliateAccountService, AffiliateAccountService>();
         }
         public static void ConfigureIoCRedisMessageQueue(this IServiceCollection services)
         {

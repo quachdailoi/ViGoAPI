@@ -17,7 +17,7 @@ namespace API.Models
         public bool IsShared { get; set; }
         public double Duration { get; set; }
         public double Distance { get; set; }
-        public PaymentMethods PaymentMethod { get; set; }
+        public Payments.PaymentMethods PaymentMethod { get; set; }
         [JsonIgnore]
         public Guid StartStationCode { get; set; }
         [JsonIgnore]

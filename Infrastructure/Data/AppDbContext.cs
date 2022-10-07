@@ -144,6 +144,9 @@ namespace Infrastructure.Data
 
             new BookingDetailDriverEntityConfiguration()
                 .Configure(builder.Entity<BookingDetailDriver>());
+
+            new AffiliateAccountEntityConfiguration()
+                .Configure(builder.Entity<AffiliateAccount>());
         }
 
         public DbSet<Account> Accounts { get; set; }
@@ -168,5 +171,6 @@ namespace Infrastructure.Data
         public DbSet<FareTimeline> FareTimelines { get; set; }
         public DbSet<RouteRoutine> RouteRoutines { get; set; }
         public DbSet<BookingDetailDriver> BookingDetailDrivers { get; set; }
+        public DbSet<AffiliateAccount> AffiliateAccounts { get; set; }
     }
 }

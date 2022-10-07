@@ -34,5 +34,6 @@ namespace API.Services.Constract
         IFareTimelineService FareTimeline { get; }
         IPaymentService Payment { get; }
         IRouteRoutineService RouteRoutine { get; }
+        IAffiliateAccountService AffiliateAccount { get; }
     }
 }

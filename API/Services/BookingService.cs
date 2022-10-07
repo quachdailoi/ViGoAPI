@@ -102,7 +102,9 @@ namespace API.Services
 
             return booking;
         }
-        public async Task<Response> Create(BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorReponse)
+        public async Task<Response> Create(
+            BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidRouteResponse, 
+            Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorReponse)
         {
             var booking = await GenerateBooking(dto);
 
@@ -153,18 +155,24 @@ namespace API.Services
                     .MapTo<BookerBookingViewModel>(_mapper)
                     .FirstOrDefaultAsync();
 
-            var paymentUrl = String.Empty;
+            dynamic paymentUrl = String.Empty;
             try
             {
                 switch (booking.PaymentMethod)
                 {
-                    case PaymentMethods.Momo:
+                    case Payments.PaymentMethods.Momo:
                         ((MomoCollectionLinkRequestDTO)paymentDto).amount = (long)booking.TotalPrice;
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = booking.Code.ToString();
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderInfo = "Pay for ViGo booking";
-                        paymentUrl = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
+                        var response = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
+                        paymentUrl = new
+                        {
+                            PayUrl = response.payUrl,
+                            Deeplink = response.deeplink,
+                            DeeplinkMiniApp = response.deeplinkMiniApp
+                        };
                         break;
-                    case PaymentMethods.COD:
+                    case Payments.PaymentMethods.COD:
                         await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
                         break;
                     default: break;

@@ -9,7 +9,7 @@ namespace API.Models.Requests
         [IntegerValidator(MinValue = 1, MaxValue = 300, ExcludeRange = true)]
         public int? TotalTickets { get; set; } 
         public double? TotalPrice { get; set; }
-        public PaymentMethods? PaymentMethods { get; set; }
+        public Payments.PaymentMethods? PaymentMethods { get; set; }
         public VehicleTypes.Type? VehicleTypes { get; set; }
     }
 }

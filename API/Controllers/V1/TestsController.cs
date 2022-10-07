@@ -59,6 +59,8 @@ namespace API.Controllers.V1
         [AllowAnonymous]
         public async Task<IActionResult> Test([FromQuery] int number)
         {
+            var uri = GetControllerContextUri();
+            var routers = ControllerContext.RouteData.Routers;
             await _redisMQMessage.Publish("number",number);
             return Ok(number);
         }

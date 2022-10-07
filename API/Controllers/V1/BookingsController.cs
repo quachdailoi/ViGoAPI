@@ -114,12 +114,12 @@ namespace API.Controllers.V1
 
             switch (booking.PaymentMethod)
             {
-                case PaymentMethods.COD:
+                case Payments.PaymentMethods.COD:
                     break;
-                case PaymentMethods.Momo:
+                case Payments.PaymentMethods.Momo:
                     paymentDto = new MomoCollectionLinkRequestDTO
                     {
-                        ipnUrl = $"{Request.Scheme}://{Request.Host}{Request.Path}/ipn/momo",
+                        ipnUrl = $"{GetControllerContextUri()}/ipn/momo",
                         redirectUrl = request.Applink
                     };
                     break;
@@ -418,7 +418,7 @@ namespace API.Controllers.V1
 
             if(booking != null)
             {
-                if (dto.resultCode == (int)MomoStatusCodes.Successed)
+                if (dto.resultCode == (int)Payments.MomoStatusCodes.Successed)
                 {
                     if (booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.amount)
                     {
@@ -434,8 +434,8 @@ namespace API.Controllers.V1
                     new
                     {
                         BookingCode = dto.orderId,
-                        PaymentMethod = PaymentMethods.Momo,
-                        IsSuccess = dto.resultCode == (int)MomoStatusCodes.Successed
+                        PaymentMethod = Payments.PaymentMethods.Momo,
+                        IsSuccess = dto.resultCode == (int)Payments.MomoStatusCodes.Successed
                     });
             } 
 

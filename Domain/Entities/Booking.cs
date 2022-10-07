@@ -10,7 +10,7 @@ namespace Domain.Entities
         public TimeOnly Time { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
-        public PaymentMethods PaymentMethod { get; set; } = PaymentMethods.COD;
+        public Payments.PaymentMethods PaymentMethod { get; set; } = Payments.PaymentMethods.COD;
         public Bookings.Options Option { get; set; }
         public Bookings.Types Type { get; set; }
         public bool IsShared { get; set; }

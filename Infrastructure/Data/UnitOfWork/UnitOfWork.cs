@@ -40,6 +40,7 @@ namespace Infrastructure.Data.UnitOfWork
         public IFareRepository Fares { get; }
         public IFareTimelineRepository FareTimelines { get; }
         public IRouteRoutineRepository RouteRoutines { get; }
+        public IAffiliateAccountRepository AffiliateAccounts { get; }
 
         public UnitOfWork(
             AppDbContext dbContext, 
@@ -65,7 +66,8 @@ namespace Infrastructure.Data.UnitOfWork
             IVehicleRepository vehicleRepository,
             IFareRepository fareRepository,
             IFareTimelineRepository fareTimelineRepository,
-            IRouteRoutineRepository routeRoutineRepository)
+            IRouteRoutineRepository routeRoutineRepository,
+            IAffiliateAccountRepository affiliateAccountRepository)
         {
             _dbContext = dbContext;
 
@@ -91,8 +93,9 @@ namespace Infrastructure.Data.UnitOfWork
             Fares = fareRepository;
             FareTimelines = fareTimelineRepository;
             RouteRoutines = routeRoutineRepository;
+            AffiliateAccounts = affiliateAccountRepository;
 
-            _logger = loggerFactory.CreateLogger("logs");           
+            _logger = loggerFactory.CreateLogger("logs");
         }
 
         public async Task CommitAsync()
