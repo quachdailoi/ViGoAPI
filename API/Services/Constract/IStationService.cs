@@ -11,6 +11,7 @@ namespace API.Services.Constract
         Task<Response> Create(List<StationDTO> stations, int userId, Response successResponse, Response duplicateResponse, Response errorResponse);
         Task<Response> Get(Response successResponse);
         Task<List<Station>> GetByCode(List<Guid> stationCodes);
+        Task<Tuple<Station?,Station?>> GetPairOfStation(Guid stationCode1, Guid stationCode2);
         bool CheckDuplicateStations(List<StationDTO> stations);
         Task<bool> ExistSeedData();
         Task<List<Tuple<Station, double, object?>>?> GetStationSteps(Station startStation, Station endStation);
