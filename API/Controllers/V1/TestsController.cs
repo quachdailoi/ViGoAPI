@@ -1,4 +1,5 @@
-﻿using API.Models.DTO;
+﻿using API.Extensions;
+using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.TaskQueues;
@@ -6,6 +7,7 @@ using API.Utils;
 using AutoMapper;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Classes;
+using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -59,9 +61,12 @@ namespace API.Controllers.V1
         [AllowAnonymous]
         public async Task<IActionResult> Test([FromQuery] int number)
         {
-            var uri = GetControllerContextUri();
-            var routers = ControllerContext.RouteData.Routers;
-            await _redisMQMessage.Publish("number",number);
+            //var uri = GetControllerContextUri();
+            //var routers = ControllerContext.RouteData.Routers;
+            //await _redisMQMessage.Publish("number",number);
+
+            var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
+
             return Ok(number);
         }
     }
