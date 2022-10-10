@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using Newtonsoft.Json;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Reflection;
 
@@ -26,6 +27,13 @@ namespace API.Extensions
                     .GetCustomAttributes(typeof(DescriptionAttribute), false);
 
             return name.Length > 0 ? name[0].Description : value.ToString();
+        }
+
+        public static List<T> Clone<T>(this List<T> list)
+        {
+            var serialization = JsonConvert.SerializeObject(list, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+
+            return JsonConvert.DeserializeObject<List<T>>(serialization);
         }
     }
 }

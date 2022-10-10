@@ -64,9 +64,9 @@ namespace API.Controllers.V1
         {
             //var uri = GetControllerContextUri();
             //var routers = ControllerContext.RouteData.Routers;
-            //await _redisMQMessage.Publish("number",number);
+            await _redisMQMessage.Publish("number",number);
 
-            var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
+            //var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
 
             return Ok(number);
         }
@@ -138,5 +138,12 @@ namespace API.Controllers.V1
 
             return Ok(totalSuccessBooking);
         }
+
+        //[HttpPost("dump/drivers")]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> DumpDrivers()
+        //{
+
+        //}
     }
 }

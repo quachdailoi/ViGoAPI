@@ -122,6 +122,15 @@ namespace Infrastructure.Data.Seeders
                     ExtraFeePerKm = 2500,
                     CeilingExtraPrice = 10000
                 },
+                new()
+                {
+                    Id = 13,
+                    FareId = 3,
+                    StartTime = TimeOnly.Parse("14:00:00"),
+                    EndTime = TimeOnly.Parse("15:00:00"),
+                    ExtraFeePerKm = 1000,
+                    CeilingExtraPrice = 5000
+                },
             };
 
             model.Entity<FareTimeline>().HasData(fareTimelines);

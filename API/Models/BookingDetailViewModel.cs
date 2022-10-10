@@ -12,7 +12,7 @@ namespace API.Models
         public DateOnly Date { get; set; }
         public double Price { get; set; }
         public double DiscountPrice { get; set; }
-        public StatusTypes.BookingDetail Status { get; set; }
+        public BookingDetails.Status Status { get; set; }
         public MessageRoomViewModel MessageRoom { get; set; }
         public BookingViewModel Booking { get; set; }
     }

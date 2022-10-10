@@ -173,6 +173,7 @@ namespace API.Services
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = booking.Code.ToString();
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderInfo = "Pay for ViGo booking";
                         var response = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
+                        if (response == null) throw new Exception();
                         paymentUrl = new
                         {
                             PayUrl = response.payUrl,
@@ -195,6 +196,8 @@ namespace API.Services
             }
             
             await _unitOfWork.CommitAsync();
+
+            //if(booking.PaymentMethod == Payments.PaymentMethods.COD) await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
 
             var bookingViewModel =
                 await _unitOfWork.Bookings
@@ -346,7 +349,16 @@ namespace API.Services
 
             var routeStationDic = bookingDetail.Booking.Route.RouteStations.ToDictionary(e => e.Station.Code);
 
-            var bookingDetailMappedsInRouteRoutine = routeRoutine.User.BookingDetailDrivers.Select(bdr => bdr.BookingDetail).ToList();
+            var bookingDetailMappedsInRouteRoutine = 
+                routeRoutine.User.BookingDetailDrivers
+                .Where(bdr =>
+                    bdr.BookingDetail.Date == bookingDetail.Date &&
+                    bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
+                    bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime &&
+                    bdr.Status == BookingDetailDrivers.Status.Pending)
+                .OrderBy(bdr => bdr.BookingDetail.Booking.Time)
+                .ToList()
+                .Select(bdr => bdr.BookingDetail).ToList();
 
             return IsPossibleMappingWithRouteRoutine(bookingDetailMappedsInRouteRoutine, bookingDetail, routeStationDic);
         }
@@ -358,6 +370,7 @@ namespace API.Services
                 .List(e => e.Id == bookingId && e.Status == Bookings.Status.PendingMapping)
                 .Include(e => e.User)
                 .Include(e => e.BookingDetails)
+                .ThenInclude(bd => bd.BookingDetailDrivers)
                 .Include(e => e.VehicleType)
                 .Include(e => e.Route)
                 .ThenInclude(route => route.RouteStations)
@@ -382,22 +395,15 @@ namespace API.Services
 
             foreach(var bookingDetail in bookingDetails)
             {
-                routeRoutines.ForEach(routeRoutine =>
-                {
-                    //order booking detail mapped by time
-                    routeRoutine.User.BookingDetailDrivers = routeRoutine.User.BookingDetailDrivers
-                            .Where(bdr =>
+                //order by total number of mapped booking with driver in detail booking datetime
+                var orderedRouteRoutines = routeRoutines
+                    .OrderBy(routeRoutine =>
+                        routeRoutine.User.BookingDetailDrivers
+                        .Count(bdr =>
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
                                 bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
                                 bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime &&
-                                bdr.Status == BookingDetailDrivers.Status.Pending)
-                            .OrderBy(bdr => bdr.BookingDetail.Booking.Time)
-                            .ToList();
-                });
-
-                //order by total number of mapped booking with driver in detail booking datetime
-                var orderedRouteRoutines = routeRoutines
-                    .OrderBy(routeRoutine => routeRoutine.User.BookingDetailDrivers.Count);
+                                bdr.Status == BookingDetailDrivers.Status.Pending));
 
                 //then order by driver point
 
@@ -405,19 +411,18 @@ namespace API.Services
                 {
                     if (IsSatisfiedRouteRoutineCondition(routeRoutine, bookingDetail))
                     {
-                        bookingDetailDrivers.Add(new BookingDetailDriver
+
+                        bookingDetail.Status = BookingDetails.Status.Ready;
+                        bookingDetail.BookingDetailDrivers.Add(
+                            new BookingDetailDriver
                         {
-                            BookingDetail = bookingDetail,
-                            Driver = routeRoutine.User
+                            BookingDetailId = bookingDetail.Id,
+                            DriverId = routeRoutine.User.Id,
                         });
                         break;
                     }
                 }
             }
-
-            if (bookingDetailDrivers.Any()) bookingDetailDrivers = await _bookingDetailDriverService.Create(bookingDetailDrivers);
-
-            booking.BookingDetails = bookingDetails.UnionBy(bookingDetailDrivers.Select(bdr => bdr.BookingDetail), e => e.Id).ToList();
 
             var endTime = DateTimeOffset.UtcNow;
 

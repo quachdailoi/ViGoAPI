@@ -31,7 +31,7 @@ namespace API.TaskQueues.TaskResolver
 
                         if(booking != null)
                         {
-                            var isMappedSuccess = booking.BookingDetails.Any(bd => bd.BookingDetailDrivers.Any());
+                            var isMappedSuccess = booking.BookingDetails.Any(bd => bd.Status == BookingDetails.Status.Ready);
                             await signalRService.SendToUserAsync(booking.User.Code.ToString(), "BookingMappingResult", new { Code = booking.Code, IsMappedSuccess = isMappedSuccess });
 
                             if (!isMappedSuccess)
