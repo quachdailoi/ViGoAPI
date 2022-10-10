@@ -173,7 +173,7 @@ namespace API.Services
             }
             catch(Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex.StackTrace);
                 await _unitOfWork.Rollback();
                 return errorReponse.SetMessage(ex.Message);
             }
