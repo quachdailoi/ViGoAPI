@@ -16,12 +16,14 @@ namespace API.Services
     {
         private readonly HttpClient _client;
         private readonly IConfiguration _config;
+        private readonly ILogger _logger;
         private const string MOMO_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/create";
         private const string MOMO_REFUND_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/refund";
-        public PaymentService(IConfiguration config)
+        public PaymentService(IConfiguration config, ILogger<PaymentService> logger)
         {
             _client = new HttpClient();
             _config = config;
+            _logger = logger;
         }
 
         public async Task<string?> GenerateMomoPaymentUrl(MomoCollectionLinkRequestDTO dto)
@@ -62,6 +64,8 @@ namespace API.Services
         {
             var accessKey = _config.Get(MomoSettings.AccessKey);
             var secretKey = _config.Get(MomoSettings.SecretKey);
+
+            _logger.LogError(secretKey);
 
             var rawSignature = $"accessKey={accessKey}&{text}";
 
