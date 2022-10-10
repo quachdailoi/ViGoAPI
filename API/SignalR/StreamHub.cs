@@ -47,7 +47,7 @@ namespace API.SignalR
             return channel.Reader;
         }
 
-        private ChannelReader<Coordinates> GetByUserCode(Guid userCode, CancellationToken cancellationToken)
+        private ChannelReader<Coordinates?> GetByUserCode(Guid userCode, CancellationToken cancellationToken)
         {
             var channel = Channel.CreateUnbounded<Coordinates?>();
 
@@ -114,77 +114,77 @@ namespace API.SignalR
             public Coordinates Coordinates { get; set; }
         }
     }
-    public class TestStreamHub : StreamHub<int>
-    {
+    //public class TestStreamHub : StreamHub<int>
+    //{
 
-    }
-    public class StreamHub<T> : Hub
-    {
-        //public async IAsyncEnumerable<T> Counter(
-        //    T data,
-        //    int delay,
-        //    [EnumeratorCancellation]
-        //    CancellationToken cancellationToken)
-        //{
-        //    for(var i = 0; i < 1000; i++)
-        //    {
-        //        cancellationToken.ThrowIfCancellationRequested();
+    //}
+    //public class StreamHub<T> : Hub
+    //{
+    //    //public async IAsyncEnumerable<T> Counter(
+    //    //    T data,
+    //    //    int delay,
+    //    //    [EnumeratorCancellation]
+    //    //    CancellationToken cancellationToken)
+    //    //{
+    //    //    for(var i = 0; i < 1000; i++)
+    //    //    {
+    //    //        cancellationToken.ThrowIfCancellationRequested();
 
-        //        yield return data;
+    //    //        yield return data;
 
-        //        await Task.Delay(delay, cancellationToken);
-        //    }  
-        //}
-        public static ConcurrentQueue<T> queue = new ConcurrentQueue<T>();
-        public ChannelReader<T> Counter(
-            T data,
-            int delay,
-            CancellationToken cancellationToken)
-        {
-            var channel = Channel.CreateUnbounded<T>();
+    //    //        await Task.Delay(delay, cancellationToken);
+    //    //    }  
+    //    //}
+    //    public static ConcurrentQueue<T> queue = new ConcurrentQueue<T>();
+    //    public ChannelReader<T> Counter(
+    //        T data,
+    //        int delay,
+    //        CancellationToken cancellationToken)
+    //    {
+    //        var channel = Channel.CreateUnbounded<T>();
 
-            _ = WriteItemsAsync(channel.Writer, data, delay, cancellationToken);
+    //        _ = WriteItemsAsync(channel.Writer, data, delay, cancellationToken);
 
-            return channel.Reader;
-        }
+    //        return channel.Reader;
+    //    }
 
-        public async Task WriteItemsAsync(
-            ChannelWriter<T> writer,
-            T data,
-            int delay,
-            CancellationToken cancellationToken)
-        {
-            Exception localException = null;
-            try
-            {
-                while (true)
-                {
-                    if (queue.TryDequeue(out T? result))
-                    {
-                        await writer.WriteAsync(result, cancellationToken);
-                    }
-                    await Task.Delay(delay, cancellationToken);
-                }
+    //    public async Task WriteItemsAsync(
+    //        ChannelWriter<T> writer,
+    //        T data,
+    //        int delay,
+    //        CancellationToken cancellationToken)
+    //    {
+    //        Exception localException = null;
+    //        try
+    //        {
+    //            while (true)
+    //            {
+    //                if (queue.TryDequeue(out T? result))
+    //                {
+    //                    await writer.WriteAsync(result, cancellationToken);
+    //                }
+    //                await Task.Delay(delay, cancellationToken);
+    //            }
                 
-            }catch(Exception ex)
-            {
-                localException = ex;
-            }
-            finally
-            {
-                writer.Complete(localException);
-            }
-        }
-        public async Task UploadStream(ChannelReader<T> stream)
-        {
-            while(await stream.WaitToReadAsync())
-            {
-                while(stream.TryRead(out var item))
-                {
-                    queue.Enqueue(item);
-                }
-            }
-        }
+    //        }catch(Exception ex)
+    //        {
+    //            localException = ex;
+    //        }
+    //        finally
+    //        {
+    //            writer.Complete(localException);
+    //        }
+    //    }
+    //    public async Task UploadStream(ChannelReader<T> stream)
+    //    {
+    //        while(await stream.WaitToReadAsync())
+    //        {
+    //            while(stream.TryRead(out var item))
+    //            {
+    //                queue.Enqueue(item);
+    //            }
+    //        }
+    //    }
 
-    }
+    //}
 }

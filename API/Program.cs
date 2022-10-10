@@ -231,6 +231,5 @@ app.MapControllers();
 
 
 app.MapHub<SignalRHub>("hubs");
-app.MapHub<TestStreamHub>("test");
 
 app.Run();

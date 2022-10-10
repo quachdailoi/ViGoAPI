@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class BookingService : IBookingService
+    public class BookingService : BaseService<BookingService>,IBookingService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -26,10 +26,11 @@ namespace API.Services
         private readonly IStationService _stationService;
         private readonly IRedisMQService _redisMQService;
 
-        public BookingService
-            (IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, IPromotionService promotionService, 
-            IFareService fareService, IPaymentService paymentService, IBookingDetailDriverService bookingDetailDriverService,
-            IRedisMQService redisMQService, IVehicleTypeService vehicleTypeService, IStationService stationService)
+        public BookingService(
+            IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, 
+            IPromotionService promotionService, IFareService fareService, IPaymentService paymentService, 
+            IBookingDetailDriverService bookingDetailDriverService, IRedisMQService redisMQService, 
+            IVehicleTypeService vehicleTypeService, IStationService stationService, ILogger<BookingService> logger):base(logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -161,12 +162,6 @@ namespace API.Services
 
             if (booking == null) return errorReponse;
 
-            var bookingViewModel = 
-                await _unitOfWork.Bookings
-                    .List(_booking => _booking.Id == booking.Id)
-                    .MapTo<BookerBookingViewModel>(_mapper)
-                    .FirstOrDefaultAsync();
-
             dynamic paymentUrl = String.Empty;
             try
             {
@@ -185,6 +180,8 @@ namespace API.Services
                         };
                         break;
                     case Payments.PaymentMethods.COD:
+                        booking.Status = Bookings.Status.PendingMapping;
+                        if (!_unitOfWork.Bookings.Update(booking).Result) throw new Exception();
                         await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
                         break;
                     default: break;
@@ -197,6 +194,12 @@ namespace API.Services
             }
             
             await _unitOfWork.CommitAsync();
+
+            var bookingViewModel =
+                await _unitOfWork.Bookings
+                    .List(_booking => _booking.Id == booking.Id)
+                    .MapTo<BookerBookingViewModel>(_mapper)
+                    .FirstOrDefaultAsync();
 
             return successResponse.SetData(new 
             { 
@@ -348,6 +351,7 @@ namespace API.Services
         }
         public async Task<Booking?> Mapping(int bookingId)
         {
+            var startTime = DateTimeOffset.UtcNow;
             var booking =
                 await _unitOfWork.Bookings
                 .List(e => e.Id == bookingId && e.Status == Bookings.Status.PendingMapping)
@@ -413,6 +417,10 @@ namespace API.Services
             if (bookingDetailDrivers.Any()) bookingDetailDrivers = await _bookingDetailDriverService.Create(bookingDetailDrivers);
 
             booking.BookingDetails = bookingDetails.UnionBy(bookingDetailDrivers.Select(bdr => bdr.BookingDetail), e => e.Id).ToList();
+
+            var endTime = DateTimeOffset.UtcNow;
+
+            Console.WriteLine($"BookingId: {booking.Id} | Status: {bookingDetailDrivers.Any()} / {bookingDetailDrivers.Count} / {booking.BookingDetails.Count} | EndTime: {endTime} | Time: {endTime.Subtract(startTime).TotalMinutes} mins");
 
             return booking;
         }

@@ -137,5 +137,7 @@ namespace API.Services
                 Data = gmail
             };
         }
+
+        public Task<List<User>> GetByRole(Roles role) => _unitOfWork.Users.List(user => user.Accounts.Select(acc => acc.Role).First().Id == role).ToListAsync();
     }
 }

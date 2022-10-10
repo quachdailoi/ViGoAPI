@@ -67,5 +67,18 @@ namespace API.Services
 
             return success.SetData(routeRoutines);
         }
+
+        public Task<List<RouteRoutine>> GetByRouteId(int routeId) => 
+            _unitOfWork.RouteRoutines
+            .List(routeRoutine => 
+                routeRoutine.RouteId == routeId && 
+                routeRoutine.Status == RouteRoutines.Status.Active)
+            .Include(e => e.User)
+            .ThenInclude(u => u.Vehicle)
+            .Include(e => e.User)
+            .ThenInclude(u => u.BookingDetailDrivers)
+            .ThenInclude(bdr => bdr.BookingDetail)
+            .ThenInclude(bd => bd.Booking)
+            .ToListAsync();
     }
 }

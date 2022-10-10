@@ -52,6 +52,8 @@ namespace Infrastructure.Data
             new FareSeeder(builder);
 
             new FareTimelineSeeder(builder);
+
+            new VehicleSeeder(builder);
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)
