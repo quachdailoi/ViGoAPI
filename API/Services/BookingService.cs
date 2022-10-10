@@ -79,10 +79,11 @@ namespace API.Services
                     route.Duration - (startStation.DurationFromFirstStationInRoute - endStation.DurationFromFirstStationInRoute);
 
                 // caculate price
-                booking.TotalPrice = (await _fareService.CaculateBookingFee(dto.Type, dto.VehicleTypeId, dto.StartAt, dto.EndAt, booking.Distance, dto.Time)).TotalFee;
+                var fee = await _fareService.CaculateBookingFee(dto.Type, dto.VehicleTypeId, dto.StartAt, dto.EndAt, booking.Distance, dto.Time);
+                booking.TotalPrice = fee.TotalFee;
 
                 // generate booking detail by booking schedule
-                booking.BookingDetails = _bookingDetailService.GenerateBookingDetail(booking);
+                booking.BookingDetails = _bookingDetailService.GenerateBookingDetail(booking,fee.FeePerTrip);
 
                 if (!String.IsNullOrEmpty(dto.PromotionCode))
                 {

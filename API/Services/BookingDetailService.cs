@@ -102,17 +102,16 @@ namespace API.Services
         //    return bookingDetails;
         //}
 
-        public List<BookingDetail> GenerateBookingDetail(Booking booking)
+        public List<BookingDetail> GenerateBookingDetail(Booking booking, double feePerTrip)
         {
             List<BookingDetail> bookingDetails = new();
-            var price = booking.TotalPrice / Fee.TotalDays(booking.StartAt, booking.EndAt);
             for(var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
             {
                 bookingDetails.Add(new BookingDetail
                 {
                     Booking = booking,
                     Date = day,
-                    Price = price
+                    Price = Fee.RoundToThousands(feePerTrip)
                 });
             }
             return bookingDetails;

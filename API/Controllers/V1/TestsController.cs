@@ -123,7 +123,7 @@ namespace API.Controllers.V1
                             bookingDto.Time = time;
                             bookingDto.UserId = user.Id;
                             bookingDto.Type = Bookings.Types.MonthTicket;
-                            bookingDto.IsShared = (vehicleType.Type == VehicleTypes.Type.ViRide) ? false : (new Random()).Next() % 2 == 0;
+                            bookingDto.IsShared = (vehicleType.Type == VehicleTypes.Type.ViRide) ? false : (new Random()).Next() % 10 < 9;
                             bookingDto.RouteCode = route.Code;
                             bookingDto.StartStationCode = stations[startIndex].Code;
                             bookingDto.EndStationCode = stations[endIndex].Code;

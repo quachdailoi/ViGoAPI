@@ -29,6 +29,7 @@ namespace API.Services
 
             return new FeeViewModel
             {
+                FeePerTrip = feePerTrip.TotalFee,
                 Fee = bookingFee,
                 DiscountFee = discountFee,
                 TotalFee = bookingFee - discountFee
@@ -47,9 +48,11 @@ namespace API.Services
 
             if(distance > fare.BaseDistance) feePerTrip += (distance - fare.BaseDistance) / 1000 * fare.PricePerKm;
 
-            feePerTrip = Math.Round(feePerTrip / 100) * 100;
+            feePerTrip = Fee.RoundToThousands(feePerTrip);
 
             var extraFee = extraByTimeline != null ? Fee.RoundToThousands(distance / 1000 * extraByTimeline.ExtraFeePerKm) : 0;
+
+            if (extraFee > extraByTimeline?.CeilingExtraPrice) extraFee = extraByTimeline.CeilingExtraPrice;
 
             return new FeeViewModel
             {
