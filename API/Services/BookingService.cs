@@ -25,11 +25,12 @@ namespace API.Services
         private readonly IPaymentService _paymentService;
         private readonly IBookingDetailDriverService _bookingDetailDriverService;
         private readonly IRedisMQService _redisMQService;
+        private readonly ILogger _logger;
 
         public BookingService
             (IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, 
             IPromotionService promotionService, IFareService fareService, IPaymentService paymentService, 
-            IBookingDetailDriverService bookingDetailDriverService, IRedisMQService redisMQService)
+            IBookingDetailDriverService bookingDetailDriverService, IRedisMQService redisMQService, ILogger<BookingService> logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -39,6 +40,7 @@ namespace API.Services
             _paymentService = paymentService;
             _bookingDetailDriverService = bookingDetailDriverService;
             _redisMQService = redisMQService;
+            _logger = logger;
         }
         private async Task<Booking> GenerateBooking(BookingDTO dto)
         {
@@ -171,6 +173,7 @@ namespace API.Services
             }
             catch(Exception ex)
             {
+                _logger.LogError(ex.StackTrace);
                 await _unitOfWork.Rollback();
                 return errorReponse.SetMessage(ex.Message);
             }
