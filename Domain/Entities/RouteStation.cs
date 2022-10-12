@@ -22,5 +22,9 @@ namespace Domain.Entities
         public Station Station { get; set; }
         public RouteStation? NextRouteStation { get; set; } = null;
         //public RouteStation? PrevRouteStation { get; set; } = null;
+
+        /* Omitted */
+        public virtual List<Booking> StartRouteStationBookings { get; set; } = new();
+        public virtual List<Booking> EndRouteStationBookings { get; set; } = new();
     }
 }

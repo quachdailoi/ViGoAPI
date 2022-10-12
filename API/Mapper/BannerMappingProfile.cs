@@ -7,16 +7,14 @@ namespace API.Mapper
 {
     public class BannerMappingProfile : Profile
     {
-        private readonly IFileService _fileService;
-        public BannerMappingProfile(IFileService fileService)
+        public BannerMappingProfile()
         {
-            _fileService = fileService;
+            IAppServices? service = null;
+
             CreateMap<Banner, BannerViewModel>()
                 .ForMember(
                     model => model.FilePath,
-                    config => config.MapFrom(
-                        banner => _fileService.GetPresignedUrl(banner.File.Path)
-                    )
+                    config => config.MapFrom(src => src.File.GetFilePath(service))
                 );
         }
     }

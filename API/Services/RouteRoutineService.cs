@@ -12,20 +12,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class RouteRoutineService : IRouteRoutineService
+    public class RouteRoutineService : BaseService, IRouteRoutineService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-
-        public RouteRoutineService(IUnitOfWork unitOfWork, IMapper mapper)
+        public RouteRoutineService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public bool CheckValidRoutineForRoute(CreateRouteRoutineRequest request)
         {
-            var driverRouteRoutineCurrent = _unitOfWork.RouteRoutines.GetActiveRoutines(request.UserId)
+            var driverRouteRoutineCurrent = UnitOfWork.RouteRoutines.GetActiveRoutines(request.UserId)
                     .Where(x => x.EndAt >= DateTimeExtensions.NowDateOnly);
 
             var NewStartAt = DateTimeExtensions.ParseExactDateOnly(request.StartAt);
@@ -45,24 +40,24 @@ namespace API.Services
                 .Any();
         }
 
-        public Task<List<RouteRoutine>> CreateRouteRoutines(List<RouteRoutine> routines) => _unitOfWork.RouteRoutines.Add(routines);
+        public Task<List<RouteRoutine>> CreateRouteRoutines(List<RouteRoutine> routines) => UnitOfWork.RouteRoutines.Add(routines);
 
         public async Task<Response> CreateRouteRoutine(CreateRouteRoutineRequest request, Response success, Response failed)
         {
-            var newRouteData = _mapper.Map<RouteRoutine>(request);
+            var newRouteData = Mapper.Map<RouteRoutine>(request);
 
-            var routeRoutineCreated = await _unitOfWork.RouteRoutines.Add(newRouteData);
+            var routeRoutineCreated = await UnitOfWork.RouteRoutines.Add(newRouteData);
 
             if (routeRoutineCreated == null) return failed;
 
-            return success.SetData(_mapper.Map<RouteRoutineViewModel>(routeRoutineCreated));
+            return success.SetData(Mapper.Map<RouteRoutineViewModel>(routeRoutineCreated));
         }
 
         public async Task<Response> GetRouteRoutineOfDriver(int driverId, Response success)
         {
             var routeRoutines =
-                await _unitOfWork.RouteRoutines.GetAllRouteRoutine(driverId)
-                    .MapTo<RouteRoutineViewModel>(_mapper)
+                await UnitOfWork.RouteRoutines.GetAllRouteRoutine(driverId)
+                    .MapTo<RouteRoutineViewModel>(Mapper)
                     .ToListAsync();
 
             return success.SetData(routeRoutines);

@@ -13,8 +13,7 @@ namespace API.Services
 {
     public class BookerService : AccountService, IBookerService
     {
-        public BookerService(IVerifiedCodeService verifiedCodeService, IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration, IUserService userService)
-            : base(verifiedCodeService, unitOfWork, mapper, configuration, userService)
+        public BookerService(IAppServices appServices) : base(appServices)
         {
         }
 
@@ -35,13 +34,13 @@ namespace API.Services
 
         public async Task<UserViewModel?> GetUserViewModel()
         {
-            var account = _unitOfWork.Accounts.List(x => x.RoleId == Roles.BOOKER).Include(acc => acc.Role).FirstOrDefault();
+            var account = UnitOfWork.Accounts.List(x => x.RoleId == Roles.BOOKER).Include(acc => acc.Role).FirstOrDefault();
 
             if (account == null) return null;
 
-            var user = await _unitOfWork.Users.List(user => user.Id == account.UserId).Include(user => user.Accounts).FirstOrDefaultAsync();
+            var user = await UnitOfWork.Users.List(user => user.Id == account.UserId).Include(user => user.Accounts).FirstOrDefaultAsync();
 
-            return _mapper.Map<UserViewModel>(user);
+            return Mapper.Map<UserViewModel>(user);
         }
 
         public IQueryable<Account>? GetAccount(string registration, RegistrationTypes registrationTypes)

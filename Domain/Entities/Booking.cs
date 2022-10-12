@@ -15,8 +15,8 @@ namespace Domain.Entities
         public Bookings.Options Option { get; set; }
         public Bookings.Types Type { get; set; }
         public bool IsShared { get; set; }
-        public Guid StartStationCode { get; set; }
-        public Guid EndStationCode { get; set; }
+        public int StartRouteStationId { get; set; }
+        public int EndRouteStationId { get; set; }
         public double Duration { get; set; }
         public double Distance { get; set; }
 
@@ -24,20 +24,25 @@ namespace Domain.Entities
         public DateOnly EndAt { get; set; }
         public int UserId { get; set; }
         public int? PromotionId { get; set; } = null;
-        public int RouteId { get; set; }
         public int VehicleTypeId { get; set; }
         public Bookings.Status Status { get; set; } = Bookings.Status.Unpaid;
 
         public User User { get; set; }
-        public Route Route { get; set; }
         public VehicleType VehicleType { get; set; }
         public List<BookingDetail> BookingDetails { get; set; } = new();
 
         //Promotion
         public Promotion? Promotion { get; set; } = null;
 
-        // Virtual Relationship
-        public Station StartStation { get; set; }
-        public Station EndStation { get; set; }
+        public RouteStation StartRouteStation { get; set; } = new();
+        public RouteStation EndRouteStation { get; set; } = new();
+
+        //virtual direct relation
+        //[NotMapped]
+        //public Station StartStation => StartRouteStation.Station;
+        //[NotMapped]
+        //public Station EndStation => EndRouteStation.Station;
+        //[NotMapped]
+        //public Route Route => StartRouteStation.Route;
     }
 }

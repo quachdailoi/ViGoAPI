@@ -13,6 +13,8 @@ namespace API.Validators
             services.AddScoped<IValidator<CreateRouteRoutineRequest>, CreateRouteRoutineRequestValidator>();
 
             services.AddScoped<IValidator<DateFilterRequest>, DateFilterRequestValidator>();
+
+            services.AddScoped<IValidator<CreateBookingRequest>, CreateBookingRequestValidator>();
         }
     }
 }

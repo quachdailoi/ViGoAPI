@@ -15,34 +15,17 @@ using FluentValidation;
 
 namespace API.Services
 {
-    public class StationService : BaseService<StationService>, IStationService
+    public class StationService : BaseService, IStationService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IRapidApiService _rapidApiService;
-        private readonly IMapper _mapper;
-        private readonly IDistributedCache _cache;
-        private readonly ILocationService _locationService;
-
-        public StationService(
-			ILogger<StationService> logger, 
-			IUnitOfWork unitOfWork, 
-			IMapper mapper,
-			IRapidApiService rapidApiService,  
-			IDistributedCache cache,
-			ILocationService locationService) : base(logger)
+        public StationService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _rapidApiService = rapidApiService;
-            _mapper = mapper;
-            _cache = cache;
-			_locationService = locationService;
         }
 
         public async Task<Response> GetNearByStationsByCoordinates(CoordinatesDTO coordinates, Response success, Response failed)
         {
                 var distanceStations = GetNearByStationsAsTheCrowFlies(coordinates);
 
-                var sortedDistanceStations = await _rapidApiService.CalculateDrivingMatrix(coordinates, distanceStations);
+                var sortedDistanceStations = await AppServices.RapidApi.CalculateDrivingMatrix(coordinates, distanceStations);
 
                 return success.SetData(sortedDistanceStations);
         }
@@ -53,7 +36,7 @@ namespace API.Services
             int? startStationId = null;
             if (startStationCode.HasValue)
             {
-                var startStation = _unitOfWork.Stations.GetStationsByCodes(new() { startStationCode.Value }).FirstOrDefault();
+                var startStation = UnitOfWork.Stations.GetStationsByCodes(new() { startStationCode.Value }).FirstOrDefault();
 
                 if (startStation != null)
                 {
@@ -61,17 +44,17 @@ namespace API.Services
                 }
             }
 
-            var stations = _unitOfWork.Stations.List();
+            var stations = UnitOfWork.Stations.List();
 
             if (startStationId != null)
             {
                 var routeIdsOfStartStation = 
-                    _unitOfWork.RouteStations.List().Where(x => x.StationId == startStationId).Select(x => x.RouteId);
+                    UnitOfWork.RouteStations.List().Where(x => x.StationId == startStationId).Select(x => x.RouteId);
 
                 if (routeIdsOfStartStation == null) throw new Exception("Start station does not belong to any routes.");
 
-                var stationIdsInSameRouteOfStart = 
-                    _unitOfWork.RouteStations.List().Where(x => x.StationId != startStationId && routeIdsOfStartStation.Contains(x.RouteId))
+                var stationIdsInSameRouteOfStart =
+                    UnitOfWork.RouteStations.List().Where(x => x.StationId != startStationId && routeIdsOfStartStation.Contains(x.RouteId))
                     .GroupBy(x => x.StationId)    
                     .Select(x => x.Key);
 
@@ -101,7 +84,7 @@ namespace API.Services
 
         public Task<List<Station>> Create(List<Station> stations)
         {
-            return _unitOfWork.Stations.Add(stations);
+            return UnitOfWork.Stations.Add(stations);
         }
         public bool CheckDuplicateStations(List<StationDTO> stations)
         {
@@ -109,7 +92,7 @@ namespace API.Services
         }
         private Task<bool> CheckDulpicateStationsWithinDatabase(List<StationDTO> stations)
         {
-            return _unitOfWork.Stations.List(station => stations.Exists(_station => _station.Latitude == station.Latitude &&
+            return UnitOfWork.Stations.List(station => stations.Exists(_station => _station.Latitude == station.Latitude &&
                                                                                                _station.Longitude == station.Longitude) &&
                                                                                station.Status == StatusTypes.Station.Active)
                                                               .AnyAsync();
@@ -125,45 +108,45 @@ namespace API.Services
                 station.UpdatedBy = userId;
             };
 
-            var stationEntities = _mapper.Map<List<Station>>(stations);
+            var stationEntities = Mapper.Map<List<Station>>(stations);
 
-            stationEntities = await _unitOfWork.Stations.Add(stationEntities);
+            stationEntities = await UnitOfWork.Stations.Add(stationEntities);
 
             if (stationEntities == null) return errorResponse;
 
-            return successResponse.SetData(_mapper.Map<List<StationViewModel>>(stationEntities));
+            return successResponse.SetData(Mapper.Map<List<StationViewModel>>(stationEntities));
 
         }
 
         public Task<bool> ExistSeedData()
         {
-            return _unitOfWork.Stations.List().AnyAsync();
+            return UnitOfWork.Stations.List().AnyAsync();
         }
 
         public async Task<Response> Get(string? startStationCode, Response successResponse)
         {
-            var stations = _unitOfWork.Stations.List(station => station.Status == StatusTypes.Station.Active);
+            var stations = UnitOfWork.Stations.List(station => station.Status == StatusTypes.Station.Active);
 
             if (startStationCode != null)
             {
-                var startStation = _unitOfWork.Stations.GetStationByCode(startStationCode).FirstOrDefault();
+                var startStation = UnitOfWork.Stations.GetStationByCode(startStationCode).FirstOrDefault();
                 if (startStation == null) throw new ValidationException("Not found start station with this code.");
                 stations = stations.Where(station => station.Code.ToString() != startStationCode && station.RouteStations.Where(rs => rs.Route.RouteStations.Where(rs => rs.StationId == startStation.Id).Any()).Any());
             }
 
-            return successResponse.SetData(await stations.MapTo<StationViewModel>(_mapper).ToListAsync());
+            return successResponse.SetData(await stations.MapTo<StationViewModel>(Mapper).ToListAsync());
         }
 
         public async Task<List<Tuple<Station, double, object?>>?> GetStationSteps(Station startStation, Station endStation)
         {
-            var serializableGraph = await _cache.GetStringAsync("graph");
+            var serializableGraph = await Cache.GetStringAsync("graph");
 
             Graph<Station> graph;
 
             if (serializableGraph == null)
             {
                 var routeStations =
-                    await _unitOfWork.RouteStations
+                    await UnitOfWork.RouteStations
                         .List(routeStation =>
                                 routeStation.Status == StatusTypes.RouteStation.Active &&
                                 routeStation.Station.Status == StatusTypes.Station.Active &&
@@ -172,7 +155,7 @@ namespace API.Services
 
                 graph = Mapping.InitialGraph(routeStations);
 
-                await _cache.SetStringAsync("graph", JsonConvert.SerializeObject(graph));
+                await Cache.SetStringAsync("graph", JsonConvert.SerializeObject(graph));
             }
             else
             {
@@ -213,7 +196,7 @@ namespace API.Services
         public Task<List<Station>> GetByCode(List<Guid> stationCodes)
         {
             return
-                _unitOfWork.Stations
+                UnitOfWork.Stations
                 .List(station =>
                     stationCodes.Contains(station.Code) &&
                     station.Status == StatusTypes.Station.Active)
@@ -224,9 +207,9 @@ namespace API.Services
 
         public async Task<List<StationDTO>> GetStationDTOsByCodes(List<Guid> stationCodes)
         {
-            var stationDtoDic = (await _unitOfWork.Stations
+            var stationDtoDic = (await UnitOfWork.Stations
                 .GetStationsByCodes(stationCodes)
-                .MapTo<StationDTO>(_mapper)
+                .MapTo<StationDTO>(Mapper)
                 .ToListAsync())
                 .ToDictionary(e => e.Code);
 
@@ -241,9 +224,9 @@ namespace API.Services
 
         public async Task<List<StationDTO>> GetStationDTOsByIds(List<int> stationIds)
         {
-            var stationDtoDic = (await _unitOfWork.Stations
+            var stationDtoDic = (await UnitOfWork.Stations
                 .GetStationsByIds(stationIds)
-                .MapTo<StationDTO>(_mapper)
+                .MapTo<StationDTO>(Mapper)
                 .ToListAsync())
                 .ToDictionary(e => e.Id);
 
@@ -254,6 +237,16 @@ namespace API.Services
             }
 
             return stationDtos;
+        }
+
+        public IQueryable<Station> GetStationByCode(Guid code)
+        {
+            return UnitOfWork.Stations.GetStationByCode(code);
+        }
+
+        public async Task<Station?> GetStationByCodeAsync(Guid code)
+        {
+            return await UnitOfWork.Stations.GetStationByCode(code).FirstOrDefaultAsync();
         }
     }
 }

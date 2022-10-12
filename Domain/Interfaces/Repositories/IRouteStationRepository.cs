@@ -9,5 +9,6 @@ namespace Domain.Interfaces.Repositories
 {
     public interface IRouteStationRepository : IGenericRepository<RouteStation>
     {
+        
     }
 }

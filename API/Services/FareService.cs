@@ -7,18 +7,12 @@ using Domain.Shares.Enums;
 
 namespace API.Services
 {
-    public class FareService : IFareService
+    public class FareService : BaseService, IFareService
     {
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IVehicleTypeService _vehicleTypeService;
-
-        public FareService(IMapper mapper, IUnitOfWork unitOfWork, IVehicleTypeService vehicleTypeService)
+        public FareService(IAppServices appServices) : base(appServices)
         {
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-            _vehicleTypeService = vehicleTypeService;
         }
+
         public async Task<FeeViewModel> CaculateBookingFee(Bookings.Types bookingType, int vehicleTypeId, DateOnly startDate, DateOnly endDate, double distance, TimeOnly time, double discount = 0)
         {
             var feePerTrip = await CaculateFeeByDistance(vehicleTypeId, distance, time);
@@ -37,7 +31,7 @@ namespace API.Services
 
         public async Task<FeeViewModel> CaculateFeeByDistance(int vehicleTypeId, double distance, TimeOnly time)
         {
-            var vehicleTypeWithFare = await _vehicleTypeService.GetWithFare();
+            var vehicleTypeWithFare = await AppServices.VehicleType.GetWithFare();
 
             var fare = vehicleTypeWithFare.Find(vehicleType => vehicleType.Id == vehicleTypeId).Fare;
 

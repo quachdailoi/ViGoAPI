@@ -13,15 +13,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class BookingDetailService: IBookingDetailService
+    public class BookingDetailService: BaseService, IBookingDetailService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public BookingDetailService(IUnitOfWork unitOfWork, IMapper mapper)
+        public BookingDetailService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         //public List<BookingDetail> GenerateBookingDetail(Booking booking)
@@ -121,19 +117,19 @@ namespace API.Services
 
         public async Task<Response> GetNextBookingDetail(int userId, Response successResponse)
         {
-            var bookingDetailsIQueryable = _unitOfWork.BookingDetails.List(b => b.Booking.UserId == userId && b.Status != StatusTypes.BookingDetail.Completed)
+            var bookingDetailsIQueryable = UnitOfWork.BookingDetails.List(b => b.Booking.UserId == userId && b.Status != StatusTypes.BookingDetail.Completed)
                                                                 .OrderBy(b => b.Date)
                                                                 .ThenBy(b => b.Booking.Time);
 
 
-            var bookingDetail = await _mapper.ProjectTo<BookerBookingDetailViewModel>(bookingDetailsIQueryable).FirstOrDefaultAsync();
+            var bookingDetail = await Mapper.ProjectTo<BookerBookingDetailViewModel>(bookingDetailsIQueryable).FirstOrDefaultAsync();
 
             return successResponse.SetData(bookingDetail);
         }
 
         public async Task<Response> GetBookingsOfDriver(int driverId, PagingRequest request, DateFilterRequest dateFilter, Response success)
         {
-            var bookingDetails = _unitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId);
+            var bookingDetails = UnitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId);
 
             if (dateFilter.FromDate != null && dateFilter.ToDate != null)
             {
@@ -170,7 +166,7 @@ namespace API.Services
             {
                 var detailsByDay = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time);
 
-                var routes = (await detailsByDay.Select(x => x.Booking.Route).ToListAsync()).DistinctBy(x => x.Id);
+                var routes = (await detailsByDay.Select(x => x.Booking.StartRouteStation.Route).ToListAsync()).DistinctBy(x => x.Id);
 
                 foreach (var route in routes)
                 {
@@ -179,24 +175,24 @@ namespace API.Services
                         RouteCode = route.Code.ToString()
                     };
 
-                    var detailsInRoute = detailsByDay.Where(x => x.Booking.RouteId == route.Id);
+                    var detailsInRoute = detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == route.Id);
 
                     var schedules = detailsInRoute.Select(x => new ScheduleBookingDetailViewModel
                     {
                         Time = x.Booking.Time,
                         StartStation = new()
                         {
-                            Code = x.Booking.StartStationCode,
-                            Name = x.Booking.StartStation.Name,
-                            Address = x.Booking.StartStation.Address
+                            Code = x.Booking.StartRouteStation.Station.Code,
+                            Name = x.Booking.StartRouteStation.Station.Name,
+                            Address = x.Booking.StartRouteStation.Station.Address
                         },
                         EndStation = new()
                         {
-                            Code = x.Booking.EndStationCode,
-                            Name = x.Booking.EndStation.Name,
-                            Address = x.Booking.EndStation.Address
+                            Code = x.Booking.EndRouteStation.Station.Code,
+                            Name = x.Booking.EndRouteStation.Station.Name,
+                            Address = x.Booking.EndRouteStation.Station.Address
                         },
-                        Distance = CalculateDistanceFromStartToEndStation(x.Booking.Route.RouteStations, x.Booking.StartStation.Id, x.Booking.EndStation.Id, x.Booking.Route.Distance),
+                        Distance = CalculateDistanceFromStartToEndStation(x.Booking.StartRouteStation.Route.RouteStations, x.Booking.StartRouteStation.StationId, x.Booking.EndRouteStation.StationId, x.Booking.StartRouteStation.Route.Distance),
                         Users = new()
                         {
                             new()

@@ -15,13 +15,13 @@ namespace API.Models
         public int Status { get; set; }
         public DateTimeOffset? DateOfBirth { get; set; } = null;
         public string? AvatarUrl { get; set; } = string.Empty;
-        public Guid AvatarCode { get; set; } = Guid.NewGuid();
+        public Guid? AvatarCode { get; set; } = Guid.NewGuid();
 
-        public string Gmail { get; set; } = string.Empty ;
-        public bool HasVerifiedGmail { get; set; } = false;
-        public string PhoneNumber { get; set; } = string.Empty;
-        public bool HasVerifiedPhoneNumber { get; set; } = false;
-        public string RoleName { get; set; } = Roles.GUEST.GetName();
+        public string? Gmail { get; set; } = string.Empty ;
+        public bool? HasVerifiedGmail { get; set; } = false;
+        public string? PhoneNumber { get; set; } = string.Empty;
+        public bool? HasVerifiedPhoneNumber { get; set; } = false;
+        public string? RoleName { get; set; } = Roles.GUEST.GetName();
     }
     public class DriverViewModel
     {

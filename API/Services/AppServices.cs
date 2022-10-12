@@ -1,91 +1,51 @@
 ﻿using API.Services.Constract;
+using API.SignalR.Constract;
+using API.TaskQueues;
+using AutoMapper;
+using Domain.Interfaces.UnitOfWork;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace API.Services
 {
     public class AppServices : IAppServices
     {
-        public AppServices(
-                IAccountService accountService,
-                IVerifiedCodeService verifiedCodeService,
-                IUserService userService,
-                ITokenService tokenService,
-                IBookerService bookerService, 
-                IDriverService driverService,
-                IUserRoomService userRoomService,
-                IRoomService roomService,
-                IMessageService messageService,
-                IBookingService bookingService,
-                IBookingDetailService bookingDetailService,
-                IBookingDetailDriverService bookingDetailDriverService,
-                IRouteService routeService,
-                IStationService stationService,
-                IRouteStationService routeStationService,
-                IPromotionService promotionService,
-                IRapidApiService rapidApiService,
-                IBannerService bannerService,
-                ILocationService locationService,
-                IAdminService adminService,
-                IVehicleTypeService vehicleTypeService,
-                IVehicleService vehicleService,
-                IFareService fareService,
-                IFareTimelineService fareTimelineService,
-                IPaymentService paymentService,
-                IRouteRoutineService routeRoutineService
-            )
+        public IServiceProvider Provider { get; private set; }
+
+        public AppServices(IServiceProvider provider)
         {
-            Account = accountService;
-            VerifiedCode = verifiedCodeService;
-            User = userService;
-            Token = tokenService;
-            Booker = bookerService;
-            Driver = driverService;
-            UserRoom = userRoomService;
-            Room = roomService;
-            Message = messageService;
-            Booking = bookingService;
-            BookingDetail = bookingDetailService;
-            BookingDetailDriver = bookingDetailDriverService;
-            Route = routeService;
-            Station = stationService;
-            RouteStation = routeStationService;
-            Promotion = promotionService;
-            RapidApi = rapidApiService;
-            Banner = bannerService;
-            Location = locationService;
-            Admin = adminService;
-            VehicleType = vehicleTypeService;
-            Vehicle = vehicleService;
-            Fare = fareService;
-            FareTimeline = fareTimelineService;
-            RouteRoutine = routeRoutineService;
-            Payment = paymentService;
+            Provider = provider.CreateScope().ServiceProvider;
         }
 
-        public IAccountService Account { get; }
-        public IVerifiedCodeService VerifiedCode { get; }
-        public IUserService User { get; }
-        public ITokenService Token { get; set; }
-        public IBookerService Booker { get; }
-        public IDriverService Driver { get; }
-        public IUserRoomService UserRoom { get; }
-        public IRoomService Room { get; }
-        public IMessageService Message { get; }
-        public IBookingService Booking { get; }
-        public IBookingDetailService BookingDetail { get; }
-        public IBookingDetailDriverService BookingDetailDriver { get; }
-        public IRouteService Route { get; }
-        public IStationService Station { get; }
-        public IRouteStationService RouteStation { get; }
-        public IPromotionService Promotion { get; }
-        public IRapidApiService RapidApi { get; }
-        public IBannerService Banner { get; }
-        public ILocationService Location { get; }
-        public IAdminService Admin { get; }
-        public IVehicleTypeService VehicleType { get; }
-        public IVehicleService Vehicle { get; }
-        public IFareService Fare { get; }
-        public IFareTimelineService FareTimeline { get; }
-        public IRouteRoutineService RouteRoutine { get; }
-        public IPaymentService Payment { get; }
+        public IAccountService Account => Load<IAccountService>();
+        public IVerifiedCodeService VerifiedCode => Load<IVerifiedCodeService>();
+        public IUserService User => Load<IUserService>();
+        public ITokenService Token => Load<ITokenService>();
+        public IBookerService Booker => Load<IBookerService>();
+        public IDriverService Driver => Load<IDriverService>();
+        public IUserRoomService UserRoom => Load<IUserRoomService>();
+        public IRoomService Room => Load<IRoomService>();
+        public IMessageService Message => Load<IMessageService>();
+        public IBookingService Booking => Load<IBookingService>();
+        public IBookingDetailService BookingDetail => Load<IBookingDetailService>();
+        public IBookingDetailDriverService BookingDetailDriver => Load<IBookingDetailDriverService>();
+        public IRouteService Route => Load<IRouteService>();
+        public IStationService Station => Load<IStationService>();
+        public IRouteStationService RouteStation => Load<IRouteStationService>();
+        public IPromotionService Promotion => Load<IPromotionService>();
+        public IRapidApiService RapidApi => Load<IRapidApiService>();
+        public IBannerService Banner => Load<IBannerService>();
+        public ILocationService Location => Load<ILocationService>();
+        public IAdminService Admin => Load<IAdminService>();
+        public IVehicleTypeService VehicleType => Load<IVehicleTypeService>();
+        public IVehicleService Vehicle => Load<IVehicleService>();
+        public IFareService Fare => Load<IFareService>();
+        public IFareTimelineService FareTimeline => Load<IFareTimelineService>();
+        public IRouteRoutineService RouteRoutine => Load<IRouteRoutineService>();
+        public IPaymentService Payment => Load<IPaymentService>();
+        public IFileService File => Load<IFileService>();
+        public IRedisMQService RedisMQ => Load<IRedisMQService>();
+        public ISignalRService SignalR => Load<ISignalRService>();
+
+        private T Load<T>() where T : class => Provider.GetRequiredService<T>();
     }
 }

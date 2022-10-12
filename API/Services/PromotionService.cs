@@ -13,20 +13,10 @@ using System.Linq.Expressions;
 
 namespace API.Services
 {
-    public class PromotionService : IPromotionService
+    public class PromotionService : BaseService, IPromotionService
     {
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IFileService _fileService;
-
-        public PromotionService(
-            IMapper mapper,
-            IUnitOfWork unitOfWork,
-            IFileService fileService)
+        public PromotionService(IAppServices appServices) : base(appServices)
         {
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-            _fileService = fileService;
         }
 
         public async Task<Response> GetAvailablePromotion(int userId, Response successResponse, Response emptyResponse)
@@ -49,9 +39,9 @@ namespace API.Services
 
         private async Task<List<PromotionViewModel>> GetAvailablePromotion(int userId, double? totalPrice = null, int? totalTickets = null, PaymentMethods? paymentMethods = null, VehicleTypes.Type? vehicleTypes = null)
         {
-            var userPromotions = _unitOfWork.PromotionUsers.GetUsedPromotion(userId);
+            var userPromotions = UnitOfWork.PromotionUsers.GetUsedPromotion(userId);
 
-            var validPromotions = ValidatePromotionCondition(_unitOfWork.Promotions.GetAll());
+            var validPromotions = ValidatePromotionCondition(UnitOfWork.Promotions.GetAll());
 
             var availablePromotions = 
                 await (from validPromotion in validPromotions
@@ -66,7 +56,7 @@ namespace API.Services
                            Details = validPromotion.Details,
                            Name = validPromotion.Name,
                            Quantity = (validPromotion.PromotionCondition.UsagePerUser - (up != null ? up.Used : 0)) ?? 0,
-                           FilePath = _fileService.GetPresignedUrl(validPromotion.File),
+                           FilePath = AppServices.File.GetPresignedUrl(validPromotion.File),
                            Available = CheckBookingAvailable(validPromotion.PromotionCondition, totalPrice, totalTickets, paymentMethods, vehicleTypes),
                            ValidFrom = validPromotion.PromotionCondition.ValidFrom,
                            ValidUntil = validPromotion.PromotionCondition.ValidUntil,
@@ -114,9 +104,9 @@ namespace API.Services
         public async Task<Response> GetBannerPromotion(Response successResponse, Response emptyResponse)
         {
             var bannerPromotions = 
-                await _unitOfWork.Promotions.List().Where(CheckPromotionValidFrom).Where(CheckPromotionValidUntil)
+                await UnitOfWork.Promotions.List().Where(CheckPromotionValidFrom).Where(CheckPromotionValidUntil)
                     .OrderByDescending(x => x.CreatedAt)
-                    .MapTo<PromotionViewModel>(_mapper)
+                    .MapTo<PromotionViewModel>(Mapper)
                     .ToListAsync();
 
             if (!bannerPromotions.Any()) return emptyResponse;
@@ -126,12 +116,12 @@ namespace API.Services
 
         public async Task<Promotion?> GetPromotionByCode(string code, int userId, double totalPrice, int totalTickets, PaymentMethods paymentMethods)
         {
-            var userPromotions = _unitOfWork.PromotionUsers.GetUsedPromotion(userId);
+            var userPromotions = UnitOfWork.PromotionUsers.GetUsedPromotion(userId);
 
             var validPromotions =
-                ValidatePromotionCondition(_unitOfWork.Promotions.GetAll().Where(promotion => promotion.Code == code));
+                ValidatePromotionCondition(UnitOfWork.Promotions.GetAll().Where(promotion => promotion.Code == code));
 
-            var promotions = _unitOfWork.Promotions.List(promotion => promotion.Code == code);
+            var promotions = UnitOfWork.Promotions.List(promotion => promotion.Code == code);
 
             var result =
                await (from validPromotion in validPromotions

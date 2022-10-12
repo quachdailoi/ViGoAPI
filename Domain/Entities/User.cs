@@ -24,7 +24,7 @@ namespace Domain.Entities
         public List<Booking> Bookings { get; set; } = new();
         public List<BookingDetail> BookingDetails { get; set; } = new();
 
-        public AppFile? File { get; set; } = null;
+        public AppFile? File { get; set; }
         public List<PromotionUser> PromotionUsers { get; set; } = null!;
         public List<RouteRoutine> RouteRoutines { get; set; } = null!;
         public List<BookingDetailDriver> BookingDetailDrivers { get; set; } = new();

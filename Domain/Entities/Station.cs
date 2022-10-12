@@ -18,9 +18,6 @@ namespace Domain.Entities
         public StatusTypes.Station Status { get; set; } = StatusTypes.Station.Active;
 
         public List<RouteStation> RouteStations { get; set; } = new();
-        /* Omitted */
-        public virtual List<Booking> StartStationBookings { get; set; } = new();
-        public virtual List<Booking> EndStationBookings { get; set; } = new();
 
         //public override bool Equals(object? obj)
         //{

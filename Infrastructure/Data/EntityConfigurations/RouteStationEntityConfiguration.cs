@@ -54,8 +54,8 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.HasIndex(e => e.NextRouteStationId)
                 .IsUnique();
 
-            //builder.HasIndex(e => new { e.RouteId, e.StationId })
-            //    .IsUnique();
+            builder.HasIndex(e => new { e.RouteId, e.StationId, e.Index })
+                .IsUnique();
         }
     }
 }

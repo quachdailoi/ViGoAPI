@@ -15,27 +15,20 @@ using System.Linq;
 
 namespace API.Services
 {
-    public class RouteService : IRouteService
+    public class RouteService : BaseService, IRouteService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IFareService _fareService;
-
-        public RouteService(IUnitOfWork unitOfWork, IMapper mapper, IFareService fareService)
+        public RouteService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _fareService = fareService;
         }
 
         public Task<List<Domain.Entities.Route>> Create(List<Domain.Entities.Route> routes)
         {
-            return _unitOfWork.Routes.Add(routes);
+            return UnitOfWork.Routes.Add(routes);
         }
 
         public async Task<Response> CreateRange(List<RouteDTO> routes, Response successResponse, Response dupplicateResponse, Response errorResponse)
         {
-            var routeEntities = _mapper.Map<List<Domain.Entities.Route>>(routes);
+            var routeEntities = Mapper.Map<List<Domain.Entities.Route>>(routes);
 
             //check duplicate
 
@@ -50,14 +43,14 @@ namespace API.Services
         {
 
 
-            var routes = _unitOfWork.Routes.List(route => route.Status == StatusTypes.Route.Active);
+            var routes = UnitOfWork.Routes.List(route => route.Status == StatusTypes.Route.Active);
 
             if (!string.IsNullOrEmpty(request.StartStationCode))
             {
                 routes = routes.Where(route => route.RouteStations.Where(rs => rs.Station.Code.ToString() == request.StartStationCode).Any());
             }
                 
-            var result = await routes.MapTo<RouteViewModel>(_mapper).ToListAsync();
+            var result = await routes.MapTo<RouteViewModel>(Mapper).ToListAsync();
 
             foreach(var route in result) route.ProcessStation();
 
@@ -66,7 +59,7 @@ namespace API.Services
 
         public Task<bool> ExistSeedData()
         {
-            return _unitOfWork.Routes.List().AnyAsync();
+            return UnitOfWork.Routes.List().AnyAsync();
         }
 
 
@@ -76,12 +69,12 @@ namespace API.Services
             var endStationId = dto.EndStationId;
 
             var routeViewModels =
-                await _unitOfWork.Routes
+                await UnitOfWork.Routes
                 .List(route =>
                     route.Status == StatusTypes.Route.Active &&
                     route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.StartStationId) &&
                     route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.EndStationId))
-                .MapTo<BookerRouteViewModel>(_mapper)
+                .MapTo<BookerRouteViewModel>(Mapper)
                 .ToListAsync();
 
             var removeRouteIdHashSet = new HashSet<int>();
@@ -120,7 +113,7 @@ namespace API.Services
                     routeViewModel.Stations = stations;
                     routeViewModel.Distance = distance >= 0 ? distance : routeViewModel.Distance + distance;
                     routeViewModel.Duration = duration >= 0 ? duration : routeViewModel.Duration + duration;
-                    routeViewModel.Fee = await _fareService.CaculateFeeByDistance(dto.VehicleTypeId, routeViewModel.Distance, dto.Time);
+                    routeViewModel.Fee = await AppServices.Fare.CaculateFeeByDistance(dto.VehicleTypeId, routeViewModel.Distance, dto.Time);
                 }
                 else removeRouteIdHashSet.Add(routeViewModel.Id);
             }
@@ -137,12 +130,17 @@ namespace API.Services
 
         public async Task<Domain.Entities.Route> CreateRoute(Domain.Entities.Route route)
         {
-            return await _unitOfWork.Routes.CreateRoute(route);
+            return await UnitOfWork.Routes.CreateRoute(route);
         }
 
         public Task<Domain.Entities.Route> GetRouteByCode(string code)
         {
-            return _unitOfWork.Routes.GetRouteByCode(code);
+            return UnitOfWork.Routes.GetRouteByCode(code);
+        }
+
+        public IQueryable<Domain.Entities.Route> GetRouteByCode(Guid code)
+        {
+            return UnitOfWork.Routes.GetRouteByCode(code);
         }
     }
 }

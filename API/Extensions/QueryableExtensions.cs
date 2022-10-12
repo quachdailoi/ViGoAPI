@@ -23,10 +23,10 @@ namespace API.Extensions
 
         }
 
-        public static IQueryable<T> MapTo<T>(this IQueryable query, IMapper mapper)
+        public static IQueryable<T> MapTo<T>(this IQueryable query, IMapper mapper, object? service = null)
             where T : class
         {
-            return query.ProjectTo<T>(mapper.ConfigurationProvider);
+            return query.ProjectTo<T>(mapper.ConfigurationProvider, new {service = service});
         }
     }
 }

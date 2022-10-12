@@ -12,23 +12,21 @@ using Domain.Shares.Enums;
 
 namespace API.Services
 {
-    public class PaymentService : IPaymentService
+    public class PaymentService : BaseService, IPaymentService
     {
         private readonly HttpClient _client;
-        private readonly IConfiguration _config;
         private const string MOMO_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/create";
         private const string MOMO_REFUND_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/refund";
-        public PaymentService(IConfiguration config)
+        public PaymentService(IAppServices appServices) : base(appServices)
         {
             _client = new HttpClient();
-            _config = config;
         }
 
         public async Task<string?> GenerateMomoPaymentUrl(MomoCollectionLinkRequestDTO dto)
         {
-            dto.partnerCode = _config.Get(MomoSettings.PartnerCode);
-            dto.partnerName = _config.Get(MomoSettings.PartnerName);
-            dto.storeId = _config.Get(MomoSettings.StoreId);
+            dto.partnerCode = Configuration.Get(MomoSettings.PartnerCode);
+            dto.partnerName = Configuration.Get(MomoSettings.PartnerName);
+            dto.storeId = Configuration.Get(MomoSettings.StoreId);
             dto.requestId = Guid.NewGuid().ToString();
 
             var rawSignature = $"amount={dto.amount}&" +
@@ -60,8 +58,8 @@ namespace API.Services
         }
         public string GetMomoSignature(string text)
         {
-            var accessKey = _config.Get(MomoSettings.AccessKey);
-            var secretKey = _config.Get(MomoSettings.SecretKey);
+            var accessKey = Configuration.Get(MomoSettings.AccessKey);
+            var secretKey = Configuration.Get(MomoSettings.SecretKey);
 
             var rawSignature = $"accessKey={accessKey}&{text}";
 
@@ -82,7 +80,7 @@ namespace API.Services
         {
             var dto = new MomoRefundDTO
             {
-                partnerCode = _config.Get(MomoSettings.PartnerCode),
+                partnerCode = Configuration.Get(MomoSettings.PartnerCode),
                 orderId = Guid.NewGuid().ToString(),
                 requestId = Guid.NewGuid().ToString(),
                 amount = amount,

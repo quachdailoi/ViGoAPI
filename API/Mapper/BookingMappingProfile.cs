@@ -1,5 +1,4 @@
-﻿using API.Controllers.V1;
-using API.Extensions;
+﻿using API.Extensions;
 using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
@@ -14,21 +13,19 @@ namespace API.Mapper
     {
         public BookingMappingProfile()
         {
+            IAppServices? service = null;
 
             CreateMap<Booking, BookingViewModel>();
 
             CreateMap<Booking, BookerBookingViewModel>()
                 .ForMember(
                     dest => dest.Stations,
-                    otp => otp.MapFrom(
-                            src => src.Route.RouteStations
-                                .Select(routeStation =>
-                                    routeStation.Station)))
+                    otp => otp.MapFrom(src => src.StartRouteStation.Route.RouteStations.Select(routeStation => routeStation.Station)))
                 .AfterMap((src, dest) =>
                 {
                     dest.Distance = 0;
-                    var startIndex = dest.Stations.Where(station => station.Code == src.StartStationCode).First().Index;
-                    var endIndex = dest.Stations.Where(station => station.Code == src.EndStationCode).First().Index;
+                    var startIndex = src.StartRouteStation.Index;
+                    var endIndex = src.EndRouteStation.Index;
 
                     dest.Stations = dest.Stations.OrderBy(station => station.Index).ToList();
 
@@ -36,9 +33,9 @@ namespace API.Mapper
                     var stationBeforeEnd = dest.Stations.Where(station => station.Index <= endIndex).ToList();
 
                     dest.Stations = startIndex <= endIndex ?
-                        stationAfterStart.Intersect(stationBeforeEnd).ToList() : stationAfterStart.Concat(stationBeforeEnd).ToList(); 
+                        stationAfterStart.Intersect(stationBeforeEnd).ToList() : stationAfterStart.Concat(stationBeforeEnd).ToList();
                 })
-                .IncludeBase<Booking, BookingViewModel>();
+            .IncludeBase<Booking, BookingViewModel>();
 
             CreateMap<Booking, DriverBookingViewModel>()
                 .IncludeBase<Booking, BookingViewModel>();
@@ -78,6 +75,14 @@ namespace API.Mapper
                     dest => dest.EndAt,
                     otp => otp.MapFrom(
                             src => new DateOnly().ParseExact(src.EndAt)));
+        }
+    }
+
+    public static class BookingMappingSupport
+    {
+        public static List<Station> GetOrderedStations(this IAppServices? appServices, RouteStation start, RouteStation end)
+        {
+            return appServices.RouteStation.GetOrderedStationsInRoute(start, end);
         }
     }
 }

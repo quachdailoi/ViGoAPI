@@ -15,31 +15,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class UserService : IUserService
+    public class UserService : BaseService, IUserService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IConfiguration _config;
-        private readonly IFileService _fileService;
-
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration config, IFileService fileService)
+        public UserService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _config = config;
-            _fileService = fileService;
         }
 
         public Task<bool> UpdateUser(User user)
         {
-            return _unitOfWork.Users.Update(user);
+            return UnitOfWork.Users.Update(user);
         }
 
         public IQueryable<User>? GetUserById(int? id)
         {
             if (id == null) return null;
 
-            var user = _unitOfWork.Users.GetUserById((int)id);
+            var user = UnitOfWork.Users.GetUserById((int)id);
 
             return user;
         }
@@ -48,28 +39,28 @@ namespace API.Services
         {
             if (userId == null) return null;
 
-            var roles = _unitOfWork.Roles.GetAllRoles();
+            var roles = UnitOfWork.Roles.GetAllRoles();
 
-            var account = await _unitOfWork.Accounts.GetAccountByUserId((int)userId).Where(acc => acc.RoleId != null).FirstOrDefaultAsync();
+            var account = await UnitOfWork.Accounts.GetAccountByUserId((int)userId).Where(acc => acc.RoleId != null).FirstOrDefaultAsync();
 
             if (account == null) return null;
 
-            var user = _unitOfWork.Users.List(user => user.Id == account.UserId);
+            var user = UnitOfWork.Users.List(user => user.Id == account.UserId);
 
-            return await _mapper.ProjectTo<UserViewModel>(user).FirstOrDefaultAsync();
+            return await Mapper.ProjectTo<UserViewModel>(user).FirstOrDefaultAsync();
         }
 
         public List<User> GetUsersByCode(List<Guid> userCodes)
         {
 
-            var user = _unitOfWork.Users.GetUsersByCode(userCodes);
+            var user = UnitOfWork.Users.GetUsersByCode(userCodes);
 
             return user.ToList();
         }
 
         public async Task<Response> UpdateUserAvatar(string userCode, IFormFile avatar, Response successResponse, Response errorResponse)
         {
-            var user = await _unitOfWork.Users.GetUserByCode(userCode).Include(x => x.File).FirstOrDefaultAsync();
+            var user = await UnitOfWork.Users.GetUserByCode(userCode).Include(x => x.File).FirstOrDefaultAsync();
             var userFile = user.File;
 
             // Process file
@@ -77,36 +68,36 @@ namespace API.Services
             await avatar.CopyToAsync(memoryStream);
 
             var fileExt = Path.GetExtension(avatar.FileName);
-            var docName = $"{_config.Get(AwsSettings.UserAvatarFolder)}{userCode}{fileExt}";
+            var docName = $"{Configuration.Get(AwsSettings.UserAvatarFolder)}{userCode}{fileExt}";
 
             // update file path
-            await _unitOfWork.CreateTransactionAsync(); // open transaction
+            await UnitOfWork.CreateTransactionAsync(); // open transaction
 
             userFile.Path = docName;
 
-            if (!await _unitOfWork.Users.Update(user))
+            if (!await UnitOfWork.Users.Update(user))
             {
-                await _unitOfWork.Rollback(); // rollback
+                await UnitOfWork.Rollback(); // rollback
                 return errorResponse;
             }
 
             // call server
             var s3Obj = new S3ObjectDto()
             {
-                BucketName = _config.Get(AwsSettings.BucketName) ?? "",
+                BucketName = Configuration.Get(AwsSettings.BucketName) ?? "",
                 InputStream = memoryStream,
                 Name = docName
             };
 
-            var result = await _fileService.UploadFileAsync(s3Obj, successResponse, errorResponse);
+            var result = await AppServices.File.UploadFileAsync(s3Obj, successResponse, errorResponse);
 
             if (!result.Success)
             {
-                await _unitOfWork.Rollback(); // rollback
+                await UnitOfWork.Rollback(); // rollback
                 return result;
             }
 
-            await _unitOfWork.CommitAsync(); // commit
+            await UnitOfWork.CommitAsync(); // commit
             return result;
         }
 

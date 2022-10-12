@@ -15,37 +15,18 @@ using Newtonsoft.Json;
 
 namespace API.Services
 {
-    public class BookingService : IBookingService
+    public class BookingService : BaseService, IBookingService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IBookingDetailService _bookingDetailService;
-        private readonly IPromotionService _promotionService;
-        private readonly IFareService _fareService;
-        private readonly IPaymentService _paymentService;
-        private readonly IBookingDetailDriverService _bookingDetailDriverService;
-        private readonly IRedisMQService _redisMQService;
-
-        public BookingService
-            (IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, 
-            IPromotionService promotionService, IFareService fareService, IPaymentService paymentService, 
-            IBookingDetailDriverService bookingDetailDriverService, IRedisMQService redisMQService)
+        public BookingService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _bookingDetailService = bookingDetailService;
-            _promotionService = promotionService;
-            _fareService = fareService;
-            _paymentService = paymentService;
-            _bookingDetailDriverService = bookingDetailDriverService;
-            _redisMQService = redisMQService;
         }
+
         private async Task<Booking> GenerateBooking(BookingDTO dto)
         {
-            var booking = _mapper.Map<BookingDTO, Booking>(dto);
+            var booking = Mapper.Map<BookingDTO, Booking>(dto);
 
             var routeStations =
-                await _unitOfWork.RouteStations
+                await UnitOfWork.RouteStations
                 .List(routeStation =>
                     routeStation.Station.Code == dto.StartStationCode ||
                     routeStation.Station.Code == dto.EndStationCode &&
@@ -53,16 +34,19 @@ namespace API.Services
                 .Include(routeStation => routeStation.Station)
                 .ToListAsync();
 
-            var route = await _unitOfWork.Routes
+            var route = await UnitOfWork.Routes
                 .List(route => route.Code == dto.RouteCode && route.Status == StatusTypes.Route.Active)
                 .FirstOrDefaultAsync();
 
             if (route != null && routeStations.GroupBy(e => e.StationId).Count() == 2)
             {
-                booking.RouteId = route.Id;
+                booking.StartRouteStation.RouteId = route.Id;
 
                 var startStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.StartStationCode).First();
                 var endStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.EndStationCode).First();
+
+                booking.StartRouteStation = startStation;
+                booking.EndRouteStation = endStation;
 
                 // estimate distance
                 booking.Distance = (startStation.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute) ?
@@ -76,14 +60,14 @@ namespace API.Services
                     route.Duration - (startStation.DurationFromFirstStationInRoute - endStation.DurationFromFirstStationInRoute);
 
                 // caculate price
-                booking.TotalPrice = (await _fareService.CaculateBookingFee(dto.Type, dto.VehicleTypeId, dto.StartAt, dto.EndAt, booking.Distance, dto.Time)).TotalFee;
+                booking.TotalPrice = (await AppServices.Fare.CaculateBookingFee(dto.Type, dto.VehicleTypeId, dto.StartAt, dto.EndAt, booking.Distance, dto.Time)).TotalFee;
 
                 // generate booking detail by booking schedule
-                booking.BookingDetails = _bookingDetailService.GenerateBookingDetail(booking);
+                booking.BookingDetails = AppServices.BookingDetail.GenerateBookingDetail(booking);
 
                 if (!String.IsNullOrEmpty(dto.PromotionCode))
                 {
-                    var promotion = await _promotionService.GetPromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count, booking.PaymentMethod);
+                    var promotion = await AppServices.Promotion.GetPromotionByCode(dto.PromotionCode, booking.UserId, booking.TotalPrice, booking.BookingDetails.Count, booking.PaymentMethod);
 
                     //if (promotion == null) return invalidPromotionResponse;
 
@@ -111,7 +95,7 @@ namespace API.Services
 
             // filter in database
             var duplicateBookings = 
-                await _unitOfWork.Bookings
+                await UnitOfWork.Bookings
                 .List(e => 
                     !(e.Time.AddMinutes(e.Duration / 60) < booking.Time || 
                     e.Time > booking.Time.AddMinutes(booking.Duration / 60)) &&
@@ -141,16 +125,16 @@ namespace API.Services
 
             // check for exist available driver for this trip 
 
-            await _unitOfWork.CreateTransactionAsync();
+            await UnitOfWork.CreateTransactionAsync();
 
-            booking = await _unitOfWork.Bookings.Add(booking);
+            booking = await UnitOfWork.Bookings.Add(booking);
 
             if (booking == null) return errorReponse;
 
             var bookingViewModel = 
-                await _unitOfWork.Bookings
+                await UnitOfWork.Bookings
                     .List(_booking => _booking.Id == booking.Id)
-                    .MapTo<BookerBookingViewModel>(_mapper)
+                    .MapTo<BookerBookingViewModel>(Mapper, AppServices)
                     .FirstOrDefaultAsync();
 
             var paymentUrl = String.Empty;
@@ -161,21 +145,21 @@ namespace API.Services
                     case PaymentMethods.Momo:
                         ((MomoCollectionLinkRequestDTO)paymentDto).amount = (long)booking.TotalPrice;
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = booking.Code.ToString();
-                        paymentUrl = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
+                        paymentUrl = await AppServices.Payment.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
                         break;
                     case PaymentMethods.COD:
-                        await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                        await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
                         break;
                     default: break;
                 }
             }
             catch(Exception ex)
             {
-                await _unitOfWork.Rollback();
+                await UnitOfWork.Rollback();
                 return errorReponse.SetMessage(ex.Message);
             }
             
-            await _unitOfWork.CommitAsync();
+            await UnitOfWork.CommitAsync();
 
             return successResponse.SetData(new 
             { 
@@ -193,12 +177,12 @@ namespace API.Services
             var curBookingDetailStartTime = bookingDetail.Booking.Time;
             var curBookingDetailEndTime = bookingDetail.Booking.Time.AddMinutes(bookingDetail.Booking.Duration / 60);
 
-            var curStartStation = routeStationDic[bookingDetail.Booking.StartStationCode];
-            var curEndStation = routeStationDic[bookingDetail.Booking.EndStationCode];
+            var curStartStation = routeStationDic[bookingDetail.Booking.StartRouteStation.Station.Code];
+            var curEndStation = routeStationDic[bookingDetail.Booking.EndRouteStation.Station.Code];
 
             if (prevBookingDetail != null)
             {
-                var prevEndStation = routeStationDic[prevBookingDetail.Booking.EndStationCode];
+                var prevEndStation = routeStationDic[prevBookingDetail.Booking.EndRouteStation.Station.Code];
                 var prevBookingDetailEndTime = prevBookingDetail.Booking.Time.AddMinutes(prevBookingDetail.Booking.Duration);
                 var timeArriveCur = prevBookingDetailEndTime.AddMinutes((curStartStation.DurationFromFirstStationInRoute - prevEndStation.DurationFromFirstStationInRoute) / 60);
 
@@ -207,7 +191,7 @@ namespace API.Services
 
             if(nextBookingDetail != null)
             {
-                var nextStartStation = routeStationDic[nextBookingDetail.Booking.StartStationCode];
+                var nextStartStation = routeStationDic[nextBookingDetail.Booking.StartRouteStation.Station.Code];
                 var nextBookingDetailStartTime = nextBookingDetail?.Booking.Time;
                 var timeArriveNext = curBookingDetailEndTime.AddMinutes((nextStartStation.DurationFromFirstStationInRoute - curEndStation.DurationFromFirstStationInRoute) / 60);
 
@@ -257,18 +241,18 @@ namespace API.Services
             var bookingStartTime = bookingDetail.Booking.Time;
             var bookingEndTime = bookingDetail.Booking.Time.AddMinutes(bookingDetail.Booking.Duration/60);
 
-            var routeStationDic = bookingDetail.Booking.Route.RouteStations.ToDictionary(e => e.Station.Code);
+            var routeStationDic = bookingDetail.Booking.StartRouteStation.Route.RouteStations.ToDictionary(e => e.Station.Code);
 
             return FindPositionInOrderMappingWithRouteRoutine(bookingDetailMappedsInRouteRoutine, bookingDetail, routeStationDic) != null;
         }
         public async Task<Booking?> Mapping(int bookingId)
         {
             var booking =
-                await _unitOfWork.Bookings
+                await UnitOfWork.Bookings
                 .List(e => e.Id == bookingId && e.Status == Bookings.Status.PendingMapping)
                 .Include(e => e.User)
                 .Include(e => e.BookingDetails)
-                .Include(e => e.Route)
+                .Include(e => e.StartRouteStation.Route)
                 .ThenInclude(route => route.RouteStations)
                 .ThenInclude(routeStation => routeStation.Station)
                 .FirstOrDefaultAsync();
@@ -279,10 +263,10 @@ namespace API.Services
             var bookingDetailDrivers = new List<BookingDetailDriver>();
 
             var routeRoutines = 
-                await _unitOfWork.RouteRoutines
+                await UnitOfWork.RouteRoutines
                 .List(routeRoutine => !(routeRoutine.StartAt > booking.EndAt || routeRoutine.EndAt < booking.StartAt) &&
                                       !(routeRoutine.EndTime < booking.Time || routeRoutine.StartTime > booking.Time.AddMinutes(booking.Duration/60)) &&
-                                      routeRoutine.RouteId == booking.RouteId)
+                                      routeRoutine.RouteId == booking.StartRouteStation.RouteId)
                 .Include(e => e.User)
                 .ThenInclude(u => u.BookingDetailDrivers)
                 .ThenInclude(bdr => bdr.BookingDetail)
@@ -305,7 +289,7 @@ namespace API.Services
                 }
             }
 
-            if (bookingDetailDrivers.Any()) bookingDetailDrivers = await _bookingDetailDriverService.Create(bookingDetailDrivers);
+            if (bookingDetailDrivers.Any()) bookingDetailDrivers = await AppServices.BookingDetailDriver.Create(bookingDetailDrivers);
 
             booking.BookingDetails = bookingDetails.UnionBy(bookingDetailDrivers.Select(bdr => bdr.BookingDetail), e => e.Id).ToList();
 
@@ -314,17 +298,17 @@ namespace API.Services
 
         public async Task<Response> GetAll(int userId, Response successReponse)
         {
-            var bookings = _unitOfWork.Bookings
+            var bookings = UnitOfWork.Bookings
                 .List(booking => booking.UserId == userId);
 
-            var routes = _unitOfWork.Routes.List();
+            var routes = UnitOfWork.Routes.List();
 
-            var routeStations = _unitOfWork.RouteStations.List();
+            var routeStations = UnitOfWork.RouteStations.List();
 
             var bookingViewModels = 
-                await _unitOfWork.Bookings
+                await UnitOfWork.Bookings
                     .List(booking => booking.UserId == userId)
-                    .MapTo<BookerBookingViewModel>(_mapper)
+                    .MapTo<BookerBookingViewModel>(Mapper)
                     .ToListAsync();
 
             foreach(var booking in bookingViewModels)
@@ -349,7 +333,7 @@ namespace API.Services
                 TotalFee = booking.TotalPrice - booking.DiscountPrice
             });
         }
-        public Task<Booking?> GetByCode(Guid code) => _unitOfWork.Bookings.List(booking => booking.Code == code).FirstOrDefaultAsync();
-        public Task<bool> Update(Booking booking) => _unitOfWork.Bookings.Update(booking);
+        public Task<Booking?> GetByCode(Guid code) => UnitOfWork.Bookings.List(booking => booking.Code == code).FirstOrDefaultAsync();
+        public Task<bool> Update(Booking booking) => UnitOfWork.Bookings.Update(booking);
     }
 }

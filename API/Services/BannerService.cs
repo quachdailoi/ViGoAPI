@@ -8,23 +8,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class BannerService : IBannerService
+    public class BannerService : BaseService, IBannerService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public BannerService(IUnitOfWork unitOfWork, IMapper mapper)
+        public BannerService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public async Task<Response> GetHomeBanners(Response succeess)
         {
-            var banners = await _unitOfWork.Banners.GetAll()
+            var banners = await UnitOfWork.Banners.GetAll()
                 .Where(x => x.Active == true && x.Priority != null)
                 .OrderBy(x => x.Priority)
-                .MapTo<BannerViewModel>(_mapper)
+                .MapTo<BannerViewModel>(Mapper)
                 .ToListAsync();
 
             return succeess.SetData(banners);

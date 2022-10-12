@@ -10,19 +10,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class UserRoomService : IUserRoomService
+    public class UserRoomService : BaseService, IUserRoomService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IRoomService _roomService;
-        private readonly ISignalRService _signalRService;
-
-        public UserRoomService(IUnitOfWork unitOfWork, IMapper mapper, IRoomService roomService, ISignalRService signalRService)
+        public UserRoomService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _roomService = roomService;
-            _signalRService = signalRService;
         }
 
         public async Task<Response> UpdateLastSeenTime(UserDTO user,Guid roomCode, Response successResponse, Response errorResponse)
@@ -31,11 +22,11 @@ namespace API.Services
 
             var result = await UpdateLastSeenTime(user.Id, roomCode, now);
 
-            var room = await _roomService.GetViewModelByCode(roomCode);
+            var room = await AppServices.Room.GetViewModelByCode(roomCode);
 
             var userCodes = room.Users.Select(user => user.Code.ToString()).ToList();
 
-            await _signalRService.SendToUsersAsync(
+            await AppServices.SignalR.SendToUsersAsync(
                         userCodes,
                         "UpdateLastSeen",
                         new
@@ -50,7 +41,7 @@ namespace API.Services
 
         public async Task<bool> UpdateLastSeenTime(int userId, Guid roomCode, DateTimeOffset now)
         {
-            var userRoom = _unitOfWork.UserRooms
+            var userRoom = UnitOfWork.UserRooms
                                 .List(userRoom => userRoom.UserId == userId && userRoom.Room.Code == roomCode && userRoom.Status == StatusTypes.UserRoom.Active)
                                 .FirstOrDefault();
 
@@ -58,7 +49,7 @@ namespace API.Services
 
             userRoom.LastSeenTime = now;
 
-            return await _unitOfWork.UserRooms.Update(userRoom);
+            return await UnitOfWork.UserRooms.Update(userRoom);
         }
     }
 }

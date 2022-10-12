@@ -17,5 +17,6 @@ namespace API.Services.Constract
         Task<Response> GetRouteFeeByPairOfStation(StationWithScheduleDTO dto, Response successResponse, Response notFoundResponse);
         Task<Domain.Entities.Route> CreateRoute(Domain.Entities.Route route);
         Task<Domain.Entities.Route> GetRouteByCode(string code);
+        IQueryable<Domain.Entities.Route> GetRouteByCode(Guid code);
     }
 }

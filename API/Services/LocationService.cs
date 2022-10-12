@@ -2,7 +2,10 @@
 
 namespace API.Services
 {
-    public class LocationService : ILocationService
+    public class LocationService : BaseService, ILocationService
     {
+        public LocationService(IAppServices appServices) : base(appServices)
+        {
+        }
     }
 }
