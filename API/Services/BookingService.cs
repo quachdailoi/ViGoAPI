@@ -155,6 +155,7 @@ namespace API.Services
             }
             catch(Exception ex)
             {
+                Logger<BookingService>().LogError(ex.StackTrace);
                 await UnitOfWork.Rollback();
                 return errorReponse.SetMessage(ex.Message);
             }
