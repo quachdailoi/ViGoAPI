@@ -102,7 +102,7 @@ namespace API.Controllers.V1
                         {
                             var timeDuration = (routeRoutine.EndTime.ToTimeSpan() - routeRoutine.StartTime.ToTimeSpan()).TotalMinutes;
 
-                            var time = routeRoutine.StartTime.AddMinutes(((new Random()).Next() % Math.Floor(timeDuration)));
+                            var time = routeRoutine.StartTime;
 
                             var dateDuration = routeRoutine.EndAt.ToDateTime(TimeOnly.MinValue).Subtract(routeRoutine.StartAt.ToDateTime(TimeOnly.MinValue)).TotalDays;
 
@@ -123,7 +123,7 @@ namespace API.Controllers.V1
                             bookingDto.Time = time;
                             bookingDto.UserId = user.Id;
                             bookingDto.Type = Bookings.Types.MonthTicket;
-                            bookingDto.IsShared = (vehicleType.Type == VehicleTypes.Type.ViRide) ? false : (new Random()).Next() % 10 < 9;
+                            bookingDto.IsShared = vehicleType.Type != VehicleTypes.Type.ViRide;
                             bookingDto.RouteCode = route.Code;
                             bookingDto.StartStationCode = stations[startIndex].Code;
                             bookingDto.EndStationCode = stations[endIndex].Code;
@@ -137,6 +137,15 @@ namespace API.Controllers.V1
             }
 
             return Ok(totalSuccessBooking);
+        }
+
+        [HttpGet("checking-mapping")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CheckMapping()
+        {
+            var result = await AppServices.RouteRoutine.GetMappedBookingDetailDriverByRouteRoutine();
+
+            return Ok(result);
         }
 
         //[HttpPost("dump/drivers")]
