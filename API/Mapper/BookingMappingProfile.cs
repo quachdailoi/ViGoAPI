@@ -36,7 +36,7 @@ namespace API.Mapper
                     var stationBeforeEnd = dest.Stations.Where(station => station.Index <= endIndex).ToList();
 
                     dest.Stations = startIndex <= endIndex ?
-                        stationAfterStart.Intersect(stationBeforeEnd).ToList() : stationAfterStart.Concat(stationBeforeEnd).ToList(); 
+                        stationAfterStart.Intersect(stationBeforeEnd).ToList() : stationAfterStart.Concat(stationBeforeEnd).ToList();
                 })
                 .IncludeBase<Booking, BookingViewModel>();
 

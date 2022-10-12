@@ -14,5 +14,10 @@ namespace Infrastructure.Data.Repositories
         public BookingDetailDriverRepository(AppDbContext dbContext, ILogger<GenericRepository<BookingDetailDriver>> logger) : base(dbContext, logger)
         {
         }
+
+        public IQueryable<BookingDetailDriver> GetByDriverId(int driverId)
+        {
+            return List(x => x.DriverId == driverId);
+        }
     }
 }
