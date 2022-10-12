@@ -148,7 +148,10 @@ namespace API.Services
             {
                 var startStation = _unitOfWork.Stations.GetStationByCode(startStationCode).FirstOrDefault();
                 if (startStation == null) throw new ValidationException("Not found start station with this code.");
-                stations = stations.Where(station => station.Code.ToString() != startStationCode && station.RouteStations.Where(rs => rs.Route.RouteStations.Where(rs => rs.StationId == startStation.Id).Any()).Any());
+
+                stations = 
+                    stations.Where(station => station.Code.ToString() != startStationCode && 
+                        station.RouteStations.Where(rs => rs.Route.RouteStations.Where(startRs => startRs.StationId == startStation.Id && rs.Index > startRs.Index).Any()).Any());            
             }
 
             return successResponse.SetData(await stations.MapTo<StationViewModel>(_mapper).ToListAsync());
