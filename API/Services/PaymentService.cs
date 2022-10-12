@@ -61,6 +61,8 @@ namespace API.Services
             var accessKey = Configuration.Get(MomoSettings.AccessKey);
             var secretKey = Configuration.Get(MomoSettings.SecretKey);
 
+            _logger.LogError(secretKey);
+
             var rawSignature = $"accessKey={accessKey}&{text}";
 
             ASCIIEncoding encoding = new ASCIIEncoding();

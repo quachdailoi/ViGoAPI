@@ -32,6 +32,11 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("booking_detail_id")
                 .IsRequired();
 
+            builder.Property(e => e.Status)
+                .HasColumnName("status")
+                .HasConversion<int>()
+                .IsRequired();
+
             builder.HasOne(e => e.Driver)
                 .WithMany(d => d.BookingDetailDrivers)
                 .HasForeignKey(e => e.DriverId)
