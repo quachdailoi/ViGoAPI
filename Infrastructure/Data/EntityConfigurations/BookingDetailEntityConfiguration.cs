@@ -19,10 +19,12 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.ToTable("booking_details");
 
             builder.Property(e => e.Rating)
+                .IsRequired(false)
                 .HasColumnName("rating");
 
             builder.Property(e => e.FeedBack)
                 .HasMaxLength(2000)
+                .IsRequired(false)
                 .HasColumnName("feedback");
 
             builder.Property(e => e.Date)
