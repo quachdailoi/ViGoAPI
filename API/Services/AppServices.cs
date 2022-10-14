@@ -31,7 +31,10 @@ namespace API.Services
                 IFareTimelineService fareTimelineService,
                 IPaymentService paymentService,
                 IRouteRoutineService routeRoutineService,
-                IAffiliateAccountService affiliateAccountService
+                IAffiliateAccountService affiliateAccountService,
+                IAffiliatePartyTypeService affiliatePartyTypeService,
+                IWalletService walletService,
+                IWalletTransactionService walletTransactionService
             )
         {
             Account = accountService;
@@ -61,6 +64,9 @@ namespace API.Services
             RouteRoutine = routeRoutineService;
             Payment = paymentService;
             AffiliateAccount = affiliateAccountService;
+            AffiliatePartyType = affiliatePartyTypeService;
+            Wallet = walletService;
+            WalletTransaction = walletTransactionService;
         }
 
         public IAccountService Account { get; }
@@ -90,5 +96,8 @@ namespace API.Services
         public IRouteRoutineService RouteRoutine { get; }
         public IPaymentService Payment { get; }
         public IAffiliateAccountService AffiliateAccount { get; }
+        public IAffiliatePartyTypeService AffiliatePartyType { get; }
+        public IWalletService Wallet { get; }
+        public IWalletTransactionService WalletTransaction { get; }
     }
 }

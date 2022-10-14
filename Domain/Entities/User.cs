@@ -28,6 +28,7 @@ namespace Domain.Entities
         public List<RouteRoutine> RouteRoutines { get; set; } = null!;
         public List<BookingDetailDriver> BookingDetailDrivers { get; set; } = new();
         public List<AffiliateAccount> AffiliateAccounts { get; set; } = new();
-        public Vehicle Vehicle { get; set; }
+        public Vehicle? Vehicle { get; set; } = null;
+        public Wallet? Wallet { get; set; } = null;
     }
 }

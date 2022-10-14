@@ -13,9 +13,10 @@ namespace Domain.Entities
         public string Token { get; set; }
         public Object ExtraData { get; set; } = new();
         public AffiliateAccounts.Status Status { get; set; } = AffiliateAccounts.Status.Active;
-        public int UserId { get; set; }
-        public Payments.PaymentMethods Type { get; set; }
+        public int WalletId { get; set; }
+        public AffiliatePartyTypes.Types AffiliatePartyTypeId { get; set; }
 
-        public User User { get; set; }
+        public Wallet Wallet { get; set; }
+        public AffiliatePartyType AffiliatePartyType { get; set; }
     }
 }

@@ -6,15 +6,10 @@ namespace API.Services.Constract
         IAccountService Account { get; }
         IVerifiedCodeService VerifiedCode { get; }
         IUserService User { get; }
-
         ITokenService Token { get; }
-
         IBookerService Booker { get; }
-
         IDriverService Driver { get; }
-
         IAdminService Admin { get; }
-
         IUserRoomService UserRoom { get; }
         IRoomService Room { get; }
         IMessageService Message  { get; }
@@ -35,5 +30,8 @@ namespace API.Services.Constract
         IPaymentService Payment { get; }
         IRouteRoutineService RouteRoutine { get; }
         IAffiliateAccountService AffiliateAccount { get; }
+        IAffiliatePartyTypeService AffiliatePartyType { get; }
+        IWalletService Wallet { get; }
+        IWalletTransactionService WalletTransaction { get; }
     }
 }

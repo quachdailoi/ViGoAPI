@@ -16,5 +16,6 @@ namespace API.Services.Constract
         Task<Response> UpdateUserAvatar(string userCode, IFormFile avatar, Response successResponse, Response errorResponse);
 
         Task<Response> GetEmailWithFireBaseAuthAsync(LoginByEmailRequest request);
+        Task CreateRange(List<User> users);
     }
 }

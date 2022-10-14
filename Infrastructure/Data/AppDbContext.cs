@@ -54,6 +54,8 @@ namespace Infrastructure.Data
             new FareTimelineSeeder(builder);
 
             new VehicleSeeder(builder);
+
+            new AffiliatePartyTypeSeeder(builder);
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)
@@ -149,6 +151,15 @@ namespace Infrastructure.Data
 
             new AffiliateAccountEntityConfiguration()
                 .Configure(builder.Entity<AffiliateAccount>());
+
+            new AffiliatePartyTypeEntityConfiguration()
+                .Configure(builder.Entity<AffiliatePartyType>());
+
+            new WalletEntityConfiguration()
+                .Configure(builder.Entity<Wallet>());
+
+            new WalletTransactionEntityConfiguration()
+                .Configure(builder.Entity<WalletTransaction>());
         }
 
         public DbSet<Account> Accounts { get; set; }
@@ -174,5 +185,8 @@ namespace Infrastructure.Data
         public DbSet<RouteRoutine> RouteRoutines { get; set; }
         public DbSet<BookingDetailDriver> BookingDetailDrivers { get; set; }
         public DbSet<AffiliateAccount> AffiliateAccounts { get; set; }
+        public DbSet<AffiliatePartyType> AffiliatePartyTypes { get; set; }
+        public DbSet<Wallet> Wallets { get; set; }
+        public DbSet<WalletTransaction> WalletTransactions { get; set; }
     }
 }

@@ -139,5 +139,7 @@ namespace API.Services
         }
 
         public Task<List<User>> GetByRole(Roles role) => _unitOfWork.Users.List(user => user.Accounts.Select(acc => acc.Role).First().Id == role).ToListAsync();
+
+        public Task CreateRange(List<User> users) => _unitOfWork.Users.Add(users);
     }
 }

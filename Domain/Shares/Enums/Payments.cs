@@ -27,7 +27,7 @@ namespace Domain.Shares.Enums
             SystemMaintance = 10,
             Unknown = 99
         }
-        public enum MomoRequestType
+        public enum MomoRequestTypes
         {
             [Description("linkWallet")]
             LinkWallet,

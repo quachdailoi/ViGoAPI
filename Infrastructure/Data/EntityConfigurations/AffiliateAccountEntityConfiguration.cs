@@ -28,17 +28,21 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.Status)
                 .HasColumnName("status");
 
-            builder.Property(e => e.Type)
-                .HasColumnName("type");
+            builder.Property(e => e.WalletId)
+                .HasColumnName("wallet_id");
 
-            builder.Property(e => e.UserId)
-                .HasColumnName("user_id");
+            builder.Property(e => e.AffiliatePartyTypeId)
+                .HasColumnName("affiliate_party_type_id");
 
-            builder.HasOne(e => e.User)
-                .WithMany(u => u.AffiliateAccounts)
-                .HasForeignKey(e => e.UserId);
+            builder.HasOne(e => e.Wallet)
+                .WithMany(w => w.AffiliateAccounts)
+                .HasForeignKey(e => e.WalletId);
 
-            builder.HasIndex(e => new {e.UserId, e.Type })
+            builder.HasOne(e => e.AffiliatePartyType)
+                .WithMany(a => a.AffiliateAccounts)
+                .HasForeignKey(e => e.AffiliatePartyTypeId);
+
+            builder.HasIndex(e => new {e.WalletId, e.AffiliatePartyTypeId })
                 .IsUnique();
         }
     }
