@@ -129,9 +129,12 @@ namespace API.Services
             var duplicateBookings = 
                 await _unitOfWork.Bookings
                 .List(e => 
+                    e.Status == Bookings.Status.PendingMapping ||
+                    e.Status == Bookings.Status.Started &&
                     !(e.Time.AddMinutes(e.Duration / 60) < booking.Time || 
                     e.Time > booking.Time.AddMinutes(booking.Duration / 60)) &&
-                    e.UserId == booking.UserId && !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
+                    e.UserId == booking.UserId && 
+                    !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
                 .Include(e => e.BookingDetails)
                 .ToListAsync();
 

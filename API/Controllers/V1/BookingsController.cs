@@ -65,7 +65,7 @@ namespace API.Controllers.V1
         ///     Route is not exist.<br></br>
         ///     VehicleTypeCode is invalid.<br></br>
         ///     Payment method is not supported.<br></br>
-        ///     Conflict about the time schedule with your other bookings. <br></br>
+        ///     You have booked at this time in an another booking. Check again! <br></br>
         ///     Promotion code is not available. <br></br>
         /// </response>
         /// <response code="500"> Failed to create booking.</response>
@@ -125,7 +125,7 @@ namespace API.Controllers.V1
                                                     },
                                                     duplicationResponse: new()
                                                     {
-                                                        Message = "Conflict about the time schedule with your other bookings.",
+                                                        Message = "You have booked at this time in an another booking. Check again!",
                                                         StatusCode = StatusCodes.Status200OK
                                                     },
                                                     invalidPromotionResponse: new()
