@@ -44,6 +44,20 @@ namespace API.Utils
 
             return result;
         }
+
+        public static string EncodeBase64(object data)
+        {
+            string json = JsonConvert.SerializeObject(data);
+            byte[] bytes = Encoding.Default.GetBytes(json);
+            return Convert.ToBase64String(bytes);
+        }
+
+        public static T DecodeBase64<T>(string text)
+        {
+            byte[] bytes = Convert.FromBase64String(text);
+            string json = Encoding.Default.GetString(bytes);
+            return JsonConvert.DeserializeObject<T>(json);
+        } 
         //static byte[] EncryptStringToBytes_Aes(string plainText, byte[] Key, byte[] IV)
         //{
         //    // Check arguments.

@@ -18,6 +18,9 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.ToTable("wallet_transactions");
 
+            builder.Property(e => e.Code)
+                .HasColumnName("code");
+
             builder.Property(e => e.Amount)
                 .HasColumnName("amount");
 
@@ -33,6 +36,9 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.HasOne(e => e.Wallet)
                 .WithMany(w => w.WalletTransactions)
                 .HasForeignKey(e => e.WalletId);
+
+            builder.HasIndex(e => e.Code)
+                .IsUnique();
         }
     }
 }

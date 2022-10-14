@@ -18,18 +18,18 @@ namespace Infrastructure.Data.Seeders
                 {
                     new AffiliatePartyType
                     {
-                        Id = Payments.PaymentMethods.Momo,
+                        Id = AffiliatePartyTypes.Types.Momo,
                         Name = "Momo"
                     },
                     new AffiliatePartyType
                     {
-                        Id = Payments.PaymentMethods.VNPay,
+                        Id = AffiliatePartyTypes.Types.VNPay,
                         Name = "VNPay",
                     },
                     new AffiliatePartyType
                     {
-                        Id = Payments.PaymentMethods.BankCard,
-                        Name = "BankCard"
+                        Id = AffiliatePartyTypes.Types.ZaloPay,
+                        Name = "ZaloPay"
                     }
                 });
         }

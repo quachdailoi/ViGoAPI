@@ -163,6 +163,8 @@ services.AddSingleton(provider => new MapperConfiguration(cfg =>
     cfg.AddProfile(new VehicleMappingProfile());
     cfg.AddProfile(new RouteRoutineMappingProfile());
     cfg.AddProfile(new AffiliateAccountMappingProfile());
+    cfg.AddProfile(new WalletMappingProfile());
+    cfg.AddProfile(new WalletTransactionMappingProfile());
 }).CreateMapper());
 
 // add http context accessor

@@ -1,4 +1,5 @@
-﻿using API.Models.DTO;
+﻿using API.Models;
+using API.Models.DTO;
 using API.Models.Requests;
 using AutoMapper;
 using Domain.Entities;
@@ -14,6 +15,16 @@ namespace API.Mapper
 
             CreateMap<MomoLinkWalletNotificationRequest, GetMomoTokenRequest>()
                 .ReverseMap();
+
+            CreateMap<AffiliateAccount, AffiliateAccountViewModel>()
+                .ForMember(
+                    dest => dest.Type,
+                    opt => opt.MapFrom(
+                        src => src.AffiliatePartyType.Id))
+                .ForMember(
+                    dest => dest.Name,
+                    otp => otp.MapFrom(
+                        src => src.AffiliatePartyType.Name));
         }
     }
 }

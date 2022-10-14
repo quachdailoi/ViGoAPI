@@ -9,7 +9,7 @@ namespace API.Services.Constract
     {
         Task<Response> Create(
             BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse,Response invalidVehicleTypeResponse,
-            Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorReponse);
+            Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorResponse);
         Task<Response> GetProvision(
             BookingDTO dto, Response successResponse, Response invalidStationResponse, Response invalidRouteResponse, 
             Response invalidVehicleTypeResponse, Response invalidPromotionResponse);

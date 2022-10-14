@@ -138,7 +138,7 @@ namespace API.Controllers.V1
                                                         Message = "Not exist any available driver for this booking.",
                                                         StatusCode = StatusCodes.Status202Accepted
                                                     },
-                                                    errorReponse: new()
+                                                    errorResponse: new()
                                                     {
                                                         Message = "Fail to create booking.",
                                                         StatusCode = StatusCodes.Status500InternalServerError

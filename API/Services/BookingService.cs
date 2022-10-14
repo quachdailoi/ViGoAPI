@@ -108,7 +108,7 @@ namespace API.Services
         }
         public async Task<Response> Create(
             BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse, Response invalidVehicleTypeResponse,
-            Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorReponse)
+            Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorResponse)
         {
             var pairOfStation = await _stationService.GetPairOfStation(dto.StartStationCode, dto.EndStationCode);
 
@@ -164,9 +164,10 @@ namespace API.Services
 
             booking = await _unitOfWork.Bookings.Add(booking);
 
-            if (booking == null) return errorReponse;
+            if (booking == null) return errorResponse;
 
-            dynamic paymentUrl = String.Empty;
+            string paymentUrl = String.Empty;
+
             try
             {
                 switch (booking.PaymentMethod)
@@ -196,7 +197,7 @@ namespace API.Services
             catch(Exception ex)
             {
                 await _unitOfWork.Rollback();
-                return errorReponse.SetMessage(ex.Message);
+                return errorResponse.SetMessage(ex.Message);
             }
             
             await _unitOfWork.CommitAsync();

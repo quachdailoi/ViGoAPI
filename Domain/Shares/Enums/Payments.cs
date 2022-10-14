@@ -14,7 +14,8 @@ namespace Domain.Shares.Enums
             COD = 0,
             Momo = 1,
             VNPay = 2,
-            BankCard = 3
+            BankCard = 3,
+            Wallet = 4
         }
         public enum MomoStatusCodes
         {
