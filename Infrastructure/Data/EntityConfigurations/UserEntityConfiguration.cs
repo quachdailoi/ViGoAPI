@@ -16,6 +16,10 @@ namespace Infrastructure.Data.EntityConfigurations
         {
             base.Configure(builder);
 
+            builder.Navigation(u => u.File).AutoInclude();
+
+            builder.Navigation(u => u.Accounts).AutoInclude();
+
             builder.ToTable("users");
 
             builder.Property(e => e.Code)

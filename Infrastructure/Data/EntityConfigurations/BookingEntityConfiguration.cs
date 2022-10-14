@@ -16,6 +16,8 @@ namespace Infrastructure.Data.EntityConfigurations
         {
             base.Configure(builder);
 
+            //builder.Navigation(b => b.StartRouteStation.Station).AutoInclude();
+
             builder.ToTable("bookings");
 
             builder.Property(e => e.Code)

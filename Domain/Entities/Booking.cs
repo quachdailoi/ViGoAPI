@@ -37,9 +37,10 @@ namespace Domain.Entities
         public RouteStation StartRouteStation { get; set; } = new();
         public RouteStation EndRouteStation { get; set; } = new();
 
-        //virtual direct relation
+        ////virtual direct relation
         //[NotMapped]
-        //public Station StartStation => StartRouteStation.Station;
+        //public int StartStationId { get => StartRouteStation.StationId; set => StartRouteStationId = value; }
+        //public Station StartStation { get; set; } = new();
         //[NotMapped]
         //public Station EndStation => EndRouteStation.Station;
         //[NotMapped]

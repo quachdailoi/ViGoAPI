@@ -16,6 +16,8 @@ namespace Infrastructure.Data.EntityConfigurations
         {
             base.Configure(builder);
 
+            builder.Navigation(b => b.File).AutoInclude();
+
             builder.ToTable("banners");
 
             builder.Property(e => e.FileId)
