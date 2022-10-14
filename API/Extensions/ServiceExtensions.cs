@@ -21,6 +21,8 @@ using Microsoft.AspNetCore.Http.Json;
 using API.Utils;
 using FluentValidation;
 using API.Validators;
+using API.Worker;
+using API.Models.DTO;
 
 namespace API.Extensions
 {
@@ -166,9 +168,18 @@ namespace API.Extensions
             services.AddHostedService<TestTask>();
         }
 
-        public static void ConfigurationSeedData(this IServiceCollection servicess)
+        public static void ConfigurationSeedData(this IServiceCollection services, string[] args)
         {
-            servicess.AddHostedService<DumpRoutes>();
+            services.AddHostedService<DumpRoutes>();
+
+            IHost addRoutesHost = Host.CreateDefaultBuilder(args)
+                .ConfigureServices(services =>
+                {
+                    services.AddHostedService<AddRouteWorker>();
+                })
+                .Build();
+
+            services.Configure<HostDTO>(c => c.Host = addRoutesHost);
         }
 
         public static void ConfigureSwagger(this IServiceCollection services)

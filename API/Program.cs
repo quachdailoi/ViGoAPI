@@ -149,7 +149,7 @@ services.ConfigureIoCServices();
 services.ConfigurationJobQueue();
 
 // Seed Data
-services.ConfigurationSeedData();
+services.ConfigurationSeedData(args);
 
 //IoC For Profile
 //services.AddSingleton(provider => new MapperConfiguration(cfg =>
