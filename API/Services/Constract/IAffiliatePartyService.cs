@@ -1,6 +1,6 @@
 ﻿namespace API.Services.Constract
 {
-    public interface IAffiliatePartyTypeService
+    public interface IAffiliatePartyService
     {
     }
 }

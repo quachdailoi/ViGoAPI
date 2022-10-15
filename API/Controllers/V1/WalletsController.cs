@@ -38,9 +38,9 @@ namespace API.Controllers.V1
 
             var transactionDto = _mapper.Map<WalletTransactionDTO>(request);
 
-            switch (request.AffiliatePartyType)
+            switch (request.Type)
             {
-                case AffiliatePartyTypes.Types.Momo:
+                case AffiliateParties.PartyTypes.Momo:
                     paymentDto = new MomoCollectionLinkRequestDTO
                     {
                         ipnUrl = $"{GetControllerContextUri()}/top-up/ipn/momo"
@@ -79,6 +79,7 @@ namespace API.Controllers.V1
 
         [ApiExplorerSettings(IgnoreApi = true)] // api for momo return result of transaction
         [HttpPost("top-up/ipn/momo")]
+        [AllowAnonymous]
         public async Task<IActionResult> HandleTopUpWalletMomoPaymentIPN([FromBody] JsonElement request)
         {
             var dto = JsonSerializer.Deserialize<MomoPaymentNotificationRequest>(request.GetRawText());

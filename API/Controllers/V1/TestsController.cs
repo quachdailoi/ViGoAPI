@@ -220,7 +220,7 @@ namespace API.Controllers.V1
                             bookingDto.StartStationCode = stations[startIndex].Code;
                             bookingDto.EndStationCode = stations[endIndex].Code;
 
-                            dynamic booking = (await AppServices.Booking.Create(bookingDto, new(), new(), new(), new(), new(), new(), new(), new(), new())).Data;
+                            dynamic booking = (await AppServices.Booking.Create(bookingDto, new(), new(), new(), new(), new(), new(), new(),new(), new(), new())).Data;
 
                             if (booking != null) totalSuccessBooking++;
                         }

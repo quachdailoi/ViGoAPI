@@ -17,7 +17,11 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.StatusName,
                     opt => opt.MapFrom(
-                        src => src.Type.DisplayName()));
+                        src => src.Status.DisplayName()))
+                .ForMember(
+                    dest => dest.Time,
+                    opt => opt.MapFrom(
+                        src => src.UpdatedAt.ToFormatString()));
         }
     }
 }

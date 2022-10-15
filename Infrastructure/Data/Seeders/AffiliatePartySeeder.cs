@@ -9,26 +9,26 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Seeders
 {
-    public class AffiliatePartyTypeSeeder
+    public class AffiliatePartySeeder
     {
-        public AffiliatePartyTypeSeeder(ModelBuilder builder)
+        public AffiliatePartySeeder(ModelBuilder builder)
         {
-            builder.Entity<AffiliatePartyType>()
-                .HasData(new List<AffiliatePartyType>
+            builder.Entity<AffiliateParty>()
+                .HasData(new List<AffiliateParty>
                 {
-                    new AffiliatePartyType
+                    new AffiliateParty
                     {
-                        Id = AffiliatePartyTypes.Types.Momo,
+                        Id = AffiliateParties.PartyTypes.Momo,
                         Name = "Momo"
                     },
-                    new AffiliatePartyType
+                    new AffiliateParty
                     {
-                        Id = AffiliatePartyTypes.Types.VNPay,
+                        Id = AffiliateParties.PartyTypes.VNPay,
                         Name = "VNPay",
                     },
-                    new AffiliatePartyType
+                    new AffiliateParty
                     {
-                        Id = AffiliatePartyTypes.Types.ZaloPay,
+                        Id = AffiliateParties.PartyTypes.ZaloPay,
                         Name = "ZaloPay"
                     }
                 });

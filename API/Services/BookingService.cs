@@ -25,12 +25,13 @@ namespace API.Services
         private readonly IVehicleTypeService _vehicleTypeService;
         private readonly IStationService _stationService;
         private readonly IRedisMQService _redisMQService;
+        private readonly IWalletService _walletService;
 
         public BookingService(
             IUnitOfWork unitOfWork, IMapper mapper, IBookingDetailService bookingDetailService, 
-            IPromotionService promotionService, IFareService fareService, IPaymentService paymentService, 
-            IBookingDetailDriverService bookingDetailDriverService, IRedisMQService redisMQService, 
-            IVehicleTypeService vehicleTypeService, IStationService stationService, ILogger<BookingService> logger):base(logger)
+            IPromotionService promotionService, IFareService fareService, IPaymentService paymentService,
+            IBookingDetailDriverService bookingDetailDriverService, IRedisMQService redisMQService,
+            IVehicleTypeService vehicleTypeService, IStationService stationService, IWalletService walletService, ILogger<BookingService> logger) : base(logger)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
@@ -42,6 +43,7 @@ namespace API.Services
             _redisMQService = redisMQService;
             _vehicleTypeService = vehicleTypeService;
             _stationService = stationService;
+            _walletService = walletService;
         }
         private async Task<Booking> GenerateBooking(BookingDTO dto)
         {
@@ -108,7 +110,7 @@ namespace API.Services
         }
         public async Task<Response> Create(
             BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse, Response invalidVehicleTypeResponse,
-            Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorResponse)
+            Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response insufficientBalanceResponse, Response errorResponse)
         {
             var pairOfStation = await _stationService.GetPairOfStation(dto.StartStationCode, dto.EndStationCode);
 
@@ -177,7 +179,7 @@ namespace API.Services
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = booking.Code.ToString();
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderInfo = "Pay for ViGo booking";
                         var response = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
-                        if (response == null) throw new Exception();
+                        if (response == null) throw new Exception("Fail to generate momo url.");
                         //paymentUrl = new
                         //{
                         //    PayUrl = response.payUrl,
@@ -186,9 +188,29 @@ namespace API.Services
                         //};
                         paymentUrl = response.deeplink;
                         break;
+                    case Payments.PaymentMethods.Wallet:
+                        var wallet = await _walletService.GetWallet(booking.UserId);
+                        
+                        if (wallet == null) throw new Exception("Wallet is not exist.");
+                        if (wallet.Balance < booking.TotalPrice) throw new Exception("Insufficient balance.");
+                        
+                        wallet = await _walletService.UpdateBalance(new WalletTransactionDTO
+                        {
+                            Amount = (long)booking.TotalPrice,
+                            TxnId = booking.Id.ToString(),
+                            Status = WalletTransactions.Status.Success,
+                            WalletId = wallet.Id,
+                            Type = WalletTransactions.Types.BookingPaid
+                        });
+
+                        if (wallet == null) throw new Exception("Fail to pay by wallet.");
+
+                        await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+
+                        break;
                     case Payments.PaymentMethods.COD:
                         booking.Status = Bookings.Status.PendingMapping;
-                        if (!_unitOfWork.Bookings.Update(booking).Result) throw new Exception();
+                        if (!_unitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status.");
                         await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
                         break;
                     default: break;
@@ -197,6 +219,7 @@ namespace API.Services
             catch(Exception ex)
             {
                 await _unitOfWork.Rollback();
+                if (ex.Message.Contains("Insufficient balance.")) return insufficientBalanceResponse;
                 return errorResponse.SetMessage(ex.Message);
             }
             

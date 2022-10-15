@@ -6,7 +6,7 @@ namespace API.Models.DTO
     {
         public Guid Code { get; set; } = Guid.NewGuid();
         public double Amount { get; set; }
-        public string TxnId { get; set; }
+        public string TxnId { get; set; } = string.Empty;
         public WalletTransactions.Types Type { get; set; }
         public WalletTransactions.Status Status { get; set; } = WalletTransactions.Status.Pending;
         public int WalletId { get; set; }

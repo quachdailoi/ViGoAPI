@@ -10,6 +10,7 @@ namespace API.Models
         [JsonIgnore]
         public int UserId { get; set; }
         public double Balance { get; set; }
+        [JsonIgnore]
         public Wallets.Status Status { get; set; }
         public List<AffiliateAccountViewModel> AffiliateAccounts { get; set; }
         //public List<WalletTransactionViewModel> WalletTransactions { get; set; }

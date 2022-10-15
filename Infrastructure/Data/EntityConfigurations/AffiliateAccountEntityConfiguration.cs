@@ -31,18 +31,18 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.WalletId)
                 .HasColumnName("wallet_id");
 
-            builder.Property(e => e.AffiliatePartyTypeId)
+            builder.Property(e => e.AffiliatePartyId)
                 .HasColumnName("affiliate_party_type_id");
 
             builder.HasOne(e => e.Wallet)
                 .WithMany(w => w.AffiliateAccounts)
                 .HasForeignKey(e => e.WalletId);
 
-            builder.HasOne(e => e.AffiliatePartyType)
+            builder.HasOne(e => e.AffiliateParty)
                 .WithMany(a => a.AffiliateAccounts)
-                .HasForeignKey(e => e.AffiliatePartyTypeId);
+                .HasForeignKey(e => e.AffiliatePartyId);
 
-            builder.HasIndex(e => new {e.WalletId, e.AffiliatePartyTypeId })
+            builder.HasIndex(e => new {e.WalletId, e.AffiliatePartyId })
                 .IsUnique();
         }
     }

@@ -2,7 +2,7 @@
 
 namespace API.Services
 {
-    public class AffiliatePartyTypeService : IAffiliatePartyTypeService
+    public class AffiliatePartyService : IAffiliatePartyService
     {
     }
 }

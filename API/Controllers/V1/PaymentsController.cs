@@ -30,9 +30,9 @@ namespace API.Controllers.V1
 
             var response = new Response();
 
-            switch (request.PaymentMethod)
+            switch (request.Type)
             {
-                case Payments.PaymentMethods.Momo:
+                case AffiliateParties.PartyTypes.Momo:
                     var dto = new MomoLinkingWalletRequestDTO();
 
                     dto.partnerClientId = user.Id.ToString();

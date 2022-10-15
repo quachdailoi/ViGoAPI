@@ -21,7 +21,7 @@ namespace Infrastructure.Data.Seeders
                 DateOfBirth = null,
                 Gender = Genders.Male,
                 Status = StatusTypes.User.Active,
-                FileId = 1,
+                FileId = 1
             });
 
             builder.Entity<User>().HasData(new User
@@ -32,7 +32,7 @@ namespace Infrastructure.Data.Seeders
                 DateOfBirth = null,
                 Gender = Genders.Male,
                 Status = StatusTypes.User.Active,
-                FileId = 2,
+                FileId = 2
             });
 
             builder.Entity<User>().HasData(new User
@@ -43,7 +43,7 @@ namespace Infrastructure.Data.Seeders
                 DateOfBirth = null,
                 Gender = Genders.Male,
                 Status = StatusTypes.User.Active,
-                FileId = 3,
+                FileId = 3
             });
 
             builder.Entity<User>().HasData(new User
@@ -54,7 +54,7 @@ namespace Infrastructure.Data.Seeders
                 DateOfBirth = null,
                 Gender = Genders.Male,
                 Status = StatusTypes.User.Active,
-                FileId = 4,
+                FileId = 4
             });
 
             builder.Entity<User>().HasData(new User
@@ -65,7 +65,7 @@ namespace Infrastructure.Data.Seeders
                 DateOfBirth = null,
                 Gender = Genders.Male,
                 Status = StatusTypes.User.Active,
-                FileId = 5,
+                FileId = 5
             });
 
             builder.Entity<User>().HasData(new User
@@ -76,7 +76,7 @@ namespace Infrastructure.Data.Seeders
                 DateOfBirth = null,
                 Gender = Genders.Male,
                 Status = StatusTypes.User.Active,
-                FileId = 6,
+                FileId = 6
             });
 
             builder.Entity<User>().HasData(new User
@@ -87,7 +87,7 @@ namespace Infrastructure.Data.Seeders
                 DateOfBirth = null,
                 Gender = Genders.Male,
                 Status = StatusTypes.User.Active,
-                FileId = 7,
+                FileId = 7
             });
 
             builder.Entity<User>().HasData(new User
@@ -98,7 +98,7 @@ namespace Infrastructure.Data.Seeders
                 DateOfBirth = null,
                 Gender = Genders.Male,
                 Status = StatusTypes.User.Active,
-                FileId = 8,
+                FileId = 8
             });
 
             builder.Entity<User>().HasData(new User

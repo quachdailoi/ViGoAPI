@@ -1,5 +1,4 @@
-﻿using Domain.Shares.Classes;
-using Domain.Shares.Enums;
+﻿using Domain.Shares.Enums;
 
 namespace API.Models.Requests
 {

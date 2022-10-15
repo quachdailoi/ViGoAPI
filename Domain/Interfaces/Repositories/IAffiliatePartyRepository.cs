@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Repositories
 {
-    public interface IAffiliatePartyTypeRepository : IGenericRepository<AffiliatePartyType>
+    public interface IAffiliatePartyRepository : IGenericRepository<AffiliateParty>
     {
     }
 }

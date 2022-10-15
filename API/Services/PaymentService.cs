@@ -129,8 +129,7 @@ namespace API.Services
 
         public string GetMomoSignature(string text)
         {
-            var accessKey = "asdasd";
-                //_config.Get(MomoSettings.AccessKey);
+            var accessKey = _config.Get(MomoSettings.AccessKey);
             var secretKey = _config.Get(MomoSettings.SecretKey);
 
             var rawSignature = $"accessKey={accessKey}&{text}";

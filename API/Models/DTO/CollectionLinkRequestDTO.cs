@@ -8,12 +8,15 @@ namespace API.Models.DTO
     }
     public class MomoCollectionLinkRequestDTO : CollectionLinkRequestDTO
     {
-        private string _redirectUrl;
+        private string _redirectUrl = "vigo://12asdxxx";
         public string orderInfo { get; set; } = "Pay with Momo";
         public string partnerCode { get; set; }
         public string redirectUrl {
             get => _redirectUrl;
-            set => _redirectUrl = String.IsNullOrEmpty(value) ? "vigo://12asdxxx" : value;
+            set
+            {
+                if(!String.IsNullOrEmpty(value)) _redirectUrl = value;
+            } 
         }
         public string ipnUrl { get; set; }
         public long amount { get; set; }

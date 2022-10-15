@@ -4,7 +4,7 @@ namespace API.Models.Requests
 {
     public class LinkWalletRequest
     {
-        public Payments.PaymentMethods PaymentMethod { get; set; }
+        public AffiliateParties.PartyTypes Type { get; set; }
         public string Applink { get; set; }
     }
 }

@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.EntityConfigurations
 {
-    public class AffiliatePartyTypeEntityConfiguration : IEntityTypeConfiguration<AffiliatePartyType>
+    public class AffiliatePartyEntityConfiguration : IEntityTypeConfiguration<AffiliateParty>
     {
-        public void Configure(EntityTypeBuilder<AffiliatePartyType> builder)
+        public void Configure(EntityTypeBuilder<AffiliateParty> builder)
         {
-            builder.ToTable("affiliate_party_types");
+            builder.ToTable("affiliate_parties");
 
             builder.HasKey(x => x.Id);
 

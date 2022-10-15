@@ -107,7 +107,7 @@ namespace API.Extensions
             services.AddScoped<IFareTimelineRepository, FareTimelineRepository>();
             services.AddScoped<IRouteRoutineRepository, RouteRoutineRepository>();
             services.AddScoped<IAffiliateAccountRepository, AffiliateAccountRepository>();
-            services.AddScoped<IAffiliatePartyTypeRepository, AffiliatePartyTypeRepository>();
+            services.AddScoped<IAffiliatePartyRepository, AffiliatePartyRepository>();
             services.AddScoped<IWalletRepository, WalletRepository>();
             services.AddScoped<IWalletTransactionRepository, WalletTransactionRepository>();
         }
@@ -144,7 +144,7 @@ namespace API.Extensions
             services.AddTransient<IPaymentService, PaymentService>();
             services.AddTransient<IRouteRoutineService, RouteRoutineService>();
             services.AddTransient<IAffiliateAccountService, AffiliateAccountService>();
-            services.AddTransient<IAffiliatePartyTypeService, AffiliatePartyTypeService>();
+            services.AddTransient<IAffiliatePartyService, AffiliatePartyService>();
             services.AddTransient<IWalletService, WalletService>();
             services.AddTransient<IWalletTransactionService, WalletTransactionService>();
         }

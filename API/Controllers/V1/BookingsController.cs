@@ -138,6 +138,11 @@ namespace API.Controllers.V1
                                                         Message = "Not exist any available driver for this booking.",
                                                         StatusCode = StatusCodes.Status202Accepted
                                                     },
+                                                    insufficientBalanceResponse: new()
+                                                    {
+                                                        Message = "Insufficient balance.",
+                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                    },
                                                     errorResponse: new()
                                                     {
                                                         Message = "Fail to create booking.",

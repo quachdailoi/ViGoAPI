@@ -10,5 +10,6 @@ namespace API.Models
         public string TypeName { get; set; }
         public WalletTransactions.Status Status { get; set; }
         public string StatusName { get; set; }
+        public string Time { get; set; }
     }
 }

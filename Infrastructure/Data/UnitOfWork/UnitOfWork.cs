@@ -36,7 +36,7 @@ namespace Infrastructure.Data.UnitOfWork
         public IFareTimelineRepository FareTimelines { get; }
         public IRouteRoutineRepository RouteRoutines { get; }
         public IAffiliateAccountRepository AffiliateAccounts { get; }
-        public IAffiliatePartyTypeRepository AffiliatePartyTypes { get; }
+        public IAffiliatePartyRepository AffiliateParties { get; }
         public IWalletRepository Wallets { get; }
         public IWalletTransactionRepository WalletTransactions { get; }
 
@@ -66,7 +66,7 @@ namespace Infrastructure.Data.UnitOfWork
             IFareTimelineRepository fareTimelineRepository,
             IRouteRoutineRepository routeRoutineRepository,
             IAffiliateAccountRepository affiliateAccountRepository,
-            IAffiliatePartyTypeRepository affiliatePartyTypeRepository,
+            IAffiliatePartyRepository affiliatePartyRepository,
             IWalletRepository walletRepository,
             IWalletTransactionRepository walletTransactionRepository)
         {
@@ -95,7 +95,7 @@ namespace Infrastructure.Data.UnitOfWork
             FareTimelines = fareTimelineRepository;
             RouteRoutines = routeRoutineRepository;
             AffiliateAccounts = affiliateAccountRepository;
-            AffiliatePartyTypes = affiliatePartyTypeRepository;
+            AffiliateParties = affiliatePartyRepository;
             Wallets = walletRepository;
             WalletTransactions = walletTransactionRepository;
 

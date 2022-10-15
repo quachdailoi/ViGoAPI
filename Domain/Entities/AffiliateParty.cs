@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class AffiliatePartyType : BaseEntity
+    public class AffiliateParty : BaseEntity
     {
-        public AffiliatePartyTypes.Types Id { get; set; }
+        public AffiliateParties.PartyTypes Id { get; set; }
         public Guid Code { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = string.Empty;
-        public AffiliatePartyTypes.Status Status { get; set; } = AffiliatePartyTypes.Status.Active;
+        public AffiliateParties.Status Status { get; set; } = AffiliateParties.Status.Active;
 
         public List<AffiliateAccount> AffiliateAccounts = new();
     }

@@ -14,9 +14,9 @@ namespace Domain.Entities
         public Object ExtraData { get; set; } = new();
         public AffiliateAccounts.Status Status { get; set; } = AffiliateAccounts.Status.Active;
         public int WalletId { get; set; }
-        public AffiliatePartyTypes.Types AffiliatePartyTypeId { get; set; }
+        public AffiliateParties.PartyTypes AffiliatePartyId { get; set; }
 
         public Wallet Wallet { get; set; }
-        public AffiliatePartyType AffiliatePartyType { get; set; }
+        public AffiliateParty AffiliateParty { get; set; }
     }
 }

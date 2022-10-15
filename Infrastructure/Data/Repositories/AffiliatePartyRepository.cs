@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class AffiliatePartyTypeRepository : GenericRepository<AffiliatePartyType>, IAffiliatePartyTypeRepository
+    public class AffiliatePartyRepository : GenericRepository<AffiliateParty>, IAffiliatePartyRepository
     {
-        public AffiliatePartyTypeRepository(AppDbContext dbContext, ILogger<GenericRepository<AffiliatePartyType>> logger) : base(dbContext, logger)
+        public AffiliatePartyRepository(AppDbContext dbContext, ILogger<GenericRepository<AffiliateParty>> logger) : base(dbContext, logger)
         {
         }
     }

@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public class AffiliatePartyTypes
+    public class AffiliateParties
     { 
-        public enum Types
-        {
-            Momo = 1,
-            VNPay = 2,
-            ZaloPay = 3
-        }
         public enum Status
         {
             Active,
             Inactive
+        }
+
+        public enum PartyTypes
+        {
+            Momo = 1,
+            VNPay = 2,
+            ZaloPay = 3
         }
     }
 }

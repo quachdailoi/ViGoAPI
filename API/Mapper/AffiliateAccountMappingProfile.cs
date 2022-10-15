@@ -20,11 +20,11 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.Type,
                     opt => opt.MapFrom(
-                        src => src.AffiliatePartyType.Id))
+                        src => src.AffiliateParty.Id))
                 .ForMember(
                     dest => dest.Name,
                     otp => otp.MapFrom(
-                        src => src.AffiliatePartyType.Name));
+                        src => src.AffiliateParty.Name));
         }
     }
 }

@@ -24,6 +24,10 @@ namespace API.Mapper
                             src => src.Route.RouteStations
                                 .Select(routeStation =>
                                     routeStation.Station)))
+                .ForMember(
+                    dest => dest.StatusName,
+                    otp => otp.MapFrom(
+                            src => src.Status.DisplayName()))
                 .AfterMap((src, dest) =>
                 {
                     dest.Distance = 0;

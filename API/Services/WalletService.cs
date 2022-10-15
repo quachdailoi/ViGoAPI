@@ -25,12 +25,13 @@ namespace API.Services
             _mapper = mapper;
             _paymentService = paymentService;
         }
-
+        private IQueryable<Wallet> GetWalletQueryable(int userId) => _unitOfWork.Wallets
+            .List(wallet => wallet.UserId == userId && wallet.Status == Wallets.Status.Active);
+        public Task<Wallet?> GetWallet(int userId) => GetWalletQueryable(userId).FirstOrDefaultAsync();
         public async Task<Response> GetWallet(int userId, Response successResponse, Response errorResponse)
         {
             var walletVM =
-                await _unitOfWork.Wallets
-                .List(wallet => wallet.UserId == userId && wallet.Status == Wallets.Status.Active)
+                await GetWalletQueryable(userId)
                 .MapTo<WalletViewModel>(_mapper)
                 .FirstOrDefaultAsync();
 
@@ -51,10 +52,13 @@ namespace API.Services
 
             await _unitOfWork.CreateTransactionAsync();
 
-            var walletTransaction = await _unitOfWork.WalletTransactions.Add(_mapper.Map<WalletTransaction>(transactionDto));
+            var walletTransaction = _mapper.Map<WalletTransaction>(transactionDto);
+
+            walletTransaction = await _unitOfWork.WalletTransactions.Add(walletTransaction);
 
             try
             {
+                if (walletTransaction == null) throw new Exception();
                 switch (transactionDto.Type)
                 {
                     case WalletTransactions.Types.MomoIncome:
@@ -71,7 +75,8 @@ namespace API.Services
 
                         dataResponse = new
                         {
-                            PayUrl = response.deeplink
+                            PayUrl = response.deeplink,
+                            WebUrl = response.payUrl
                         };
                         break;
                     default:

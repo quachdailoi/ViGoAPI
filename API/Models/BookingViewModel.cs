@@ -23,6 +23,7 @@ namespace API.Models
         [JsonIgnore]
         public Guid EndStationCode { get; set; }
         public Bookings.Status Status { get; set; } = Bookings.Status.Unpaid;
+        public string StatusName { get; set; }
         public List<StationInRouteViewModel> Stations { get; set; } = new();
 
         public virtual BookingViewModel ProcessStationOrder()

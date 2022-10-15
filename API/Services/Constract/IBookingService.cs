@@ -8,8 +8,9 @@ namespace API.Services.Constract
     public interface IBookingService
     {
         Task<Response> Create(
-            BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse,Response invalidVehicleTypeResponse,
-            Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response errorResponse);
+            BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse,
+            Response invalidVehicleTypeResponse, Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, 
+            Response notAvailableResponse, Response insufficientBalanceResponse, Response errorResponse);
         Task<Response> GetProvision(
             BookingDTO dto, Response successResponse, Response invalidStationResponse, Response invalidRouteResponse, 
             Response invalidVehicleTypeResponse, Response invalidPromotionResponse);

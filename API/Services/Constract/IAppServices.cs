@@ -30,7 +30,7 @@ namespace API.Services.Constract
         IPaymentService Payment { get; }
         IRouteRoutineService RouteRoutine { get; }
         IAffiliateAccountService AffiliateAccount { get; }
-        IAffiliatePartyTypeService AffiliatePartyType { get; }
+        IAffiliatePartyService AffiliateParty { get; }
         IWalletService Wallet { get; }
         IWalletTransactionService WalletTransaction { get; }
     }

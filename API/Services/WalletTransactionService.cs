@@ -6,6 +6,7 @@ using API.Models.Responses;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Interfaces.UnitOfWork;
+using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
@@ -23,7 +24,9 @@ namespace API.Services
 
         public async Task<Response> GetTransactions(int userId, Response successResponse, PagingRequest? request = null)
         {
-            var transactions = _unitOfWork.WalletTransactions.List(trans => trans.Wallet.UserId == userId);
+            var transactions = _unitOfWork.WalletTransactions
+                .List(trans => trans.Wallet.UserId == userId && trans.Status != WalletTransactions.Status.Pending)
+                .OrderByDescending(trans => trans.UpdatedAt);
         
             var paging = transactions.Paging(page: request?.Page, pageSize: request?.PageSize);
 

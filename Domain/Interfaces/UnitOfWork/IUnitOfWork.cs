@@ -27,7 +27,7 @@ namespace Domain.Interfaces.UnitOfWork
         IFareTimelineRepository FareTimelines { get; }
         IRouteRoutineRepository RouteRoutines { get; }
         IAffiliateAccountRepository AffiliateAccounts { get; }
-        IAffiliatePartyTypeRepository AffiliatePartyTypes { get; }
+        IAffiliatePartyRepository AffiliateParties { get; }
         IWalletRepository Wallets { get; }
         IWalletTransactionRepository WalletTransactions { get; }
 

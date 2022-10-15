@@ -17,18 +17,18 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.Type,
                     otp => otp.MapFrom(
-                        src => GetWalletTopUpTransactionType(src.AffiliatePartyType)));
+                        src => GetWalletTopUpTransactionType(src.Type)));
 
             CreateMap<Wallet, WalletViewModel>();
         }
 
-        public WalletTransactions.Types GetWalletTopUpTransactionType(AffiliatePartyTypes.Types type)
+        private WalletTransactions.Types GetWalletTopUpTransactionType(AffiliateParties.PartyTypes type)
         {
             switch (type)
             {
-                case AffiliatePartyTypes.Types.Momo:
+                case AffiliateParties.PartyTypes.Momo:
                     return WalletTransactions.Types.MomoIncome;
-                case AffiliatePartyTypes.Types.VNPay:
+                case AffiliateParties.PartyTypes.VNPay:
                     return WalletTransactions.Types.VnPayIncome;
                 default: return WalletTransactions.Types.ZaloPayIncome;
             }
