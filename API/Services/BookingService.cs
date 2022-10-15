@@ -85,6 +85,23 @@ namespace API.Services
 
             return booking;
         }
+
+        public async Task<bool> CheckIsConflictBooking(Booking booking)
+        {
+            var duplicateBookings =
+                await UnitOfWork.Bookings
+                .List(e =>
+                    (e.Status == Bookings.Status.PendingMapping ||
+                    e.Status == Bookings.Status.Started) &&
+                    !(e.Time.AddMinutes(e.Duration / 60) < booking.Time ||
+                    e.Time > booking.Time.AddMinutes(booking.Duration / 60)) &&
+                    e.UserId == booking.UserId &&
+                    !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
+                .Include(e => e.BookingDetails)
+                .ToListAsync();
+            return duplicateBookings.Any();
+        }
+
         public async Task<Response> Create(
             BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse, Response invalidVehicleTypeResponse,
             Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response insufficientBalanceResponse, Response errorResponse)
@@ -104,38 +121,7 @@ namespace API.Services
             if (booking.BookingDetails.Count == 0) return invalidRouteResponse;
             if (!booking.PromotionId.HasValue && !String.IsNullOrEmpty(dto.PromotionCode)) return invalidPromotionResponse; 
 
-            // filter in database
-            var duplicateBookings = 
-                await UnitOfWork.Bookings
-                .List(e => 
-                    (e.Status == Bookings.Status.PendingMapping ||
-                    e.Status == Bookings.Status.Started) &&
-                    !(e.Time.AddMinutes(e.Duration / 60) < booking.Time || 
-                    e.Time > booking.Time.AddMinutes(booking.Duration / 60)) &&
-                    e.UserId == booking.UserId && 
-                    !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
-                .Include(e => e.BookingDetails)
-                .ToListAsync();
-
-            if (duplicateBookings.Any()) return duplicationResponse;
-
-            //// filter in server
-            //if (duplicateBookings.Any())
-            //{
-            //    var bookingDetailDateHashSet = 
-            //        duplicateBookings
-            //        .Select(b => b.BookingDetails.Select(_b => _b.Date))
-            //        .Aggregate((current, next) => current.Union(next))
-            //        .ToHashSet();
-
-            //    var insertedBookingDetailDateHashSet = 
-            //        booking.BookingDetails.Select(b => b.Date).ToHashSet();
-
-            //    insertedBookingDetailDateHashSet.IntersectWith(bookingDetailDateHashSet);
-
-            //    if(insertedBookingDetailDateHashSet.Any())
-            //        return duplicationResponse;
-            //}
+            if (CheckIsConflictBooking(booking).Result) return duplicationResponse;
 
             // check for exist available driver for this trip 
 
@@ -144,6 +130,12 @@ namespace API.Services
             booking = await UnitOfWork.Bookings.Add(booking);
 
             if (booking == null) return errorResponse;
+
+            //booking = await Mapping(booking.Id);
+
+            //if (!booking.BookingDetails.Any(bd => bd.BookingDetailDrivers.Any())) return notAvailableResponse;
+
+            //if (!AppServices.RouteRoutine.GetRouteRoutineFitBookingCondition(booking).Result.Any()) return notAvailableResponse;
 
             string paymentUrl = String.Empty;
 
@@ -155,14 +147,10 @@ namespace API.Services
                         ((MomoCollectionLinkRequestDTO)paymentDto).amount = (long)booking.TotalPrice;
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = booking.Code.ToString();
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderInfo = "Pay for ViGo booking";
+
                         var response = await AppServices.Payment.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
                         if (response == null) throw new Exception("Fail to generate momo url.");
-                        //paymentUrl = new
-                        //{
-                        //    PayUrl = response.payUrl,
-                        //    Deeplink = response.deeplink,
-                        //    DeeplinkMiniApp = response.deeplinkMiniApp
-                        //};
+
                         paymentUrl = response.deeplink;
                         break;
                     case Payments.PaymentMethods.Wallet:
@@ -173,7 +161,7 @@ namespace API.Services
                         
                         wallet = await AppServices.Wallet.UpdateBalance(new WalletTransactionDTO
                         {
-                            Amount = (long)booking.TotalPrice,
+                            Amount = -(long)booking.TotalPrice,
                             TxnId = booking.Id.ToString(),
                             Status = WalletTransactions.Status.Success,
                             WalletId = wallet.Id,
@@ -187,7 +175,9 @@ namespace API.Services
                         break;
                     case Payments.PaymentMethods.COD:
                         booking.Status = Bookings.Status.PendingMapping;
+
                         if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status.");
+
                         await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
                         break;
                     default: break;
@@ -216,66 +206,7 @@ namespace API.Services
             );
         }
 
-        //private bool IsSatisfiedTripInRouteRoutineOrderCondition(BookingDetail? prevBookingDetail, BookingDetail? nextBookingDetail, BookingDetail bookingDetail, Dictionary<Guid,RouteStation> routeStationDic)
-        //{
-        //    var isSatisfiedPrevBookingDetail = true;
-        //    var isSatisfiedNextBookingDetail = true;
 
-        //    var curBookingDetailStartTime = bookingDetail.Booking.Time;
-        //    var curBookingDetailEndTime = bookingDetail.Booking.Time.AddMinutes(bookingDetail.Booking.Duration / 60);
-
-        //    var curStartStation = routeStationDic[bookingDetail.Booking.StartStationCode];
-        //    var curEndStation = routeStationDic[bookingDetail.Booking.EndStationCode];
-
-        //    if (prevBookingDetail != null)
-        //    {
-        //        var prevEndStation = routeStationDic[prevBookingDetail.Booking.EndStationCode];
-        //        var prevBookingDetailEndTime = prevBookingDetail.Booking.Time.AddMinutes(prevBookingDetail.Booking.Duration / 60);
-        //        var timeArriveCur = prevBookingDetailEndTime.AddMinutes((curStartStation.DurationFromFirstStationInRoute - prevEndStation.DurationFromFirstStationInRoute) / 60);
-
-        //        isSatisfiedPrevBookingDetail = timeArriveCur == curBookingDetailStartTime;
-        //            //>= prevBookingDetailEndTime && timeArriveCur <= curBookingDetailStartTime;
-        //    }
-
-        //    if(nextBookingDetail != null)
-        //    {
-        //        var nextStartStation = routeStationDic[nextBookingDetail.Booking.StartStationCode];
-        //        var nextBookingDetailStartTime = nextBookingDetail?.Booking.Time;
-        //        var timeArriveNext = curBookingDetailEndTime.AddMinutes((nextStartStation.DurationFromFirstStationInRoute - curEndStation.DurationFromFirstStationInRoute) / 60);
-
-        //        isSatisfiedNextBookingDetail = timeArriveNext == nextBookingDetailStartTime; 
-        //            //<= nextBookingDetailStartTime && timeArriveNext >= curBookingDetailEndTime;
-        //    }
-
-        //    return isSatisfiedPrevBookingDetail && isSatisfiedNextBookingDetail;
-        //}
-        //private bool IsSatisfiedSharingTripInRouteRoutineOrderCondition(BookingDetail mappedBookingDetail, BookingDetail bookingDetail, Dictionary<Guid, RouteStation> routeStationDic)
-        //{
-        //    var curBookingDetailStartTime = bookingDetail.Booking.Time;
-        //    var curBookingDetailEndTime = bookingDetail.Booking.Time.AddMinutes(bookingDetail.Booking.Duration / 60);
-
-        //    var curStartStation = routeStationDic[bookingDetail.Booking.StartStationCode];
-        //    var curEndStation = routeStationDic[bookingDetail.Booking.EndStationCode];
-
-        //    if(mappedBookingDetail.Booking.Time <= bookingDetail.Booking.Time)
-        //    {
-        //        var mappedEndStation = routeStationDic[mappedBookingDetail.Booking.EndStationCode];
-        //        var mappedBookingDetailEndTime = mappedBookingDetail.Booking.Time.AddMinutes(mappedBookingDetail.Booking.Duration / 60);
-        //        var timeArriveMappedEndStationFromCurStartStation = curBookingDetailStartTime.AddMinutes((mappedEndStation.DurationFromFirstStationInRoute - curStartStation.DurationFromFirstStationInRoute) / 60);
-
-        //        //return Math.Abs((mappedBookingDetailEndTime - timeArriveMappedEndStationFromCurStartStation).TotalMinutes) <= 3;
-        //        return Math.Abs((mappedBookingDetailEndTime - timeArriveMappedEndStationFromCurStartStation).TotalMinutes) <= 0;
-        //    }
-        //    else
-        //    {
-        //        var mappedStartStation = routeStationDic[mappedBookingDetail.Booking.StartStationCode];
-        //        var mappedBookingDetailStartTime = mappedBookingDetail.Booking.Time;
-        //        var timeArriveCurEndStationFromMappedStartStation = mappedBookingDetailStartTime.AddMinutes((curEndStation.DurationFromFirstStationInRoute - mappedStartStation.DurationFromFirstStationInRoute) / 60);
-
-        //        //return Math.Abs((timeArriveCurEndStationFromMappedStartStation - curBookingDetailEndTime).TotalMinutes) <= 3;
-        //        return Math.Abs((timeArriveCurEndStationFromMappedStartStation - curBookingDetailEndTime).TotalMinutes) <= 0;
-        //    }
-        //}
         private bool IsSatisfiedPositionCondition(BookingDetail mappedBookingDetail, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)
         {
             var curBookingStartTime = bookingDetail.Booking.Time;
@@ -288,10 +219,7 @@ namespace API.Services
 
             return (timeArriveCurBookingStartStation - curBookingStartTime).TotalMinutes == 0; 
         }
-        //private bool IsSatisfiedTimeCondition(TimeOnly? prevEndTime, TimeOnly? nextStartTime, TimeOnly curStartTime, TimeOnly curEndTime)
-        //{
-        //    return (prevEndTime == null || prevEndTime <= curStartTime) &&  (nextStartTime == null || nextStartTime >= curEndTime);
-        //}
+
         private bool IsSatisfiedSlotCondition(List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail)
         {
             var slot = bookingDetail.Booking.VehicleType.Slot - 1;
@@ -361,20 +289,6 @@ namespace API.Services
             {
                 if(IsSatisfiedPositionCondition(mappedBookingDetails.First(),bookingDetail,routeStationDic)) return true;
             }
-
-            //BookingDetail? prevBookingDetail = null;
-            //for(var index = 0; index <= mappedBookingDetails.Count; index++)
-            //{
-            //    BookingDetail? nextBookingDetail = index < mappedBookingDetails.Count ? mappedBookingDetails[index] : null;
-
-            //    TimeOnly? prevEndTime = prevBookingDetail?.Booking.Time.AddMinutes(prevBookingDetail.Booking.Duration / 60);
-            //    TimeOnly? nextStartTime = nextBookingDetail?.Booking.Time;
-
-            //    if (IsSatisfiedTimeCondition(prevEndTime, nextStartTime, curStartTime, curEndTime) &&
-            //        IsSatisfiedTripInRouteRoutineOrderCondition(prevBookingDetail, nextBookingDetail, bookingDetail, routeStationDic)){
-            //        return true;
-            //    }
-            //}
             return false;
         }
         public async Task<Booking?> Mapping(int bookingId)

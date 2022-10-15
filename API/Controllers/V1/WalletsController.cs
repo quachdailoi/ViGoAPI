@@ -27,6 +27,25 @@ namespace API.Controllers.V1
             _signalRService = signalRService;
         }
 
+        /// <summary>
+        ///     Create top up wallet request
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     PUT api/wallets/top-up 
+        ///     {
+        ///         "Amount": 200000,
+        ///         "Type": 1, // 1: Momo, 2: VNPay, 3: ZaloPay
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <response code = "200"> Get payment url for top up wallet successfully.</response>
+        /// <response code = "400"> 
+        ///     Not supported. <br></br>
+        /// </response>
+        /// <response code="500"> Fail to get payment url.</response>
         [HttpPut("top-up")]
         public async Task<IActionResult> TopUpWallet([FromBody] WalletTopUpRequest request)
         {
@@ -104,27 +123,41 @@ namespace API.Controllers.V1
             if (dto.resultCode == (int)Payments.MomoStatusCodes.Successed)
             {
                 walletTransactionDto.Status = WalletTransactions.Status.Success;
+                var wallet = await AppServices.Wallet.UpdateBalance(walletTransactionDto);
+
+                if (wallet != null)
+                {
+                    await _signalRService.SendToUserAsync(wallet.User.Code.ToString(), "TopUpResult",
+                        new
+                        {
+                            TransactionCode = walletTransactionDto.Code,
+                            Amount = walletTransactionDto.Amount,
+                            IsSuccess = walletTransactionDto.Status == WalletTransactions.Status.Success
+                        });
+                }
             }
             else
             {
                 walletTransactionDto.Status = WalletTransactions.Status.Fail;
+                await AppServices.WalletTransaction.Update(walletTransactionDto);
             }
 
-            var wallet = await AppServices.Wallet.UpdateBalance(walletTransactionDto);
-
-            if (wallet != null)
-            {
-                await _signalRService.SendToUserAsync(wallet.User.Code.ToString(), "TopUpResult",
-                    new
-                    {
-                        TransactionCode = walletTransactionDto.Code,
-                        Amount = walletTransactionDto.Amount,
-                        IsSuccess = walletTransactionDto.Status == WalletTransactions.Status.Success
-                    });
-            }
+            
             return NoContent();
         }
 
+        /// <summary>
+        ///     Get user's wallet infomation
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/wallets 
+        /// ```
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <response code = "200"> Get wallet successfully.</response>
+        /// <response code="500"> Fail to get wallet.</response>
         [HttpGet]
         public async Task<IActionResult> GetWallet()
         {
@@ -147,6 +180,22 @@ namespace API.Controllers.V1
             return ApiResult(response);
         }
 
+        /// <summary>
+        ///     Get user's wallet transations
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/wallets/transactions 
+        ///     {
+        ///         "Page": 1,
+        ///         "PageSize": 3
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <response code = "200"> Get wallet successfully.</response>
+        /// <response code="500"> Fail to get wallet.</response>
         [HttpGet("transactions")]
         public async Task<IActionResult> GetWalletTransations([FromQuery] PagingRequest pagingRequest)
         {

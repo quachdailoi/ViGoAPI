@@ -7,14 +7,10 @@ using Domain.Interfaces.UnitOfWork;
 
 namespace API.Services
 {
-    public class AffiliateAccountService : IAffiliateAccountService
+    public class AffiliateAccountService : BaseService, IAffiliateAccountService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public AffiliateAccountService(IUnitOfWork unitOfWork, IMapper mapper)
+        public AffiliateAccountService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public Task<Response> LinkAffiliateAccount(AffiliateAccountDTO dto, Response successResponse, Response errorResponse)
@@ -24,9 +20,9 @@ namespace API.Services
 
         public Task<bool> LinkAffiliateAccount(AffiliateAccountDTO dto)
         {
-            var affiliateAccount = _mapper.Map<AffiliateAccount>(dto);
+            var affiliateAccount = Mapper.Map<AffiliateAccount>(dto);
 
-            return Task.FromResult(_unitOfWork.AffiliateAccounts.Add(affiliateAccount).Result != null);
+            return Task.FromResult(UnitOfWork.AffiliateAccounts.Add(affiliateAccount).Result != null);
         }
     }
 }

@@ -76,7 +76,15 @@ namespace API.Services
             .ThenInclude(bd => bd.Booking)
             .ToListAsync();
 
-        public async Task<dynamic> GetMappedBookingDetailDriverByRouteRoutine()
+        public Task<List<RouteRoutine>> GetRouteRoutineFitBookingCondition(Booking booking)
+        {
+            return UnitOfWork.RouteRoutines
+                .List(e => (e.StartTime <= booking.Time && e.EndTime > booking.Time) &&
+                    Math.Abs((e.StartTime.AddMinutes(booking.StartRouteStation.DurationFromFirstStationInRoute / 60) - booking.Time).TotalMinutes) <= 0)
+                .ToListAsync();
+        }
+
+        public async Task<dynamic> GetMappedBookingDetailDriverByRouteRoutine() // for booking mapping test
         {
             var routeRoutines = await UnitOfWork.RouteRoutines
             .List(routeRoutine =>

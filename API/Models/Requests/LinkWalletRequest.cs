@@ -5,6 +5,5 @@ namespace API.Models.Requests
     public class LinkWalletRequest
     {
         public AffiliateParties.PartyTypes Type { get; set; }
-        public string Applink { get; set; }
     }
 }

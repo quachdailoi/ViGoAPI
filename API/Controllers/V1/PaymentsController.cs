@@ -16,12 +16,6 @@ namespace API.Controllers.V1
     [Authorize]
     public class PaymentsController : BaseController<PaymentsController>
     {
-        private readonly ISignalRService _signalRService;
-
-        public PaymentsController(ISignalRService signalRService)
-        {
-            _signalRService = signalRService;
-        }
 
         [HttpPost("linkWallet")]
         public async Task<IActionResult> LinkWallet([FromQuery] LinkWalletRequest request)
@@ -37,7 +31,6 @@ namespace API.Controllers.V1
 
                     dto.partnerClientId = user.Id.ToString();
                     dto.ipnUrl = $"{GetControllerContextUri()}/ipn/momo/linkWallet";
-                    dto.redirectUrl = request.Applink;
 
                     response =
                         await AppServices.Payment.GenerateMomoLinkingWalletUrl(

@@ -57,7 +57,7 @@ namespace API.Services
 
             var obj = JToken.Parse(body).ToObject<GenerateMomoPaymentUrlResponse>();
 
-            if (obj?.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception(obj?.message);
+            if (obj.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception($"Pay by Momo - {obj.message}");
 
             return obj;
         }
@@ -114,7 +114,7 @@ namespace API.Services
 
             var obj = JToken.Parse(body).ToObject<GenerateMomoLinkWalletUrlResponse>();
 
-            if (obj.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception(obj.message);
+            if (obj.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception($"Pay by Momo - {obj.message}");
 
             return obj;
         } 

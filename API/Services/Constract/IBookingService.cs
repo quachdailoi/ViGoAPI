@@ -18,5 +18,6 @@ namespace API.Services.Constract
         Task<bool> Update(Booking booking);
         Task<Booking?> GetByCode(Guid code);
         Task<Booking?> Mapping(int bookingId);
+        Task<bool> CheckIsConflictBooking(Booking booking);
     }
 }

@@ -13,26 +13,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class WalletService : IWalletService
+    public class WalletService : BaseService, IWalletService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IPaymentService _paymentService;
-
-        public WalletService(IUnitOfWork unitOfWork, IMapper mapper, IPaymentService paymentService)
+        public WalletService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _paymentService = paymentService;
         }
-        private IQueryable<Wallet> GetWalletQueryable(int userId) => _unitOfWork.Wallets
+
+        private IQueryable<Wallet> GetWalletQueryable(int userId) => UnitOfWork.Wallets
             .List(wallet => wallet.UserId == userId && wallet.Status == Wallets.Status.Active);
         public Task<Wallet?> GetWallet(int userId) => GetWalletQueryable(userId).FirstOrDefaultAsync();
         public async Task<Response> GetWallet(int userId, Response successResponse, Response errorResponse)
         {
             var walletVM =
                 await GetWalletQueryable(userId)
-                .MapTo<WalletViewModel>(_mapper)
+                .MapTo<WalletViewModel>(Mapper)
                 .FirstOrDefaultAsync();
 
             if (walletVM == null) return errorResponse;
@@ -42,7 +36,7 @@ namespace API.Services
 
         public async Task<Response> HandleWalletTopUpRequest(int userId, WalletTransactionDTO transactionDto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response notSupportResponse,Response errorResponse)
         {
-            var wallet = await _unitOfWork.Wallets.List(e => e.UserId == userId && e.Status == Wallets.Status.Active).FirstOrDefaultAsync();
+            var wallet = await UnitOfWork.Wallets.List(e => e.UserId == userId && e.Status == Wallets.Status.Active).FirstOrDefaultAsync();
 
             if (wallet == null) return notSupportResponse;
 
@@ -50,11 +44,11 @@ namespace API.Services
 
             dynamic dataResponse;
 
-            await _unitOfWork.CreateTransactionAsync();
+            await UnitOfWork.CreateTransactionAsync();
 
-            var walletTransaction = _mapper.Map<WalletTransaction>(transactionDto);
+            var walletTransaction = Mapper.Map<WalletTransaction>(transactionDto);
 
-            walletTransaction = await _unitOfWork.WalletTransactions.Add(walletTransaction);
+            walletTransaction = await UnitOfWork.WalletTransactions.Add(walletTransaction);
 
             try
             {
@@ -66,10 +60,10 @@ namespace API.Services
                         ((MomoCollectionLinkRequestDTO)paymentDto).amount = (long)walletTransaction.Amount;
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = walletTransaction.Code.ToString();
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderInfo = "Top up ViGo Wallet";
-                        ((MomoCollectionLinkRequestDTO)paymentDto).extraData = Encryption.EncodeBase64(_mapper.Map<WalletTransactionDTO>(walletTransaction));
+                        ((MomoCollectionLinkRequestDTO)paymentDto).extraData = Encryption.EncodeBase64(Mapper.Map<WalletTransactionDTO>(walletTransaction));
 
 
-                        var response = await _paymentService.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
+                        var response = await AppServices.Payment.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
 
                         if (response == null) throw new Exception();
 
@@ -85,18 +79,18 @@ namespace API.Services
             }
             catch(Exception ex)
             {
-                await _unitOfWork.Rollback();
+                await UnitOfWork.Rollback();
                 return errorResponse.SetMessage(ex.Message);
             }
 
-            await _unitOfWork.CommitAsync();
+            await UnitOfWork.CommitAsync();
 
             return successResponse.SetData(dataResponse);
         }
 
         public async Task<Wallet?> UpdateBalance(WalletTransactionDTO transactionDto)
         {
-            var wallet = await _unitOfWork.Wallets
+            var wallet = await UnitOfWork.Wallets
                 .List(wallet => wallet.Id == transactionDto.WalletId && wallet.Status == Wallets.Status.Active)
                 .Include(wallet => wallet.WalletTransactions)
                 .Include(wallet => wallet.User)
@@ -112,7 +106,7 @@ namespace API.Services
             }
             else 
             {
-                transaction = _mapper.Map<WalletTransaction>(transactionDto);
+                transaction = Mapper.Map<WalletTransaction>(transactionDto);
                 wallet.WalletTransactions.Add(transaction);
             }
 
@@ -120,7 +114,7 @@ namespace API.Services
 
             if (wallet.Balance < 0) return null;
 
-            return _unitOfWork.Wallets.Update(wallet).Result ? wallet : null;
+            return UnitOfWork.Wallets.Update(wallet).Result ? wallet : null;
         }
     }
 }
