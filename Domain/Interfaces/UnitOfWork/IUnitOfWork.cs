@@ -26,6 +26,10 @@ namespace Domain.Interfaces.UnitOfWork
         IFareRepository Fares { get; }
         IFareTimelineRepository FareTimelines { get; }
         IRouteRoutineRepository RouteRoutines { get; }
+        IAffiliateAccountRepository AffiliateAccounts { get; }
+        IAffiliatePartyRepository AffiliateParties { get; }
+        IWalletRepository Wallets { get; }
+        IWalletTransactionRepository WalletTransactions { get; }
 
         Task CreateTransactionAsync();
         Task CommitAsync();

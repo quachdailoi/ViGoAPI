@@ -404,6 +404,155 @@ namespace Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Entities.AffiliateAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AffiliatePartyId")
+                        .HasColumnType("integer")
+                        .HasColumnName("affiliate_party_type_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<object>("ExtraData")
+                        .IsRequired()
+                        .HasColumnType("jsonb")
+                        .HasColumnName("extra_data");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("token");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("updated_by");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("WalletId")
+                        .HasColumnType("integer")
+                        .HasColumnName("wallet_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AffiliatePartyId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("WalletId", "AffiliatePartyId")
+                        .IsUnique();
+
+                    b.ToTable("affiliate_accounts", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.AffiliateParty", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("Code")
+                        .HasColumnType("uuid")
+                        .HasColumnName("code");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("affiliate_parties", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = new Guid("2f2df2dd-585f-4904-8027-fe92628be815"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3085), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Name = "Momo",
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3086), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Code = new Guid("26429afd-eefd-40af-9012-b62e8b21a220"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3139), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Name = "VNPay",
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3140), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Code = new Guid("0c627d9c-caf7-49e2-aff5-740d7f77bbc8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3145), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Name = "ZaloPay",
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3146), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        });
+                });
+
             modelBuilder.Entity("Domain.Entities.AppFile", b =>
                 {
                     b.Property<int>("Id")
@@ -915,17 +1064,12 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("updated_by");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BookingId");
 
                     b.HasIndex("MessageRoomId")
                         .IsUnique();
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("booking_details", (string)null);
                 });
@@ -983,7 +1127,8 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("BookingDetailId");
 
-                    b.HasIndex("DriverId");
+                    b.HasIndex("DriverId", "BookingDetailId")
+                        .IsUnique();
 
                     b.ToTable("booking_detail_drivers", (string)null);
                 });
@@ -1088,6 +1233,10 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<double>("CeilingExtraPrice")
+                        .HasColumnType("double precision")
+                        .HasColumnName("ceiling_extra_price");
+
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
@@ -1137,7 +1286,7 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(5948), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(8, 0, 0),
-                            ExtraFeePerKm = 0.12,
+                            ExtraFeePerKm = 2000.0,
                             FareId = 1,
                             StartTime = new TimeOnly(6, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(5948), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1149,7 +1298,7 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(5987), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(10, 0, 0),
-                            ExtraFeePerKm = 0.10000000000000001,
+                            ExtraFeePerKm = 1000.0,
                             FareId = 1,
                             StartTime = new TimeOnly(8, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(5988), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1161,7 +1310,7 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(5994), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(17, 0, 0),
-                            ExtraFeePerKm = 0.14999999999999999,
+                            ExtraFeePerKm = 2000.0,
                             FareId = 1,
                             StartTime = new TimeOnly(15, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(5995), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1173,7 +1322,7 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6001), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(19, 0, 0),
-                            ExtraFeePerKm = 0.10000000000000001,
+                            ExtraFeePerKm = 1500.0,
                             FareId = 1,
                             StartTime = new TimeOnly(17, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6002), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1185,7 +1334,7 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6008), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(8, 0, 0),
-                            ExtraFeePerKm = 0.12,
+                            ExtraFeePerKm = 2000.0,
                             FareId = 2,
                             StartTime = new TimeOnly(6, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6008), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1197,7 +1346,7 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6015), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(10, 0, 0),
-                            ExtraFeePerKm = 0.10000000000000001,
+                            ExtraFeePerKm = 1000.0,
                             FareId = 2,
                             StartTime = new TimeOnly(8, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6016), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1209,7 +1358,7 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6022), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(17, 0, 0),
-                            ExtraFeePerKm = 0.14999999999999999,
+                            ExtraFeePerKm = 1500.0,
                             FareId = 2,
                             StartTime = new TimeOnly(15, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6023), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1221,7 +1370,7 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6029), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(19, 0, 0),
-                            ExtraFeePerKm = 0.10000000000000001,
+                            ExtraFeePerKm = 2000.0,
                             FareId = 2,
                             StartTime = new TimeOnly(17, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6029), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1233,7 +1382,7 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6035), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(8, 0, 0),
-                            ExtraFeePerKm = 0.12,
+                            ExtraFeePerKm = 2000.0,
                             FareId = 3,
                             StartTime = new TimeOnly(6, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6036), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1245,7 +1394,7 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6043), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(10, 0, 0),
-                            ExtraFeePerKm = 0.10000000000000001,
+                            ExtraFeePerKm = 1000.0,
                             FareId = 3,
                             StartTime = new TimeOnly(8, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6043), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1257,7 +1406,7 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6050), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(17, 0, 0),
-                            ExtraFeePerKm = 0.14999999999999999,
+                            ExtraFeePerKm = 1500.0,
                             FareId = 3,
                             StartTime = new TimeOnly(15, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6050), new TimeSpan(0, 7, 0, 0, 0)),
@@ -1269,10 +1418,23 @@ namespace Infrastructure.Migrations
                             CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6057), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(19, 0, 0),
-                            ExtraFeePerKm = 0.10000000000000001,
+                            ExtraFeePerKm = 2500.0,
                             FareId = 3,
                             StartTime = new TimeOnly(17, 0, 0),
                             UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 14, 16, 10, 29, 738, DateTimeKind.Unspecified).AddTicks(6057), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CeilingExtraPrice = 5000.0,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3016), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            EndTime = new TimeOnly(15, 0, 0),
+                            ExtraFeePerKm = 1000.0,
+                            FareId = 3,
+                            StartTime = new TimeOnly(14, 0, 0),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3016), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -3694,6 +3856,60 @@ namespace Infrastructure.Migrations
                     b.HasIndex("VehicleTypeId");
 
                     b.ToTable("vehicles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = new Guid("1e15ae11-a0c8-44fe-88ee-bcfa36383cc2"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3046), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.01",
+                            Name = "Wave Alpha",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3046), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 2,
+                            VehicleTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Code = new Guid("fa0e1a7e-5b0e-4532-8e82-321279e3a0eb"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3051), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.02",
+                            Name = "BMW I8",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3052), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 1,
+                            VehicleTypeId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Code = new Guid("837d24cc-f77e-4814-af25-586567d0cbc0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3054), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.03",
+                            Name = "Mazda CX-8",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3055), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 3,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Code = new Guid("3d81faf3-18df-4984-b64c-58e15d392bf8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3057), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.04",
+                            Name = "Honda CR-V",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3057), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 4,
+                            VehicleTypeId = 3
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.VehicleType", b =>
@@ -3860,6 +4076,208 @@ namespace Infrastructure.Migrations
                     b.ToTable("verified_codes", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Wallet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Balance")
+                        .HasColumnType("double precision")
+                        .HasColumnName("balance");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("updated_by");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("wallets", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Balance = 500000.0,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3169), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3170), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Balance = 500000.0,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3174), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3175), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Balance = 500000.0,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3176), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3177), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Balance = 500000.0,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3179), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3179), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Balance = 500000.0,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3181), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3181), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Balance = 500000.0,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3183), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3184), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Balance = 500000.0,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3186), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3186), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Balance = 500000.0,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3188), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Status = 0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 15, 14, 19, 48, 310, DateTimeKind.Unspecified).AddTicks(3188), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 8
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.WalletTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("double precision")
+                        .HasColumnName("amount");
+
+                    b.Property<Guid>("Code")
+                        .HasColumnType("uuid")
+                        .HasColumnName("code");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TxnId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("txn_id");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("updated_by");
+
+                    b.Property<int>("WalletId")
+                        .HasColumnType("integer")
+                        .HasColumnName("wallet_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("WalletId");
+
+                    b.ToTable("wallet_transactions", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Account", b =>
                 {
                     b.HasOne("Domain.Entities.Role", "Role")
@@ -3875,6 +4293,29 @@ namespace Infrastructure.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.AffiliateAccount", b =>
+                {
+                    b.HasOne("Domain.Entities.AffiliateParty", "AffiliateParty")
+                        .WithMany("AffiliateAccounts")
+                        .HasForeignKey("AffiliatePartyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", null)
+                        .WithMany("AffiliateAccounts")
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("Domain.Entities.Wallet", "Wallet")
+                        .WithMany("AffiliateAccounts")
+                        .HasForeignKey("WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AffiliateParty");
+
+                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("Domain.Entities.Banner", b =>
@@ -3948,10 +4389,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entities.Room", "MessageRoom")
                         .WithOne("Booking")
                         .HasForeignKey("Domain.Entities.BookingDetail", "MessageRoomId");
-
-                    b.HasOne("Domain.Entities.User", null)
-                        .WithMany("BookingDetails")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("Booking");
 
@@ -4152,6 +4589,33 @@ namespace Infrastructure.Migrations
                     b.Navigation("VehicleType");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Wallet", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithOne("Wallet")
+                        .HasForeignKey("Domain.Entities.Wallet", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.WalletTransaction", b =>
+                {
+                    b.HasOne("Domain.Entities.Wallet", "Wallet")
+                        .WithMany("WalletTransactions")
+                        .HasForeignKey("WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Wallet");
+                });
+
+            modelBuilder.Entity("Domain.Entities.AffiliateParty", b =>
+                {
+                    b.Navigation("AffiliateAccounts");
+                });
+
             modelBuilder.Entity("Domain.Entities.AppFile", b =>
                 {
                     b.Navigation("Banner")
@@ -4236,9 +4700,9 @@ namespace Infrastructure.Migrations
                 {
                     b.Navigation("Accounts");
 
-                    b.Navigation("BookingDetailDrivers");
+                    b.Navigation("AffiliateAccounts");
 
-                    b.Navigation("BookingDetails");
+                    b.Navigation("BookingDetailDrivers");
 
                     b.Navigation("Bookings");
 
@@ -4250,8 +4714,9 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("UserRooms");
 
-                    b.Navigation("Vehicle")
-                        .IsRequired();
+                    b.Navigation("Vehicle");
+
+                    b.Navigation("Wallet");
                 });
 
             modelBuilder.Entity("Domain.Entities.VehicleType", b =>
@@ -4262,6 +4727,13 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Wallet", b =>
+                {
+                    b.Navigation("AffiliateAccounts");
+
+                    b.Navigation("WalletTransactions");
                 });
 #pragma warning restore 612, 618
         }

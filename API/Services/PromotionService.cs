@@ -37,7 +37,7 @@ namespace API.Services
             return successResponse.SetData(availablePromotions);
         }
 
-        private async Task<List<PromotionViewModel>> GetAvailablePromotion(int userId, double? totalPrice = null, int? totalTickets = null, PaymentMethods? paymentMethods = null, VehicleTypes.Type? vehicleTypes = null)
+        private async Task<List<PromotionViewModel>> GetAvailablePromotion(int userId, double? totalPrice = null, int? totalTickets = null, Payments.PaymentMethods? paymentMethods = null, VehicleTypes.Type? vehicleTypes = null)
         {
             var userPromotions = UnitOfWork.PromotionUsers.GetUsedPromotion(userId);
 
@@ -65,7 +65,7 @@ namespace API.Services
             return availablePromotions;
         }
 
-        private static bool CheckBookingAvailable(PromotionCondition condition, double? totalPrice, int? totalTickets, PaymentMethods? paymentMethods, VehicleTypes.Type? vehicleTypes)
+        private static bool CheckBookingAvailable(PromotionCondition condition, double? totalPrice, int? totalTickets, Payments.PaymentMethods? paymentMethods, VehicleTypes.Type? vehicleTypes)
         {
             if (totalPrice != null && condition.MinTotalPrice != null && totalPrice < condition.MinTotalPrice) return false;
 
@@ -114,7 +114,7 @@ namespace API.Services
             return successResponse.SetData(bannerPromotions);
         }
 
-        public async Task<Promotion?> GetPromotionByCode(string code, int userId, double totalPrice, int totalTickets, PaymentMethods paymentMethods)
+        public async Task<Promotion?> GetPromotionByCode(string code, int userId, double totalPrice, int totalTickets, Payments.PaymentMethods paymentMethods)
         {
             var userPromotions = UnitOfWork.PromotionUsers.GetUsedPromotion(userId);
 

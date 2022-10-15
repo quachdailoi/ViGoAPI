@@ -75,5 +75,14 @@ namespace API.Controllers
             else
                 return HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
         }
+
+        protected string GetControllerContextUri()
+        {
+            var controller = $"/{RouteData.Values["controller"].ToString().ToLower()}";
+
+            var controllerPath = Request.Path.Value.Split(controller)[0] + controller;
+
+            return $"{Request.Scheme}://{Request.Host}{controllerPath}";
+        }
     }
 }

@@ -26,15 +26,6 @@ namespace Domain.Shares.Enums
             Deleted
         }
 
-        public enum BookingDetail
-        {
-            Cancelled,
-            Pending,
-            Ready,
-            Started,
-            Completed
-        }
-
         public enum User
         {
             Inactive,

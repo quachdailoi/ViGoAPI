@@ -10,14 +10,14 @@ namespace API.TaskQueues.TaskResolver
     public class MappingBookingTask : BaseTaskResolver
     {
         public readonly static string BOOKING_QUEUE = "BookingPending";
-        private BlockingCollection<int> currentJobs = new BlockingCollection<int>(boundedCapacity: 1);
+        private BlockingCollection<int> currentJobs = new BlockingCollection<int>(boundedCapacity: 100);
 
         public MappingBookingTask(IServiceProvider serviceProvider) : base(serviceProvider)
         {
 
         }
 
-        public override async Task Solve()
+        public override Task Solve()
         {
             var bookingService = _serviceProvider.GetRequiredService<IBookingService>();
             var signalRService = _serviceProvider.GetRequiredService<ISignalRService>();
@@ -31,7 +31,7 @@ namespace API.TaskQueues.TaskResolver
 
                         if(booking != null)
                         {
-                            var isMappedSuccess = booking.BookingDetails.Any(bd => bd.BookingDetailDrivers.Any());
+                            var isMappedSuccess = booking.BookingDetails.Any(bd => bd.Status == BookingDetails.Status.Ready);
                             await signalRService.SendToUserAsync(booking.User.Code.ToString(), "BookingMappingResult", new { Code = booking.Code, IsMappedSuccess = isMappedSuccess });
 
                             if (!isMappedSuccess)
@@ -49,12 +49,14 @@ namespace API.TaskQueues.TaskResolver
             thread.IsBackground = true;
             thread.Start();
 
-            subscriber.Subscribe(BOOKING_QUEUE).OnMessage(async (channelMsg) =>
+            subscriber.Subscribe(BOOKING_QUEUE).OnMessage((channelMsg) =>
             {
                 var id = JsonConvert.DeserializeObject<int>(channelMsg.Message);
 
                 while (!currentJobs.TryAdd(id, TimeSpan.FromMilliseconds(1000)));
             });
+
+            return Task.CompletedTask;
         }
     }
 }

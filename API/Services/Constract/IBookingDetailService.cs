@@ -6,7 +6,7 @@ namespace API.Services.Constract
 {
     public interface IBookingDetailService
     {
-        List<BookingDetail> GenerateBookingDetail(Booking booking);
+        List<BookingDetail> GenerateBookingDetail(Booking booking, double feePerTrip);
         Task<Response> GetNextBookingDetail(int userId, Response successResponse);
 
         Task<Response> GetBookingsOfDriver(int driverId, PagingRequest pagingRequest, DateFilterRequest dateFilterRequest, Response success);

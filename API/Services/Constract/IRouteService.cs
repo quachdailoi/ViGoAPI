@@ -14,7 +14,7 @@ namespace API.Services.Constract
         Task<Response> CreateRange(List<RouteDTO> routes, Response successResponse, Response dupplicateResponse, Response errorResponse);
         Task<Response> GetAll(StartStationRequest request, Response successResponse);
         Task<bool> ExistSeedData();
-        Task<Response> GetRouteFeeByPairOfStation(StationWithScheduleDTO dto, Response successResponse, Response notFoundResponse);
+        Task<Response> GetRouteFeeByPairOfStation(StationWithScheduleDTO dto, Response invalidStationResponse,Response invalidVehicleTypeResponse,Response successResponse, Response notFoundResponse);
         Task<Domain.Entities.Route> CreateRoute(Domain.Entities.Route route);
         Task<Domain.Entities.Route> GetRouteByCode(string code);
         IQueryable<Domain.Entities.Route> GetRouteByCode(Guid code);

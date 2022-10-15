@@ -15,6 +15,9 @@ namespace API.Validators
             services.AddScoped<IValidator<DateFilterRequest>, DateFilterRequestValidator>();
 
             services.AddScoped<IValidator<CreateBookingRequest>, CreateBookingRequestValidator>();
+            services.AddScoped<IValidator<CreateBookingRequest>, CreateBookingRequestValidator>();
+            services.AddScoped<IValidator<GetRouteFeeRequest>, GetRouteFeeRequestValidator>();
+            services.AddScoped<IValidator<GetProvisionalBookingRequest>, GetProvisionalBookingRequestValidator>();
         }
     }
 }

@@ -27,6 +27,9 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.ExtraFeePerKm)
                 .HasColumnName("extra_fee_per_km");
 
+            builder.Property(e => e.CeilingExtraPrice)
+                .HasColumnName("ceiling_extra_price");
+
             builder.Property(e => e.FareId)
                 .IsRequired()
                 .HasColumnName("fare_id");

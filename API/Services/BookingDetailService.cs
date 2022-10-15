@@ -99,17 +99,16 @@ namespace API.Services
         //    return bookingDetails;
         //}
 
-        public List<BookingDetail> GenerateBookingDetail(Booking booking)
+        public List<BookingDetail> GenerateBookingDetail(Booking booking, double feePerTrip)
         {
             List<BookingDetail> bookingDetails = new();
-            var price = booking.TotalPrice / Fee.TotalDays(booking.StartAt, booking.EndAt);
             for(var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
             {
                 bookingDetails.Add(new BookingDetail
                 {
                     Booking = booking,
                     Date = day,
-                    Price = price
+                    Price = Fee.RoundToThousands(feePerTrip)
                 });
             }
             return bookingDetails;
@@ -117,7 +116,7 @@ namespace API.Services
 
         public async Task<Response> GetNextBookingDetail(int userId, Response successResponse)
         {
-            var bookingDetailsIQueryable = UnitOfWork.BookingDetails.List(b => b.Booking.UserId == userId && b.Status != StatusTypes.BookingDetail.Completed)
+            var bookingDetailsIQueryable = _unitOfWork.BookingDetails.List(b => b.Booking.UserId == userId && b.Status != BookingDetails.Status.Completed)
                                                                 .OrderBy(b => b.Date)
                                                                 .ThenBy(b => b.Booking.Time);
 

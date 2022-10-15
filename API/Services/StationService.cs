@@ -251,6 +251,21 @@ namespace API.Services
         {
             return await UnitOfWork.Stations.GetStationByCode(code).FirstOrDefaultAsync();
         }
+
+        public async Task<Tuple<Station?, Station?>> GetPairOfStation(Guid stationCode1, Guid stationCode2)
+        {
+            var pairOfStation = await GetByCode(new List<Guid> { stationCode1, stationCode2 });
+
+            var startStation = pairOfStation
+                .Where(station => station.Code == stationCode1)
+                .FirstOrDefault();
+
+            var endStation = pairOfStation
+                .Where(station => station.Code == stationCode2)
+                .FirstOrDefault();
+
+            return Tuple.Create(startStation, endStation);
+        }
     }
 }
 

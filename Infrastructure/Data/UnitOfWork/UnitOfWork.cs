@@ -17,11 +17,8 @@ namespace Infrastructure.Data.UnitOfWork
         public IRoleRepository Roles { get; private set; }
         public IUserRepository Users { get; private set; }
         public IVerifiedCodeRepository VerifiedCodes { get; private set; }
-
         public IUserRoomRepository UserRooms { get; private set; }
-
         public IRoomRepository Rooms { get; private set; }
-
         public IMessageRepository Messages { get; private set; }
         public IBookingRepository Bookings { get; private set; }
         public IBookingDetailRepository BookingDetails { get; private set; }
@@ -30,16 +27,18 @@ namespace Infrastructure.Data.UnitOfWork
         public IRouteRepository Routes { get; private set; }
         public IStationRepository Stations { get; private set; }
         public IRouteStationRepository RouteStations { get; private set; }
-
         public IPromotionRepository Promotions { get; }
         public IPromotionUserRepository PromotionUsers { get; }
-
         public IBannerRepository Banners { get; }
         public IVehicleTypeRepository VehicleTypes { get; }
         public IVehicleRepository Vehicles { get; }
         public IFareRepository Fares { get; }
         public IFareTimelineRepository FareTimelines { get; }
         public IRouteRoutineRepository RouteRoutines { get; }
+        public IAffiliateAccountRepository AffiliateAccounts { get; }
+        public IAffiliatePartyRepository AffiliateParties { get; }
+        public IWalletRepository Wallets { get; }
+        public IWalletTransactionRepository WalletTransactions { get; }
 
         public UnitOfWork(
             AppDbContext dbContext, 
@@ -65,7 +64,11 @@ namespace Infrastructure.Data.UnitOfWork
             IVehicleRepository vehicleRepository,
             IFareRepository fareRepository,
             IFareTimelineRepository fareTimelineRepository,
-            IRouteRoutineRepository routeRoutineRepository)
+            IRouteRoutineRepository routeRoutineRepository,
+            IAffiliateAccountRepository affiliateAccountRepository,
+            IAffiliatePartyRepository affiliatePartyRepository,
+            IWalletRepository walletRepository,
+            IWalletTransactionRepository walletTransactionRepository)
         {
             _dbContext = dbContext;
 
@@ -91,8 +94,12 @@ namespace Infrastructure.Data.UnitOfWork
             Fares = fareRepository;
             FareTimelines = fareTimelineRepository;
             RouteRoutines = routeRoutineRepository;
+            AffiliateAccounts = affiliateAccountRepository;
+            AffiliateParties = affiliatePartyRepository;
+            Wallets = walletRepository;
+            WalletTransactions = walletTransactionRepository;
 
-            _logger = loggerFactory.CreateLogger("logs");           
+            _logger = loggerFactory.CreateLogger("logs");
         }
 
         public async Task CommitAsync()

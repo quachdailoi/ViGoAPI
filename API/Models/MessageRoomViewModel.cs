@@ -16,13 +16,13 @@ namespace API.Models
     public class MessageViewModel
     {
         public string Content { get; set; } = string.Empty;
-        public DateTimeOffset CreatedAt { get; set; }
+        public string Time { get; set; }
         public StatusTypes.Message Status { get; set; }
         public Guid UserCode { get; set; }
     }
 
     public class MessageUserViewModel : UserViewModel
     {
-        public DateTimeOffset LastSeenTime { get; set; }
+        public string LastSeenTime { get; set; }
     }
 }

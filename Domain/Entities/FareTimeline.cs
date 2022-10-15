@@ -13,6 +13,7 @@ namespace Domain.Entities
         public TimeOnly EndTime { get; set; }
         public int FareId { get; set; }
         public double ExtraFeePerKm { get; set; }
+        public double CeilingExtraPrice { get; set; }
 
         public Fare Fare { get; set; }
     }

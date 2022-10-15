@@ -39,6 +39,20 @@ namespace API.Mapper
             //    dest.Distance = 0;
             //    var startIndex = src.StartRouteStation.Index;
             //    var endIndex = src.EndRouteStation.Index;
+                    dest => dest.Stations,
+                    otp => otp.MapFrom(
+                            src => src.Route.RouteStations
+                                .Select(routeStation =>
+                                    routeStation.Station)))
+                .ForMember(
+                    dest => dest.StatusName,
+                    otp => otp.MapFrom(
+                            src => src.Status.DisplayName()))
+                .AfterMap((src, dest) =>
+                {
+                    dest.Distance = 0;
+                    var startIndex = dest.Stations.Where(station => station.Code == src.StartStationCode).First().Index;
+                    var endIndex = dest.Stations.Where(station => station.Code == src.EndStationCode).First().Index;
 
             //    dest.Stations = dest.Stations.OrderBy(station => station.Index).ToList();
 

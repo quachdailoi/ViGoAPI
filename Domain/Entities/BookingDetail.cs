@@ -15,7 +15,7 @@ namespace Domain.Entities
         public DateOnly Date { get; set; }
         public double Price { get; set; }
         public double DiscountPrice { get; set; }
-        public StatusTypes.BookingDetail Status { get; set; } = StatusTypes.BookingDetail.Pending;
+        public BookingDetails.Status Status { get; set; } = BookingDetails.Status.Pending;
         public int BookingId { get; set; }
         public int? MessageRoomId { get; set; } = null;
 

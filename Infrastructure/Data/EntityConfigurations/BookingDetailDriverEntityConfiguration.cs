@@ -46,6 +46,9 @@ namespace Infrastructure.Data.EntityConfigurations
                 .WithMany(b => b.BookingDetailDrivers)
                 .HasForeignKey(e => e.BookingDetailId)
                 .IsRequired();
+
+            builder.HasIndex(e => new { e.DriverId, e.BookingDetailId })
+                .IsUnique();
         }
     }
 }

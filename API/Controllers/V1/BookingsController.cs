@@ -1,6 +1,7 @@
 ﻿using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
+using API.SignalR.Constract;
 using API.TaskQueues;
 using API.TaskQueues.TaskResolver;
 using AutoMapper;
@@ -21,11 +22,13 @@ namespace API.Controllers.V1
     {
         private readonly IMapper _mapper;
         private readonly IRedisMQService _redisMQService;
+        private readonly ISignalRService _signalRService;
 
-        public BookingsController(IMapper mapper, IRedisMQService redisMQService)
+        public BookingsController(IMapper mapper, IRedisMQService redisMQService, ISignalRService signalRService)
         {
             _mapper = mapper;
             _redisMQService = redisMQService;
+            _signalRService = signalRService;
         }
 
 
@@ -58,13 +61,11 @@ namespace API.Controllers.V1
         /// <response code = "400"> 
         ///     Start time must be before end time. <br></br>
         ///     Wrong format of date parameter. <br></br>
-        ///     Start station and end station are not exist. <br></br>
-        ///     Start station is not exist. <br></br>
-        ///     End station is not exist. <br></br>
+        ///     Stations are not exist. <br></br>
         ///     Route is not exist.<br></br>
         ///     VehicleTypeCode is invalid.<br></br>
         ///     Payment method is not supported.<br></br>
-        ///     Conflict about the time schedule with your other bookings. <br></br>
+        ///     You have booked at this time in an another booking. Check again! <br></br>
         ///     Promotion code is not available. <br></br>
         /// </response>
         /// <response code="500"> Failed to create booking.</response>
@@ -74,59 +75,25 @@ namespace API.Controllers.V1
         {
             var user = LoggedInUser;
 
-            var pairOfStation = await AppServices.Station.GetByCode(new List<Guid> { request.StartStationCode, request.EndStationCode });
-
             var badRequestResponse = new Response
             {
                 StatusCode = StatusCodes.Status400BadRequest
             };
 
-            if (!pairOfStation.Any()) 
-                return ApiResult(badRequestResponse.SetMessage("Start station and end station are not exist."));
+            var booking = _mapper.Map<BookingDTO>(request);             
 
-            var startStation = pairOfStation
-                .Where(station => station.Code == request.StartStationCode)
-                .FirstOrDefault();
-
-            var endStation = pairOfStation
-                .Where(station => station.Code == request.EndStationCode)
-                .FirstOrDefault();     
-
-            if (startStation == null) 
-                return ApiResult(badRequestResponse.SetMessage("Start station is not exist."));
-
-            if (endStation == null) 
-                return ApiResult(badRequestResponse.SetMessage("End station is not exist."));
-
-            var booking = new BookingDTO();
-
-            try
-            {
-                booking = _mapper.Map<BookingDTO>(request);
-                if (booking.EndAt.CompareTo(booking.StartAt) < 0) return ApiResult(badRequestResponse.SetMessage("Start time must be before end time."));           
-            }
-            catch (Exception e)
-            {
-                return ApiResult(badRequestResponse.SetMessage("Wrong format of date parameter."));
-            }
-
-            VehicleType? vehicleType = await AppServices.VehicleType.GetByCode(request.VehicleTypeCode);
-
-            if (vehicleType == null) return ApiResult(badRequestResponse.SetMessage("VehicleTypeCode is invalid."));
-
-            booking.VehicleTypeId = vehicleType.Id;
             booking.UserId = user.Id;
 
             CollectionLinkRequestDTO paymentDto = new();
 
             switch (booking.PaymentMethod)
             {
-                case PaymentMethods.COD:
+                case Payments.PaymentMethods.COD:
                     break;
-                case PaymentMethods.Momo:
+                case Payments.PaymentMethods.Momo:
                     paymentDto = new MomoCollectionLinkRequestDTO
                     {
-                        ipnUrl = $"{Request.Scheme}://{Request.Host}{Request.Path}/ipn/momo",
+                        ipnUrl = $"{GetControllerContextUri()}/ipn/momo",
                         redirectUrl = request.Applink
                     };
                     break;
@@ -144,24 +111,39 @@ namespace API.Controllers.V1
                                                     invalidRouteResponse: new()
                                                     {
                                                         Message = "Route is not exist.",
-                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                        StatusCode = StatusCodes.Status200OK
+                                                    },
+                                                    invalidStationResponse: new()
+                                                    {
+                                                        Message = "Stations are not exist.",
+                                                        StatusCode = StatusCodes.Status200OK
+                                                    },
+                                                    invalidVehicleTypeResponse: new()
+                                                    {
+                                                        Message = "Vehicle type is not exist.",
+                                                        StatusCode = StatusCodes.Status200OK
                                                     },
                                                     duplicationResponse: new()
                                                     {
-                                                        Message = "Conflict about the time schedule with your other bookings.",
-                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                        Message = "You have booked at this time in an another booking. Check again!",
+                                                        StatusCode = StatusCodes.Status200OK
                                                     },
                                                     invalidPromotionResponse: new()
                                                     {
                                                         Message = "Promotion code is not available.",
-                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                        StatusCode = StatusCodes.Status200OK
                                                     },
                                                     notAvailableResponse: new()
                                                     {
                                                         Message = "Not exist any available driver for this booking.",
                                                         StatusCode = StatusCodes.Status202Accepted
                                                     },
-                                                    errorReponse: new()
+                                                    insufficientBalanceResponse: new()
+                                                    {
+                                                        Message = "Insufficient balance.",
+                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                    },
+                                                    errorResponse: new()
                                                     {
                                                         Message = "Fail to create booking.",
                                                         StatusCode = StatusCodes.Status500InternalServerError
@@ -253,50 +235,7 @@ namespace API.Controllers.V1
         [Authorize(Roles = "BOOKER")]
         public async Task<IActionResult> GetRouteAndFee([FromQuery] GetRouteFeeRequest request)
         {
-            var dto = new StationWithScheduleDTO();
-
-            var badRequestResponse = new Response
-            {
-                StatusCode = StatusCodes.Status400BadRequest
-            };
-
-            try
-            {
-                dto = _mapper.Map<StationWithScheduleDTO>(request);
-                if (dto.EndAt.CompareTo(dto.StartAt) < 0) return ApiResult(badRequestResponse.SetMessage("Start time must be before end time."));
-            }
-            catch(Exception e)
-            {
-                return ApiResult(badRequestResponse.SetMessage("Wrong format of date parameter."));
-            }
-
-            var pairOfStation = await AppServices.Station.GetByCode(new List<Guid> { request.StartStationCode, request.EndStationCode });
-
-            if (!pairOfStation.Any())
-                return ApiResult(badRequestResponse.SetMessage("Start station and end station are not exist."));
-
-            var startStation = pairOfStation
-                .Where(station => station.Code == request.StartStationCode)
-                .FirstOrDefault();
-
-            var endStation = pairOfStation
-                .Where(station => station.Code == request.EndStationCode)
-                .FirstOrDefault();
-
-            if (startStation == null)
-                return ApiResult(badRequestResponse.SetMessage("Start station is not exist."));
-
-            if (endStation == null)
-                return ApiResult(badRequestResponse.SetMessage("End station is not exist."));
-
-            dto.StartStationId = startStation.Id;
-            dto.EndStationId = endStation.Id;
-
-            VehicleType? vehicleType = await AppServices.VehicleType.GetByCode(request.VehicleTypeCode);
-
-            if (vehicleType == null) return ApiResult(badRequestResponse.SetMessage("VehicleTypeCode is invalid"));
-
-            dto.VehicleTypeId = vehicleType.Id;
+            var dto = _mapper.Map<StationWithScheduleDTO>(request);
 
             var response =
                 await AppServices.Route.GetRouteFeeByPairOfStation(
@@ -305,6 +244,16 @@ namespace API.Controllers.V1
                     {
                         Message = "Get route successfully.",
                         StatusCode= StatusCodes.Status200OK
+                    },
+                    invalidStationResponse: new()
+                    {
+                        Message = "Stations are not exist.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    invalidVehicleTypeResponse: new()
+                    {
+                        Message = "Vehicle type is not exist.",
+                        StatusCode = StatusCodes.Status400BadRequest
                     },
                     notFoundResponse: new()
                     {
@@ -355,50 +304,9 @@ namespace API.Controllers.V1
         {
             var user = LoggedInUser;
 
-            var pairOfStation = await AppServices.Station.GetByCode(new List<Guid> { request.StartStationCode, request.EndStationCode });
+            var booking = _mapper.Map<BookingDTO>(request);
 
-            var badRequestResponse = new Response
-            {
-                StatusCode = StatusCodes.Status400BadRequest
-            };
-
-            if (!pairOfStation.Any())
-                return ApiResult(badRequestResponse.SetMessage("Start station and end station are not exist."));
-
-            var startStation = pairOfStation
-                .Where(station => station.Code == request.StartStationCode)
-                .FirstOrDefault();
-
-            var endStation = pairOfStation
-                .Where(station => station.Code == request.EndStationCode)
-                .FirstOrDefault();
-
-            if (startStation == null)
-                return ApiResult(badRequestResponse.SetMessage("Start station is not exist."));
-
-            if (endStation == null)
-                return ApiResult(badRequestResponse.SetMessage("End station is not exist."));
-
-            var booking = new BookingDTO();
-
-            try
-            {
-                booking = _mapper.Map<BookingDTO>(request);
-                if (booking.EndAt.CompareTo(booking.StartAt) < 0) return ApiResult(badRequestResponse.SetMessage("Start time must be before end time."));
-            }
-            catch (Exception e)
-            {
-                return ApiResult(badRequestResponse.SetMessage("Wrong format of date parameter."));
-            }
-
-            VehicleType? vehicleType = await AppServices.VehicleType.GetByCode(request.VehicleTypeCode);
-
-            if (vehicleType == null) return ApiResult(badRequestResponse.SetMessage("VehicleTypeCode is invalid"));
-
-            booking.VehicleTypeId = vehicleType.Id;
-
-            //booking.StartStationId = startStation.Id;
-            //booking.EndStationId = endStation.Id;
+            booking.UserId = user.Id;
 
             var response = await AppServices.Booking.GetProvision(
                                                     booking,
@@ -407,11 +315,21 @@ namespace API.Controllers.V1
                                                         Message = "Get booking provisional successfully.",
                                                         StatusCode = StatusCodes.Status200OK
                                                     },
+                                                    invalidStationResponse: new()
+                                                    {
+                                                        Message = "Stations are not exist.",
+                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                    },
                                                     invalidRouteResponse: new()
                                                     {
                                                         Message = "Route is not exist.",
                                                         StatusCode = StatusCodes.Status400BadRequest
-                                                    },                                                   
+                                                    },
+                                                    invalidVehicleTypeResponse: new()
+                                                    {
+                                                        Message = "Vehicle type is not exist.",
+                                                        StatusCode = StatusCodes.Status400BadRequest
+                                                    },
                                                     invalidPromotionResponse: new()
                                                     {
                                                         Message = "Promotion code is not available.",
@@ -427,9 +345,7 @@ namespace API.Controllers.V1
         {
             var dto = JsonSerializer.Deserialize<MomoPaymentNotificationRequest>(request.GetRawText());
 
-            if (dto.resultCode == (int)MomoStatusCodes.Successed)
-            {
-                var rawSignature = $"amount={dto.amount}&" +
+            var rawSignature = $"amount={dto.amount}&" +
                     $"extraData={dto.extraData}&" +
                     $"message={dto.message}&" +
                     $"orderId={dto.orderId}&" +
@@ -442,22 +358,34 @@ namespace API.Controllers.V1
                     $"resultCode={dto.resultCode}&" +
                     $"transId={dto.transId}";
 
-                var signature = AppServices.Payment.GetMomoSignature(rawSignature);
+            var signature = AppServices.Payment.GetMomoSignature(rawSignature);
+            var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
 
-                //if (signature == dto.signature)
-                //{
-                    var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
-
-                    if (booking?.Status == Bookings.Status.Unpaid && booking?.TotalPrice == dto.amount)
+            if(booking != null)
+            {
+                if (dto.resultCode == (int)Payments.MomoStatusCodes.Successed)
+                {
+                    if (booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.amount)
                     {
                         booking.Status = Bookings.Status.PendingMapping;
                         await AppServices.Booking.Update(booking);
-                        
+
                         //add job queue to map with specific driver
                         await _redisMQService.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                    }
                 }
-                //}
-            }
+
+                await _signalRService.SendToUserAsync(booking.User.Code.ToString(), "PaymentResult",
+                    new
+                    {
+                        BookingCode = dto.orderId,
+                        PaymentMethod = Payments.PaymentMethods.Momo,
+                        IsSuccess = dto.resultCode == (int)Payments.MomoStatusCodes.Successed
+                    });
+            } 
+
+            //if (signature == dto.signature)
+            //{
             return NoContent();
         }
         /// <summary>
