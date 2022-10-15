@@ -41,9 +41,7 @@ namespace API.Services
 
         public async Task<Response> GetAll(StartStationRequest request, Response successResponse)
         {
-
-
-            var routes = UnitOfWork.Routes.List(route => route.Status == StatusTypes.Route.Active);
+            var routes = UnitOfWork.Routes.List(route => route.Status == Routes.Status.Active);
 
             if (!string.IsNullOrEmpty(request.StartStationCode))
             {
@@ -65,7 +63,7 @@ namespace API.Services
 
         public async Task<Response> GetRouteFeeByPairOfStation(StationWithScheduleDTO dto, Response invalidStationResponse, Response invalidVehicleTypeResponse, Response successResponse, Response notFoundResponse)
         {
-            var pairOfStation = await _stationService.GetPairOfStation(dto.StartStationCode, dto.EndStationCode);
+            var pairOfStation = await AppServices.Station.GetPairOfStation(dto.StartStationCode, dto.EndStationCode);
 
             var startStationId = pairOfStation.Item1?.Id;
             var endStationId = pairOfStation.Item2?.Id;
@@ -76,7 +74,7 @@ namespace API.Services
             dto.StartStationId = startStationId.Value;
             dto.EndStationId = endStationId.Value;
 
-            VehicleType? vehicleType = await _vehicleTypeService.GetByCode(dto.VehicleTypeCode);
+            VehicleType? vehicleType = await AppServices.VehicleType.GetByCode(dto.VehicleTypeCode);
 
             if (vehicleType == null) return invalidVehicleTypeResponse;
 
@@ -85,7 +83,7 @@ namespace API.Services
             var routeViewModels =
                 await UnitOfWork.Routes
                 .List(route =>
-                    route.Status == StatusTypes.Route.Active &&
+                    route.Status == Routes.Status.Active &&
                     route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.StartStationId) &&
                     route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.EndStationId))
                 .MapTo<BookerRouteViewModel>(Mapper)

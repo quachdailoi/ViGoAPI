@@ -167,7 +167,7 @@ namespace API.Controllers.V1
         {
             dynamic vehicleTypes = (await AppServices.VehicleType.GetAll(new())).Data;
 
-            dynamic routes = (await AppServices.Route.GetAll(new())).Data;
+            dynamic routes = (await AppServices.Route.GetAll(new(),new())).Data;
 
             var users = await AppServices.User.GetByRole(Roles.BOOKER);
 

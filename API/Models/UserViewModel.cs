@@ -55,7 +55,7 @@ namespace API.Models
         public string? PhoneNumber { get; set; }
         public Genders Gender { get; set; }
         public Guid? ChattingRoomCode { get; set; }
-        public PaymentMethods PaymentMethod { get; set; }
+        public Payments.PaymentMethods PaymentMethod { get; set; }
         public Bookings.Status PaymentStatus { get; set; }
     }
 }

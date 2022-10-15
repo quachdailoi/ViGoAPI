@@ -19,11 +19,16 @@ namespace API.Models
     {
         //public double DistanceFromFirstStationInRoute { get; set; }
         [JsonIgnore]
-        public int Index { get; set; }
+        public double DistanceFromFirstStationInRoute { get; set; }
+        [JsonIgnore]
+        public double DurationFromFirstStationInRoute { get; set; }
 
         public int CompareTo(StationInRouteViewModel? other)
         {
-            return this.Index - other.Index;
+            var distance = this.DistanceFromFirstStationInRoute - other.DistanceFromFirstStationInRoute;
+            if (distance < 0) return -1;
+            else if(distance > 0) return 1;
+            return 0;
         }
     }
 

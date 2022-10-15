@@ -23,6 +23,7 @@ namespace API.Services
         private readonly HttpClient _client;
         private const string MOMO_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/create";
         private const string MOMO_REFUND_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/refund";
+        private const string MOMO_TOKENIZATION_BIND = "https://test-payment.momo.vn/v2/gateway/api/tokenization/bind";
         public PaymentService(IAppServices appServices) : base(appServices)
         {
             _client = new HttpClient();
@@ -86,8 +87,8 @@ namespace API.Services
         }
         public async Task<GenerateMomoLinkWalletUrlResponse?> GenerateMomoLinkingWalletUrl(MomoLinkingWalletRequestDTO dto)
         {
-            dto.partnerCode = _config.Get(MomoSettings.PartnerCode);
-            dto.partnerName = _config.Get(MomoSettings.PartnerName);
+            dto.partnerCode = Configuration.Get(MomoSettings.PartnerCode);
+            dto.partnerName = Configuration.Get(MomoSettings.PartnerName);
             dto.amount = 0;
             dto.requestId = Guid.NewGuid().ToString();
             dto.requestType = Payments.MomoRequestTypes.LinkWallet.DisplayName();
@@ -164,7 +165,7 @@ namespace API.Services
 
         public async Task<bool> GetTokenUserMomoLinkingWallet(MomoLinkWalletNotificationRequest request)
         {
-            var dto = _mapper.Map<GetMomoTokenRequest>(request);
+            var dto = Mapper.Map<GetMomoTokenRequest>(request);
 
             var rawSignature = $"callbackToken={dto.callbackToken}&" +
                 $"orderId={dto.orderId}&" +
@@ -184,13 +185,13 @@ namespace API.Services
 
             if(obj.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
 
-            var secretKey = _config.Get(MomoSettings.SecretKey);
+            var secretKey = Configuration.Get(MomoSettings.SecretKey);
 
             var decodeStr = Encryption.DecryptAES(obj.aesToken, secretKey);
 
             Console.WriteLine($"DecodeToken:::{decodeStr}");
 
-            var user = await _userService.GetUserById(int.Parse(obj.partnerClientId)).FirstOrDefaultAsync();
+            var user = await AppServices.User.GetUserById(int.Parse(obj.partnerClientId)).FirstOrDefaultAsync();
 
             return true;
         }

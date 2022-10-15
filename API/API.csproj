@@ -17,48 +17,48 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="11.0.1" />
-		<PackageReference Include="AutoMapper.Collection" Version="8.0.0" />
-		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+		<PackageReference Include="AutoMapper" Version="12.0.0" />
+		<PackageReference Include="AutoMapper.Collection" Version="9.0.0" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 		<PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.2" />
-		<PackageReference Include="AWSSDK.S3" Version="3.7.9.44" />
+		<PackageReference Include="AWSSDK.S3" Version="3.7.9.69" />
 		<PackageReference Include="FirebaseAdmin" Version="2.3.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
-		<PackageReference Include="MailKit" Version="3.3.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
+		<PackageReference Include="MailKit" Version="3.4.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.10" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.6">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Caching.Redis.Core" Version="1.0.3" />
-		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.8" />
+		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.10" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
 		<PackageReference Include="NetTopologySuite.IO.GeoJSON4STJ" Version="2.1.1" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.5" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite" Version="6.0.5" />
-		<PackageReference Include="Quartz.AspNetCore" Version="3.4.0" />
-		<PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.4.0" />
-		<PackageReference Include="Quartz.Extensions.Hosting" Version="3.4.0" />
-		<PackageReference Include="Serilog" Version="2.11.0" />
-		<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
-		<PackageReference Include="Serilog.Expressions" Version="3.4.0" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite" Version="6.0.7" />
+		<PackageReference Include="Quartz.AspNetCore" Version="3.5.0" />
+		<PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.5.0" />
+		<PackageReference Include="Quartz.Extensions.Hosting" Version="3.5.0" />
+		<PackageReference Include="Serilog" Version="2.12.0" />
+		<PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
+		<PackageReference Include="Serilog.Expressions" Version="3.4.1" />
 		<PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-		<PackageReference Include="Twilio" Version="5.77.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="Twilio" Version="5.80.1" />
 
 		<PackageReference Include="System.Collections" Version="4.3.0" />
 		<PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
 		<PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
 		<PackageReference Include="System.Net.NameResolution" Version="4.3.0" />
-		<PackageReference Include="System.Net.Primitives" Version="4.3.0" />
+		<PackageReference Include="System.Net.Primitives" Version="4.3.1" />
 		<PackageReference Include="System.Threading.ThreadPool" Version="4.3.0" />
 	</ItemGroup>
 

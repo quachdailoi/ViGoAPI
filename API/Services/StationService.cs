@@ -153,7 +153,7 @@ namespace API.Services
                         .List(routeStation =>
                                 routeStation.Status == StatusTypes.RouteStation.Active &&
                                 routeStation.Station.Status == StatusTypes.Station.Active &&
-                                routeStation.Route.Status == StatusTypes.Route.Active)
+                                routeStation.Route.Status == Routes.Status.Active)
                         .ToListAsync();
 
                 graph = Mapping.InitialGraph(routeStations);
@@ -181,7 +181,7 @@ namespace API.Services
                 .Where(routeStation =>
                             routeStation.Status == StatusTypes.RouteStation.Active &&
                             routeStation.Station.Status == StatusTypes.Station.Active &&
-                            routeStation.Route.Status == StatusTypes.Route.Active)
+                            routeStation.Route.Status == Routes.Status.Active)
                 .GroupBy(routeStation => routeStation.RouteId)
                 .First()
                 .OrderBy(routeStation => routeStation.Index)

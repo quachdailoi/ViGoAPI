@@ -45,7 +45,7 @@ namespace API.Services
                 vehicleType.Code == code && vehicleType.Status == VehicleTypes.Status.Active)
             .FirstOrDefaultAsync();
         private Task<List<VehicleType>> GetAllWithFare() =>
-            _unitOfWork.VehicleTypes
+            UnitOfWork.VehicleTypes
                     .List(vehicleType => vehicleType.Status == VehicleTypes.Status.Active)
                     .Include(vehicleType => vehicleType.Fare)
                     .ThenInclude(fare => fare.FareTimelines)
@@ -56,7 +56,7 @@ namespace API.Services
 
             var vehicleTypeCacheStr = JsonConvert.SerializeObject(vehicleTypes, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
 
-            return _cache.SetStringAsync("vehicle_type_fares", vehicleTypeCacheStr);
+            return Cache.SetStringAsync("vehicle_type_fares", vehicleTypeCacheStr);
         }
         public async Task<List<VehicleType>> GetWithFare()
         {

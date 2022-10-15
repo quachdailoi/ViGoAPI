@@ -12,6 +12,6 @@ namespace API.Models.DTO
         public double Distance { get; set; }
         public double Duration { get; set; }
         public Bound Bound { get; set; } = new();
-        public StatusTypes.Route Status { get; set; } = StatusTypes.Route.Active;
+        public Routes.Status Status { get; set; } = Routes.Status.Active;
     }
 }

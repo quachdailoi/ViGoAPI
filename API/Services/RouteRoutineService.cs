@@ -64,7 +64,7 @@ namespace API.Services
         }
 
         public Task<List<RouteRoutine>> GetByRouteId(int routeId) => 
-            _unitOfWork.RouteRoutines
+            UnitOfWork.RouteRoutines
             .List(routeRoutine => 
                 routeRoutine.RouteId == routeId && 
                 routeRoutine.Status == RouteRoutines.Status.Active)
@@ -78,7 +78,7 @@ namespace API.Services
 
         public async Task<dynamic> GetMappedBookingDetailDriverByRouteRoutine()
         {
-            var routeRoutines = await _unitOfWork.RouteRoutines
+            var routeRoutines = await UnitOfWork.RouteRoutines
             .List(routeRoutine =>
                 routeRoutine.Status == RouteRoutines.Status.Active)
             .Include(e => e.User)
@@ -100,7 +100,7 @@ namespace API.Services
             var totalBookingDetailNotShares = 0;
             var totalConflictSharingConditionCases = 0;
 
-            totalBookingDetails = await _unitOfWork.BookingDetails.List(bookingDetail => bookingDetail.Status != BookingDetails.Status.Cancelled).CountAsync();
+            totalBookingDetails = await UnitOfWork.BookingDetails.List(bookingDetail => bookingDetail.Status != BookingDetails.Status.Cancelled).CountAsync();
 
             foreach(var routeRoutine in routeRoutines)
             {
@@ -130,7 +130,7 @@ namespace API.Services
 
                 var totalSlots = routeRoutine.User.Vehicle.VehicleType.Slot;
                 var routeStationDic = routeRoutine.Route.RouteStations
-                    .ToDictionary(key => key.Station.Code);
+                    .ToDictionary(key => key.Id);
 
                 foreach(var bookingDetailDriverGrouping in bookingDetailDriverOfRouteRoutineGroupings)
                 {
@@ -195,11 +195,11 @@ namespace API.Services
 
                                     //check valid distance
 
-                                    var curStartStation = routeStationDic[bookingDetailDriver.BookingDetail.Booking.StartStationCode];
+                                    var curStartStation = routeStationDic[bookingDetailDriver.BookingDetail.Booking.StartRouteStationId];
                                     var curStartTime = bookingDetailDriver.BookingDetail.Booking.Time;
                                     
 
-                                    var prevEndStation = routeStationDic[prevBookingDetailDriver.BookingDetail.Booking.EndStationCode];
+                                    var prevEndStation = routeStationDic[prevBookingDetailDriver.BookingDetail.Booking.EndRouteStationId];
                                     var prevEndTime = prevBookingDetailDriver.BookingDetail.Booking.Time.AddMinutes(prevBookingDetailDriver.BookingDetail.Booking.Duration / 60);
 
                                     var curArrivePrevEndStation = curStartTime.AddMinutes((prevEndStation.DurationFromFirstStationInRoute - curStartStation.DurationFromFirstStationInRoute) / 60);

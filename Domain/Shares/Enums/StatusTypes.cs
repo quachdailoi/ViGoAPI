@@ -43,11 +43,5 @@ namespace Domain.Shares.Enums
             Inactive,
             Active
         }
-
-        public enum Route
-        {
-            Inactive,
-            Active
-        }
     }
 }

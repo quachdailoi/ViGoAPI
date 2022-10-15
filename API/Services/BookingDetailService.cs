@@ -116,7 +116,7 @@ namespace API.Services
 
         public async Task<Response> GetNextBookingDetail(int userId, Response successResponse)
         {
-            var bookingDetailsIQueryable = _unitOfWork.BookingDetails.List(b => b.Booking.UserId == userId && b.Status != BookingDetails.Status.Completed)
+            var bookingDetailsIQueryable = UnitOfWork.BookingDetails.List(b => b.Booking.UserId == userId && b.Status != BookingDetails.Status.Completed)
                                                                 .OrderBy(b => b.Date)
                                                                 .ThenBy(b => b.Booking.Time);
 
