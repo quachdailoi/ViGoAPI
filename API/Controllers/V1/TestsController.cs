@@ -114,6 +114,7 @@ namespace API.Controllers.V1
                 var user = new User
                 {
                     Name = $"Dummy_{DateTime.Now}_{i}",
+                    Wallet = new(),
                     Accounts = new List<Account>
                     {
                         new Account

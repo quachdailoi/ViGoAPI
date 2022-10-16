@@ -161,12 +161,13 @@ namespace API.Controllers.V1
         /// <response code="500"> Failed to get bookings.</response>
         [HttpGet]
         [Authorize(Roles = "BOOKER")]
-        public async Task<IActionResult> GetBooking()
+        public async Task<IActionResult> GetBooking([FromQuery] GetBookingRequest request)
         {
             var user = LoggedInUser;
 
-            var response = await AppServices.Booking.GetAll(
+            var response = await AppServices.Booking.Get(
                                             user.Id,
+                                            request,
                                             successReponse: new()
                                             {
                                                 Message = "Get bookings successfully.",

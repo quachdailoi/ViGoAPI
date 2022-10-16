@@ -1,4 +1,5 @@
 ﻿using API.Models.DTO;
+using API.Models.Requests;
 using API.Models.Response;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -14,7 +15,7 @@ namespace API.Services.Constract
         Task<Response> GetProvision(
             BookingDTO dto, Response successResponse, Response invalidStationResponse, Response invalidRouteResponse, 
             Response invalidVehicleTypeResponse, Response invalidPromotionResponse);
-        Task<Response> GetAll(int userId, Response successReponse);
+        Task<Response> Get(int userId, GetBookingRequest request, Response successReponse);
         Task<bool> Update(Booking booking);
         Task<Booking?> GetByCode(Guid code);
         Task<Booking?> Mapping(int bookingId);

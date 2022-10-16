@@ -1,6 +1,7 @@
 ﻿using API.Extensions;
 using API.Models;
 using API.Models.DTO;
+using API.Models.Requests;
 using API.Models.Response;
 using API.Services.Constract;
 using API.TaskQueues;
@@ -444,18 +445,18 @@ namespace API.Services
             return booking;
         }
 
-        public async Task<Response> GetAll(int userId, Response successReponse)
+        public async Task<Response> Get(int userId, GetBookingRequest request, Response successReponse)
         {
-            var bookings = UnitOfWork.Bookings
+            var bookingQueryable = UnitOfWork.Bookings
                 .List(booking => booking.UserId == userId);
 
-            var routes = UnitOfWork.Routes.List();
-
-            var routeStations = UnitOfWork.RouteStations.List();
+            if (request.Code.HasValue)
+            {
+                bookingQueryable = bookingQueryable.Where(booking => booking.Code == request.Code);
+            }
 
             var bookingViewModels = 
-                await UnitOfWork.Bookings
-                    .List(booking => booking.UserId == userId)
+                await bookingQueryable
                     .MapTo<BookerBookingViewModel>(Mapper)
                     .ToListAsync();
 
