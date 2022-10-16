@@ -145,11 +145,14 @@ services.ConfigureIoCRepositories();
 // IoC for Services layer
 services.ConfigureIoCServices();
 
+// add background services host to run in api controller
+services.AddHostBackgroundServices(args);
+
 // Add Host Service for Job Queue
 services.ConfigurationJobQueue();
 
 // Seed Data
-services.ConfigurationSeedData(args);
+services.ConfigurationSeedData();
 
 //IoC For Profile
 //services.AddSingleton(provider => new MapperConfiguration(cfg =>
@@ -228,8 +231,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-
 
 app.MapHub<SignalRHub>("hubs");
 

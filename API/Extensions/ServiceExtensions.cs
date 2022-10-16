@@ -23,6 +23,7 @@ using FluentValidation;
 using API.Validators;
 using API.Worker;
 using API.Models.DTO;
+using Microsoft.Extensions.Hosting;
 
 namespace API.Extensions
 {
@@ -30,16 +31,16 @@ namespace API.Extensions
     {
         public static void ConfigureCORS(this IServiceCollection services, string corsName)
         {
-             services.AddCors(options =>
-             {
+            services.AddCors(options =>
+            {
                 options.AddPolicy(name: corsName,
-                    policy =>
-                    {
-                        policy.AllowAnyOrigin();
-                        policy.AllowAnyMethod();
-                        policy.AllowAnyHeader();
-                    });
-             });
+                     policy =>
+                     {
+                       policy.AllowAnyOrigin();
+                       policy.AllowAnyMethod();
+                       policy.AllowAnyHeader();
+                   });
+            });
         }
 
         public static void ConfigureAuthentication(this IServiceCollection services, ConfigurationManager config)
@@ -168,18 +169,9 @@ namespace API.Extensions
             services.AddHostedService<TestTask>();
         }
 
-        public static void ConfigurationSeedData(this IServiceCollection services, string[] args)
+        public static void ConfigurationSeedData(this IServiceCollection services)
         {
             services.AddHostedService<DumpRoutes>();
-
-            IHost addRoutesHost = Host.CreateDefaultBuilder(args)
-                .ConfigureServices(services =>
-                {
-                    services.AddHostedService<AddRouteWorker>();
-                })
-                .Build();
-
-            services.Configure<HostDTO>(c => c.Host = addRoutesHost);
         }
 
         public static void ConfigureSwagger(this IServiceCollection services)
@@ -238,9 +230,9 @@ namespace API.Extensions
                 options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
                 options.ReportApiVersions = true;
                 //options.ApiVersionReader = ApiVersionReader.Combine(
-                    //new QueryStringApiVersionReader("api-version"),
-                    //new HeaderApiVersionReader("X-Version"),
-                    //new MediaTypeApiVersionReader("ver")); // use this for input version in swagger UI
+                //new QueryStringApiVersionReader("api-version"),
+                //new HeaderApiVersionReader("X-Version"),
+                //new MediaTypeApiVersionReader("ver")); // use this for input version in swagger UI
             });
 
             services.AddVersionedApiExplorer(options =>
@@ -252,6 +244,12 @@ namespace API.Extensions
         public static void ConfigureValidator(this IServiceCollection services)
         {
             services.LoadAllValidators();
+        }
+
+        public static void AddHostBackgroundServices(this IServiceCollection services, string[] args)
+        {
+            services.AddHostedService<QueuedHostedService>();
+            services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
         }
     }
 }
