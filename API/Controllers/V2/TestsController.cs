@@ -1,4 +1,6 @@
 ﻿using API.Models.DTO;
+using API.TaskQueues;
+using API.Utils;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Classes;
@@ -6,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -19,13 +22,16 @@ namespace API.Controllers.V2
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
-        private readonly HostDTO _host;
+        public IBackgroundTaskQueue _queue { get; }
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public TestsController(IUnitOfWork unitOfWork, ILogger<TestsController> logger, IOptions<HostDTO> host)
+        public TestsController(IUnitOfWork unitOfWork, ILogger<TestsController> logger, IBackgroundTaskQueue queue, IServiceScopeFactory serviceScopeFactory)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
-            _host = host.Value;
+
+            _queue = queue;
+            _serviceScopeFactory = serviceScopeFactory;
         }
 
         [HttpDelete("user/{code}")]
@@ -47,13 +53,37 @@ namespace API.Controllers.V2
             return Ok("Delete user successfully.");
         }  
         
-        [HttpGet()]
+        [HttpGet("create-routes")]
         [AllowAnonymous]
-        public async Task<IActionResult> DumpRoutes()
+        public async Task<IActionResult> CreateRoutes(CancellationToken token)
         {
-            await _host.Host.RunAsync();
+
+            //_queue.QueueBackgroundWorkItem(CreateRouteTask); // background task
+
+            await CreateRouteTask(token); // must done
 
             return Ok("Please wait for adding new route.");
+        }
+
+        private async Task CreateRouteTask(CancellationToken token)
+        {
+            var listOfStationIds = DumpRoutes.GetListStationIdsToDumpRoutes();
+
+            using (var scope = _serviceScopeFactory.CreateScope())
+            {
+                var scopedServices = scope.ServiceProvider;
+
+                foreach (var stationIds in listOfStationIds)
+                {
+                    var stationDtos = await AppServices.Station.GetStationDTOsByIds(stationIds);
+                    var newRoute = await AppServices.RapidApi.CreateRouteByListOfStation(stationDtos);
+
+                    Console.WriteLine($"Route added with ID: {newRoute.Id}");
+                    await Task.Delay(TimeSpan.FromSeconds(2), token);
+                }
+            }
+
+            await Task.CompletedTask;
         }
     }
 }
