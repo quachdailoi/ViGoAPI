@@ -55,17 +55,17 @@ namespace API.Controllers.V2
         
         [HttpGet("create-routes")]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateRoutes(CancellationToken token)
+        public async Task<IActionResult> CreateRoutes()
         {
 
             //_queue.QueueBackgroundWorkItem(CreateRouteTask); // background task
 
-            await CreateRouteTask(token); // must done
+            await CreateRouteTask(); // must done
 
             return Ok("Please wait for adding new route.");
         }
 
-        private async Task CreateRouteTask(CancellationToken token)
+        private async Task CreateRouteTask()
         {
             var listOfStationIds = DumpRoutes.GetListStationIdsToDumpRoutes();
 
@@ -79,11 +79,9 @@ namespace API.Controllers.V2
                     var newRoute = await AppServices.RapidApi.CreateRouteByListOfStation(stationDtos);
 
                     Console.WriteLine($"Route added with ID: {newRoute.Id}");
-                    await Task.Delay(TimeSpan.FromSeconds(2), token);
+                    await Task.Delay(TimeSpan.FromSeconds(2));
                 }
             }
-
-            await Task.CompletedTask;
         }
     }
 }
