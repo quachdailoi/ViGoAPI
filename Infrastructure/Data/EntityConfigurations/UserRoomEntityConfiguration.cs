@@ -31,7 +31,7 @@ namespace Infrastructure.Data.EntityConfigurations
                 .IsRequired()
                 .HasConversion<int>()
                 .HasColumnName("status")
-                .HasDefaultValue(StatusTypes.UserRoom.Active);
+                .HasDefaultValue(Rooms.UserRoomStatus.Active);
 
             builder.Property(e => e.LastSeenTime)
                 .HasColumnName("last_seen_time")

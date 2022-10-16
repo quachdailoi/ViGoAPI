@@ -11,7 +11,7 @@ namespace Domain.Entities
     public class Message : BaseEntity
     {
         public string Content { get; set; } = string.Empty;
-        public StatusTypes.Message Status { get; set; } = StatusTypes.Message.Active;
+        public Rooms.MessageStatus Status { get; set; } = Rooms.MessageStatus.Active;
 
         public int RoomId { get; set; }
         public int UserId { get; set; }

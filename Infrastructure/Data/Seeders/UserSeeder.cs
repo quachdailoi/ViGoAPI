@@ -19,8 +19,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Quach Dai Loi",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = 1
             });
 
@@ -30,8 +30,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Do Trong Dat",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = 2
             });
 
@@ -41,8 +41,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Nguyen Dang Khoa",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = 3
             });
 
@@ -52,8 +52,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Than Thanh Duy",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = 4
             });
 
@@ -63,8 +63,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Loi Quach",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = 5
             });
 
@@ -74,8 +74,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Dat Do",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = 6
             });
 
@@ -85,8 +85,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Khoa Nguyen",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = 7
             });
 
@@ -96,8 +96,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Thanh Duy",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = 8
             });
 
@@ -107,8 +107,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Admin Quach Dai Loi",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = 13,
             });
 
@@ -118,8 +118,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Admin Than Thanh Duy",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = null,
             });
 
@@ -129,8 +129,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Admin Nguyen Dang Khoa",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = null,
             });
 
@@ -140,8 +140,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Admin Do Trong Dat",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = null,
             });
         }

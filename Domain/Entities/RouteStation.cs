@@ -16,7 +16,7 @@ namespace Domain.Entities
         public int? NextRouteStationId { get; set; } = null;
         public double DistanceFromFirstStationInRoute { get; set; }
         public double DurationFromFirstStationInRoute { get; set; }
-        public StatusTypes.RouteStation Status { get; set; } = StatusTypes.RouteStation.Active;
+        public Routes.RouteStationStatus Status { get; set; } = Routes.RouteStationStatus.Active;
 
         public Route Route { get; set; }
         public Station Station { get; set; }

@@ -20,13 +20,6 @@ namespace API.Mapper
                     opt => opt.MapFrom(
                             message => message.UpdatedAt.ToFormatString()));
 
-            CreateMap<User, MessageUserViewModel>()
-                .ForMember(
-                    dest => dest.LastSeenTime,
-                    opt => opt.MapFrom(
-                            user => user.UserRooms.First().LastSeenTime.ToFormatString()))
-                .IncludeBase<User,UserViewModel>();
-
             CreateMap<Room, MessageRoomViewModel>()
                 .ForMember(
                     dest => dest.Users,

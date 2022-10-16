@@ -178,6 +178,42 @@ namespace API.Controllers.V1
         }
 
         /// <summary>
+        ///     Get booking details belong to user (updating ...).
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/bookings/history 
+        ///     {
+        ///         Page: 1,
+        ///         PageSize: 3,
+        ///         FromDate: "10-10-2022",
+        ///         ToDate: "17-10-2022"
+        ///     }
+        /// </remarks>
+        /// <response code = "200"> Get bookings successfully.</response>
+        /// <response code = "404"> Not found any bookings.</response>
+        /// <response code="500"> Failed to get bookings.</response>
+        [HttpGet("history")]
+        [Authorize(Roles = "BOOKER")]
+        public async Task<IActionResult> GetBookingDetails([FromQuery] PagingRequest pagingRequest, [FromQuery] DateFilterRequest dateFilterRequest)
+        {
+            var user = LoggedInUser;
+
+            var response = await AppServices.BookingDetail.Get(
+                                            user.Id,
+                                            pagingRequest: pagingRequest,
+                                            dateFilterRequest: dateFilterRequest,
+                                            successResponse: new()
+                                            {
+                                                Message = "Get booking details successfully.",
+                                                StatusCode = StatusCodes.Status200OK
+                                            }
+                                            );
+            return ApiResult(response);
+        }
+
+        /// <summary>
         ///     Get next trip of this user.
         /// </summary>
         /// <remarks>

@@ -11,8 +11,8 @@ namespace Domain.Entities
     public class Room : BaseEntity
     {
         public Guid Code { get; set; } = Guid.NewGuid();
-        public StatusTypes.Room Status { get; set; } = StatusTypes.Room.Active;
-        public MessageRoomTypes Type { get; set; } = MessageRoomTypes.Conversation;
+        public Rooms.Status Status { get; set; } = Rooms.Status.Active;
+        public Rooms.Types Type { get; set; } = Rooms.Types.Conversation;
         public string Name { get; set; } = String.Empty;
 
         public List<UserRoom> UserRooms { get; set; } = new();

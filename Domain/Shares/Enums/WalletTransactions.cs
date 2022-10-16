@@ -19,9 +19,9 @@ namespace Domain.Shares.Enums
         }
         public enum Status
         {
+            Pending,
             Success,
             Fail,
-            Pending
         }
     }
 }

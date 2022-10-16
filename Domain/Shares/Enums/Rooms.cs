@@ -6,18 +6,30 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public class Routes
+    public class Rooms
     {
+        public enum Types
+        {
+            Support,
+            Conversation
+        }
         public enum Status
         {
             Inactive,
             Active
         }
 
-        public enum RouteStationStatus
+        public enum UserRoomStatus
         {
             Inactive,
             Active
+        }
+
+        public enum MessageStatus
+        {
+            Inactive,
+            Active,
+            Deleted
         }
     }
 }

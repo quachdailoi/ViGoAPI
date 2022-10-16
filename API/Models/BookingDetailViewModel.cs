@@ -13,8 +13,8 @@ namespace API.Models
         public double Price { get; set; }
         public double DiscountPrice { get; set; }
         public BookingDetails.Status Status { get; set; }
-        public MessageRoomViewModel MessageRoom { get; set; }
-        public BookingViewModel Booking { get; set; }
+        public Guid? ChattingRoomCode { get; set; }
+        //public BookingViewModel Booking { get; set; }
     }
     public class BookerBookingDetailViewModel : BookingDetailViewModel
     {

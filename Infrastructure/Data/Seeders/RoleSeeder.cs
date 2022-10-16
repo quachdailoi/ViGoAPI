@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,23 +15,23 @@ namespace Infrastructure.Data.Seeders
         {
             builder.Entity<Role>().HasData(new Role
             {
-                Id = Domain.Shares.Enums.Roles.DRIVER,
-                Name = "DRIVER",
+                Id = Roles.DRIVER,
+                Name = Roles.DRIVER.GetString(),
                 Description = "Role for driver"
             });
 
             builder.Entity<Role>().HasData(new Role
             {
-                Id = Domain.Shares.Enums.Roles.BOOKER,
-                Name = "BOOKER",
+                Id = Roles.BOOKER,
+                Name = Roles.BOOKER.GetString(),
                 Description = "Role for booker"
             });
 
             // admin
             builder.Entity<Role>().HasData(new Role
             {
-                Id = Domain.Shares.Enums.Roles.ADMIN,
-                Name = "ADMIN",
+                Id = Roles.ADMIN,
+                Name = Roles.ADMIN.GetString(),
                 Description = "Role for admin"
             });
         }

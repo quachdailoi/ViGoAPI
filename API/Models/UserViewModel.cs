@@ -53,9 +53,20 @@ namespace API.Models
         public Guid Code { get; set; }
         public string Name { get; set; }
         public string? PhoneNumber { get; set; }
-        public Genders Gender { get; set; }
+        public Users.Genders Gender { get; set; }
         public Guid? ChattingRoomCode { get; set; }
         public Payments.PaymentMethods PaymentMethod { get; set; }
         public Bookings.Status PaymentStatus { get; set; }
+    }
+
+    public class MessageUserViewModel
+    {
+        [JsonIgnore]
+        public int Id { get; set; }
+        public Guid Code { get; set; }
+        public string Name { get; set; }
+        public string LastSeenTime { get; set; }
+        public string? AvatarUrl { get; set; } = string.Empty;
+        public Guid? AvatarCode { get; set; } = Guid.NewGuid();
     }
 }

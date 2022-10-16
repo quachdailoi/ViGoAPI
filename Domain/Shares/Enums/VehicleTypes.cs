@@ -19,8 +19,8 @@ namespace Domain.Shares.Enums
         
         public enum Status
         {
+            Inactive,
             Active,
-            Inactive
         }
     }
 }

@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public class FareTimelines
+    public class Users
     {
+        public enum Genders
+        {
+            Female,
+            Male
+        }
+
         public enum Status
         {
             Inactive,
-            Active,
+            Active
         }
     }
 }

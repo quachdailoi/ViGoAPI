@@ -232,5 +232,6 @@ app.MapControllers();
 
 
 app.MapHub<SignalRHub>("hubs");
+app.MapHub<GpsTrackingStream>("gps");
 
 app.Run();

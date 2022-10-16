@@ -42,7 +42,7 @@ namespace API.Services
         public async Task<bool> UpdateLastSeenTime(int userId, Guid roomCode, DateTimeOffset now)
         {
             var userRoom = UnitOfWork.UserRooms
-                                .List(userRoom => userRoom.UserId == userId && userRoom.Room.Code == roomCode && userRoom.Status == StatusTypes.UserRoom.Active)
+                                .List(userRoom => userRoom.UserId == userId && userRoom.Room.Code == roomCode && userRoom.Status == Rooms.UserRoomStatus.Active)
                                 .FirstOrDefault();
 
             if (userRoom == null) return false; 

@@ -12,8 +12,8 @@ namespace Domain.Entities
     {
         public Guid Code { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = string.Empty;
-        public Genders Gender { get; set; } = 0;
-        public StatusTypes.User Status { get; set; } = StatusTypes.User.Active;
+        public Users.Genders Gender { get; set; } = 0;
+        public Users.Status Status { get; set; } = Users.Status.Active;
         public DateTimeOffset? DateOfBirth { get; set; } = null;
         public int? FileId { get; set; }
 

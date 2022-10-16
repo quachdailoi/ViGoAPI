@@ -27,14 +27,14 @@ namespace API.Services
         {
             var rooms = UnitOfWork.Rooms.GetRoomsByCode(roomCode)
                                          .Where(room => room.UserRooms.Select(userRoom => userRoom.UserId).Contains(userId) && 
-                                                        room.Status == StatusTypes.Room.Active);
+                                                        room.Status == Rooms.Status.Active);
 
             var room = await rooms.MapTo<MessageRoomViewModel>(Mapper).FirstOrDefaultAsync();
 
             return successResponse.SetData(room);
         }
 
-        public async Task<Response> GetByType(int userId, MessageRoomTypes type, Response successResponse)
+        public async Task<Response> GetByType(int userId, Rooms.Types type, Response successResponse)
         {
             var rooms = 
                 UnitOfWork.Rooms
@@ -57,7 +57,7 @@ namespace API.Services
                                             room.UserRooms
                                             .Select(userRoom => userRoom.User.Code)
                                             .Count() == userCodeHashSet.Count &&
-                                            room.Status == StatusTypes.Room.Active);
+                                            room.Status == Rooms.Status.Active);
 
             return roomQueryable;
         }
@@ -72,7 +72,7 @@ namespace API.Services
         }
 
         public async Task<Room?> GetByCode(Guid roomCode) => await UnitOfWork.Rooms.GetRoomsByCode(roomCode).FirstOrDefaultAsync();
-        public async Task<Room> Create(List<Guid> userCodes, MessageRoomTypes type, MessageDTO? initMessage)
+        public async Task<Room> Create(List<Guid> userCodes, Rooms.Types type, MessageDTO? initMessage)
         {
             var userRooms = new List<UserRoom>();
 
@@ -103,7 +103,7 @@ namespace API.Services
 
             return await UnitOfWork.Rooms.Add(room);
         }
-        public async Task<Response> Create(List<Guid> userCodes, MessageRoomTypes type, Response successResponse, Response duplicateResponse, Response errorResponse, MessageDTO? initMessage = null)
+        public async Task<Response> Create(List<Guid> userCodes, Rooms.Types type, Response successResponse, Response duplicateResponse, Response errorResponse, MessageDTO? initMessage = null)
         {
             if (GetByMemberCode(userCodes).Any())
             {
@@ -128,7 +128,7 @@ namespace API.Services
 
             if (room == null) return null;
 
-            room.Status = StatusTypes.Room.InActive;
+            room.Status = Rooms.Status.Inactive;
 
             return await UnitOfWork.Rooms.Update(room) ? room : null;
         }
@@ -140,7 +140,7 @@ namespace API.Services
                     .List(room => room.UserRooms
                             .Select(userRoom => userRoom.UserId)
                             .Contains(userId) && 
-                             room.Status == StatusTypes.Room.Active)
+                             room.Status == Rooms.Status.Active)
                     .MapTo<MessageRoomViewModel>(Mapper)
                     .ToListAsync();
 
@@ -151,7 +151,7 @@ namespace API.Services
         {
             return 
                 await UnitOfWork.Rooms
-                    .List(room => room.Code == roomCode && room.Status == StatusTypes.Room.Active)                                              
+                    .List(room => room.Code == roomCode && room.Status == Rooms.Status.Active)                                              
                     .Include(room => room.UserRooms)                                              
                     .ThenInclude(userRoom => userRoom.User)                                              
                     .FirstOrDefaultAsync();

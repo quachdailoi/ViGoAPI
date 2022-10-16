@@ -11,18 +11,13 @@ namespace API.Models
         public Guid Code { get; set; }
         public List<MessageUserViewModel> Users { get; set; } = new();
         public List<MessageViewModel> Messages { get; set; } = new();
-        public StatusTypes.Room Status { get; set; } 
+        public Rooms.Status Status { get; set; } 
     }
     public class MessageViewModel
     {
         public string Content { get; set; } = string.Empty;
         public string Time { get; set; }
-        public StatusTypes.Message Status { get; set; }
+        public Rooms.MessageStatus Status { get; set; }
         public Guid UserCode { get; set; }
-    }
-
-    public class MessageUserViewModel : UserViewModel
-    {
-        public string LastSeenTime { get; set; }
     }
 }

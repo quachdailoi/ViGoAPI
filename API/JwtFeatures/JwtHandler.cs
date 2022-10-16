@@ -65,7 +65,11 @@ namespace API.JwtFeatures
 		{
 			var tokenDescriptor = GenerateTokenDescriptor();
 
-			tokenDescriptor.Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) });
+			tokenDescriptor.Subject = new ClaimsIdentity(new[] 
+			{ 
+				new Claim("id", user.Id.ToString()),
+				new Claim("code", user.Code.ToString())
+			});
 			tokenDescriptor.Claims = GetClaims(user, ipAddress);
 
 			return tokenDescriptor;
@@ -176,11 +180,41 @@ namespace API.JwtFeatures
 			}, out validatedToken);
 		}
 
-        public Task<UserViewModel?> GetUserViewModelByToken(string token)
+        public UserViewModel? GetUserViewModelByToken(string token)
         {
-			var userId = GetUserIdFromToken(token);
+			if (token == null)
+			{
+				return null;
+			}
 
-			return _appservice.User.GetUserViewModelById(userId);
+			try
+			{
+				GetPrincipal(token, out SecurityToken validatedToken);
+
+				var jwtToken = (JwtSecurityToken)validatedToken;
+
+				var user = new UserViewModel
+                {
+					Id = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value),
+					Code = Guid.Parse(jwtToken.Claims.First(x => x.Type == "code").Value),
+					Name = jwtToken.Claims.First(x => x.Type == ClaimTypes.Name).Value,
+					DateOfBirth = DateTimeOffset.Parse(jwtToken.Claims.First(x => x.Type == ClaimTypes.DateOfBirth).Value),
+					RoleName = jwtToken.Claims.First(x => x.Type == ClaimTypes.Role).Value,
+					Gmail = jwtToken.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
+					PhoneNumber = jwtToken.Claims.FirstOrDefault(x => x.Type == ClaimTypes.MobilePhone)?.Value
+			
+				};
+
+				return user;
+			}
+			catch
+			{
+				return null;
+			}
 		}
-    }
+
+		public Task<UserViewModel?> GetUserViewModelByTokenAsync(string token) 
+			=> _appservice.User.GetUserViewModelById(GetUserIdFromToken(token));
+
+	}
 }

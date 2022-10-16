@@ -19,7 +19,7 @@ namespace API.SignalR
         {
             var token = Context.GetHttpContext()?.Request.Query["access_token"].FirstOrDefault();
 
-            var user = await _jwtHandler.GetUserViewModelByToken(token);
+            var user = await _jwtHandler.GetUserViewModelByTokenAsync(token);
 
             await Groups.AddToGroupAsync(Context.ConnectionId, user.Code.ToString());
             await Groups.AddToGroupAsync(Context.ConnectionId, user.RoleName);
@@ -32,7 +32,7 @@ namespace API.SignalR
         {
             var token = Context.GetHttpContext()?.Request.Query["access_token"].FirstOrDefault();
 
-            var user = await _jwtHandler.GetUserViewModelByToken(token);
+            var user = await _jwtHandler.GetUserViewModelByTokenAsync(token);
 
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, user.Code.ToString());
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, user.RoleName);

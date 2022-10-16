@@ -10,7 +10,7 @@ namespace API.Models.Requests
     {
         public UpdateUserInfoRequest() {}
 
-        public UpdateUserInfoRequest(string name, Genders gender, DateTimeOffset dateOfBirth, IFormFile avatar, 
+        public UpdateUserInfoRequest(string name, Users.Genders gender, DateTimeOffset dateOfBirth, IFormFile avatar, 
             string registration, RegistrationTypes registrationTypes, OtpTypes otpTypes) 
             : base(registration, registrationTypes, otpTypes)
         {
@@ -21,7 +21,7 @@ namespace API.Models.Requests
         }
 
         public string Name { get; set; } = string.Empty;
-        public Genders Gender { get; set; } = 0;
+        public Users.Genders Gender { get; set; } = 0;
         public DateTimeOffset? DateOfBirth { get; set; } = null;
         public IFormFile? Avatar { get; set; } = null!;
     }
@@ -63,8 +63,8 @@ namespace API.Models.Requests
         [MaxLength(30, ErrorMessage = "The Name field has max length is 30 characters.")]
         public string Name { get; set; } = string.Empty;
         [Required]
-        [Range((int)Genders.Female, (int)Genders.Male, ErrorMessage = "The Gender field has value 0 for female or 1 for male.")]
-        public Genders Gender { get; set; } = 0;
+        [Range((int)Users.Genders.Female, (int)Users.Genders.Male, ErrorMessage = "The Gender field has value 0 for female or 1 for male.")]
+        public Users.Genders Gender { get; set; } = 0;
 
         public DateTimeOffset? DateOfBirth { get; set; } = null;
         
@@ -77,8 +77,8 @@ namespace API.Models.Requests
         [MaxLength(30, ErrorMessage = "The Name field has max length is 30 characters.")]
         public string Name { get; set; } = string.Empty;
         [Required]
-        [Range((int)Genders.Female, (int)Genders.Male, ErrorMessage = "The Gender field has value 0 for female or 1 for male.")]
-        public Genders Gender { get; set; } = 0;
+        [Range((int)Users.Genders.Female, (int)Users.Genders.Male, ErrorMessage = "The Gender field has value 0 for female or 1 for male.")]
+        public Users.Genders Gender { get; set; } = 0;
         public DateTimeOffset? DateOfBirth { get; set; } = null;
         public IFormFile? Avatar { get; set; } = null!;
     }

@@ -20,85 +20,6 @@ namespace API.Services
         {
         }
 
-        //public List<BookingDetail> GenerateBookingDetail(Booking booking)
-        //{
-        //    List<BookingDetail> bookingDetails = new();
-        //    if (booking.Type == Bookings.Types.Monthly)
-        //    {
-        //        var daysOfMonthHashSet = booking.Days.DaysOfMonth.ToHashSet();
-
-        //        var startYear = booking.StartAt.Year;
-        //        var endYear = booking.EndAt.Year;
-
-        //        var bookingDetailsDic = new Dictionary<DateOnly, BookingDetail>();
-
-        //        for(var year = startYear; year <= endYear; year++)
-        //        {
-        //            var startMonth = booking.StartAt.Month;
-        //            var endMonth = booking.EndAt.Month;
-        //            if (year != endYear)
-        //            {
-        //                endMonth = 12;
-        //            }
-
-        //            if(year != startYear)
-        //            {
-        //                startMonth = 1;
-        //            }
-
-        //            for(var month = startMonth; month <= endMonth; month++)
-        //            {
-        //                var totalApplyChangeInNextMonth = 0;
-        //                foreach (var day in daysOfMonthHashSet)
-        //                {                         
-        //                    try
-        //                    {
-        //                        DateOnly date = new DateOnly(year, month, day);
-        //                        bookingDetailsDic.Add(date,new BookingDetail
-        //                        {
-        //                            Booking = booking,
-        //                            Date = date,
-        //                        });
-        //                    }
-        //                    catch
-        //                    {
-        //                        if(booking.Option == Bookings.Options.ChangeToNextDayOfNextMonth)
-        //                        {
-        //                            totalApplyChangeInNextMonth++;
-        //                        }
-        //                    }                            
-        //                }
-
-        //                for (var day = 1; day <= totalApplyChangeInNextMonth; day++)
-        //                {
-        //                    DateOnly date = new DateOnly(year, month + 1, day);                               
-        //                    bookingDetailsDic.Add(date, new BookingDetail
-        //                    {
-        //                        Booking = booking,
-        //                        Date = date,
-        //                    });
-        //                }
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        var daysOfWeekHashSet = booking.Days.DaysOfWeek.ToHashSet();
-        //        for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
-        //        {
-        //            if (daysOfWeekHashSet.Contains(day.DayOfWeek))
-        //            {
-        //                bookingDetails.Add(new BookingDetail
-        //                {
-        //                    Booking = booking,
-        //                    Date = day,
-        //                });
-        //            }
-        //        };
-        //    }
-        //    return bookingDetails;
-        //}
-
         public List<BookingDetail> GenerateBookingDetail(Booking booking, double feePerTrip)
         {
             List<BookingDetail> bookingDetails = new();
@@ -108,7 +29,8 @@ namespace API.Services
                 {
                     Booking = booking,
                     Date = day,
-                    Price = Fee.RoundToThousands(feePerTrip)
+                    Price = Fee.RoundToThousands(feePerTrip),
+                    MessageRoom = new Room { }
                 });
             }
             return bookingDetails;
@@ -245,5 +167,34 @@ namespace API.Services
             => accounts.Where(x => x.RegistrationType == RegistrationTypes.Phone).FirstOrDefault()?.Registration;
 
         private static Guid? GetMessageRoomCode(Room? messageRoom) => messageRoom?.Code ?? null;
+
+        public async Task<Response> Get(int userId, Response successResponse, PagingRequest? pagingRequest = null, DateFilterRequest? dateFilterRequest = null)
+        {
+            var bookingDetails = UnitOfWork.BookingDetails
+                .List(bd => bd.Booking.UserId == userId);
+
+            if (dateFilterRequest?.FromDate != null && dateFilterRequest.ToDate != null)
+            {
+                var fromDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilterRequest.FromDate);
+                var toDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilterRequest.ToDate);
+
+                bookingDetails = bookingDetails.Where(x => x.Date >= fromDateParse && x.Date <= toDateParse);
+            }
+
+            bookingDetails = bookingDetails.OrderByDescending(x => x.Date);
+
+            var paging = bookingDetails.Paging(page: pagingRequest?.Page, pageSize: pagingRequest?.PageSize);
+
+            var bookingDetailVMs = await paging.Items.MapTo<BookerBookingDetailViewModel>(Mapper).ToListAsync();
+
+            return successResponse.SetData(new PagingViewModel<List<BookerBookingDetailViewModel>>()
+            {
+                Items = bookingDetailVMs,
+                TotalItemsCount = paging.TotalItemsCount,
+                Page = paging.Page,
+                PageSize = paging.PageSize,
+                TotalPagesCount = paging.TotalPagesCount
+            });
+        }
     }
 }
