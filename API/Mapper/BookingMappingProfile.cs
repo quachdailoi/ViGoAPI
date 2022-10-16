@@ -19,21 +19,19 @@ namespace API.Mapper
 
             CreateMap<Booking, BookerBookingViewModel>()
                 .ForMember(
-                    dest => dest.StartStationCode,
-                    otp => otp.MapFrom(src => src.StartRouteStation.Station.Code)
-                )
+                    dest => dest.StatusName,
+                    otp => otp.MapFrom(
+                            src => src.Status.DisplayName()))
                 .ForMember(
-                    dest => dest.EndStationCode,
-                    otp => otp.MapFrom(src => src.EndRouteStation.Station.Code)
-                )
-            .ForMember(
-                dest => dest.Stations,
-                otp => otp.MapFrom(
+                    dest => dest.CreatedAt,
+                    otp => otp.MapFrom(
+                            src => src.CreatedAt.ToFormatString()))
+                .ForMember(
+                    dest => dest.Stations,
+                    otp => otp.MapFrom(
                     src => src.StartRouteStation.Route.RouteStations
                         .OrderBy(x => x.Index)
-                        .Select(routeStation => routeStation.Station)
-                )
-            )
+                        .Select(routeStation => routeStation.Station)))
             //.AfterMap((src, dest) =>
             //{
             //    dest.Distance = 0;
@@ -72,7 +70,7 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.Option,
                     otp => otp.MapFrom(
-                        src => (new DateOnly().ParseExact(src.EndAt).Day == 1) ? 
+                        src => (new DateOnly().ParseExact(src.EndAt).Day == 1) ?
                         Bookings.Options.StartAtFollowingTime : Bookings.Options.StartAtNextDay));
 
             CreateMap<GetProvisionalBookingRequest, BookingDTO>()

@@ -241,7 +241,8 @@ namespace API.Services
             {
                 Name = request.Name,
                 Accounts = accounts,
-                File = defaultAvatar
+                File = defaultAvatar,
+                Wallet = new()
             };
 
             // open transaction

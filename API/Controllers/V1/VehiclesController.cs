@@ -9,6 +9,16 @@ namespace API.Controllers.V1
     [ApiVersion("1.0")]
     public class VehiclesController : BaseController<VehiclesController>
     {
+        /// <summary>
+        ///     Get all vehicle types
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/vehicles/types 
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Get vehicle types successfully.</response>
         [HttpGet("types")]
         [Authorize]
         public async Task<IActionResult> GetTypes()

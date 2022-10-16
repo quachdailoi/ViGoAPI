@@ -20,7 +20,8 @@ namespace Infrastructure.Data.Seeders
                     FareId = 1,
                     StartTime = TimeOnly.Parse("06:00:00"),
                     EndTime = TimeOnly.Parse("08:00:00"),
-                    ExtraFeePerKm = 0.12
+                    ExtraFeePerKm = 2000,
+                    CeilingExtraPrice = 7000
                 },
                 new()
                 {
@@ -28,7 +29,8 @@ namespace Infrastructure.Data.Seeders
                     FareId = 1,
                     StartTime = TimeOnly.Parse("08:00:00"),
                     EndTime = TimeOnly.Parse("10:00:00"),
-                    ExtraFeePerKm = 0.1
+                    ExtraFeePerKm = 1000,
+                    CeilingExtraPrice = 5000
                 },
                 new()
                 {
@@ -36,7 +38,8 @@ namespace Infrastructure.Data.Seeders
                     FareId = 1,
                     StartTime = TimeOnly.Parse("15:00:00"),
                     EndTime = TimeOnly.Parse("17:00:00"),
-                    ExtraFeePerKm = 0.15
+                    ExtraFeePerKm = 2000,
+                    CeilingExtraPrice = 7000
                 },
                 new()
                 {
@@ -44,7 +47,8 @@ namespace Infrastructure.Data.Seeders
                     FareId = 1,
                     StartTime = TimeOnly.Parse("17:00:00"),
                     EndTime = TimeOnly.Parse("19:00:00"),
-                    ExtraFeePerKm = 0.1
+                    ExtraFeePerKm = 1500,
+                    CeilingExtraPrice = 5000
                 },
                 new()
                 {
@@ -52,7 +56,8 @@ namespace Infrastructure.Data.Seeders
                     FareId = 2,
                     StartTime = TimeOnly.Parse("06:00:00"),
                     EndTime = TimeOnly.Parse("08:00:00"),
-                    ExtraFeePerKm = 0.12
+                    ExtraFeePerKm = 2000,
+                    CeilingExtraPrice = 7000
                 },
                 new()
                 {
@@ -60,7 +65,8 @@ namespace Infrastructure.Data.Seeders
                     FareId = 2,
                     StartTime = TimeOnly.Parse("08:00:00"),
                     EndTime = TimeOnly.Parse("10:00:00"),
-                    ExtraFeePerKm = 0.1
+                    ExtraFeePerKm = 1000,
+                    CeilingExtraPrice = 5000
                 },
                 new()
                 {
@@ -68,7 +74,8 @@ namespace Infrastructure.Data.Seeders
                     FareId = 2,
                     StartTime = TimeOnly.Parse("15:00:00"),
                     EndTime = TimeOnly.Parse("17:00:00"),
-                    ExtraFeePerKm = 0.15
+                    ExtraFeePerKm = 1500,
+                    CeilingExtraPrice = 5000
                 },
                 new()
                 {
@@ -76,7 +83,8 @@ namespace Infrastructure.Data.Seeders
                     FareId = 2,
                     StartTime = TimeOnly.Parse("17:00:00"),
                     EndTime = TimeOnly.Parse("19:00:00"),
-                    ExtraFeePerKm = 0.1
+                    ExtraFeePerKm = 2000,
+                    CeilingExtraPrice = 7000
                 },
                 new()
                 {
@@ -84,7 +92,8 @@ namespace Infrastructure.Data.Seeders
                     FareId = 3,
                     StartTime = TimeOnly.Parse("06:00:00"),
                     EndTime = TimeOnly.Parse("08:00:00"),
-                    ExtraFeePerKm = 0.12
+                    ExtraFeePerKm = 2000,
+                    CeilingExtraPrice = 7000
                 },
                 new()
                 {
@@ -92,7 +101,8 @@ namespace Infrastructure.Data.Seeders
                     FareId = 3,
                     StartTime = TimeOnly.Parse("08:00:00"),
                     EndTime = TimeOnly.Parse("10:00:00"),
-                    ExtraFeePerKm = 0.1
+                    ExtraFeePerKm = 1000,
+                    CeilingExtraPrice = 5000
                 },
                 new()
                 {
@@ -100,7 +110,8 @@ namespace Infrastructure.Data.Seeders
                     FareId = 3,
                     StartTime = TimeOnly.Parse("15:00:00"),
                     EndTime = TimeOnly.Parse("17:00:00"),
-                    ExtraFeePerKm = 0.15
+                    ExtraFeePerKm = 1500,
+                    CeilingExtraPrice = 6000
                 },
                 new()
                 {
@@ -108,7 +119,17 @@ namespace Infrastructure.Data.Seeders
                     FareId = 3,
                     StartTime = TimeOnly.Parse("17:00:00"),
                     EndTime = TimeOnly.Parse("19:00:00"),
-                    ExtraFeePerKm = 0.1
+                    ExtraFeePerKm = 2500,
+                    CeilingExtraPrice = 10000
+                },
+                new()
+                {
+                    Id = 13,
+                    FareId = 3,
+                    StartTime = TimeOnly.Parse("14:00:00"),
+                    EndTime = TimeOnly.Parse("15:00:00"),
+                    ExtraFeePerKm = 1000,
+                    CeilingExtraPrice = 5000
                 },
             };
 

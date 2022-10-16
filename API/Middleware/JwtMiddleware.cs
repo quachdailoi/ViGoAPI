@@ -33,7 +33,7 @@ namespace API.Middleware
                     {
                         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-                        var user = await jwtHandler.GetUserViewModelByToken(token);
+                        var user = await jwtHandler.GetUserViewModelByTokenAsync(token);
 
                         context.Items["User"] = user;
                     }                  

@@ -28,12 +28,12 @@ namespace Infrastructure.Data.Repositories
 
         public IQueryable<Station> GetStationsByCodes(List<Guid> codes)
         {
-            return List().Where(s => s.Status == StatusTypes.Station.Active && codes.Contains(s.Code));
+            return List().Where(s => s.Status == Stations.Status.Active && codes.Contains(s.Code));
         }
 
         public IQueryable<Station> GetStationsByIds(List<int> ids)
         {
-            return List().Where(s => s.Status == StatusTypes.Station.Active && ids.Contains(s.Id));
+            return List().Where(s => s.Status == Stations.Status.Active && ids.Contains(s.Id));
         }
     }
 }

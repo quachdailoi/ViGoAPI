@@ -9,8 +9,9 @@ namespace API.Models.DTO
         public TimeOnly Time { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
+        public Guid VehicleTypeCode { get; set; }
         public int VehicleTypeId { get; set; }
-        public PaymentMethods PaymentMethod { get; set; } = PaymentMethods.COD;
+        public Payments.PaymentMethods PaymentMethod { get; set; } = Payments.PaymentMethods.COD;
         public Bookings.Options Option { get; set; } 
         public Bookings.Types Type { get; set; }
         public bool IsShared { get; set; }
@@ -19,10 +20,12 @@ namespace API.Models.DTO
         public double Distance { get; set; }
         public double Duration { get; set; }
         public Guid RouteCode { get; set; }
+        public int RouteId { get; set; }
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
         public Bookings.Status Status { get; set; } = Bookings.Status.Unpaid;
         public int UserId { get; set; }
         public string? PromotionCode { get; set; } = null;
+        public int? PromotionId { get; set; } = null;
     }
 }

@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public class StopStations
+    public class Stations
     {
-        public enum Types
+        public enum Status
+        {
+            Inactive,
+            Active
+        }
+
+        public enum StopStationTypes
         {
             Pickup,
             Dropoff

@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public enum Genders
+    public class AffiliateAccounts
     {
-        Female,
-        Male
+        public enum Status
+        {
+            Active,
+            Inactive
+        }
     }
 }

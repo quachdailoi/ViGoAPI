@@ -9,7 +9,11 @@ namespace API.Mapper
     {
         public BookingDetailMappingProfile()
         {
-            CreateMap<BookingDetail, BookingDetailViewModel>();
+            CreateMap<BookingDetail, BookingDetailViewModel>()
+                .ForMember(
+                    dest => dest.ChattingRoomCode,
+                    opt => opt.MapFrom(
+                        src => src.MessageRoom.Code));
 
             CreateMap<BookingDetail, BookerBookingDetailViewModel>()
                 .ForMember(

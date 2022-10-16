@@ -41,9 +41,7 @@ namespace API.Services
 
         public async Task<Response> GetAll(StartStationRequest request, Response successResponse)
         {
-
-
-            var routes = UnitOfWork.Routes.List(route => route.Status == StatusTypes.Route.Active);
+            var routes = UnitOfWork.Routes.List(route => route.Status == Routes.Status.Active);
 
             if (!string.IsNullOrEmpty(request.StartStationCode))
             {
@@ -63,15 +61,29 @@ namespace API.Services
         }
 
 
-        public async Task<Response> GetRouteFeeByPairOfStation(StationWithScheduleDTO dto, Response successResponse, Response notFoundResponse)
+        public async Task<Response> GetRouteFeeByPairOfStation(StationWithScheduleDTO dto, Response invalidStationResponse, Response invalidVehicleTypeResponse, Response successResponse, Response notFoundResponse)
         {
-            var startStationId = dto.StartStationId;
-            var endStationId = dto.EndStationId;
+            var pairOfStation = await AppServices.Station.GetPairOfStation(dto.StartStationCode, dto.EndStationCode);
+
+            var startStationId = pairOfStation.Item1?.Id;
+            var endStationId = pairOfStation.Item2?.Id;
+
+            if (!startStationId.HasValue || !endStationId.HasValue)
+                return invalidStationResponse;
+
+            dto.StartStationId = startStationId.Value;
+            dto.EndStationId = endStationId.Value;
+
+            VehicleType? vehicleType = await AppServices.VehicleType.GetByCode(dto.VehicleTypeCode);
+
+            if (vehicleType == null) return invalidVehicleTypeResponse;
+
+            dto.VehicleTypeId = vehicleType.Id;
 
             var routeViewModels =
                 await UnitOfWork.Routes
                 .List(route =>
-                    route.Status == StatusTypes.Route.Active &&
+                    route.Status == Routes.Status.Active &&
                     route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.StartStationId) &&
                     route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.EndStationId))
                 .MapTo<BookerRouteViewModel>(Mapper)
@@ -88,24 +100,24 @@ namespace API.Services
 
                 var routeStationDic = routeViewModel.RouteStations.ToDictionary(e => e.Id);
 
-                var startStation = stationDic[startStationId];
-                var endStation = stationDic[endStationId];
+                var startStation = stationDic[dto.StartStationId];
+                var endStation = stationDic[dto.EndStationId];
 
-                var startRouteStation = routeViewModel.RouteStations.Find(routeStation => routeStation.StationId == startStationId);
-                var endRouteStation = routeViewModel.RouteStations.Find(routeStation => routeStation.StationId == endStationId);
+                var startRouteStation = routeViewModel.RouteStations.Find(routeStation => routeStation.StationId == dto.StartStationId);
+                var endRouteStation = routeViewModel.RouteStations.Find(routeStation => routeStation.StationId == dto.EndStationId);
 
                 var currentRouteStation = startRouteStation;
                 while (true)
                 {
                     stations.Add(stationDic[currentRouteStation.StationId]);
 
-                    if (currentRouteStation.StationId == endStationId || 
+                    if (currentRouteStation.StationId == dto.EndStationId || 
                         !currentRouteStation.NextRouteStationId.HasValue) break;
 
                     currentRouteStation = routeStationDic[currentRouteStation.NextRouteStationId.Value];
                 }
 
-                if (stations.First().Id == startStationId && stations.Last().Id == endStationId)
+                if (stations.First().Id == dto.StartStationId && stations.Last().Id == dto.EndStationId)
                 {
                     var distance = endRouteStation.DistanceFromFirstStationInRoute - startRouteStation.DistanceFromFirstStationInRoute;
                     var duration = endRouteStation.DurationFromFirstStationInRoute - startRouteStation.DurationFromFirstStationInRoute;

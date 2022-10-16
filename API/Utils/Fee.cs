@@ -22,7 +22,7 @@ namespace API.Utils
             var totalTickets = CaculateTotalTicket(bookingType, startDate, endDate);
             return RoundToThousands(feePerTrip * bookingTypeDetail.TempTotalDate * totalTickets * (1 - bookingTypeDetail.Discount));
         }
-        public static double TotalDays(DateOnly startDate, DateOnly endDate) => endDate.ToDateTime(TimeOnly.MinValue).Subtract(startDate.ToDateTime(TimeOnly.MinValue)).TotalDays;
+        public static double TotalDays(DateOnly startDate, DateOnly endDate) => endDate.ToDateTime(TimeOnly.MinValue).Subtract(startDate.ToDateTime(TimeOnly.MinValue)).TotalDays + 1;
         public static double CaculateTotalTicket(Bookings.Types bookingType, DateOnly startDate, DateOnly endDate)
         {
             double totalTicket = 0;

@@ -94,7 +94,7 @@ namespace API.Services
         {
             return UnitOfWork.Stations.List(station => stations.Exists(_station => _station.Latitude == station.Latitude &&
                                                                                                _station.Longitude == station.Longitude) &&
-                                                                               station.Status == StatusTypes.Station.Active)
+                                                                               station.Status == Stations.Status.Active)
                                                               .AnyAsync();
         }
         public async Task<Response> Create(List<StationDTO> stations, int userId, Response successResponse, Response duplicateResponse, Response errorResponse)
@@ -125,7 +125,7 @@ namespace API.Services
 
         public async Task<Response> Get(string? startStationCode, Response successResponse)
         {
-            var stations = UnitOfWork.Stations.List(station => station.Status == StatusTypes.Station.Active);
+            var stations = UnitOfWork.Stations.List(station => station.Status == Stations.Status.Active);
 
             if (startStationCode != null)
             {
@@ -151,9 +151,9 @@ namespace API.Services
                 var routeStations =
                     await UnitOfWork.RouteStations
                         .List(routeStation =>
-                                routeStation.Status == StatusTypes.RouteStation.Active &&
-                                routeStation.Station.Status == StatusTypes.Station.Active &&
-                                routeStation.Route.Status == StatusTypes.Route.Active)
+                                routeStation.Status == Routes.RouteStationStatus.Active &&
+                                routeStation.Station.Status == Stations.Status.Active &&
+                                routeStation.Route.Status == Routes.Status.Active)
                         .ToListAsync();
 
                 graph = Mapping.InitialGraph(routeStations);
@@ -179,9 +179,9 @@ namespace API.Services
 
             var routeStations = station.RouteStations
                 .Where(routeStation =>
-                            routeStation.Status == StatusTypes.RouteStation.Active &&
-                            routeStation.Station.Status == StatusTypes.Station.Active &&
-                            routeStation.Route.Status == StatusTypes.Route.Active)
+                            routeStation.Status == Routes.RouteStationStatus.Active &&
+                            routeStation.Station.Status == Stations.Status.Active &&
+                            routeStation.Route.Status == Routes.Status.Active)
                 .GroupBy(routeStation => routeStation.RouteId)
                 .First()
                 .OrderBy(routeStation => routeStation.Index)
@@ -202,7 +202,7 @@ namespace API.Services
                 UnitOfWork.Stations
                 .List(station =>
                     stationCodes.Contains(station.Code) &&
-                    station.Status == StatusTypes.Station.Active)
+                    station.Status == Stations.Status.Active)
                 .Include(station => station.RouteStations)
                 .ThenInclude(routeStation => routeStation.Route)
                 .ToListAsync();
@@ -250,6 +250,21 @@ namespace API.Services
         public async Task<Station?> GetStationByCodeAsync(Guid code)
         {
             return await UnitOfWork.Stations.GetStationByCode(code).FirstOrDefaultAsync();
+        }
+
+        public async Task<Tuple<Station?, Station?>> GetPairOfStation(Guid stationCode1, Guid stationCode2)
+        {
+            var pairOfStation = await GetByCode(new List<Guid> { stationCode1, stationCode2 });
+
+            var startStation = pairOfStation
+                .Where(station => station.Code == stationCode1)
+                .FirstOrDefault();
+
+            var endStation = pairOfStation
+                .Where(station => station.Code == stationCode2)
+                .FirstOrDefault();
+
+            return Tuple.Create(startStation, endStation);
         }
     }
 }

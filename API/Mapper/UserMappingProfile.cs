@@ -1,4 +1,5 @@
-﻿using API.Mapper.MappingSupports;
+﻿using API.Extensions;
+using API.Mapper.MappingSupports;
 using API.Models;
 using API.Services.Constract;
 using AutoMapper;
@@ -46,6 +47,12 @@ namespace API.Mapper
 
             CreateMap<User, DriverViewModel>();
             CreateMap<User, ContactUserViewModel>();
+
+            CreateMap<User, MessageUserViewModel>()
+                .ForMember(
+                    dest => dest.LastSeenTime,
+                    opt => opt.MapFrom(
+                            user => user.UserRooms.First().LastSeenTime.ToFormatString()));
         }
     }
 }

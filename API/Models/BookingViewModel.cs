@@ -17,25 +17,26 @@ namespace API.Models
         public bool IsShared { get; set; }
         public double Duration { get; set; }
         public double Distance { get; set; }
-        public PaymentMethods PaymentMethod { get; set; }
+        public Payments.PaymentMethods PaymentMethod { get; set; }
         [JsonIgnore]
-        public Guid StartStationCode { get; set; }
+        public RouteStation StartRouteStation { get; set; }
         [JsonIgnore]
-        public Guid EndStationCode { get; set; }
+        public RouteStation EndRouteStation { get; set; }
         public Bookings.Status Status { get; set; } = Bookings.Status.Unpaid;
-        public List<StationInRouteViewModel>? Stations { get; set; } = new();
+        public string StatusName { get; set; }
+        public List<StationInRouteViewModel> Stations { get; set; } = new();
 
         public virtual BookingViewModel ProcessStationOrder()
         {
-            var startIndex = this.Stations.Where(station => station.Code == this.StartStationCode).First().Index;
-            var endIndex = this.Stations.Where(station => station.Code == this.EndStationCode).First().Index;
+            var startStation = this.Stations.Where(station => station.Id == this.StartRouteStation.StationId).First();
+            var endStation = this.Stations.Where(station => station.Id == this.EndRouteStation.StationId).First();
 
-            this.Stations = this.Stations.OrderBy(station => station.Index).ToList();
+            this.Stations = this.Stations.OrderBy(station => station.DistanceFromFirstStationInRoute).ToList();
 
-            var stationAfterStart = this.Stations.Where(station => station.Index >= startIndex).ToList();
-            var stationBeforeEnd = this.Stations.Where(station => station.Index <= endIndex).ToList();
+            var stationAfterStart = this.Stations.Where(station => station.DistanceFromFirstStationInRoute >= startStation.DistanceFromFirstStationInRoute).ToList();
+            var stationBeforeEnd = this.Stations.Where(station => station.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute).ToList();
 
-            this.Stations = startIndex <= endIndex ?
+            this.Stations = startStation.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute ?
                 stationAfterStart.Intersect(stationBeforeEnd).ToList() : stationAfterStart.Concat(stationBeforeEnd).ToList();
             return this;
         }
@@ -47,6 +48,7 @@ namespace API.Models
         public DateOnly EndAt { get; set; }
         public int Option { get; set; }
         public Bookings.Types Type { get; set; }
+        public string CreatedAt { get; set; }
 
         public override BookerBookingViewModel ProcessStationOrder()
         {

@@ -45,6 +45,10 @@ namespace API.Services
         public IFileService File => Load<IFileService>();
         public IRedisMQService RedisMQ => Load<IRedisMQService>();
         public ISignalRService SignalR => Load<ISignalRService>();
+        public IAffiliateAccountService AffiliateAccount => Load<IAffiliateAccountService>();
+        public IAffiliatePartyService AffiliateParty => Load<IAffiliatePartyService>();
+        public IWalletService Wallet => Load<IWalletService>();
+        public IWalletTransactionService WalletTransaction => Load<IWalletTransactionService>();
 
         private T Load<T>() where T : class => Provider.GetRequiredService<T>();
     }
