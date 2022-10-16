@@ -29,7 +29,7 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.Property(e => e.Status)
                 .HasConversion<int>()
-                .HasDefaultValue(StatusTypes.Message.Active)
+                .HasDefaultValue(Rooms.MessageStatus.Active)
                 .HasColumnName("status");
 
             builder.Property(e => e.Content)

@@ -15,13 +15,13 @@ namespace API.Mapper
 
             CreateMap<Station, StationInRouteViewModel>()
                 .ForMember(
-                    dest => dest.Index,
+                    dest => dest.DurationFromFirstStationInRoute,
                     opt => opt.MapFrom(
-                        src => src.RouteStations.First().Index))
-                //.ForMember(
-                //    dest => dest.DistanceFromFirstStationInRoute,
-                //    opt => opt.MapFrom(
-                //        src => src.RouteStations.First().DistanceFromFirstStationInRoute))
+                        src => src.RouteStations.First().DurationFromFirstStationInRoute))
+                .ForMember(
+                    dest => dest.DistanceFromFirstStationInRoute,
+                    opt => opt.MapFrom(
+                        src => src.RouteStations.First().DistanceFromFirstStationInRoute))
                 .IncludeBase<Station, StationViewModel>();
 
             CreateMap<StationDTO, Station>().ReverseMap();

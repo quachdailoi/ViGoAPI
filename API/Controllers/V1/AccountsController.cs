@@ -46,7 +46,7 @@ namespace API.Controllers.V1
                     throw new SecurityTokenExpiredException();
 
                 // generate new access token
-                var userViewModel = await _jwtHandler.GetUserViewModelByToken(accessToken);
+                var userViewModel = await _jwtHandler.GetUserViewModelByTokenAsync(accessToken);
 
                 if (userViewModel == null)
                 {

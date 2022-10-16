@@ -15,13 +15,13 @@ namespace API.Models
         public int Status { get; set; }
         public DateTimeOffset? DateOfBirth { get; set; } = null;
         public string? AvatarUrl { get; set; } = string.Empty;
-        public Guid AvatarCode { get; set; } = Guid.NewGuid();
+        public Guid? AvatarCode { get; set; } = Guid.NewGuid();
 
-        public string Gmail { get; set; } = string.Empty ;
-        public bool HasVerifiedGmail { get; set; } = false;
-        public string PhoneNumber { get; set; } = string.Empty;
-        public bool HasVerifiedPhoneNumber { get; set; } = false;
-        public string RoleName { get; set; } = Roles.GUEST.GetName();
+        public string? Gmail { get; set; } = string.Empty ;
+        public bool? HasVerifiedGmail { get; set; } = false;
+        public string? PhoneNumber { get; set; } = string.Empty;
+        public bool? HasVerifiedPhoneNumber { get; set; } = false;
+        public string? RoleName { get; set; } = Roles.GUEST.GetName();
     }
     public class DriverViewModel
     {
@@ -53,9 +53,20 @@ namespace API.Models
         public Guid Code { get; set; }
         public string Name { get; set; }
         public string? PhoneNumber { get; set; }
-        public Genders Gender { get; set; }
+        public Users.Genders Gender { get; set; }
         public Guid? ChattingRoomCode { get; set; }
-        public PaymentMethods PaymentMethod { get; set; }
+        public Payments.PaymentMethods PaymentMethod { get; set; }
         public Bookings.Status PaymentStatus { get; set; }
+    }
+
+    public class MessageUserViewModel
+    {
+        [JsonIgnore]
+        public int Id { get; set; }
+        public Guid Code { get; set; }
+        public string Name { get; set; }
+        public string LastSeenTime { get; set; }
+        public string? AvatarUrl { get; set; } = string.Empty;
+        public Guid? AvatarCode { get; set; } = Guid.NewGuid();
     }
 }

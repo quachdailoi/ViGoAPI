@@ -4,15 +4,13 @@ using Domain.Interfaces.UnitOfWork;
 
 namespace API.Services
 {
-    public class BookingDetailDriverService : IBookingDetailDriverService
+    public class BookingDetailDriverService : BaseService, IBookingDetailDriverService
     {
-        private readonly IUnitOfWork _unitOfWork;
 
-        public BookingDetailDriverService(IUnitOfWork unitOfWork)
+        public BookingDetailDriverService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
         }
 
-        public Task<List<BookingDetailDriver>> Create(List<BookingDetailDriver> bookingDetailDrivers) => _unitOfWork.BookingDetailDrivers.Add(bookingDetailDrivers); 
+        public Task<List<BookingDetailDriver>> Create(List<BookingDetailDriver> bookingDetailDrivers) => UnitOfWork.BookingDetailDrivers.Add(bookingDetailDrivers); 
     }
 }

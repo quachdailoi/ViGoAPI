@@ -16,7 +16,7 @@ namespace API.Models
         public double Distance { get; set; }
         public double Duration { get; set; }
         //public Bound Bound { get; set; } = new();
-        public StatusTypes.Route Status { get; set; } = StatusTypes.Route.Active;
+        public Routes.Status Status { get; set; } = Routes.Status.Active;
         [JsonIgnore]
         public List<RouteStation> RouteStations { get; set; } = new();
         public List<StationInRouteViewModel> Stations { get; set; } = new();

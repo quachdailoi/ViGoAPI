@@ -1,10 +1,12 @@
-﻿using Domain.Entities;
+﻿using API.Models.DTO;
+using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Classes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace API.Controllers.V2
@@ -17,11 +19,13 @@ namespace API.Controllers.V2
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
+        private readonly HostDTO _host;
 
-        public TestsController(IUnitOfWork unitOfWork, ILogger<TestsController> logger)
+        public TestsController(IUnitOfWork unitOfWork, ILogger<TestsController> logger, IOptions<HostDTO> host)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _host = host.Value;
         }
 
         [HttpDelete("user/{code}")]
@@ -45,10 +49,11 @@ namespace API.Controllers.V2
         
         [HttpGet()]
         [AllowAnonymous]
-        public IActionResult TestLogMultipleFiles()
+        public async Task<IActionResult> DumpRoutes()
         {
-            _logger.LogError("ABC");
-            return Ok();
+            await _host.Host.RunAsync();
+
+            return Ok("Please wait for adding new route.");
         }
     }
 }

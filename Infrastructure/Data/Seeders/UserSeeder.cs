@@ -19,9 +19,9 @@ namespace Infrastructure.Data.Seeders
                 Name = "Quach Dai Loi",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 1,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
+                FileId = 1
             });
 
             builder.Entity<User>().HasData(new User
@@ -30,9 +30,9 @@ namespace Infrastructure.Data.Seeders
                 Name = "Do Trong Dat",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 2,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
+                FileId = 2
             });
 
             builder.Entity<User>().HasData(new User
@@ -41,9 +41,9 @@ namespace Infrastructure.Data.Seeders
                 Name = "Nguyen Dang Khoa",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 3,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
+                FileId = 3
             });
 
             builder.Entity<User>().HasData(new User
@@ -52,9 +52,9 @@ namespace Infrastructure.Data.Seeders
                 Name = "Than Thanh Duy",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 4,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
+                FileId = 4
             });
 
             builder.Entity<User>().HasData(new User
@@ -63,9 +63,9 @@ namespace Infrastructure.Data.Seeders
                 Name = "Loi Quach",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 5,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
+                FileId = 5
             });
 
             builder.Entity<User>().HasData(new User
@@ -74,9 +74,9 @@ namespace Infrastructure.Data.Seeders
                 Name = "Dat Do",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 6,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
+                FileId = 6
             });
 
             builder.Entity<User>().HasData(new User
@@ -85,9 +85,9 @@ namespace Infrastructure.Data.Seeders
                 Name = "Khoa Nguyen",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 7,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
+                FileId = 7
             });
 
             builder.Entity<User>().HasData(new User
@@ -96,9 +96,9 @@ namespace Infrastructure.Data.Seeders
                 Name = "Thanh Duy",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
-                FileId = 8,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
+                FileId = 8
             });
 
             builder.Entity<User>().HasData(new User
@@ -107,8 +107,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Admin Quach Dai Loi",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = 13,
             });
 
@@ -118,8 +118,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Admin Than Thanh Duy",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = null,
             });
 
@@ -129,8 +129,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Admin Nguyen Dang Khoa",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = null,
             });
 
@@ -140,8 +140,8 @@ namespace Infrastructure.Data.Seeders
                 Name = "Admin Do Trong Dat",
                 Code = Guid.NewGuid(),
                 DateOfBirth = null,
-                Gender = Genders.Male,
-                Status = StatusTypes.User.Active,
+                Gender = Users.Genders.Male,
+                Status = Users.Status.Active,
                 FileId = null,
             });
         }

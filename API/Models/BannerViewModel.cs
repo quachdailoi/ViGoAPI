@@ -4,6 +4,6 @@
     {
         public string Content { get; set; }
         public int Priority { get; set; }
-        public string FilePath { get; set; }
+        public string? FilePath { get; set; }
     }
 }

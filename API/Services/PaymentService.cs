@@ -9,29 +9,33 @@ using System.Text.Json;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Domain.Shares.Enums;
+using API.Utils;
+using API.Models.Response;
+using API.Models.Requests;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using API.Models.Responses.Payments.Momo;
 
 namespace API.Services
 {
-    public class PaymentService : IPaymentService
+    public class PaymentService : BaseService, IPaymentService
     {
         private readonly HttpClient _client;
-        private readonly IConfiguration _config;
-        private readonly ILogger _logger;
         private const string MOMO_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/create";
         private const string MOMO_REFUND_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/refund";
-        public PaymentService(IConfiguration config, ILogger<PaymentService> logger)
+        private const string MOMO_TOKENIZATION_BIND = "https://test-payment.momo.vn/v2/gateway/api/tokenization/bind";
+        public PaymentService(IAppServices appServices) : base(appServices)
         {
             _client = new HttpClient();
-            _config = config;
-            _logger = logger;
         }
 
-        public async Task<string?> GenerateMomoPaymentUrl(MomoCollectionLinkRequestDTO dto)
+        public async Task<GenerateMomoPaymentUrlResponse?> GenerateMomoPaymentUrl(MomoCollectionLinkRequestDTO dto)
         {
-            dto.partnerCode = _config.Get(MomoSettings.PartnerCode);
-            dto.partnerName = _config.Get(MomoSettings.PartnerName);
-            dto.storeId = _config.Get(MomoSettings.StoreId);
+            dto.partnerCode = Configuration.Get(MomoSettings.PartnerCode);
+            dto.partnerName = Configuration.Get(MomoSettings.PartnerName);
+            dto.storeId = Configuration.Get(MomoSettings.StoreId);
             dto.requestId = Guid.NewGuid().ToString();
+            dto.requestType = Payments.MomoRequestTypes.CaptureWallet.DisplayName();
 
             var rawSignature = $"amount={dto.amount}&" +
                 $"extraData={dto.extraData}&" +
@@ -51,42 +55,85 @@ namespace API.Services
 
             var body = await response.Content.ReadAsStringAsync();
 
-            var bodyJson = JToken.Parse(body);
+            var obj = JToken.Parse(body).ToObject<GenerateMomoPaymentUrlResponse>();
 
-            var resultCode = bodyJson.Value<int>("resultCode");
-            var message = bodyJson.Value<string>("message");
+            if (obj.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception($"Pay by Momo - {obj.message}");
 
-            if (resultCode != (int)MomoStatusCodes.Successed) throw new Exception(message);
-
-            return bodyJson.Value<string>("payUrl");
+            return obj;
         }
+        public async Task<Response> GenerateMomoLinkingWalletUrl(MomoLinkingWalletRequestDTO dto, Response successResponse, Response errorResponse)
+        {
+            dynamic paymentUrl;
+
+            try
+            {
+                var response = await GenerateMomoLinkingWalletUrl(dto);
+                paymentUrl = new
+                {
+                    PayUrl = response.payUrl,
+                    Deeplink = response.deeplink,
+                    DeeplinkMiniApp = response.deeplinkMiniApp
+                };
+            }
+            catch(Exception ex)
+            {
+                return errorResponse.SetMessage(ex.Message);
+            }
+
+            return successResponse.SetData(new
+            {
+                PaymentUrl = paymentUrl
+            });
+        }
+        public async Task<GenerateMomoLinkWalletUrlResponse?> GenerateMomoLinkingWalletUrl(MomoLinkingWalletRequestDTO dto)
+        {
+            dto.partnerCode = Configuration.Get(MomoSettings.PartnerCode);
+            dto.partnerName = Configuration.Get(MomoSettings.PartnerName);
+            dto.amount = 0;
+            dto.requestId = Guid.NewGuid().ToString();
+            dto.requestType = Payments.MomoRequestTypes.LinkWallet.DisplayName();
+
+            var rawSignature = $"amount={dto.amount}&" +
+                $"extraData={dto.extraData}&" +
+                $"ipnUrl={dto.ipnUrl}&" +
+                $"orderId={dto.orderId}&" +
+                $"orderInfo={dto.orderInfo}&" +
+                $"partnerClientId={dto.partnerClientId}&"+
+                $"partnerCode={dto.partnerCode}&" +
+                $"redirectUrl={dto.redirectUrl}&" +
+                $"requestId={dto.requestId}&" +
+                $"requestType={dto.requestType}";
+
+            dto.signature = GetMomoSignature(rawSignature);
+
+            StringContent httpContent = new(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync(MOMO_ENDPOINT, httpContent);
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            var obj = JToken.Parse(body).ToObject<GenerateMomoLinkWalletUrlResponse>();
+
+            if (obj.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception($"Pay by Momo - {obj.message}");
+
+            return obj;
+        } 
+
         public string GetMomoSignature(string text)
         {
-            var accessKey = _config.Get(MomoSettings.AccessKey);
-            var secretKey = _config.Get(MomoSettings.SecretKey);
-
-            _logger.LogError(secretKey);
+            var accessKey = Configuration.Get(MomoSettings.AccessKey);
+            var secretKey = Configuration.Get(MomoSettings.SecretKey);
 
             var rawSignature = $"accessKey={accessKey}&{text}";
 
-            ASCIIEncoding encoding = new ASCIIEncoding();
-
-            Byte[] textBytes = encoding.GetBytes(rawSignature);
-            Byte[] keyBytes = encoding.GetBytes(secretKey);
-
-            Byte[] hashBytes;
-
-            using (HMACSHA256 hash = new HMACSHA256(keyBytes))
-                hashBytes = hash.ComputeHash(textBytes);     
-
-            return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            return Encryption.HashSHA256(rawSignature, secretKey);
         }
 
         public async Task<bool> MomoRefund(long transId, long amount, string description = "")
         {
             var dto = new MomoRefundDTO
             {
-                partnerCode = _config.Get(MomoSettings.PartnerCode),
+                partnerCode = Configuration.Get(MomoSettings.PartnerCode),
                 orderId = Guid.NewGuid().ToString(),
                 requestId = Guid.NewGuid().ToString(),
                 amount = amount,
@@ -113,7 +160,40 @@ namespace API.Services
 
             var resultCode = bodyJson.Value<int>("resultCode");
 
-            return resultCode == (int)MomoStatusCodes.Successed;
+            return resultCode == (int)Payments.MomoStatusCodes.Successed;
+        }
+
+        public async Task<bool> GetTokenUserMomoLinkingWallet(MomoLinkWalletNotificationRequest request)
+        {
+            var dto = Mapper.Map<GetMomoTokenRequest>(request);
+
+            var rawSignature = $"callbackToken={dto.callbackToken}&" +
+                $"orderId={dto.orderId}&" +
+                $"partnerClientId={dto.partnerClientId}&" +
+                $"partnerCode={dto.partnerCode}&" +
+                $"requestId={dto.requestId}";
+
+            dto.signature = GetMomoSignature(rawSignature);
+
+            StringContent httpContent = new(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync(MOMO_TOKENIZATION_BIND, httpContent);
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            var obj = JToken.Parse(body).ToObject<GetMomoTokenResponse>();
+
+            if(obj.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
+
+            var secretKey = Configuration.Get(MomoSettings.SecretKey);
+
+            var decodeStr = Encryption.DecryptAES(obj.aesToken, secretKey);
+
+            Console.WriteLine($"DecodeToken:::{decodeStr}");
+
+            var user = await AppServices.User.GetUserById(int.Parse(obj.partnerClientId)).FirstOrDefaultAsync();
+
+            return true;
         }
     }
 }

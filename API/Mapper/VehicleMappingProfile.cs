@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Models;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -13,7 +14,7 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.TypeName,
                     opt => opt.MapFrom(
-                        src => src.Type.GetString()));
+                        src => src.Type.DisplayName()));
         }
     }
 }

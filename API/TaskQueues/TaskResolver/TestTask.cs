@@ -4,7 +4,7 @@ namespace API.TaskQueues.TaskResolver
 {
     public class TestTask : BaseTaskResolver
     {
-        private BlockingCollection<int> currentJobs = new BlockingCollection<int>(boundedCapacity: 1);
+        private BlockingCollection<int> currentJobs = new BlockingCollection<int>();
         public TestTask(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
@@ -18,7 +18,7 @@ namespace API.TaskQueues.TaskResolver
                     {
                         for (int i = 1; i <= 10; i++)
                         {
-                            Thread.Sleep(100);
+                            Thread.Sleep(1000);
                             Console.Write(job + ", ");
                         }
                         Console.WriteLine();

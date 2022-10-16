@@ -16,6 +16,8 @@ namespace Infrastructure.Data.EntityConfigurations
         {
             base.Configure(builder);
 
+            builder.Navigation(p => p.File).AutoInclude();
+
             builder.ToTable("promotions");
 
             builder.Property(e => e.Name)

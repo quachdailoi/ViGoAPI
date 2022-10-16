@@ -16,6 +16,8 @@ namespace Infrastructure.Data.EntityConfigurations
         {
             base.Configure(builder);
 
+            builder.Navigation(b => b.Role).AutoInclude();
+
             builder.ToTable("accounts");
 
             builder.Property(e => e.UserId)

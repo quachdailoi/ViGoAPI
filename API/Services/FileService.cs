@@ -13,21 +13,16 @@ using System.Net.Mime;
 
 namespace API.Services
 {
-    public class FileService : IFileService
+    public class FileService : BaseService, IFileService
     {
-        private readonly IConfiguration _config;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger _logger;
-
         private readonly AmazonS3Client _s3Client;
+        private readonly ILogger<FileService> _logger;
 
-        public FileService(IConfiguration config, IUnitOfWork unitOfWork, ILogger<FileService> logger)
+        public FileService(IAppServices appServices) : base(appServices)
         {
-            _config = config;
-            _unitOfWork = unitOfWork;
-            _logger = logger;
+            _logger = Logger<FileService>();
 
-            var credentials = new BasicAWSCredentials(_config.Get(AwsSettings.AccessKey), _config.Get(AwsSettings.SecretKey));
+            var credentials = new BasicAWSCredentials(Configuration.Get(AwsSettings.AccessKey), Configuration.Get(AwsSettings.SecretKey));
             var clientConfig = new AmazonS3Config()
             {
                 RegionEndpoint = Amazon.RegionEndpoint.APSoutheast1
@@ -68,7 +63,7 @@ namespace API.Services
 
             var request = new GetPreSignedUrlRequest()
             {
-                BucketName = _config.Get(AwsSettings.BucketName),
+                BucketName = Configuration.Get(AwsSettings.BucketName),
                 Key = filePath,
                 Expires = DateTimeOffset.Now.AddHours(1).DateTime,
                 Verb = HttpVerb.GET,
@@ -81,7 +76,7 @@ namespace API.Services
 
         public async Task<string> GetFilePathById(int id)
         {
-            return (await _unitOfWork.Files.GetById(id)).Path;
+            return (await UnitOfWork.Files.GetById(id)).Path;
         }
 
         public string? GetPresignedUrl(AppFile? file)

@@ -13,31 +13,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class AccountService : IAccountService
+    public class AccountService : BaseService, IAccountService
     {
-        protected readonly IVerifiedCodeService _verifiedCodeService;
-        protected readonly IUnitOfWork _unitOfWork;
-        protected readonly IMapper _mapper;
-        private readonly IConfiguration _config;
-        private readonly IUserService _userService;
-
-        public AccountService(
-            IVerifiedCodeService verifiedCodeService,
-            IUnitOfWork unitOfWork,
-            IMapper mapper,
-            IConfiguration configuration,
-            IUserService userService)
+        public AccountService(IAppServices appServices) : base(appServices)
         {
-            _verifiedCodeService = verifiedCodeService;
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _config = configuration;
-            _userService = userService;
         }
 
         public async Task<Account?> GetAccountByUserCodeAsync(string userCode, RegistrationTypes registrationTypes)
         {
-            var user = await _unitOfWork.Users.GetUserByCode(userCode).Include(user => user.Accounts).FirstOrDefaultAsync();
+            var user = await UnitOfWork.Users.GetUserByCode(userCode).Include(user => user.Accounts).FirstOrDefaultAsync();
 
             if (user == null) return null;
 
@@ -48,11 +32,11 @@ namespace API.Services
 
         public IQueryable<Account>? GetAccountByUserCode(string userCode, RegistrationTypes registrationTypes)
         {
-            var user = _unitOfWork.Users.GetUserByCode(userCode).FirstOrDefault();
+            var user = UnitOfWork.Users.GetUserByCode(userCode).FirstOrDefault();
 
             if (user == null) return null;
 
-            var account = _unitOfWork.Accounts
+            var account = UnitOfWork.Accounts
                 .List(acc => acc.UserId == user.Id && acc.RegistrationType == registrationTypes);
 
             return account;
@@ -60,7 +44,7 @@ namespace API.Services
 
         public async Task<int?> GetAccountIdBy(string userCode, RegistrationTypes registrationType)
         {
-            var user = await _unitOfWork.Users.GetUserByCode(userCode).FirstOrDefaultAsync();
+            var user = await UnitOfWork.Users.GetUserByCode(userCode).FirstOrDefaultAsync();
 
             if (user == null) return null;
 
@@ -73,9 +57,9 @@ namespace API.Services
 
         public IQueryable<Account>? GetRoleAccountByRegistration(Roles roleId, string registration, RegistrationTypes registrationType)
         {
-            var accounts = _unitOfWork.Accounts.GetAccountByRegistration(registration, registrationType);
+            var accounts = UnitOfWork.Accounts.GetAccountByRegistration(registration, registrationType);
 
-            var roles = _unitOfWork.Roles.GetRoleById(roleId);
+            var roles = UnitOfWork.Roles.GetRoleById(roleId);
 
             var roleAccount = from account in accounts
                               join role in roles on account.RoleId equals role.Id
@@ -94,7 +78,7 @@ namespace API.Services
             account.Registration = request.Registration;
             account.Verified = isVerified;
 
-            if (!await _unitOfWork.Accounts.Update(account)) return errorResponse;
+            if (!await UnitOfWork.Accounts.Update(account)) return errorResponse;
 
             return successResponse;
         }
@@ -103,7 +87,7 @@ namespace API.Services
         {
             if (account == null) return errorResponse;
             account.Verified = true;
-            if (await _unitOfWork.Accounts.Update(account)) return successResponse;
+            if (await UnitOfWork.Accounts.Update(account)) return successResponse;
             else return errorResponse;
         }
 
@@ -161,11 +145,11 @@ namespace API.Services
 
             if (account == null) return null;
 
-            var user = _unitOfWork.Users.List(user => user.Id == account.UserId);
+            var user = UnitOfWork.Users.List(user => user.Id == account.UserId);
 
             if (user == null) return null;
 
-            return await user.MapTo<UserViewModel>(_mapper).FirstOrDefaultAsync();
+            return await user.MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefaultAsync();
         }
 
         public async Task<Response> UpdateUserAccount(
@@ -178,13 +162,13 @@ namespace API.Services
             var existResponse = CheckNotExisted(userRole, request, duplicateReponse, isVerified: true);
             if (existResponse != null) return existResponse;
 
-            var user = await _unitOfWork.Users.GetUserByCode(userCode).Include(acc => acc.Accounts).FirstOrDefaultAsync();
+            var user = await UnitOfWork.Users.GetUserByCode(userCode).Include(acc => acc.Accounts).FirstOrDefaultAsync();
             var account = user?.Accounts.Where(acc => acc.RegistrationType == request.RegistrationTypes).FirstOrDefault();
 
             if (user == null) return failedResponse;
 
             // open transaction
-            await _unitOfWork.CreateTransactionAsync();
+            await UnitOfWork.CreateTransactionAsync();
 
             user.Name = request.Name;
             user.Gender = request.Gender;
@@ -195,21 +179,21 @@ namespace API.Services
                 account.Registration = request.Registration;
                 account.Verified = false;
 
-                if (!await _unitOfWork.Accounts.Update(account))
+                if (!await UnitOfWork.Accounts.Update(account))
                 {
-                    await _unitOfWork.Rollback();
+                    await UnitOfWork.Rollback();
                     return failedResponse;
                 }
             }
 
             //commit transaction
-            await _unitOfWork.CommitAsync();
+            await UnitOfWork.CommitAsync();
 
             if (request.Avatar != null)
                 // transaction for update avatar
-                await _userService.UpdateUserAvatar(userCode, request.Avatar, successResponse, failedResponse);
+                await AppServices.User.UpdateUserAvatar(userCode, request.Avatar, successResponse, failedResponse);
 
-            var newUserVM = await _userService.GetUserViewModelById(user.Id);
+            var newUserVM = await AppServices.User.GetUserViewModelById(user.Id);
 
             return successResponse.SetData(newUserVM);
         }
@@ -249,7 +233,7 @@ namespace API.Services
 
             var defaultAvatar = new AppFile
             {
-                Path = $"{_config.Get(AwsSettings.UserAvatarFolder)}{_config.Get(AwsSettings.DefaultAvatar)}",
+                Path = $"{Configuration.Get(AwsSettings.UserAvatarFolder)}{Configuration.Get(AwsSettings.DefaultAvatar)}",
                 Type = FileTypes.Image,
             };
 
@@ -257,28 +241,29 @@ namespace API.Services
             {
                 Name = request.Name,
                 Accounts = accounts,
-                File = defaultAvatar
+                File = defaultAvatar,
+                Wallet = new()
             };
 
             // open transaction
-            await _unitOfWork.CreateTransactionAsync();
+            await UnitOfWork.CreateTransactionAsync();
 
-            newUser = await _unitOfWork.Users.Add(newUser);
+            newUser = await UnitOfWork.Users.Add(newUser);
 
             if (newUser == null)
             {
-                await _unitOfWork.Rollback();
+                await UnitOfWork.Rollback();
                 return failedResponse;
             }
 
             //commit transaction
-            await _unitOfWork.CommitAsync();
+            await UnitOfWork.CommitAsync();
             return successResponse;
         }
 
         public async Task<Response> GetProfile(int userId, Response successResponse)
         {
-            var profile = await _userService.GetUserViewModelById(userId);
+            var profile = await AppServices.User.GetUserViewModelById(userId);
 
             return successResponse.SetData(profile);
         }

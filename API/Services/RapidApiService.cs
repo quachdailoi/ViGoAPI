@@ -13,31 +13,22 @@ using Newtonsoft.Json.Linq;
 
 namespace API.Services
 {
-    public class RapidApiService : IRapidApiService
+    public class RapidApiService : BaseService, IRapidApiService
     {
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IConfiguration _config;
-        private readonly ILocationService _locationService;
         private readonly HttpClient _client;
         private readonly List<string> _apiKeys;
 
-        public RapidApiService(IMapper mapper, IUnitOfWork unitOfWork, IConfiguration configuration, ILocationService locationService)
+        public RapidApiService(IAppServices appServices) : base(appServices)
         {
             _client = new HttpClient();
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-            _config = configuration;
-            _locationService = locationService;
 
             _apiKeys = new List<string>();
 
-            var keyStrs = _config.Get(RapidApiSettings.ApiKeys);
+            var keyStrs = Configuration.Get(RapidApiSettings.ApiKeys);
 
             if (keyStrs == null) throw new Exception("Failed to use api from rapidapi flatform.");
 
             _apiKeys = keyStrs.Split(",").ToList();
-            Console.WriteLine($"----------------------> Total rapid api keys: {_apiKeys.Count}");
         }
 
         public async Task<List<DistanceStationDTO>> CalculateDrivingMatrix(CoordinatesDTO origin, List<DistanceStationDTO> destinations)
@@ -57,7 +48,7 @@ namespace API.Services
 
         private async Task<dynamic> TrueWayMatrix_CalculateDrivingMatrix(string origins, string destinations)
         {
-            var baseAddress = _config.Get(RapidApiSettings.TrueWayMatrixService_Uri);
+            var baseAddress = Configuration.Get(RapidApiSettings.TrueWayMatrixService_Uri);
 
             var url = $"/CalculateDrivingMatrix?origins={origins}&destinations={destinations}";
 
@@ -70,7 +61,7 @@ namespace API.Services
                     Headers =
                     {
                         { "X-RapidAPI-Key", key },
-                        { "X-RapidAPI-Host", _config.Get(RapidApiSettings.TrueWayMatrixService_ApiHost) },
+                        { "X-RapidAPI-Host", Configuration.Get(RapidApiSettings.TrueWayMatrixService_ApiHost) },
                     }
                 };
 
@@ -139,11 +130,11 @@ namespace API.Services
         {
             var constructedRoute = await TrueWayDirection_FindDrivingRoute(stations);
 
-            await _unitOfWork.CreateTransactionAsync();
+            await UnitOfWork.CreateTransactionAsync();
 
             bool isSuccessTransaction = true;
 
-            var createdRoute = await _unitOfWork.Routes.CreateRoute(constructedRoute);
+            var createdRoute = await UnitOfWork.Routes.CreateRoute(constructedRoute);
 
             if (isSuccessTransaction = createdRoute != null)
             {
@@ -151,7 +142,7 @@ namespace API.Services
                 if (stations.Last().Id == stations.First().Id)
                 {
                     createdRoute.RouteStations.Last().NextRouteStationId = createdRoute.RouteStations.First().Id;
-                    if (!(await _unitOfWork.Routes.Update(createdRoute)))
+                    if (!await UnitOfWork.Routes.Update(createdRoute))
                     {
                         isSuccessTransaction = false;
                     }
@@ -160,10 +151,10 @@ namespace API.Services
 
             if (!isSuccessTransaction)
             {
-                await _unitOfWork.Rollback();
+                await UnitOfWork.Rollback();
                 return null;
             }
-            else await _unitOfWork.CommitAsync();
+            else await UnitOfWork.CommitAsync();
 
             return createdRoute;
         }
@@ -172,9 +163,9 @@ namespace API.Services
             var createdRoute = await this.CreateRouteByListOfStation(stations);
             if (createdRoute == null) return failed;
             var routeVM = 
-                (await _unitOfWork.Routes.List()
+                (await UnitOfWork.Routes.List()
                     .Where(x => x.Id == createdRoute.Id)
-                    .MapTo<RouteViewModel>(_mapper)
+                    .MapTo<RouteViewModel>(Mapper)
                     .FirstAsync()).ProcessStation();
 
             return success.SetData(routeVM);
@@ -182,7 +173,7 @@ namespace API.Services
 
         public async Task<Domain.Entities.Route> TrueWayDirection_FindDrivingRoute(List<StationDTO> stations)
         {
-            var baseAddress = _config.Get(RapidApiSettings.TrueWayDirectionService_Uri);
+            var baseAddress = Configuration.Get(RapidApiSettings.TrueWayDirectionService_Uri);
 
             var stationCoorStrs = this.BuildCoordinateString(stations);
 
@@ -199,7 +190,7 @@ namespace API.Services
                     Headers =
                     {
                         { "X-RapidAPI-Key", key },
-                        { "X-RapidAPI-Host", _config.Get(RapidApiSettings.TrueWayDirectionService_ApiHost) },
+                        { "X-RapidAPI-Host", Configuration.Get(RapidApiSettings.TrueWayDirectionService_ApiHost) },
                     }
                 };
 
@@ -312,14 +303,6 @@ namespace API.Services
         private List<RouteStation> GenerateRouteStation(List<StationDTO> stations, Domain.Entities.Route route, dynamic legs)
         {
             List<RouteStation> routestations = new();
-            //var routeStationDic = new Dictionary<int,RouteStation>();
-
-            //string firstStationCoorStr = $"{stations.First().Latitude},{stations.First().Longitude}";
-
-            //var distanceAndTimeJson = await TrueWayMatrix_CalculateDrivingMatrix(firstStationCoorStr, stationCoorStrs);
-
-            //var distances = distanceAndTimeJson.distances[0];
-            //var durations = distanceAndTimeJson.durations[0];
 
             double distance = 0;
             double duration = 0;

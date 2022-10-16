@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,27 +11,16 @@ namespace Domain.Shares.Enums
     {
         public enum Type
         {
+            [Description("ViRide")]
             ViRide,
+            [Description("ViCar")]
             ViCar
         }
         
         public enum Status
         {
+            Inactive,
             Active,
-            Inactive
-        }
-    }
-
-    public static class VehicleTypesExtensions
-    {
-        public static string GetString(this VehicleTypes.Type type)
-        {
-            return type switch
-            {
-                VehicleTypes.Type.ViRide => "ViRide",
-                VehicleTypes.Type.ViCar => "ViCar",
-                _ => String.Empty,
-            };
         }
     }
 }

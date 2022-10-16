@@ -17,18 +17,12 @@ using Twilio.Rest.Api.V2010.Account;
 
 namespace API.Services
 {
-    public class VerifiedCodeService : IVerifiedCodeService
+    public class VerifiedCodeService : BaseService, IVerifiedCodeService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IConfiguration _config;
         private static Random random = new Random();
 
-        public VerifiedCodeService(
-            IUnitOfWork unitOfWork,
-            IConfiguration configuration)
+        public VerifiedCodeService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _config = configuration;
         }
 
         private string GenerateOtpCode(int length)
@@ -61,8 +55,8 @@ namespace API.Services
             MimeMessage email = new();
 
             var mailBoxAddress = new MailboxAddress(
-                _config.Get(MailSettings.DisplayName),
-                _config.Get(MailSettings.Mail)
+                Configuration.Get(MailSettings.DisplayName),
+                Configuration.Get(MailSettings.Mail)
             );
 
             email.Sender = mailBoxAddress;
@@ -79,8 +73,8 @@ namespace API.Services
 
             try
             {
-                smtp.Connect(_config.Get(MailSettings.Host), _config.Get<int>(MailSettings.Port), MailKit.Security.SecureSocketOptions.StartTls);
-                smtp.Authenticate(_config.Get(MailSettings.Mail), _config.Get(MailSettings.Password));
+                smtp.Connect(Configuration.Get(MailSettings.Host), Configuration.Get<int>(MailSettings.Port), MailKit.Security.SecureSocketOptions.StartTls);
+                smtp.Authenticate(Configuration.Get(MailSettings.Mail), Configuration.Get(MailSettings.Password));
                 return await smtp.SendAsync(email);
                 //logger.LogInformation($"Send mail to:  {mailContent.To}");
             }
@@ -98,12 +92,12 @@ namespace API.Services
 
         private Task<MessageResource?> SendSMS(string sms, string toPhoneNumber)
         {
-            var fromPhoneNumber = _config.Get(TwilioSettings.PhoneNumber);
+            var fromPhoneNumber = Configuration.Get(TwilioSettings.PhoneNumber);
 
             // get base on environment
 
-            var accountSid = _config.Get(TwilioSettings.AccountSID);
-            var authToken = _config.Get(TwilioSettings.AuthToken);
+            var accountSid = Configuration.Get(TwilioSettings.AccountSID);
+            var authToken = Configuration.Get(TwilioSettings.AuthToken);
 
             TwilioClient.Init(accountSid, authToken);
 
@@ -116,7 +110,7 @@ namespace API.Services
             
         private async Task<Response> SaveCode(SendOtpRequest request, string otp, Response successResponse, Response errorResponse)
         {
-            var minuteForExpired = int.Parse(_config.Get(TwilioSettings.ExpiredTime) ?? "0");
+            var minuteForExpired = int.Parse(Configuration.Get(TwilioSettings.ExpiredTime) ?? "0");
             VerifiedCode verifiedCode = new()
             {
                 RegistrationType = request.RegistrationTypes,
@@ -127,7 +121,7 @@ namespace API.Services
                 Status = true
             };
 
-            var code = await _unitOfWork.VerifiedCodes.CreateVerifiedCode(verifiedCode);
+            var code = await UnitOfWork.VerifiedCodes.CreateVerifiedCode(verifiedCode);
             if (code == null) return errorResponse;
 
             successResponse.Data = otp;
@@ -136,11 +130,11 @@ namespace API.Services
 
         private async Task<Response?> VerifyOtp(string otp, string registration, RegistrationTypes registrationTypes, OtpTypes otpTypes, Response wrongResponse, Response expiredResponse)
         {
-            var code = await _unitOfWork.VerifiedCodes.GetVerifiedCode(otp, registration, registrationTypes, otpTypes).FirstOrDefaultAsync();
+            var code = await UnitOfWork.VerifiedCodes.GetVerifiedCode(otp, registration, registrationTypes, otpTypes).FirstOrDefaultAsync();
 
             if (code == null) return wrongResponse;
 
-            var minuteForExpired = int.Parse(_config.Get(TwilioSettings.ExpiredTime) ?? "0");
+            var minuteForExpired = int.Parse(Configuration.Get(TwilioSettings.ExpiredTime) ?? "0");
 
             DateTimeOffset validTime = code.CreatedAt.AddMinutes(minuteForExpired);
 
@@ -150,7 +144,7 @@ namespace API.Services
             }
 
             // disable OTP
-            await _unitOfWork.VerifiedCodes.DisableCode(code);
+            await UnitOfWork.VerifiedCodes.DisableCode(code);
 
             return null;
         }
@@ -162,14 +156,14 @@ namespace API.Services
 
         private async Task<bool> CheckValidTimeSendOtp(string registration, RegistrationTypes registrationType, OtpTypes codeType)
         {
-            var code = await _unitOfWork.VerifiedCodes.GetVerifiedCode(registration, registrationType, codeType).FirstOrDefaultAsync();
+            var code = await UnitOfWork.VerifiedCodes.GetVerifiedCode(registration, registrationType, codeType).FirstOrDefaultAsync();
 
             if (code == null)
             {
                 return true;
             }
 
-            var minuteForResend = int.Parse(_config.Get(TwilioSettings.TimeResend) ?? "0");
+            var minuteForResend = int.Parse(Configuration.Get(TwilioSettings.TimeResend) ?? "0");
 
             DateTimeOffset timeToResend = code.CreatedAt.AddMinutes(minuteForResend);
 
@@ -202,11 +196,11 @@ namespace API.Services
         {
             var otp = GenerateOtpCode(6);
 
-            await _unitOfWork.CreateTransactionAsync();
+            await UnitOfWork.CreateTransactionAsync();
             var saveCodeResponse = await SaveCode(request, otp, successResponse, errorResponse);
             if (!saveCodeResponse.Success)
             {
-                await _unitOfWork.Rollback();
+                await UnitOfWork.Rollback();
                 return errorResponse;
             }
 
@@ -214,11 +208,11 @@ namespace API.Services
 
             if (messageResource?.Status == MessageResource.StatusEnum.Failed)
             {
-                await _unitOfWork.Rollback();
+                await UnitOfWork.Rollback();
                 return errorResponse;
             }
 
-            _unitOfWork.CommitAsync();
+            UnitOfWork.CommitAsync();
             return successResponse;
         }
 
@@ -226,12 +220,12 @@ namespace API.Services
         {
             var otp = GenerateOtpCode(6);
 
-            await _unitOfWork.CreateTransactionAsync();
+            await UnitOfWork.CreateTransactionAsync();
 
             var saveCodeResponse = await SaveCode(request, otp, successResponse, errorResponse);
             if (!saveCodeResponse.Success)
             {
-                await _unitOfWork.Rollback();
+                await UnitOfWork.Rollback();
                 return errorResponse;
             }
 
@@ -242,7 +236,7 @@ namespace API.Services
                 return errorResponse;
             }
 
-            _unitOfWork.CommitAsync();
+            UnitOfWork.CommitAsync();
             return successResponse;
         }
 

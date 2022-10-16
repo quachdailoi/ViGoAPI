@@ -25,5 +25,10 @@ namespace Infrastructure.Data.Repositories
         {
             return List().Where(x => x.Code.ToString() == code).FirstOrDefaultAsync();
         }
+
+        public IQueryable<Route> GetRouteByCode(Guid code)
+        {
+            return List(x => x.Code == code);
+        }
     }
 }

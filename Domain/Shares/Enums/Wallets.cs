@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public enum MessageRoomTypes
+    public class Wallets
     {
-        Support,
-        Conversation
+        public enum Status
+        {
+            Inactive,
+            Active
+        }
     }
 }

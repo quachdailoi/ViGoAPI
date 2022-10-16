@@ -13,107 +13,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class BookingDetailService: IBookingDetailService
+    public class BookingDetailService: BaseService, IBookingDetailService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
 
-        public BookingDetailService(IUnitOfWork unitOfWork, IMapper mapper)
+        public BookingDetailService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
-        //public List<BookingDetail> GenerateBookingDetail(Booking booking)
-        //{
-        //    List<BookingDetail> bookingDetails = new();
-        //    if (booking.Type == Bookings.Types.Monthly)
-        //    {
-        //        var daysOfMonthHashSet = booking.Days.DaysOfMonth.ToHashSet();
-
-        //        var startYear = booking.StartAt.Year;
-        //        var endYear = booking.EndAt.Year;
-
-        //        var bookingDetailsDic = new Dictionary<DateOnly, BookingDetail>();
-
-        //        for(var year = startYear; year <= endYear; year++)
-        //        {
-        //            var startMonth = booking.StartAt.Month;
-        //            var endMonth = booking.EndAt.Month;
-        //            if (year != endYear)
-        //            {
-        //                endMonth = 12;
-        //            }
-
-        //            if(year != startYear)
-        //            {
-        //                startMonth = 1;
-        //            }
-
-        //            for(var month = startMonth; month <= endMonth; month++)
-        //            {
-        //                var totalApplyChangeInNextMonth = 0;
-        //                foreach (var day in daysOfMonthHashSet)
-        //                {                         
-        //                    try
-        //                    {
-        //                        DateOnly date = new DateOnly(year, month, day);
-        //                        bookingDetailsDic.Add(date,new BookingDetail
-        //                        {
-        //                            Booking = booking,
-        //                            Date = date,
-        //                        });
-        //                    }
-        //                    catch
-        //                    {
-        //                        if(booking.Option == Bookings.Options.ChangeToNextDayOfNextMonth)
-        //                        {
-        //                            totalApplyChangeInNextMonth++;
-        //                        }
-        //                    }                            
-        //                }
-
-        //                for (var day = 1; day <= totalApplyChangeInNextMonth; day++)
-        //                {
-        //                    DateOnly date = new DateOnly(year, month + 1, day);                               
-        //                    bookingDetailsDic.Add(date, new BookingDetail
-        //                    {
-        //                        Booking = booking,
-        //                        Date = date,
-        //                    });
-        //                }
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        var daysOfWeekHashSet = booking.Days.DaysOfWeek.ToHashSet();
-        //        for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
-        //        {
-        //            if (daysOfWeekHashSet.Contains(day.DayOfWeek))
-        //            {
-        //                bookingDetails.Add(new BookingDetail
-        //                {
-        //                    Booking = booking,
-        //                    Date = day,
-        //                });
-        //            }
-        //        };
-        //    }
-        //    return bookingDetails;
-        //}
-
-        public List<BookingDetail> GenerateBookingDetail(Booking booking)
+        public List<BookingDetail> GenerateBookingDetail(Booking booking, double feePerTrip)
         {
             List<BookingDetail> bookingDetails = new();
-            var price = booking.TotalPrice / Fee.TotalDays(booking.StartAt, booking.EndAt);
             for(var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
             {
                 bookingDetails.Add(new BookingDetail
                 {
                     Booking = booking,
                     Date = day,
-                    Price = price
+                    Price = Fee.RoundToThousands(feePerTrip),
+                    MessageRoom = new Room { }
                 });
             }
             return bookingDetails;
@@ -121,19 +38,19 @@ namespace API.Services
 
         public async Task<Response> GetNextBookingDetail(int userId, Response successResponse)
         {
-            var bookingDetailsIQueryable = _unitOfWork.BookingDetails.List(b => b.Booking.UserId == userId && b.Status != StatusTypes.BookingDetail.Completed)
+            var bookingDetailsIQueryable = UnitOfWork.BookingDetails.List(b => b.Booking.UserId == userId && b.Status != BookingDetails.Status.Completed)
                                                                 .OrderBy(b => b.Date)
                                                                 .ThenBy(b => b.Booking.Time);
 
 
-            var bookingDetail = await _mapper.ProjectTo<BookerBookingDetailViewModel>(bookingDetailsIQueryable).FirstOrDefaultAsync();
+            var bookingDetail = await Mapper.ProjectTo<BookerBookingDetailViewModel>(bookingDetailsIQueryable).FirstOrDefaultAsync();
 
             return successResponse.SetData(bookingDetail);
         }
 
         public async Task<Response> GetBookingsOfDriver(int driverId, PagingRequest request, DateFilterRequest dateFilter, Response success)
         {
-            var bookingDetails = _unitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId);
+            var bookingDetails = UnitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId);
 
             if (dateFilter.FromDate != null && dateFilter.ToDate != null)
             {
@@ -170,7 +87,7 @@ namespace API.Services
             {
                 var detailsByDay = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time);
 
-                var routes = (await detailsByDay.Select(x => x.Booking.Route).ToListAsync()).DistinctBy(x => x.Id);
+                var routes = (await detailsByDay.Select(x => x.Booking.StartRouteStation.Route).ToListAsync()).DistinctBy(x => x.Id);
 
                 foreach (var route in routes)
                 {
@@ -179,24 +96,24 @@ namespace API.Services
                         RouteCode = route.Code.ToString()
                     };
 
-                    var detailsInRoute = detailsByDay.Where(x => x.Booking.RouteId == route.Id);
+                    var detailsInRoute = detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == route.Id);
 
                     var schedules = detailsInRoute.Select(x => new ScheduleBookingDetailViewModel
                     {
                         Time = x.Booking.Time,
                         StartStation = new()
                         {
-                            Code = x.Booking.StartStationCode,
-                            Name = x.Booking.StartStation.Name,
-                            Address = x.Booking.StartStation.Address
+                            Code = x.Booking.StartRouteStation.Station.Code,
+                            Name = x.Booking.StartRouteStation.Station.Name,
+                            Address = x.Booking.StartRouteStation.Station.Address
                         },
                         EndStation = new()
                         {
-                            Code = x.Booking.EndStationCode,
-                            Name = x.Booking.EndStation.Name,
-                            Address = x.Booking.EndStation.Address
+                            Code = x.Booking.EndRouteStation.Station.Code,
+                            Name = x.Booking.EndRouteStation.Station.Name,
+                            Address = x.Booking.EndRouteStation.Station.Address
                         },
-                        Distance = CalculateDistanceFromStartToEndStation(x.Booking.Route.RouteStations, x.Booking.StartStation.Id, x.Booking.EndStation.Id, x.Booking.Route.Distance),
+                        Distance = CalculateDistanceFromStartToEndStation(x.Booking.StartRouteStation.Route.RouteStations, x.Booking.StartRouteStation.StationId, x.Booking.EndRouteStation.StationId, x.Booking.StartRouteStation.Route.Distance),
                         Users = new()
                         {
                             new()
@@ -250,5 +167,34 @@ namespace API.Services
             => accounts.Where(x => x.RegistrationType == RegistrationTypes.Phone).FirstOrDefault()?.Registration;
 
         private static Guid? GetMessageRoomCode(Room? messageRoom) => messageRoom?.Code ?? null;
+
+        public async Task<Response> Get(int userId, Response successResponse, PagingRequest? pagingRequest = null, DateFilterRequest? dateFilterRequest = null)
+        {
+            var bookingDetails = UnitOfWork.BookingDetails
+                .List(bd => bd.Booking.UserId == userId);
+
+            if (dateFilterRequest?.FromDate != null && dateFilterRequest.ToDate != null)
+            {
+                var fromDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilterRequest.FromDate);
+                var toDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilterRequest.ToDate);
+
+                bookingDetails = bookingDetails.Where(x => x.Date >= fromDateParse && x.Date <= toDateParse);
+            }
+
+            bookingDetails = bookingDetails.OrderByDescending(x => x.Date);
+
+            var paging = bookingDetails.Paging(page: pagingRequest?.Page, pageSize: pagingRequest?.PageSize);
+
+            var bookingDetailVMs = await paging.Items.MapTo<BookerBookingDetailViewModel>(Mapper).ToListAsync();
+
+            return successResponse.SetData(new PagingViewModel<List<BookerBookingDetailViewModel>>()
+            {
+                Items = bookingDetailVMs,
+                TotalItemsCount = paging.TotalItemsCount,
+                Page = paging.Page,
+                PageSize = paging.PageSize,
+                TotalPagesCount = paging.TotalPagesCount
+            });
+        }
     }
 }

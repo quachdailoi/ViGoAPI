@@ -8,13 +8,13 @@ namespace API.Services
 {
     public class AdminService : AccountService, IAdminService
     {
-        public AdminService(IVerifiedCodeService verifiedCodeService, IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration, IUserService userService) : base(verifiedCodeService, unitOfWork, mapper, configuration, userService)
+        public AdminService(IAppServices appServices) : base(appServices)
         {
         }
 
         public Task<UserViewModel?> GetUserViewModel(string registration, RegistrationTypes registrationTypes)
         {
-            return base.GetUserViewModel(Roles.ADMIN, registration, registrationTypes);
+            return GetUserViewModel(Roles.ADMIN, registration, registrationTypes);
         }
     }
 }

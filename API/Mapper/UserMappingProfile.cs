@@ -1,51 +1,58 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Mapper.MappingSupports;
+using API.Models;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
+using System.Linq.Expressions;
 
 namespace API.Mapper
 {
     public class UserMappingProfile : Profile
     {
-        private readonly IFileService _fileService;
-
-        public UserMappingProfile(IFileService fileService)
+        public UserMappingProfile()
         {
-            _fileService = fileService;
+            IAppServices? service = null;
 
             CreateMap<User, UserViewModel>()
                 .ForMember(
                     dest => dest.Gmail,
-                    opt => opt.MapFrom(user => user.Accounts.Where(x => x.RegistrationType == RegistrationTypes.Gmail).FirstOrDefault().Registration)
+                    opt => opt.MapFrom(src => src.Gmail)
                 )
                 .ForMember(
                     dest => dest.PhoneNumber,
-                    opt => opt.MapFrom(user => user.Accounts.Where(x => x.RegistrationType == RegistrationTypes.Phone).FirstOrDefault().Registration)
+                    opt => opt.MapFrom(src => src.PhoneNumber)
                 )
                 .ForMember(
                     dest => dest.RoleName,
-                    opt => opt.MapFrom(user => user.Accounts.FirstOrDefault().Role.Name)
+                    opt => opt.MapFrom(src => src.RoleName)
                 )
                 .ForMember(
                     dest => dest.HasVerifiedGmail,
-                    opt => opt.MapFrom(user => user.Accounts.Where(x => x.RegistrationType == RegistrationTypes.Gmail).FirstOrDefault().Verified)
+                    opt => opt.MapFrom(src => src.IsVerifiedGmail)
                 )
                 .ForMember(
                     dest => dest.HasVerifiedPhoneNumber,
-                    opt => opt.MapFrom(user => user.Accounts.Where(x => x.RegistrationType == RegistrationTypes.Phone).FirstOrDefault().Verified)
+                    opt => opt.MapFrom(src => src.IsVerifiedPhoneNumber)
                 )
                 .ForMember(
                     dest => dest.AvatarUrl,
-                    opt => opt.MapFrom(user => user.File == null ? null : _fileService.GetPresignedUrl(user.File.Path))
+                    opt => opt.MapFrom(src => src.File.GetFilePath(service))
                 )
                 .ForMember(
                     dest => dest.AvatarCode,
-                    opt => opt.MapFrom(user => user.File == null ? Guid.Empty : user.File.Code)
+                    opt => opt.MapFrom(src => src.File.Code)
                 );
 
             CreateMap<User, DriverViewModel>();
             CreateMap<User, ContactUserViewModel>();
+
+            CreateMap<User, MessageUserViewModel>()
+                .ForMember(
+                    dest => dest.LastSeenTime,
+                    opt => opt.MapFrom(
+                            user => user.UserRooms.First().LastSeenTime.ToFormatString()));
         }
     }
 }

@@ -2,7 +2,10 @@
 
 namespace API.Services
 {
-    public class FareTimelineService : IFareTimelineService
+    public class FareTimelineService : BaseService, IFareTimelineService
     {
+        public FareTimelineService(IAppServices appServices) : base(appServices)
+        {
+        }
     }
 }

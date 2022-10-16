@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Mapper.MappingSupports;
+using API.Models;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
@@ -7,16 +8,14 @@ namespace API.Mapper
 {
     public class BannerMappingProfile : Profile
     {
-        private readonly IFileService _fileService;
-        public BannerMappingProfile(IFileService fileService)
+        public BannerMappingProfile()
         {
-            _fileService = fileService;
+            IAppServices? service = null;
+
             CreateMap<Banner, BannerViewModel>()
                 .ForMember(
                     model => model.FilePath,
-                    config => config.MapFrom(
-                        banner => _fileService.GetPresignedUrl(banner.File.Path)
-                    )
+                    config => config.MapFrom(src => src.File.GetFilePath(service))
                 );
         }
     }

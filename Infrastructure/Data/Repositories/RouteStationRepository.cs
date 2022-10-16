@@ -14,5 +14,7 @@ namespace Infrastructure.Data.Repositories
         public RouteStationRepository(AppDbContext dbContext, ILogger<GenericRepository<RouteStation>> logger) : base(dbContext, logger)
         {
         }
+
+
     }
 }

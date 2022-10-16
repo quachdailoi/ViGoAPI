@@ -1,8 +1,12 @@
 ﻿
+using API.SignalR.Constract;
+using API.TaskQueues;
+
 namespace API.Services.Constract
 {
     public interface IAppServices
     {
+        IServiceProvider Provider { get; }
         IAccountService Account { get; }
         IVerifiedCodeService VerifiedCode { get; }
         IUserService User { get; }
@@ -34,5 +38,12 @@ namespace API.Services.Constract
         IFareTimelineService FareTimeline { get; }
         IPaymentService Payment { get; }
         IRouteRoutineService RouteRoutine { get; }
+        IAffiliateAccountService AffiliateAccount { get; }
+        IAffiliatePartyService AffiliateParty { get; }
+        IWalletService Wallet { get; }
+        IWalletTransactionService WalletTransaction { get; }
+        IFileService File { get; }
+        IRedisMQService RedisMQ { get; }
+        ISignalRService SignalR { get; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Models;
 using AutoMapper;
 using Domain.Entities;
 
@@ -13,16 +14,11 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.UserCode,
                     opt => opt.MapFrom(
-                            message => message.User.Code
-                        )
-                );
-            CreateMap<User, MessageUserViewModel>()
+                            message => message.User.Code))
                 .ForMember(
-                    dest => dest.LastSeenTime,
+                    dest => dest.Time,
                     opt => opt.MapFrom(
-                            user => user.UserRooms.First().LastSeenTime
-                ))
-                .IncludeBase<User,UserViewModel>();
+                            message => message.UpdatedAt.ToFormatString()));
 
             CreateMap<Room, MessageRoomViewModel>()
                 .ForMember(

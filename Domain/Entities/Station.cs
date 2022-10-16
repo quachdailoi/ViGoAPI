@@ -15,12 +15,12 @@ namespace Domain.Entities
         public double Latitude { get; set; }
         public string Name { get; set; } = String.Empty;
         public string Address { get; set; } = String.Empty;
-        public StatusTypes.Station Status { get; set; } = StatusTypes.Station.Active;
+        public Stations.Status Status { get; set; } = Stations.Status.Active;
 
         public List<RouteStation> RouteStations { get; set; } = new();
+
         /* Omitted */
         public virtual List<Booking> StartStationBookings { get; set; } = new();
-        public virtual List<Booking> EndStationBookings { get; set; } = new();
 
         //public override bool Equals(object? obj)
         //{

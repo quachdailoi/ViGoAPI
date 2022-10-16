@@ -10,25 +10,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class MessageService : IMessageService
+    public class MessageService : BaseService, IMessageService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IRoomService _roomService;
-        private readonly ISignalRService _signalRService;
-        private readonly IUserRoomService _userRoomService;
-
-        public MessageService(IUnitOfWork unitOfWork, IMapper mapper, IRoomService roomService, ISignalRService signalRService, IUserRoomService userRoomService)
+        public MessageService(IAppServices appServices) : base(appServices)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-            _roomService = roomService;
-            _signalRService = signalRService;
-            _userRoomService = userRoomService;
         }
+
         public async Task<Response> Create(string content, Guid roomCode, UserViewModel user, Response successResponse, Response errorResponse)
         {
-            var room = await _roomService.GetViewModelByCode(roomCode);
+            var room = await AppServices.Room.GetViewModelByCode(roomCode);
 
             var message = new Message
             {
@@ -37,18 +27,18 @@ namespace API.Services
                 Content = content
             };
 
-            await _unitOfWork.CreateTransactionAsync(); //open transaction
+            await UnitOfWork.CreateTransactionAsync(); //open transaction
 
             //update Last seen time
-            var result = await _userRoomService.UpdateLastSeenTime(user.Id, roomCode, DateTimeOffset.Now);
+            var result = await AppServices.UserRoom.UpdateLastSeenTime(user.Id, roomCode, DateTimeOffset.Now);
 
-            if((await _unitOfWork.Messages.Add(message)) == null || !result)
+            if((await UnitOfWork.Messages.Add(message)) == null || !result)
             {
-                await _unitOfWork.Rollback(); //roll back
+                await UnitOfWork.Rollback(); //roll back
                 return errorResponse;
             }
 
-            await _unitOfWork.CommitAsync();// commit
+            await UnitOfWork.CommitAsync();// commit
 
             message.User = new User { Code = user.Code };
 
@@ -56,7 +46,7 @@ namespace API.Services
 
             var userCodes = room.Users.Select(user => user.Code.ToString()).ToList();
 
-            await _signalRService.SendToUsersAsync(
+            await AppServices.SignalR.SendToUsersAsync(
                 userCodes,
                 "Message",
                 new
@@ -70,7 +60,7 @@ namespace API.Services
 
         public MessageViewModel GetViewModel(Message message)
         {
-            return _mapper.Map<MessageViewModel>(message);
+            return Mapper.Map<MessageViewModel>(message);
         }
     }
 }

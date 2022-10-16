@@ -10,6 +10,7 @@ namespace API.JwtFeatures
         Task<string> GenerateRefreshToken(string userCode);
         IQueryable<User>? GetUserByToken(string token);
 
-        Task<UserViewModel?> GetUserViewModelByToken(string token);
+        UserViewModel? GetUserViewModelByToken(string token);
+        Task<UserViewModel?> GetUserViewModelByTokenAsync(string token);
     }
 }

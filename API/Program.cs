@@ -130,7 +130,7 @@ services.ConfigureAuthentication(_config);
 
 // Config for automapper
 //services.AddAutoMapper(typeof(Program));
-services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // config class for settings: JwtSettings
 services.ConfigureSettings(builder);
@@ -149,22 +149,22 @@ services.ConfigureIoCServices();
 services.ConfigurationJobQueue();
 
 // Seed Data
-services.ConfigurationSeedData();
+services.ConfigurationSeedData(args);
 
-// IoC For Profile
-services.AddSingleton(provider => new MapperConfiguration(cfg =>
-{
-    cfg.AddProfile(new UserMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
-    cfg.AddProfile(new MessageRoomMappingProfile());
-    cfg.AddProfile(new BookingMappingProfile());
-    cfg.AddProfile(new BookingDetailMappingProfile());
-	cfg.AddProfile(new PromotionMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
-    cfg.AddProfile(new RouteMappingProfile());
-    cfg.AddProfile(new StationMappingProfile());
-    cfg.AddProfile(new BannerMappingProfile(provider.CreateScope().ServiceProvider.GetService<IFileService>()));
-    cfg.AddProfile(new VehicleMappingProfile());
-    cfg.AddProfile(new RouteRoutineMappingProfile());
-}).CreateMapper());
+//IoC For Profile
+//services.AddSingleton(provider => new MapperConfiguration(cfg =>
+//{
+//    cfg.AddProfile(new UserMappingProfile());
+//    cfg.AddProfile(new MessageRoomMappingProfile());
+//    cfg.AddProfile(new BookingMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
+//    cfg.AddProfile(new BookingDetailMappingProfile());
+//    cfg.AddProfile(new PromotionMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
+//    cfg.AddProfile(new RouteMappingProfile());
+//    cfg.AddProfile(new StationMappingProfile());
+//    cfg.AddProfile(new BannerMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
+//    cfg.AddProfile(new VehicleMappingProfile());
+//    cfg.AddProfile(new RouteRoutineMappingProfile());
+//}).CreateMapper());
 
 // add http context accessor
 services.AddHttpContextAccessor();
@@ -232,5 +232,6 @@ app.MapControllers();
 
 
 app.MapHub<SignalRHub>("hubs");
+app.MapHub<GpsTrackingStream>("gps");
 
 app.Run();

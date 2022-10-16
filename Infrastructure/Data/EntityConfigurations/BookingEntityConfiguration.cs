@@ -16,6 +16,8 @@ namespace Infrastructure.Data.EntityConfigurations
         {
             base.Configure(builder);
 
+            //builder.Navigation(b => b.StartRouteStation.Station).AutoInclude();
+
             builder.ToTable("bookings");
 
             builder.Property(e => e.Code)
@@ -52,20 +54,17 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.EndAt)
                 .HasColumnName("end_at");
 
-            builder.Property(e => e.StartStationCode)
-                .HasColumnName("start_station_code");
+            builder.Property(e => e.StartRouteStationId)
+                .HasColumnName("start_route_station_id");
 
-            builder.Property(e => e.EndStationCode)
-                .HasColumnName("end_station_code");
+            builder.Property(e => e.EndRouteStationId)
+                .HasColumnName("end_route_station_id");
 
             builder.Property(e => e.VehicleTypeId)
                 .HasColumnName("vehicle_type_id");
 
             builder.Property(e => e.PaymentMethod)
                 .HasColumnName("payment_method");
-
-            builder.Property(e => e.RouteId)
-                .HasColumnName("route_id");
 
             builder.Property(e => e.Distance)
                 .IsRequired()
@@ -95,27 +94,18 @@ namespace Infrastructure.Data.EntityConfigurations
                 .WithMany(p => p.Bookings)
                 .HasForeignKey(e => e.PromotionId);
 
-            builder.HasOne(e => e.Route)
-                .WithMany(route => route.Bookings)
-                .HasForeignKey(e => e.RouteId)
-                .IsRequired();
-
             builder.HasOne(e => e.VehicleType)
                 .WithMany(v => v.Bookings)
                 .HasForeignKey(e => e.VehicleTypeId)
                 .IsRequired();
 
+            builder.HasOne(x => x.StartRouteStation)
+                .WithMany(s => s.StartRouteStationBookings)
+                .HasForeignKey(e => e.StartRouteStationId);
 
-            // config for virtual relationship
-            builder.HasOne(x => x.StartStation)
-                .WithMany(s => s.StartStationBookings)
-                .HasForeignKey(e => e.StartStationCode)
-                .HasPrincipalKey(s => s.Code);
-
-            builder.HasOne(x => x.EndStation)
-                .WithMany(s => s.EndStationBookings)
-                .HasForeignKey(e => e.EndStationCode)
-                .HasPrincipalKey(s => s.Code);
+            builder.HasOne(x => x.EndRouteStation)
+                .WithMany(s => s.EndRouteStationBookings)
+                .HasForeignKey(e => e.EndRouteStationId);
         }
     }
 }

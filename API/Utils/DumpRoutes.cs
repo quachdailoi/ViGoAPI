@@ -135,7 +135,7 @@ namespace API.Utils
                 {
                     UserId = GetListDriverIdsToDumpRouteRoutines[1],
                     RouteId = newRoute.Id,
-                    StartTime = TimeOnly.Parse("18:45:00"),
+                    StartTime = TimeOnly.Parse("19:00:00"),
                     EndTime = TimeOnly.Parse("18:45:00").AddMinutes(newRoute.Duration/60),
                     StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
                     EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(3),

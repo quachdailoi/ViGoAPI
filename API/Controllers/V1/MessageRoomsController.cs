@@ -110,7 +110,7 @@ namespace API.Controllers.V1
             var response =
                 await AppServices.Room.GetByType(
                     user.Id,
-                    MessageRoomTypes.Support,
+                    Rooms.Types.Support,
                     successResponse: new()
                     {
                         Message = "Get message room successfully.",
@@ -140,7 +140,7 @@ namespace API.Controllers.V1
             var response = 
                 await AppServices.Room.Create(
                     request.PartnerUserCodes,
-                    MessageRoomTypes.Conversation,
+                    Rooms.Types.Conversation,
                     successResponse: new()
                     {
                         Message = "Create successfully.",
