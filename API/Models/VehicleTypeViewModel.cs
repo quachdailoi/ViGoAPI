@@ -12,7 +12,6 @@ namespace API.Models
         public int Slot { get; set; }
         [JsonIgnore]
         public VehicleTypes.Type Type { get; set; } = VehicleTypes.Type.ViRide;
-        [JsonIgnore]
         public string TypeName { get; set; } = String.Empty;
         [JsonIgnore]
         public VehicleTypes.Status Status { get; set; } = VehicleTypes.Status.Active;
