@@ -30,7 +30,6 @@ namespace API.Services
                     Booking = booking,
                     Date = day,
                     Price = Fee.RoundToThousands(feePerTrip),
-                    MessageRoom = new Room { }
                 });
             }
             return bookingDetails;
