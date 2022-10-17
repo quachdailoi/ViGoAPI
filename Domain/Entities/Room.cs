@@ -12,7 +12,7 @@ namespace Domain.Entities
     {
         public Guid Code { get; set; } = Guid.NewGuid();
         public Rooms.Status Status { get; set; } = Rooms.Status.Active;
-        public Rooms.Types Type { get; set; } = Rooms.Types.Conversation;
+        public Rooms.RoomTypes Type { get; set; } = Rooms.RoomTypes.Conversation;
         public string Name { get; set; } = String.Empty;
 
         public List<UserRoom> UserRooms { get; set; } = new();

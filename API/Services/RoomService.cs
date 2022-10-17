@@ -1,6 +1,7 @@
 ﻿using API.Extensions;
 using API.Models;
 using API.Models.DTO;
+using API.Models.Requests;
 using API.Models.Response;
 using API.Services.Constract;
 using AutoMapper;
@@ -34,18 +35,6 @@ namespace API.Services
             return successResponse.SetData(room);
         }
 
-        public async Task<Response> GetByType(int userId, Rooms.Types type, Response successResponse)
-        {
-            var rooms = 
-                UnitOfWork.Rooms
-                    .List(room => room.UserRooms
-                        .Exists(userRoom => userRoom.UserId == userId) && 
-                        room.Type == type);
-
-            var roomViewModels = await rooms.MapTo<MessageRoomViewModel>(Mapper).ToListAsync();
-
-            return successResponse.SetData(roomViewModels);
-        }
         private IQueryable<Room> GetByMemberCodeQueryable(List<Guid> memberCode)
         {
             var userCodeHashSet = memberCode.ToHashSet();
@@ -65,18 +54,7 @@ namespace API.Services
 
         public Task<Room?> GetByMemberCode(List<Guid> memberCode) => GetByMemberCodeQueryable(memberCode).FirstOrDefaultAsync();
 
-        public Response GetViewModelByMemberCode(List<Guid> memberCode, Response successResponse)
-        {
-            var userCodeHashSet = memberCode.ToHashSet();
-
-            var messageRoomViewModel = GetByMemberCodeQueryable(memberCode).MapTo<MessageRoomViewModel>(Mapper).FirstOrDefault();
-            
-
-            return successResponse.SetData(messageRoomViewModel);
-        }
-
-        public async Task<Room?> GetByCode(Guid roomCode) => await UnitOfWork.Rooms.GetRoomsByCode(roomCode).FirstOrDefaultAsync();
-        public async Task<Room> Create(List<Guid> userCodes, Rooms.Types type, MessageDTO? initMessage)
+        public async Task<Room> Create(List<Guid> userCodes, Rooms.RoomTypes type, MessageDTO? initMessage)
         {
             var userRooms = new List<UserRoom>();
 
@@ -107,7 +85,7 @@ namespace API.Services
 
             return await UnitOfWork.Rooms.Add(room);
         }
-        public async Task<Response> Create(List<Guid> userCodes, Rooms.Types type, Response successResponse, Response duplicateResponse, Response errorResponse, MessageDTO? initMessage = null)
+        public async Task<Response> Create(List<Guid> userCodes, Rooms.RoomTypes type, Response successResponse, Response duplicateResponse, Response errorResponse, MessageDTO? initMessage = null)
         {
             if (GetByMemberCodeQueryable(userCodes).Any())
             {
@@ -137,18 +115,29 @@ namespace API.Services
             return await UnitOfWork.Rooms.Update(room) ? room : null;
         }
 
-        public async Task<Response> GetAll(int userId, Response successResponse)
+        public async Task<Response> Get(int userId, GetMessageRoomRequest request, Response successResponse)
         {
-            var rooms = 
-                await UnitOfWork.Rooms
-                    .List(room => room.UserRooms
-                            .Select(userRoom => userRoom.UserId)
-                            .Contains(userId) && 
-                             room.Status == Rooms.Status.Active)
-                    .MapTo<MessageRoomViewModel>(Mapper)
-                    .ToListAsync();
+            var rooms = UnitOfWork.Rooms
+                .List(room => room.UserRooms
+                .Select(userRoom => userRoom.UserId)
+                .Contains(userId) &&
+                room.Status == Rooms.Status.Active);
 
-             return successResponse.SetData(rooms);
+            if (request.Code.HasValue)
+            {
+                rooms = rooms.Where(room => room.Code == request.Code.Value);
+            }
+
+            if (request.Type.HasValue)
+            {
+                rooms = rooms.Where(room => room.Type == request.Type.Value);
+            }
+
+            var roomVMs = await rooms
+                .MapTo<MessageRoomViewModel>(Mapper)
+                .ToListAsync();
+
+             return successResponse.SetData(roomVMs);
         }
 
         public async Task<Room?> GetRoomByCode(Guid roomCode)

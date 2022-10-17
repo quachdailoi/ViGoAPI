@@ -35,7 +35,7 @@ namespace API.TaskQueues.TaskResolver
 
                 while (!result)
                 {
-                    result = (await _roomService.Create(new List<Guid> { userCode, adminCode }, Rooms.Types.Support)) != null;
+                    result = (await _roomService.Create(new List<Guid> { userCode, adminCode }, Rooms.RoomTypes.Support)) != null;
                 }
 
                 await _redisMQService.Push(ADMIN_QUEUE, adminCode);
@@ -57,7 +57,7 @@ namespace API.TaskQueues.TaskResolver
 
                 while (!result)
                 {
-                    result = (await _roomService.Create(new List<Guid> { userCode, adminCode }, Rooms.Types.Support)) != null;
+                    result = (await _roomService.Create(new List<Guid> { userCode, adminCode }, Rooms.RoomTypes.Support)) != null;
                 }
 
                 await _redisMQService.Push(ADMIN_QUEUE, adminCode);

@@ -68,59 +68,6 @@ namespace API.Controllers.V1
         //    return ApiResult(response);
         //}
 
-        ///// <summary>
-        ///// Get message room by code
-        ///// </summary>
-        ///// /// <remarks>Get message room</remarks>
-        ///// <param name="roomCode" example="613de7b4-db59-4a6c-b9a1-2b1e176460d3">Room Code</param>
-        ///// <response code="200">Send successfully</response>
-        ///// <response code="500">Failure</response>
-
-        [Authorize]
-        [HttpGet("code/{roomCode}")]
-        public async Task<IActionResult> GetMessageRoomByCode(Guid roomCode)
-        {
-            var user = this.LoggedInUser;
-            var response = 
-                await AppServices.Room.GetViewModelByCode(
-                    user.Id,
-                    roomCode,
-                    successResponse: new()
-                    {
-                        Message = "Get message room successfully",
-                        StatusCode = StatusCodes.Status200OK
-                    }
-                );
-
-            return ApiResult(response);
-        }
-
-        /// <summary>
-        /// Get support message room
-        /// </summary>
-        /// /// <remarks>Get support message room</remarks>
-        /// <response code="200">Get successfully</response>
-        /// <response code="500">Failure</response> 
-        [Authorize(Roles = "BOOKER,DRIVER")]
-        [HttpGet("support")]
-        public async Task<IActionResult> GetSupportMessageRoom()
-        {
-            var user = this.LoggedInUser;
-
-            var response =
-                await AppServices.Room.GetByType(
-                    user.Id,
-                    Rooms.Types.Support,
-                    successResponse: new()
-                    {
-                        Message = "Get message room successfully.",
-                        StatusCode = StatusCodes.Status200OK
-                    }
-                );
-
-
-            return ApiResult(response);
-        }
 
         /// <summary>
         /// Test api - Create message room with specific partners's code
@@ -140,7 +87,7 @@ namespace API.Controllers.V1
             var response = 
                 await AppServices.Room.Create(
                     request.PartnerUserCodes,
-                    Rooms.Types.Conversation,
+                    Rooms.RoomTypes.Conversation,
                     successResponse: new()
                     {
                         Message = "Create successfully.",
@@ -162,20 +109,30 @@ namespace API.Controllers.V1
         }
 
         /// <summary>
-        /// Get all user's message rooms
+        /// Get  user's message rooms
         /// </summary>
-        /// /// <remarks>Get all message room</remarks>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/messages 
+        ///     {
+        ///         "RoomType": 1, // 0: supportRoom, 1: conservationRoom
+        ///         "Code": "352f7023-91c0-4201-b7b8-f9919f1181d9"
+        ///     }
+        /// ```
+        /// </remarks>
         /// <response code="200">Get successfully</response>
         /// <response code="500">Failure</response>
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> Get([FromQuery] GetMessageRoomRequest request)
         {
             var user = this.LoggedInUser;
 
             var response =
-                await AppServices.Room.GetAll(
+                await AppServices.Room.Get(
                     user.Id,
+                    request,
                     successResponse: new()
                     {
                         Message = "Get successfully.",

@@ -308,7 +308,7 @@ namespace API.Services
 
                 if (room == null)
                 {
-                    room = await AppServices.Room.Create(new List<Guid> { driver.Code, bookingDetail.Booking.User.Code }, Rooms.Types.Conversation);
+                    room = await AppServices.Room.Create(new List<Guid> { driver.Code, bookingDetail.Booking.User.Code }, Rooms.RoomTypes.Conversation);
                     driverUserMessageRoomDic[driver.Code] = room;
                 }
                 else
