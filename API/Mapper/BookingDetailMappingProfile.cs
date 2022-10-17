@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Models;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -13,7 +14,11 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.ChattingRoomCode,
                     opt => opt.MapFrom(
-                        src => src.MessageRoom.Code));
+                        src => src.MessageRoom.Code))
+                .ForMember(
+                    dest => dest.StatusName,
+                    opt => opt.MapFrom(
+                        src => src.Status.DisplayName()));
 
             CreateMap<BookingDetail, BookerBookingDetailViewModel>()
                 .ForMember(

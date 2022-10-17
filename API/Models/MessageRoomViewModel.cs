@@ -12,12 +12,14 @@ namespace API.Models
         public List<MessageUserViewModel> Users { get; set; } = new();
         public List<MessageViewModel> Messages { get; set; } = new();
         public Rooms.Status Status { get; set; } 
+        public string StatusName { get; set; }
     }
     public class MessageViewModel
     {
         public string Content { get; set; } = string.Empty;
         public string Time { get; set; }
         public Rooms.MessageStatus Status { get; set; }
+        public string StatusName { get; set; }
         public Guid UserCode { get; set; }
     }
 }

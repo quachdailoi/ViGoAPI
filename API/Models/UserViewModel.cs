@@ -12,7 +12,8 @@ namespace API.Models
         public Guid Code { get; set; }
         public string Name { get; set; }
         public int Gender { get; set; }
-        public int Status { get; set; }
+        public Users.Status Status { get; set; }
+        public string StatusName { get; set; }
         public DateTimeOffset? DateOfBirth { get; set; } = null;
         public string? AvatarUrl { get; set; } = string.Empty;
         public Guid? AvatarCode { get; set; } = Guid.NewGuid();
