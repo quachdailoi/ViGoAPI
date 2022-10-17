@@ -47,7 +47,7 @@ namespace API.Services
 
             var user = UnitOfWork.Users.List(user => user.Id == account.UserId);
 
-            return await Mapper.ProjectTo<UserViewModel>(user).FirstOrDefaultAsync();
+            return await user.MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefaultAsync();
         }
 
         public List<User> GetUsersByCode(List<Guid> userCodes)

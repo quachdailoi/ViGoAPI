@@ -13,7 +13,7 @@ namespace API.Validators
             When(x => !string.IsNullOrEmpty(x.FromDate), () =>
             {
                 RuleFor(x => x.FromDate).Must(DateOnlyTryParse);
-                RuleFor(x => DateOnlyParse(x.FromDate)).GreaterThanOrEqualTo(NowDateOnly).WithName("From Date");
+                //RuleFor(x => DateOnlyParse(x.FromDate)).GreaterThanOrEqualTo(NowDateOnly).WithName("From Date");
             });
 
             When(x => !string.IsNullOrEmpty(x.ToDate), () =>

@@ -15,6 +15,8 @@ namespace API.Mapper
                     dest => dest.TypeName,
                     opt => opt.MapFrom(
                         src => src.Type.DisplayName()));
+
+            CreateMap<Vehicle, VehicleViewModel>();
         }
     }
 }

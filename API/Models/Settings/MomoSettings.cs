@@ -17,5 +17,6 @@
         public readonly static string PartnerName = $"{Section}PartnerName";
 
         public readonly static string StoreId = $"{Section}StoreId";
+        public readonly static string RedirectUrl = $"{Section}RedirectUrl";
     }
 }

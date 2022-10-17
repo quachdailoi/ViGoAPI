@@ -21,7 +21,7 @@ namespace API.Mapper
                     otp => otp.MapFrom(
                         src => src.BookingDetailDrivers
                         .Where(bdr => bdr.Status == BookingDetailDrivers.Status.Pending)
-                        .First().Driver))
+                        .FirstOrDefault().Driver))
                 .IncludeBase<BookingDetail, BookingDetailViewModel>();
 
             CreateMap<BookingDetail, DriverBookingDetailViewModel>()

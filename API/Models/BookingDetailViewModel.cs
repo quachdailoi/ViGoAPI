@@ -19,7 +19,7 @@ namespace API.Models
     }
     public class BookerBookingDetailViewModel : BookingDetailViewModel
     {
-        public DriverViewModel Driver { get; set; }
+        public DriverViewModel? Driver { get; set; } = null;
     }
     public class DriverBookingDetailViewModel : BookingDetailViewModel
     {

@@ -36,6 +36,7 @@ namespace API.Services
             dto.storeId = Configuration.Get(MomoSettings.StoreId);
             dto.requestId = Guid.NewGuid().ToString();
             dto.requestType = Payments.MomoRequestTypes.CaptureWallet.DisplayName();
+            dto.redirectUrl = Configuration.Get(MomoSettings.RedirectUrl);
 
             var rawSignature = $"amount={dto.amount}&" +
                 $"extraData={dto.extraData}&" +
@@ -92,6 +93,7 @@ namespace API.Services
             dto.amount = 0;
             dto.requestId = Guid.NewGuid().ToString();
             dto.requestType = Payments.MomoRequestTypes.LinkWallet.DisplayName();
+            dto.redirectUrl = Configuration.Get(MomoSettings.RedirectUrl);
 
             var rawSignature = $"amount={dto.amount}&" +
                 $"extraData={dto.extraData}&" +
