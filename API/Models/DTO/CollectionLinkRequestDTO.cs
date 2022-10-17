@@ -8,7 +8,7 @@ namespace API.Models.DTO
     }
     public class MomoCollectionLinkRequestDTO : CollectionLinkRequestDTO
     {
-        private string _redirectUrl = "vigo://12asdxxx";
+        private string _redirectUrl = "vigo://";
         public string orderInfo { get; set; } = "Pay with Momo";
         public string? partnerCode { get; set; }
         public string redirectUrl {

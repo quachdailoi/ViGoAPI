@@ -33,7 +33,7 @@ namespace API.Models
         public string? AvatarUrl { get; set; } = string.Empty;
         public Guid AvatarCode { get; set; } = Guid.NewGuid();
         public string PhoneNumber { get; set; } = string.Empty;
-        public Vehicle Vehicle { get; set; }
+        public VehicleViewModel Vehicle { get; set; }
     }
 
     public class ContactUserViewModel
