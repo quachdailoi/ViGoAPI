@@ -30,7 +30,6 @@ namespace API.Services
                     Booking = booking,
                     Date = day,
                     Price = Fee.RoundToThousands(feePerTrip),
-                    MessageRoom = new Room { }
                 });
             }
             return bookingDetails;
@@ -168,17 +167,22 @@ namespace API.Services
 
         private static Guid? GetMessageRoomCode(Room? messageRoom) => messageRoom?.Code ?? null;
 
-        public async Task<Response> Get(int userId, Response successResponse, PagingRequest? pagingRequest = null, DateFilterRequest? dateFilterRequest = null)
+        public async Task<Response> Get(int userId, Response successResponse, PagingRequest pagingRequest, DateFilterRequest dateFilterRequest)
         {
             var bookingDetails = UnitOfWork.BookingDetails
                 .List(bd => bd.Booking.UserId == userId);
 
-            if (dateFilterRequest?.FromDate != null && dateFilterRequest.ToDate != null)
+            if (!String.IsNullOrEmpty(dateFilterRequest.FromDate))
             {
                 var fromDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilterRequest.FromDate);
+                bookingDetails = bookingDetails.Where(x => x.Date >= fromDateParse);
+            }
+            if(!String.IsNullOrEmpty(dateFilterRequest.ToDate))
+            {
+                
                 var toDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilterRequest.ToDate);
 
-                bookingDetails = bookingDetails.Where(x => x.Date >= fromDateParse && x.Date <= toDateParse);
+                bookingDetails = bookingDetails.Where(x =>x.Date <= toDateParse);
             }
 
             bookingDetails = bookingDetails.OrderByDescending(x => x.Date);

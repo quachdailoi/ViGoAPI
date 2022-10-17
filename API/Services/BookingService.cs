@@ -300,6 +300,8 @@ namespace API.Services
                 .List(e => e.Id == bookingId && e.Status == Bookings.Status.PendingMapping)
                 .Include(e => e.User)
                 .Include(e => e.BookingDetails)
+                .ThenInclude(bd => bd.MessageRoom)
+                .Include(e => e.BookingDetails)
                 .ThenInclude(bd => bd.BookingDetailDrivers)
                 .Include(e => e.VehicleType)
                 .Include(e => e.StartRouteStation)
@@ -401,6 +403,20 @@ namespace API.Services
                                 BookingDetailId = bookingDetail.Id,
                                 DriverId = fitRouteRoutine.User.Id,
                             });
+                        bookingDetail.MessageRoom = new Room
+                        {
+                            UserRooms = new List<UserRoom>
+                            {
+                                new UserRoom
+                                {
+                                    UserId = fitRouteRoutine.User.Id                                  
+                                },
+                                new UserRoom
+                                {
+                                    UserId = booking.UserId
+                                }
+                            }
+                        };
                     }
 
                 }
