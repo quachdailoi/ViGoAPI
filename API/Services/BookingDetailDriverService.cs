@@ -1,6 +1,8 @@
 ﻿using API.Services.Constract;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
+using Domain.Shares.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
@@ -11,6 +13,17 @@ namespace API.Services
         {
         }
 
-        public Task<List<BookingDetailDriver>> Create(List<BookingDetailDriver> bookingDetailDrivers) => UnitOfWork.BookingDetailDrivers.Add(bookingDetailDrivers); 
+        public Task<List<BookingDetailDriver>> Create(List<BookingDetailDriver> bookingDetailDrivers) => UnitOfWork.BookingDetailDrivers.Add(bookingDetailDrivers);
+
+        public async Task<BookingDetailDriver?> GetBookingDetailDriverByCode(string code)
+        {
+            return await UnitOfWork.BookingDetailDrivers.List(x => x.Code.ToString() == code).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus)
+        {
+            bookingDetailDriver.TripStatus = tripStatus;
+            return await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver);
+        }
     }
 }

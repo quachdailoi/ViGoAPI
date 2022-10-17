@@ -99,6 +99,10 @@ namespace API.Services
 
                     var schedules = detailsInRoute.Select(x => new ScheduleBookingDetailViewModel
                     {
+                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.Status != BookingDetailDrivers.Status.Cancelled && 
+                            bdd.DriverId == driverId).OrderByDescending(x => x.CreatedAt).Select(x => x.Code).FirstOrDefault(),
+                        TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.Status != BookingDetailDrivers.Status.Cancelled &&
+                            bdd.DriverId == driverId).OrderByDescending(x => x.CreatedAt).Select(x => x.TripStatus).FirstOrDefault(),
                         Time = x.Booking.Time,
                         StartStation = new()
                         {
@@ -199,6 +203,18 @@ namespace API.Services
                 PageSize = paging.PageSize,
                 TotalPagesCount = paging.TotalPagesCount
             });
+        }
+
+        public Task<BookingDetail?> GetBookingDetailOfBookerByCode(string code, int bookerId)
+        {
+            return UnitOfWork.BookingDetails.GetBookingDetailByCodeAsync(code)
+                .Where(x => x.Booking.UserId == bookerId)
+                .FirstOrDefaultAsync();
+        }
+
+        public Task<bool> UpdateBookingDetail(BookingDetail bookingDetail)
+        {
+            return UnitOfWork.BookingDetails.Update(bookingDetail);
         }
     }
 }

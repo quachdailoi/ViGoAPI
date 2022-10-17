@@ -20,7 +20,7 @@ namespace API.Services
             var banners = await UnitOfWork.Banners.GetAll()
                 .Where(x => x.Active == true && x.Priority != null)
                 .OrderBy(x => x.Priority)
-                .MapTo<BannerViewModel>(Mapper)
+                .MapTo<BannerViewModel>(Mapper, AppServices)
                 .ToListAsync();
 
             return succeess.SetData(banners);

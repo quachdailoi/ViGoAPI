@@ -9,6 +9,7 @@ namespace Domain.Entities
 {
     public class Banner : BaseEntity
     {
+        public string Title { get; set; }
         public int FileId { get; set; }
         public string Content { get; set; } = string.Empty;
         public int? Priority { get; set; }

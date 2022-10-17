@@ -16,6 +16,7 @@ namespace API.Validators
             services.AddScoped<IValidator<GetRouteFeeRequest>, GetRouteFeeRequestValidator>();
             services.AddScoped<IValidator<GetProvisionalBookingRequest>, GetProvisionalBookingRequestValidator>();
             services.AddScoped<IValidator<WalletTopUpRequest>, WalletTopUpRequestValidator>();
+            services.AddScoped<IValidator<RatingAndFeedbackRequest>, RatingAndFeedBackRequestValidator>();
         }
     }
 }

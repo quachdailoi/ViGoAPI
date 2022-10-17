@@ -18,6 +18,10 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.ToTable("booking_details");
 
+            builder.Property(e => e.Code)
+                .IsRequired()
+                .HasColumnName("code");
+
             builder.Property(e => e.Rating)
                 .IsRequired(false)
                 .HasColumnName("rating");

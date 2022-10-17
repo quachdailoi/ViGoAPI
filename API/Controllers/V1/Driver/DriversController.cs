@@ -514,5 +514,62 @@ namespace API.Controllers.V1.Driver
 
             return ApiResult(response);
         }
+
+        /// <summary>
+        ///     Update trip status of booking detail driver.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     PUT api/drivers/booking-detail-driver/trip-status
+        ///     TripStatus: 1,
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Update Trip Status Successfully.</response>
+        /// <response code = "400"> 
+        ///     Not found booking detail driver with this ID. <br></br>
+        ///     This booking detail driver not belong to this Driver. <br></br>
+        ///     New trip status not a valid next trip status.
+        /// </response>
+        /// <response code = "500"> Fail to update Trip Status for booking detail driver.</response>
+        [HttpPut("booking-detail-driver/trip-status")]
+        public async Task<IActionResult> UpdateTripStatus([FromBody] UpdateBookingDetailDriverTripStatusRequest request)
+        {
+            var driver = LoggedInUser;
+
+            var bookingDetailDriver = await AppServices.BookingDetailDriver.GetBookingDetailDriverByCode(request.BookingDetailDriverCode);
+
+            if (bookingDetailDriver == null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "Not found booking detail driver with this ID."
+            });
+
+            if (bookingDetailDriver.DriverId != driver.Id) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "This booking detail driver not belong to this Driver."
+            });
+
+            if ((int)request.TripStatus != (int)bookingDetailDriver.TripStatus + 1) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "New trip status not a valid next trip status."
+            });
+
+            var updateResult = await AppServices.BookingDetailDriver.UpdateTripStatus(bookingDetailDriver, request.TripStatus);
+
+            if (!updateResult) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Fail to update Trip Status for booking detail driver."
+            });
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Update trip status for booking detail driver successfully."
+            });
+        }
     }
 }

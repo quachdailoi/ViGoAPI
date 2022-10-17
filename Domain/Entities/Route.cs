@@ -19,7 +19,7 @@ namespace Domain.Entities
         public Routes.Status Status { get; set; } = Routes.Status.Active;
 
         public List<RouteStation> RouteStations { get; set; } = new();
-        public List<Booking> Bookings { get; set; } = new();
+        //public List<Booking> Bookings { get; set; } = new();
         public List<RouteRoutine> RouteRoutines { get; set; } = new();
     }
 }

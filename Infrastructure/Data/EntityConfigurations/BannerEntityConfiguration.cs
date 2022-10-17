@@ -20,6 +20,10 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.ToTable("banners");
 
+            builder.Property(e => e.Title)
+                .IsRequired()
+                .HasColumnName("title");
+
             builder.Property(e => e.FileId)
                 .IsRequired()
                 .HasColumnName("file_id");

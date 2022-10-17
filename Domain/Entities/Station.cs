@@ -20,7 +20,7 @@ namespace Domain.Entities
         public List<RouteStation> RouteStations { get; set; } = new();
 
         /* Omitted */
-        public virtual List<Booking> StartStationBookings { get; set; } = new();
+        //public virtual List<Booking> StartStationBookings { get; set; } = new();
 
         //public override bool Equals(object? obj)
         //{

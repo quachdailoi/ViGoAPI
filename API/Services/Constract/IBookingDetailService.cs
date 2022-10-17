@@ -11,5 +11,8 @@ namespace API.Services.Constract
         Task<Response> Get(int userId, Response successResponse, PagingRequest? pagingRequest = null, DateFilterRequest? dateFilterRequest = null);
 
         Task<Response> GetBookingsOfDriver(int driverId, PagingRequest pagingRequest, DateFilterRequest dateFilterRequest, Response success);
+        Task<BookingDetail?> GetBookingDetailOfBookerByCode(string code, int bookerId);
+
+        Task<bool> UpdateBookingDetail(BookingDetail bookingDetail);
     }
 }
