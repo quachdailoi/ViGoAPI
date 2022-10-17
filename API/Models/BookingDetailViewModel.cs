@@ -7,6 +7,7 @@ namespace API.Models
     {
         [JsonIgnore]
         public int Id { get; set; }
+        public Guid Code { get; set; }
         public double Rating { get; set; }
         public string FeedBack { get; set; } = String.Empty;
         public DateOnly Date { get; set; }
@@ -27,10 +28,12 @@ namespace API.Models
 
     public class ScheduleBookingDetailViewModel
     {
+        public Guid BookingDetailDriverCode { get; set; }
         public TimeOnly Time { get; set; }
         public ScheduleStationViewModel StartStation { get; set; }
         public ScheduleStationViewModel EndStation { get; set; }
         public double Distance { get; set; }
+        public BookingDetailDrivers.TripStatus TripStatus { get; set; }
 
         public List<ScheduleUserViewModel> Users { get; set; } = new();
     }

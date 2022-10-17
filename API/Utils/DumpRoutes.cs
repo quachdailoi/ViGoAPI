@@ -203,7 +203,7 @@ namespace API.Utils
         {
             throw new NotImplementedException();
         }
-        public static List<int> GetListDriverIdsToDumpRouteRoutines = new List<int>{ 1, 2, 3, 4};
+        public static List<int> GetListDriverIdsToDumpRouteRoutines = new List<int>{ 4, 2, 3, 1};
         public static List<List<int>> GetListStationIdsToDumpRoutes()
         {
             return new()

@@ -10,5 +10,7 @@ namespace Domain.Interfaces.Repositories
     public interface IBookingDetailDriverRepository : IGenericRepository<BookingDetailDriver>
     {
         IQueryable<BookingDetailDriver> GetByDriverId(int driverId);
+
+        Task<BookingDetailDriver> GetById(int id);
     }
 }

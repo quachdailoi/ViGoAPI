@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace Infrastructure.Data.Repositories
         public IQueryable<BookingDetailDriver> GetByDriverId(int driverId)
         {
             return List(x => x.DriverId == driverId);
+        }
+
+        public Task<BookingDetailDriver> GetById(int id)
+        {
+            return List(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }

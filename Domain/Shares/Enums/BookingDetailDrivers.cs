@@ -15,5 +15,14 @@ namespace Domain.Shares.Enums
             Started = 1,
             Completed = 2
         }
+
+        public enum TripStatus
+        {
+            NotYet = 0,
+            RouteStarted = 1,
+            PickingUp = 2,
+            Arried = 3,
+            Completed = 4
+        }
     }
 }

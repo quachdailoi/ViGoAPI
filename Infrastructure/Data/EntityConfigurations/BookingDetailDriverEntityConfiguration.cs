@@ -18,6 +18,10 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.ToTable("booking_detail_drivers");
 
+            builder.Property(e => e.Code)
+                .IsRequired()
+                .HasColumnName("code");
+
             builder.Property(e => e.StartTime)
                 .HasColumnName("start_time");
 

@@ -708,12 +708,12 @@ namespace API.Controllers.V1.Booker
             return ApiResult(createResponse);
         }
 
-        [HttpGet("profile")] 
+        [HttpGet("profile")]
         public async Task<IActionResult> GetProfile()
         {
             var loggedInUser = LoggedInUser;
 
-            var profileResponse = 
+            var profileResponse =
                 await AppServices.Account.GetProfile(
                     loggedInUser.Id,
                     successResponse: new()
@@ -724,6 +724,61 @@ namespace API.Controllers.V1.Booker
                 );
 
             return ApiResult(profileResponse);
+        }
+
+        /// <summary>
+        ///     Update rating and feedback for completed booking details.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     PUT api/drivers/booking-detail/rating-and-feedback
+        ///     TripStatus: 1,
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Update Trip Status Successfully.</response>
+        /// <response code = "400"> 
+        ///     Not found booking detail driver with this ID. <br></br>
+        ///     This booking detail driver not belong to this Driver. <br></br>
+        ///     New trip status not a valid next trip status.
+        /// </response>
+        /// <response code = "500"> Fail to update Trip Status for booking detail driver.</response>
+        [HttpPut("booking-detail/rating-and-feedback")]
+        public async Task<IActionResult> UpdateTripStatus([FromBody] RatingAndFeedbackRequest request)
+        {
+            var booker = LoggedInUser;
+
+            var bookingDetailOfBooker = await AppServices.BookingDetail.GetBookingDetailOfBookerByCode(request.BookingDetailCode, booker.Id);
+
+
+            if (bookingDetailOfBooker == null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "Not found booking detail of this passenger."
+            });
+
+            if (bookingDetailOfBooker.Status != BookingDetails.Status.Completed) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "Booking detail must be completed to give rating and feedback."
+            });
+            
+            bookingDetailOfBooker.Rating = request.Rating;
+            bookingDetailOfBooker.FeedBack = request.FeedBack;
+
+            var updatedResult = await AppServices.BookingDetail.UpdateBookingDetail(bookingDetailOfBooker);
+
+            if (!updatedResult) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Fail to give rating and feedback for booking detail."
+            });
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Give rating and feedback successfully."
+            });
         }
     }
 }
