@@ -7,16 +7,13 @@ namespace API.Models
 {
     public class RouteViewModel
     {
-        //public Location StartPoint { get; set; } = new();
-        //public Location EndPoint { get; set; } = new();
         [JsonIgnore]
         public int Id { get; set; }
         public Guid Code { get; set; }
-        //public List<Step> Steps { get; set; } = new();
         public double Distance { get; set; }
         public double Duration { get; set; }
-        //public Bound Bound { get; set; } = new();
         public Routes.Status Status { get; set; } = Routes.Status.Active;
+        public string StatusName { get; set; }
         [JsonIgnore]
         public List<RouteStation> RouteStations { get; set; } = new();
         public List<StationInRouteViewModel> Stations { get; set; } = new();

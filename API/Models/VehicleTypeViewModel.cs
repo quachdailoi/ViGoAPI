@@ -15,5 +15,6 @@ namespace API.Models
         public string TypeName { get; set; } = String.Empty;
         [JsonIgnore]
         public VehicleTypes.Status Status { get; set; } = VehicleTypes.Status.Active;
+        public string StatusName { get; set; }
     }
 }

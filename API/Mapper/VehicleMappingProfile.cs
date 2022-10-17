@@ -14,7 +14,11 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.TypeName,
                     opt => opt.MapFrom(
-                        src => src.Type.DisplayName()));
+                        src => src.Type.DisplayName()))
+                .ForMember(
+                    dest => dest.StatusName,
+                    opt => opt.MapFrom(
+                            src => src.Status.DisplayName()));
 
             CreateMap<Vehicle, VehicleViewModel>();
         }

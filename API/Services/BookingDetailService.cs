@@ -170,7 +170,8 @@ namespace API.Services
         public async Task<Response> Get(int userId, Response successResponse, PagingRequest pagingRequest, DateFilterRequest dateFilterRequest)
         {
             var bookingDetails = UnitOfWork.BookingDetails
-                .List(bd => bd.Booking.UserId == userId);
+                .List(bd => bd.Booking.UserId == userId &&
+                            bd.Status != BookingDetails.Status.Pending);
 
             if (!String.IsNullOrEmpty(dateFilterRequest.FromDate))
             {

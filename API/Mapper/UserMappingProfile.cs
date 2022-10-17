@@ -43,7 +43,10 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.AvatarCode,
                     opt => opt.MapFrom(src => src.File.Code)
-                );
+                )
+                .ForMember(
+                    dest => dest.StatusName,
+                    opt => opt.MapFrom(src => src.Status.DisplayName()));
 
             CreateMap<User, DriverViewModel>();
             CreateMap<User, ContactUserViewModel>();
