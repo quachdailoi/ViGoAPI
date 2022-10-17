@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
 using AutoMapper;
@@ -11,7 +12,11 @@ namespace API.Mapper
     {
         public WalletMappingProfile()
         {
-            CreateMap<Wallet, WalletViewModel>();
+            CreateMap<Wallet, WalletViewModel>()
+                .ForMember(
+                    dest => dest.StatusName,
+                    opt => opt.MapFrom(
+                            src => src.Status.DisplayName())); ;
         }
     }
 }

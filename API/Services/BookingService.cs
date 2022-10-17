@@ -448,6 +448,21 @@ namespace API.Services
                                     BookingDetailId = bookingDetail.Id,
                                     DriverId = routeRoutine.User.Id,
                                 });
+
+                            bookingDetail.MessageRoom = new Room
+                            {
+                                UserRooms = new List<UserRoom>
+                            {
+                                new UserRoom
+                                {
+                                    UserId = routeRoutine.User.Id
+                                },
+                                new UserRoom
+                                {
+                                    UserId = booking.UserId
+                                }
+                            }
+                            };
                             break;
                         }
                     }
@@ -473,6 +488,7 @@ namespace API.Services
 
             var bookingViewModels = 
                 await bookingQueryable
+                    .OrderByDescending(booking => booking.CreatedAt)
                     .MapTo<BookerBookingViewModel>(Mapper)
                     .ToListAsync();
 

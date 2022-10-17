@@ -12,6 +12,7 @@ namespace API.Models
         public double Balance { get; set; }
         [JsonIgnore]
         public Wallets.Status Status { get; set; }
+        public string StatusName { get; set; }
         public List<AffiliateAccountViewModel> AffiliateAccounts { get; set; }
         //public List<WalletTransactionViewModel> WalletTransactions { get; set; }
         //public int TotalPage { get; set; }
