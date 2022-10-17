@@ -58,6 +58,10 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.HasOne(e => e.Booking)
                 .WithMany(b => b.BookingDetails)
                 .HasForeignKey(e => e.BookingId);
+
+            builder.HasOne(e => e.MessageRoom)
+                .WithMany(r => r.BookingDetails)
+                .HasForeignKey(e => e.MessageRoomId);
         }
     }
 }

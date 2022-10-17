@@ -18,6 +18,7 @@ namespace API.Services.Constract
         Response GetViewModelByMemberCode (List<Guid> memberCode, Response successResponse);
         Task<Response> GetByType (int userId, Rooms.Types type, Response successResponse);
         Task<Response> GetAll(int userId, Response successResponse);
+        Task<Room?> GetByMemberCode(List<Guid> memberCode);
 
     }
 }

@@ -46,7 +46,7 @@ namespace API.Services
 
             return successResponse.SetData(roomViewModels);
         }
-        private IQueryable<Room> GetByMemberCode(List<Guid> memberCode)
+        private IQueryable<Room> GetByMemberCodeQueryable(List<Guid> memberCode)
         {
             var userCodeHashSet = memberCode.ToHashSet();
 
@@ -57,15 +57,19 @@ namespace API.Services
                                             room.UserRooms
                                             .Select(userRoom => userRoom.User.Code)
                                             .Count() == userCodeHashSet.Count &&
-                                            room.Status == Rooms.Status.Active);
+                                            room.Status == Rooms.Status.Active)
+                                    .Include(room => room.UserRooms);
 
             return roomQueryable;
         }
+
+        public Task<Room?> GetByMemberCode(List<Guid> memberCode) => GetByMemberCodeQueryable(memberCode).FirstOrDefaultAsync();
+
         public Response GetViewModelByMemberCode(List<Guid> memberCode, Response successResponse)
         {
             var userCodeHashSet = memberCode.ToHashSet();
 
-            var messageRoomViewModel = GetByMemberCode(memberCode).MapTo<MessageRoomViewModel>(Mapper).FirstOrDefault();
+            var messageRoomViewModel = GetByMemberCodeQueryable(memberCode).MapTo<MessageRoomViewModel>(Mapper).FirstOrDefault();
             
 
             return successResponse.SetData(messageRoomViewModel);
@@ -105,7 +109,7 @@ namespace API.Services
         }
         public async Task<Response> Create(List<Guid> userCodes, Rooms.Types type, Response successResponse, Response duplicateResponse, Response errorResponse, MessageDTO? initMessage = null)
         {
-            if (GetByMemberCode(userCodes).Any())
+            if (GetByMemberCodeQueryable(userCodes).Any())
             {
                 return duplicateResponse;
             }

@@ -17,6 +17,6 @@ namespace Domain.Entities
 
         public List<UserRoom> UserRooms { get; set; } = new();
         public List<Message> Messages { get; set; } = new();
-        public BookingDetail Booking { get; set; } = null;
+        public List<BookingDetail> BookingDetails { get; set; } = new();
     }
 }

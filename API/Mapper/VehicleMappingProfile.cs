@@ -20,7 +20,11 @@ namespace API.Mapper
                     opt => opt.MapFrom(
                             src => src.Status.DisplayName()));
 
-            CreateMap<Vehicle, VehicleViewModel>();
+            CreateMap<Vehicle, VehicleViewModel>()
+                .ForMember(
+                    dest => dest.Type,
+                    otp => otp.MapFrom(
+                        src => src.VehicleType.Type.DisplayName()));
         }
     }
 }
