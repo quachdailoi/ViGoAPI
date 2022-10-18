@@ -39,10 +39,6 @@ namespace Infrastructure.Data.EntityConfigurations
                 .IsRequired()
                 .HasColumnName("type");
 
-            builder.HasOne(e => e.Booking)
-                .WithOne(b => b.MessageRoom)
-                .HasForeignKey<BookingDetail>(e => e.MessageRoomId);
-
             builder.HasIndex(e => e.Code).IsUnique();
         }
     }

@@ -13,6 +13,8 @@ namespace API.Models
         public List<MessageViewModel> Messages { get; set; } = new();
         public Rooms.Status Status { get; set; } 
         public string StatusName { get; set; }
+        public Rooms.RoomTypes Type { get; set; }
+        public string TypeName { get; set; }
     }
     public class MessageViewModel
     {

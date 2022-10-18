@@ -8,11 +8,12 @@ namespace Domain.Shares.Enums
 {
     public class Rooms
     {
-        public enum Types
+        public enum RoomTypes
         {
             Support,
             Conversation
         }
+
         public enum Status
         {
             Inactive,

@@ -32,7 +32,11 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.StatusName,
                     opt => opt.MapFrom(
-                            src => src.Status.DisplayName()));
+                            src => src.Status.DisplayName()))
+                .ForMember(
+                    dest => dest.TypeName,
+                    opt => opt.MapFrom(
+                        src => src.Type.DisplayName()));
         }
     }
 }

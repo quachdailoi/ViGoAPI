@@ -133,7 +133,8 @@ namespace API.Controllers.V1
                     Vehicle = new Vehicle
                     {
                         LicensePlate = $"Dummy_{DateTime.Now}_{i}",
-                        VehicleTypeId = vehicleTypeVM.Id
+                        VehicleTypeId = vehicleTypeVM.Id,
+                        Name = $"Dummy{DateTime.Now.Ticks}{i}"
                     },
                     RouteRoutines = startTimes
                     .Select(time => new RouteRoutine
