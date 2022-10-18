@@ -292,6 +292,45 @@ namespace API.Services
             }
             return false;
         }
+        private async Task MapBookingDetailWithDriver(BookingDetail bookingDetail, User driver, Dictionary<Guid,Room> driverUserMessageRoomDic)
+        {
+            bookingDetail.Status = BookingDetails.Status.Ready;
+            bookingDetail.BookingDetailDrivers.Add(
+                new BookingDetailDriver
+                {
+                    BookingDetailId = bookingDetail.Id,
+                    DriverId = driver.Id,
+                });
+
+            if (!driverUserMessageRoomDic.TryGetValue(driver.Code, out var room))
+            {
+                room = await AppServices.Room.GetByMemberCode(new List<Guid> { driver.Code, bookingDetail.Booking.User.Code });
+
+                if (room == null)
+                {
+                    room = await AppServices.Room.Create(new List<Guid> { driver.Code, bookingDetail.Booking.User.Code }, Rooms.RoomTypes.Conversation);
+                    driverUserMessageRoomDic[driver.Code] = room;
+                }
+                else
+                {
+                    room.Status = Rooms.Status.Active;
+
+                    foreach (var userRoom in room.UserRooms)
+                    {
+                        userRoom.Status = Rooms.UserRoomStatus.Active;
+                    }
+
+                    driverUserMessageRoomDic[driver.Code] = room;
+
+                    bookingDetail.MessageRoomId = room.Id;
+                    bookingDetail.MessageRoom = room;
+
+                    return;
+                }
+            }
+
+            bookingDetail.MessageRoomId = room.Id;
+        }
         public async Task<Booking?> Mapping(int bookingId)
         {
             var startTime = DateTimeOffset.UtcNow;
@@ -336,6 +375,8 @@ namespace API.Services
                 .ThenInclude(bdr => bdr.BookingDetail)
                 .ThenInclude(bd => bd.Booking)
                 .ToListAsync();
+
+            var driverUserMessageRoomDic = new Dictionary<Guid, Room>();
 
             foreach (var bookingDetail in bookingDetails)
             {
@@ -394,31 +435,8 @@ namespace API.Services
                         }
                     }
 
-                    if(fitRouteRoutine != null)
-                    {
-                        bookingDetail.Status = BookingDetails.Status.Ready;
-                        bookingDetail.BookingDetailDrivers.Add(
-                            new BookingDetailDriver
-                            {
-                                BookingDetailId = bookingDetail.Id,
-                                DriverId = fitRouteRoutine.User.Id,
-                            });
-                        bookingDetail.MessageRoom = new Room
-                        {
-                            UserRooms = new List<UserRoom>
-                            {
-                                new UserRoom
-                                {
-                                    UserId = fitRouteRoutine.User.Id                                  
-                                },
-                                new UserRoom
-                                {
-                                    UserId = booking.UserId
-                                }
-                            }
-                        };
-                    }
-
+                    if (fitRouteRoutine != null)
+                        await MapBookingDetailWithDriver(bookingDetail, fitRouteRoutine.User, driverUserMessageRoomDic);
                 }
                 else
                 {
@@ -441,33 +459,14 @@ namespace API.Services
 
                         if (IsPossibleMappingWithRouteRoutineWithoutShare(mappedBookingDetailsDic[routeRoutine.Id], bookingDetail, routeStationDic))
                         {
-                            bookingDetail.Status = BookingDetails.Status.Ready;
-                            bookingDetail.BookingDetailDrivers.Add(
-                                new BookingDetailDriver
-                                {
-                                    BookingDetailId = bookingDetail.Id,
-                                    DriverId = routeRoutine.User.Id,
-                                });
-
-                            bookingDetail.MessageRoom = new Room
-                            {
-                                UserRooms = new List<UserRoom>
-                            {
-                                new UserRoom
-                                {
-                                    UserId = routeRoutine.User.Id
-                                },
-                                new UserRoom
-                                {
-                                    UserId = booking.UserId
-                                }
-                            }
-                            };
+                            await MapBookingDetailWithDriver(bookingDetail, routeRoutine.User, driverUserMessageRoomDic);
                             break;
                         }
                     }
                 }
             }
+
+
 
             var endTime = DateTimeOffset.UtcNow;
 

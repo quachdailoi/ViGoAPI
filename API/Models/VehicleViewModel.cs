@@ -5,6 +5,6 @@
         public Guid Code { get; set; }
         public string Name { get; set; }
         public string LicensePlate { get; set; }
-        public VehicleTypeViewModel Type { get; set; }
+        public string Type { get; set; }
     }
 }

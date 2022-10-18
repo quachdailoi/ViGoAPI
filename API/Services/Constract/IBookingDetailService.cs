@@ -8,7 +8,8 @@ namespace API.Services.Constract
     {
         List<BookingDetail> GenerateBookingDetail(Booking booking, double feePerTrip);
         Task<Response> GetNextBookingDetail(int userId, Response successResponse);
-        Task<Response> Get(int userId, Response successResponse, PagingRequest? pagingRequest = null, DateFilterRequest? dateFilterRequest = null);
+        Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, Response successResponse);
+        Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, Response successResponse);
 
         Task<Response> GetBookingsOfDriver(int driverId, PagingRequest pagingRequest, DateFilterRequest dateFilterRequest, Response success);
         Task<BookingDetail?> GetBookingDetailOfBookerByCode(string code, int bookerId);
