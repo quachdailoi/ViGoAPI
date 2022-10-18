@@ -177,38 +177,71 @@ namespace API.Controllers.V1
             return ApiResult(response);
         }
 
-        /// <summary>
-        ///     Get history of booking details belong to user.
-        /// </summary>
-        /// <remarks>
-        /// ```
-        /// Sample request:
-        ///     GET api/bookings/history 
-        ///     {
-        ///         FromDate: "10-10-2022",
-        ///         ToDate: "17-10-2022"
-        ///     }
-        /// </remarks>
-        /// <response code = "200"> Get bookings successfully.</response>
-        /// <response code = "404"> Not found any bookings.</response>
-        /// <response code="500"> Failed to get bookings.</response>
-        [HttpGet("history")]
-        [Authorize(Roles = "BOOKER")]
-        public async Task<IActionResult> GetBookingDetailHistory([FromQuery] DateFilterRequest dateFilterRequest)
-        {
-            var user = LoggedInUser;
+        ///// <summary>
+        /////     Get history of booking details belong to user.
+        ///// </summary>
+        ///// <remarks>
+        ///// ```
+        ///// Sample request:
+        /////     GET api/bookings/history 
+        /////     {
+        /////         FromDate: "10-10-2022",
+        /////         ToDate: "17-10-2022"
+        /////     }
+        ///// </remarks>
+        ///// <response code = "200"> Get bookings successfully.</response>
+        ///// <response code = "404"> Not found any bookings.</response>
+        ///// <response code="500"> Failed to get bookings.</response>
+        //[HttpGet("history")]
+        //[Authorize(Roles = "BOOKER")]
+        //public async Task<IActionResult> GetBookingDetailHistory([FromQuery] DateFilterRequest dateFilterRequest)
+        //{
+        //    var user = LoggedInUser;
 
-            var response = await AppServices.BookingDetail.GetHistory(
-                                            user.Id,
-                                            dateFilterRequest: dateFilterRequest,
-                                            successResponse: new()
-                                            {
-                                                Message = "Get booking details successfully.",
-                                                StatusCode = StatusCodes.Status200OK
-                                            }
-                                            );
-            return ApiResult(response);
-        }
+        //    var response = await AppServices.BookingDetail.GetHistory(
+        //                                    user.Id,
+        //                                    dateFilterRequest: dateFilterRequest,
+        //                                    successResponse: new()
+        //                                    {
+        //                                        Message = "Get booking details successfully.",
+        //                                        StatusCode = StatusCodes.Status200OK
+        //                                    }
+        //                                    );
+        //    return ApiResult(response);
+        //}
+
+        ///// <summary>
+        /////     Get on going booking details belong to user.
+        ///// </summary>
+        ///// <remarks>
+        ///// ```
+        ///// Sample request:
+        /////     GET api/bookings/on-going 
+        /////     {
+        /////         FromDate: "10-10-2022",
+        /////         ToDate: "17-10-2022"
+        /////     }
+        ///// </remarks>
+        ///// <response code = "200"> Get bookings successfully.</response>
+        ///// <response code = "404"> Not found any bookings.</response>
+        ///// <response code="500"> Failed to get bookings.</response>
+        //[HttpGet("on-going")]
+        //[Authorize(Roles = "BOOKER")]
+        //public async Task<IActionResult> GetBookingDetailOnGoing([FromQuery] DateFilterRequest dateFilterRequest)
+        //{
+        //    var user = LoggedInUser;
+
+        //    var response = await AppServices.BookingDetail.GetOnGoing(
+        //                                    user.Id,
+        //                                    dateFilterRequest: dateFilterRequest,
+        //                                    successResponse: new()
+        //                                    {
+        //                                        Message = "Get booking details successfully.",
+        //                                        StatusCode = StatusCodes.Status200OK
+        //                                    }
+        //                                    );
+        //    return ApiResult(response);
+        //}
 
         /// <summary>
         ///     Get on going booking details belong to user.
@@ -225,15 +258,14 @@ namespace API.Controllers.V1
         /// <response code = "200"> Get bookings successfully.</response>
         /// <response code = "404"> Not found any bookings.</response>
         /// <response code="500"> Failed to get bookings.</response>
-        [HttpGet("on-going")]
+        [HttpGet("booking-details")]
         [Authorize(Roles = "BOOKER")]
-        public async Task<IActionResult> GetBookingDetailOnGoing([FromQuery] DateFilterRequest dateFilterRequest)
+        public async Task<IActionResult> GetBookingDetail()
         {
             var user = LoggedInUser;
 
-            var response = await AppServices.BookingDetail.GetOnGoing(
+            var response = await AppServices.BookingDetail.GetAll(
                                             user.Id,
-                                            dateFilterRequest: dateFilterRequest,
                                             successResponse: new()
                                             {
                                                 Message = "Get booking details successfully.",

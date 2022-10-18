@@ -18,7 +18,11 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.StatusName,
                     opt => opt.MapFrom(
-                        src => src.Status.DisplayName()));
+                        src => src.Status.DisplayName()))
+                .ForMember(
+                    dest => dest.Time,
+                    opt => opt.MapFrom(
+                        src => src.Booking.Time));
 
             CreateMap<BookingDetail, BookerBookingDetailViewModel>()
                 .ForMember(

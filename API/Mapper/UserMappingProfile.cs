@@ -48,14 +48,33 @@ namespace API.Mapper
                     dest => dest.StatusName,
                     opt => opt.MapFrom(src => src.Status.DisplayName()));
 
-            CreateMap<User, DriverViewModel>();
-            CreateMap<User, ContactUserViewModel>();
+            CreateMap<User, DriverViewModel>()
+                .ForMember(
+                    dest => dest.AvatarUrl,
+                    otp => otp.MapFrom(src => src.File.GetFilePath(service)))
+                .ForMember(
+                    dest => dest.AvatarCode,
+                    opt => opt.MapFrom(src => src.File.Code));
+
+            CreateMap<User, ContactUserViewModel>()
+                .ForMember(
+                    dest => dest.AvatarUrl,
+                    otp => otp.MapFrom(src => src.File.GetFilePath(service)))
+                .ForMember(
+                    dest => dest.AvatarCode,
+                    opt => opt.MapFrom(src => src.File.Code));
 
             CreateMap<User, MessageUserViewModel>()
                 .ForMember(
                     dest => dest.LastSeenTime,
                     opt => opt.MapFrom(
-                            user => user.UserRooms.First().LastSeenTime.ToFormatString()));
+                            user => user.UserRooms.First().LastSeenTime.ToFormatString()))
+                .ForMember(
+                    dest => dest.AvatarUrl,
+                    otp => otp.MapFrom(src => src.File.GetFilePath(service)))
+                .ForMember(
+                    dest => dest.AvatarCode,
+                    opt => opt.MapFrom(src => src.File.Code));
         }
     }
 }

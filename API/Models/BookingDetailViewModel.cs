@@ -17,6 +17,7 @@ namespace API.Models
         public string StatusName { get; set; }
         public Guid? ChattingRoomCode { get; set; }
         //public BookingViewModel Booking { get; set; }
+        public TimeOnly Time { get; set; }
     }
     public class BookerBookingDetailViewModel : BookingDetailViewModel
     {
