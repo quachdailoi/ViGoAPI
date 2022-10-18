@@ -79,8 +79,9 @@ namespace API.Services
         public Task<List<RouteRoutine>> GetRouteRoutineFitBookingCondition(Booking booking)
         {
             return UnitOfWork.RouteRoutines
-                .List(e => (e.StartTime <= booking.Time && e.EndTime > booking.Time) &&
-                    Math.Abs((e.StartTime.AddMinutes(booking.StartRouteStation.DurationFromFirstStationInRoute / 60) - booking.Time).TotalMinutes) <= 0)
+                .List(e => (e.StartTime <= booking.Time && e.EndTime > booking.Time) 
+                    && Math.Abs((e.StartTime.AddMinutes(booking.StartRouteStation.DurationFromFirstStationInRoute / 60) - booking.Time).TotalMinutes) <= Bookings.AllowedMappingTimeRange
+                    )
                 .ToListAsync();
         }
 
@@ -154,8 +155,11 @@ namespace API.Services
                         for(int i = 0; i < prevBookingDetailDrivers.Count; i++)
                         {
                             var prevBookingDetailDriver = prevBookingDetailDrivers[i];
-                            var prevBookingDetailDriverEndtime = prevBookingDetailDriver.BookingDetail.Booking.Time.AddMinutes(prevBookingDetailDriver.BookingDetail.Booking.Duration / 60);
-                            if (prevBookingDetailDriverEndtime <= bookingDetailDriver.BookingDetail.Booking.Time)
+
+                            var prevEndRouteStation = routeStationDic[prevBookingDetailDriver.BookingDetail.Booking.EndRouteStationId];
+                            var curStartRouteStation = routeStationDic[bookingDetailDriver.BookingDetail.Booking.StartRouteStationId];
+
+                            if (prevEndRouteStation.DistanceFromFirstStationInRoute <= curStartRouteStation.DistanceFromFirstStationInRoute)
                             {
                                 removeIndexs.Add(i);
                                 
@@ -184,11 +188,11 @@ namespace API.Services
                         {
                             if (prevBookingDetailDriverGrouping.TryGetValue(false, out var prevBookingDetailDriverNotShares))
                             {
-                                foreach(var prevBookingDetailDriverNotShare in prevBookingDetailDriverNotShares)
-                                {
-                                    var _endTime = prevBookingDetailDriverNotShare.BookingDetail.Booking.Time.AddMinutes(prevBookingDetailDriverNotShare.BookingDetail.Booking.Duration / 60);
-                                    Console.WriteLine($"endTime: {endTime} | {_endTime}");
-                                }
+                                //foreach(var prevBookingDetailDriverNotShare in prevBookingDetailDriverNotShares)
+                                //{
+                                //    var _endTime = prevBookingDetailDriverNotShare.BookingDetail.Booking.Time.AddMinutes(prevBookingDetailDriverNotShare.BookingDetail.Booking.Duration / 60);
+                                //    Console.WriteLine($"endTime: {endTime} | {_endTime}");
+                                //}
                                 totalConflictSharingConditionCases++;
                             }
                                 
@@ -199,25 +203,39 @@ namespace API.Services
                                     totalConflictSharingConditionCases++;
                                 else
                                 {
-                                    var prevBookingDetailDriver = prevBookingDetailDriverShares.ToList()[0];
+                                    //var prevBookingDetailDriver = prevBookingDetailDriverShares.ToList()[0];
 
-                                    //check valid distance
+                                    ////check valid distance
+
+                                    //var curStartStation = routeStationDic[bookingDetailDriver.BookingDetail.Booking.StartRouteStationId];
+                                    //var curStartTime = bookingDetailDriver.BookingDetail.Booking.Time;
+                                    
+
+                                    //var prevEndStation = routeStationDic[prevBookingDetailDriver.BookingDetail.Booking.EndRouteStationId];
+                                    //var prevEndTime = prevBookingDetailDriver.BookingDetail.Booking.Time.AddMinutes(prevBookingDetailDriver.BookingDetail.Booking.Duration / 60);
+
+                                    //var curArrivePrevEndStation = curStartTime.AddMinutes((prevEndStation.DurationFromFirstStationInRoute - curStartStation.DurationFromFirstStationInRoute) / 60);
+
+                                    
+
+
+                                    //if (Math.Abs((curArrivePrevEndStation.ToTimeSpan() - prevEndTime.ToTimeSpan()).TotalMinutes) >1 ) 
+                                    //    totalConflictSharingConditionCases++;
+                                    //else
+                                    //{
+                                    //    totalBookingDetailShares++;
+                                    //}
+
+                                    //check valid time
 
                                     var curStartStation = routeStationDic[bookingDetailDriver.BookingDetail.Booking.StartRouteStationId];
                                     var curStartTime = bookingDetailDriver.BookingDetail.Booking.Time;
-                                    
+                                    var timeArriveCurStartStation = routeRoutine.StartTime.AddMinutes(curStartStation.DurationFromFirstStationInRoute / 60);
 
-                                    var prevEndStation = routeStationDic[prevBookingDetailDriver.BookingDetail.Booking.EndRouteStationId];
-                                    var prevEndTime = prevBookingDetailDriver.BookingDetail.Booking.Time.AddMinutes(prevBookingDetailDriver.BookingDetail.Booking.Duration / 60);
-
-                                    var curArrivePrevEndStation = curStartTime.AddMinutes((prevEndStation.DurationFromFirstStationInRoute - curStartStation.DurationFromFirstStationInRoute) / 60);
-
-                                    if (Math.Abs((curArrivePrevEndStation.ToTimeSpan() - prevEndTime.ToTimeSpan()).TotalMinutes) >1 ) 
+                                    if(Math.Abs((timeArriveCurStartStation - curStartTime).TotalMinutes) <= Bookings.AllowedMappingTimeRange)
                                         totalConflictSharingConditionCases++;
                                     else
-                                    {
                                         totalBookingDetailShares++;
-                                    }
                                 }
                             }
                         }

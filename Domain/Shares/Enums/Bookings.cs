@@ -30,5 +30,7 @@ namespace Domain.Shares.Enums
             CancelledBySystem,
             RefundComplete
         }
+
+        public static readonly double AllowedMappingTimeRange = 3; //minutes
     }
 }
