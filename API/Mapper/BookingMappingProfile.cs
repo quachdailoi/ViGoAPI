@@ -15,37 +15,27 @@ namespace API.Mapper
         {
             IAppServices? service = null;
 
-            CreateMap<Booking, BookingViewModel>();
-
-            CreateMap<Booking, BookerBookingViewModel>()
+            CreateMap<Booking, BookingViewModel>()
                 .ForMember(
                     dest => dest.StatusName,
                     otp => otp.MapFrom(
                             src => src.Status.DisplayName()))
                 .ForMember(
+                    dest => dest.Stations,
+                    otp => otp.MapFrom(
+                    src => src.StartRouteStation.Route.RouteStations
+                        .OrderBy(x => x.DistanceFromFirstStationInRoute)
+                        .Select(routeStation => routeStation.Station)));
+
+            CreateMap<Booking, BookerBookingViewModel>()
+                .ForMember(
                     dest => dest.CreatedAt,
                     otp => otp.MapFrom(
                             src => src.CreatedAt.ToFormatString()))
                 .ForMember(
-                    dest => dest.Stations,
-                    otp => otp.MapFrom(
-                    src => src.StartRouteStation.Route.RouteStations
-                        .OrderBy(x => x.Index)
-                        .Select(routeStation => routeStation.Station)))
-            //.AfterMap((src, dest) =>
-            //{
-            //    dest.Distance = 0;
-            //    var startIndex = src.StartRouteStation.Index;
-            //    var endIndex = src.EndRouteStation.Index;
-
-            //    dest.Stations = dest.Stations.OrderBy(station => station.Index).ToList();
-
-            //    var stationAfterStart = dest.Stations.Where(station => station.Index >= startIndex).ToList();
-            //    var stationBeforeEnd = dest.Stations.Where(station => station.Index <= endIndex).ToList();
-
-            //    dest.Stations = startIndex <= endIndex ?
-            //        stationAfterStart.Intersect(stationBeforeEnd).ToList() : stationAfterStart.Concat(stationBeforeEnd).ToList();
-            //})
+                    dest => dest.TypeName,
+                    opt => opt.MapFrom(
+                            src => src.Type.DisplayName()))
             .IncludeBase<Booking, BookingViewModel>();
 
             CreateMap<Booking, DriverBookingViewModel>()

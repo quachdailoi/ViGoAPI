@@ -157,7 +157,6 @@ namespace API.Controllers.V1
         ///     GET api/bookings 
         /// </remarks>
         /// <response code = "200"> Get bookings successfully.</response>
-        /// <response code = "404"> Not found any bookings.</response>
         /// <response code="500"> Failed to get bookings.</response>
         [HttpGet]
         [Authorize(Roles = "BOOKER")]
@@ -190,7 +189,6 @@ namespace API.Controllers.V1
         /////     }
         ///// </remarks>
         ///// <response code = "200"> Get bookings successfully.</response>
-        ///// <response code = "404"> Not found any bookings.</response>
         ///// <response code="500"> Failed to get bookings.</response>
         //[HttpGet("history")]
         //[Authorize(Roles = "BOOKER")]
@@ -223,7 +221,6 @@ namespace API.Controllers.V1
         /////     }
         ///// </remarks>
         ///// <response code = "200"> Get bookings successfully.</response>
-        ///// <response code = "404"> Not found any bookings.</response>
         ///// <response code="500"> Failed to get bookings.</response>
         //[HttpGet("on-going")]
         //[Authorize(Roles = "BOOKER")]
@@ -243,20 +240,17 @@ namespace API.Controllers.V1
         //    return ApiResult(response);
         //}
 
+
+
         /// <summary>
-        ///     Get on going booking details belong to user.
+        ///     Get booking details belong to user.
         /// </summary>
         /// <remarks>
         /// ```
         /// Sample request:
-        ///     GET api/bookings/on-going 
-        ///     {
-        ///         FromDate: "10-10-2022",
-        ///         ToDate: "17-10-2022"
-        ///     }
+        ///     GET api/bookings/booking-details
         /// </remarks>
         /// <response code = "200"> Get bookings successfully.</response>
-        /// <response code = "404"> Not found any bookings.</response>
         /// <response code="500"> Failed to get bookings.</response>
         [HttpGet("booking-details")]
         [Authorize(Roles = "BOOKER")]

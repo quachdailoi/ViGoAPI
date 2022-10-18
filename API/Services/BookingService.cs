@@ -201,7 +201,8 @@ namespace API.Services
 
             return successResponse.SetData(new 
             { 
-                Booking = bookingViewModel.ProcessStationOrder(),
+                //Booking = bookingViewModel.ProcessStationOrder(),
+                Booking = bookingViewModel,
                 PaymentUrl = paymentUrl
             } 
             );
@@ -491,10 +492,10 @@ namespace API.Services
                     .MapTo<BookerBookingViewModel>(Mapper)
                     .ToListAsync();
 
-            foreach(var booking in bookingViewModels)
-            {
-                booking.ProcessStationOrder();
-            }
+            //foreach(var booking in bookingViewModels)
+            //{
+            //    booking.ProcessStationOrder();
+            //}
 
             return successReponse.SetData(bookingViewModels);
         }

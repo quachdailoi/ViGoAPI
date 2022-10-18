@@ -18,8 +18,18 @@ namespace API.Controllers.V1
         /// <summary>
         /// Send message to specific room
         /// </summary>
-        /// /// <remarks>Websocket - signal info: method(Message) -  json { RoomCode, Message }</remarks>
-        /// <param name="request" example="{Content: 'Hello world!' ,RoomCode: '613de7b4-db59-4a6c-b9a1-2b1e176460d3'}">MessageRequest schema</param>
+        /// <remarks>
+        /// Websocket - signal info: method(Message) -  json { RoomCode, Message }
+        /// ```
+        /// Sample request:
+        ///     POST api/messages
+        ///     {
+        ///         "RoomCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
+        ///         "Content": "hello", 
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <param name="request">MessageRequest schema</param>
         /// <response code="200">Send successfully</response>
         /// <response code="500">Failure</response>
         [Authorize]
@@ -47,8 +57,17 @@ namespace API.Controllers.V1
         /// <summary>
         /// Mark read in specific room
         /// </summary>
-        /// /// <remarks>Websocket - signal info: method(UpdateLastSeen) -  json {RoomCode , UserCode, LastSeenTime}</remarks>
-        /// <param name="request" example="{Content: 'Hello world!' ,RoomCode: '613de7b4-db59-4a6c-b9a1-2b1e176460d3'}">LastSeenTimeMessageRequest schema</param>
+        /// <remarks>
+        /// Websocket - signal info: method(UpdateLastSeen) -  json {RoomCode , UserCode, LastSeenTime}
+        /// ```
+        /// Sample request:
+        ///     PUT api/messages/last-seen-time
+        ///     {
+        ///         "RoomCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <param name="request"></param>
         /// <response code="200">Mark read successfully</response>
         /// <response code="400">Fail to mark read</response>
         /// <response code="500">Failure</response>
