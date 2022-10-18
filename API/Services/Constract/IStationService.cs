@@ -22,5 +22,6 @@ namespace API.Services.Constract
         Task<List<StationDTO>> GetStationDTOsByIds(List<int> stationIds);
         IQueryable<Station> GetStationByCode(Guid code);
         Task<Station?> GetStationByCodeAsync(Guid code);
+        Task<Guid?> NotExistedRouteCode(List<Guid> stationCodes);
     }
 }

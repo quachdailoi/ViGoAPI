@@ -158,6 +158,7 @@ namespace API.Services
 
             return createdRoute;
         }
+
         public async Task<Response> CreateRoute(List<StationDTO> stations, Response success, Response failed)
         {
             var createdRoute = await this.CreateRouteByListOfStation(stations);
@@ -169,6 +170,25 @@ namespace API.Services
                     .FirstAsync()).ProcessStation();
 
             return success.SetData(routeVM);
+        }
+
+        public async Task<RouteViewModel?> UpdateRouteByListOfStation(Domain.Entities.Route route, List<StationDTO> stations)
+        {
+            var constructedRoute = await TrueWayDirection_FindDrivingRoute(stations);
+            if (constructedRoute == null) return null;
+            constructedRoute.Id = route.Id;
+
+            var updatedResult = await UnitOfWork.Routes.Update(constructedRoute);
+
+            if (!updatedResult) return null;
+
+            var routeVM =
+               (await UnitOfWork.Routes.List()
+                   .Where(x => x.Id == constructedRoute.Id)
+                   .MapTo<RouteViewModel>(Mapper)
+                   .FirstAsync()).ProcessStation();
+
+            return routeVM;
         }
 
         public async Task<Domain.Entities.Route> TrueWayDirection_FindDrivingRoute(List<StationDTO> stations)

@@ -154,5 +154,29 @@ namespace API.Services
         {
             return UnitOfWork.Routes.GetRouteByCode(code);
         }
+
+        public async Task<RouteViewModel?> UpdateRoute(Domain.Entities.Route route, List<StationDTO> stationDTOs)
+        {
+            await UnitOfWork.CreateTransactionAsync();
+
+            var stations = UnitOfWork.Stations.GetStationsByCodes(stationDTOs.Select(x => x.Code).ToList()).ToList();
+            var deletedStations = await UnitOfWork.Stations.DeleteStations(stations);
+
+            if (!deletedStations)
+            {
+                await UnitOfWork.Rollback();
+                return null;
+            }
+
+            var routeViewModel = await AppServices.RapidApi.UpdateRouteByListOfStation(route, stationDTOs);
+
+            if (routeViewModel == null)
+            {
+                await UnitOfWork.Rollback();
+                return null;
+            }
+
+            return routeViewModel;
+        }
     }
 }

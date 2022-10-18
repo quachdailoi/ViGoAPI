@@ -225,6 +225,24 @@ namespace API.Services
             return stationDtos;
         }
 
+        public async Task<Guid?> NotExistedRouteCode(List<Guid> stationCodes)
+        {
+            var stationCodesInDB = UnitOfWork.Stations.List().Select(x => x.Code);
+
+            Guid? notExistStationCode = null;
+
+            await stationCodesInDB.ForEachAsync(x =>
+            {
+                if (!stationCodes.Contains(x))
+                {
+                    notExistStationCode = x;
+                    return;
+                }
+            });
+
+            return notExistStationCode;
+        }
+
         public async Task<List<StationDTO>> GetStationDTOsByIds(List<int> stationIds)
         {
             var stationDtoDic = (await UnitOfWork.Stations

@@ -122,5 +122,32 @@ namespace Infrastructure.Data.Repositories
             }
             return null;
         }
+
+        public async Task<bool> RemoveRange(T[] entities, bool softDelete = true)
+        {
+            try
+            {
+                var exist = await DbSet.FindAsync(entities.Select(x => ((IBaseEntity)x).Id));
+
+                if (exist == null) return false;
+
+                if (softDelete)
+                {
+                    var deleteEntities = entities.Select(x => { ((IBaseEntity)x).DeletedAt = DateTimeOffset.Now; return x; });
+                    DbSet.UpdateRange(deleteEntities);
+                }
+                else
+                {
+                    DbSet.RemoveRange(entities);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} Remove Range function error.", typeof(T));
+                return false;
+            }
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }

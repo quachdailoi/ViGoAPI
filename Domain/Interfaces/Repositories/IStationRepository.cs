@@ -15,5 +15,7 @@ namespace Domain.Interfaces.Repositories
 
         IQueryable<Station> GetStationByCode(string code);
         IQueryable<Station> GetStationByCode(Guid code);
+
+        Task<bool> DeleteStations(List<Station> stations);
     }
 }
