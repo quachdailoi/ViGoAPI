@@ -221,12 +221,13 @@ namespace API.Services
 
             //return (timeArriveCurBookingStartStation - curBookingStartTime).TotalMinutes == 0; 
 
-            return Math.Abs((timeArriveCurBookingStartStation - bookingDetail.Booking.Time).TotalMinutes) <= Bookings.AllowedMappingTimeRange;
+            return timeArriveCurBookingStartStation.ToTimeSpan(bookingDetail.Booking.Time).TotalMinutes <= Bookings.AllowedMappingTimeRange;
         }
 
         private bool IsSatisfiedSlotCondition(List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)
         {
             var slot = bookingDetail.Booking.VehicleType.Slot - 1;
+
             foreach(var mappedBookingDetail in mappedBookingDetails)
             {
                 var mappedStartStation = routeStationDic[mappedBookingDetail.Booking.StartRouteStationId];
@@ -235,10 +236,11 @@ namespace API.Services
                 var totalSharingBookingDetail = 
                     mappedBookingDetails
                     .Where(_mappedBookingDetail => 
-                        _mappedBookingDetail.Id != mappedBookingDetail.Id &&
+                        _mappedBookingDetail.Id == mappedBookingDetail.Id ||
                         !(routeStationDic[_mappedBookingDetail.Booking.StartRouteStationId].DistanceFromFirstStationInRoute >= mappedEndStation.DistanceFromFirstStationInRoute ||
                           routeStationDic[_mappedBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute <= mappedStartStation.DistanceFromFirstStationInRoute))
                     .Count() + 1;
+
                 if (totalSharingBookingDetail > slot) return false;
             }
             return true;
@@ -252,7 +254,7 @@ namespace API.Services
                     mappedBookingDetails
                     .Where(bookingDetailMapped =>
                         !(curStartStation.DistanceFromFirstStationInRoute >= routeStationDic[bookingDetailMapped.Booking.EndRouteStationId].DistanceFromFirstStationInRoute ||
-                          curStartStation.DistanceFromFirstStationInRoute <= routeStationDic[bookingDetailMapped.Booking.StartRouteStationId].DistanceFromFirstStationInRoute))
+                          curEndStation.DistanceFromFirstStationInRoute <= routeStationDic[bookingDetailMapped.Booking.StartRouteStationId].DistanceFromFirstStationInRoute))
                     .OrderBy(bookingDetailMapped => bookingDetailMapped.Booking.Time)
                     .ToList();
 
@@ -275,8 +277,6 @@ namespace API.Services
         }
         private bool IsPossibleMappingWithRouteRoutineWithoutShare(TimeOnly routeRoutineStartTime, List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)
         {
-            if (!mappedBookingDetails.Any()) return true;
-
             var curStartStation = routeStationDic[bookingDetail.Booking.StartRouteStationId];
             var curEndStation = routeStationDic[bookingDetail.Booking.EndRouteStationId];
 

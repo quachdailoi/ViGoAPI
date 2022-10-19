@@ -53,5 +53,13 @@
 
             return new TimeOnly(time.Hour + 1, 0);
         }
+
+        public static TimeSpan ToTimeSpan(this TimeOnly time1, TimeOnly time2)
+        {
+            if (time1.CompareTo(time2) <= 0)
+                return time2 - time1;
+
+            return time1 - time2;
+        }
     }
 }

@@ -76,13 +76,19 @@ namespace API.Services
             .ThenInclude(bd => bd.Booking)
             .ToListAsync();
 
-        public Task<List<RouteRoutine>> GetRouteRoutineFitBookingCondition(Booking booking)
+        public async Task<List<RouteRoutine>> GetRouteRoutineFitBookingCondition(Booking booking)
         {
-            return UnitOfWork.RouteRoutines
-                .List(e => (e.StartTime <= booking.Time && e.EndTime > booking.Time) 
-                    && Math.Abs((e.StartTime.AddMinutes(booking.StartRouteStation.DurationFromFirstStationInRoute / 60) - booking.Time).TotalMinutes) <= Bookings.AllowedMappingTimeRange
-                    )
+
+            var routeRoutines = await UnitOfWork.RouteRoutines
+                .List(e => e.StartTime <= booking.Time && 
+                           e.EndTime > booking.Time &&
+                           !(e.EndAt < booking.StartAt || e.StartAt > booking.EndAt) &&
+                           e.Status == RouteRoutines.Status.Active) 
                 .ToListAsync();
+
+            return routeRoutines
+                .Where(e => e.StartTime.AddMinutes(booking.StartRouteStation.DurationFromFirstStationInRoute / 60).ToTimeSpan(booking.Time).TotalMinutes <= Bookings.AllowedMappingTimeRange)
+                .ToList();
         }
 
         public async Task<dynamic> GetMappedBookingDetailDriverByRouteRoutine() // for booking mapping test
@@ -232,10 +238,10 @@ namespace API.Services
                                     var curStartTime = bookingDetailDriver.BookingDetail.Booking.Time;
                                     var timeArriveCurStartStation = routeRoutine.StartTime.AddMinutes(curStartStation.DurationFromFirstStationInRoute / 60);
 
-                                    if(Math.Abs((timeArriveCurStartStation - curStartTime).TotalMinutes) <= Bookings.AllowedMappingTimeRange)
-                                        totalConflictSharingConditionCases++;
-                                    else
+                                    if (timeArriveCurStartStation.ToTimeSpan(curStartTime).TotalMinutes <= Bookings.AllowedMappingTimeRange)
                                         totalBookingDetailShares++;
+                                    else
+                                        totalConflictSharingConditionCases++; 
                                 }
                             }
                         }
