@@ -22,7 +22,7 @@ namespace API.Services
         {
                 var rooms = UnitOfWork.Rooms.GetRoomsByCode(roomCode);
 
-                return await rooms.MapTo<MessageRoomViewModel>(Mapper).FirstOrDefaultAsync();
+                return await rooms.MapTo<MessageRoomViewModel>(Mapper,AppServices).FirstOrDefaultAsync();
         }
         public async Task<Response> GetViewModelByCode(int userId, Guid roomCode, Response successResponse)
         {
@@ -30,7 +30,7 @@ namespace API.Services
                                          .Where(room => room.UserRooms.Select(userRoom => userRoom.UserId).Contains(userId) && 
                                                         room.Status == Rooms.Status.Active);
 
-            var room = await rooms.MapTo<MessageRoomViewModel>(Mapper).FirstOrDefaultAsync();
+            var room = await rooms.MapTo<MessageRoomViewModel>(Mapper,AppServices).FirstOrDefaultAsync();
 
             return successResponse.SetData(room);
         }
@@ -134,7 +134,7 @@ namespace API.Services
             }
 
             var roomVMs = await rooms
-                .MapTo<MessageRoomViewModel>(Mapper, AppServices)
+                .MapTo<MessageRoomViewModel>(Mapper,AppServices)
                 .ToListAsync();
 
              return successResponse.SetData(roomVMs);
