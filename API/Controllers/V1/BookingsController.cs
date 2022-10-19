@@ -4,6 +4,7 @@ using API.Models.Response;
 using API.SignalR.Constract;
 using API.TaskQueues;
 using API.TaskQueues.TaskResolver;
+using API.Utils;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -457,46 +458,56 @@ namespace API.Controllers.V1
                     $"transId={dto.transId}";
 
             var signature = AppServices.Payment.GetMomoSignature(rawSignature);
-            var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
+            
+            var walletTransactionDto = Encryption.DecodeBase64<WalletTransactionDTO>(dto.extraData);
 
-            if(booking != null)
+            if (dto.resultCode == (int)Payments.MomoStatusCodes.Successed)
             {
-                if (dto.resultCode == (int)Payments.MomoStatusCodes.Successed)
+                walletTransactionDto.Status = WalletTransactions.Status.Success;
+                walletTransactionDto.TxnId += $",{dto.transId}";
+
+                var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
+
+                if (booking != null && booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.amount)
                 {
-                    if (booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.amount)
+                    if (!AppServices.Booking.CheckIsConflictBooking(booking).Result)
                     {
-                        if (!AppServices.Booking.CheckIsConflictBooking(booking).Result)
-                        {
-                            booking.Status = Bookings.Status.PendingMapping;
-                            await AppServices.Booking.Update(booking);
+                        booking.Status = Bookings.Status.PendingMapping;
+                        await AppServices.Booking.Update(booking);
 
-                            //add job queue to map with specific driver
-                            await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                        //add job queue to map with specific driver
+                        await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
 
-                            await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
-                            new
-                            {
-                                BookingCode = dto.orderId,
-                                PaymentMethod = Payments.PaymentMethods.Momo,
-                                IsSuccess = dto.resultCode == (int)Payments.MomoStatusCodes.Successed,
-                                Message = "Pay booking by Momo successfully."
-                            });
-                        }
-                        else
+                        await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
+                        new
                         {
-                            await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
-                            new
-                            {
-                                BookingCode = dto.orderId,
-                                PaymentMethod = Payments.PaymentMethods.Momo,
-                                IsSuccess = false,
-                                Message = "You have booked at this time in an another booking. Check again!"
-                            });
-                        }                       
+                            BookingCode = dto.orderId,
+                            PaymentMethod = Payments.PaymentMethods.Momo,
+                            IsSuccess = true,
+                            Message = "Pay booking by Momo successfully."
+                        });
+                    }
+                    else
+                    {
+                        // refund momo wallet
+
+                        await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
+                        new
+                        {
+                            BookingCode = dto.orderId,
+                            PaymentMethod = Payments.PaymentMethods.Momo,
+                            IsSuccess = false,
+                            Message = "You have booked at this time in an another booking. Check again!"
+                        });
                     }
                 }
+            }
+            else
+            {
+                walletTransactionDto.Status = WalletTransactions.Status.Fail;
             } 
 
+            await AppServices.WalletTransaction.Update(walletTransactionDto);
             //if (signature == dto.signature)
             //{
             return NoContent();
