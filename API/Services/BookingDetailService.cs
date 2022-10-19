@@ -42,7 +42,7 @@ namespace API.Services
                                                                 .ThenBy(b => b.Booking.Time);
 
 
-            var bookingDetail = await Mapper.ProjectTo<BookerBookingDetailViewModel>(bookingDetailsIQueryable).FirstOrDefaultAsync();
+            var bookingDetail = await bookingDetailsIQueryable.MapTo<BookerBookingDetailViewModel>(Mapper,AppServices).FirstOrDefaultAsync();
 
             return successResponse.SetData(bookingDetail);
         }
@@ -222,7 +222,7 @@ namespace API.Services
                 bookingDetails = bookingDetails.Where(x => x.Date <= toDateParse);
             }
 
-            var bookingDetailVMs = await bookingDetails.MapTo<BookerBookingDetailViewModel>(Mapper).ToListAsync();
+            var bookingDetailVMs = await bookingDetails.MapTo<BookerBookingDetailViewModel>(Mapper,AppServices).ToListAsync();
 
             return bookingDetailVMs
                 .GroupBy(x => x.Date)
@@ -251,6 +251,18 @@ namespace API.Services
         public Task<bool> UpdateBookingDetail(BookingDetail bookingDetail)
         {
             return UnitOfWork.BookingDetails.Update(bookingDetail);
+        }
+
+        public async Task<Response> GetAll(int userId, Response successResponse)
+        {
+            var bookingDetails = UnitOfWork.BookingDetails
+                .List(bd => bd.Booking.UserId == userId && bd.Status != BookingDetails.Status.Pending)
+                .OrderByDescending(bd => bd.Date)
+                .ThenByDescending(bd => bd.Booking.Time);
+
+            var bookingDetailVMs = await bookingDetails.MapTo<BookerBookingDetailViewModel>(Mapper, AppServices).ToListAsync();
+
+            return successResponse.SetData(bookingDetailVMs);
         }
     }
 }

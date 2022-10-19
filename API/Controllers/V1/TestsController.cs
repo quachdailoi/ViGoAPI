@@ -65,11 +65,16 @@ namespace API.Controllers.V1
         {
             //var uri = GetControllerContextUri();
             //var routers = ControllerContext.RouteData.Routers;
-            await _redisMQMessage.Publish("number",number);
+            //await _redisMQMessage.Publish("number",number);
+
+            TimeOnly startTime = new TimeOnly(12, 10);
+            TimeOnly endTime = new TimeOnly(12, 15);
+
+
 
             //var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
 
-            return Ok(number);
+            return Ok((startTime - endTime).TotalMinutes);
         }
 
         [HttpPost("dump/drivers")]

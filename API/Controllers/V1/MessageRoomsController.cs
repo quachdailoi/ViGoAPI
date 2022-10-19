@@ -114,7 +114,7 @@ namespace API.Controllers.V1
         /// <remarks>
         /// ```
         /// Sample request:
-        ///     GET api/messages 
+        ///     GET api/messagerooms 
         ///     {
         ///         "RoomType": 1, // 0: supportRoom, 1: conservationRoom
         ///         "Code": "352f7023-91c0-4201-b7b8-f9919f1181d9"

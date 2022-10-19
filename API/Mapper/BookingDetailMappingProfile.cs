@@ -23,10 +23,18 @@ namespace API.Mapper
             CreateMap<BookingDetail, BookerBookingDetailViewModel>()
                 .ForMember(
                     dest => dest.Driver,
-                    otp => otp.MapFrom(
+                    opt => opt.MapFrom(
                         src => src.BookingDetailDrivers
                         .Where(bdr => bdr.Status == BookingDetailDrivers.Status.Pending)
                         .FirstOrDefault().Driver))
+                .ForMember(
+                    dest => dest.Time,
+                    opt => opt.MapFrom(
+                        src => src.Booking.Time))
+                .ForMember(
+                    dest => dest.BookingCode,
+                    opt => opt.MapFrom(
+                        src => src.Booking.Code))
                 .IncludeBase<BookingDetail, BookingDetailViewModel>();
 
             CreateMap<BookingDetail, DriverBookingDetailViewModel>()

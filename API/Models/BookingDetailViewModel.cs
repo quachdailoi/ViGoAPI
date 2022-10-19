@@ -1,4 +1,5 @@
-﻿using Domain.Shares.Enums;
+﻿using Domain.Entities;
+using Domain.Shares.Enums;
 using System.Text.Json.Serialization;
 
 namespace API.Models
@@ -16,10 +17,11 @@ namespace API.Models
         public BookingDetails.Status Status { get; set; }
         public string StatusName { get; set; }
         public Guid? ChattingRoomCode { get; set; }
-        //public BookingViewModel Booking { get; set; }
+        public TimeOnly Time { get; set; }
     }
     public class BookerBookingDetailViewModel : BookingDetailViewModel
     {
+        public Guid BookingCode { get; set; }
         public DriverViewModel? Driver { get; set; } = null;
     }
     public class DriverBookingDetailViewModel : BookingDetailViewModel
