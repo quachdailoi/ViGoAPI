@@ -15,6 +15,9 @@ namespace Infrastructure.Data.Repositories
         {
         }
 
-
+        public Task<bool> DeleteRouteStations(List<RouteStation> routeStations, bool softDelete)
+        {
+            return RemoveRange(routeStations.ToArray(), softDelete);
+        }
     }
 }

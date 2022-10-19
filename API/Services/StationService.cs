@@ -231,9 +231,9 @@ namespace API.Services
 
             Guid? notExistStationCode = null;
 
-            await stationCodesInDB.ForEachAsync(x =>
+            stationCodes.ForEach(x =>
             {
-                if (!stationCodes.Contains(x))
+                if (!stationCodesInDB.Contains(x))
                 {
                     notExistStationCode = x;
                     return;

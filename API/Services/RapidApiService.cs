@@ -174,24 +174,31 @@ namespace API.Services
 
         public async Task<RouteViewModel?> UpdateRouteByListOfStation(Domain.Entities.Route route, List<StationDTO> stations)
         {
-            var constructedRoute = await TrueWayDirection_FindDrivingRoute(stations);
-            if (constructedRoute == null) return null;
-            constructedRoute.Id = route.Id;
+            //--- delete old routestation
+            var deletedRouteStations = await UnitOfWork.RouteStations.DeleteRouteStations(route.RouteStations, softDelete: true);
 
-            var updatedResult = await UnitOfWork.Routes.Update(constructedRoute);
+            if (!deletedRouteStations)
+            {
+                return null;
+            }
+            //--- delete old routestation
+
+            await TrueWayDirection_FindDrivingRoute(stations, route);
+
+            var updatedResult = await UnitOfWork.Routes.UpdateRoute(route);
 
             if (!updatedResult) return null;
 
             var routeVM =
                (await UnitOfWork.Routes.List()
-                   .Where(x => x.Id == constructedRoute.Id)
+                   .Where(x => x.Id == route.Id)
                    .MapTo<RouteViewModel>(Mapper)
-                   .FirstAsync()).ProcessStation();
+                   .FirstOrDefaultAsync())?.ProcessStation();
 
             return routeVM;
         }
 
-        public async Task<Domain.Entities.Route> TrueWayDirection_FindDrivingRoute(List<StationDTO> stations)
+        public async Task<Domain.Entities.Route> TrueWayDirection_FindDrivingRoute(List<StationDTO> stations, Domain.Entities.Route? route = null)
         {
             var baseAddress = Configuration.Get(RapidApiSettings.TrueWayDirectionService_Uri);
 
@@ -199,10 +206,12 @@ namespace API.Services
 
             var url = $"/FindDrivingRoute?stops={stationCoorStrs}";
 
-            var route = new Domain.Entities.Route();
-
+           
             foreach (var key in _apiKeys)
             {
+
+                if (route == null) route = new Domain.Entities.Route();
+
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,

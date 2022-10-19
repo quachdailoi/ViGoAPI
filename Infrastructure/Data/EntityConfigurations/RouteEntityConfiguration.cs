@@ -18,6 +18,8 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.ToTable("routes");
 
+            builder.Navigation(e => e.RouteStations).AutoInclude();
+
             //builder.Property(e => e.StationIds)
             //    .IsRequired()
             //    .HasColumnType("int[]")

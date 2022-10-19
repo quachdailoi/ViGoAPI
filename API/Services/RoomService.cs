@@ -134,7 +134,7 @@ namespace API.Services
             }
 
             var roomVMs = await rooms
-                .MapTo<MessageRoomViewModel>(Mapper)
+                .MapTo<MessageRoomViewModel>(Mapper, AppServices)
                 .ToListAsync();
 
              return successResponse.SetData(roomVMs);

@@ -19,10 +19,15 @@ namespace Domain.Shares.Enums
         public enum TripStatus
         {
             NotYet = 0,
-            RouteStarted = 1,
-            PickingUp = 2,
-            Arried = 3,
-            Completed = 4
+            PickingUp = 1,
+            Arried = 2,
+            Completed = 3
+        }
+
+        public enum StepScheduleType
+        {
+            PickUp,
+            DropOff
         }
     }
 }

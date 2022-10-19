@@ -20,6 +20,8 @@ namespace API.Models
         public virtual RouteViewModel ProcessStation()
         {
             RouteStations = RouteStations.OrderBy(routeStation => routeStation.DistanceFromFirstStationInRoute).ToList();
+
+            if (RouteStations.Count == 0) return this;
             var stationDic = Stations.DistinctBy(e => e.Id).ToDictionary(e => e.Id);
             List<StationInRouteViewModel> processedStations = new();
             foreach (var routeStation in RouteStations)
@@ -58,5 +60,6 @@ namespace API.Models
     {
         public string RouteCode { get; set; }
         public List<ScheduleBookingDetailViewModel> Schedules { get; set; } = new();
+        public List<StepScheduleViewModel> Steps { get; set; } = new();
     }
 }

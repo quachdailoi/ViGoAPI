@@ -18,7 +18,7 @@ namespace Infrastructure.Data.Repositories
 
         public Task<bool> DeleteStations(List<Station> stations)
         {
-            return RemoveRange(stations.ToArray(), softDelete: false);
+            return RemoveRange(stations.ToArray(), softDelete: true);
         }
 
         public IQueryable<Station> GetStationByCode(string code)

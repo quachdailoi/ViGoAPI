@@ -78,7 +78,7 @@ namespace API.Controllers.V1
         /// <response code="200">Get routes successfully</response>
         /// <response code="500">Fail to get routes</response>
         /// 
-        [HttpPost]
+        [HttpPut]
         //[Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> UpdateRoute([FromBody] UpdateRouteRequest request)
         {

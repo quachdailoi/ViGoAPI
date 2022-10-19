@@ -9,6 +9,6 @@ namespace Domain.Interfaces.Repositories
 {
     public interface IRouteStationRepository : IGenericRepository<RouteStation>
     {
-        
+        Task<bool> DeleteRouteStations(List<RouteStation> routeStations, bool softDelete);
     }
 }

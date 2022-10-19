@@ -12,5 +12,6 @@ namespace Domain.Interfaces.Repositories
         Task<Route> CreateRoute(Route route);
         Task<Route> GetRouteByCode(string code);
         IQueryable<Route> GetRouteByCode(Guid code);
+        Task<bool> UpdateRoute(Route route);
     }
 }

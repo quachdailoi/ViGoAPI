@@ -494,9 +494,15 @@ namespace API.Controllers.V1.Driver
         ///     PageSize: 3
         /// ```
         /// </remarks>
+        /// <remarks>
+        /// ```
+        /// Note response:
+        ///     Steps.Status (0: PickUp, 1: DropOff)
+        /// ```
+        /// </remarks>
         /// <response code = "200"> Get schedules of driver successfully.</response>
         [HttpGet("schedules")]
-        public async Task<IActionResult> GetBookingsByDay([FromQuery] PagingRequest pagingRequest, [FromQuery] DateFilterRequest dateFilterRequest)
+        public async Task<IActionResult> GetSchedules([FromQuery] PagingRequest pagingRequest, [FromQuery] DateFilterRequest dateFilterRequest)
         {
             var driver = LoggedInUser;
 
@@ -522,7 +528,7 @@ namespace API.Controllers.V1.Driver
         /// ```
         /// Sample request:
         ///     PUT api/drivers/booking-detail-driver/trip-status
-        ///     TripStatus: 1,
+        ///     TripStatus: 1 (0: Not yet, 1: PickingUp, 2: Arrived, 3: Completed)
         /// ```
         /// </remarks>
         /// <response code = "200"> Update Trip Status Successfully.</response>

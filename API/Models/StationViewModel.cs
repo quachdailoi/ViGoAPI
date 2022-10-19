@@ -37,5 +37,8 @@ namespace API.Models
         public string? Name { get; set; }
         public Guid Code { get; set; }
         public string? Address { get; set; }
+
+        [JsonIgnore]
+        public int Index { get; set; }
     }
 }

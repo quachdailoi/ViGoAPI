@@ -50,7 +50,7 @@ namespace API.Services
                 
             var result = await routes.MapTo<RouteViewModel>(Mapper).ToListAsync();
 
-            foreach(var route in result) route.ProcessStation();
+            if (result != null && result.Count != 0) foreach(var route in result) route.ProcessStation();
 
             return successResponse.SetData(result);
         }
@@ -159,15 +159,6 @@ namespace API.Services
         {
             await UnitOfWork.CreateTransactionAsync();
 
-            var stations = UnitOfWork.Stations.GetStationsByCodes(stationDTOs.Select(x => x.Code).ToList()).ToList();
-            var deletedStations = await UnitOfWork.Stations.DeleteStations(stations);
-
-            if (!deletedStations)
-            {
-                await UnitOfWork.Rollback();
-                return null;
-            }
-
             var routeViewModel = await AppServices.RapidApi.UpdateRouteByListOfStation(route, stationDTOs);
 
             if (routeViewModel == null)
@@ -175,7 +166,7 @@ namespace API.Services
                 await UnitOfWork.Rollback();
                 return null;
             }
-
+            await UnitOfWork.CommitAsync();
             return routeViewModel;
         }
     }

@@ -108,13 +108,15 @@ namespace API.Services
                         {
                             Code = x.Booking.StartRouteStation.Station.Code,
                             Name = x.Booking.StartRouteStation.Station.Name,
-                            Address = x.Booking.StartRouteStation.Station.Address
+                            Address = x.Booking.StartRouteStation.Station.Address,
+                            Index = x.Booking.StartRouteStation.Index
                         },
                         EndStation = new()
                         {
                             Code = x.Booking.EndRouteStation.Station.Code,
                             Name = x.Booking.EndRouteStation.Station.Name,
-                            Address = x.Booking.EndRouteStation.Station.Address
+                            Address = x.Booking.EndRouteStation.Station.Address,
+                            Index = x.Booking.EndRouteStation.Index
                         },
                         Distance = CalculateDistanceFromStartToEndStation(x.Booking.StartRouteStation.Route.RouteStations, x.Booking.StartRouteStation.StationId, x.Booking.EndRouteStation.StationId, x.Booking.StartRouteStation.Route.Distance),
                         Users = new()
@@ -132,7 +134,34 @@ namespace API.Services
                         }
                     });
 
+                    // add schedules
                     routeSchedule.Schedules.AddRange(schedules);
+
+                    var startStepInSchedules = schedules.Select(x => new StepScheduleViewModel()
+                    {
+                        BookingDetailDriverCode = x.BookingDetailDriverCode,
+                        StationCode = x.StartStation.Code,
+                        StationName = x.StartStation.Name,
+                        TripStatus = x.TripStatus,
+                        UserName = x.Users[0].Name,
+                        Type = BookingDetailDrivers.StepScheduleType.PickUp,
+                        Index = x.StartStation.Index
+                    }).ToList();
+
+                    var endStepInSchedules = schedules.Select(x => new StepScheduleViewModel()
+                    {
+                        BookingDetailDriverCode = x.BookingDetailDriverCode,
+                        StationCode = x.BookingDetailDriverCode,
+                        StationName = x.StartStation.Name,
+                        TripStatus = x.TripStatus,
+                        UserName = x.Users[0].Name,
+                        Type = BookingDetailDrivers.StepScheduleType.DropOff,
+                        Index = x.EndStation.Index
+                    }).ToList();
+
+                    var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Index).AsEnumerable();
+
+                    routeSchedule.Steps.AddRange(stepInSchedules);
 
                     driverSchedule.Routes.Add(routeSchedule);
                 }

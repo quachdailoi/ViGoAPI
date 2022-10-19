@@ -127,9 +127,11 @@ namespace Infrastructure.Data.Repositories
         {
             try
             {
-                var exist = await DbSet.FindAsync(entities.Select(x => ((IBaseEntity)x).Id));
+                var ids = entities.Select(x => ((IBaseEntity)x).Id);
 
-                if (exist == null) return false;
+                var existList = DbSet.Where(x => ids.Contains(((IBaseEntity)x).Id));
+
+                if (entities.Length != existList.Count()) return false;
 
                 if (softDelete)
                 {
