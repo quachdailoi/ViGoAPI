@@ -124,19 +124,16 @@ namespace API.Services
 
             if (CheckIsConflictBooking(booking).Result) return duplicationResponse;
 
-            // check for exist available driver for this trip 
+            // check for exist available driver for this trip
+
+            if (!AppServices.RouteRoutine.GetRouteRoutineFitBookingCondition(booking).Result.Any()) return notAvailableResponse;
+ 
 
             await UnitOfWork.CreateTransactionAsync();
 
             booking = await UnitOfWork.Bookings.Add(booking);
 
             if (booking == null) return errorResponse;
-
-            //booking = await Mapping(booking.Id);
-
-            //if (!booking.BookingDetails.Any(bd => bd.BookingDetailDrivers.Any())) return notAvailableResponse;
-
-            if (!AppServices.RouteRoutine.GetRouteRoutineFitBookingCondition(booking).Result.Any()) return notAvailableResponse;
 
             string paymentUrl = String.Empty;
 
