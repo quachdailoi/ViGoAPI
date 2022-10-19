@@ -226,7 +226,7 @@ namespace API.Services
 
         private bool IsSatisfiedSlotCondition(List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)
         {
-            var slot = bookingDetail.Booking.VehicleType.Slot - 1;
+            var slot = bookingDetail.Booking.VehicleType.Slot;
 
             foreach(var mappedBookingDetail in mappedBookingDetails)
             {
@@ -241,7 +241,7 @@ namespace API.Services
                           routeStationDic[_mappedBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute <= mappedStartStation.DistanceFromFirstStationInRoute))
                     .Count() + 1;
 
-                if (totalSharingBookingDetail > slot) return false;
+                if (totalSharingBookingDetail >= slot) return false;
             }
             return true;
         }
