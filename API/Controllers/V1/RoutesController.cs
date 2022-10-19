@@ -38,18 +38,19 @@ namespace API.Controllers.V1
         /// <response code="500">Fail to get routes</response>
         /// 
         [HttpPost]
+        //[Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> CreateRoute([FromBody] CreateRouteRequest request)
         {
             var stationCodes = request.StationCodes;
 
-            if (stationCodes.Distinct().Count() != stationCodes.Count())
-            {
-                return ApiResult(new()
-                {
-                    StatusCode = StatusCodes.Status400BadRequest,
-                    Message = "List of station codes must have unique values."
-                });
-            }
+            //if (stationCodes.Distinct().Count() != stationCodes.Count())
+            //{
+            //    return ApiResult(new()
+            //    {
+            //        StatusCode = StatusCodes.Status400BadRequest,
+            //        Message = "List of station codes must have unique values."
+            //    });
+            //}
 
             var stationDtos = await AppServices.Station.GetStationDTOsByCodes(stationCodes);
 
@@ -69,6 +70,52 @@ namespace API.Controllers.V1
                 );
 
             return Ok(createRouteResponse);
+        }
+
+        /// <summary>
+        /// Update route from list of stations.
+        /// </summary>
+        /// <response code="200">Get routes successfully</response>
+        /// <response code="500">Fail to get routes</response>
+        /// 
+        [HttpPut]
+        //[Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> UpdateRoute([FromBody] UpdateRouteRequest request)
+        {
+            var stationCodes = request.StationCodes;
+
+            var notExistStationCode = await AppServices.Station.NotExistedRouteCode(stationCodes);
+
+            if (notExistStationCode != null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = $"List of stations contains station code {notExistStationCode} does not belong to any station."
+            });
+
+            var route = await AppServices.Route.GetRouteByCode(request.RouteCode);
+
+            if (route == null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "Not found any route with this code."
+            });
+
+            var stationDtos = await AppServices.Station.GetStationDTOsByCodes(stationCodes);
+
+            var newRoute = await AppServices.Route.UpdateRoute(route, stationDtos);
+
+            if (newRoute == null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to update route."
+            });
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Update route successfully.",
+                Data = newRoute
+            });
         }
 
         /// <summary>

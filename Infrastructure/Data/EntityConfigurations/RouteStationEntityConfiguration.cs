@@ -55,7 +55,8 @@ namespace Infrastructure.Data.EntityConfigurations
                 .IsUnique();
 
             builder.HasIndex(e => new { e.RouteId, e.StationId, e.Index })
-                .IsUnique();
+                .IsUnique()
+                .HasFilter("deleted_at = null");
         }
     }
 }

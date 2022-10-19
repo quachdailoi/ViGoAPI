@@ -50,7 +50,7 @@ namespace API.Services
                 
             var result = await routes.MapTo<RouteViewModel>(Mapper).ToListAsync();
 
-            foreach(var route in result) route.ProcessStation();
+            if (result != null && result.Count != 0) foreach(var route in result) route.ProcessStation();
 
             return successResponse.SetData(result);
         }
@@ -153,6 +153,21 @@ namespace API.Services
         public IQueryable<Domain.Entities.Route> GetRouteByCode(Guid code)
         {
             return UnitOfWork.Routes.GetRouteByCode(code);
+        }
+
+        public async Task<RouteViewModel?> UpdateRoute(Domain.Entities.Route route, List<StationDTO> stationDTOs)
+        {
+            await UnitOfWork.CreateTransactionAsync();
+
+            var routeViewModel = await AppServices.RapidApi.UpdateRouteByListOfStation(route, stationDTOs);
+
+            if (routeViewModel == null)
+            {
+                await UnitOfWork.Rollback();
+                return null;
+            }
+            await UnitOfWork.CommitAsync();
+            return routeViewModel;
         }
     }
 }

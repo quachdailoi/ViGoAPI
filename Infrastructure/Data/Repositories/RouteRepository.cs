@@ -21,6 +21,11 @@ namespace Infrastructure.Data.Repositories
             return await Add(route);
         }
 
+        public async Task<bool> UpdateRoute(Route route)
+        {
+            return await Update(route);
+        }
+
         public Task<Route> GetRouteByCode(string code)
         {
             return List().Where(x => x.Code.ToString() == code).FirstOrDefaultAsync();

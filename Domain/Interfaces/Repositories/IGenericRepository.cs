@@ -13,5 +13,7 @@ namespace Domain.Interfaces.Repositories
         Task<bool> Remove(T entity);
 
         IQueryable<T> List(Expression<Func<T, bool>> expression = default);
+
+        Task<bool> RemoveRange(T[] entities, bool softDelete = true);
     }
 }

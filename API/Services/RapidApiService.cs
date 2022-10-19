@@ -158,6 +158,7 @@ namespace API.Services
 
             return createdRoute;
         }
+
         public async Task<Response> CreateRoute(List<StationDTO> stations, Response success, Response failed)
         {
             var createdRoute = await this.CreateRouteByListOfStation(stations);
@@ -171,7 +172,33 @@ namespace API.Services
             return success.SetData(routeVM);
         }
 
-        public async Task<Domain.Entities.Route> TrueWayDirection_FindDrivingRoute(List<StationDTO> stations)
+        public async Task<RouteViewModel?> UpdateRouteByListOfStation(Domain.Entities.Route route, List<StationDTO> stations)
+        {
+            //--- delete old routestation
+            var deletedRouteStations = await UnitOfWork.RouteStations.DeleteRouteStations(route.RouteStations, softDelete: true);
+
+            if (!deletedRouteStations)
+            {
+                return null;
+            }
+            //--- delete old routestation
+
+            await TrueWayDirection_FindDrivingRoute(stations, route);
+
+            var updatedResult = await UnitOfWork.Routes.UpdateRoute(route);
+
+            if (!updatedResult) return null;
+
+            var routeVM =
+               (await UnitOfWork.Routes.List()
+                   .Where(x => x.Id == route.Id)
+                   .MapTo<RouteViewModel>(Mapper)
+                   .FirstOrDefaultAsync())?.ProcessStation();
+
+            return routeVM;
+        }
+
+        public async Task<Domain.Entities.Route> TrueWayDirection_FindDrivingRoute(List<StationDTO> stations, Domain.Entities.Route? route = null)
         {
             var baseAddress = Configuration.Get(RapidApiSettings.TrueWayDirectionService_Uri);
 
@@ -179,10 +206,12 @@ namespace API.Services
 
             var url = $"/FindDrivingRoute?stops={stationCoorStrs}";
 
-            var route = new Domain.Entities.Route();
-
+           
             foreach (var key in _apiKeys)
             {
+
+                if (route == null) route = new Domain.Entities.Route();
+
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,

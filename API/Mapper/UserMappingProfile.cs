@@ -55,7 +55,15 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.LastSeenTime,
                     opt => opt.MapFrom(
-                            user => user.UserRooms.First().LastSeenTime.ToFormatString()));
+                            user => user.UserRooms.First().LastSeenTime.ToFormatString()))
+                .ForMember(
+                    dest => dest.AvatarUrl,
+                    opt => opt.MapFrom(src => src.File.GetFilePath(service))
+                )
+                .ForMember(
+                    dest => dest.AvatarCode,
+                    opt => opt.MapFrom(src => src.File.Code)
+                );
         }
     }
 }
