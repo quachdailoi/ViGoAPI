@@ -203,9 +203,9 @@ namespace API.Controllers.V1
 
                             var time = routeRoutine.StartTime.AddMinutes(((new Random()).Next() % 4) * 5);
 
-                            var dateDuration = routeRoutine.EndAt.ToDateTime(TimeOnly.MinValue).Subtract(routeRoutine.StartAt.ToDateTime(TimeOnly.MinValue)).TotalDays;
+                            var dateDuration = (int)Math.Floor(routeRoutine.EndAt.ToDateTime(TimeOnly.MinValue).Subtract(routeRoutine.StartAt.ToDateTime(TimeOnly.MinValue)).TotalDays) % (30*3);
 
-                            var startDate = routeRoutine.StartAt.AddDays(((new Random()).Next() % (int)Math.Floor(dateDuration)));
+                            var startDate = routeRoutine.StartAt.AddDays(((new Random()).Next() % dateDuration));
                             var endDate = new DateOnly(startDate.Year, startDate.Month, DateTime.DaysInMonth(startDate.Year, startDate.Month));
 
                             List<StationInRouteViewModel> stations = route.Stations;
@@ -227,9 +227,10 @@ namespace API.Controllers.V1
                             bookingDto.StartStationCode = stations[startIndex].Code;
                             bookingDto.EndStationCode = stations[endIndex].Code;
 
-                            dynamic booking = (await AppServices.Booking.Create(bookingDto, new(), new(), new(), new(), new(), new(), new(),new(), new(), new())).Data;
+                            dynamic booking = (await AppServices.Booking.Create(bookingDto, new(), new(), new(), new(), new(), new(), new(),new(), new(), new(), true)).Data;
 
-                            if (booking != null) totalSuccessBooking++;
+                            if (booking != null) 
+                                totalSuccessBooking++;
                         }
                     }
                 }
