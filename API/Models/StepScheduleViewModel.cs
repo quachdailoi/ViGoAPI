@@ -14,5 +14,8 @@ namespace API.Models
 
         [JsonIgnore]
         public int Index { get; set; }
+
+        [JsonIgnore]
+        public TimeOnly Time { get; set; }
     }
 }
