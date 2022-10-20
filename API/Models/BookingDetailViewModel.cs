@@ -38,6 +38,6 @@ namespace API.Models
         public double Distance { get; set; }
         public BookingDetailDrivers.TripStatus TripStatus { get; set; }
 
-        public List<ScheduleUserViewModel> Users { get; set; } = new();
+        public ScheduleUserViewModel User { get; set; } = new();
     }
 }

@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
 {
-    public class BookingDetailService: BaseService, IBookingDetailService
+    public class BookingDetailService : BaseService, IBookingDetailService
     {
 
         public BookingDetailService(IAppServices appServices) : base(appServices)
@@ -23,7 +23,7 @@ namespace API.Services
         public List<BookingDetail> GenerateBookingDetail(Booking booking, double feePerTrip)
         {
             List<BookingDetail> bookingDetails = new();
-            for(var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
+            for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
             {
                 bookingDetails.Add(new BookingDetail
                 {
@@ -42,7 +42,7 @@ namespace API.Services
                                                                 .ThenBy(b => b.Booking.Time);
 
 
-            var bookingDetail = await bookingDetailsIQueryable.MapTo<BookerBookingDetailViewModel>(Mapper,AppServices).FirstOrDefaultAsync();
+            var bookingDetail = await bookingDetailsIQueryable.MapTo<BookerBookingDetailViewModel>(Mapper, AppServices).FirstOrDefaultAsync();
 
             return successResponse.SetData(bookingDetail);
         }
@@ -99,7 +99,7 @@ namespace API.Services
 
                     var schedules = detailsInRoute.Select(x => new ScheduleBookingDetailViewModel
                     {
-                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.Status != BookingDetailDrivers.Status.Cancelled && 
+                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.Status != BookingDetailDrivers.Status.Cancelled &&
                             bdd.DriverId == driverId).OrderByDescending(x => x.CreatedAt).Select(x => x.Code).FirstOrDefault(),
                         TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.Status != BookingDetailDrivers.Status.Cancelled &&
                             bdd.DriverId == driverId).OrderByDescending(x => x.CreatedAt).Select(x => x.TripStatus).FirstOrDefault(),
@@ -119,18 +119,16 @@ namespace API.Services
                             Index = x.Booking.EndRouteStation.Index
                         },
                         Distance = CalculateDistanceFromStartToEndStation(x.Booking.StartRouteStation.Route.RouteStations, x.Booking.StartRouteStation.StationId, x.Booking.EndRouteStation.StationId, x.Booking.StartRouteStation.Route.Distance),
-                        Users = new()
+                        User = new()
                         {
-                            new()
-                            {
-                                Code = x.Booking.User.Code,
-                                Name = x.Booking.User.Name,
-                                Gender = x.Booking.User.Gender,
-                                PhoneNumber = GetUserPhoneNumber(x.Booking.User.Accounts),
-                                ChattingRoomCode = GetMessageRoomCode(x.MessageRoom),
-                                PaymentMethod = x.Booking.PaymentMethod,
-                                PaymentStatus = x.Booking.Status
-                            }
+
+                            Code = x.Booking.User.Code,
+                            Name = x.Booking.User.Name,
+                            Gender = x.Booking.User.Gender,
+                            PhoneNumber = GetUserPhoneNumber(x.Booking.User.Accounts),
+                            ChattingRoomCode = GetMessageRoomCode(x.MessageRoom),
+                            PaymentMethod = x.Booking.PaymentMethod,
+                            PaymentStatus = x.Booking.Status
                         }
                     });
 
@@ -143,7 +141,7 @@ namespace API.Services
                         StationCode = x.StartStation.Code,
                         StationName = x.StartStation.Name,
                         TripStatus = x.TripStatus,
-                        UserName = x.Users[0].Name,
+                        UserName = x.User.Name,
                         Type = BookingDetailDrivers.StepScheduleType.PickUp,
                         Index = x.StartStation.Index
                     }).ToList();
@@ -151,10 +149,10 @@ namespace API.Services
                     var endStepInSchedules = schedules.Select(x => new StepScheduleViewModel()
                     {
                         BookingDetailDriverCode = x.BookingDetailDriverCode,
-                        StationCode = x.BookingDetailDriverCode,
-                        StationName = x.StartStation.Name,
+                        StationCode = x.EndStation.Code,
+                        StationName = x.EndStation.Name,
                         TripStatus = x.TripStatus,
-                        UserName = x.Users[0].Name,
+                        UserName = x.User.Name,
                         Type = BookingDetailDrivers.StepScheduleType.DropOff,
                         Index = x.EndStation.Index
                     }).ToList();
@@ -205,7 +203,7 @@ namespace API.Services
             var bookingDetails = UnitOfWork.BookingDetails
                 .List(bd => bd.Booking.UserId == userId);
 
-            if(statuses != null && statuses.Any())
+            if (statuses != null && statuses.Any())
                 bookingDetails = bookingDetails
                     .Where(bd => statuses.Contains(bd.Status));
 
@@ -222,7 +220,7 @@ namespace API.Services
                 bookingDetails = bookingDetails.Where(x => x.Date <= toDateParse);
             }
 
-            var bookingDetailVMs = await bookingDetails.MapTo<BookerBookingDetailViewModel>(Mapper,AppServices).ToListAsync();
+            var bookingDetailVMs = await bookingDetails.MapTo<BookerBookingDetailViewModel>(Mapper, AppServices).ToListAsync();
 
             return bookingDetailVMs
                 .GroupBy(x => x.Date)
