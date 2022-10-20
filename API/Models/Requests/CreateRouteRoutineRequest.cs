@@ -15,7 +15,7 @@ namespace API.Models.Requests
         public string StartTime { get; set; }
 
         [JsonIgnore]
-        public Domain.Entities.Route Route { get; set; } = new();
+        public Domain.Entities.Route? Route { get; set; } = new();
         [JsonIgnore]
         public DateOnly StartAtParsed { get; set; }
         [JsonIgnore]

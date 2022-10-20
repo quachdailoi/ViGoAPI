@@ -169,5 +169,10 @@ namespace API.Services
             await UnitOfWork.CommitAsync();
             return routeViewModel;
         }
+
+        public IQueryable<Domain.Entities.Route> GetRoute(string code)
+        {
+            return UnitOfWork.Routes.GetRouteByCode(new Guid(code));
+        }
     }
 }

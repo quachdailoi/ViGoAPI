@@ -44,13 +44,37 @@ namespace API.Services
 
         public async Task<Response> CreateRouteRoutine(CreateRouteRoutineRequest request, Response success, Response failed)
         {
-            var newRouteData = Mapper.Map<RouteRoutine>(request);
+            var newRouteRoutineData = new RouteRoutine()
+            {
+                RouteId = request.Route.Id,
+                StartTime = request.StartTimeParsed,
+                EndTime = request.EndTimeParsed,
+                StartAt = request.StartAtParsed,
+                EndAt = request.EndAtParsed,
+                UserId = request.UserId
+            };
 
-            var routeRoutineCreated = await UnitOfWork.RouteRoutines.Add(newRouteData);
+            if (newRouteRoutineData == null) return failed;
 
-            if (routeRoutineCreated == null) return failed;
+            await UnitOfWork.CreateTransactionAsync();
 
-            return success.SetData(Mapper.Map<RouteRoutineViewModel>(routeRoutineCreated));
+            var routeRoutineCreated = await UnitOfWork.RouteRoutines.Add(newRouteRoutineData);
+
+            if (routeRoutineCreated == null)
+            {
+                await UnitOfWork.Rollback();
+                return failed;
+            }
+
+            var viewModel = UnitOfWork.RouteRoutines.List(x => x.Id == routeRoutineCreated.Id).MapTo<RouteRoutineViewModel>(Mapper);
+
+            if (viewModel == null)
+            {
+                await UnitOfWork.Rollback();
+                return failed;
+            }
+
+            return success.SetData(viewModel);
         }
 
         public async Task<Response> GetRouteRoutineOfDriver(int driverId, Response success)
