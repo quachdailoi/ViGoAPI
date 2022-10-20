@@ -39,7 +39,12 @@ namespace API.TaskQueues.TaskResolver
                                 // implement refund when can not mapping
                             }
                             else booking.Status = Bookings.Status.Started;
-                            await _appService.Booking.Update(booking);
+                            if (!_appService.Booking.Update(booking).Result)
+                                throw new Exception("Fail to update booking after mapping");
+                        }
+                        else
+                        {
+                            throw new Exception("Exist null booking in mapping task");
                         } 
                     }
                 }

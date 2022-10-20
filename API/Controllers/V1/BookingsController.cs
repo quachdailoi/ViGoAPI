@@ -1,9 +1,11 @@
-﻿using API.Models.DTO;
+﻿using API.Extensions;
+using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.SignalR.Constract;
 using API.TaskQueues;
 using API.TaskQueues.TaskResolver;
+using API.Utils;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -176,90 +178,30 @@ namespace API.Controllers.V1
             return ApiResult(response);
         }
 
-        ///// <summary>
-        /////     Get history of booking details belong to user.
-        ///// </summary>
-        ///// <remarks>
-        ///// ```
-        ///// Sample request:
-        /////     GET api/bookings/history 
-        /////     {
-        /////         FromDate: "10-10-2022",
-        /////         ToDate: "17-10-2022"
-        /////     }
-        ///// </remarks>
-        ///// <response code = "200"> Get bookings successfully.</response>
-        ///// <response code="500"> Failed to get bookings.</response>
-        //[HttpGet("history")]
-        //[Authorize(Roles = "BOOKER")]
-        //public async Task<IActionResult> GetBookingDetailHistory([FromQuery] DateFilterRequest dateFilterRequest)
-        //{
-        //    var user = LoggedInUser;
-
-        //    var response = await AppServices.BookingDetail.GetHistory(
-        //                                    user.Id,
-        //                                    dateFilterRequest: dateFilterRequest,
-        //                                    successResponse: new()
-        //                                    {
-        //                                        Message = "Get booking details successfully.",
-        //                                        StatusCode = StatusCodes.Status200OK
-        //                                    }
-        //                                    );
-        //    return ApiResult(response);
-        //}
-
-        ///// <summary>
-        /////     Get on going booking details belong to user.
-        ///// </summary>
-        ///// <remarks>
-        ///// ```
-        ///// Sample request:
-        /////     GET api/bookings/on-going 
-        /////     {
-        /////         FromDate: "10-10-2022",
-        /////         ToDate: "17-10-2022"
-        /////     }
-        ///// </remarks>
-        ///// <response code = "200"> Get bookings successfully.</response>
-        ///// <response code="500"> Failed to get bookings.</response>
-        //[HttpGet("on-going")]
-        //[Authorize(Roles = "BOOKER")]
-        //public async Task<IActionResult> GetBookingDetailOnGoing([FromQuery] DateFilterRequest dateFilterRequest)
-        //{
-        //    var user = LoggedInUser;
-
-        //    var response = await AppServices.BookingDetail.GetOnGoing(
-        //                                    user.Id,
-        //                                    dateFilterRequest: dateFilterRequest,
-        //                                    successResponse: new()
-        //                                    {
-        //                                        Message = "Get booking details successfully.",
-        //                                        StatusCode = StatusCodes.Status200OK
-        //                                    }
-        //                                    );
-        //    return ApiResult(response);
-        //}
-
-
-
         /// <summary>
-        ///     Get booking details belong to user.
+        ///     Get history of booking details belong to user.
         /// </summary>
         /// <remarks>
         /// ```
         /// Sample request:
-        ///     GET api/bookings/booking-details
+        ///     GET api/bookings/history 
+        ///     {
+        ///         Page: 1,
+        ///         PageSize: 5
+        ///     }
         /// </remarks>
         /// <response code = "200"> Get bookings successfully.</response>
         /// <response code="500"> Failed to get bookings.</response>
-        [HttpGet("booking-details")]
+        [HttpGet("history")]
         [Authorize(Roles = "BOOKER")]
-        public async Task<IActionResult> GetBookingDetail()
+        public async Task<IActionResult> GetBookingDetailHistory([FromQuery] PagingRequest pagingRequest)
         {
             var user = LoggedInUser;
 
-            var response = await AppServices.BookingDetail.GetAll(
+            var response = await AppServices.BookingDetail.GetHistory(
                                             user.Id,
+                                            dateFilterRequest: new DateFilterRequest { ToDate = DateTimeExtensions.NowDateOnly.ToFormatString()},
+                                            pagingRequest: pagingRequest,
                                             successResponse: new()
                                             {
                                                 Message = "Get booking details successfully.",
@@ -268,6 +210,68 @@ namespace API.Controllers.V1
                                             );
             return ApiResult(response);
         }
+
+        /// <summary>
+        ///     Get on going booking details belong to user.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/bookings/on-going 
+        ///     {
+        ///         Page: 1,
+        ///         PageSize: 5
+        ///     }
+        /// </remarks>
+        /// <response code = "200"> Get bookings successfully.</response>
+        /// <response code="500"> Failed to get bookings.</response>
+        [HttpGet("on-going")]
+        [Authorize(Roles = "BOOKER")]
+        public async Task<IActionResult> GetBookingDetailOnGoing([FromQuery] PagingRequest pagingRequest)
+        {
+            var user = LoggedInUser;
+
+            var response = await AppServices.BookingDetail.GetOnGoing(
+                                            user.Id,
+                                            dateFilterRequest: new DateFilterRequest { FromDate = DateTimeExtensions.NowDateOnly.ToFormatString() },
+                                            pagingRequest: pagingRequest,
+                                            successResponse: new()
+                                            {
+                                                Message = "Get booking details successfully.",
+                                                StatusCode = StatusCodes.Status200OK
+                                            }
+                                            );
+            return ApiResult(response);
+        }
+
+
+
+        ///// <summary>
+        /////     Get booking details belong to user.
+        ///// </summary>
+        ///// <remarks>
+        ///// ```
+        ///// Sample request:
+        /////     GET api/bookings/booking-details
+        ///// </remarks>
+        ///// <response code = "200"> Get bookings successfully.</response>
+        ///// <response code="500"> Failed to get bookings.</response>
+        //[HttpGet("booking-details")]
+        //[Authorize(Roles = "BOOKER")]
+        //public async Task<IActionResult> GetBookingDetail()
+        //{
+        //    var user = LoggedInUser;
+
+        //    var response = await AppServices.BookingDetail.GetAll(
+        //                                    user.Id,
+        //                                    successResponse: new()
+        //                                    {
+        //                                        Message = "Get booking details successfully.",
+        //                                        StatusCode = StatusCodes.Status200OK
+        //                                    }
+        //                                    );
+        //    return ApiResult(response);
+        //}
 
         /// <summary>
         ///     Get next trip of this user.
@@ -457,46 +461,56 @@ namespace API.Controllers.V1
                     $"transId={dto.transId}";
 
             var signature = AppServices.Payment.GetMomoSignature(rawSignature);
-            var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
+            
+            var walletTransactionDto = Encryption.DecodeBase64<WalletTransactionDTO>(dto.extraData);
 
-            if(booking != null)
+            if (dto.resultCode == (int)Payments.MomoStatusCodes.Successed)
             {
-                if (dto.resultCode == (int)Payments.MomoStatusCodes.Successed)
+                walletTransactionDto.Status = WalletTransactions.Status.Success;
+                walletTransactionDto.TxnId += $",{dto.transId}";
+
+                var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
+
+                if (booking != null && booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.amount)
                 {
-                    if (booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.amount)
+                    if (!AppServices.Booking.CheckIsConflictBooking(booking).Result)
                     {
-                        if (!AppServices.Booking.CheckIsConflictBooking(booking).Result)
-                        {
-                            booking.Status = Bookings.Status.PendingMapping;
-                            await AppServices.Booking.Update(booking);
+                        booking.Status = Bookings.Status.PendingMapping;
+                        await AppServices.Booking.Update(booking);
 
-                            //add job queue to map with specific driver
-                            await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                        //add job queue to map with specific driver
+                        await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
 
-                            await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
-                            new
-                            {
-                                BookingCode = dto.orderId,
-                                PaymentMethod = Payments.PaymentMethods.Momo,
-                                IsSuccess = dto.resultCode == (int)Payments.MomoStatusCodes.Successed,
-                                Message = "Pay booking by Momo successfully."
-                            });
-                        }
-                        else
+                        await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
+                        new
                         {
-                            await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
-                            new
-                            {
-                                BookingCode = dto.orderId,
-                                PaymentMethod = Payments.PaymentMethods.Momo,
-                                IsSuccess = false,
-                                Message = "You have booked at this time in an another booking. Check again!"
-                            });
-                        }                       
+                            BookingCode = dto.orderId,
+                            PaymentMethod = Payments.PaymentMethods.Momo,
+                            IsSuccess = true,
+                            Message = "Pay booking by Momo successfully."
+                        });
+                    }
+                    else
+                    {
+                        // refund momo wallet
+
+                        await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
+                        new
+                        {
+                            BookingCode = dto.orderId,
+                            PaymentMethod = Payments.PaymentMethods.Momo,
+                            IsSuccess = false,
+                            Message = "You have booked at this time in an another booking. Check again!"
+                        });
                     }
                 }
+            }
+            else
+            {
+                walletTransactionDto.Status = WalletTransactions.Status.Fail;
             } 
 
+            await AppServices.WalletTransaction.Update(walletTransactionDto);
             //if (signature == dto.signature)
             //{
             return NoContent();

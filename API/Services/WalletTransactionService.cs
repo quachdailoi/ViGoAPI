@@ -45,5 +45,16 @@ namespace API.Services
 
             return UnitOfWork.WalletTransactions.Update(transaction);
         }
+
+        public async Task<WalletTransactionDTO?> Create(WalletTransactionDTO dto)
+        {
+            var transaction = Mapper.Map<WalletTransaction>(dto);
+
+            transaction = await UnitOfWork.WalletTransactions.Add(transaction);
+
+            if (transaction == null) return null;
+
+            return Mapper.Map<WalletTransactionDTO>(transaction);
+        }
     }
 }

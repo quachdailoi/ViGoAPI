@@ -10,10 +10,10 @@ namespace Domain.Shares.Enums
     {
         public enum Status
         {
-            Cancelled = -1,
-            Pending = 0,
-            Started = 1,
-            Completed = 2
+            Cancelled = 0,
+            Ready = 1,
+            Started = 2,
+            Completed = 3
         }
 
         public enum TripStatus
