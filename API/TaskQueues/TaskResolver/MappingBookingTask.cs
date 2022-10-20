@@ -25,27 +25,28 @@ namespace API.TaskQueues.TaskResolver
                 async () => 
                 {
                     foreach(var id in currentJobs.GetConsumingEnumerable())
-                    {                       
-                        var booking = await _appService.Booking.Mapping(id);
-
-                        if(booking != null)
+                    {
+                        using (var booking = await _appService.Booking.Mapping(id))
                         {
-                            var isMappedSuccess = booking.BookingDetails.Any(bd => bd.Status == BookingDetails.Status.Ready);
-                            await _appService.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingMappingResult", new { Code = booking.Code, IsMappedSuccess = isMappedSuccess });
-
-                            if (!isMappedSuccess)
+                            if (booking != null)
                             {
-                                booking.Status = Bookings.Status.CancelledBySystem;
-                                // implement refund when can not mapping
+                                var isMappedSuccess = booking.BookingDetails.Any(bd => bd.Status == BookingDetails.Status.Ready);
+                                await _appService.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingMappingResult", new { Code = booking.Code, IsMappedSuccess = isMappedSuccess });
+
+                                if (!isMappedSuccess)
+                                {
+                                    booking.Status = Bookings.Status.CancelledBySystem;
+                                    // implement refund when can not mapping
+                                }
+                                else booking.Status = Bookings.Status.Started;
+                                if (!_appService.Booking.Update(booking).Result)
+                                    throw new Exception("Fail to update booking after mapping");
                             }
-                            else booking.Status = Bookings.Status.Started;
-                            if (!_appService.Booking.Update(booking).Result)
-                                throw new Exception("Fail to update booking after mapping");
-                        }
-                        else
-                        {
-                            throw new Exception("Exist null booking in mapping task");
-                        } 
+                            else
+                            {
+                                throw new Exception("Exist null booking in mapping task");
+                            }
+                        }  
                     }
                 }
                 ));

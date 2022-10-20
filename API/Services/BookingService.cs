@@ -357,15 +357,11 @@ namespace API.Services
                 .ThenInclude(bd => bd.BookingDetailDrivers)
                 .Include(e => e.VehicleType)
                 .Include(e => e.StartRouteStation)
-                //.ThenInclude(srs => srs.Station)
-                //.Include(e => e.EndRouteStation)
-                //.ThenInclude(ers => ers.Station)
                 .FirstOrDefaultAsync();
 
             if (booking == null) return null;
 
             var bookingDetails = booking.BookingDetails;
-            var bookingDetailDrivers = new List<BookingDetailDriver>();
 
             var route =
                 await UnitOfWork.Routes
@@ -483,7 +479,12 @@ namespace API.Services
 
             var endTime = DateTimeOffset.UtcNow;
 
-            Console.WriteLine($"BookingId: {booking.Id} | Status: {bookingDetailDrivers.Any()} / {bookingDetailDrivers.Count} / {booking.BookingDetails.Count} | EndTime: {endTime} | Time: {endTime.Subtract(startTime).TotalMinutes} mins");
+            var mappedBookingDetails = booking.BookingDetails.Where(bd => bd.Status == BookingDetails.Status.Ready).ToList();
+            Console.WriteLine($"BookingId: {booking.Id} | Status: {mappedBookingDetails.Any()} / {mappedBookingDetails.Count} / {booking.BookingDetails.Count} | EndTime: {endTime} | Time: {endTime.Subtract(startTime).TotalMilliseconds} ms");
+
+            Console.WriteLine("Generation: " + GC.GetGeneration(booking));
+            //GC.Collect();
+            Console.WriteLine("TotalMemory: " + GC.GetTotalMemory(false) / 1000000 + " mb");
 
             return booking;
         }
