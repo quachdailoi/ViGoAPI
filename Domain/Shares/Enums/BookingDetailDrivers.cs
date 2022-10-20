@@ -11,7 +11,7 @@ namespace Domain.Shares.Enums
         public enum Status
         {
             Cancelled = -1,
-            Pending = 0,
+            Ready = 0,
             Started = 1,
             Completed = 2
         }
