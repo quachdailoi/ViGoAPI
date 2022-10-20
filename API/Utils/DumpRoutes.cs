@@ -34,165 +34,165 @@ namespace API.Utils
             {
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[1],
+                    UserId = 3,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("09:00:00"),
                     EndTime = TimeOnly.Parse("09:00:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(3),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[1],
+                    UserId = 3,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("11:00:00"),
                     EndTime = TimeOnly.Parse("11:00:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(3),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[1],
+                    UserId = 3,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("13:00:00"),
                     EndTime = TimeOnly.Parse("13:00:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(3),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[2],
-                    RouteId = newRoute.Id,
-                    StartTime = TimeOnly.Parse("09:00:00"),
-                    EndTime = TimeOnly.Parse("09:00:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(2),
-                },
-                new RouteRoutine
-                {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[2],
+                    UserId = 3,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("15:00:00"),
-                    EndTime = TimeOnly.Parse("15:00:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(2),
+                    EndTime = TimeOnly.Parse("09:00:00").AddMinutes(newRoute.Duration/60),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[2],
+                    UserId = 3,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("17:00:00"),
-                    EndTime = TimeOnly.Parse("17:00:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(2),
+                    EndTime = TimeOnly.Parse("15:00:00").AddMinutes(newRoute.Duration/60),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[3],
+                    UserId = 3,
+                    RouteId = newRoute.Id,
+                    StartTime = TimeOnly.Parse("19:00:00"),
+                    EndTime = TimeOnly.Parse("17:00:00").AddMinutes(newRoute.Duration/60),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
+                },
+                new RouteRoutine
+                {
+                    UserId = 4,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("09:30:00"),
                     EndTime = TimeOnly.Parse("09:30:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(3),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[3],
+                    UserId = 4,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("11:30:00"),
                     EndTime = TimeOnly.Parse("11:30:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(3),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[3],
+                    UserId = 4,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("13:40:00"),
                     EndTime = TimeOnly.Parse("13:40:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(3),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[3],
+                    UserId = 4,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("15:00:00"),
                     EndTime = TimeOnly.Parse("15:00:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(3),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[3],
+                    UserId = 4,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("17:30:00"),
                     EndTime = TimeOnly.Parse("17:30:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(3),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[1],
+                    UserId = 4,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("19:00:00"),
                     EndTime = TimeOnly.Parse("18:45:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(3),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[0],
+                    UserId = 3,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("07:00:00"),
                     EndTime = TimeOnly.Parse("07:00:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(1),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[0],
+                    UserId = 4,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("08:00:00"),
                     EndTime = TimeOnly.Parse("08:00:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(1),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[0],
+                    UserId = 1,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("09:00:00"),
                     EndTime = TimeOnly.Parse("09:00:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(1),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[0],
+                    UserId = 1,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("16:30:00"),
                     EndTime = TimeOnly.Parse("16:30:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(1),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[1],
+                    UserId = 2,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("17:30:00"),
                     EndTime = TimeOnly.Parse("17:30:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(1),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
                 new RouteRoutine
                 {
-                    UserId = GetListDriverIdsToDumpRouteRoutines[1],
+                    UserId = 2,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("18:30:00"),
                     EndTime = TimeOnly.Parse("18:30:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-10-2022","dd-MM-yyyy").AddMonths(1),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
             };
 
@@ -203,7 +203,7 @@ namespace API.Utils
         {
             throw new NotImplementedException();
         }
-        public static List<int> GetListDriverIdsToDumpRouteRoutines = new List<int>{ 4, 2, 3, 1};
+        //public static List<int> GetListDriverIdsToDumpRouteRoutines = new List<int>{ };
         public static List<List<int>> GetListStationIdsToDumpRoutes()
         {
             return new()
