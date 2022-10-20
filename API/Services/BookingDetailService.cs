@@ -143,7 +143,8 @@ namespace API.Services
                         TripStatus = x.TripStatus,
                         UserName = x.User.Name,
                         Type = BookingDetailDrivers.StepScheduleType.PickUp,
-                        Index = x.StartStation.Index
+                        Index = x.StartStation.Index,
+                        Time = x.Time
                     }).ToList();
 
                     var endStepInSchedules = schedules.Select(x => new StepScheduleViewModel()
@@ -154,10 +155,11 @@ namespace API.Services
                         TripStatus = x.TripStatus,
                         UserName = x.User.Name,
                         Type = BookingDetailDrivers.StepScheduleType.DropOff,
-                        Index = x.EndStation.Index
+                        Index = x.EndStation.Index,
+                        Time = x.Time
                     }).ToList();
 
-                    var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Index).AsEnumerable();
+                    var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Time).ThenBy(x => x.Index).AsEnumerable();
 
                     routeSchedule.Steps.AddRange(stepInSchedules);
 
