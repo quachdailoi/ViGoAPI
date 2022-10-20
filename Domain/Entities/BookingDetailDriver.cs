@@ -13,7 +13,7 @@ namespace Domain.Entities
         public Guid Code { get; set; } = Guid.NewGuid();
         public TimeOnly? StartTime { get; set; } = null;
         public TimeOnly? EndTime { get; set; } = null;
-        public BookingDetailDrivers.Status Status { get; set; } = BookingDetailDrivers.Status.Pending;
+        public BookingDetailDrivers.Status Status { get; set; } = BookingDetailDrivers.Status.Ready;
 
         public BookingDetailDrivers.TripStatus TripStatus { get; set; } = BookingDetailDrivers.TripStatus.NotYet;
 

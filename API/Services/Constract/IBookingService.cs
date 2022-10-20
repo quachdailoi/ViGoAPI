@@ -11,7 +11,7 @@ namespace API.Services.Constract
         Task<Response> Create(
             BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse,
             Response invalidVehicleTypeResponse, Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, 
-            Response notAvailableResponse, Response insufficientBalanceResponse, Response errorResponse);
+            Response notAvailableResponse, Response insufficientBalanceResponse, Response errorResponse, bool isDummy = false);
         Task<Response> GetProvision(
             BookingDTO dto, Response successResponse, Response invalidStationResponse, Response invalidRouteResponse, 
             Response invalidVehicleTypeResponse, Response invalidPromotionResponse);

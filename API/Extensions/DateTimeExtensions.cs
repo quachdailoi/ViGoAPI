@@ -3,6 +3,7 @@
     public static class DateTimeExtensions
     {
         public static DateOnly NowDateOnly => DateOnly.FromDateTime(DateTimeOffset.Now.DateTime);
+        public static TimeOnly NowTimeOnly => TimeOnly.FromTimeSpan(DateTimeOffset.Now.TimeOfDay);
         public static bool TryParseExact(this string dateOnlyStr, out DateOnly dateOnly)
         {
             return DateOnly.TryParseExact(dateOnlyStr, "dd-MM-yyyy", out dateOnly);
@@ -26,6 +27,8 @@
 
             return timeOnly;
         }
+
+        public static string ToFormatString(this DateOnly dateOnly) => dateOnly.ToString("dd-MM-yyyy"); 
 
         public static DateTime ParseExactDateTime(string dateOnlyStr, string timeOnlyStr)
         {

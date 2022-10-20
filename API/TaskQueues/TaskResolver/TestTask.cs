@@ -11,6 +11,10 @@ namespace API.TaskQueues.TaskResolver
 
         public override async Task Solve()
         {
+            var redisMQService = _serviceProvider.GetRequiredService<IRedisMQService>();
+
+            var subscriber = redisMQService.GetSubscriber();
+
             var thread = new Thread(new ThreadStart(
                 () =>
                 {

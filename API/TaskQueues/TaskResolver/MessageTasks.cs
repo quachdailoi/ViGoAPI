@@ -17,15 +17,18 @@ namespace API.TaskQueues.TaskResolver
 
         public override async Task Solve()
         {
-            var _roomService = _serviceProvider.GetRequiredService<IRoomService>();
+            var roomService = _serviceProvider.GetRequiredService<IRoomService>();
+            var redisMQService = _serviceProvider.GetRequiredService<IRedisMQService>();
+
+            var subscriber = redisMQService.GetSubscriber();
 
             subscriber.Subscribe(SUPPORT_MESSAGE_QUEUE).OnMessage(async (msg) =>
             {
-                var admin = await _redisMQService.GetValue(ADMIN_QUEUE);
+                var admin = await redisMQService.GetValue(ADMIN_QUEUE);
 
                 if (admin == null) return;
 
-                var task = await _redisMQService.GetValue(SUPPORT_MESSAGE_QUEUE);
+                var task = await redisMQService.GetValue(SUPPORT_MESSAGE_QUEUE);
 
                 var userCode = JsonConvert.DeserializeObject<Guid>(task);
 
@@ -35,19 +38,19 @@ namespace API.TaskQueues.TaskResolver
 
                 while (!result)
                 {
-                    result = (await _roomService.Create(new List<Guid> { userCode, adminCode }, Rooms.RoomTypes.Support)) != null;
+                    result = (await roomService.Create(new List<Guid> { userCode, adminCode }, Rooms.RoomTypes.Support)) != null;
                 }
 
-                await _redisMQService.Push(ADMIN_QUEUE, adminCode);
+                await redisMQService.Push(ADMIN_QUEUE, adminCode);
             });
 
             subscriber.Subscribe(ADMIN_QUEUE).OnMessage(async (msg) =>
             {
-                var task = await _redisMQService.GetValue(SUPPORT_MESSAGE_QUEUE);
+                var task = await redisMQService.GetValue(SUPPORT_MESSAGE_QUEUE);
 
                 if (task == null) return;
 
-                var admin = await _redisMQService.GetValue(ADMIN_QUEUE);
+                var admin = await redisMQService.GetValue(ADMIN_QUEUE);
 
                 var userCode = JsonConvert.DeserializeObject<Guid>(task);
 
@@ -57,10 +60,10 @@ namespace API.TaskQueues.TaskResolver
 
                 while (!result)
                 {
-                    result = (await _roomService.Create(new List<Guid> { userCode, adminCode }, Rooms.RoomTypes.Support)) != null;
+                    result = (await roomService.Create(new List<Guid> { userCode, adminCode }, Rooms.RoomTypes.Support)) != null;
                 }
 
-                await _redisMQService.Push(ADMIN_QUEUE, adminCode);
+                await redisMQService.Push(ADMIN_QUEUE, adminCode);
             });
         }
     }

@@ -25,7 +25,7 @@ namespace API.Mapper
                     dest => dest.Driver,
                     opt => opt.MapFrom(
                         src => src.BookingDetailDrivers
-                        .Where(bdr => bdr.Status == BookingDetailDrivers.Status.Pending)
+                        .Where(bdr => bdr.Status != BookingDetailDrivers.Status.Cancelled)
                         .FirstOrDefault().Driver))
                 .ForMember(
                     dest => dest.Time,
@@ -35,6 +35,18 @@ namespace API.Mapper
                     dest => dest.BookingCode,
                     opt => opt.MapFrom(
                         src => src.Booking.Code))
+                .ForMember(
+                    dest => dest.StartStation,
+                    opt => opt.MapFrom(
+                        src => src.Booking.StartRouteStation.Station))
+                .ForMember(
+                    dest => dest.EndStation,
+                    opt => opt.MapFrom(
+                        src => src.Booking.EndRouteStation.Station))
+                .ForMember(
+                    dest => dest.BookingType,
+                    opt => opt.MapFrom(
+                        src => src.Booking.VehicleType.Type.DisplayName()))
                 .IncludeBase<BookingDetail, BookingDetailViewModel>();
 
             CreateMap<BookingDetail, DriverBookingDetailViewModel>()
