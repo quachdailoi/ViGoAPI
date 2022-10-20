@@ -40,9 +40,9 @@ namespace API.Controllers.V1.Driver
         {
             request.UserId = LoggedInUser.Id;
 
-            var newRoute = await AppServices.Route.GetRouteByCode(request.RouteCode);
+            var foundedRoute = AppServices.Route.GetRoute(request.RouteCode);
 
-            if (newRoute == null)
+            if (foundedRoute == null || foundedRoute.Count() == 0)
             {
                 return ApiResult(new()
                 {
@@ -51,7 +51,7 @@ namespace API.Controllers.V1.Driver
                 });
             }
 
-            request.Route = newRoute; // use to map route id
+            request.Route = foundedRoute.FirstOrDefault(); // use to map route id
 
             if (!AppServices.RouteRoutine.CheckValidRoutineForRoute(request))
             {

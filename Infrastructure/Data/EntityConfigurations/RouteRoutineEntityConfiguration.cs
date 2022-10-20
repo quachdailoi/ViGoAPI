@@ -18,6 +18,8 @@ namespace Infrastructure.Data.EntityConfigurations
 
             builder.ToTable("route_routines");
 
+            builder.Navigation(e => e.Route).AutoInclude();
+
             builder.Property(e => e.RouteId)
                 .IsRequired()
                 .HasColumnName("route_id");

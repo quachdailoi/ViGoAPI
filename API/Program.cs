@@ -157,15 +157,15 @@ services.ConfigurationSeedData();
 //IoC For Profile
 //services.AddSingleton(provider => new MapperConfiguration(cfg =>
 //{
-//    cfg.AddProfile(new UserMappingProfile());
-//    cfg.AddProfile(new MessageRoomMappingProfile());
-//    cfg.AddProfile(new BookingMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
-//    cfg.AddProfile(new BookingDetailMappingProfile());
-//    cfg.AddProfile(new PromotionMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
-//    cfg.AddProfile(new RouteMappingProfile());
-//    cfg.AddProfile(new StationMappingProfile());
-//    cfg.AddProfile(new BannerMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
-//    cfg.AddProfile(new VehicleMappingProfile());
+//    //cfg.AddProfile(new UserMappingProfile());
+//    //cfg.AddProfile(new MessageRoomMappingProfile());
+//    //cfg.AddProfile(new BookingMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
+//    //cfg.AddProfile(new BookingDetailMappingProfile());
+//    //cfg.AddProfile(new PromotionMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
+//    //cfg.AddProfile(new RouteMappingProfile());
+//    //cfg.AddProfile(new StationMappingProfile());
+//    //cfg.AddProfile(new BannerMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
+//    //cfg.AddProfile(new VehicleMappingProfile());
 //    cfg.AddProfile(new RouteRoutineMappingProfile());
 //}).CreateMapper());
 
