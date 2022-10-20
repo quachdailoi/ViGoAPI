@@ -127,8 +127,7 @@ namespace API.Services
 
             // check for exist available driver for this trip
 
-            if (!AppServices.RouteRoutine.GetRouteRoutineFitBookingCondition(booking).Result.Any()) return notAvailableResponse;
- 
+            //if (!AppServices.RouteRoutine.GetRouteRoutineFitBookingCondition(booking).Result.Any()) return notAvailableResponse;
 
             await UnitOfWork.CreateTransactionAsync();
 
