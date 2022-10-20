@@ -25,7 +25,7 @@ namespace API.Mapper
                     dest => dest.Driver,
                     opt => opt.MapFrom(
                         src => src.BookingDetailDrivers
-                        .Where(bdr => bdr.Status == BookingDetailDrivers.Status.Pending)
+                        .Where(bdr => bdr.Status == BookingDetailDrivers.Status.Ready)
                         .FirstOrDefault().Driver))
                 .ForMember(
                     dest => dest.Time,

@@ -401,7 +401,7 @@ namespace API.Services
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
                                 bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
                                 bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime &&
-                                bdr.Status == BookingDetailDrivers.Status.Pending))
+                                bdr.Status == BookingDetailDrivers.Status.Ready))
                     .ToList();
 
                 //then order by driver point
@@ -422,7 +422,7 @@ namespace API.Services
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
                                 bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
                                 bdr.BookingDetail.Booking.Time < routeRoutine.EndTime &&
-                                bdr.Status == BookingDetailDrivers.Status.Pending)
+                                bdr.Status == BookingDetailDrivers.Status.Ready)
                             .OrderBy(bdr => bdr.BookingDetail.Booking.Time)
                             .ToList()
                             .Select(bdr => bdr.BookingDetail)
@@ -463,7 +463,7 @@ namespace API.Services
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
                                 bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
                                 bdr.BookingDetail.Booking.Time < routeRoutine.EndTime &&
-                                bdr.Status == BookingDetailDrivers.Status.Pending)
+                                bdr.Status == BookingDetailDrivers.Status.Ready)
                             .OrderBy(bdr => bdr.BookingDetail.Booking.Time)
                             .ToList()
                             .Select(bdr => bdr.BookingDetail)
