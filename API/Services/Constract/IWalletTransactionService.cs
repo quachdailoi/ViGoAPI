@@ -8,5 +8,6 @@ namespace API.Services.Constract
     {
         Task<Response> GetTransactions(int userId, Response successResponse, PagingRequest? request = null);
         Task<bool> Update(WalletTransactionDTO dto);
+        Task<WalletTransactionDTO?> Create(WalletTransactionDTO dto);
     }
 }

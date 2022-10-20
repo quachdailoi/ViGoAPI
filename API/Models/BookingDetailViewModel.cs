@@ -18,10 +18,13 @@ namespace API.Models
         public string StatusName { get; set; }
         public Guid? ChattingRoomCode { get; set; }
         public TimeOnly Time { get; set; }
+        public StationInRouteViewModel StartStation { get; set; }
+        public StationInRouteViewModel EndStation { get; set; }
     }
     public class BookerBookingDetailViewModel : BookingDetailViewModel
     {
         public Guid BookingCode { get; set; }
+        public string BookingType { get; set; }
         public DriverViewModel? Driver { get; set; } = null;
     }
     public class DriverBookingDetailViewModel : BookingDetailViewModel
