@@ -73,7 +73,7 @@ namespace API.Services
                 await UnitOfWork.Rollback();
                 return failed;
             }
-
+            await UnitOfWork.CommitAsync();
             return success.SetData(viewModel);
         }
 
