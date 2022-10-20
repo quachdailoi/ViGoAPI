@@ -247,6 +247,14 @@ namespace API.Controllers.V1
             return Ok(result);
         }
 
+        [HttpPut("dump/completed-booking-details")]
+        [AllowAnonymous]
+        public async Task<IActionResult> DumpCompletedBookingDetails()
+        {
+            await AppServices.BookingDetail.SetCompletedBookingDetail();
+            return Ok();
+        }
+
         //[HttpPost("dump/drivers")]
         //[AllowAnonymous]
         //public async Task<IActionResult> DumpDrivers()
