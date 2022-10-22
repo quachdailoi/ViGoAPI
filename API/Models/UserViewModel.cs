@@ -23,6 +23,8 @@ namespace API.Models
         public string? PhoneNumber { get; set; } = string.Empty;
         public bool? HasVerifiedPhoneNumber { get; set; } = false;
         public string? RoleName { get; set; } = Roles.GUEST.GetName();
+
+        public WalletViewModel Wallet { get; set; }
     }
     public class DriverViewModel
     {
