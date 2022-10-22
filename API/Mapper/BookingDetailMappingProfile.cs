@@ -14,11 +14,7 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.ChattingRoomCode,
                     opt => opt.MapFrom(
-                        src => src.MessageRoom.Code))
-                .ForMember(
-                    dest => dest.StatusName,
-                    opt => opt.MapFrom(
-                        src => src.Status.DisplayName()));
+                        src => src.MessageRoom.Code));
 
             CreateMap<BookingDetail, BookerBookingDetailViewModel>()
                 .ForMember(
@@ -27,6 +23,12 @@ namespace API.Mapper
                         src => src.BookingDetailDrivers
                         .Where(bdr => bdr.Status != BookingDetailDrivers.Status.Cancelled)
                         .FirstOrDefault().Driver))
+                .ForMember(
+                    dest => dest.DriverStatus,
+                    opt => opt.MapFrom(
+                        src => src.BookingDetailDrivers
+                        .Where(bdr => bdr.Status != BookingDetailDrivers.Status.Cancelled)
+                        .FirstOrDefault().Status))
                 .ForMember(
                     dest => dest.Time,
                     opt => opt.MapFrom(

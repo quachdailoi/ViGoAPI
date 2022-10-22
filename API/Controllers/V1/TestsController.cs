@@ -61,20 +61,24 @@ namespace API.Controllers.V1
 
         [HttpGet("test")]
         [AllowAnonymous]
-        public async Task<IActionResult> Test([FromQuery] int number)
+        public async Task<IActionResult> Test([FromQuery] int number, [FromQuery] Guid code)
         {
             //var uri = GetControllerContextUri();
             //var routers = ControllerContext.RouteData.Routers;
             //await _redisMQMessage.Publish("number",number);
 
-            TimeOnly startTime = new TimeOnly(12, 10);
-            TimeOnly endTime = new TimeOnly(12, 15);
+            //TimeOnly startTime = new TimeOnly(12, 10);
+            //TimeOnly endTime = new TimeOnly(12, 15);
 
 
 
             //var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
 
-            return Ok((startTime - endTime).TotalMinutes);
+            var booking = await AppServices.Booking.GetByCode(code);
+
+            booking.Status = Bookings.Status.PendingMapping;
+
+            return Ok(await AppServices.Booking.Update(booking));
         }
 
         [HttpPost("dump/drivers")]

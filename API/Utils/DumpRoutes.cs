@@ -64,15 +64,6 @@ namespace API.Utils
                     UserId = 3,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("15:00:00"),
-                    EndTime = TimeOnly.Parse("09:00:00").AddMinutes(newRoute.Duration/60),
-                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
-                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
-                },
-                new RouteRoutine
-                {
-                    UserId = 3,
-                    RouteId = newRoute.Id,
-                    StartTime = TimeOnly.Parse("17:00:00"),
                     EndTime = TimeOnly.Parse("15:00:00").AddMinutes(newRoute.Duration/60),
                     StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
                     EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
@@ -81,8 +72,17 @@ namespace API.Utils
                 {
                     UserId = 3,
                     RouteId = newRoute.Id,
-                    StartTime = TimeOnly.Parse("19:00:00"),
+                    StartTime = TimeOnly.Parse("17:00:00"),
                     EndTime = TimeOnly.Parse("17:00:00").AddMinutes(newRoute.Duration/60),
+                    StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
+                    EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
+                },
+                new RouteRoutine
+                {
+                    UserId = 3,
+                    RouteId = newRoute.Id,
+                    StartTime = TimeOnly.Parse("19:00:00"),
+                    EndTime = TimeOnly.Parse("19:00:00").AddMinutes(newRoute.Duration/60),
                     StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
                     EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },
@@ -136,7 +136,7 @@ namespace API.Utils
                     UserId = 4,
                     RouteId = newRoute.Id,
                     StartTime = TimeOnly.Parse("19:00:00"),
-                    EndTime = TimeOnly.Parse("18:45:00").AddMinutes(newRoute.Duration/60),
+                    EndTime = TimeOnly.Parse("19:00:00").AddMinutes(newRoute.Duration/60),
                     StartAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy"),
                     EndAt = DateOnly.ParseExact("01-09-2022","dd-MM-yyyy").AddMonths(5),
                 },

@@ -43,10 +43,7 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.AvatarCode,
                     opt => opt.MapFrom(src => src.File.Code)
-                )
-                .ForMember(
-                    dest => dest.StatusName,
-                    opt => opt.MapFrom(src => src.Status.DisplayName()));
+                );
 
             CreateMap<User, DriverViewModel>()
                 .ForMember(
@@ -55,6 +52,12 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.AvatarCode,
                     opt => opt.MapFrom(src => src.File.Code));
+
+            CreateMap<User, DriverInBookingDetailViewModel>()
+                .ForMember(
+                    dest => dest.Status,
+                    opt => opt.Ignore())
+                .IncludeBase<User, DriverViewModel>();
 
             CreateMap<User, ContactUserViewModel>()
                 .ForMember(

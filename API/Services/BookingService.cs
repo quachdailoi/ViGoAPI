@@ -40,7 +40,7 @@ namespace API.Services
 
             if (route != null && routeStations.GroupBy(e => e.StationId).Count() == 2)
             {
-                booking.StartRouteStation.RouteId = route.Id;
+                //booking.StartRouteStation.RouteId = route.Id;
 
                 var startStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.StartStationCode).First();
                 var endStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.EndStationCode).First();
@@ -88,10 +88,8 @@ namespace API.Services
             return booking;
         }
 
-        public async Task<bool> CheckIsConflictBooking(Booking booking)
-        {
-            var duplicateBookings =
-                await UnitOfWork.Bookings
+        public Task<bool> CheckIsConflictBooking(Booking booking)
+             => UnitOfWork.Bookings
                 .List(e =>
                     (e.Status == Bookings.Status.PendingMapping ||
                     e.Status == Bookings.Status.Started) &&
@@ -99,10 +97,8 @@ namespace API.Services
                     e.Time > booking.Time.AddMinutes(booking.Duration / 60)) &&
                     e.UserId == booking.UserId &&
                     !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
-                .Include(e => e.BookingDetails)
-                .ToListAsync();
-            return duplicateBookings.Any();
-        }
+                //.Include(e => e.BookingDetails)
+                .AnyAsync();
 
         public async Task<Response> Create(
             BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse, Response invalidVehicleTypeResponse,
@@ -137,6 +133,7 @@ namespace API.Services
             if (booking == null) return errorResponse;
 
             string paymentUrl = String.Empty;
+            string webUrl = string.Empty;
 
             try
             {
@@ -168,6 +165,7 @@ namespace API.Services
                         if (response == null) throw new Exception("Fail to generate momo url.");
 
                         paymentUrl = response.deeplink;
+                        webUrl = response.payUrl;
                         break;
                     case Payments.PaymentMethods.Wallet:
                         if (wallet.Balance < booking.TotalPrice) throw new Exception("Insufficient balance.");
@@ -214,7 +212,8 @@ namespace API.Services
             return successResponse.SetData(new 
             { 
                 Booking = bookingViewModel,
-                PaymentUrl = paymentUrl
+                PaymentUrl = paymentUrl,
+                WebLinkUrl = webUrl
             } 
             );
         }
