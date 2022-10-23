@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using API.Extensions;
+using Domain.Entities;
 using Domain.Shares.Enums;
 using System.Text.Json.Serialization;
 
@@ -15,17 +16,31 @@ namespace API.Models
         public double Price { get; set; }
         public double DiscountPrice { get; set; }
         public BookingDetails.Status Status { get; set; }
-        public string StatusName { get; set; }
+        public string StatusName { get => Status.DisplayName(); }
         public Guid? ChattingRoomCode { get; set; }
         public TimeOnly Time { get; set; }
         public StationInRouteViewModel StartStation { get; set; }
         public StationInRouteViewModel EndStation { get; set; }
+        [JsonIgnore]
+        public BookingDetailDriver? BookingDetailDriver { get; set; } = null;
     }
     public class BookerBookingDetailViewModel : BookingDetailViewModel
     {
         public Guid BookingCode { get; set; }
         public string BookingType { get; set; }
-        public DriverViewModel? Driver { get; set; } = null;
+        public DriverInBookingDetailViewModel? Driver { get; set; } = null;
+        [JsonIgnore]
+        public BookingDetailDrivers.Status? DriverStatus
+        {
+            get => Driver?.Status;
+            set
+            {
+                if (Driver != null && value.HasValue)
+                {
+                    Driver.Status = value.Value;
+                }
+            }
+        }
     }
     public class DriverBookingDetailViewModel : BookingDetailViewModel
     {

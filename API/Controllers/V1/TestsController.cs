@@ -67,14 +67,27 @@ namespace API.Controllers.V1
             //var routers = ControllerContext.RouteData.Routers;
             //await _redisMQMessage.Publish("number",number);
 
-            TimeOnly startTime = new TimeOnly(12, 10);
-            TimeOnly endTime = new TimeOnly(12, 15);
+            //TimeOnly startTime = new TimeOnly(12, 10);
+            //TimeOnly endTime = new TimeOnly(12, 15);
 
 
 
             //var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
 
-            return Ok((startTime - endTime).TotalMinutes);
+            int integer = 4;
+            double _double = 35.54;
+            bool isTrue = true;
+
+            Console.WriteLine("Generation: " + GC.GetGeneration(integer));
+            Console.WriteLine("TotalMemory_Integer: " + GC.GetTotalMemory(false) + " bytes");
+
+            Console.WriteLine("Generation: " + GC.GetGeneration(_double));
+            Console.WriteLine("TotalMemory_Double: " + GC.GetTotalMemory(false) + " bytes");
+
+            Console.WriteLine("Generation: " + GC.GetGeneration(isTrue));
+            Console.WriteLine("TotalMemory_Boolean: " + GC.GetTotalMemory(false) + " bytes");
+
+            return Ok();
         }
 
         [HttpPost("dump/drivers")]

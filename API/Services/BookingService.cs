@@ -12,6 +12,7 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 
 namespace API.Services
 {
@@ -40,7 +41,7 @@ namespace API.Services
 
             if (route != null && routeStations.GroupBy(e => e.StationId).Count() == 2)
             {
-                booking.StartRouteStation.RouteId = route.Id;
+                //booking.StartRouteStation.RouteId = route.Id;
 
                 var startStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.StartStationCode).First();
                 var endStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.EndStationCode).First();
@@ -88,10 +89,8 @@ namespace API.Services
             return booking;
         }
 
-        public async Task<bool> CheckIsConflictBooking(Booking booking)
-        {
-            var duplicateBookings =
-                await UnitOfWork.Bookings
+        public Task<bool> CheckIsConflictBooking(Booking booking)
+             => UnitOfWork.Bookings
                 .List(e =>
                     (e.Status == Bookings.Status.PendingMapping ||
                     e.Status == Bookings.Status.Started) &&
@@ -99,10 +98,7 @@ namespace API.Services
                     e.Time > booking.Time.AddMinutes(booking.Duration / 60)) &&
                     e.UserId == booking.UserId &&
                     !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
-                .Include(e => e.BookingDetails)
-                .ToListAsync();
-            return duplicateBookings.Any();
-        }
+                .AnyAsync();
 
         public async Task<Response> Create(
             BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse, Response invalidVehicleTypeResponse,
@@ -137,6 +133,7 @@ namespace API.Services
             if (booking == null) return errorResponse;
 
             string paymentUrl = String.Empty;
+            string webUrl = string.Empty;
 
             try
             {
@@ -168,6 +165,7 @@ namespace API.Services
                         if (response == null) throw new Exception("Fail to generate momo url.");
 
                         paymentUrl = response.deeplink;
+                        webUrl = response.payUrl;
                         break;
                     case Payments.PaymentMethods.Wallet:
                         if (wallet.Balance < booking.TotalPrice) throw new Exception("Insufficient balance.");
@@ -214,7 +212,8 @@ namespace API.Services
             return successResponse.SetData(new 
             { 
                 Booking = bookingViewModel,
-                PaymentUrl = paymentUrl
+                PaymentUrl = paymentUrl,
+                WebLinkUrl = webUrl
             } 
             );
         }
@@ -222,16 +221,9 @@ namespace API.Services
 
         private bool IsSatisfiedTimeCondition(TimeOnly routeRoutineStartTime, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)
         {
-            //var curBookingStartTime = bookingDetail.Booking.Time;
             var curBookingStartStation = routeStationDic[bookingDetail.Booking.StartRouteStationId];
             var timeArriveCurBookingStartStation = routeRoutineStartTime.AddMinutes(curBookingStartStation.DurationFromFirstStationInRoute / 60);
 
-            //var mappedBookingStartTime = mappedBookingDetail.Booking.Time;
-            //var mappedBookingStartStation = routeStationDic[mappedBookingDetail.Booking.StartRouteStationId];
-
-            //var timeArriveCurBookingStartStation = mappedBookingStartTime.AddMinutes((curBookingStartStation.DurationFromFirstStationInRoute - mappedBookingStartStation.DurationFromFirstStationInRoute) / 60);
-
-            //return (timeArriveCurBookingStartStation - curBookingStartTime).TotalMinutes == 0; 
 
             return timeArriveCurBookingStartStation.ToTimeSpan(bookingDetail.Booking.Time).TotalMinutes <= Bookings.AllowedMappingTimeRange;
         }
@@ -344,9 +336,11 @@ namespace API.Services
 
             bookingDetail.MessageRoomId = room.Id;
         }
+
         public async Task<Booking?> Mapping(int bookingId)
         {
             var startTime = DateTimeOffset.UtcNow;
+
             var booking =
                 await UnitOfWork.Bookings
                 .List(e => e.Id == bookingId && e.Status == Bookings.Status.PendingMapping)
@@ -361,44 +355,59 @@ namespace API.Services
 
             if (booking == null) return null;
 
-            var bookingDetails = booking.BookingDetails;
-
-            var route =
-                await UnitOfWork.Routes
+            var routeStationDic =
+                (await UnitOfWork.Routes
                 .List(e => e.Id == booking.StartRouteStation.RouteId && e.Status == Routes.Status.Active)
                 .Include(e => e.RouteStations)
                 .ThenInclude(rs => rs.Station)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync())?
+                .RouteStations
+                .ToDictionary(e => e.Id);
 
-            if(route == null) return null;
+            if(routeStationDic == null) return null;
 
-            var routeStationDic = route.RouteStations.ToDictionary(e => e.Id);
-
-            var routeRoutines = 
-                await UnitOfWork.RouteRoutines
+            var routeRoutines =
+                UnitOfWork.RouteRoutines
                 .List(routeRoutine => !(routeRoutine.StartAt > booking.EndAt || routeRoutine.EndAt < booking.StartAt) &&
                                       (routeRoutine.StartTime <= booking.Time && routeRoutine.EndTime > booking.Time) &&
-                                      routeRoutine.RouteId == route.Id && routeRoutine.User.Vehicle.VehicleTypeId == booking.VehicleTypeId)
+                                      routeRoutine.RouteId == booking.StartRouteStation.RouteId && routeRoutine.User.Vehicle.VehicleTypeId == booking.VehicleTypeId)
                 .Include(e => e.User)
                 .ThenInclude(u => u.BookingDetailDrivers)
                 .ThenInclude(bdr => bdr.BookingDetail)
-                .ThenInclude(bd => bd.Booking)
-                .ToListAsync();
+                .ThenInclude(bd => bd.Booking);
 
             var driverUserMessageRoomDic = new Dictionary<Guid, Room>();
 
-            foreach (var bookingDetail in bookingDetails)
+            foreach (var bookingDetail in booking.BookingDetails)
             {
-                //order by total number of mapped booking with driver in detail booking datetime
-                var orderedRouteRoutines = routeRoutines
-                    .OrderBy(routeRoutine =>
-                        routeRoutine.User.BookingDetailDrivers
-                        .Count(bdr =>
+
+                var rawOrderedRouteRoutines =
+                    (await routeRoutines
+                    .Select(routeRoutine => new
+                    {
+                        RouteRoutine = routeRoutine,
+                        BookingDetailDrivers = routeRoutine.User.BookingDetailDrivers
+                            .Where(bdr =>
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
                                 bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
                                 bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime &&
-                                bdr.Status == BookingDetailDrivers.Status.Ready))
+                                bdr.Status == BookingDetailDrivers.Status.Ready)
+                            .ToList()
+                    })
+                    .ToListAsync());
+
+                rawOrderedRouteRoutines.ForEach(item => item.RouteRoutine.User.BookingDetailDrivers = item.BookingDetailDrivers);
+                
+                var orderedRouteRoutines = rawOrderedRouteRoutines
+                    .Select(item => item.RouteRoutine)
+                    .OrderBy(routeRoutine => routeRoutine.User.BookingDetailDrivers.Count)
                     .ToList();
+
+                if (orderedRouteRoutines.Any(e => e.User.BookingDetailDrivers.Any())) 
+                {
+                    var i = 34;       
+                };
+                    
 
                 //then order by driver point
 
@@ -473,6 +482,8 @@ namespace API.Services
                         }
                     }
                 }
+
+                foreach (var routeRoutine in routeRoutines) routeRoutine.Dispose();
             }
 
 
@@ -481,10 +492,6 @@ namespace API.Services
 
             var mappedBookingDetails = booking.BookingDetails.Where(bd => bd.Status == BookingDetails.Status.Ready).ToList();
             Console.WriteLine($"BookingId: {booking.Id} | Status: {mappedBookingDetails.Any()} / {mappedBookingDetails.Count} / {booking.BookingDetails.Count} | EndTime: {endTime} | Time: {endTime.Subtract(startTime).TotalMilliseconds} ms");
-
-            Console.WriteLine("Generation: " + GC.GetGeneration(booking));
-            //GC.Collect();
-            Console.WriteLine("TotalMemory: " + GC.GetTotalMemory(false) / 1000000 + " mb");
 
             return booking;
         }

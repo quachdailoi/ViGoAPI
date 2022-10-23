@@ -174,7 +174,7 @@ namespace API.Extensions
         {
             //services.AddHostedService<MessageTasks>();
             services.AddHostedService<MappingBookingTask>();
-            services.AddHostedService<TestTask>();
+            //services.AddHostedService<TestTask>();
         }
 
         public static void ConfigurationSeedData(this IServiceCollection services)

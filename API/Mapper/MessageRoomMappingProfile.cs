@@ -18,25 +18,13 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.Time,
                     opt => opt.MapFrom(
-                            message => message.UpdatedAt.ToFormatString()))
-                .ForMember(
-                    dest => dest.StatusName,
-                    opt => opt.MapFrom(
-                            src => src.Status.DisplayName()));
+                            message => message.UpdatedAt.ToFormatString()));
 
             CreateMap<Room, MessageRoomViewModel>()
                 .ForMember(
                     dest => dest.Users,
                     opt => opt.MapFrom(
-                            room => room.UserRooms.Select(user_room => user_room.User)))
-                .ForMember(
-                    dest => dest.StatusName,
-                    opt => opt.MapFrom(
-                            src => src.Status.DisplayName()))
-                .ForMember(
-                    dest => dest.TypeName,
-                    opt => opt.MapFrom(
-                        src => src.Type.DisplayName()));
+                            room => room.UserRooms.Select(user_room => user_room.User)));
         }
     }
 }

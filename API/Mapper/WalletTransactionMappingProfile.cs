@@ -14,14 +14,6 @@ namespace API.Mapper
         {
             CreateMap<WalletTransaction, WalletTransactionViewModel>()
                 .ForMember(
-                    dest => dest.TypeName,
-                    opt => opt.MapFrom(
-                        src => src.Type.DisplayName()))
-                .ForMember(
-                    dest => dest.StatusName,
-                    opt => opt.MapFrom(
-                        src => src.Status.DisplayName()))
-                .ForMember(
                     dest => dest.Time,
                     opt => opt.MapFrom(
                         src => src.UpdatedAt.ToFormatString()));
