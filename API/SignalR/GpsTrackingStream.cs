@@ -26,7 +26,7 @@ namespace API.SignalR
         }
 
         [Authorize(Roles = "BOOKER")]
-        private ChannelReader<List<Coordinates>> GetNearByLocation(Coordinates coordinate, CancellationToken cancellationToken)
+        public ChannelReader<List<Coordinates>> GetNearByLocation(Coordinates coordinate, CancellationToken cancellationToken)
         {
             var channel = Channel.CreateUnbounded<List<Coordinates>>();
 
@@ -53,11 +53,22 @@ namespace API.SignalR
         }
 
         [Authorize(Roles = "BOOKER")]
-        private ChannelReader<Coordinates?> GetByUserCode(Guid userCode, CancellationToken cancellationToken)
+        public ChannelReader<Coordinates?> GetByUserCode(Guid userCode, CancellationToken cancellationToken)
         {
             var channel = Channel.CreateUnbounded<Coordinates?>();
 
-            GetWriterItems<Coordinates?, Guid> getWritterItems = new((userCode) => dic[Roles.DRIVER.ToString()]?[userCode]);
+            GetWriterItems<Coordinates?, Guid> getWritterItems = new((userCode) =>
+            {
+                if (dic.TryGetValue(Roles.DRIVER.ToString(), out var userDic))
+                {
+                    if (userDic.TryGetValue(userCode, out var coordinate))
+                    {
+                        return coordinate;
+                    }
+                }
+
+                return null;
+            });
 
             _ = WriteItemsAsync(channel.Writer, getWritterItems, userCode, cancellationToken);
 
@@ -92,7 +103,7 @@ namespace API.SignalR
         }
 
         [Authorize(Roles = "DRIVER")]
-        private async Task StreamGps(ChannelReader<Coordinates> stream)
+        public async Task StreamGps(ChannelReader<Coordinates> stream)
         {
             var token = Context.GetHttpContext()?.Request.Query["access_token"].FirstOrDefault();
 
@@ -111,14 +122,18 @@ namespace API.SignalR
             {
                 while (stream.TryRead(out var coordinate))
                 {
-                    var roleDic = dic[user.RoleName];
-                    if (roleDic == null)
+                    if (dic.TryGetValue(user.RoleName, out var userDic))
                     {
-                        dic.Add(user.RoleName, new());
+                        userDic[user.Code] = coordinate;
                     }
-                    dic[user.RoleName][user.Code] = coordinate;
+                    else
+                    {
+                        dic[user.RoleName] = new Dictionary<Guid, Coordinates> {{user.Code,coordinate }};
+                    }                  
                 }
             }
+
+            RemoveFromUserCoordinateDic(user.Code);
         }
 
         public override Task OnConnectedAsync()
@@ -126,17 +141,33 @@ namespace API.SignalR
             return base.OnConnectedAsync();
         }
 
-        public override Task OnDisconnectedAsync(Exception? exception)
+        private void RemoveFromUserCoordinateDic(Guid userCode)
+        {
+            if(dic.TryGetValue(Roles.DRIVER.ToString(), out var userDic)){
+                userDic.Remove(userCode);
+            }
+        }
+        private void RemoveFromConnectionIdDic()
         {
             var set = connectionIdDic.Where(e => e.Value.Contains(Context.ConnectionId)).FirstOrDefault();
 
-            set.Value.Remove(Context.ConnectionId);
+            if (set.Value != null)
+            {
+                set.Value.Remove(Context.ConnectionId);
 
-            if (!set.Value.Any())
-                connectionIdDic.Remove(set.Key);
-            else
-                connectionIdDic[set.Key] = set.Value;
+                if (!set.Value.Any())
+                {
+                    connectionIdDic.Remove(set.Key);
+                    dic[Roles.DRIVER.ToString()]?.Remove(set.Key);
+                }
+                else
+                    connectionIdDic[set.Key] = set.Value;
+            }
+        }
 
+        public override Task OnDisconnectedAsync(Exception? exception)
+        {
+            RemoveFromConnectionIdDic();
             return base.OnDisconnectedAsync(exception);
         }
 

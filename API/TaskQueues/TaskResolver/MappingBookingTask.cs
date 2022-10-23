@@ -56,6 +56,8 @@ namespace API.TaskQueues.TaskResolver
                         Console.WriteLine($"The differences: {after - before} mb");
 
                         Console.WriteLine("------------------------End------------------------------");
+
+                        Thread.Sleep(100);
                     }
                 }
                 ));

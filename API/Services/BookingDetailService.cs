@@ -297,5 +297,12 @@ namespace API.Services
                 }
             }
         }
+
+        public Task<BookingDetail?> GetById(int id) =>
+            UnitOfWork.BookingDetails
+            .List(e => e.Id == id)
+            .Include(e => e.Booking)
+            .ThenInclude(b => b.User)
+            .FirstOrDefaultAsync();
     }
 }

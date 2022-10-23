@@ -193,16 +193,24 @@ namespace API.JwtFeatures
 
 				var jwtToken = (JwtSecurityToken)validatedToken;
 
+				var id = jwtToken.Claims.First(x => x.Type == "id").Value;
+				var code = jwtToken.Claims.First(x => x.Type == "code").Value;
+				var name = jwtToken.Claims.FirstOrDefault(x => x.Type == "unique_name")?.Value;
+				var dateOfBirth = jwtToken.Claims.FirstOrDefault(x => x.Type == ClaimTypes.DateOfBirth)?.Value;
+				var roleName = jwtToken.Claims.FirstOrDefault(x => x.Type == "role")?.Value;
+				var gmail = jwtToken.Claims.FirstOrDefault(x => x.Type == "email")?.Value;
+				var phoneNumber = jwtToken.Claims.FirstOrDefault(x => x.Type == ClaimTypes.MobilePhone)?.Value;
+
 				var user = new UserViewModel
                 {
-					Id = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value),
-					Code = Guid.Parse(jwtToken.Claims.First(x => x.Type == "code").Value),
-					Name = jwtToken.Claims.First(x => x.Type == ClaimTypes.Name).Value,
-					DateOfBirth = DateTimeOffset.Parse(jwtToken.Claims.First(x => x.Type == ClaimTypes.DateOfBirth).Value),
-					RoleName = jwtToken.Claims.First(x => x.Type == ClaimTypes.Role).Value,
-					Gmail = jwtToken.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
-					PhoneNumber = jwtToken.Claims.FirstOrDefault(x => x.Type == ClaimTypes.MobilePhone)?.Value
-			
+					Id = int.Parse(id),
+					Code = Guid.Parse(code),
+					Name = name,
+					DateOfBirth = dateOfBirth != null ? DateTimeOffset.Parse(dateOfBirth) : null,
+					RoleName = roleName,
+					Gmail = gmail,
+					PhoneNumber = phoneNumber
+
 				};
 
 				return user;

@@ -1,4 +1,5 @@
-﻿using API.Services.Constract;
+﻿using API.Extensions;
+using API.Services.Constract;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
@@ -8,7 +9,6 @@ namespace API.Services
 {
     public class BookingDetailDriverService : BaseService, IBookingDetailDriverService
     {
-
         public BookingDetailDriverService(IAppServices appServices) : base(appServices)
         {
         }
@@ -23,6 +23,31 @@ namespace API.Services
         public async Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus)
         {
             bookingDetailDriver.TripStatus = tripStatus;
+
+            switch (tripStatus)
+            {
+                case BookingDetailDrivers.TripStatus.PickingUp:
+                    bookingDetailDriver.Status = BookingDetailDrivers.Status.Started;
+                    break;
+                case BookingDetailDrivers.TripStatus.Completed:
+                    bookingDetailDriver.Status = BookingDetailDrivers.Status.Completed;
+                    break;
+                default:
+                    break;
+            }
+
+            var bookingDetail = await AppServices.BookingDetail.GetById(bookingDetailDriver.BookingDetailId);
+
+            if(bookingDetail != null)
+            {
+                await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", new
+                {
+                    BookingDetailCode = bookingDetail.Code,
+                    TripStatus = tripStatus,
+                    TripStatusName = tripStatus.DisplayName()
+                });
+            }
+
             return await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver);
         }
     }
