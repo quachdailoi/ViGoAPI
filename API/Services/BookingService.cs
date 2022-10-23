@@ -539,7 +539,7 @@ namespace API.Services
                 TotalFee = booking.TotalPrice - booking.DiscountPrice
             });
         }
-        public Task<Booking?> GetByCode(Guid code) => UnitOfWork.Bookings.List(booking => booking.Code == code).FirstOrDefaultAsync();
+        public Task<Booking?> GetByCode(Guid code) => UnitOfWork.Bookings.List(booking => booking.Code == code).Include(booking => booking.User).FirstOrDefaultAsync();
         public Task<bool> Update(Booking booking) => UnitOfWork.Bookings.Update(booking);
     }
 }
