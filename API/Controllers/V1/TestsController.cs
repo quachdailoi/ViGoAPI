@@ -74,20 +74,11 @@ namespace API.Controllers.V1
 
             //var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
 
-            int integer = 4;
-            double _double = 35.54;
-            bool isTrue = true;
+            HashSet<int> set = new HashSet<int> { 1, 2, 3 };
 
-            Console.WriteLine("Generation: " + GC.GetGeneration(integer));
-            Console.WriteLine("TotalMemory_Integer: " + GC.GetTotalMemory(false) + " bytes");
+            set.Add(3);
 
-            Console.WriteLine("Generation: " + GC.GetGeneration(_double));
-            Console.WriteLine("TotalMemory_Double: " + GC.GetTotalMemory(false) + " bytes");
-
-            Console.WriteLine("Generation: " + GC.GetGeneration(isTrue));
-            Console.WriteLine("TotalMemory_Boolean: " + GC.GetTotalMemory(false) + " bytes");
-
-            return Ok();
+            return Ok(set);
         }
 
         [HttpPost("dump/drivers")]

@@ -12,6 +12,7 @@ namespace API.SignalR
     public class GpsTrackingStream : Hub
     {
         public static Dictionary<string, Dictionary<Guid, Coordinates>> dic = new();
+        public static Dictionary<Guid, HashSet<string>> connectionIdDic = new();
         private delegate TResult GetWriterItems<TResult, TData>(TData data);
         private readonly int delay = 1000;
         private readonly double radiusLimit = 3000; // meters
@@ -97,6 +98,15 @@ namespace API.SignalR
 
             var user = _jwtHandler.GetUserViewModelByToken(token);
 
+            if(connectionIdDic.TryGetValue(user.Code, out var connectionSet))
+            {
+                connectionSet.Add(Context.ConnectionId);
+            }
+            else
+            {
+                connectionIdDic[user.Code] = new HashSet<string> { Context.ConnectionId };
+            }
+
             while (await stream.WaitToReadAsync())
             {
                 while (stream.TryRead(out var coordinate))
@@ -118,6 +128,15 @@ namespace API.SignalR
 
         public override Task OnDisconnectedAsync(Exception? exception)
         {
+            var set = connectionIdDic.Where(e => e.Value.Contains(Context.ConnectionId)).FirstOrDefault();
+
+            set.Value.Remove(Context.ConnectionId);
+
+            if (!set.Value.Any())
+                connectionIdDic.Remove(set.Key);
+            else
+                connectionIdDic[set.Key] = set.Value;
+
             return base.OnDisconnectedAsync(exception);
         }
 
