@@ -150,6 +150,7 @@ namespace API.Extensions
             services.AddTransient<IAffiliatePartyService, AffiliatePartyService>();
             services.AddTransient<IWalletService, WalletService>();
             services.AddTransient<IWalletTransactionService, WalletTransactionService>();
+            services.AddTransient<INotificationService, NotificationService>();
         }
         public static void ConfigureIoCRedisMessageQueue(this IServiceCollection services)
         {
