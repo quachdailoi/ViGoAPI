@@ -61,7 +61,7 @@ namespace API.Controllers.V1
 
         [HttpGet("test")]
         [AllowAnonymous]
-        public async Task<IActionResult> Test([FromQuery] int number, [FromQuery] Guid code)
+        public async Task<IActionResult> Test([FromQuery] int number)
         {
             //var uri = GetControllerContextUri();
             //var routers = ControllerContext.RouteData.Routers;
@@ -74,11 +74,20 @@ namespace API.Controllers.V1
 
             //var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
 
-            var booking = await AppServices.Booking.GetByCode(code);
+            int integer = 4;
+            double _double = 35.54;
+            bool isTrue = true;
 
-            booking.Status = Bookings.Status.PendingMapping;
+            Console.WriteLine("Generation: " + GC.GetGeneration(integer));
+            Console.WriteLine("TotalMemory_Integer: " + GC.GetTotalMemory(false) + " bytes");
 
-            return Ok(await AppServices.Booking.Update(booking));
+            Console.WriteLine("Generation: " + GC.GetGeneration(_double));
+            Console.WriteLine("TotalMemory_Double: " + GC.GetTotalMemory(false) + " bytes");
+
+            Console.WriteLine("Generation: " + GC.GetGeneration(isTrue));
+            Console.WriteLine("TotalMemory_Boolean: " + GC.GetTotalMemory(false) + " bytes");
+
+            return Ok();
         }
 
         [HttpPost("dump/drivers")]

@@ -16,21 +16,18 @@ namespace API.Utils
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            var scope = _serviceProvider.CreateScope().ServiceProvider;
+            using var scope = _serviceProvider.CreateScope();
 
-            var routeService = scope.GetService<IRouteService>();
-            var stationService = scope.GetService<IStationService>();
-            var rapidApiService = scope.GetService<IRapidApiService>();
-            var routeRoutineService = scope.GetService<IRouteRoutineService>();
+            var _appServices = scope.ServiceProvider.GetRequiredService<IAppServices>();
 
-            if (routeService.ExistSeedData().Result) return;
+            if (!_appServices.Route.ExistSeedData().Result)
+            {
+                var stationIds = GetListStationIdsToDumpRoutes()[1];
 
-            var stationIds = GetListStationIdsToDumpRoutes()[1];
+                var stationDtos = await _appServices.Station.GetStationDTOsByIds(stationIds);
+                var newRoute = await _appServices.RapidApi.CreateRouteByListOfStation(stationDtos);
 
-            var stationDtos = await stationService.GetStationDTOsByIds(stationIds);
-            var newRoute = await rapidApiService.CreateRouteByListOfStation(stationDtos);
-
-            var routeRoutines = new List<RouteRoutine>
+                var routeRoutines = new List<RouteRoutine>
             {
                 new RouteRoutine
                 {
@@ -196,13 +193,13 @@ namespace API.Utils
                 },
             };
 
-            routeRoutines = await routeRoutineService.CreateRouteRoutines(routeRoutines);
+                routeRoutines = await _appServices.RouteRoutine.CreateRouteRoutines(routeRoutines);
+            }  
+
+            await StopAsync(cancellationToken);
         }
 
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+        public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
         //public static List<int> GetListDriverIdsToDumpRouteRoutines = new List<int>{ };
         public static List<List<int>> GetListStationIdsToDumpRoutes()
         {
