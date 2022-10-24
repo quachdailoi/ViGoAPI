@@ -34,8 +34,8 @@ namespace Domain.Entities
         //Promotion
         public Promotion? Promotion { get; set; } = null;
 
-        public RouteStation StartRouteStation { get; set; } = new();
-        public RouteStation EndRouteStation { get; set; } = new();
+        public RouteStation StartRouteStation { get; set; }
+        public RouteStation EndRouteStation { get; set; }
 
         ////virtual direct relation
         //[NotMapped]

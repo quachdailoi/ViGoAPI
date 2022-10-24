@@ -12,11 +12,7 @@ namespace API.Mapper
     {
         public WalletMappingProfile()
         {
-            CreateMap<Wallet, WalletViewModel>()
-                .ForMember(
-                    dest => dest.StatusName,
-                    opt => opt.MapFrom(
-                            src => src.Status.DisplayName())); ;
+            CreateMap<Wallet, WalletViewModel>();
         }
     }
 }

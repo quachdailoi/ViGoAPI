@@ -1,4 +1,5 @@
-﻿using Domain.Shares.Enums;
+﻿using API.Extensions;
+using Domain.Shares.Enums;
 using System.Text.Json.Serialization;
 
 namespace API.Models
@@ -12,16 +13,16 @@ namespace API.Models
         public List<MessageUserViewModel> Users { get; set; } = new();
         public List<MessageViewModel> Messages { get; set; } = new();
         public Rooms.Status Status { get; set; } 
-        public string StatusName { get; set; }
+        public string StatusName { get => Status.DisplayName(); }
         public Rooms.RoomTypes Type { get; set; }
-        public string TypeName { get; set; }
+        public string TypeName { get => Type.DisplayName(); }
     }
     public class MessageViewModel
     {
         public string Content { get; set; } = string.Empty;
         public string Time { get; set; }
         public Rooms.MessageStatus Status { get; set; }
-        public string StatusName { get; set; }
+        public string StatusName { get => Status.DisplayName(); }
         public Guid UserCode { get; set; }
     }
 }

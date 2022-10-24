@@ -1,7 +1,7 @@
 ﻿namespace API.TaskQueues.TaskResolver
 {
-    public interface ITaskResolver : IHostedService, IDisposable
+    public interface ITaskResolver : IHostedService
     {
-        Task Solve();
+        Task Solve(IServiceProvider serviceProvider);
     }
 }

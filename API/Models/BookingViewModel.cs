@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using API.Extensions;
+using Domain.Entities;
 using Domain.Shares.Classes;
 using Domain.Shares.Enums;
 using System.Text.Json.Serialization;
@@ -23,7 +24,7 @@ namespace API.Models
         [JsonIgnore]
         public RouteStation EndRouteStation { get; set; }
         public Bookings.Status Status { get; set; } = Bookings.Status.Unpaid;
-        public string StatusName { get; set; }
+        public string StatusName { get => Status.DisplayName(); }
         [JsonIgnore]
         private List<StationInRouteViewModel> _Stations = new();
         public List<StationInRouteViewModel> Stations { 
@@ -67,7 +68,7 @@ namespace API.Models
         public DateOnly EndAt { get; set; }
         public int Option { get; set; }
         public Bookings.Types Type { get; set; }
-        public string TypeName { get; set; }
+        public string TypeName { get => Type.DisplayName(); }
         public string CreatedAt { get; set; }
 
         //public override BookerBookingViewModel ProcessStationOrder()
