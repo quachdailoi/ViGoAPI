@@ -1,4 +1,5 @@
-﻿using Domain.Shares.Enums;
+﻿using Domain.Entities;
+using Domain.Shares.Enums;
 
 namespace API.Models
 {
@@ -9,6 +10,7 @@ namespace API.Models
         public string EndAt { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
+        public List<StationViewModel> Stations { get; set; }
         public RouteRoutines.Status Status { get; set; }
     }
 }
