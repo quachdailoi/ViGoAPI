@@ -391,7 +391,7 @@ namespace API.Services
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
                                 bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
                                 bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime &&
-                                bdr.Status == BookingDetailDrivers.Status.Ready)
+                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet)
                             .ToList()
                     })
                     .ToListAsync());
@@ -427,7 +427,7 @@ namespace API.Services
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
                                 bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
                                 bdr.BookingDetail.Booking.Time < routeRoutine.EndTime &&
-                                bdr.Status == BookingDetailDrivers.Status.Ready)
+                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet)
                             .OrderBy(bdr => bdr.BookingDetail.Booking.Time)
                             .ToList()
                             .Select(bdr => bdr.BookingDetail)
@@ -468,7 +468,7 @@ namespace API.Services
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
                                 bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
                                 bdr.BookingDetail.Booking.Time < routeRoutine.EndTime &&
-                                bdr.Status == BookingDetailDrivers.Status.Ready)
+                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet)
                             .OrderBy(bdr => bdr.BookingDetail.Booking.Time)
                             .ToList()
                             .Select(bdr => bdr.BookingDetail)

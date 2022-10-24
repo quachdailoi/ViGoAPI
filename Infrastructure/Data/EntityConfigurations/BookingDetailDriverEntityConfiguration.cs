@@ -36,8 +36,8 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("booking_detail_id")
                 .IsRequired();
 
-            builder.Property(e => e.Status)
-                .HasColumnName("status")
+            builder.Property(e => e.TripStatus)
+                .HasColumnName("trip_status")
                 .HasConversion<int>()
                 .IsRequired();
 

@@ -8,16 +8,9 @@ namespace Domain.Shares.Enums
 {
     public class BookingDetailDrivers
     {
-        public enum Status
-        {
-            Cancelled = -1,
-            Ready = 0,
-            Started = 1,
-            Completed = 2
-        }
-
         public enum TripStatus
         {
+            Cancelled = -1,
             NotYet = 0,
             PickingUp = 1,
             Arried = 2,
