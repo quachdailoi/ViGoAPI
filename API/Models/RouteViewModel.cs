@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using API.Extensions;
+using Domain.Entities;
 using Domain.Shares.Classes;
 using Domain.Shares.Enums;
 using System.Text.Json.Serialization;
@@ -13,7 +14,7 @@ namespace API.Models
         public double Distance { get; set; }
         public double Duration { get; set; }
         public Routes.Status Status { get; set; } = Routes.Status.Active;
-        public string StatusName { get; set; }
+        public string StatusName { get => Status.DisplayName(); }
         [JsonIgnore]
         public List<RouteStation> RouteStations { get; set; } = new();
         public List<StationInRouteViewModel> Stations { get; set; } = new();

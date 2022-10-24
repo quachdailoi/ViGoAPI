@@ -1,4 +1,5 @@
-﻿using Domain.Shares.Enums;
+﻿using API.Extensions;
+using Domain.Shares.Enums;
 using System.Text.Json.Serialization;
 
 namespace API.Models
@@ -12,9 +13,9 @@ namespace API.Models
         public int Slot { get; set; }
         [JsonIgnore]
         public VehicleTypes.Type Type { get; set; } = VehicleTypes.Type.ViRide;
-        public string TypeName { get; set; } = String.Empty;
+        public string TypeName { get => Type.DisplayName(); }
         [JsonIgnore]
         public VehicleTypes.Status Status { get; set; } = VehicleTypes.Status.Active;
-        public string StatusName { get; set; }
+        public string StatusName { get => Status.DisplayName(); }
     }
 }

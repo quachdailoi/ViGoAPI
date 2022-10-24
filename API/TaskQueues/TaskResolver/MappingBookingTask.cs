@@ -17,8 +17,9 @@ namespace API.TaskQueues.TaskResolver
 
         }
 
-        public override Task Solve()
+        public override Task Solve(IServiceProvider serviceProvider)
         {
+            var _appService = serviceProvider.GetRequiredService<IAppServices>();
             var subscriber = _appService.RedisMQ.GetSubscriber();
 
             var thread = new Thread(new ThreadStart(
@@ -26,27 +27,37 @@ namespace API.TaskQueues.TaskResolver
                 {
                     foreach(var id in currentJobs.GetConsumingEnumerable())
                     {
-                        using (var booking = await _appService.Booking.Mapping(id))
+                        Console.WriteLine("------------------------Start------------------------------");
+                        GC.Collect();
+                        var before = GC.GetTotalMemory(true) / (1024 * 1024);
+                        Console.WriteLine($"Garbage Collected_1: {before} mb");
+                        using var booking = await _appService.Booking.Mapping(id);
+                        if (booking != null)
                         {
-                            if (booking != null)
-                            {
-                                var isMappedSuccess = booking.BookingDetails.Any(bd => bd.Status == BookingDetails.Status.Ready);
-                                await _appService.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingMappingResult", new { Code = booking.Code, IsMappedSuccess = isMappedSuccess });
+                            var isMappedSuccess = booking.BookingDetails.Any(bd => bd.Status == BookingDetails.Status.Ready);
+                            await _appService.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingMappingResult", new { Code = booking.Code, IsMappedSuccess = isMappedSuccess });
 
-                                if (!isMappedSuccess)
-                                {
-                                    booking.Status = Bookings.Status.CancelledBySystem;
-                                    // implement refund when can not mapping
-                                }
-                                else booking.Status = Bookings.Status.Started;
-                                if (!_appService.Booking.Update(booking).Result)
-                                    throw new Exception("Fail to update booking after mapping");
-                            }
-                            else
+                            if (!isMappedSuccess)
                             {
-                                throw new Exception("Exist null booking in mapping task");
+                                booking.Status = Bookings.Status.CancelledBySystem;
+                                // implement refund when can not mapping
                             }
-                        }  
+                            else booking.Status = Bookings.Status.Started;
+                            if (!_appService.Booking.Update(booking).Result)
+                                throw new Exception("Fail to update booking after mapping");
+                        }
+                        else
+                        {
+                            throw new Exception("Exist null booking in mapping task");
+                        }
+                        GC.Collect();
+                        var after = GC.GetTotalMemory(true) / (1024 * 1024);
+                        Console.WriteLine($"Garbage Collected_2: {after} mb");
+                        Console.WriteLine($"The differences: {after - before} mb");
+
+                        Console.WriteLine("------------------------End------------------------------");
+
+                        Thread.Sleep(100);
                     }
                 }
                 ));
