@@ -49,6 +49,7 @@ namespace API.Services
         public IAffiliatePartyService AffiliateParty => Load<IAffiliatePartyService>();
         public IWalletService Wallet => Load<IWalletService>();
         public IWalletTransactionService WalletTransaction => Load<IWalletTransactionService>();
+        public INotificationService Notification => Load<INotificationService>();
 
         private T Load<T>() where T : class => Provider.GetRequiredService<T>();
     }
