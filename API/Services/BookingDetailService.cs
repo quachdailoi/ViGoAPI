@@ -99,9 +99,9 @@ namespace API.Services
 
                     var schedules = detailsInRoute.Select(x => new ScheduleBookingDetailViewModel
                     {
-                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.Status != BookingDetailDrivers.Status.Cancelled &&
+                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled &&
                             bdd.DriverId == driverId).OrderByDescending(x => x.CreatedAt).Select(x => x.Code).FirstOrDefault(),
-                        TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.Status != BookingDetailDrivers.Status.Cancelled &&
+                        TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled &&
                             bdd.DriverId == driverId).OrderByDescending(x => x.CreatedAt).Select(x => x.TripStatus).FirstOrDefault(),
                         Time = x.Booking.Time,
                         StartStation = new()
@@ -159,7 +159,10 @@ namespace API.Services
                         Time = x.Time
                     }).ToList();
 
-                    var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Time).ThenBy(x => x.Index).AsEnumerable();
+                    var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Time).ThenBy(x => x.Index)
+                        .Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Completed && 
+                                    x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
+                        .AsEnumerable();
 
                     routeSchedule.Steps.AddRange(stepInSchedules);
 
@@ -290,8 +293,8 @@ namespace API.Services
                     bookingDetail.Status = BookingDetails.Status.Completed;
                     bookingDetail.BookingDetailDrivers
                         .Where(bdr =>
-                            bdr.Status != BookingDetailDrivers.Status.Cancelled)
-                        .First().Status = BookingDetailDrivers.Status.Completed;
+                            bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
+                        .First().TripStatus = BookingDetailDrivers.TripStatus.Completed;
 
                     await UnitOfWork.BookingDetails.Update(bookingDetail);
                 }

@@ -21,14 +21,14 @@ namespace API.Mapper
                     dest => dest.Driver,
                     opt => opt.MapFrom(
                         src => src.BookingDetailDrivers
-                        .Where(bdr => bdr.Status != BookingDetailDrivers.Status.Cancelled)
+                        .Where(bdr => bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
                         .FirstOrDefault().Driver))
                 .ForMember(
                     dest => dest.DriverStatus,
                     opt => opt.MapFrom(
                         src => src.BookingDetailDrivers
-                        .Where(bdr => bdr.Status != BookingDetailDrivers.Status.Cancelled)
-                        .FirstOrDefault().Status))
+                        .Where(bdr => bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
+                        .FirstOrDefault().TripStatus))
                 .ForMember(
                     dest => dest.Time,
                     opt => opt.MapFrom(

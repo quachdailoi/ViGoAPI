@@ -55,7 +55,7 @@ namespace API.Mapper
 
             CreateMap<User, DriverInBookingDetailViewModel>()
                 .ForMember(
-                    dest => dest.Status,
+                    dest => dest.TripStatus,
                     opt => opt.Ignore())
                 .IncludeBase<User, DriverViewModel>();
 
