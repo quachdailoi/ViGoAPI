@@ -113,6 +113,8 @@ namespace API.Extensions
             services.AddScoped<IAffiliatePartyRepository, AffiliatePartyRepository>();
             services.AddScoped<IWalletRepository, WalletRepository>();
             services.AddScoped<IWalletTransactionRepository, WalletTransactionRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -150,6 +152,7 @@ namespace API.Extensions
             services.AddTransient<IAffiliatePartyService, AffiliatePartyService>();
             services.AddTransient<IWalletService, WalletService>();
             services.AddTransient<IWalletTransactionService, WalletTransactionService>();
+            services.AddTransient<INotificationService, NotificationService>();
         }
         public static void ConfigureIoCRedisMessageQueue(this IServiceCollection services)
         {

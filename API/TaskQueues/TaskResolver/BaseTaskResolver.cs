@@ -22,7 +22,7 @@ namespace API.TaskQueues.TaskResolver
         public abstract Task Solve(IServiceProvider serviceProvider);
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            using var scope = _serviceProvider.CreateScope();
+            var scope = _serviceProvider.CreateScope();
             await Solve(scope.ServiceProvider);
         }
 
