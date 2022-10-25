@@ -95,6 +95,8 @@ namespace API.Controllers.V1
                         ipnUrl = $"{GetControllerContextUri()}/ipn/momo"
                     };
                     break;
+                case Payments.PaymentMethods.Wallet:
+                    break;
                 default: return ApiResult(badRequestResponse.SetMessage("Payment method is not supported."));
             }
 
