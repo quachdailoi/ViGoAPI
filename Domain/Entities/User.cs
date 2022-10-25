@@ -29,6 +29,7 @@ namespace Domain.Entities
         public List<BookingDetailDriver> BookingDetailDrivers { get; set; } = new();
         public Vehicle? Vehicle { get; set; } = null;
         public Wallet? Wallet { get; set; } = null;
+        public List<Notification> Notifications { get; set; } = new();
 
         // virtual property - be careful - must have auto include before use these.
         public string? FilePath => File?.Path;

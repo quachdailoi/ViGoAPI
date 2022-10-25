@@ -27,11 +27,7 @@ namespace API.TaskQueues.TaskResolver
                 {
                     foreach(var id in currentJobs.GetConsumingEnumerable())
                     {
-                        Console.WriteLine("------------------------Start------------------------------");
-                        GC.Collect();
-                        var before = GC.GetTotalMemory(true) / (1024 * 1024);
-                        Console.WriteLine($"Garbage Collected_1: {before} mb");
-                        using var booking = await _appService.Booking.Mapping(id);
+                        var booking = await _appService.Booking.Mapping(id);
                         if (booking != null)
                         {
                             var isMappedSuccess = booking.BookingDetails.Any(bd => bd.Status == BookingDetails.Status.Ready);
@@ -50,14 +46,6 @@ namespace API.TaskQueues.TaskResolver
                         {
                             throw new Exception("Exist null booking in mapping task");
                         }
-                        GC.Collect();
-                        var after = GC.GetTotalMemory(true) / (1024 * 1024);
-                        Console.WriteLine($"Garbage Collected_2: {after} mb");
-                        Console.WriteLine($"The differences: {after - before} mb");
-
-                        Console.WriteLine("------------------------End------------------------------");
-
-                        Thread.Sleep(100);
                     }
                 }
                 ));

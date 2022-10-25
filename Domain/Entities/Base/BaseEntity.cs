@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities.Base
 {
-    public class BaseEntity : IBaseEntity, IDisposable
+    public class BaseEntity : IBaseEntity
     {   
         public int Id { get; set; }
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
@@ -16,26 +16,5 @@ namespace Domain.Entities.Base
         public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.Now;
         public int UpdatedBy { get; set; }
         public DateTimeOffset? DeletedAt { get; set; }
-
-        [NotMapped]
-        private bool _disposed;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-
-            }
-
-            _disposed = true;
-        }
-        public virtual void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
     }
 }
