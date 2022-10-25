@@ -181,6 +181,10 @@ namespace API.Services
 
                         if (wallet == null) throw new Exception("Fail to pay by wallet.");
 
+                        booking.Status = Bookings.Status.PendingMapping;
+
+                        if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status."); if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status.");
+
                         await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
 
                         break;
