@@ -76,6 +76,7 @@ namespace API.Services
                     },
                     Distance = ILocationService.CalculateDistanceAsTheCrowFlies(coordinates.Latitude, coordinates.Longitude, x.Latitude, x.Longitude),
                 })
+                .Where(x => x.Distance <= 6000) // circular 6km
                 .OrderBy(x => x.Distance)
                 .Take(10);
 
