@@ -29,7 +29,6 @@ namespace API.Models
         public Guid BookingCode { get; set; }
         public string BookingType { get; set; }
         public DriverInBookingDetailViewModel? Driver { get; set; } = null;
-        [JsonIgnore]
         public BookingDetailDrivers.Status? DriverStatus
         {
             get => Driver?.Status;

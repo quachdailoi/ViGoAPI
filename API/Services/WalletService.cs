@@ -110,7 +110,17 @@ namespace API.Services
                 wallet.WalletTransactions.Add(transaction);
             }
 
-            wallet.Balance += transactionDto.Amount;
+            switch (transactionDto.Type)
+            {
+                case WalletTransactions.Types.MomoIncome:
+                case WalletTransactions.Types.ZaloPayIncome:
+                case WalletTransactions.Types.VnPayIncome:
+                    wallet.Balance += transactionDto.Amount;
+                    break;
+                default:
+                    wallet.Balance -= transactionDto.Amount;
+                    break;
+            }
 
             if (wallet.Balance < 0) return null;
 

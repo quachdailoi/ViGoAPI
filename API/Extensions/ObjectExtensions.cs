@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace API.Extensions
 {
-    public static class ClassExtensions
+    public static class ObjectExtensions
     {
         public static TimeOnly ParseExact(this TimeOnly timeOnly, string s)
         {
