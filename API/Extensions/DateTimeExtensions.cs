@@ -2,6 +2,7 @@
 {
     public static class DateTimeExtensions
     {
+        
         public static DateOnly NowDateOnly => DateOnly.FromDateTime(DateTimeOffset.Now.DateTime);
         public static TimeOnly NowTimeOnly => TimeOnly.FromTimeSpan(DateTimeOffset.Now.TimeOfDay);
         public static bool TryParseExact(this string dateOnlyStr, out DateOnly dateOnly)
