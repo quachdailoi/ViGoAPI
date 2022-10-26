@@ -68,6 +68,8 @@ namespace API.Mapper
                     dest => dest.EndAt,
                     otp => otp.MapFrom(
                             src => new DateOnly().ParseExact(src.EndAt)));
+
+            CreateMap<Booking, PaymentBookingViewModel>();
         }
     }
 

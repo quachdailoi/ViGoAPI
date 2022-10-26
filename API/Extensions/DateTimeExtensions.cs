@@ -28,7 +28,8 @@
             return timeOnly;
         }
 
-        public static string ToFormatString(this DateOnly dateOnly) => dateOnly.ToString("dd-MM-yyyy"); 
+        public static string ToFormatString(this DateOnly dateOnly) => dateOnly.ToString("dd-MM-yyyy");
+        public static string ToFormatString(this DateOnly dateOnly, string format) => dateOnly.ToString(format); 
 
         public static DateTime ParseExactDateTime(string dateOnlyStr, string timeOnlyStr)
         {
@@ -39,6 +40,7 @@
         }
 
         public static string ToFormatString(this DateTimeOffset dateTime) => dateTime.ToString("dd-MM-yyyy HH:mm:ss");
+        public static string ToFormatString(this DateTimeOffset dateTime, string format) => dateTime.ToString(format);
 
         public static bool CheckIntersect(DateOnly start1, DateOnly end1, DateOnly start2, DateOnly end2)
         {
