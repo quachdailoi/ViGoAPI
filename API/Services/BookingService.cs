@@ -202,6 +202,10 @@ namespace API.Services
 
                         if (wallet == null) throw new Exception("Fail to pay by wallet.");
 
+                        booking.Status = Bookings.Status.PendingMapping;
+
+                        if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status."); if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status.");
+
                         await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
 
                         break;
@@ -438,7 +442,7 @@ namespace API.Services
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
                                 bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
                                 bdr.BookingDetail.Booking.Time < routeRoutine.EndTime &&
-                                bdr.Status == BookingDetailDrivers.Status.Ready)
+                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet)
                             .OrderBy(bdr => bdr.BookingDetail.Booking.Time)
                             .ToList()
                             .Select(bdr => bdr.BookingDetail)
@@ -479,7 +483,7 @@ namespace API.Services
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
                                 bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
                                 bdr.BookingDetail.Booking.Time < routeRoutine.EndTime &&
-                                bdr.Status == BookingDetailDrivers.Status.Ready)
+                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet)
                             .OrderBy(bdr => bdr.BookingDetail.Booking.Time)
                             .ToList()
                             .Select(bdr => bdr.BookingDetail)

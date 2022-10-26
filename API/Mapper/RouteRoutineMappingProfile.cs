@@ -36,6 +36,10 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.RouteCode,
                     opt => opt.MapFrom(x => x.Route.Code)
+                )
+                .ForMember(
+                    dest => dest.Stations,
+                    opt => opt.MapFrom(x => x.Route.RouteStations.Select(x => x.Station))
                 );
         }
     }

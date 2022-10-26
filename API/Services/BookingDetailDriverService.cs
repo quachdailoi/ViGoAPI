@@ -27,10 +27,10 @@ namespace API.Services
             switch (tripStatus)
             {
                 case BookingDetailDrivers.TripStatus.PickingUp:
-                    bookingDetailDriver.Status = BookingDetailDrivers.Status.Started;
+                    bookingDetailDriver.TripStatus = BookingDetailDrivers.TripStatus.PickingUp;
                     break;
                 case BookingDetailDrivers.TripStatus.Completed:
-                    bookingDetailDriver.Status = BookingDetailDrivers.Status.Completed;
+                    bookingDetailDriver.TripStatus = BookingDetailDrivers.TripStatus.Completed;
                     break;
                 default:
                     break;

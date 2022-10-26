@@ -29,14 +29,15 @@ namespace API.Models
         public Guid BookingCode { get; set; }
         public string BookingType { get; set; }
         public DriverInBookingDetailViewModel? Driver { get; set; } = null;
-        public BookingDetailDrivers.Status? DriverStatus
+        [JsonIgnore]
+        public BookingDetailDrivers.TripStatus? DriverStatus
         {
-            get => Driver?.Status;
+            get => Driver?.TripStatus;
             set
             {
                 if (Driver != null && value.HasValue)
                 {
-                    Driver.Status = value.Value;
+                    Driver.TripStatus = value.Value;
                 }
             }
         }
