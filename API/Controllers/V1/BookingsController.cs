@@ -2,6 +2,7 @@
 using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Settings;
 using API.SignalR.Constract;
 using API.TaskQueues;
 using API.TaskQueues.TaskResolver;
@@ -96,6 +97,12 @@ namespace API.Controllers.V1
                     };
                     break;
                 case Payments.PaymentMethods.Wallet:
+                    break;
+                case Payments.PaymentMethods.ZaloPay:
+                    paymentDto = new ZaloCollectionLinkRequestDTO
+                    {
+                        callback_url = $"{GetControllerContextUri()}/ipn/zalopay"
+                    };
                     break;
                 default: return ApiResult(badRequestResponse.SetMessage("Payment method is not supported."));
             }
@@ -516,6 +523,60 @@ namespace API.Controllers.V1
             //if (signature == dto.signature)
             //{
             return NoContent();
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpPost("ipn/zalopay")]
+        public async Task HandleBookingZaloPayPaymentIPN([FromBody] JsonElement request)
+        {
+            var dto = JsonSerializer.Deserialize<ZaloPayPaymentNotificationRequest>(request.GetRawText());
+
+            var key2 = Configuration.Get(ZaloPaySettings.Key2);
+
+            if (dto == null || string.IsNullOrEmpty(key2)) return;
+
+            var reqmac = Encryption.HMACSHA256(dto.data, key2);
+
+            if(reqmac == dto.mac)
+            {
+                dynamic item = dto.parsed_data.parsed_item[0];
+
+                var booking = await AppServices.Booking.GetByCode(Guid.Parse(item.Code));
+
+                if (booking != null && booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.parsed_data.amount)
+                {
+                    if (!AppServices.Booking.CheckIsConflictBooking(booking).Result)
+                    {
+                        booking.Status = Bookings.Status.PendingMapping;
+                        await AppServices.Booking.Update(booking);
+
+                        //add job queue to map with specific driver
+                        await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+
+                        await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
+                        new
+                        {
+                            BookingCode = item.Code,
+                            PaymentMethod = Payments.PaymentMethods.Momo,
+                            IsSuccess = true,
+                            Message = "Pay booking by Momo successfully."
+                        });
+                    }
+                    else
+                    {
+                        // refund momo wallet
+
+                        await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
+                        new
+                        {
+                            BookingCode = item.Code,
+                            PaymentMethod = Payments.PaymentMethods.Momo,
+                            IsSuccess = false,
+                            Message = "You have booked at this time in an another booking. Check again!"
+                        });
+                    }
+                }
+            }
         }
     }
 }

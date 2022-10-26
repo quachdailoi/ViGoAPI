@@ -12,6 +12,7 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.Dynamic;
 using System.Runtime.InteropServices;
 
 namespace API.Services
@@ -132,8 +133,7 @@ namespace API.Services
 
             if (booking == null) return errorResponse;
 
-            string paymentUrl = String.Empty;
-            string webUrl = string.Empty;
+            dynamic responseData = new ExpandoObject();
 
             try
             {
@@ -166,8 +166,9 @@ namespace API.Services
                         var momoResponse = await AppServices.Payment.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
                         if (momoResponse == null) throw new Exception("Fail to generate momo url.");
 
-                        paymentUrl = momoResponse.deeplink;
-                        webUrl = momoResponse.payUrl;
+                        responseData.PaymentUrl = momoResponse.deeplink;
+                        responseData.WebUrl = momoResponse.payUrl;
+
                         break;
                     case Payments.PaymentMethods.ZaloPay:
 
@@ -186,7 +187,9 @@ namespace API.Services
                         var zaloPayResponse = await AppServices.Payment.GenerateZaloPaymentUrl((ZaloCollectionLinkRequestDTO)paymentDto);
                         if (zaloPayResponse == null) throw new Exception("Fail to generate zalopay url.");
 
-                        paymentUrl = zaloPayResponse.order_url;
+                        responseData.PaymentUrl = zaloPayResponse.order_url;
+                        responseData.ZpTransToken = zaloPayResponse.zp_trans_token;
+
                         break;
                     case Payments.PaymentMethods.Wallet:
                         if (wallet.Balance < booking.TotalPrice) throw new Exception("Insufficient balance.");
@@ -228,19 +231,13 @@ namespace API.Services
             
             await UnitOfWork.CommitAsync();
 
-            var bookingViewModel =
+            responseData.Booking =
                 await UnitOfWork.Bookings
                     .List(_booking => _booking.Id == booking.Id)
                     .MapTo<BookerBookingViewModel>(Mapper)
                     .FirstOrDefaultAsync();
 
-            return successResponse.SetData(new 
-            { 
-                Booking = bookingViewModel,
-                PaymentUrl = paymentUrl,
-                WebLinkUrl = webUrl
-            } 
-            );
+            return successResponse.SetData(responseData);
         }
 
 
