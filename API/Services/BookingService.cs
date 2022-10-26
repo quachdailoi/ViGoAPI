@@ -403,7 +403,7 @@ namespace API.Services
                     .Include(e => e.User)
                     .ThenInclude(u => u.BookingDetailDrivers.Where(bdr =>
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
-                                bdr.Status == BookingDetailDrivers.Status.Ready))
+                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet))
                     .ThenInclude(bdr => bdr.BookingDetail)
                     .ThenInclude(bd => bd.Booking)
                     .ToListAsync());
