@@ -213,7 +213,7 @@ namespace API.Utils
                     listRouteRoutine.Add(x);
                 }
 
-                await _appServices.RouteRoutine.CreateRouteRoutines(listRouteRoutine);
+               //await _appServices.RouteRoutine.CreateRouteRoutines(listRouteRoutine);
             }
            
 
