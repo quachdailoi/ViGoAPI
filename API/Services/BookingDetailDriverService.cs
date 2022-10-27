@@ -24,16 +24,9 @@ namespace API.Services
         {
             bookingDetailDriver.TripStatus = tripStatus;
 
-            switch (tripStatus)
+            if (tripStatus == BookingDetailDrivers.TripStatus.Completed)
             {
-                case BookingDetailDrivers.TripStatus.PickingUp:
-                    bookingDetailDriver.TripStatus = BookingDetailDrivers.TripStatus.PickingUp;
-                    break;
-                case BookingDetailDrivers.TripStatus.Completed:
-                    bookingDetailDriver.TripStatus = BookingDetailDrivers.TripStatus.Completed;
-                    break;
-                default:
-                    break;
+                bookingDetailDriver.BookingDetail.Status = BookingDetails.Status.Completed;
             }
 
             var bookingDetail = await AppServices.BookingDetail.GetById(bookingDetailDriver.BookingDetailId);
