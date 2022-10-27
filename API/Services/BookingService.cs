@@ -29,8 +29,8 @@ namespace API.Services
             var routeStations =
                 await UnitOfWork.RouteStations
                 .List(routeStation =>
-                    routeStation.Station.Code == dto.StartStationCode ||
-                    routeStation.Station.Code == dto.EndStationCode &&
+                    (routeStation.Station.Code == dto.StartStationCode ||
+                    routeStation.Station.Code == dto.EndStationCode) &&
                     routeStation.Route.Code == dto.RouteCode)
                 .Include(routeStation => routeStation.Station)
                 .ToListAsync();
