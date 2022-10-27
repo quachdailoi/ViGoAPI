@@ -48,7 +48,21 @@ namespace Infrastructure.Data.Seeders
                 }
             };
 
+            for (int i = 400; i < 500; i++)
+            {
+                vehicles.Add(new Vehicle
+                {
+                    Id = i,
+                    Name = $"Vehicle {i}",
+                    LicensePlate = $"51B.000.{i}",
+                    VehicleTypeId = 3,
+                    UserId = i
+                });
+            }
+
             builder.Entity<Vehicle>().HasData(vehicles);
+
+            
         }
     }
 }

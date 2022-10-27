@@ -244,7 +244,7 @@ namespace API.Services
         }
 
         public async Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest,Response successResponse)
-            => successResponse.SetData(await Get(userId, dateFilterRequest, pagingRequest, new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready, BookingDetails.Status.Started }));
+            => successResponse.SetData(await Get(userId, dateFilterRequest, pagingRequest, new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready }));
 
         public async Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse)
             => successResponse.SetData(await Get(userId, dateFilterRequest, pagingRequest, new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled }, false));

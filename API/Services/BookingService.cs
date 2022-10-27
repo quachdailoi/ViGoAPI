@@ -372,13 +372,8 @@ namespace API.Services
 
             var routeRoutines =
                 UnitOfWork.RouteRoutines
-                .List(routeRoutine => !(routeRoutine.StartAt > booking.EndAt || routeRoutine.EndAt < booking.StartAt) &&
-                                      (routeRoutine.StartTime <= booking.Time && routeRoutine.EndTime > booking.Time) &&
-                                      routeRoutine.RouteId == booking.StartRouteStation.RouteId && routeRoutine.User.Vehicle.VehicleTypeId == booking.VehicleTypeId)
-                .Include(e => e.User)
-                .ThenInclude(u => u.BookingDetailDrivers)
-                .ThenInclude(bdr => bdr.BookingDetail)
-                .ThenInclude(bd => bd.Booking);
+                .List(routeRoutine => (routeRoutine.StartTime <= booking.Time && routeRoutine.EndTime > booking.Time) &&
+                                      routeRoutine.RouteId == booking.StartRouteStation.RouteId && routeRoutine.User.Vehicle.VehicleTypeId == booking.VehicleTypeId);
 
             var driverUserMessageRoomDic = new Dictionary<Guid, Room>();
 
@@ -387,31 +382,26 @@ namespace API.Services
 
                 var rawOrderedRouteRoutines =
                     (await routeRoutines
-                    .Select(routeRoutine => new
-                    {
-                        RouteRoutine = routeRoutine,
-                        BookingDetailDrivers = routeRoutine.User.BookingDetailDrivers
-                            .Where(bdr =>
+                    .Where(routeRoutine => !(routeRoutine.StartAt > bookingDetail.Date || routeRoutine.EndAt < bookingDetail.Date))
+                    .Include(e => e.User)
+                    .ThenInclude(u => u.BookingDetailDrivers.Where(bdr =>
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
-                                bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
-                                bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime &&
-                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet)
-                            .ToList()
-                    })
+                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet))
+                    .ThenInclude(bdr => bdr.BookingDetail)
+                    .ThenInclude(bd => bd.Booking)
                     .ToListAsync());
 
-                rawOrderedRouteRoutines.ForEach(item => item.RouteRoutine.User.BookingDetailDrivers = item.BookingDetailDrivers);
-                
+                rawOrderedRouteRoutines.ForEach(routeRoutine =>
+                    routeRoutine.User.BookingDetailDrivers = routeRoutine.User.BookingDetailDrivers.
+                        Where(bdr => 
+                            bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
+                            bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime)
+                        .ToList());
+
                 var orderedRouteRoutines = rawOrderedRouteRoutines
-                    .Select(item => item.RouteRoutine)
                     .OrderBy(routeRoutine => routeRoutine.User.BookingDetailDrivers.Count)
                     .ToList();
 
-                if (orderedRouteRoutines.Any(e => e.User.BookingDetailDrivers.Any())) 
-                {
-                    var i = 34;       
-                };
-                    
 
                 //then order by driver point
 
@@ -487,7 +477,7 @@ namespace API.Services
                     }
                 }
 
-                foreach (var routeRoutine in routeRoutines) routeRoutine.Dispose();
+                //foreach (var routeRoutine in routeRoutines) routeRoutine.Dispose();
             }
 
 

@@ -252,6 +252,56 @@ namespace Infrastructure.Data.Seeders
                 Verified = false,
                 UserId = 12
             });
+
+            int count = 100;
+            for(int i = 100; i < 200; i ++)
+            {
+                builder.Entity<Account>().HasData(new Account
+                {
+                    Id = count,
+                    Registration = $"+{i}",
+                    RegistrationType = RegistrationTypes.Phone,
+                    RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                    Verified = true,
+                    UserId = i
+                });
+
+                builder.Entity<Account>().HasData(new Account
+                {
+                    Id = ++count,
+                    Registration = $"@{i}",
+                    RegistrationType = RegistrationTypes.Gmail,
+                    RoleId = Domain.Shares.Enums.Roles.BOOKER,
+                    Verified = false,
+                    UserId = i
+                });
+                count++;
+            }
+
+            count = 400;
+            for (int i = 400; i < 500; i++)
+            {
+                builder.Entity<Account>().HasData(new Account
+                {
+                    Id = count,
+                    Registration = $"+{i}",
+                    RegistrationType = RegistrationTypes.Phone,
+                    RoleId = Domain.Shares.Enums.Roles.DRIVER,
+                    Verified = false,
+                    UserId = i
+                });
+
+                builder.Entity<Account>().HasData(new Account
+                {
+                    Id = ++count,
+                    Registration = $"@{i}",
+                    RegistrationType = RegistrationTypes.Gmail,
+                    RoleId = Domain.Shares.Enums.Roles.DRIVER,
+                    Verified = true,
+                    UserId = i
+                });
+                count++;
+            }
         }
     }
 }

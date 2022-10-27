@@ -30,6 +30,8 @@ namespace Domain.Interfaces.UnitOfWork
         IAffiliatePartyRepository AffiliateParties { get; }
         IWalletRepository Wallets { get; }
         IWalletTransactionRepository WalletTransactions { get; }
+        IEventRepository Events { get; }
+        INotificationRepository Notifications { get; }
 
         Task CreateTransactionAsync();
         Task CommitAsync();

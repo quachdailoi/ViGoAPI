@@ -194,7 +194,29 @@ namespace API.Utils
             };
 
                 //routeRoutines = await _appServices.RouteRoutine.CreateRouteRoutines(routeRoutines);
-            }  
+
+                var listRouteRoutine = new List<RouteRoutine>();
+
+                for (int i = 400; i < 500; i++)
+                {
+                    var startTime = TimeOnly.Parse("07:00:00").AddMinutes((i - 400) * 5);
+                    var x = new RouteRoutine
+                    {
+                        UserId = i,
+                        RouteId = newRoute.Id,
+                        StartTime = startTime,
+                        EndTime = startTime.AddMinutes(newRoute.Duration / 60),
+                        StartAt = DateOnly.ParseExact("01-09-2022", "dd-MM-yyyy"),
+                        EndAt = DateOnly.ParseExact("01-09-2022", "dd-MM-yyyy").AddMonths(5),
+                    };
+
+                    listRouteRoutine.Add(x);
+                }
+
+               //await _appServices.RouteRoutine.CreateRouteRoutines(listRouteRoutine);
+            }
+           
+
 
             await StopAsync(cancellationToken);
         }
