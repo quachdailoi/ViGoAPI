@@ -193,7 +193,7 @@ namespace API.Utils
                 },
             };
 
-                routeRoutines = await _appServices.RouteRoutine.CreateRouteRoutines(routeRoutines);
+                //routeRoutines = await _appServices.RouteRoutine.CreateRouteRoutines(routeRoutines);
 
                 var listRouteRoutine = new List<RouteRoutine>();
 
