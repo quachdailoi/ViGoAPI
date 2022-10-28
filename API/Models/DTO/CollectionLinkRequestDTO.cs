@@ -1,4 +1,5 @@
 ﻿using API.Extensions;
+using API.Utils;
 using Domain.Shares.Enums;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -48,7 +49,8 @@ namespace API.Models.DTO
         public string app_user { get; set; } = "Vigo";
 
         [MaxLength(40)]
-        public string app_trans_id { get => $"{DateTimeExtensions.NowDateOnly.ToFormatString("yyMMdd")}_{DateTimeOffset.Now.ToUnixTimeMilliseconds()}{(new Random()).Next()%10}"; }
+        public string app_trans_id { get; } = ZaloPayHelpers.GetAppTransId();
+
         //[JsonIgnore]
         //public int? order_id
         //{
