@@ -33,12 +33,14 @@ namespace API.TaskQueues.TaskResolver
                             var isMappedSuccess = booking.BookingDetails.Any(bd => bd.Status == BookingDetails.Status.Ready);
                             await _appService.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingMappingResult", new { Code = booking.Code, IsMappedSuccess = isMappedSuccess });
 
-                            if (!isMappedSuccess)
-                            {
-                                booking.Status = Bookings.Status.CancelledBySystem;
-                                // implement refund when can not mapping
-                            }
-                            else booking.Status = Bookings.Status.Started;
+                            //if (!isMappedSuccess)
+                            //{
+                            //    booking.Status = Bookings.Status.CancelledBySystem;
+                            //    // implement refund when can not mapping
+                            //}
+                            //else booking.Status = Bookings.Status.Started;
+
+                            booking.Status = Bookings.Status.Started;
                             if (!_appService.Booking.Update(booking).Result)
                                 throw new Exception("Fail to update booking after mapping");
                         }

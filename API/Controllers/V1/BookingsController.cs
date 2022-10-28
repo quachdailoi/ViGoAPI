@@ -480,7 +480,7 @@ namespace API.Controllers.V1
 
                 var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
 
-                if (booking != null && booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.amount)
+                if (booking != null)
                 {
                     if (!AppServices.Booking.CheckIsConflictBooking(booking).Result)
                     {
@@ -511,6 +511,9 @@ namespace API.Controllers.V1
                             IsSuccess = false,
                             Message = "You have booked at this time in an another booking. Check again!"
                         });
+
+                        booking.Status = Bookings.Status.CancelledBySystem;
+                        await AppServices.Booking.Update(booking);
                     }
                 }
             }
@@ -559,12 +562,12 @@ namespace API.Controllers.V1
                             BookingCode = item.Code,
                             PaymentMethod = Payments.PaymentMethods.Momo,
                             IsSuccess = true,
-                            Message = "Pay booking by Momo successfully."
+                            Message = "Pay booking by ZaloPay successfully."
                         });
                     }
                     else
                     {
-                        // refund momo wallet
+                        // refund zalopay wallet
 
                         await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
                         new
