@@ -39,7 +39,7 @@ namespace API.Mapper
                 )
                 .ForMember(
                     dest => dest.Stations,
-                    opt => opt.MapFrom(x => x.Route.RouteStations.Select(x => x.Station))
+                    opt => opt.MapFrom(x => x.Route.RouteStations.OrderBy(x => x.Index).Select(x => x.Station))
                 );
         }
     }

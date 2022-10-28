@@ -254,7 +254,7 @@ namespace API.Services
                     dateFilterRequest, 
                     pagingRequest,
                     new List<Bookings.Status> { Bookings.Status.PendingMapping, Bookings.Status.Started},
-                    new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready, BookingDetails.Status.Started }));
+                    new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready }));
 
         public async Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse)
             => successResponse.SetData(
