@@ -203,10 +203,14 @@ namespace API.Services
 
         private static Guid? GetMessageRoomCode(Room? messageRoom) => messageRoom?.Code ?? null;
 
-        private async Task<dynamic> Get(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, List<BookingDetails.Status>? statuses = null, bool isOrderAscending = true)
+        private async Task<dynamic> Get(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, List<Bookings.Status>? bookingStatus = null, List<BookingDetails.Status>? statuses = null, bool isOrderAscending = true)
         {
             var bookingDetails = UnitOfWork.BookingDetails
                 .List(bd => bd.Booking.UserId == userId);
+
+            if (bookingStatus != null && bookingStatus.Any())
+                bookingDetails = bookingDetails
+                    .Where(bd => bookingStatus.Contains(bd.Booking.Status));
 
             if (statuses != null && statuses.Any())
                 bookingDetails = bookingDetails
@@ -225,7 +229,7 @@ namespace API.Services
                 bookingDetails = bookingDetails.Where(x => x.Date <= toDateParse);
             }
 
-            bookingDetails = isOrderAscending ? 
+            bookingDetails = isOrderAscending ?
                 bookingDetails.OrderBy(e => e.Date).ThenBy(e => e.Booking.Time) :
                 bookingDetails.OrderByDescending(e => e.Date).ThenByDescending(e => e.Booking.Time);
 
@@ -233,7 +237,7 @@ namespace API.Services
 
             var result = new PagingViewModel<List<BookerBookingDetailViewModel>>()
             {
-                Items = await paging.Items.MapTo<BookerBookingDetailViewModel>(Mapper,AppServices).ToListAsync(),
+                Items = await paging.Items.MapTo<BookerBookingDetailViewModel>(Mapper, AppServices).ToListAsync(),
                 TotalItemsCount = paging.TotalItemsCount,
                 Page = paging.Page,
                 PageSize = paging.PageSize,
@@ -243,11 +247,24 @@ namespace API.Services
             return result;
         }
 
-        public async Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest,Response successResponse)
-            => successResponse.SetData(await Get(userId, dateFilterRequest, pagingRequest, new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready, BookingDetails.Status.Started }));
+        public async Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse)
+            => successResponse.SetData(
+                await Get(
+                    userId,
+                    dateFilterRequest,
+                    pagingRequest,
+                    new List<Bookings.Status> { Bookings.Status.PendingMapping, Bookings.Status.Started },
+                    new List<BookingDetails.Status> { BookingDetails.Status.Pending, BookingDetails.Status.Ready, BookingDetails.Status.Started }));
 
         public async Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse)
-            => successResponse.SetData(await Get(userId, dateFilterRequest, pagingRequest, new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled }, false));
+            => successResponse.SetData(
+                await Get(
+                    userId,
+                    dateFilterRequest,
+                    pagingRequest,
+                    new List<Bookings.Status> { Bookings.Status.Completed, Bookings.Status.CancelledByBooker },
+                    new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled },
+                    false));
 
         public Task<BookingDetail?> GetBookingDetailOfBookerByCode(string code, int bookerId)
         {
