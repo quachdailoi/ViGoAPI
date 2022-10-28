@@ -38,15 +38,6 @@ namespace API.Extensions
             Path = path;
         }
 
-        //protected override Expression Accept(ExpressionVisitor visitor)
-        //{
-        //    if(visitor is QuerySqlGenerator specificVisitor)
-        //    {
-        //        string sql = $"{Column.ToString().Trim('"')}";
-        //        specificVisitor.GetType().GetMethod("VisitSqlFragment").Invoke(specificVisitor, new Array { new SqlFragmentExpression(sql) });
-        //    }
-        //}
-
         public override string ToString()
         {
             return base.ToString();
@@ -111,15 +102,5 @@ namespace API.Extensions
             options.Converters.Add(new DateOnlyConverter());
             options.Converters.Add(new TimeOnlyConverter());
         }
-
-        //public static string Serializable<T>(this T _object)
-        //{
-        //    return Newtonsoft.Json.JsonConvert.SerializeObject(_object, new Newtonsoft.Json.JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore } );
-        //}
-
-        //public static T Serializable<T>(this T _object, string str)
-        //{
-        //    return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str);
-        //}
     }
 }

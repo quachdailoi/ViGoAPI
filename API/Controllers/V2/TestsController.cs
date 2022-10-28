@@ -94,7 +94,7 @@ namespace API.Controllers.V2
             {
                 Data = request.Data,
                 Token = request.Token,
-                Notification = new Notification()
+                Notification = new FirebaseAdmin.Messaging.Notification()
                 {
                     Title = request.Title,
                     Body = request.Message

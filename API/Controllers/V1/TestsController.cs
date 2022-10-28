@@ -13,6 +13,7 @@ using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace API.Controllers.V1
 {
@@ -74,11 +75,31 @@ namespace API.Controllers.V1
 
             //var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
 
-            HashSet<int> set = new HashSet<int> { 1, 2, 3 };
+            var dto = new ZaloCollectionLinkRequestDTO
+            {
+                amount = 50000,
+                //order_id = 1,
+                callback_url = GetControllerContextUri() + "/zalopay/ipn"
+            };
 
-            set.Add(3);
+            var response = await AppServices.Payment.GenerateZaloPaymentUrl(dto);
 
-            return Ok(set);
+            return Ok(response);
+
+            //return Ok(new
+            //{
+            //    DateTime = DateTime.Now,
+            //    DateTimeUTC = DateTime.UtcNow,
+            //    DateTimeOffset = DateTimeOffset.Now,
+            //    DateOffSetUTC = DateTimeOffset.UtcNow
+            //});
+        }
+
+        [HttpPost("zalopay/ipn")]
+        public IActionResult TestIPN([FromBody] JsonElement request)
+        {
+            var dto = JsonSerializer.Deserialize<MomoPaymentNotificationRequest>(request.GetRawText());
+            return Ok(dto);
         }
 
         [HttpPost("dump/drivers")]

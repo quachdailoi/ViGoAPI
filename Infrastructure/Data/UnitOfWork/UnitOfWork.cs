@@ -39,6 +39,8 @@ namespace Infrastructure.Data.UnitOfWork
         public IAffiliatePartyRepository AffiliateParties { get; }
         public IWalletRepository Wallets { get; }
         public IWalletTransactionRepository WalletTransactions { get; }
+        public IEventRepository Events { get; }
+        public INotificationRepository Notifications { get; }
 
         public UnitOfWork(
             AppDbContext dbContext, 
@@ -68,7 +70,9 @@ namespace Infrastructure.Data.UnitOfWork
             IAffiliateAccountRepository affiliateAccountRepository,
             IAffiliatePartyRepository affiliatePartyRepository,
             IWalletRepository walletRepository,
-            IWalletTransactionRepository walletTransactionRepository)
+            IWalletTransactionRepository walletTransactionRepository,
+            IEventRepository eventRepository,
+            INotificationRepository notificationRepository)
         {
             _dbContext = dbContext;
 
@@ -98,6 +102,8 @@ namespace Infrastructure.Data.UnitOfWork
             AffiliateParties = affiliatePartyRepository;
             Wallets = walletRepository;
             WalletTransactions = walletTransactionRepository;
+            Events = eventRepository;
+            Notifications = notificationRepository;
 
             _logger = loggerFactory.CreateLogger("logs");
         }

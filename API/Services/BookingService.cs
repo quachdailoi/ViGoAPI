@@ -12,6 +12,7 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.Dynamic;
 using System.Runtime.InteropServices;
 
 namespace API.Services
@@ -29,7 +30,7 @@ namespace API.Services
             var routeStations =
                 await UnitOfWork.RouteStations
                 .List(routeStation =>
-                    (routeStation.Station.Code == dto.StartStationCode ||
+                   (routeStation.Station.Code == dto.StartStationCode ||
                     routeStation.Station.Code == dto.EndStationCode) &&
                     routeStation.Route.Code == dto.RouteCode)
                 .Include(routeStation => routeStation.Station)
@@ -132,25 +133,26 @@ namespace API.Services
 
             if (booking == null) return errorResponse;
 
-            string paymentUrl = String.Empty;
-            string webUrl = string.Empty;
+            dynamic responseData = new ExpandoObject();
 
             try
             {
                 var wallet = await AppServices.Wallet.GetWallet(booking.UserId);
                 if (wallet == null) throw new Exception("Wallet is not exist.");
 
+                var walletTransactionDto = new WalletTransactionDTO
+                {
+                    Amount = booking.TotalPrice,
+                    TxnId = booking.Id.ToString(),
+                    Status = WalletTransactions.Status.Pending,
+                    WalletId = wallet.Id
+                };
+
                 switch (booking.PaymentMethod)
                 {
                     case Payments.PaymentMethods.Momo:
-                        var walletTransactionDto = new WalletTransactionDTO
-                        {
-                            Amount = booking.TotalPrice,
-                            TxnId = booking.Id.ToString(),
-                            Status = WalletTransactions.Status.Pending,
-                            WalletId = wallet.Id,
-                            Type = WalletTransactions.Types.BookingPaidByMomo
-                        };
+                        walletTransactionDto.Type = WalletTransactions.Types.BookingPaidByMomo;
+
 
                         walletTransactionDto = await AppServices.WalletTransaction.Create(walletTransactionDto);
 
@@ -161,18 +163,40 @@ namespace API.Services
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderInfo = "Pay for ViGo booking";
                         ((MomoCollectionLinkRequestDTO)paymentDto).extraData = Encryption.EncodeBase64(walletTransactionDto);
 
-                        var response = await AppServices.Payment.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
-                        if (response == null) throw new Exception("Fail to generate momo url.");
+                        var momoResponse = await AppServices.Payment.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
+                        if (momoResponse == null) throw new Exception("Fail to generate momo url.");
 
-                        paymentUrl = response.deeplink;
-                        webUrl = response.payUrl;
+                        responseData.PaymentUrl = momoResponse.deeplink;
+                        responseData.WebUrl = momoResponse.payUrl;
+
+                        break;
+                    case Payments.PaymentMethods.ZaloPay:
+
+                        walletTransactionDto.Type = WalletTransactions.Types.BookingPaidByZaloPay;
+
+                        walletTransactionDto = await AppServices.WalletTransaction.Create(walletTransactionDto);
+
+                        if (walletTransactionDto == null) throw new Exception("Fail to generate transaction");
+
+                        ((ZaloCollectionLinkRequestDTO)paymentDto).amount = (long)booking.TotalPrice;
+                        ((ZaloCollectionLinkRequestDTO)paymentDto).raw_item = new List<object>
+                        {
+                            Mapper.Map<PaymentBookingViewModel>(booking)
+                        };
+
+                        var zaloPayResponse = await AppServices.Payment.GenerateZaloPaymentUrl((ZaloCollectionLinkRequestDTO)paymentDto);
+                        if (zaloPayResponse == null) throw new Exception("Fail to generate zalopay url.");
+
+                        responseData.PaymentUrl = zaloPayResponse.order_url;
+                        responseData.ZpTransToken = zaloPayResponse.zp_trans_token;
+
                         break;
                     case Payments.PaymentMethods.Wallet:
                         if (wallet.Balance < booking.TotalPrice) throw new Exception("Insufficient balance.");
                         
                         wallet = await AppServices.Wallet.UpdateBalance(new WalletTransactionDTO
                         {
-                            Amount = -booking.TotalPrice,
+                            Amount = booking.TotalPrice,
                             TxnId = booking.Id.ToString(),
                             Status = WalletTransactions.Status.Success,
                             WalletId = wallet.Id,
@@ -207,19 +231,13 @@ namespace API.Services
             
             await UnitOfWork.CommitAsync();
 
-            var bookingViewModel =
+            responseData.Booking =
                 await UnitOfWork.Bookings
                     .List(_booking => _booking.Id == booking.Id)
                     .MapTo<BookerBookingViewModel>(Mapper)
                     .FirstOrDefaultAsync();
 
-            return successResponse.SetData(new 
-            { 
-                Booking = bookingViewModel,
-                PaymentUrl = paymentUrl,
-                WebLinkUrl = webUrl
-            } 
-            );
+            return successResponse.SetData(responseData);
         }
 
 
@@ -357,7 +375,9 @@ namespace API.Services
                 .Include(e => e.StartRouteStation)
                 .FirstOrDefaultAsync();
 
-            if (booking == null) return null;
+            if (booking == null) 
+                //throw new Exception("Not exist booking");
+                return null;
 
             var routeStationDic =
                 (await UnitOfWork.Routes
@@ -368,17 +388,14 @@ namespace API.Services
                 .RouteStations
                 .ToDictionary(e => e.Id);
 
-            if(routeStationDic == null) return null;
+            if (routeStationDic == null) 
+                //throw new Exception("Not exist route station");
+                return null;
 
             var routeRoutines =
                 UnitOfWork.RouteRoutines
-                .List(routeRoutine => !(routeRoutine.StartAt > booking.EndAt || routeRoutine.EndAt < booking.StartAt) &&
-                                      (routeRoutine.StartTime <= booking.Time && routeRoutine.EndTime > booking.Time) &&
-                                      routeRoutine.RouteId == booking.StartRouteStation.RouteId && routeRoutine.User.Vehicle.VehicleTypeId == booking.VehicleTypeId)
-                .Include(e => e.User)
-                .ThenInclude(u => u.BookingDetailDrivers)
-                .ThenInclude(bdr => bdr.BookingDetail)
-                .ThenInclude(bd => bd.Booking);
+                .List(routeRoutine => (routeRoutine.StartTime <= booking.Time && routeRoutine.EndTime > booking.Time) &&
+                                      routeRoutine.RouteId == booking.StartRouteStation.RouteId && routeRoutine.User.Vehicle.VehicleTypeId == booking.VehicleTypeId);
 
             var driverUserMessageRoomDic = new Dictionary<Guid, Room>();
 
@@ -387,31 +404,26 @@ namespace API.Services
 
                 var rawOrderedRouteRoutines =
                     (await routeRoutines
-                    .Select(routeRoutine => new
-                    {
-                        RouteRoutine = routeRoutine,
-                        BookingDetailDrivers = routeRoutine.User.BookingDetailDrivers
-                            .Where(bdr =>
+                    .Where(routeRoutine => !(routeRoutine.StartAt > bookingDetail.Date || routeRoutine.EndAt < bookingDetail.Date))
+                    .Include(e => e.User)
+                    .ThenInclude(u => u.BookingDetailDrivers.Where(bdr =>
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
-                                bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
-                                bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime &&
-                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet)
-                            .ToList()
-                    })
+                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet))
+                    .ThenInclude(bdr => bdr.BookingDetail)
+                    .ThenInclude(bd => bd.Booking)
                     .ToListAsync());
 
-                rawOrderedRouteRoutines.ForEach(item => item.RouteRoutine.User.BookingDetailDrivers = item.BookingDetailDrivers);
-                
+                rawOrderedRouteRoutines.ForEach(routeRoutine =>
+                    routeRoutine.User.BookingDetailDrivers = routeRoutine.User.BookingDetailDrivers.
+                        Where(bdr => 
+                            bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
+                            bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime)
+                        .ToList());
+
                 var orderedRouteRoutines = rawOrderedRouteRoutines
-                    .Select(item => item.RouteRoutine)
                     .OrderBy(routeRoutine => routeRoutine.User.BookingDetailDrivers.Count)
                     .ToList();
 
-                if (orderedRouteRoutines.Any(e => e.User.BookingDetailDrivers.Any())) 
-                {
-                    var i = 34;       
-                };
-                    
 
                 //then order by driver point
 
@@ -487,7 +499,7 @@ namespace API.Services
                     }
                 }
 
-                foreach (var routeRoutine in routeRoutines) routeRoutine.Dispose();
+                //foreach (var routeRoutine in routeRoutines) routeRoutine.Dispose();
             }
 
 

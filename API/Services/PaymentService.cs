@@ -15,6 +15,7 @@ using API.Models.Requests;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using API.Models.Responses.Payments.Momo;
+using API.Models.Responses.Payments.ZaloPay;
 
 namespace API.Services
 {
@@ -24,6 +25,8 @@ namespace API.Services
         private const string MOMO_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/create";
         private const string MOMO_REFUND_ENDPOINT = "https://test-payment.momo.vn/v2/gateway/api/refund";
         private const string MOMO_TOKENIZATION_BIND = "https://test-payment.momo.vn/v2/gateway/api/tokenization/bind";
+
+        private const string ZALOPAY_CREATE_ENDPOINT = "https://sb-openapi.zalopay.vn/v2/create";
         public PaymentService(IAppServices appServices) : base(appServices)
         {
             _client = new HttpClient();
@@ -56,7 +59,16 @@ namespace API.Services
 
             var body = await response.Content.ReadAsStringAsync();
 
-            var obj = JToken.Parse(body).ToObject<GenerateMomoPaymentUrlResponse>();
+            var obj = new GenerateMomoPaymentUrlResponse();
+
+            try
+            {
+                obj = JToken.Parse(body).ToObject<GenerateMomoPaymentUrlResponse>();
+            }
+            catch
+            {
+                throw new Exception($"Pay by Momo - Momo server is unavailable");
+            }
 
             if (obj.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception($"Pay by Momo - {obj.message}");
 
@@ -114,9 +126,16 @@ namespace API.Services
 
             var body = await response.Content.ReadAsStringAsync();
 
-            var obj = JToken.Parse(body).ToObject<GenerateMomoLinkWalletUrlResponse>();
+            var obj = new GenerateMomoLinkWalletUrlResponse();
 
-            if (obj.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception($"Pay by Momo - {obj.message}");
+            try
+            {
+                obj = JToken.Parse(body).ToObject<GenerateMomoLinkWalletUrlResponse>();
+            }
+            catch
+            {
+                throw new Exception($"Pay by Momo - Momo server is unavailable");
+            }
 
             return obj;
         } 
@@ -196,6 +215,37 @@ namespace API.Services
             var user = await AppServices.User.GetUserById(int.Parse(obj.partnerClientId)).FirstOrDefaultAsync();
 
             return true;
+        }
+
+        public async Task<GenerateZaloPayPaymentUrlResponse> GenerateZaloPaymentUrl(ZaloCollectionLinkRequestDTO dto)
+        {
+            var key = Configuration.Get(ZaloPaySettings.Key1);
+
+            dto.app_id = Configuration.Get<int>(ZaloPaySettings.AppId);
+            dto.raw_embed_data.redirecturl = Configuration.Get<string>(ZaloPaySettings.RedirectUrl);
+            dto.mac = Encryption.HMACSHA256(dto.mac_data, key);
+
+
+            StringContent httpContent = new(JsonConvert.SerializeObject(dto), System.Text.Encoding.UTF8, "application/json");
+
+            var response = await _client.PostAsync(ZALOPAY_CREATE_ENDPOINT, httpContent);
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            var obj = new GenerateZaloPayPaymentUrlResponse();
+
+            try
+            {
+                obj = JToken.Parse(body).ToObject<GenerateZaloPayPaymentUrlResponse>();
+            }
+            catch
+            {
+                throw new Exception($"Pay by Zalo - Zalo server is unavailable");
+            }
+
+            Console.WriteLine(JsonConvert.SerializeObject(dto));
+
+            return obj;
         }
     }
 }

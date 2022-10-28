@@ -113,6 +113,8 @@ namespace API.Extensions
             services.AddScoped<IAffiliatePartyRepository, AffiliatePartyRepository>();
             services.AddScoped<IWalletRepository, WalletRepository>();
             services.AddScoped<IWalletTransactionRepository, WalletTransactionRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -180,7 +182,7 @@ namespace API.Extensions
 
         public static void ConfigurationSeedData(this IServiceCollection services)
         {
-            services.AddHostedService<DumpRoutes>();
+            //services.AddHostedService<DumpRoutes>();
         }
 
         public static void ConfigureSwagger(this IServiceCollection services)
