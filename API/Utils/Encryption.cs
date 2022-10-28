@@ -20,6 +20,20 @@ namespace API.Utils
 
             return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
         }
+
+        public static string HMACSHA256(string text, string secretKey)
+        {
+            Byte[] textBytes = Encoding.UTF8.GetBytes(text);
+            Byte[] keyBytes = Encoding.UTF8.GetBytes(secretKey);
+
+            Byte[] hashBytes;
+
+            using (HMACSHA256 hash = new HMACSHA256(keyBytes))
+                hashBytes = hash.ComputeHash(textBytes);
+
+            return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+        }
+
         public static string EncryptRSA(object data, string publicKey)
         {
             var jsonStr = JsonConvert.SerializeObject(data);

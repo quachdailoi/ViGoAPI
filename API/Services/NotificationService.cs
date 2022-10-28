@@ -10,7 +10,7 @@ namespace API.Services
         }
 
         public Task<string> SendPushNotification(Message message)
-        {
+    {
             return FirebaseMessaging.DefaultInstance.SendAsync(message);
         }
     }
