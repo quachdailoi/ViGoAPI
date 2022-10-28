@@ -193,7 +193,7 @@ namespace API.Utils
                 },
             };
 
-                routeRoutines = await _appServices.RouteRoutine.CreateRouteRoutines(routeRoutines);
+                //routeRoutines = await _appServices.RouteRoutine.CreateRouteRoutines(routeRoutines);
             }  
 
             await StopAsync(cancellationToken);
@@ -252,10 +252,6 @@ namespace API.Utils
                 new()
                 {
                     83,84,85,86,87,86,85,84,83
-                },
-                new()
-                {
-                    25, 26, 27, 28,29, 30, 33, 30, 33, 20, 88
                 }
             };
         }
