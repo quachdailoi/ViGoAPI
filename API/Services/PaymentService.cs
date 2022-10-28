@@ -59,7 +59,16 @@ namespace API.Services
 
             var body = await response.Content.ReadAsStringAsync();
 
-            var obj = JToken.Parse(body).ToObject<GenerateMomoPaymentUrlResponse>();
+            var obj = new GenerateMomoPaymentUrlResponse();
+
+            try
+            {
+                obj = JToken.Parse(body).ToObject<GenerateMomoPaymentUrlResponse>();
+            }
+            catch
+            {
+                throw new Exception($"Pay by Momo - Momo server is unavailable");
+            }
 
             if (obj.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception($"Pay by Momo - {obj.message}");
 
@@ -117,9 +126,16 @@ namespace API.Services
 
             var body = await response.Content.ReadAsStringAsync();
 
-            var obj = JToken.Parse(body).ToObject<GenerateMomoLinkWalletUrlResponse>();
+            var obj = new GenerateMomoLinkWalletUrlResponse();
 
-            if (obj.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception($"Pay by Momo - {obj.message}");
+            try
+            {
+                obj = JToken.Parse(body).ToObject<GenerateMomoLinkWalletUrlResponse>();
+            }
+            catch
+            {
+                throw new Exception($"Pay by Momo - Momo server is unavailable");
+            }
 
             return obj;
         } 
@@ -216,11 +232,16 @@ namespace API.Services
 
             var body = await response.Content.ReadAsStringAsync();
 
-            var obj = JToken.Parse(body).ToObject<GenerateZaloPayPaymentUrlResponse>();
+            var obj = new GenerateZaloPayPaymentUrlResponse();
 
-            
-
-            if(obj.return_code != (int)Payments.ZaloPayStatusCodes.Successed) throw new Exception($"Pay by ZaloPay - {obj.return_message} - {obj.sub_return_message} - {dto.app_trans_id} - {dto.app_time}");
+            try
+            {
+                obj = JToken.Parse(body).ToObject<GenerateZaloPayPaymentUrlResponse>();
+            }
+            catch
+            {
+                throw new Exception($"Pay by Zalo - Zalo server is unavailable");
+            }
 
             Console.WriteLine(JsonConvert.SerializeObject(dto));
 

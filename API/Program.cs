@@ -31,7 +31,7 @@ var loggerConfig = new LoggerConfiguration()
     .ReadFrom.Configuration(_config)
     .Enrich.FromLogContext();
 
-//if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "production") loggerConfig = loggerConfig.WriteTo.Console();
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "production") loggerConfig = loggerConfig.WriteTo.Console();
 
 var logger = loggerConfig.CreateLogger();
 

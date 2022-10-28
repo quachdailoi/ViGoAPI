@@ -375,7 +375,9 @@ namespace API.Services
                 .Include(e => e.StartRouteStation)
                 .FirstOrDefaultAsync();
 
-            if (booking == null) return null;
+            if (booking == null) 
+                //throw new Exception("Not exist booking");
+                return null;
 
             var routeStationDic =
                 (await UnitOfWork.Routes
@@ -386,7 +388,9 @@ namespace API.Services
                 .RouteStations
                 .ToDictionary(e => e.Id);
 
-            if(routeStationDic == null) return null;
+            if (routeStationDic == null) 
+                //throw new Exception("Not exist route station");
+                return null;
 
             var routeRoutines =
                 UnitOfWork.RouteRoutines

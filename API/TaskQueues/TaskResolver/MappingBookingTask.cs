@@ -31,7 +31,9 @@ namespace API.TaskQueues.TaskResolver
                         if (booking != null)
                         {
                             var isMappedSuccess = booking.BookingDetails.Any(bd => bd.Status == BookingDetails.Status.Ready);
-                            await _appService.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingMappingResult", new { Code = booking.Code, IsMappedSuccess = isMappedSuccess });
+
+                            //updating for defining condition checking for mapping success
+                            if(isMappedSuccess) await _appService.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingMappingResult", new { Code = booking.Code, IsMappedSuccess = isMappedSuccess });
 
                             //if (!isMappedSuccess)
                             //{
@@ -46,7 +48,7 @@ namespace API.TaskQueues.TaskResolver
                         }
                         else
                         {
-                            throw new Exception("Exist null booking in mapping task");
+                            //throw new Exception("Exist null booking in mapping task");
                         }
                     }
                 }
