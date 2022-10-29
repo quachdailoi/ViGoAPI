@@ -1,5 +1,6 @@
 ﻿using API.Extensions;
 using API.Models;
+using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Responses;
@@ -10,6 +11,7 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace API.Services
 {
@@ -84,20 +86,41 @@ namespace API.Services
 
             foreach (var driverSchedule in driverSchedules)
             {
-                var detailsByDay = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time);
+                //var detailsByDay = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time);
 
-                var routes = (await detailsByDay.Select(x => x.Booking.StartRouteStation.Route).ToListAsync()).DistinctBy(x => x.Id);
+                //var routes = (detailsByDay.Where(bd => bd.BookingDetailDrivers.Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed).Any())).Select(x => new BookingRoutineDTO { Route = x.Booking.StartRouteStation.Route, Date = x.Date, Time = x.Booking.Time}).ToList().DistinctBy(x => x.Route.Id).ToList();
 
-                foreach (var route in routes)
+                var detailRoutines = new List<BookingDetailRoutineDTO>();
+               
+                UnitOfWork.RouteRoutines.GetAllRouteRoutine(driverId).Include(x => x.Route).ToList()
+                    .Where(x =>
+                    {
+                        var details = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time).Where(bd => bd.Booking.StartRouteStation.Route.Id == x.RouteId && x.StartAt <= bd.Date && bd.Date <= x.EndAt && x.StartTime <= bd.Booking.Time && bd.Booking.Time <= x.EndTime);
+                        
+                        if (details.Any())
+                        detailRoutines.Add(new()
+                        {
+                            Routine = x,
+                            BookingDetails = details
+                        });
+                        
+                        return details.Any();
+                    }).ToList();
+
+                foreach (var routineDetail in detailRoutines)
                 {
+                    var routine = routineDetail.Routine;
+
                     RouteScheduleViewModel routeSchedule = new()
                     {
-                        RouteCode = route.Code.ToString()
+                        RouteCode = routine.Route.Code.ToString(),
+                        StartTime = routine.StartTime
                     };
 
-                    var detailsInRoute = detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == route.Id);
+                    //var detailsInRoute = detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId);
+                    var detailsInRouteRoutine = routineDetail.BookingDetails.Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId); //detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId);
 
-                    var schedules = detailsInRoute.Select(x => new ScheduleBookingDetailViewModel
+                    var schedules = detailsInRouteRoutine.Select(x => new ScheduleBookingDetailViewModel
                     {
                         BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled &&
                             bdd.DriverId == driverId).OrderByDescending(x => x.CreatedAt).Select(x => x.Code).FirstOrDefault(),
@@ -130,10 +153,10 @@ namespace API.Services
                             PaymentMethod = x.Booking.PaymentMethod,
                             PaymentStatus = x.Booking.Status
                         }
-                    });
-
+                    }).ToList();
+                    //schedules.ToList();
                     // add schedules
-                    routeSchedule.Schedules.AddRange(schedules);
+                    routeSchedule.Schedules = schedules;
 
                     var startStepInSchedules = schedules.Select(x => new StepScheduleViewModel()
                     {
@@ -145,7 +168,7 @@ namespace API.Services
                         Type = BookingDetailDrivers.StepScheduleType.PickUp,
                         Index = x.StartStation.Index,
                         Time = x.Time
-                    }).ToList();
+                    });
 
                     var endStepInSchedules = schedules.Select(x => new StepScheduleViewModel()
                     {
@@ -157,16 +180,15 @@ namespace API.Services
                         Type = BookingDetailDrivers.StepScheduleType.DropOff,
                         Index = x.EndStation.Index,
                         Time = x.Time
-                    }).ToList();
+                    });
 
                     var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Time).ThenBy(x => x.Index)
                         .Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Completed && 
-                                    x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
-                        .AsEnumerable();
+                                    x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled).ToList();
 
-                    routeSchedule.Steps.AddRange(stepInSchedules);
+                    routeSchedule.Steps = stepInSchedules;
 
-                    driverSchedule.Routes.Add(routeSchedule);
+                    driverSchedule.RouteRoutines.Add(routeSchedule);
                 }
             }
 
@@ -254,7 +276,7 @@ namespace API.Services
                     dateFilterRequest, 
                     pagingRequest,
                     new List<Bookings.Status> { Bookings.Status.PendingMapping, Bookings.Status.Started},
-                    new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready, BookingDetails.Status.Started }));
+                    new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready }));
 
         public async Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse)
             => successResponse.SetData(

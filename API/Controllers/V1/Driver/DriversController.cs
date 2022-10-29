@@ -557,7 +557,8 @@ namespace API.Controllers.V1.Driver
                 Message = "This booking detail driver not belong to this Driver."
             });
 
-            if ((int)request.TripStatus != (int)bookingDetailDriver.TripStatus + 1) return ApiResult(new()
+            if (request.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && 
+                (int)request.TripStatus != (int)bookingDetailDriver.TripStatus + 1) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status400BadRequest,
                 Message = "New trip status not a valid next trip status."

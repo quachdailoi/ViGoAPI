@@ -144,6 +144,35 @@ namespace Infrastructure.Data.Seeders
                 Status = Users.Status.Active,
                 FileId = null,
             });
+
+            for (int i = 100; i < 200; i++)
+            {
+                builder.Entity<User>().HasData(new User
+                {
+                    Id = i,
+                    Name = $"Booker {i}",
+                    Code = Guid.NewGuid(),
+                    DateOfBirth = null,
+                    Gender = Users.Genders.Male,
+                    Status = Users.Status.Active,
+                    FileId = null,
+                });
+            }
+
+
+            for (int i = 400; i < 500; i++)
+            {
+                builder.Entity<User>().HasData(new User
+                {
+                    Id = i,
+                    Name = $"Driver {i}",
+                    Code = Guid.NewGuid(),
+                    DateOfBirth = null,
+                    Gender = Users.Genders.Male,
+                    Status = Users.Status.Active,
+                    FileId = null,
+                });
+            }
         }
     }
 }
