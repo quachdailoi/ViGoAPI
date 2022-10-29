@@ -12,9 +12,8 @@ namespace Domain.Shares.Enums
         {
             Cancelled = -1,
             NotYet = 0,
-            PickingUp = 1,
-            Arried = 2,
-            Completed = 3
+            PickedUp = 1,
+            Completed = 2
         }
 
         public enum StepScheduleType

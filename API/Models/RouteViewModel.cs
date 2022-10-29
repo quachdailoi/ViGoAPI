@@ -60,6 +60,7 @@ namespace API.Models
     public class RouteScheduleViewModel
     {
         public string RouteCode { get; set; }
+        public TimeOnly StartTime { get; set; }
         public List<ScheduleBookingDetailViewModel> Schedules { get; set; } = new();
         public List<StepScheduleViewModel> Steps { get; set; } = new();
     }
