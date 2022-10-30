@@ -30,7 +30,8 @@ namespace API.Services
             {
                 if (tripStatus == BookingDetailDrivers.TripStatus.Completed)
                 {
-                    bookingDetailDriver.BookingDetail.Status = BookingDetails.Status.Completed;
+                    bookingDetail.Status = BookingDetails.Status.Completed;
+                    bookingDetailDriver.BookingDetail = bookingDetail;
                 }
 
                 await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", new
