@@ -24,15 +24,15 @@ namespace API.Services
         {
             bookingDetailDriver.TripStatus = tripStatus;
 
-            if (tripStatus == BookingDetailDrivers.TripStatus.Completed)
-            {
-                bookingDetailDriver.BookingDetail.Status = BookingDetails.Status.Completed;
-            }
-
             var bookingDetail = await AppServices.BookingDetail.GetById(bookingDetailDriver.BookingDetailId);
 
-            if(bookingDetail != null)
+            if (bookingDetail != null)
             {
+                if (tripStatus == BookingDetailDrivers.TripStatus.Completed)
+                {
+                    bookingDetailDriver.BookingDetail.Status = BookingDetails.Status.Completed;
+                }
+
                 await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", new
                 {
                     BookingDetailCode = bookingDetail.Code,
@@ -40,6 +40,7 @@ namespace API.Services
                     TripStatusName = tripStatus.DisplayName()
                 });
             }
+            else Logger<BookingDetailDriverService>().LogError("Error: Booking detail null -> cannot set complete or send signal");
 
             return await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver);
         }

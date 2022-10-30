@@ -531,6 +531,14 @@ namespace API.Controllers.V1.Driver
         ///     TripStatus: 1 (0: Not yet, 1: PickingUp, 2: Arrived, 3: Completed)
         /// ```
         /// </remarks>
+        /// <remarks>
+        /// ```
+        /// 
+        /// 
+        /// 
+        /// 
+        /// ```
+        /// </remarks>
         /// <response code = "200"> Update Trip Status Successfully.</response>
         /// <response code = "400"> 
         ///     Not found booking detail driver with this ID. <br></br>
