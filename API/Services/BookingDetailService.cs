@@ -92,7 +92,7 @@ namespace API.Services
 
                 var detailRoutines = new List<BookingDetailRoutineDTO>();
                
-                UnitOfWork.RouteRoutines.GetAllRouteRoutine(driverId).Include(x => x.Route).ToList()
+                UnitOfWork.RouteRoutines.GetAllRouteRoutine(driverId).Include(x => x.Route).OrderBy(x => x.StartTime).ToList()
                     .Where(x =>
                     {
                         var details = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time).Where(bd => bd.Booking.StartRouteStation.Route.Id == x.RouteId && x.StartAt <= bd.Date && bd.Date <= x.EndAt && x.StartTime <= bd.Booking.Time && bd.Booking.Time <= x.EndTime);
