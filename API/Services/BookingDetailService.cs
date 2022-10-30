@@ -118,14 +118,22 @@ namespace API.Services
                     };
 
                     //var detailsInRoute = detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId);
-                    var detailsInRouteRoutine = routineDetail.BookingDetails.Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId); //detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId);
+                    var detailsInRouteRoutine = routineDetail.BookingDetails
+                        .Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId)
+                        .Where(x => x.Status != BookingDetails.Status.Cancelled && x.Status != BookingDetails.Status.Completed); //detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId);
+
+                    if (!detailsInRouteRoutine.Any()) continue;
 
                     var schedules = detailsInRouteRoutine.Select(x => new ScheduleBookingDetailViewModel
                     {
-                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled &&
-                            bdd.DriverId == driverId).OrderByDescending(x => x.CreatedAt).Select(x => x.Code).FirstOrDefault(),
-                        TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled &&
-                            bdd.DriverId == driverId).OrderByDescending(x => x.CreatedAt).Select(x => x.TripStatus).FirstOrDefault(),
+                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.DriverId == driverId)
+                            .Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed)
+                            .OrderByDescending(x => x.CreatedAt)
+                            .Select(x => x.Code).FirstOrDefault(),
+                        TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.DriverId == driverId)
+                            .Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed)
+                            .OrderByDescending(x => x.CreatedAt)
+                            .Select(x => x.TripStatus).FirstOrDefault(),
                         Time = x.Booking.Time,
                         StartStation = new()
                         {
@@ -183,10 +191,11 @@ namespace API.Services
                     });
 
                     var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Time).ThenBy(x => x.Index)
-                        .Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Completed && 
-                                    x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled).ToList();
+                        .Where(ValidTripStatus).ToList();
 
-                    routeSchedule.Steps = stepInSchedules;
+                    //var obj = ((List<object>)Convert.ChangeType(stepInSchedules, stepInSchedules.GetType())).OfType<StepScheduleViewModel>().ToList();
+
+                    routeSchedule.Steps = ConvertTo<StepScheduleViewModel>(stepInSchedules);
 
                     driverSchedule.RouteRoutines.Add(routeSchedule);
                 }
@@ -203,6 +212,11 @@ namespace API.Services
 
             return success.SetData(result);
         }
+
+        private List<T> ConvertTo<T>(List<dynamic> list) => ((List<object>)Convert.ChangeType(list, list.GetType())).OfType<T>().ToList();
+
+        Func<dynamic, bool> ValidTripStatus => x => x.TripStatus != BookingDetailDrivers.TripStatus.Completed &&
+                                    x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled;
 
         private static double CalculateDistanceFromStartToEndStation(List<RouteStation> routeStations, int startStationId, int endStationId, double routeDistance)
         {
