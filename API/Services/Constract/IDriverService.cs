@@ -23,5 +23,7 @@ namespace API.Services.Constract
             Response duplicateReponse,
             Response failedResponse
         );
+
+        double GetIncome(int driverId, DateOnly fromDate, DateOnly toDate);
     }
 }

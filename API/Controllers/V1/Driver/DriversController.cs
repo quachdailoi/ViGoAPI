@@ -586,5 +586,29 @@ namespace API.Controllers.V1.Driver
                 Message = "Update trip status for booking detail driver successfully."
             });
         }
+
+        /// <summary>
+        ///     Get driver's income by day paging.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/drivers/schedules
+        ///     Page: 1,
+        ///     PageSize: 3
+        /// ```
+        /// </remarks>
+        /// <remarks>
+        /// ```
+        /// Note response:
+        ///     Steps.Status (0: PickUp, 1: DropOff)
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Get schedules of driver successfully.</response>
+        [HttpGet("income")]
+        public async Task<IActionResult> GetIncome([FromQuery] PagingRequest pagingRequest, [FromQuery] DateFilterRequest dateFilterRequest)
+        {
+            var driver = LoggedInUser;
+        }
     }
 }

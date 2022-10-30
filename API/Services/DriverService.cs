@@ -68,5 +68,17 @@ namespace API.Services
                 failedResponse
             );
         }
+
+        public double GetIncome(int driverId, DateOnly fromDate, DateOnly toDate, PagingRequest request)
+        {
+            var bookingDetails = UnitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId)
+                    .Where(x => x.Status == BookingDetails.Status.Completed && fromDate <= x.Date && x.Date <= toDate)
+                    .Paging(page: request.Page, pageSize: request.PageSize);
+
+            var price = bookingDetails.Select(x => x.Price).Sum();
+            var discountPrice = bookingDetails.Select(x => x.DiscountPrice).Sum();
+
+            return price - discountPrice;
+        }
     }
 }
