@@ -20,5 +20,6 @@ namespace API.Services.Constract
         Task<Booking?> GetByCode(Guid code);
         Task<Booking?> Mapping(int bookingId);
         Task<bool> CheckIsConflictBooking(Booking booking);
+        Task<bool?> Refund(Guid code);
     }
 }

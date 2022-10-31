@@ -30,12 +30,19 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.TxnId)
                 .HasColumnName("txn_id");
 
+            builder.Property(e => e.BookingId)
+                .HasColumnName("booking_id");
+
             builder.Property(e => e.WalletId)
                 .HasColumnName("wallet_id");
 
             builder.HasOne(e => e.Wallet)
                 .WithMany(w => w.WalletTransactions)
                 .HasForeignKey(e => e.WalletId);
+
+            builder.HasOne(e => e.Booking)
+                .WithOne(b => b.WalletTransaction)
+                .HasForeignKey<WalletTransaction>(e => e.BookingId);
 
             builder.HasIndex(e => e.Code)
                 .IsUnique();

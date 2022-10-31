@@ -474,7 +474,7 @@ namespace API.Controllers.V1
             if (dto.resultCode == (int)Payments.MomoStatusCodes.Successed)
             {
                 walletTransactionDto.Status = WalletTransactions.Status.Success;
-                walletTransactionDto.TxnId += $",{dto.transId}";
+                walletTransactionDto.TxnId = dto.transId.ToString();
 
                 var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
 

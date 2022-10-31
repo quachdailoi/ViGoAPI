@@ -17,7 +17,7 @@ namespace API.Services.Constract
         Task<GenerateMomoLinkWalletUrlResponse?> GenerateMomoLinkingWalletUrl(MomoLinkingWalletRequestDTO dto);
         Task<Response> GenerateMomoLinkingWalletUrl(MomoLinkingWalletRequestDTO dto, Response successResponse, Response errorResponse);
         Task<bool> GetTokenUserMomoLinkingWallet(MomoLinkWalletNotificationRequest request);
-        Task<bool> MomoRefund(long transId, long amount,string description = "");
+        Task<MomoRefundResponse> MomoRefund(long transId, long amount,string description = "");
         string GetMomoSignature(string text);
 
         Task<GenerateZaloPayPaymentUrlResponse> GenerateZaloPaymentUrl(ZaloCollectionLinkRequestDTO dto);

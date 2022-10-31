@@ -143,9 +143,9 @@ namespace API.Services
                 var walletTransactionDto = new WalletTransactionDTO
                 {
                     Amount = booking.TotalPrice,
-                    TxnId = booking.Id.ToString(),
                     Status = WalletTransactions.Status.Pending,
-                    WalletId = wallet.Id
+                    WalletId = wallet.Id,
+                    BookingId = booking.Id
                 };
 
                 switch (booking.PaymentMethod)
@@ -527,5 +527,72 @@ namespace API.Services
         }
         public Task<Booking?> GetByCode(Guid code) => UnitOfWork.Bookings.List(booking => booking.Code == code).Include(booking => booking.User).FirstOrDefaultAsync();
         public Task<bool> Update(Booking booking) => UnitOfWork.Bookings.Update(booking);
+
+        public async Task<bool?> Refund(Guid code)
+        {
+            var booking = await GetByCode(code);
+
+            if (booking == null) return null;
+
+            var wallet = await AppServices.Wallet.GetWallet(booking.UserId);
+
+            if (wallet == null) return null;
+
+            try
+            {
+                var amount = booking.TotalPrice - booking.DiscountPrice;
+                switch (booking.PaymentMethod)
+                {
+                    case Payments.PaymentMethods.Momo:
+                        var txnId = long.Parse(booking.WalletTransaction.TxnId);
+
+                        var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
+
+                        if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
+
+                        var transaction = new WalletTransactionDTO
+                        {
+                            Amount = amount,
+                            BookingId = booking.Id,
+                            Type = WalletTransactions.Types.BookingRefund,
+                            TxnId = response.transId.ToString(),
+                            WalletId = wallet.Id,
+                            Status = WalletTransactions.Status.Success
+                        };
+
+                        await AppServices.WalletTransaction.Create(transaction);
+
+                        //return true;
+                        break;
+                    case Payments.PaymentMethods.Wallet:
+                        await AppServices.Wallet.UpdateBalance(new WalletTransactionDTO
+                        {
+                            Amount = amount,
+                            BookingId = booking.Id,
+                            Type = WalletTransactions.Types.BookingRefund,
+                            WalletId = wallet.Id,
+                            Status = WalletTransactions.Status.Success
+                        });
+                        break;
+                    //return true;
+                    default: return true;
+                }
+
+                await AppServices.Notification.PushNotification(new NotificationDTO
+                {
+                    EventId = Events.Types.RefundBooking,
+                    UserId = booking.UserId,
+                    Type = Notifications.Types.SpecificUser
+                });
+
+                return true;
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return false;
+        }
     }
 }

@@ -30,6 +30,7 @@ namespace Domain.Entities
         public User User { get; set; }
         public VehicleType VehicleType { get; set; }
         public List<BookingDetail> BookingDetails { get; set; } = new();
+        public WalletTransaction WalletTransaction { get; set; }
 
         //Promotion
         public Promotion? Promotion { get; set; } = null;
