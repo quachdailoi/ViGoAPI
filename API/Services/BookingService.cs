@@ -129,14 +129,14 @@ namespace API.Services
 
             await UnitOfWork.CreateTransactionAsync();
 
-            booking = await UnitOfWork.Bookings.Add(booking);
-
-            if (booking == null) return errorResponse;
-
             dynamic responseData = new ExpandoObject();
 
             try
             {
+                booking = await UnitOfWork.Bookings.Add(booking);
+
+                if (booking == null) throw new Exception("Fail to create booking.");
+
                 var wallet = await AppServices.Wallet.GetWallet(booking.UserId);
                 if (wallet == null) throw new Exception("Wallet is not exist.");
 
@@ -226,6 +226,7 @@ namespace API.Services
             {
                 await UnitOfWork.Rollback();
                 if (ex.Message.Contains("Insufficient balance.")) return insufficientBalanceResponse;
+                if (ex.Message.Contains("Fail to create booking.")) return errorResponse;
                 return errorResponse.SetMessage(ex.Message);
             }
             
@@ -271,72 +272,66 @@ namespace API.Services
             }
             return true;
         }
-        private bool IsPossibleMappingWithRouteRoutineWithShare(TimeOnly routeRoutineStartTime,List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)
+
+        private List<BookingDetail> PossibleSharingBookingDetails(List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)
         {
             var curStartStation = routeStationDic[bookingDetail.Booking.StartRouteStationId];
             var curEndStation = routeStationDic[bookingDetail.Booking.EndRouteStationId];
 
-            var possibleSharingBookingDetails =
-                    mappedBookingDetails
+            var filterMappedBookingDetails = mappedBookingDetails
+                .Where(mappedBookingDetail =>
+                    !(((mappedBookingDetail.Booking.Time - bookingDetail.Booking.Time.AddMinutes(bookingDetail.Booking.Duration)).TotalMinutes >= Bookings.AllowedMappingTimeRange) ||
+                       (bookingDetail.Booking.Time - mappedBookingDetail.Booking.Time.AddMinutes(mappedBookingDetail.Booking.Duration)).TotalMinutes >= Bookings.AllowedMappingTimeRange))
+                .ToList();
+
+            return filterMappedBookingDetails
                     .Where(mappedBookingDetail =>
                         !(curStartStation.DistanceFromFirstStationInRoute >= routeStationDic[mappedBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute ||
                           curEndStation.DistanceFromFirstStationInRoute <= routeStationDic[mappedBookingDetail.Booking.StartRouteStationId].DistanceFromFirstStationInRoute))
                     .OrderBy(mappedBookingDetail => mappedBookingDetail.Booking.Time)
                     .ToList();
+        }
+
+        private bool IsPossibleMappingWithRouteRoutineWithShare(TimeOnly routeRoutineStartTime,List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)
+        {
+            var possibleSharingBookingDetails = PossibleSharingBookingDetails(mappedBookingDetails, bookingDetail, routeStationDic);
 
             var deniedSharingBookingDetails =
                 possibleSharingBookingDetails
                 .Where(mappedBookingDetail => !mappedBookingDetail.Booking.IsShared)
                 .ToList();
 
-            if (!deniedSharingBookingDetails.Any() && possibleSharingBookingDetails.Any())
-            {
-                //check is satisfied position
-                if (IsSatisfiedTimeCondition(routeRoutineStartTime, bookingDetail, routeStationDic))
-                {
+            return (!deniedSharingBookingDetails.Any() && possibleSharingBookingDetails.Any() &&
+                    //check is satisfied position
+                    IsSatisfiedTimeCondition(routeRoutineStartTime, bookingDetail, routeStationDic) &&
                     //check is satisfied slots
-                    if (IsSatisfiedSlotCondition(possibleSharingBookingDetails, bookingDetail, routeStationDic)) return true;
-                }
-            }
-
-            return false;
+                    IsSatisfiedSlotCondition(possibleSharingBookingDetails, bookingDetail, routeStationDic));
         }
         private bool IsPossibleMappingWithRouteRoutineWithoutShare(TimeOnly routeRoutineStartTime, List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)
         {
-            var curStartStation = routeStationDic[bookingDetail.Booking.StartRouteStationId];
-            var curEndStation = routeStationDic[bookingDetail.Booking.EndRouteStationId];
+            var mappedBookingDetailConflictWithBookingDetail = PossibleSharingBookingDetails(mappedBookingDetails, bookingDetail, routeStationDic);
 
-
-            var mappedBookingDetailConflictWithBookingDetail = mappedBookingDetails
-                .Where(bookingDetailMapped =>
-                        !(curStartStation.DistanceFromFirstStationInRoute >= routeStationDic[bookingDetailMapped.Booking.EndRouteStationId].DistanceFromFirstStationInRoute ||
-                          curEndStation.DistanceFromFirstStationInRoute <= routeStationDic[bookingDetailMapped.Booking.StartRouteStationId].DistanceFromFirstStationInRoute))
-                .ToList();
-
-            if (!mappedBookingDetailConflictWithBookingDetail.Any())
-            {
-                if(IsSatisfiedTimeCondition(routeRoutineStartTime, bookingDetail,routeStationDic)) return true;
-            }
-            return false;
+            return (!mappedBookingDetailConflictWithBookingDetail.Any() &&
+                    IsSatisfiedTimeCondition(routeRoutineStartTime, bookingDetail, routeStationDic));
         }
-        private async Task MapBookingDetailWithDriver(BookingDetail bookingDetail, User driver, Dictionary<Guid,Room> driverUserMessageRoomDic)
+        private async Task MapBookingDetailWithRouteRoutine(BookingDetail bookingDetail, RouteRoutine routeRoutine, Dictionary<Guid,Room> driverUserMessageRoomDic)
         {
             bookingDetail.Status = BookingDetails.Status.Ready;
             bookingDetail.BookingDetailDrivers.Add(
                 new BookingDetailDriver
                 {
                     BookingDetailId = bookingDetail.Id,
-                    DriverId = driver.Id,
+                    RouteRoutineId = routeRoutine.Id,
                 });
 
-            if (!driverUserMessageRoomDic.TryGetValue(driver.Code, out var room))
+            if (!driverUserMessageRoomDic.TryGetValue(routeRoutine.User.Code, out var room))
             {
-                room = await AppServices.Room.GetByMemberCode(new List<Guid> { driver.Code, bookingDetail.Booking.User.Code });
+                room = await AppServices.Room.GetByMemberCode(new List<Guid> { routeRoutine.User.Code, bookingDetail.Booking.User.Code });
 
                 if (room == null)
                 {
-                    room = await AppServices.Room.Create(new List<Guid> { driver.Code, bookingDetail.Booking.User.Code }, Rooms.RoomTypes.Conversation);
-                    driverUserMessageRoomDic[driver.Code] = room;
+                    room = await AppServices.Room.Create(new List<Guid> { routeRoutine.User.Code, bookingDetail.Booking.User.Code }, Rooms.RoomTypes.Conversation);
+                    driverUserMessageRoomDic[routeRoutine.User.Code] = room;
                 }
                 else
                 {
@@ -347,7 +342,7 @@ namespace API.Services
                         userRoom.Status = Rooms.UserRoomStatus.Active;
                     }
 
-                    driverUserMessageRoomDic[driver.Code] = room;
+                    driverUserMessageRoomDic[routeRoutine.User.Code] = room;
 
                     bookingDetail.MessageRoomId = room.Id;
                     bookingDetail.MessageRoom = room;
@@ -406,28 +401,33 @@ namespace API.Services
                     (await routeRoutines
                     .Where(routeRoutine => !(routeRoutine.StartAt > bookingDetail.Date || routeRoutine.EndAt < bookingDetail.Date))
                     .Include(e => e.User)
-                    .ThenInclude(u => u.BookingDetailDrivers.Where(bdr =>
+                    .Include(e => e.BookingDetailDrivers.Where(bdr => 
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
                                 bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet))
                     .ThenInclude(bdr => bdr.BookingDetail)
                     .ThenInclude(bd => bd.Booking)
                     .ToListAsync());
 
-                rawOrderedRouteRoutines.ForEach(routeRoutine =>
-                    routeRoutine.User.BookingDetailDrivers = routeRoutine.User.BookingDetailDrivers.
-                        Where(bdr => 
-                            bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
-                            bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime)
-                        .ToList());
+                //rawOrderedRouteRoutines.ForEach(routeRoutine =>
+                //    routeRoutine.BookingDetailDrivers = routeRoutine.BookingDetailDrivers.
+                //        Where(bdr => 
+                //            bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
+                //            bdr.BookingDetail.Booking.Time <= routeRoutine.EndTime)
+                //        .ToList());
 
                 var orderedRouteRoutines = rawOrderedRouteRoutines
-                    .OrderBy(routeRoutine => routeRoutine.User.BookingDetailDrivers.Count)
+                    .OrderBy(routeRoutine => routeRoutine.BookingDetailDrivers.Count)
                     .ToList();
 
 
                 //then order by driver point
 
-                var mappedBookingDetailsDic = new Dictionary<int, List<BookingDetail>>();
+                var mappedBookingDetailsDic = orderedRouteRoutines.ToDictionary(
+                    key => key.Id, 
+                    value => value.BookingDetailDrivers
+                        .OrderBy(bdr => bdr.BookingDetail.Booking.Time)    
+                        .Select(bdr => bdr.BookingDetail)
+                        .ToList());
 
                 if (booking.IsShared)
                 {
@@ -435,21 +435,6 @@ namespace API.Services
 
                     foreach (var routeRoutine in orderedRouteRoutines)
                     {
-                        if (!mappedBookingDetailsDic.ContainsKey(routeRoutine.Id))
-                        {
-                            mappedBookingDetailsDic[routeRoutine.Id] =
-                            routeRoutine.User.BookingDetailDrivers
-                            .Where(bdr =>
-                                bdr.BookingDetail.Date == bookingDetail.Date &&
-                                bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
-                                bdr.BookingDetail.Booking.Time < routeRoutine.EndTime &&
-                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet)
-                            .OrderBy(bdr => bdr.BookingDetail.Booking.Time)
-                            .ToList()
-                            .Select(bdr => bdr.BookingDetail)
-                            .ToList();
-                        }
-
                         if (IsPossibleMappingWithRouteRoutineWithShare(routeRoutine.StartTime,mappedBookingDetailsDic[routeRoutine.Id], bookingDetail, routeStationDic)) 
                         {
                             fitRouteRoutine = routeRoutine;
@@ -470,30 +455,15 @@ namespace API.Services
                     }
 
                     if (fitRouteRoutine != null)
-                        await MapBookingDetailWithDriver(bookingDetail, fitRouteRoutine.User, driverUserMessageRoomDic);
+                        await MapBookingDetailWithRouteRoutine(bookingDetail, fitRouteRoutine, driverUserMessageRoomDic);
                 }
                 else
                 {
                     foreach (var routeRoutine in orderedRouteRoutines)
                     {
-                        if (!mappedBookingDetailsDic.ContainsKey(routeRoutine.Id))
-                        {
-                            mappedBookingDetailsDic[routeRoutine.Id] =
-                            routeRoutine.User.BookingDetailDrivers
-                            .Where(bdr =>
-                                bdr.BookingDetail.Date == bookingDetail.Date &&
-                                bdr.BookingDetail.Booking.Time >= routeRoutine.StartTime &&
-                                bdr.BookingDetail.Booking.Time < routeRoutine.EndTime &&
-                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet)
-                            .OrderBy(bdr => bdr.BookingDetail.Booking.Time)
-                            .ToList()
-                            .Select(bdr => bdr.BookingDetail)
-                            .ToList();
-                        }
-
                         if (IsPossibleMappingWithRouteRoutineWithoutShare(routeRoutine.StartTime,mappedBookingDetailsDic[routeRoutine.Id], bookingDetail, routeStationDic))
                         {
-                            await MapBookingDetailWithDriver(bookingDetail, routeRoutine.User, driverUserMessageRoomDic);
+                            await MapBookingDetailWithRouteRoutine(bookingDetail, routeRoutine, driverUserMessageRoomDic);
                             break;
                         }
                     }

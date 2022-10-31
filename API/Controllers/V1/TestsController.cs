@@ -208,6 +208,7 @@ namespace API.Controllers.V1
             var routeRoutines = await AppServices.RouteRoutine.GetByRouteId((int)route.Id);
 
             var totalSuccessBooking = 0;
+            var totalFailedBooking = 0;
 
             foreach(var user in users)
             {
@@ -254,14 +255,20 @@ namespace API.Controllers.V1
 
                             dynamic booking = (await AppServices.Booking.Create(bookingDto, new(), new(), new(), new(), new(), new(), new(),new(), new(), new(), true)).Data;
 
-                            if (booking != null) 
+                            if (booking != null)
                                 totalSuccessBooking++;
+                            else
+                                totalFailedBooking++;
                         }
                     }
                 }
             }
 
-            return Ok(totalSuccessBooking);
+            return Ok(new
+            {
+                Success = totalSuccessBooking,
+                Fail = totalFailedBooking
+            });
         }
 
         [HttpGet("checking-mapping")]

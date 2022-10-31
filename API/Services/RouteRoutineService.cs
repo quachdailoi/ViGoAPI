@@ -95,7 +95,7 @@ namespace API.Services
             .Include(e => e.User)
             .ThenInclude(u => u.Vehicle)
             .Include(e => e.User)
-            .ThenInclude(u => u.BookingDetailDrivers)
+            .Include(u => u.BookingDetailDrivers)
             .ThenInclude(bdr => bdr.BookingDetail)
             .ThenInclude(bd => bd.Booking)
             .ToListAsync();
@@ -124,7 +124,7 @@ namespace API.Services
             .ThenInclude(u => u.Vehicle)
             .ThenInclude(v => v.VehicleType)
             .Include(e => e.User)
-            .ThenInclude(u => u.BookingDetailDrivers)
+            .Include(u => u.BookingDetailDrivers)
             .ThenInclude(bdr => bdr.BookingDetail)
             .ThenInclude(bd => bd.Booking)
             .Include(b => b.Route)
@@ -148,21 +148,13 @@ namespace API.Services
                 var startTime = routeRoutine.StartTime;
                 var endTime = routeRoutine.EndTime;
 
-                var bookingDetailDriverOfRouteRoutines =
-                    routeRoutine.User.BookingDetailDrivers.Where(bookingDetailDriver =>
-                        bookingDetailDriver.BookingDetail.Status != BookingDetails.Status.Cancelled &&
-                        bookingDetailDriver.BookingDetail.Date >= startDate &&
-                        bookingDetailDriver.BookingDetail.Date <= endDate &&
-                        bookingDetailDriver.BookingDetail.Booking.Time >= startTime &&
-                        bookingDetailDriver.BookingDetail.Booking.Time <= endTime)
-                    .ToList();
 
-                totalBookingDetailDrivers += bookingDetailDriverOfRouteRoutines.Count;
-                totalBookingDetailCanShares += bookingDetailDriverOfRouteRoutines.Where(bookingDetailDriver => bookingDetailDriver.BookingDetail.Booking.IsShared).Count();
-                totalBookingDetailNotShares += bookingDetailDriverOfRouteRoutines.Where(bookingDetailDriver => !bookingDetailDriver.BookingDetail.Booking.IsShared).Count();
+                totalBookingDetailDrivers += routeRoutine.BookingDetailDrivers.Count;
+                totalBookingDetailCanShares += routeRoutine.BookingDetailDrivers.Where(bookingDetailDriver => bookingDetailDriver.BookingDetail.Booking.IsShared).Count();
+                totalBookingDetailNotShares += routeRoutine.BookingDetailDrivers.Where(bookingDetailDriver => !bookingDetailDriver.BookingDetail.Booking.IsShared).Count();
 
                 var bookingDetailDriverOfRouteRoutineGroupings =
-                    bookingDetailDriverOfRouteRoutines
+                    routeRoutine.BookingDetailDrivers
                     .GroupBy(e => e.BookingDetail.Date)
                     .OrderBy(g => g.Key)
                     .ToList();
@@ -217,14 +209,7 @@ namespace API.Services
                         if (bookingDetailDriver.BookingDetail.Booking.IsShared)
                         {
                             if (prevBookingDetailDriverGrouping.TryGetValue(false, out var prevBookingDetailDriverNotShares))
-                            {
-                                //foreach(var prevBookingDetailDriverNotShare in prevBookingDetailDriverNotShares)
-                                //{
-                                //    var _endTime = prevBookingDetailDriverNotShare.BookingDetail.Booking.Time.AddMinutes(prevBookingDetailDriverNotShare.BookingDetail.Booking.Duration / 60);
-                                //    Console.WriteLine($"endTime: {endTime} | {_endTime}");
-                                //}
                                 totalConflictSharingConditionCases++;
-                            }
                                 
 
                             if (prevBookingDetailDriverGrouping.TryGetValue(true, out var prevBookingDetailDriverShares))
@@ -233,28 +218,6 @@ namespace API.Services
                                     totalConflictSharingConditionCases++;
                                 else
                                 {
-                                    //var prevBookingDetailDriver = prevBookingDetailDriverShares.ToList()[0];
-
-                                    ////check valid distance
-
-                                    //var curStartStation = routeStationDic[bookingDetailDriver.BookingDetail.Booking.StartRouteStationId];
-                                    //var curStartTime = bookingDetailDriver.BookingDetail.Booking.Time;
-                                    
-
-                                    //var prevEndStation = routeStationDic[prevBookingDetailDriver.BookingDetail.Booking.EndRouteStationId];
-                                    //var prevEndTime = prevBookingDetailDriver.BookingDetail.Booking.Time.AddMinutes(prevBookingDetailDriver.BookingDetail.Booking.Duration / 60);
-
-                                    //var curArrivePrevEndStation = curStartTime.AddMinutes((prevEndStation.DurationFromFirstStationInRoute - curStartStation.DurationFromFirstStationInRoute) / 60);
-
-                                    
-
-
-                                    //if (Math.Abs((curArrivePrevEndStation.ToTimeSpan() - prevEndTime.ToTimeSpan()).TotalMinutes) >1 ) 
-                                    //    totalConflictSharingConditionCases++;
-                                    //else
-                                    //{
-                                    //    totalBookingDetailShares++;
-                                    //}
 
                                     //check valid time
 

@@ -126,11 +126,11 @@ namespace API.Services
 
                     var schedules = detailsInRouteRoutine.Select(x => new ScheduleBookingDetailViewModel
                     {
-                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.DriverId == driverId)
+                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.RouteRoutine.UserId == driverId)
                             .Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed)
                             .OrderByDescending(x => x.CreatedAt)
                             .Select(x => x.Code).FirstOrDefault(),
-                        TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.DriverId == driverId)
+                        TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.RouteRoutine.UserId == driverId)
                             .Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed)
                             .OrderByDescending(x => x.CreatedAt)
                             .Select(x => x.TripStatus).FirstOrDefault(),

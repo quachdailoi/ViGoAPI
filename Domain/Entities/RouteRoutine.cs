@@ -20,5 +20,6 @@ namespace Domain.Entities
 
         public Route Route { get; set; } = null!;
         public User User { get; set; } = null!;
+        public List<BookingDetailDriver> BookingDetailDrivers { get; set; } = new();
     }
 }
