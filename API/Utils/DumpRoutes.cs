@@ -1,5 +1,6 @@
 ﻿using API.Services.Constract;
 using Domain.Entities;
+using Domain.Interfaces.Repositories;
 using Domain.Shares.Classes;
 using Domain.Shares.Utils;
 
@@ -20,13 +21,11 @@ namespace API.Utils
 
             var _appServices = scope.ServiceProvider.GetRequiredService<IAppServices>();
 
-            if (!_appServices.Route.ExistSeedData().Result)
-            {
-                var stationIds = GetListStationIdsToDumpRoutes()[1];
-                
-                var stationDtos = await _appServices.Station.GetStationDTOsByIds(stationIds);
+            var _routeRepo = scope.ServiceProvider.GetRequiredService<IRouteRepository>();
 
-                var newRoute = await _appServices.RapidApi.CreateRouteByListOfStation(stationDtos);
+            if (!_appServices.RouteRoutine.ExistAnyRoutines().Result && _appServices.Route.ExistSeedData().Result)
+            {
+                var newRoute = _routeRepo.List().First();
 
                 var routeRoutines = new List<RouteRoutine>
             {
@@ -194,8 +193,7 @@ namespace API.Utils
                 },
             };
 
-                //routeRoutines = await _appServices.RouteRoutine.CreateRouteRoutines(routeRoutines);
-
+                routeRoutines = await _appServices.RouteRoutine.CreateRouteRoutines(routeRoutines);
 
                 {
                     var listRouteRoutine = new List<RouteRoutine>();

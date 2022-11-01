@@ -593,22 +593,27 @@ namespace API.Controllers.V1.Driver
         /// <remarks>
         /// ```
         /// Sample request:
-        ///     GET api/drivers/schedules
+        ///     GET api/drivers/incomes
         ///     Page: 1,
-        ///     PageSize: 3
+        ///     PageSize: 3,
+        ///     FromDate: ...,
+        ///     ToDate: ...
         /// ```
         /// </remarks>
-        /// <remarks>
-        /// ```
-        /// Note response:
-        ///     Steps.Status (0: PickUp, 1: DropOff)
-        /// ```
-        /// </remarks>
-        /// <response code = "200"> Get schedules of driver successfully.</response>
-        [HttpGet("income")]
+        /// <response code = "200"> Get imcomes of driver successfully.</response>
+        [HttpGet("incomes")]
         public async Task<IActionResult> GetIncome([FromQuery] PagingRequest pagingRequest, [FromQuery] DateFilterRequest dateFilterRequest)
         {
             var driver = LoggedInUser;
+
+            var incomes = AppServices.Driver.GetIncome(driver.Id, dateFilterRequest.FromDate, dateFilterRequest.ToDate, pagingRequest);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Get Driver's income success fully",
+                Data = incomes,
+            });
         }
     }
 }

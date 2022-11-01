@@ -288,5 +288,10 @@ namespace API.Services
                 TotalConflictSharingConditionCases = totalConflictSharingConditionCases,
             };
         }
+
+        public Task<bool> ExistAnyRoutines()
+        {
+            return UnitOfWork.RouteRoutines.GetAllRouteRoutine().AnyAsync();
+        }
     }
 }

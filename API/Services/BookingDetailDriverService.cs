@@ -26,12 +26,24 @@ namespace API.Services
 
             var bookingDetail = await AppServices.BookingDetail.GetById(bookingDetailDriver.BookingDetailId);
 
+            if (bookingDetail == null) throw new Exception("Something wrong, not found booking detail of this driver.");
+
+            var today = DateTimeExtensions.NowDateOnly;
+            var bookingDetailDate = bookingDetail.Date;
+
+            var now = DateTimeExtensions.NowTimeOnly;
+            var bookingDetailTime = bookingDetail.Booking.Time;
+
+            if (tripStatus == BookingDetailDrivers.TripStatus.PickedUp || tripStatus == BookingDetailDrivers.TripStatus.Completed)
+                if (today < bookingDetailDate || now < bookingDetailTime) throw new Exception("This booking detail of driver doesn't occur today so cannot set status PickedUp and Completed for it.");
+
             if (bookingDetail != null)
             {
                 if (tripStatus == BookingDetailDrivers.TripStatus.Completed)
                 {
                     bookingDetail.Status = BookingDetails.Status.Completed;
                     bookingDetailDriver.BookingDetail = bookingDetail;
+                    bookingDetailDriver.EndTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
                 }
 
                 await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", new

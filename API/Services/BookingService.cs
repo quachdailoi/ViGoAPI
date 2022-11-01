@@ -207,7 +207,7 @@ namespace API.Services
 
                         booking.Status = Bookings.Status.PendingMapping;
 
-                        if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status."); if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status.");
+                        if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status."); 
 
                         await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
 

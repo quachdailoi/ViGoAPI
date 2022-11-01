@@ -15,5 +15,7 @@ namespace API.Services.Constract
         Task<List<RouteRoutine>> GetByRouteId(int routeId);
         Task<dynamic> GetMappedBookingDetailDriverByRouteRoutine();
         Task<List<RouteRoutine>> GetRouteRoutineFitBookingCondition(Booking booking);
+
+        Task<bool> ExistAnyRoutines();
     }
 }
