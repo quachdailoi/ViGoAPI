@@ -39,7 +39,6 @@ namespace API.Controllers.V1
         ///     {
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "Time": "04:30:00", // format("hh:mm:ss")
-        ///         "Type": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuaterTicket
         ///         "PaymentMethod": 1, // 0: COD, 1: Momo, 2: VNPay, 3: BankCard, 4: Wallet
         ///         "IsShared": true,
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
@@ -47,6 +46,7 @@ namespace API.Controllers.V1
         ///         "RouteCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657", // get from get route and fee api
         ///         "StartAt": "15-02-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "25-06-2022",
+        ///         "DayOfWeeks": [0, 1, 2], // 0: sunday, 1: monday, ...
         ///         "PromotionCode": "HELLO2022"
         ///     }
         /// ```
@@ -317,7 +317,6 @@ namespace API.Controllers.V1
         ///     {
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
-        ///         "BookingType": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuarterTicket
         ///         "StartAt": "15-09-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "31-10-2022",
         ///         "Time": "08:00:00",
@@ -383,12 +382,12 @@ namespace API.Controllers.V1
         ///     {
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "Time": "04:30:00", // format("hh:mm:ss")
-        ///         "Type": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuaterTicket
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "RouteCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657", // get from get route and fee api
         ///         "StartAt": "15-02-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "25-06-2022",
+        ///         "DayOfWeeks": [0 , 1, 2], // 0: sunday, 1: monday, ...
         ///         "PromotionCode": "HELLO2022"
         ///     }
         /// ```

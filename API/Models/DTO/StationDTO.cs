@@ -17,7 +17,7 @@ namespace API.Models.DTO
         public int StartStationId { get; set; }
         public Guid EndStationCode { get; set; }
         public int EndStationId { get; set; }
-        public Bookings.Types BookingType { get; set; } = Bookings.Types.MonthTicket;
+        //public Bookings.Types BookingType { get; set; } = Bookings.Types.MonthTicket;
 
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }

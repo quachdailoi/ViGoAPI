@@ -6,7 +6,7 @@ namespace API.Models.Requests
     {
         public Guid VehicleTypeCode { get; set; }
         public string Time { get; set; }
-        public Bookings.Types Type { get; set; } = Bookings.Types.MonthTicket;
+        //public Bookings.Types Type { get; set; } = Bookings.Types.MonthTicket;
         //public PaymentMethods PaymentMethod { get; set; } = PaymentMethods.COD;
         //public bool IsShared { get; set; }
         public Guid StartStationCode { get; set; } = new();
@@ -15,6 +15,7 @@ namespace API.Models.Requests
 
         public string StartAt { get; set; }
         public string EndAt { get; set; }
+        public List<DayOfWeek> DayOfWeeks { get; set; } = new();
 
         public string? PromotionCode { get; set; } = null;
     }

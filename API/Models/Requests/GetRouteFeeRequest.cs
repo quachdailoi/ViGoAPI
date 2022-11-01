@@ -6,7 +6,7 @@ namespace API.Models.Requests
     {
         public Guid StartStationCode { get; set; }
         public Guid EndStationCode { get; set; }
-        public Bookings.Types BookingType { get; set; } = Bookings.Types.MonthTicket;
+        //public Bookings.Types BookingType { get; set; } = Bookings.Types.MonthTicket;
 
         public string StartAt { get; set; }
         public string EndAt { get; set; }
