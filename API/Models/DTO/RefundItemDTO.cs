@@ -6,6 +6,6 @@ namespace API.Models.DTO
     {
         public Guid Code { get; set; }
         public double? Amount { get; set; }
-        public RefundItems.Types Type { get; set; } = RefundItems.Types.Booking;
+        public TaskItems.RefundItemTypes Type { get; set; } = TaskItems.RefundItemTypes.Booking;
     }
 }

@@ -28,10 +28,10 @@ namespace API.TaskQueues.TaskResolver
                         bool? result = null;
                         switch (item.Type)
                         {
-                            case RefundItems.Types.Booking:
+                            case TaskItems.RefundItemTypes.Booking:
                                 result = await _appService.Booking.Refund(item.Code);                            
                                 break;
-                            case RefundItems.Types.BookingDetail:
+                            case TaskItems.RefundItemTypes.BookingDetail:
                                 result = await _appService.BookingDetail.Refund(item.Code, item.Amount.Value);
                                 break;
                             default: break;

@@ -485,7 +485,7 @@ namespace API.Controllers.V1
                         await AppServices.Booking.Update(booking);
 
                         //add job queue to map with specific driver
-                        await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                        await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = booking.Id, Type = TaskItems.MappingItemTypes.Booking });
 
                         await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
                         new
@@ -548,7 +548,7 @@ namespace API.Controllers.V1
                         await AppServices.Booking.Update(booking);
 
                         //add job queue to map with specific driver
-                        await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                        await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = booking.Id, Type = TaskItems.MappingItemTypes.Booking });
 
                         await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
                         new

@@ -1,8 +1,10 @@
 ﻿using API.Extensions;
 using API.Models;
+using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Services.Constract;
+using API.TaskQueues.TaskResolver;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces.Repositories;
@@ -74,6 +76,8 @@ namespace API.Services
                 return failed;
             }
             await UnitOfWork.CommitAsync();
+
+            await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = routeRoutineCreated.Id, Type = TaskItems.MappingItemTypes.RouteRoutine });
             return success.SetData(viewModel);
         }
 
@@ -251,5 +255,30 @@ namespace API.Services
                 TotalConflictSharingConditionCases = totalConflictSharingConditionCases,
             };
         }
+
+
+        private bool IsSatisfiedSlotCondition(List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)
+        {
+            var slot = bookingDetail.Booking.VehicleType.Slot;
+
+            foreach (var mappedBookingDetail in mappedBookingDetails)
+            {
+                var mappedStartStation = routeStationDic[mappedBookingDetail.Booking.StartRouteStationId];
+                var mappedEndStation = routeStationDic[mappedBookingDetail.Booking.EndRouteStationId];
+
+                var totalSharingBookingDetail =
+                    mappedBookingDetails
+                    .Where(_mappedBookingDetail =>
+                        _mappedBookingDetail.Id == mappedBookingDetail.Id ||
+                        !(routeStationDic[_mappedBookingDetail.Booking.StartRouteStationId].DistanceFromFirstStationInRoute >= mappedEndStation.DistanceFromFirstStationInRoute ||
+                          routeStationDic[_mappedBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute <= mappedStartStation.DistanceFromFirstStationInRoute))
+                    .Count() + 1;
+
+                if (totalSharingBookingDetail >= slot) return false;
+            }
+            return true;
+        }
+
+        public Task<bool> Update(RouteRoutine routeRoutine) => UnitOfWork.RouteRoutines.Update(routeRoutine);
     }
 }

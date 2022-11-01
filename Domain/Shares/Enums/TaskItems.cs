@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public class RefundItems
+    public class TaskItems
     {
-        public enum Types
+        public enum RefundItemTypes
         {
             Booking = 1,
             BookingDetail = 2
+        }
+
+        public enum MappingItemTypes
+        {
+            Booking = 1,
+            RouteRoutine = 2
         }
     }
 }
