@@ -62,7 +62,7 @@ namespace API.Services
                     route.Duration - (startStation.DurationFromFirstStationInRoute - endStation.DurationFromFirstStationInRoute);
 
                 // caculate price
-                var fee = await AppServices.Fare.CaculateBookingFee(dto.Type, dto.VehicleTypeId, dto.StartAt, dto.EndAt, booking.Distance, dto.Time);
+                var fee = await AppServices.Fare.CaculateBookingFee(dto.VehicleTypeId, dto.StartAt, dto.EndAt, dto.DayOfWeeks, booking.Distance, dto.Time);
                 booking.TotalPrice = fee.TotalFee;
 
                 // generate booking detail by booking schedule

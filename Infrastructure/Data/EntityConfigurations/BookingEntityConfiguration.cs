@@ -40,9 +40,13 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.Option)
                 .HasColumnName("option");
 
-            builder.Property(e => e.Type)
-                .HasConversion<int>()
-                .HasColumnName("type");
+            //builder.Property(e => e.Type)
+            //    .HasConversion<int>()
+            //    .HasColumnName("type");
+
+            builder.Property(e => e.DayOfWeeks)
+                .HasColumnType("integer[]")
+                .HasColumnName("day_of_weeks");
 
             builder.Property(e => e.IsShared)
                 .HasDefaultValue(false)

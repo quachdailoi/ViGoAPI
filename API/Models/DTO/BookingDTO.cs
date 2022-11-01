@@ -12,8 +12,9 @@ namespace API.Models.DTO
         public Guid VehicleTypeCode { get; set; }
         public int VehicleTypeId { get; set; }
         public Payments.PaymentMethods PaymentMethod { get; set; } = Payments.PaymentMethods.COD;
-        public Bookings.Options Option { get; set; } 
-        public Bookings.Types Type { get; set; }
+        public Bookings.Options Option { get; set; }
+        //public Bookings.Types Type { get; set; }
+        public List<DayOfWeek> DayOfWeeks { get; set; } = new();
         public bool IsShared { get; set; }
         public Guid StartStationCode { get; set; }
         public Guid EndStationCode { get; set; }

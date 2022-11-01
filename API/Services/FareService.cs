@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Models;
 using API.Services.Constract;
 using API.Utils;
 using AutoMapper;
@@ -11,6 +12,7 @@ namespace API.Services
     {
         public FareService(IAppServices appServices) : base(appServices)
         {
+
         }
 
         public async Task<FeeViewModel> CaculateBookingFee(Bookings.Types bookingType, int vehicleTypeId, DateOnly startDate, DateOnly endDate, double distance, TimeOnly time, double discount = 0)
@@ -18,6 +20,27 @@ namespace API.Services
             var feePerTrip = await CaculateFeeByDistance(vehicleTypeId, distance, time);
 
             var bookingFee = Fee.CaculateFeeByBookingType(bookingType, feePerTrip.TotalFee, startDate, endDate);
+            
+            var discountFee = discount;
+
+            return new FeeViewModel
+            {
+                FeePerTrip = feePerTrip.TotalFee,
+                Fee = bookingFee,
+                DiscountFee = discountFee,
+                TotalFee = bookingFee - discountFee
+            };
+        }
+
+        public async Task<FeeViewModel> CaculateBookingFee(int vehicleTypeId, DateOnly startDate, DateOnly endDate, List<DayOfWeek> dayOfWeeks, double distance, TimeOnly time, double discount = 0)
+        {
+            var feePerTrip = await CaculateFeeByDistance(vehicleTypeId, distance, time);
+
+            var dates = endDate.ToDates(startDate, dayOfWeeks); 
+
+            var bookingFee = await AppServices.Pricing.CaculateBookingFee(dates.Count, feePerTrip.TotalFee);
+
+            feePerTrip.TotalFee = Fee.RoundToThousands(bookingFee / dates.Count);
 
             var discountFee = discount;
 

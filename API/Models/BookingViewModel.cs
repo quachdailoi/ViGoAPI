@@ -53,8 +53,9 @@ namespace API.Models
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
         public int Option { get; set; }
-        public Bookings.Types Type { get; set; }
-        public string TypeName { get => Type.DisplayName(); }
+        //public Bookings.Types Type { get; set; }
+        //public string TypeName { get => Type.DisplayName(); }
+        public List<DayOfWeek> DayOfWeeks { get; set; } = new();
         public string CreatedAt { get; set; }
     }
     public class DriverBookingViewModel : BookingViewModel

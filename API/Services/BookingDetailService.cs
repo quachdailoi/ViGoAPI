@@ -27,12 +27,13 @@ namespace API.Services
             List<BookingDetail> bookingDetails = new();
             for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
             {
-                bookingDetails.Add(new BookingDetail
-                {
-                    Booking = booking,
-                    Date = day,
-                    Price = Fee.RoundToThousands(feePerTrip),
-                });
+                if(booking.DayOfWeeks.Contains(day.DayOfWeek))
+                    bookingDetails.Add(new BookingDetail
+                    {
+                        Booking = booking,
+                        Date = day,
+                        Price = Fee.RoundToThousands(feePerTrip),
+                    });
             }
             return bookingDetails;
         }

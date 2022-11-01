@@ -6,7 +6,8 @@ namespace API.Models.Requests
     {
         public Guid VehicleTypeCode { get; set; }
         public string Time { get; set; }
-        public Bookings.Types Type { get; set; } = Bookings.Types.MonthTicket;
+        //public Bookings.Types Type { get; set; } = Bookings.Types.MonthTicket;
+        public List<DayOfWeek> DayOfWeeks { get; set; } = new();
         public Payments.PaymentMethods PaymentMethod { get; set; } = Payments.PaymentMethods.COD;
         public bool IsShared { get; set; } = false;
         public Guid StartStationCode { get; set; } = new();

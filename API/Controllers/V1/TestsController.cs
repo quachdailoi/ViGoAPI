@@ -106,7 +106,7 @@ namespace API.Controllers.V1
         [AllowAnonymous]
         public async Task<IActionResult> DumpDrivers([FromQuery] DumpDriverRequest request)
         {
-            dynamic vehicleTypes = (await AppServices.VehicleType.GetAll(new())).Data;
+            dynamic vehicleTypes = (await AppServices.VehicleType.Get(new())).Data;
 
             VehicleTypeViewModel vehicleTypeVM = null;
 
@@ -197,7 +197,7 @@ namespace API.Controllers.V1
         [AllowAnonymous]
         public async Task<IActionResult> DumpBookings()
         {
-            dynamic vehicleTypes = (await AppServices.VehicleType.GetAll(new())).Data;
+            dynamic vehicleTypes = (await AppServices.VehicleType.Get(new())).Data;
 
             dynamic routes = (await AppServices.Route.GetAll(new(),new())).Data;
 
@@ -247,7 +247,8 @@ namespace API.Controllers.V1
                             bookingDto.EndAt = endDate;
                             bookingDto.Time = time;
                             bookingDto.UserId = user.Id;
-                            bookingDto.Type = Bookings.Types.MonthTicket;
+                            bookingDto.DayOfWeeks = new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday };
+                            //bookingDto.Type = Bookings.Types.MonthTicket;
                             bookingDto.IsShared = (new Random()).Next() % 10 < 9;
                             bookingDto.RouteCode = route.Code;
                             bookingDto.StartStationCode = stations[startIndex].Code;

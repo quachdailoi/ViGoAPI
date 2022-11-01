@@ -1,4 +1,5 @@
 ﻿using API.Extensions;
+using Domain.Entities;
 using Domain.Shares.Enums;
 using System.Text.Json.Serialization;
 
@@ -17,5 +18,10 @@ namespace API.Models
         [JsonIgnore]
         public VehicleTypes.Status Status { get; set; } = VehicleTypes.Status.Active;
         public string StatusName { get => Status.DisplayName(); }
+    }
+
+    public class VehicleTypeWithFareViewModel : VehicleTypeViewModel
+    {
+        public Fare Fare { get; set; }
     }
 }

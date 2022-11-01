@@ -40,7 +40,7 @@ namespace API.Services.Constract
         IFileService File { get; }
         IRedisMQService RedisMQ { get; }
         ISignalRService SignalR { get; }
-
         INotificationService Notification { get; }
+        IPricingService Pricing { get; }
     }
 }
