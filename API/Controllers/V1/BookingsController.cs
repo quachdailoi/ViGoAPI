@@ -2,8 +2,7 @@
 using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
-using API.SignalR.Constract;
-using API.TaskQueues;
+using API.Models.Settings;
 using API.TaskQueues.TaskResolver;
 using API.Utils;
 using AutoMapper;
@@ -40,7 +39,6 @@ namespace API.Controllers.V1
         ///     {
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "Time": "04:30:00", // format("hh:mm:ss")
-        ///         "Type": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuaterTicket
         ///         "PaymentMethod": 1, // 0: COD, 1: Momo, 2: VNPay, 3: BankCard, 4: Wallet
         ///         "IsShared": true,
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
@@ -48,6 +46,7 @@ namespace API.Controllers.V1
         ///         "RouteCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657", // get from get route and fee api
         ///         "StartAt": "15-02-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "25-06-2022",
+        ///         "DayOfWeeks": [0, 1, 2], // 0: sunday, 1: monday, ...
         ///         "PromotionCode": "HELLO2022"
         ///     }
         /// ```
@@ -79,7 +78,7 @@ namespace API.Controllers.V1
                 StatusCode = StatusCodes.Status400BadRequest
             };
 
-            var booking = _mapper.Map<BookingDTO>(request);             
+            var booking = _mapper.Map<BookingDTO>(request);
 
             booking.UserId = user.Id;
 
@@ -93,6 +92,14 @@ namespace API.Controllers.V1
                     paymentDto = new MomoCollectionLinkRequestDTO
                     {
                         ipnUrl = $"{GetControllerContextUri()}/ipn/momo"
+                    };
+                    break;
+                case Payments.PaymentMethods.Wallet:
+                    break;
+                case Payments.PaymentMethods.ZaloPay:
+                    paymentDto = new ZaloCollectionLinkRequestDTO
+                    {
+                        callback_url = $"{GetControllerContextUri()}/ipn/zalopay"
                     };
                     break;
                 default: return ApiResult(badRequestResponse.SetMessage("Payment method is not supported."));
@@ -200,7 +207,7 @@ namespace API.Controllers.V1
 
             var response = await AppServices.BookingDetail.GetHistory(
                                             user.Id,
-                                            dateFilterRequest: new DateFilterRequest { ToDate = DateTimeExtensions.NowDateOnly.ToFormatString()},
+                                            dateFilterRequest: new DateFilterRequest { ToDate = DateTimeExtensions.NowDateOnly.ToFormatString() },
                                             pagingRequest: pagingRequest,
                                             successResponse: new()
                                             {
@@ -310,7 +317,6 @@ namespace API.Controllers.V1
         ///     {
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
-        ///         "BookingType": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuarterTicket
         ///         "StartAt": "15-09-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "31-10-2022",
         ///         "Time": "08:00:00",
@@ -345,7 +351,7 @@ namespace API.Controllers.V1
                     successResponse: new()
                     {
                         Message = "Get route successfully.",
-                        StatusCode= StatusCodes.Status200OK
+                        StatusCode = StatusCodes.Status200OK
                     },
                     invalidStationResponse: new()
                     {
@@ -376,12 +382,12 @@ namespace API.Controllers.V1
         ///     {
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "Time": "04:30:00", // format("hh:mm:ss")
-        ///         "Type": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuaterTicket
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "RouteCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657", // get from get route and fee api
         ///         "StartAt": "15-02-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "25-06-2022",
+        ///         "DayOfWeeks": [0 , 1, 2], // 0: sunday, 1: monday, ...
         ///         "PromotionCode": "HELLO2022"
         ///     }
         /// ```
@@ -441,7 +447,7 @@ namespace API.Controllers.V1
             return ApiResult(response);
         }
 
-        [ApiExplorerSettings(IgnoreApi =true)] // api for momo return result of transaction
+        [ApiExplorerSettings(IgnoreApi = true)] // api for momo return result of transaction
         [HttpPost("ipn/momo")]
         public async Task<IActionResult> HandleBookingMomoPaymentIPN([FromBody] JsonElement request)
         {
@@ -461,13 +467,13 @@ namespace API.Controllers.V1
                     $"transId={dto.transId}";
 
             var signature = AppServices.Payment.GetMomoSignature(rawSignature);
-            
+
             var walletTransactionDto = Encryption.DecodeBase64<WalletTransactionDTO>(dto.extraData);
 
             if (dto.resultCode == (int)Payments.MomoStatusCodes.Successed)
             {
                 walletTransactionDto.Status = WalletTransactions.Status.Success;
-                walletTransactionDto.TxnId += $",{dto.transId}";
+                walletTransactionDto.TxnId = dto.transId.ToString();
 
                 var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
 
@@ -479,7 +485,7 @@ namespace API.Controllers.V1
                         await AppServices.Booking.Update(booking);
 
                         //add job queue to map with specific driver
-                        await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                        await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = booking.Id, Type = TaskItems.MappingItemTypes.Booking });
 
                         await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
                         new
@@ -508,12 +514,66 @@ namespace API.Controllers.V1
             else
             {
                 walletTransactionDto.Status = WalletTransactions.Status.Fail;
-            } 
+            }
 
             await AppServices.WalletTransaction.Update(walletTransactionDto);
             //if (signature == dto.signature)
             //{
             return NoContent();
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpPost("ipn/zalopay")]
+        public async Task HandleBookingZaloPayPaymentIPN([FromBody] JsonElement request)
+        {
+            var dto = JsonSerializer.Deserialize<ZaloPayPaymentNotificationRequest>(request.GetRawText());
+
+            var key2 = Configuration.Get(ZaloPaySettings.Key2);
+
+            if (dto == null || string.IsNullOrEmpty(key2)) return;
+
+            var reqmac = Encryption.HMACSHA256(dto.data, key2);
+
+            if (reqmac == dto.mac)
+            {
+                dynamic item = dto.parsed_data.parsed_item[0];
+
+                var booking = await AppServices.Booking.GetByCode(Guid.Parse(item.Code));
+
+                if (booking != null && booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.parsed_data.amount)
+                {
+                    if (!AppServices.Booking.CheckIsConflictBooking(booking).Result)
+                    {
+                        booking.Status = Bookings.Status.PendingMapping;
+                        await AppServices.Booking.Update(booking);
+
+                        //add job queue to map with specific driver
+                        await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = booking.Id, Type = TaskItems.MappingItemTypes.Booking });
+
+                        await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
+                        new
+                        {
+                            BookingCode = item.Code,
+                            PaymentMethod = Payments.PaymentMethods.Momo,
+                            IsSuccess = true,
+                            Message = "Pay booking by Momo successfully."
+                        });
+                    }
+                    else
+                    {
+                        // refund momo wallet
+
+                        await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
+                        new
+                        {
+                            BookingCode = item.Code,
+                            PaymentMethod = Payments.PaymentMethods.Momo,
+                            IsSuccess = false,
+                            Message = "You have booked at this time in an another booking. Check again!"
+                        });
+                    }
+                }
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using API.Extensions;
+using Domain.Entities;
 using Domain.Shares.Classes;
 using Domain.Shares.Enums;
 using System.Text.Json.Serialization;
@@ -23,7 +24,7 @@ namespace API.Models
         [JsonIgnore]
         public RouteStation EndRouteStation { get; set; }
         public Bookings.Status Status { get; set; } = Bookings.Status.Unpaid;
-        public string StatusName { get; set; }
+        public string StatusName { get => Status.DisplayName(); }
         [JsonIgnore]
         private List<StationInRouteViewModel> _Stations = new();
         public List<StationInRouteViewModel> Stations { 
@@ -45,20 +46,6 @@ namespace API.Models
             } 
         }
 
-        //public virtual BookingViewModel ProcessStationOrder()
-        //{
-        //    var startStation = this.Stations.Where(station => station.Id == this.StartRouteStation.StationId).First();
-        //    var endStation = this.Stations.Where(station => station.Id == this.EndRouteStation.StationId).First();
-
-        //    this.Stations = this.Stations.OrderBy(station => station.DistanceFromFirstStationInRoute).ToList();
-
-        //    var stationAfterStart = this.Stations.Where(station => station.DistanceFromFirstStationInRoute >= startStation.DistanceFromFirstStationInRoute).ToList();
-        //    var stationBeforeEnd = this.Stations.Where(station => station.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute).ToList();
-
-        //    this.Stations = startStation.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute ?
-        //        stationAfterStart.Intersect(stationBeforeEnd).ToList() : stationAfterStart.Concat(stationBeforeEnd).ToList();
-        //    return this;
-        //}
     }
     public class BookerBookingViewModel : BookingViewModel
     {
@@ -66,18 +53,21 @@ namespace API.Models
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
         public int Option { get; set; }
-        public Bookings.Types Type { get; set; }
-        public string TypeName { get; set; }
+        //public Bookings.Types Type { get; set; }
+        //public string TypeName { get => Type.DisplayName(); }
+        public List<DayOfWeek> DayOfWeeks { get; set; } = new();
         public string CreatedAt { get; set; }
-
-        //public override BookerBookingViewModel ProcessStationOrder()
-        //{
-        //    return (BookerBookingViewModel)base.ProcessStationOrder();
-        //}
-        //public List<BookerBookingDetailViewModel> BookingDetails { get; set; }
     }
     public class DriverBookingViewModel : BookingViewModel
     {
         public UserViewModel User { get; set; }
+    }
+
+    public class PaymentBookingViewModel
+    {
+        public Guid Code { get; set; } = Guid.NewGuid();
+        public TimeOnly Time { get; set; }
+        public double TotalPrice { get; set; }
+        public double DiscountPrice { get; set; }
     }
 }

@@ -28,22 +28,22 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.EndTime)
                 .HasColumnName("end_time");
 
-            builder.Property(e => e.DriverId)
-                .HasColumnName("driver_id")
+            builder.Property(e => e.RouteRoutineId)
+                .HasColumnName("route_routine_id")
                 .IsRequired();
 
             builder.Property(e => e.BookingDetailId)
                 .HasColumnName("booking_detail_id")
                 .IsRequired();
 
-            builder.Property(e => e.Status)
-                .HasColumnName("status")
+            builder.Property(e => e.TripStatus)
+                .HasColumnName("trip_status")
                 .HasConversion<int>()
                 .IsRequired();
 
-            builder.HasOne(e => e.Driver)
+            builder.HasOne(e => e.RouteRoutine)
                 .WithMany(d => d.BookingDetailDrivers)
-                .HasForeignKey(e => e.DriverId)
+                .HasForeignKey(e => e.RouteRoutineId)
                 .IsRequired();
 
             builder.HasOne(e => e.BookingDetail)
@@ -51,7 +51,7 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasForeignKey(e => e.BookingDetailId)
                 .IsRequired();
 
-            builder.HasIndex(e => new { e.DriverId, e.BookingDetailId })
+            builder.HasIndex(e => new { e.RouteRoutineId, e.BookingDetailId })
                 .IsUnique();
         }
     }

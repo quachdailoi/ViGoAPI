@@ -14,19 +14,21 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.ChattingRoomCode,
                     opt => opt.MapFrom(
-                        src => src.MessageRoom.Code))
-                .ForMember(
-                    dest => dest.StatusName,
-                    opt => opt.MapFrom(
-                        src => src.Status.DisplayName()));
+                        src => src.MessageRoom.Code));
 
             CreateMap<BookingDetail, BookerBookingDetailViewModel>()
                 .ForMember(
                     dest => dest.Driver,
                     opt => opt.MapFrom(
                         src => src.BookingDetailDrivers
-                        .Where(bdr => bdr.Status != BookingDetailDrivers.Status.Cancelled)
-                        .FirstOrDefault().Driver))
+                        .Where(bdr => bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
+                        .FirstOrDefault().RouteRoutine.User))
+                .ForMember(
+                    dest => dest.DriverStatus,
+                    opt => opt.MapFrom(
+                        src => src.BookingDetailDrivers
+                        .Where(bdr => bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
+                        .FirstOrDefault().TripStatus))
                 .ForMember(
                     dest => dest.Time,
                     opt => opt.MapFrom(

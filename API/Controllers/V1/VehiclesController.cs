@@ -25,9 +25,34 @@ namespace API.Controllers.V1
         {
             var response =
                 await AppServices.VehicleType
-                .GetAll(successResponse: new()
+                .Get(successResponse: new()
                 {
                     Message = "Get vehicle types successfully.",
+                    StatusCode = StatusCodes.Status200OK
+                });
+
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        ///     Get all fare belong to vehicle types
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/vehicles/types/fare 
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Get vehicle types with fare successfully.</response>
+        [HttpGet("types/fare")]
+        [Authorize]
+        public async Task<IActionResult> GetTypesWithFare()
+        {
+            var response =
+                await AppServices.VehicleType
+                .GetWithFare(successResponse: new()
+                {
+                    Message = "Get vehicle types with fare successfully.",
                     StatusCode = StatusCodes.Status200OK
                 });
 

@@ -93,12 +93,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5218), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3256), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "loiqdse140970@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5219), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3257), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 1,
                             Verified = true
@@ -106,12 +106,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5251), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3269), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84837226239",
                             RegistrationType = 1,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5252), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3270), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 1,
                             Verified = false
@@ -119,12 +119,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5260), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3279), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "loiqdse140970@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5260), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3279), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 5,
                             Verified = false
@@ -132,12 +132,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5268), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3288), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84837226239",
                             RegistrationType = 1,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5268), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3288), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 5,
                             Verified = true
@@ -145,12 +145,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5275), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3297), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "datdtse140920@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5276), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3297), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 2,
                             Verified = true
@@ -158,12 +158,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5284), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3307), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84377322919",
                             RegistrationType = 1,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5284), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3308), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 2,
                             Verified = false
@@ -171,12 +171,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5291), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3318), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "datdtse140920@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5292), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3319), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 6,
                             Verified = false
@@ -184,12 +184,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5299), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3327), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84377322919",
                             RegistrationType = 1,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5299), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3328), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 6,
                             Verified = true
@@ -197,12 +197,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5306), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3336), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "khoandse1409770@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5307), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3336), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 3,
                             Verified = true
@@ -210,12 +210,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5314), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3346), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84914669962",
                             RegistrationType = 1,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5315), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3347), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 3,
                             Verified = false
@@ -223,12 +223,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5322), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3355), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "khoandse140977@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5322), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3355), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 7,
                             Verified = false
@@ -236,12 +236,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5330), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3363), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84914669962",
                             RegistrationType = 1,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5331), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3364), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 7,
                             Verified = true
@@ -249,12 +249,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5338), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3372), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "duyttse140971@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5338), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3373), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 4,
                             Verified = true
@@ -262,12 +262,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5345), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3380), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84376826328",
                             RegistrationType = 1,
                             RoleId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5346), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3381), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 4,
                             Verified = false
@@ -275,12 +275,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5353), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3427), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "duyttse140971@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5353), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3428), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 8,
                             Verified = false
@@ -288,12 +288,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5361), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3438), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84376826328",
                             RegistrationType = 1,
                             RoleId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5361), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3439), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 8,
                             Verified = true
@@ -301,12 +301,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5369), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3447), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84376826328",
                             RegistrationType = 1,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5369), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3448), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 9,
                             Verified = true
@@ -314,12 +314,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5378), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3459), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "loiqdse140970@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5379), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3460), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 9,
                             Verified = true
@@ -327,12 +327,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5386), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3468), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "khoandse1409770@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5386), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3469), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 11,
                             Verified = true
@@ -340,12 +340,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5393), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3477), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84914669962",
                             RegistrationType = 1,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5394), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3478), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 11,
                             Verified = false
@@ -353,12 +353,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5400), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3486), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "duyttse140971@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5401), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3486), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 10,
                             Verified = true
@@ -366,12 +366,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5408), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3494), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84376826328",
                             RegistrationType = 1,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5408), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3495), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 10,
                             Verified = false
@@ -379,12 +379,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5415), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3502), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "datdtse140920@fpt.edu.vn",
                             RegistrationType = 0,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5415), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3503), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 12,
                             Verified = true
@@ -392,15 +392,5215 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5423), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3511), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Registration = "+84377322919",
                             RegistrationType = 1,
                             RoleId = 3,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5423), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3512), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 12,
                             Verified = false
+                        },
+                        new
+                        {
+                            Id = 100,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3520), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+100",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3521), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 100,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 101,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3533), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@100",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3534), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 100,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 102,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3546), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+101",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3547), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 101,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 103,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3556), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@101",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3557), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 101,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 104,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3566), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+102",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3567), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 102,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 105,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3575), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@102",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3576), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 102,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 106,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3585), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+103",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3586), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 103,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 107,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3595), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@103",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3595), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 103,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 108,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3604), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+104",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3605), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 104,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 109,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3615), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@104",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3616), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 104,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 110,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3624), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+105",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3625), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 105,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 111,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3671), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@105",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3672), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 105,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 112,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3683), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+106",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3683), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 106,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 113,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3693), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@106",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3693), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 106,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 114,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3703), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+107",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3703), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 107,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 115,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3712), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@107",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3713), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 107,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 116,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3722), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+108",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3722), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 108,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 117,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3732), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@108",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3732), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 108,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 118,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3741), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+109",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3742), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 109,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 119,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3751), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@109",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3752), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 109,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 120,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3761), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+110",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3761), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 110,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 121,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3770), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@110",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3771), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 110,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 122,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3781), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+111",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3781), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 111,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 123,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3790), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@111",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3791), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 111,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 124,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3800), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+112",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3800), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 112,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 125,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3809), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@112",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3810), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 112,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 126,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3819), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+113",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3819), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 113,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 127,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3828), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@113",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3829), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 113,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 128,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3838), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+114",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3839), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 114,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 129,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3847), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@114",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3848), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 114,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 130,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3857), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+115",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3858), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 115,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 131,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3866), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@115",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3867), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 115,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 132,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3876), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+116",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3876), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 116,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 133,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3923), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@116",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3924), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 116,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 134,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3935), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+117",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3935), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 117,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 135,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3944), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@117",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3945), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 117,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 136,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3954), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+118",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3955), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 118,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 137,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3964), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@118",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3964), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 118,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 138,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3973), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+119",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3974), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 119,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 139,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3983), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@119",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3984), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 119,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 140,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3993), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+120",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3993), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 120,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 141,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4004), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@120",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4005), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 120,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 142,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4014), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+121",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4015), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 121,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 143,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4024), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@121",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4025), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 121,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 144,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4033), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+122",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4034), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 122,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 145,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4043), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@122",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4044), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 122,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 146,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4053), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+123",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4054), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 123,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 147,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4063), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@123",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4064), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 123,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 148,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4072), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+124",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4073), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 124,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 149,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4082), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@124",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4083), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 124,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 150,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4091), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+125",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4092), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 125,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 151,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4101), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@125",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4102), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 125,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 152,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4111), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+126",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4111), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 126,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 153,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4158), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@126",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4159), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 126,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 154,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4169), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+127",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4170), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 127,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 155,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4179), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@127",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4180), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 127,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 156,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4189), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+128",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4189), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 128,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 157,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4198), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@128",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4199), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 128,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 158,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4208), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+129",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4208), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 129,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 159,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4218), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@129",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4218), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 129,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 160,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4227), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+130",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4228), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 130,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 161,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4237), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@130",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4238), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 130,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 162,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4247), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+131",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4247), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 131,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 163,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4256), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@131",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4257), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 131,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 164,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4266), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+132",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4267), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 132,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 165,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4276), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@132",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4276), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 132,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 166,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4285), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+133",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4286), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 133,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 167,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4295), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@133",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4296), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 133,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 168,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4305), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+134",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4306), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 134,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 169,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4315), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@134",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4315), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 134,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 170,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4324), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+135",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4325), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 135,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 171,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4334), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@135",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4335), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 135,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 172,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4344), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+136",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4345), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 136,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 173,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4354), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@136",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4354), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 136,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 174,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4363), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+137",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4364), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 137,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 175,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4450), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@137",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4450), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 137,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 176,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4461), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+138",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4462), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 138,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 177,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4471), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@138",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4472), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 138,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 178,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4481), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+139",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4482), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 139,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 179,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4490), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@139",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4491), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 139,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 180,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4500), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+140",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4501), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 140,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 181,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4510), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@140",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4511), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 140,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 182,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4519), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+141",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4520), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 141,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 183,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4529), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@141",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4530), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 141,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 184,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4538), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+142",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4539), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 142,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 185,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4548), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@142",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4549), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 142,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 186,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4558), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+143",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4559), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 143,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 187,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4568), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@143",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4569), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 143,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 188,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4578), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+144",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4578), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 144,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 189,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4587), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@144",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4588), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 144,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 190,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4597), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+145",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4597), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 145,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 191,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4606), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@145",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4607), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 145,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 192,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4616), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+146",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4617), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 146,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 193,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4626), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@146",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4626), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 146,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 194,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4635), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+147",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4636), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 147,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 195,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4645), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@147",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4646), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 147,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 196,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4655), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+148",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4656), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 148,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 197,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4704), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@148",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4705), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 148,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 198,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4716), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+149",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4716), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 149,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 199,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4726), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@149",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4726), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 149,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 200,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4735), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+150",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4736), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 150,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 201,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4745), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@150",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4746), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 150,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 202,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4755), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+151",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4756), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 151,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 203,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4765), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@151",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4765), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 151,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 204,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4775), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+152",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4775), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 152,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 205,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4787), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@152",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4787), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 152,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 206,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4797), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+153",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4798), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 153,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 207,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4807), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@153",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4808), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 153,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 208,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4817), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+154",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4818), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 154,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 209,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4827), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@154",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4828), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 154,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 210,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4837), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+155",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4838), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 155,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 211,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4847), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@155",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4848), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 155,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 212,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4857), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+156",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4857), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 156,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 213,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4866), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@156",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4867), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 156,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 214,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4934), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+157",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4935), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 157,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 215,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4945), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@157",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4945), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 157,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 216,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4954), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+158",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4955), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 158,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 217,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4964), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@158",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4965), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 158,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 218,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4974), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+159",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4974), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 159,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 219,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4983), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@159",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4984), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 159,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 220,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4993), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+160",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(4994), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 160,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 221,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5003), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@160",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5004), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 160,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 222,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5013), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+161",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5013), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 161,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 223,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5022), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@161",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5023), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 161,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 224,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5032), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+162",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5033), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 162,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 225,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5042), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@162",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5043), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 162,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 226,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5052), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+163",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5053), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 163,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 227,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5062), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@163",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5062), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 163,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 228,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5071), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+164",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5072), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 164,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 229,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5081), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@164",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5082), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 164,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 230,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5091), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+165",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5092), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 165,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 231,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5101), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@165",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5102), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 165,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 232,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5110), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+166",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5111), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 166,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 233,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5120), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@166",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5121), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 166,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 234,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5129), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+167",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5130), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 167,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 235,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5139), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@167",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5140), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 167,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 236,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5186), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+168",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5187), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 168,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 237,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5197), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@168",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5198), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 168,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 238,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5207), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+169",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5208), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 169,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 239,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5217), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@169",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5217), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 169,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 240,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5226), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+170",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5227), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 170,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 241,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5236), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@170",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5237), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 170,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 242,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5246), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+171",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5247), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 171,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 243,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5256), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@171",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5256), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 171,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 244,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5266), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+172",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5266), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 172,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 245,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5275), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@172",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5276), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 172,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 246,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5285), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+173",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5286), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 173,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 247,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5295), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@173",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5296), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 173,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 248,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5305), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+174",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5306), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 174,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 249,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5315), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@174",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5316), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 174,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 250,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5324), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+175",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5325), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 175,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 251,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5334), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@175",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5335), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 175,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 252,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5344), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+176",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5344), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 176,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 253,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5354), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@176",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5354), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 176,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 254,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5363), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+177",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5364), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 177,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 255,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5374), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@177",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5374), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 177,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 256,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5383), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+178",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5384), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 178,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 257,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5393), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@178",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5394), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 178,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 258,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5445), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+179",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5446), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 179,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 259,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5456), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@179",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5456), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 179,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 260,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5465), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+180",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5466), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 180,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 261,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5475), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@180",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5475), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 180,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 262,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5484), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+181",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5485), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 181,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 263,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5494), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@181",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5495), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 181,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 264,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5504), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+182",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5505), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 182,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 265,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5514), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@182",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5514), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 182,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 266,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5523), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+183",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5524), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 183,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 267,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5533), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@183",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5534), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 183,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 268,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5542), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+184",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5543), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 184,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 269,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5553), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@184",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5553), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 184,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 270,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5562), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+185",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5563), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 185,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 271,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5572), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@185",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5572), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 185,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 272,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5581), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+186",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5582), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 186,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 273,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5591), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@186",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5592), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 186,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 274,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5601), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+187",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5601), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 187,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 275,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5610), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@187",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5611), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 187,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 276,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5620), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+188",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5621), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 188,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 277,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5630), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@188",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5631), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 188,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 278,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5639), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+189",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5640), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 189,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 279,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5649), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@189",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5650), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 189,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 280,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5694), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+190",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5695), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 190,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 281,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5705), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@190",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5706), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 190,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 282,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5715), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+191",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5716), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 191,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 283,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5725), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@191",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5726), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 191,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 284,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5735), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+192",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5736), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 192,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 285,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5745), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@192",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5746), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 192,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 286,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5755), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+193",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5755), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 193,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 287,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5764), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@193",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5765), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 193,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 288,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5774), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+194",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5775), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 194,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 289,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5784), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@194",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5784), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 194,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 290,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5793), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+195",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5794), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 195,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 291,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5803), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@195",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5804), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 195,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 292,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5813), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+196",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5813), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 196,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 293,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5822), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@196",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5823), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 196,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 294,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5832), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+197",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5833), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 197,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 295,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5842), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@197",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5843), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 197,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 296,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5852), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+198",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5853), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 198,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 297,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5862), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@198",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5863), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 198,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 298,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5871), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+199",
+                            RegistrationType = 1,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5872), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 199,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 299,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5881), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@199",
+                            RegistrationType = 0,
+                            RoleId = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5882), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 199,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 400,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5892), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+400",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5892), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 400,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 401,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5903), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@400",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5903), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 400,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 402,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5949), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+401",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5950), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 401,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 403,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5962), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@401",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5962), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 401,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 404,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5972), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+402",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5972), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 402,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 405,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5982), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@402",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5982), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 402,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 406,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5991), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+403",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(5992), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 403,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 407,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6001), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@403",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6002), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 403,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 408,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6011), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+404",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6012), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 404,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 409,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6021), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@404",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6022), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 404,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 410,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6031), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+405",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6032), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 405,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 411,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6041), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@405",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6042), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 405,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 412,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6051), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+406",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6052), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 406,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 413,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6061), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@406",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6062), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 406,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 414,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6071), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+407",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6072), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 407,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 415,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6081), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@407",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6082), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 407,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 416,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6091), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+408",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6091), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 408,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 417,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6101), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@408",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6102), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 408,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 418,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6110), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+409",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6111), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 409,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 419,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6120), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@409",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6121), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 409,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 420,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6130), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+410",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6131), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 410,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 421,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6140), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@410",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6141), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 410,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 422,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6150), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+411",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6150), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 411,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 423,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6160), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@411",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6160), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 411,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 424,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6169), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+412",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6170), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 412,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 425,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6218), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@412",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6218), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 412,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 426,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6228), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+413",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6229), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 413,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 427,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6238), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@413",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6239), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 413,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 428,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6248), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+414",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6248), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 414,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 429,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6257), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@414",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6258), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 414,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 430,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6267), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+415",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6267), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 415,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 431,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6276), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@415",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6277), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 415,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 432,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6286), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+416",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6287), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 416,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 433,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6300), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@416",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6300), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 416,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 434,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6310), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+417",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6311), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 417,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 435,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6319), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@417",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6320), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 417,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 436,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6367), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+418",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6368), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 418,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 437,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6378), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@418",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6378), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 418,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 438,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6387), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+419",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6388), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 419,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 439,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6397), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@419",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6398), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 419,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 440,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6407), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+420",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6408), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 420,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 441,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6417), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@420",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6418), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 420,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 442,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6427), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+421",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6428), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 421,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 443,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6502), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@421",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6503), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 421,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 444,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6513), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+422",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6513), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 422,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 445,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6522), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@422",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6523), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 422,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 446,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6532), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+423",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6533), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 423,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 447,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6543), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@423",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6543), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 423,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 448,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6552), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+424",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6553), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 424,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 449,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6562), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@424",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6563), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 424,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 450,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6572), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+425",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6573), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 425,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 451,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6582), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@425",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6582), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 425,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 452,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6592), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+426",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6593), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 426,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 453,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6602), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@426",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6602), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 426,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 454,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6611), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+427",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6612), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 427,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 455,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6621), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@427",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6622), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 427,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 456,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6631), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+428",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6632), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 428,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 457,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6641), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@428",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6642), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 428,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 458,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6690), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+429",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6691), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 429,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 459,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6701), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@429",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6702), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 429,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 460,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6712), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+430",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6712), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 430,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 461,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6749), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@430",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6750), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 430,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 462,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6759), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+431",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6760), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 431,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 463,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6769), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@431",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6770), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 431,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 464,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6779), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+432",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6780), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 432,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 465,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6789), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@432",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6790), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 432,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 466,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6799), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+433",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6800), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 433,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 467,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6809), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@433",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6810), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 433,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 468,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6819), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+434",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6820), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 434,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 469,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6829), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@434",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6830), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 434,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 470,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6839), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+435",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6840), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 435,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 471,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6849), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@435",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6850), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 435,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 472,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6859), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+436",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6860), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 436,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 473,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6869), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@436",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6870), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 436,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 474,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6879), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+437",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6880), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 437,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 475,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6889), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@437",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6889), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 437,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 476,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6899), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+438",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6899), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 438,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 477,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6909), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@438",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6909), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 438,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 478,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6918), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+439",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6919), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 439,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 479,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6928), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@439",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(6929), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 439,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 480,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7013), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+440",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7014), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 440,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 481,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7025), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@440",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7026), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 440,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 482,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7035), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+441",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7036), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 441,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 483,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7046), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@441",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7047), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 441,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 484,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7056), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+442",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7057), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 442,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 485,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7066), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@442",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7066), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 442,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 486,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7076), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+443",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7077), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 443,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 487,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7086), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@443",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7086), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 443,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 488,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7096), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+444",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7097), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 444,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 489,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7106), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@444",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7107), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 444,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 490,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7116), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+445",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7117), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 445,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 491,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7126), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@445",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7127), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 445,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 492,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7136), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+446",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7137), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 446,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 493,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7146), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@446",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7147), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 446,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 494,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7156), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+447",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7157), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 447,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 495,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7166), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@447",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7166), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 447,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 496,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7175), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+448",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7176), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 448,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 497,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7185), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@448",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7186), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 448,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 498,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7195), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+449",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7196), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 449,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 499,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7205), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@449",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7206), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 449,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 500,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7215), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+450",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7215), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 450,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 501,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7225), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@450",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7225), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 450,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 502,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7307), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+451",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7308), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 451,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 503,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7320), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@451",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7320), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 451,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 504,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7330), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+452",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7330), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 452,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 505,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7340), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@452",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7340), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 452,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 506,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7350), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+453",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7350), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 453,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 507,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7359), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@453",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7360), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 453,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 508,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7370), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+454",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7370), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 454,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 509,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7380), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@454",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7380), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 454,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 510,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7389), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+455",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7390), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 455,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 511,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7399), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@455",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7400), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 455,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 512,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7409), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+456",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7410), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 456,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 513,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7419), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@456",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7420), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 456,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 514,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7429), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+457",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7430), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 457,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 515,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7439), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@457",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7440), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 457,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 516,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7449), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+458",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7450), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 458,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 517,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7459), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@458",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7460), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 458,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 518,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7469), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+459",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7470), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 459,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 519,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7479), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@459",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7480), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 459,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 520,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7489), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+460",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7490), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 460,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 521,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7499), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@460",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7500), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 460,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 522,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7509), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+461",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7510), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 461,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 523,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7519), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@461",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7520), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 461,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 524,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7564), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+462",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7565), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 462,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 525,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7577), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@462",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7577), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 462,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 526,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7587), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+463",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7587), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 463,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 527,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7597), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@463",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7598), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 463,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 528,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7607), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+464",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7607), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 464,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 529,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7616), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@464",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7617), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 464,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 530,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7626), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+465",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7627), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 465,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 531,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7636), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@465",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7637), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 465,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 532,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7646), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+466",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7647), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 466,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 533,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7656), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@466",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7657), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 466,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 534,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7666), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+467",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7667), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 467,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 535,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7676), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@467",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7676), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 467,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 536,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7686), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+468",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7686), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 468,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 537,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7695), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@468",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7696), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 468,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 538,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7705), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+469",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7706), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 469,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 539,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7715), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@469",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7716), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 469,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 540,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7725), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+470",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7726), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 470,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 541,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7735), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@470",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7735), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 470,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 542,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7744), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+471",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7745), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 471,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 543,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7754), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@471",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7755), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 471,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 544,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7764), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+472",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7765), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 472,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 545,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7773), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@472",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7774), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 472,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 546,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7784), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+473",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7784), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 473,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 547,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7831), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@473",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7832), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 473,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 548,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7841), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+474",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7842), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 474,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 549,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7851), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@474",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7852), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 474,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 550,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7861), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+475",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7862), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 475,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 551,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7871), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@475",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7872), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 475,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 552,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7881), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+476",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7881), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 476,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 553,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7891), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@476",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7891), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 476,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 554,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7900), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+477",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7901), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 477,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 555,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7910), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@477",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7911), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 477,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 556,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7920), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+478",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7920), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 478,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 557,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7929), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@478",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7930), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 478,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 558,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7939), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+479",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7940), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 479,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 559,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7949), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@479",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7950), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 479,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 560,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7959), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+480",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7960), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 480,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 561,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7969), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@480",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7970), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 480,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 562,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7979), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+481",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7979), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 481,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 563,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7988), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@481",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7989), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 481,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 564,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7998), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+482",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(7999), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 482,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 565,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8008), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@482",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8009), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 482,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 566,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8018), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+483",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8018), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 483,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 567,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8028), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@483",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8028), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 483,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 568,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8037), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+484",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8038), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 484,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 569,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8102), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@484",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8103), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 484,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 570,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8114), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+485",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8114), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 485,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 571,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8124), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@485",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8124), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 485,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 572,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8133), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+486",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8134), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 486,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 573,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8143), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@486",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8144), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 486,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 574,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8153), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+487",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8154), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 487,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 575,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8163), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@487",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8164), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 487,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 576,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8173), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+488",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8174), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 488,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 577,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8183), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@488",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8183), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 488,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 578,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8193), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+489",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8194), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 489,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 579,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8203), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@489",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8203), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 489,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 580,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8213), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+490",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8213), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 490,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 581,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8222), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@490",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8223), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 490,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 582,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8232), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+491",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8233), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 491,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 583,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8242), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@491",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8243), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 491,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 584,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8252), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+492",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8252), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 492,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 585,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8261), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@492",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8262), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 492,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 586,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8272), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+493",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8272), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 493,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 587,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8281), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@493",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8282), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 493,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 588,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8291), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+494",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8292), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 494,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 589,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8301), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@494",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8302), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 494,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 590,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8311), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+495",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8312), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 495,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 591,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8357), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@495",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8358), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 495,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 592,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8368), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+496",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8369), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 496,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 593,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8378), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@496",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8379), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 496,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 594,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8388), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+497",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8389), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 497,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 595,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8398), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@497",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8398), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 497,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 596,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8408), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+498",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8409), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 498,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 597,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8418), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@498",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8419), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 498,
+                            Verified = true
+                        },
+                        new
+                        {
+                            Id = 598,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8428), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "+499",
+                            RegistrationType = 1,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8428), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 499,
+                            Verified = false
+                        },
+                        new
+                        {
+                            Id = 599,
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8437), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Registration = "@499",
+                            RegistrationType = 0,
+                            RoleId = 2,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8438), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 499,
+                            Verified = true
                         });
                 });
 
@@ -516,34 +5716,34 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Code = new Guid("b5ece268-88ba-481e-b36e-63a4d2a8a95f"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6298), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("363f3ff4-7ca4-40e9-8027-9a0df0d00101"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(437), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Name = "Momo",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6299), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(438), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
-                            Code = new Guid("1bb55b01-9e49-48f2-ade4-e15ad9cb0fb8"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6302), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("ce8f5b02-03d4-4122-9d71-31120aad9abf"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(446), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Name = "VNPay",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6302), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(447), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
-                            Code = new Guid("7a39883b-ce2f-48e7-86a6-2dae79a30228"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6304), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("1575801a-00da-47d2-ae85-3a80ef403d69"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(449), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Name = "ZaloPay",
                             Status = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6304), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(450), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -602,157 +5802,157 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Code = new Guid("3e90ba69-1688-47db-b67a-6edfb30b92c2"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4920), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("3e9a18c3-49d7-40d8-8013-11334aaea7d5"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8751), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4931), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8772), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
-                            Code = new Guid("acc28710-db6f-43ce-9506-4b68d4a14f74"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4945), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("c71747ea-0e0a-4008-aba9-42619b600dc9"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8788), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4946), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8788), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
-                            Code = new Guid("c38c6d83-5b94-4ab4-9dbb-b96a1ecaab02"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4954), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("378519a8-d779-43fd-93a9-412e98406680"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8799), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4955), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8800), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 4,
-                            Code = new Guid("02d84d2a-101e-41be-ad22-b602c1174aad"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4963), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("59504abb-9941-4aba-a7b6-7e9c878c9837"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8810), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4964), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8811), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 5,
-                            Code = new Guid("af0f7206-f5e9-4216-831b-bc98431ccb07"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4971), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("da09b79e-2171-417f-9b77-572edcfb522b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8820), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4972), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8821), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 6,
-                            Code = new Guid("a1804437-15b1-469e-be31-59d41a1b1748"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4993), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("2a159882-dcc9-4cd4-a646-bf12f74150eb"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8847), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(4994), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8848), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 7,
-                            Code = new Guid("c5d036c0-74c7-4723-9c39-05c813173f89"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5003), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("fd74772f-269f-41aa-9155-48618b0081d6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8907), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5004), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8908), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 8,
-                            Code = new Guid("41f5e2f8-7639-41b7-aad6-dd4897ae664c"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5011), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("91e49335-b4bf-426e-859d-5ae5562a5e5d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8920), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5012), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8921), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 9,
-                            Code = new Guid("a8f8b9bd-e359-446d-b95e-a9a44757b5d9"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5019), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("4dbbe867-b498-4888-b351-6a8dcfe7fd44"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8931), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "promotion/285640182_5344668362254863_4230282646432249568_n.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5020), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8932), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 10,
-                            Code = new Guid("dde3fbaf-3667-40a7-bb7c-94c3c1de0f70"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5028), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("36ee1dd1-7c2d-47fe-83c8-8c634d7930a1"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8943), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "promotion/292718124_1043378296364294_8747140355237126885_n.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5029), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8944), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 11,
-                            Code = new Guid("94c99073-198b-492c-ae0e-2520c562da7a"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5036), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("6644060a-7077-4700-928b-e2c21b24ea34"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8954), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "promotion/300978304_2290809087749954_8259423704505319939_n.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5037), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8955), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 12,
-                            Code = new Guid("30176773-41a6-4d1b-8e9e-8f60df84d67f"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5044), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("051edbf3-bb84-44cd-b60a-eff5c0b1d74d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8964), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "promotion/300978304_2290809087749954_8259423704505319939_n.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5044), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8965), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 13,
-                            Code = new Guid("0cf5f033-7fcf-4207-b5c3-4430553bb516"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5058), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("9cfce33e-7f07-4b12-9efb-6782a77e1f25"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8974), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Path = "user/avatar/default-user-avatar.png",
                             Status = true,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5059), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(8975), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -823,12 +6023,12 @@ namespace Infrastructure.Migrations
                             Id = 1,
                             Active = true,
                             Content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6025), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9338), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 9,
                             Priority = 1,
                             Title = "What is Lorem Ipsum?",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6026), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9339), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
@@ -836,12 +6036,12 @@ namespace Infrastructure.Migrations
                             Id = 2,
                             Active = true,
                             Content = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6030), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9344), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 10,
                             Priority = 2,
                             Title = "Why do we use it?",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6030), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9345), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
@@ -849,12 +6049,12 @@ namespace Infrastructure.Migrations
                             Id = 3,
                             Active = true,
                             Content = "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6031), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9346), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 11,
                             Priority = 3,
                             Title = "Where does it come from?",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6032), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9347), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
@@ -862,11 +6062,11 @@ namespace Infrastructure.Migrations
                             Id = 4,
                             Active = true,
                             Content = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6033), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9348), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 12,
                             Title = "Where can I get some?",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6034), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9349), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -883,7 +6083,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Code")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasDefaultValue(new Guid("c6bb496b-c35e-4613-a94a-e42c957604d1"))
+                        .HasDefaultValue(new Guid("f5208569-19b5-40e0-8740-91f483fd1cf4"))
                         .HasColumnName("code");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -893,6 +6093,11 @@ namespace Infrastructure.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("integer")
                         .HasColumnName("created_by");
+
+                    b.Property<int[]>("DayOfWeeks")
+                        .IsRequired()
+                        .HasColumnType("integer[]")
+                        .HasColumnName("day_of_weeks");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone")
@@ -955,10 +6160,6 @@ namespace Infrastructure.Migrations
                     b.Property<double>("TotalPrice")
                         .HasColumnType("double precision")
                         .HasColumnName("total_price");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer")
-                        .HasColumnName("type");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -1100,24 +6301,21 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("deleted_at");
 
-                    b.Property<int>("DriverId")
-                        .HasColumnType("integer")
-                        .HasColumnName("driver_id");
-
                     b.Property<TimeOnly?>("EndTime")
                         .HasColumnType("time without time zone")
                         .HasColumnName("end_time");
+
+                    b.Property<int>("RouteRoutineId")
+                        .HasColumnType("integer")
+                        .HasColumnName("route_routine_id");
 
                     b.Property<TimeOnly?>("StartTime")
                         .HasColumnType("time without time zone")
                         .HasColumnName("start_time");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
-
                     b.Property<int>("TripStatus")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("trip_status");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
@@ -1131,10 +6329,41 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("BookingDetailId");
 
-                    b.HasIndex("DriverId", "BookingDetailId")
+                    b.HasIndex("RouteRoutineId", "BookingDetailId")
                         .IsUnique();
 
                     b.ToTable("booking_detail_drivers", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("content");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.Property<string>("Tittle")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("title");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("events", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Fare", b =>
@@ -1195,10 +6424,10 @@ namespace Infrastructure.Migrations
                             Id = 1,
                             BaseDistance = 2000,
                             BasePrice = 12000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6097), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9505), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             PricePerKm = 4000.0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6097), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9506), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             VehicleTypeId = 1
                         },
@@ -1207,10 +6436,10 @@ namespace Infrastructure.Migrations
                             Id = 2,
                             BaseDistance = 2000,
                             BasePrice = 20000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6101), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9510), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             PricePerKm = 10000.0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6101), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9510), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             VehicleTypeId = 2
                         },
@@ -1219,10 +6448,10 @@ namespace Infrastructure.Migrations
                             Id = 3,
                             BaseDistance = 2000,
                             BasePrice = 30000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6103), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9512), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             PricePerKm = 12000.0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6103), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9513), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             VehicleTypeId = 3
                         });
@@ -1288,169 +6517,169 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             CeilingExtraPrice = 7000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6117), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9540), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(8, 0, 0),
                             ExtraFeePerKm = 2000.0,
                             FareId = 1,
                             StartTime = new TimeOnly(6, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6118), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9540), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
                             CeilingExtraPrice = 5000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6157), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9590), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(10, 0, 0),
                             ExtraFeePerKm = 1000.0,
                             FareId = 1,
                             StartTime = new TimeOnly(8, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6157), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9591), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
                             CeilingExtraPrice = 7000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6164), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9599), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(17, 0, 0),
                             ExtraFeePerKm = 2000.0,
                             FareId = 1,
                             StartTime = new TimeOnly(15, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6165), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9600), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 4,
                             CeilingExtraPrice = 5000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6172), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9607), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(19, 0, 0),
                             ExtraFeePerKm = 1500.0,
                             FareId = 1,
                             StartTime = new TimeOnly(17, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6172), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9608), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 5,
                             CeilingExtraPrice = 7000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6178), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9616), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(8, 0, 0),
                             ExtraFeePerKm = 2000.0,
                             FareId = 2,
                             StartTime = new TimeOnly(6, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6179), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9616), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 6,
                             CeilingExtraPrice = 5000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6186), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9626), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(10, 0, 0),
                             ExtraFeePerKm = 1000.0,
                             FareId = 2,
                             StartTime = new TimeOnly(8, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6187), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9626), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 7,
                             CeilingExtraPrice = 5000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6193), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9634), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(17, 0, 0),
                             ExtraFeePerKm = 1500.0,
                             FareId = 2,
                             StartTime = new TimeOnly(15, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6194), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9635), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 8,
                             CeilingExtraPrice = 7000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6200), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9642), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(19, 0, 0),
                             ExtraFeePerKm = 2000.0,
                             FareId = 2,
                             StartTime = new TimeOnly(17, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6201), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9643), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 9,
                             CeilingExtraPrice = 7000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6207), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9651), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(8, 0, 0),
                             ExtraFeePerKm = 2000.0,
                             FareId = 3,
                             StartTime = new TimeOnly(6, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6207), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9651), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 10,
                             CeilingExtraPrice = 5000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6214), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9660), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(10, 0, 0),
                             ExtraFeePerKm = 1000.0,
                             FareId = 3,
                             StartTime = new TimeOnly(8, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6215), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9661), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 11,
                             CeilingExtraPrice = 6000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6221), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9668), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(17, 0, 0),
                             ExtraFeePerKm = 1500.0,
                             FareId = 3,
                             StartTime = new TimeOnly(15, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6222), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9669), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 12,
                             CeilingExtraPrice = 10000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6228), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9676), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(19, 0, 0),
                             ExtraFeePerKm = 2500.0,
                             FareId = 3,
                             StartTime = new TimeOnly(17, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6229), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9677), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 13,
                             CeilingExtraPrice = 5000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6235), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9684), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             EndTime = new TimeOnly(15, 0, 0),
                             ExtraFeePerKm = 1000.0,
                             FareId = 3,
                             StartTime = new TimeOnly(14, 0, 0),
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6235), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9684), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -1512,6 +6741,178 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("messages", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("Code")
+                        .HasColumnType("uuid")
+                        .HasColumnName("code");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("created_by");
+
+                    b.Property<object>("Data")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("data");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("integer")
+                        .HasColumnName("event_id");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("updated_by");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("notifications", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Pricing", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<Guid>("Code")
+                        .HasColumnType("uuid")
+                        .HasColumnName("code");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("created_by");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("deleted_at");
+
+                    b.Property<double>("Discount")
+                        .HasColumnType("double precision")
+                        .HasColumnName("discount");
+
+                    b.Property<int?>("LowerBound")
+                        .HasColumnType("integer")
+                        .HasColumnName("lower_bound");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("integer")
+                        .HasColumnName("updated_by");
+
+                    b.Property<int?>("UpperBound")
+                        .HasColumnType("integer")
+                        .HasColumnName("upper_bound");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("pricings", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = new Guid("de6bee03-502e-489f-8a6c-4b93e78c55b3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(513), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Discount = 0.0,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(513), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UpperBound = 7
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Code = new Guid("7567b656-8b1a-49df-8700-9a767021b7cc"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(525), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Discount = 0.029999999999999999,
+                            LowerBound = 8,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(526), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UpperBound = 30
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Code = new Guid("28770bf3-66c3-44cd-acd6-22a7cb3dd695"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(528), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Discount = 0.050000000000000003,
+                            LowerBound = 31,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(529), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UpperBound = 90
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Code = new Guid("7749e2b5-1d86-40ad-a3b7-cc8d5e4dab13"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(531), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Discount = 0.070000000000000007,
+                            LowerBound = 91,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(532), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Promotion", b =>
@@ -1592,7 +6993,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Code = "HELLO2022",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5442), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8460), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for new user: Discount 20% with max decrease 200k for the booking with minimum total price 500k.",
                             DiscountPercentage = 0.20000000000000001,
@@ -1601,14 +7002,14 @@ namespace Infrastructure.Migrations
                             Name = "New User Promotion",
                             Status = 1,
                             Type = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5443), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8460), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
                             Code = "BDAY2022",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5455), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8474), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for September: Discount 10% with max decrease 150k for the booking with minimum total price 200k.",
                             DiscountPercentage = 0.10000000000000001,
@@ -1617,14 +7018,14 @@ namespace Infrastructure.Migrations
                             Name = "Beautiful Month",
                             Status = 1,
                             Type = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5456), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8475), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
                             Code = "HOLIDAY",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5464), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8484), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for 2/9 Holiday: Discount 30% with max decrease 300k for the booking with minimum total price 1000k.",
                             DiscountPercentage = 0.29999999999999999,
@@ -1632,14 +7033,14 @@ namespace Infrastructure.Migrations
                             Name = "Holiday Promotion",
                             Status = 1,
                             Type = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5465), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8484), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 4,
                             Code = "ABC",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5472), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8492), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for users booking alot: Discount 10% with max decrease 300k for the booking with minimum total price 500k.",
                             DiscountPercentage = 0.10000000000000001,
@@ -1648,14 +7049,14 @@ namespace Infrastructure.Migrations
                             Name = "ABC Promotion",
                             Status = 1,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5472), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8493), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 5,
                             Code = "VIRIDE2022",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5479), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8501), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for ViRide: Discount 10% with max decrease 100k for the booking with minimum total price 300k.",
                             DiscountPercentage = 0.10000000000000001,
@@ -1664,14 +7065,14 @@ namespace Infrastructure.Migrations
                             Name = "ViRide Promotion",
                             Status = 1,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5480), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8502), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 6,
                             Code = "VICAR2022",
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5489), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8511), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Details = "Promotion for ViCar: Discount 15% with max decrease 350k for the booking with minimum total price 500k.",
                             DiscountPercentage = 0.14999999999999999,
@@ -1680,7 +7081,7 @@ namespace Infrastructure.Migrations
                             Name = "ViCar Promotion",
                             Status = 1,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5489), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8512), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -1762,11 +7163,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5501), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8533), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTotalPrice = 500000f,
                             PromotionId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5501), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8534), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 1,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -1774,12 +7175,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5601), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8662), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTotalPrice = 200000f,
                             PromotionId = 2,
                             TotalUsage = 50,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5602), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8663), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 4,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 9, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -1788,12 +7189,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5624), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8688), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTotalPrice = 1000000f,
                             PromotionId = 3,
                             TotalUsage = 50,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5625), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8689), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 1,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 9, 2, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -1802,13 +7203,13 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5642), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8709), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTickets = 20,
                             MinTotalPrice = 500000f,
                             PromotionId = 4,
                             TotalUsage = 50,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5643), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8710), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 1,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 9, 2, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -1817,12 +7218,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5661), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8730), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTotalPrice = 300000f,
                             PromotionId = 5,
                             TotalUsage = 500,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5661), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8731), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 3,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -1832,12 +7233,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5680), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8818), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             MinTotalPrice = 500000f,
                             PromotionId = 6,
                             TotalUsage = 500,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5681), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8818), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UsagePerUser = 3,
                             ValidFrom = new DateTimeOffset(new DateTime(2022, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -1911,11 +7312,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5703), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8852), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             ExpiredTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             PromotionId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5704), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8853), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             Used = 0,
                             UserId = 5
@@ -1923,11 +7324,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5721), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8875), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             ExpiredTime = new DateTimeOffset(new DateTime(2022, 10, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             PromotionId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5721), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8875), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             Used = 1,
                             UserId = 6
@@ -1935,11 +7336,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5736), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8891), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             ExpiredTime = new DateTimeOffset(new DateTime(2022, 9, 1, 0, 0, 1, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             PromotionId = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5737), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8891), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             Used = 0,
                             UserId = 7
@@ -1947,10 +7348,10 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5750), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8905), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             PromotionId = 2,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5751), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8906), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             Used = 2,
                             UserId = 6
@@ -2015,7 +7416,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Code")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasDefaultValue(new Guid("3a44e6a8-b99d-4c9b-a0f0-cce4996355c4"))
+                        .HasDefaultValue(new Guid("8b9a8758-aed3-4621-ad46-e38ed1bae77e"))
                         .HasColumnName("code");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -2330,1204 +7731,1204 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Address = "80 Xa lộ Hà Nội, Bình An, Dĩ An, Bình Dương",
-                            Code = new Guid("3b23fb2f-de10-4b83-b4c0-ecd2392d5aad"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5769), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("1d958899-f0d3-4527-b9b2-679d4a9f1cb7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8941), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.879650683124561,
                             Longitude = 106.81402589177823,
                             Name = "Ga Metro Bến Xe Suối Tiên",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5770), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8942), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
                             Address = "39708 Xa lộ Hà Nội, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("70588521-2bf7-45cb-b28d-77d9bc99bad4"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5775), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("c3cd7dc4-2829-49fc-8843-7d98f9c0be97"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8948), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.8664854431366,
                             Longitude = 106.80126112015681,
                             Name = "Ga Metro Đại học Quốc Gia",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5775), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8949), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
                             Address = "4/16B Xa lộ Hà Nội, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("4f9759c9-177a-47c1-a17c-27cd007650c9"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5777), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("c7544d8c-ca4a-43d7-bc24-0f93d3ea74d9"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8952), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.85917304306453,
                             Longitude = 106.78884645537156,
                             Name = "Ga Metro Công Viên Công Nghệ Cao",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5778), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8952), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 4,
                             Address = "RQWC+GJX Xa lộ Hà Nội, Bình Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("b281b6bb-6474-45f2-ae5c-83830f6b0a94"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5780), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d18f4430-5805-4f65-be37-ff85f096178e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8955), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.846402468851362,
                             Longitude = 106.77154946668446,
                             Name = "Ga Metro Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5780), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8956), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 5,
                             Address = "88 Nguyễn Văn Bá, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("91287ff1-7723-42af-98a0-421e4d2c47ab"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5783), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("929667df-69bc-4230-9472-0144e7e35b82"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8958), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.821402021794112,
                             Longitude = 106.75836408336727,
                             Name = "Ga Metro Phước Long",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5783), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8959), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 6,
                             Address = "RQ54+93V Xa lộ Hà Nội, An Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("e738a2bc-789d-4a28-b0ad-549ea48dd24a"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5786), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("b0b2e566-1c75-4987-ba90-0f075fea6c41"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8963), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.808505238748038,
                             Longitude = 106.75523952123311,
                             Name = "Ga Metro Gạch Chiếc",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5787), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8964), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 7,
                             Address = "RP2R+VV9 Xa lộ Hà Nội, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("01412594-dba1-40ad-b591-047f7f662c04"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5789), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("ff0b0b78-cf64-48d3-841e-95e1169f5023"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8966), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.802254217820691,
                             Longitude = 106.74223332879555,
                             Name = "Ga Metro An Phú",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5790), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8967), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 8,
                             Address = "763J Quốc Hương, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("c9bf6e90-6edc-4962-94b3-8e6179bb2f8b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5796), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("30b44b88-dbc5-4486-a11f-8da49dbb5b8d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8969), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.800728306627473,
                             Longitude = 106.73370791313042,
                             Name = "Ga Metro Thảo Điền",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5797), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8969), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 9,
                             Address = "QPXF+C8J Nguyễn Hữu Cảnh, 25, Bình Thạnh, Thành phố Hồ Chí Minh, Việt Nam",
-                            Code = new Guid("4eca0cfb-33cd-47e9-b454-9fbaef412f8f"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5801), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("ff976246-a43d-4c91-afc2-d6b0ba57b2e7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8974), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.798621063183687,
                             Longitude = 106.72327125155881,
                             Name = "Ga Metro Tân Cảng",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5801), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8975), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 10,
                             Address = "QPW8+C5Q, Phường 22, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("e5c7edc5-32f6-48a9-ad68-09a18765e191"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5804), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("59d4cad5-7b41-4811-a9b1-fcdd600778ac"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8978), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.796160596763055,
                             Longitude = 106.71548797723645,
                             Name = "Ga Metro Khu du lịch Văn Thánh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5804), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8979), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 11,
                             Address = "39761 Nguyễn Văn Bá, Phước Long B, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("602679a0-eeab-435c-bc55-9467152b860a"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5806), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("bbd1a6f7-0928-4c56-8356-ae54dc11d32b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8981), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.836558412392224,
                             Longitude = 106.76576466834388,
                             Name = "Ga Metro Bình Thái",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5806), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8982), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 12,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("e0391a62-a4ee-465b-85eb-e34935bff105"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5808), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("f685cf45-501c-4e2c-b866-6cf0bdec28e5"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8984), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.855748533595877,
                             Longitude = 106.78914067676806,
                             Name = "AI InnovationHub",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5809), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8985), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 13,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("af2524af-01c5-42b6-8a8d-173a7bd75517"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5810), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("5f2c6382-919c-4726-b5bf-1d31ddcd9df3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8987), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.853144521692798,
                             Longitude = 106.79643313765459,
                             Name = "Tòa nhà HD Bank",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5811), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8987), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 14,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh ",
-                            Code = new Guid("9e520f4d-7728-4958-a349-ad3cdbc1741e"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5813), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("844046bb-98bd-429c-bfdc-4eb8061efb92"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8990), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.851138424399943,
                             Longitude = 106.79857191639908,
                             Name = "FPT Software - Ftown 1,2",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5813), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8991), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 15,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("d7255fde-cab3-43c4-b42e-df34c92495f2"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5815), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("24f28b88-fcb4-428c-b4ba-b7af167a824d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8994), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.842755223277589,
                             Longitude = 106.80737654998441,
                             Name = "Tòa nhà VPI phía Nam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5815), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8994), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 16,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("b3d9d78d-8384-4e77-ba71-7292f683c429"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5817), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("69214567-8b6c-4756-810f-607a98e79784"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8996), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.841160382489567,
                             Longitude = 106.80898373894351,
                             Name = "Viện công nghệ cao Hutech",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5817), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(8997), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 17,
                             Address = "RRP7+CJ7 đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("ce3e43bb-af77-41c4-b995-9464d88bd913"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5821), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("c3de8d88-8dad-4140-a72b-0ed86148ea46"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9004), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.836238463608794,
                             Longitude = 106.814245107947,
                             Name = "Cổng Jabil Việt Nam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5821), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9004), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 18,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("49f8eefb-208f-4b0d-86ea-aac2ba990ba1"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5824), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("0d5628b2-df5f-4031-b4ee-4082abf18cb9"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9008), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.832233088594503,
                             Longitude = 106.82046132230808,
                             Name = "Saigon Silicon",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5824), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9008), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 19,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("752d323d-eb90-4770-bcd5-6dd3948a9aed"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5826), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("100def9d-24ac-4148-9ed0-c5916b4e7d7e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9010), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.836776238894464,
                             Longitude = 106.81401100053891,
                             Name = "ISMARTCITY (ISC)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5826), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9011), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 20,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("60e2abb2-f004-45b8-b533-7278a18abdf5"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5828), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("28309854-b953-4024-8137-609b137dca0b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9013), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.840578398658391,
                             Longitude = 106.8099978721756,
                             Name = "Trường đại học FPT",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5829), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9014), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 21,
                             Address = "Đường D1, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("217a7f6e-a449-4f30-b324-94d119b10e01"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5830), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("f4a1f344-d629-405e-959e-f6f88abe25fa"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9016), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.84578835745819,
                             Longitude = 106.80454376198392,
                             Name = "Công Ty CP Công Nghệ Sinh Học Dược Nanogen",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5831), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9017), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 22,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("a2f62e8d-acdf-44be-adda-383b74452a9a"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5833), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("837c6dc6-c6fe-4ec6-b4ad-60d358ae3a9e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9019), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.853375488919204,
                             Longitude = 106.79658230436019,
                             Name = "Intel VietNam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5833), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9019), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 88,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("0618ccca-e649-47e5-a85a-4b49625aac76"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5835), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("8fdcaba6-e25e-43c4-9e06-02df072a10b6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9021), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.854367872934622,
                             Longitude = 106.79375338625633,
                             Name = "Nidec VietNam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5835), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9022), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 23,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("ef572d37-8207-4115-8726-e95a2b626932"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5837), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("1a0c0a97-d2e7-4d1c-9d3a-0900e08f7435"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9024), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.854860900718421,
                             Longitude = 106.79189382870402,
                             Name = "CMC Data Center",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5837), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9025), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 24,
                             Address = "Đường D1, Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("c51583a3-d51b-486b-8e8d-739e54cb5720"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5841), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("24daeb9d-9f9a-4414-ba8b-f2404fb7d53b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9030), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.856082809107784,
                             Longitude = 106.78924956530844,
                             Name = "Inverter ups Sài Gòn",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5841), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9030), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 25,
                             Address = "Đường Võ Chí Công, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("36bdc943-07fa-40cc-a89f-8dd8e81e9bf6"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5843), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d6c2e952-abf8-41e7-9ddb-134590371fbb"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9032), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.838027429470513,
                             Longitude = 106.81035219090674,
                             Name = "Trường đại học Nguyễn Tất Thành",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5843), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9033), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 26,
                             Address = "Đường Võ Chí Công, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("b1481dce-bd5a-4312-b97b-8fcf39e11a07"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5845), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("5d25b1a4-eaa4-4fa8-a05a-b42e92347ec8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9036), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.834922120966135,
                             Longitude = 106.80776601621393,
                             Name = "FPT Software - Ftown 3",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5845), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9037), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 27,
                             Address = "RRM4+VMQ đường Võ Chí Công, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("34a2f804-1106-4b8b-8b0e-435ef2e7dadc"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5847), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("b1173b81-915a-45e0-b419-208d96b7bec5"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9039), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.834215900566933,
                             Longitude = 106.80727419233645,
                             Name = "Công ty Cổ phần Hàng không VietJet",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5848), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9040), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 28,
                             Address = "RRJ4+X9F đường Võ Chí Công, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("8d309ff6-1833-4916-8ff0-d7776911008c"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5849), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("18b35fe5-202f-4bd4-9578-709dfaba9cc3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9042), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.832245246386895,
                             Longitude = 106.80598499131753,
                             Name = "Sài Gòn Trapoco",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5850), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9042), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 29,
                             Address = "RRJ4+G2J đường Võ Chí Công, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("f19e8654-979e-4d17-822e-e9ff74507f1e"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5852), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("afb31709-f0f4-46cc-a404-33d4d5e821a1"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9044), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.830911650064834,
                             Longitude = 106.80503995362199,
                             Name = "Công ty kỹ thuật công nghệ cao sài gòn",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5852), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9045), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 30,
                             Address = "Đường D2, Tăng Nhơn Phú B, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("77fb2396-5eb6-4a30-b94b-48d288ba7465"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5854), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("f7d9d1e4-3ace-481a-b74c-ae48d5f728b1"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9085), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.825858875527519,
                             Longitude = 106.79860212469366,
                             Name = "Nhà máy Samsung Khu CNC",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5855), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9085), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 31,
                             Address = "Đường D2, Tăng Nhơn Phú B, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("4385c45f-b76e-4555-8db3-b8452dffbd64"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5857), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("8bec9c01-e79c-4a34-b924-e28cd61b941f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9088), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.826685687856866,
                             Longitude = 106.8001755286645,
                             Name = "Công ty công nghệ cao Điện Quang",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5857), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9089), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 32,
                             Address = "G23 Lã Xuân Oai, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("dec3910b-3e23-48b8-a08a-e61e07385a24"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5860), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("b93b4c7b-5c18-4c10-b1b1-61fde54a8974"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9093), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.829932294153192,
                             Longitude = 106.80446003004153,
                             Name = "Công ty Thảo Dược Việt Nam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5861), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9094), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 33,
                             Address = "1-2 đường D2, Long Thạnh Mỹ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("bfa16e83-1345-4f15-8c90-9c61be1cd540"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5863), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("9e4ca5b1-aba3-4387-8572-60ec92fe4d6a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9097), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.830577375598693,
                             Longitude = 106.80512235256614,
                             Name = "Công ty Daihan Vina",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5864), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9098), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 34,
                             Address = "VQ8Q+W5W QL 1A, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("3b8a1dba-779f-4963-b131-273ef5d3dded"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5866), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("7ee6c998-859c-4787-b54c-915a9fa01d61"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9100), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.867306661370069,
                             Longitude = 106.78773791444128,
                             Name = "Trường Đại học Nông Lâm",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5866), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9101), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 35,
                             Address = "QL 1A, Linh Xuân, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("fa40e4ae-9547-45a2-b321-91700b68ff4b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5868), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("430a5d25-49cb-496c-af77-5702299d867c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9103), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.869235667646493,
                             Longitude = 106.77793783791677,
                             Name = "Trường đại học Kinh Tế Luật",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5868), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9104), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 36,
                             Address = "VRC2+QR9, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("da724120-ab37-46da-a343-0f489a326238"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5870), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("f2424359-8dfa-4c7f-9ec3-50d2a5236c24"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9106), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.871997549994893,
                             Longitude = 106.80277007274188,
                             Name = "Đại học Khoa học Xã hội và Nhân văn",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5870), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9106), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 37,
                             Address = "VRF2+XFW đường Quảng Trường Sáng Tạo, Đông Hoà, Dĩ An, Bình Dương",
-                            Code = new Guid("630e6ac2-f707-4a3a-8a49-f21c6a6b67a6"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5872), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("69517229-5a65-4071-8598-afd62d3f0643"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9108), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.875092307642346,
                             Longitude = 106.80144678877895,
                             Name = "Nhà Văn Hóa Sinh Viên ĐHQG",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5873), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9109), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 38,
                             Address = "Đường Hàn Thuyên, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("6e4084e3-bdf9-4cbd-9864-c31144078258"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5874), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d0fc2428-217c-4629-be36-a7592a8eeef8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9111), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.870481440652956,
                             Longitude = 106.80198596270417,
                             Name = "Cổng A - Trường đại học Công Nghệ Thông Tin",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5875), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9112), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 39,
                             Address = "VQCW+FG2, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("d3e75ca8-8122-46a8-bbae-27d08711ddce"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5877), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("4e5fbab2-f110-40d5-b0df-21d77d8081b3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9114), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.870503469555034,
                             Longitude = 106.79628492520538,
                             Name = "Trường đại học Thể dục Thể thao",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5877), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9115), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 40,
                             Address = "Đường T1, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("7ba02e44-9703-48a1-8236-17f29f714fec"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5880), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("b6c73541-b79d-4e51-83d3-bc731c0a5d13"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9119), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.875477130935243,
                             Longitude = 106.79903376051722,
                             Name = "Trường đại học Khoa học Tự nhiên (cơ sở Linh Trung)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5881), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9120), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 41,
                             Address = "Đường Quảng Trường Sáng Tạo, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("ff366452-1ddd-495a-ae3e-722c1c78906b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5882), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("e919f740-a891-44da-b033-61eef6208dda"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9122), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.876446815885343,
                             Longitude = 106.80177999819321,
                             Name = "Trường đại học Quốc Tế",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5883), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9123), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 42,
                             Address = "Đường Tạ Quang Bửu, Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("ae2e19fa-8c71-444d-9fa0-727146617e8e"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5885), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("e8298d6f-9d8d-4c9b-bce5-60319bc5b089"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9125), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.878197830285536,
                             Longitude = 106.80614795287057,
                             Name = "Cổng kí túc xá khu A (đại học quốc gia TP Hồ Chí Minh)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5885), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9125), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 43,
                             Address = "Đường Tạ Quang Bửu, Đông Hòa, Dĩ An, Bình Dương",
-                            Code = new Guid("f387fac4-d373-4bb6-88ca-ee123f5e1a87"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5887), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("3e16ab85-0ee4-4081-a083-f8a22a85c85a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9127), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.879768516539494,
                             Longitude = 106.80697880277312,
                             Name = "Trường đại học Bách Khoa (cơ sở 2)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5887), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9128), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 44,
                             Address = "Đường Tạ Quang Bửu, Đông Hòa, Dĩ An, Bình Dương",
-                            Code = new Guid("87314563-850d-45be-8bc5-4da7f6a2ccc8"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5889), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("c4da7a14-d92e-4b2b-af4d-98b1ec2d5419"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9130), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.877545337230165,
                             Longitude = 106.80552329008295,
                             Name = "Trung tâm ngoại ngữ đại học Bách Khoa (BK English)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5890), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9131), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 45,
                             Address = "Số 1 đường Võ Văn Ngân, Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("4ca15956-4365-4394-8039-2979dcf80667"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5891), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("71867e6e-18cf-463e-a7e6-7589acea3495"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9133), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.849721027334326,
                             Longitude = 106.77164269167564,
                             Name = "Trường đại học Sư phạm Kĩ thuật Thành phố Hồ Chí Minh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5892), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9133), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 46,
                             Address = "VQ25+JWQ đường Chương Dương, Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("fbc2f12b-2924-4599-8ecf-0e5826b03490"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5898), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("9f1b1368-f509-423c-b6d3-c1416856fc19"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9135), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.851623294286195,
                             Longitude = 106.7599477126918,
                             Name = "Trường Cao đẳng Công nghệ Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5898), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9136), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 50,
                             Address = "26 đường Chương Dương, Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("b652f097-1a11-44c8-91b5-2e735841a7cc"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5900), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("36e3496d-1cbe-447e-b688-6721dbd469cd"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9138), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.852653003274197,
                             Longitude = 106.76018734231964,
                             Name = "Trung tâm thể dục thể thao Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5900), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9139), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 51,
                             Address = "19A đường số 17, Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("b992ce6c-e105-437e-a11d-098ba4e614c3"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5903), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d3444fce-380e-4c14-b5c0-a80026294a84"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9143), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.854723648720167,
                             Longitude = 106.76032173572378,
                             Name = "Trường Cao đẳng Nghề Thành phố Hồ Chí Minh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5904), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9144), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 52,
                             Address = "VQ46+9J3 đường số 17, Linh Chiểu, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("87e3e277-6a5d-4f8b-9129-01b304806bc9"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5906), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("08d0199f-480f-4e69-860a-d5b2baa58a6f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9148), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.855800383594074,
                             Longitude = 106.76151598927879,
                             Name = "Trường đại học Ngân hàng",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5906), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9148), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 53,
                             Address = "356 Xa lộ Hà Nội, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("98499b16-0e5d-4b97-951b-f19a6bcd0fe0"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5908), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("9c016607-14e7-4947-ae75-a31f24186f00"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9150), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.83090741994997,
                             Longitude = 106.76359240459003,
                             Name = "Trường đại học Điện Lực",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5908), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9151), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 54,
                             Address = "360 Xa lộ Hà Nội, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("380bcb91-909e-470d-a0f2-7623fac8a92e"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5910), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("59dea89c-0710-4571-8cad-68d2f14440b7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9153), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.831781684548069,
                             Longitude = 106.76462343340792,
                             Name = "Metro Star - Quận 9 | Tập đoàn CT Group+",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5910), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9154), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 55,
                             Address = "354-356B Xa lộ Hà Nội, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("bc5832f0-d52d-46d9-b083-ae8bdabd4a68"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5912), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("d543190f-8834-4005-b94c-1e4521f7974b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9156), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.830438851236304,
                             Longitude = 106.76388396745739,
                             Name = "Chi nhánh công ty CyberTech Việt Nam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5913), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9157), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 56,
                             Address = "RQH7+XP4 Xa lộ, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("014dcfb7-581e-4e0e-8c2e-5544dd055441"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5914), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("97ba7c18-b539-4347-93d1-9658110f2a26"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9159), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.829834904338366,
                             Longitude = 106.76426274528296,
                             Name = "Zenpix Việt Nam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5915), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9159), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 57,
                             Address = "12 Đặng Văn Bi, Trường Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("79a1e49d-5dc1-4d18-a6c4-3b502b68c566"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5917), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("24c3e310-b0e2-4527-a6e4-58449e572fe2"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9161), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.840946385700587,
                             Longitude = 106.76509820241216,
                             Name = "Nhà máy sữa Thống Nhất (Vinamilk)",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5918), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9162), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 58,
                             Address = "10/42 đường Số 4, Trường Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("c42abf30-9a0a-4484-a3f0-7ca127dbedb1"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5919), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("950eb491-c337-4f11-8e90-ef5e1c8a589d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9164), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.840432688988782,
                             Longitude = 106.76088713432273,
                             Name = "Công ty xuất nhập khẩu Tây Tiến",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5920), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9165), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 59,
                             Address = "102 Đặng Văn Bi, Bình Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("da7a6b48-b3a6-4bc0-9285-34cd5839edea"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5923), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("6f865e2c-44ee-4354-9d6d-4d953184c3e9"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9170), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.844257732572313,
                             Longitude = 106.76276736279874,
                             Name = "Trung tâm tiêm chủng vắc xin VNVC",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5924), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9170), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 60,
                             Address = "Km9 Xa lộ Hà Nội, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("6fb02c99-4e9a-4ef1-8e90-03e7cb9924f0"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5925), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("02aec5fb-8990-4663-b330-1ee35f562199"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9173), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.825780208240717,
                             Longitude = 106.75924170740572,
                             Name = "Công ty cổ phần Thép Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5926), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9173), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 61,
                             Address = "Km9 Xa lộ Hà Nội, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("d4ab2753-dbe5-41cb-95e6-edb24862c40f"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5928), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("63b05250-63f3-48aa-b323-e591f841de94"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9175), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.82825779372371,
                             Longitude = 106.76092968863129,
                             Name = "Công Ty Cổ Phần Cơ Điện Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5928), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9176), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 62,
                             Address = "RQH5+324 đường Số 1, Trường Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("e8d1d25b-359a-4039-a322-e8f6020fd0d4"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5930), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("915442df-1823-495c-a1c8-212bf1b6c413"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9178), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.827423240919156,
                             Longitude = 106.75761821078893,
                             Name = "Công ty TNHH Nhiệt điện Thủ Đức",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5930), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9179), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 63,
                             Address = "Đường Số 1, Trường Thọ, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("33044dd9-c7af-4ed1-b5a2-82c114734e8f"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5932), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("bdc208e3-d6ed-41bd-88b1-8d342f2e1040"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9181), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.827933659643358,
                             Longitude = 106.75322566624341,
                             Name = "Cảng Trường Thọ",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5932), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9181), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 64,
                             Address = "96 Nam Hòa, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("fadaf3f1-8424-4c8d-8d8d-3786eaff065b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5935), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("ecd19b2a-e117-4a9e-8254-0866a18efaa7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9184), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.82037580579453,
                             Longitude = 106.75928223003976,
                             Name = "Công ty TNHH BeuHomes",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5935), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9184), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 65,
                             Address = "9 Nam Hòa, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("1dd7302e-6282-4959-9a95-d9fff1317add"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5937), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("58c47d8e-6b9f-46fe-8e52-85817a9d7420"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9186), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.821744734671684,
                             Longitude = 106.76019934624064,
                             Name = "Công ty TNHH Creative Engineering",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5938), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9187), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 66,
                             Address = "22/15 đường số 440, Phước Long A, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("5b458fa3-4d31-40ff-a505-aa513d37d44e"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5939), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("467ae109-2ee3-4b06-a934-798459c5909d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9189), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.82220109625001,
                             Longitude = 106.75952721927021,
                             Name = "Công Ty Công Nghệ Trí Tuệ Nhân Tạo AITT",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5940), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9190), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 67,
                             Address = "628C Xa lộ Hà Nội, An Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("293028c5-02c5-4f62-90f2-dd91589a9106"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5943), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("1f157392-97a2-406c-9f0c-946f159dab74"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9195), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.805200229819087,
                             Longitude = 106.75206770837505,
                             Name = "Golfzon Park Thảo Điền",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5944), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9195), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 68,
                             Address = "Đường Giang Văn Minh, An Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("e0880560-acea-4124-90e8-26d804e300c1"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5946), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("a715dc93-0c57-4835-b6bc-5e88a63cdda0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9199), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.803332925851043,
                             Longitude = 106.7488580702081,
                             Name = "Saigon Town and Country Club",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5947), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9199), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 69,
                             Address = "30 đường số 11, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("7b710106-55b3-4904-bb40-b69dc419613c"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5948), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("c51ace6e-dd41-4cfd-9ef3-ed6c8bcad1f7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9238), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.804563036954756,
                             Longitude = 106.74393815975716,
                             Name = "The Nassim Thảo Điền",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5949), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9239), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 70,
                             Address = "RP4W+V3J đường Mai Chí Thọ, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("06cf2532-e46f-4d21-8dd4-9a62f52e68c4"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5951), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("674a415e-5f28-4404-9887-e69367cb1116"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9241), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.807262850388623,
                             Longitude = 106.74530677686282,
                             Name = "Blue Mangoo Software",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5951), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9242), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 71,
                             Address = "51 đường Quốc Hương, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("b9a25e52-f1b0-4c5b-9309-60423de8bb3a"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5953), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("7112fbc5-1832-4546-a95e-d8f8078c5099"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9244), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.805401459108982,
                             Longitude = 106.73134189331353,
                             Name = "Trường Đại học Văn hóa TP.HCM - Cơ sở 1",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5953), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9244), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 72,
                             Address = "6-6A 8 đường số 44, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("48191cf1-1906-44e7-ba3e-4dbc2b4f1317"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5955), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("3f5c2649-1ae2-466d-ade2-78232949f278"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9246), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.806048021383644,
                             Longitude = 106.72928364712546,
                             Name = "Trường song ngữ quốc tế Horizon",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5955), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9247), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 73,
                             Address = "45 đường số 44, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("a0fddb9c-65d9-4152-9097-b96575dff2fc"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5957), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("5113a905-7891-434e-b7d7-258de83e82fb"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9249), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.809270864831371,
                             Longitude = 106.72846844993934,
                             Name = "Công Ty TNHH Dịch Vụ Địa Ốc Thảo Điền",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5958), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9250), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 74,
                             Address = "40 đường Nguyễn Văn Hưởng, Thảo Điền, Thành phố Thủ Đức, Thành Phố Hồ Chí Minh",
-                            Code = new Guid("74472636-0b5d-47c1-b6c8-6455c452568b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5959), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("25f87533-7ff3-4571-b790-2881b1e21bb0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9252), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.806246963358644,
                             Longitude = 106.72589627507526,
                             Name = "Công Ty TNHH Một Thành Viên Ánh Sáng Hoàng ĐP",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5960), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9253), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 75,
                             Address = "1 đường Xuân Thủy, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("70e01b55-c00c-4f67-960b-616dec4a88c8"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5963), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("3eaa6e34-29f3-4c1e-aae2-734c3b9ee862"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9258), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.803458791026568,
                             Longitude = 106.72806621661472,
                             Name = "Trường đại học Quốc Tế Thành phố Hồ Chí Minh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5964), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9258), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 76,
                             Address = "91B đường Trần Não, Bình Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("b4ee3f91-bcaa-4647-b020-d564a2d77cd8"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5965), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("72a9c8bd-9020-44d6-9ee2-fc8898f35d8d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9260), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.797897644669561,
                             Longitude = 106.73143206816108,
                             Name = "SCB Trần Não - Ngân hàng TMCP Sài Gòn",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5966), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9261), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 77,
                             Address = "6 đường số 26, Bình Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("13cb75a9-d04a-45f0-a011-e13808723634"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5967), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("209e1588-8d55-41f6-b013-ec5f361622e5"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9263), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.793905585531592,
                             Longitude = 106.7293406127999,
                             Name = "Công Ty TNHH Xuất Nhập Khẩu Máy Móc Và Phụ Tùng Ô Tô Hưng Thịnh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5968), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9264), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 78,
                             Address = "220 đường Trần Não, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("785c3fc9-d4a2-48f7-a417-fec0405f23a2"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5970), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("fa8cb894-f12e-4826-86ad-610d2434b55b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9266), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.789891277804319,
                             Longitude = 106.72895399848618,
                             Name = "Tòa nhà Microspace Building",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5970), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9266), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 79,
                             Address = "18/2 đường số 35, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("d781a456-bfad-466b-9de0-9e31f005c071"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5972), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("401e19b3-8806-4926-9ef0-766fc5efb2f4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9268), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.786711346588366,
                             Longitude = 106.72783903612815,
                             Name = "Công ty TNHH vận tải - thi công cơ giới Xuân Thao",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5972), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9269), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 80,
                             Address = "9 đường Trần Não, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("028f83ef-d03e-4e4a-9989-e066b2527a5a"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5974), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("a06ddda5-cf76-43e1-9e65-9303ba9780a3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9271), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.780549913195312,
                             Longitude = 106.72849002239546,
                             Name = "Công Ty TNHH Ch Resource Vietnam",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5974), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9272), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 81,
                             Address = "10 đường số 39, Bình Trưng Tây, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("24ecfbfe-8bc4-4583-bfb3-0d4f353a93ee"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5976), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("9c26c87f-7991-40c8-a444-cf39081c65be"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9274), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.786744237747117,
                             Longitude = 106.72969521262236,
                             Name = "Công Ty TNHH Thương Mại Và Dịch Vụ Nhật Vượng",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5977), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9275), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 82,
                             Address = "125 đường Trần Não, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh",
-                            Code = new Guid("7b83e8b6-dcfb-4519-a68d-c1dcc4c0435a"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5978), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("ae3ac2a8-854a-4932-8fb0-6890ea2b58ed"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9277), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.792554668741762,
                             Longitude = 106.73067177064897,
                             Name = "Ngân hàng TMCP Kỹ thương Việt Nam (Techcombank)- Chi nhánh Gia Định - PGD Trần Não",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5979), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9277), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 83,
                             Address = "25 Ung Văn Khiêm, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("e165a149-d1b5-4ec5-ae0a-3b9ed730f777"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5982), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("b332fbb9-f381-4100-8db1-f394860261e9"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9282), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.798737294717368,
                             Longitude = 106.72126763097279,
                             Name = "Tòa Nhà Melody Tower, Cty Toi",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5983), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9283), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 84,
                             Address = "561A đường Điện Biên Phủ, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("39b949a0-eaab-439f-8e28-71961d5f0b3f"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5984), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("8e63c566-1716-4e57-8028-1a9b3845d0cc"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9285), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.799795706410299,
                             Longitude = 106.71843607604076,
                             Name = "Pearl Plaza Văn Thánh",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5985), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9286), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 85,
                             Address = "15 Nguyễn Văn Thương, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("54f6a8c5-b6f5-4fca-9caa-7b75b4a1329b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5987), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("df4d6dec-5351-45a6-bd35-1ad51a5dd0a6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9288), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.802303255825205,
                             Longitude = 106.71812789316297,
                             Name = "Căn hộ Wilton Tower",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5987), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9289), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 86,
                             Address = "02 Võ Oanh, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("4130827c-245f-471b-b02b-42d22cfb72a1"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5989), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("b97ed1b9-8532-4509-9bca-15b235d25714"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9291), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.804470786914793,
                             Longitude = 106.7167285754774,
                             Name = "Trường đại học Giao Thông Vận Tải",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5990), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9291), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 87,
                             Address = "15 Đường D5, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh",
-                            Code = new Guid("dacba41f-7304-4e5f-8ee0-f9491be8117e"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5991), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("fab03010-400d-4c2e-97b5-affb9680cb99"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9293), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.806564326384949,
                             Longitude = 106.71296786250547,
                             Name = "Trường Đại học Ngoại thương - Cơ sở 2",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5992), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9294), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 89,
                             Address = "Lô E2a-10 Đường, D2b Đ. D1, TP. Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam",
-                            Code = new Guid("d283d051-f3dd-4584-b162-51a908e082e8"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5997), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("6998191d-dbd0-480d-8964-1aa37e0536d2"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9296), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Latitude = 10.840147321061634,
                             Longitude = 106.81262497275418,
                             Name = "Vườn ươm doanh nghiệp Công Nghệ Cao - SHTP",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5998), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9297), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -3601,154 +9002,2554 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Code = new Guid("0c3a8490-a394-4c13-ad03-6277a9953478"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5080), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("00fd878c-57f8-47f5-ae18-d742c16980ca"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9004), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 1,
                             Gender = 1,
                             Name = "Quach Dai Loi",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5081), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9005), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
-                            Code = new Guid("9cc9307f-bcce-4ebe-8f91-8a98950fe3f0"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5095), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("afa58b78-f176-4040-8109-56a01cc24582"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9022), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 2,
                             Gender = 1,
                             Name = "Do Trong Dat",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5096), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9023), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
-                            Code = new Guid("e65e64b8-b32f-4f9f-886f-5530a0125955"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5106), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("6cf53959-cc65-4c11-b42f-9058190fab5d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9037), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 3,
                             Gender = 1,
                             Name = "Nguyen Dang Khoa",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5106), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9038), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 4,
-                            Code = new Guid("7fc37903-7561-40a3-929c-3dcd77d81479"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5116), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("e1be0d93-af7b-4a9b-8e02-7d8f8f995abe"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9052), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 4,
                             Gender = 1,
                             Name = "Than Thanh Duy",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5116), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9052), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 5,
-                            Code = new Guid("4597bf4d-02ae-4281-a348-67e198c30cf8"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5129), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("6a190547-f0b9-45e2-8419-648934388cd8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9068), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 5,
                             Gender = 1,
                             Name = "Loi Quach",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5130), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9069), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 6,
-                            Code = new Guid("a1837d6d-7358-47cb-8659-4e2fbec763fc"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5141), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("25ae04bd-61f0-4bd1-bb01-ca15232935d6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9084), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 6,
                             Gender = 1,
                             Name = "Dat Do",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5141), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9084), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 7,
-                            Code = new Guid("aac65d48-6733-482d-b1eb-699e823a2b06"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5151), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("0d3f8a29-86b4-44db-be51-20c6456e3c94"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9097), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 7,
                             Gender = 1,
                             Name = "Khoa Nguyen",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5152), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9098), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 8,
-                            Code = new Guid("3d31c3d8-abe1-47fd-8a00-0dac92c86c06"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5160), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("ec154d99-4152-4653-99db-9cf45514f5ee"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9111), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 8,
                             Gender = 1,
                             Name = "Thanh Duy",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5161), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9112), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 9,
-                            Code = new Guid("f91142a0-128b-44af-81fb-45aceff928e6"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5172), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("3ec12107-5de9-45a4-80d4-e7b1ac772de7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9127), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             FileId = 13,
                             Gender = 1,
                             Name = "Admin Quach Dai Loi",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5173), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9128), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 10,
-                            Code = new Guid("3352bdc1-b84d-4f3f-929d-e761c73fe868"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5183), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("552142dd-fb52-48bf-a7ce-13cde3826dbc"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9206), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Gender = 1,
                             Name = "Admin Than Thanh Duy",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5184), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9207), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 11,
-                            Code = new Guid("451cd121-02e0-4531-9cac-455de2845490"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5194), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("915757ce-5f23-42b7-bb2d-3525ccd1cb6e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9223), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Gender = 1,
                             Name = "Admin Nguyen Dang Khoa",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5194), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9224), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 12,
-                            Code = new Guid("316bbf92-ea9e-49c6-82c1-c726f8c05c65"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5203), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("fd8bcf04-f220-4b37-b2ec-9e25d9dfc8ef"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9236), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Gender = 1,
                             Name = "Admin Do Trong Dat",
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(5204), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9237), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 100,
+                            Code = new Guid("8e32ccad-c386-4403-85a6-e1d17decb18e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9255), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 100",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9256), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 101,
+                            Code = new Guid("d041ac09-7acf-4b93-ad56-aecbcde7db07"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9313), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 101",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9314), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 102,
+                            Code = new Guid("f953182d-2952-4031-a567-bb5485163059"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9329), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 102",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9330), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 103,
+                            Code = new Guid("5b18f77a-b53d-45dd-a53d-c64266e1355b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9344), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 103",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9345), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 104,
+                            Code = new Guid("c2ac5b64-72a4-49bb-8f83-387321bc9c01"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9363), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 104",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9364), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 105,
+                            Code = new Guid("954c3275-ae94-44b2-92ab-194dcef7c5b0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9380), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 105",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9381), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 106,
+                            Code = new Guid("862ac62d-a01d-47cf-a05a-a57b1047c1f7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9396), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 106",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9397), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 107,
+                            Code = new Guid("24cd0eda-0861-4939-afbb-425b5022e539"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9410), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 107",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9411), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 108,
+                            Code = new Guid("c36153a2-92be-44f0-8403-87cbdb84c2b2"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9428), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 108",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9429), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 109,
+                            Code = new Guid("6890876d-b45c-4704-aeda-b48b4f20290e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9502), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 109",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9503), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 110,
+                            Code = new Guid("3f1535cb-bdb1-4a40-9945-ed92c7e97685"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9521), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 110",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9522), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 111,
+                            Code = new Guid("4b76b73a-e5a9-473a-add8-5d85ea4160e1"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9536), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 111",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9537), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 112,
+                            Code = new Guid("58debf0f-9250-487b-b60b-874b78bd2635"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9554), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 112",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9555), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 113,
+                            Code = new Guid("32e75119-7e75-4dd0-905e-d4152325659e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9570), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 113",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9571), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 114,
+                            Code = new Guid("d7dec6cf-2dae-4f50-b3bb-f2e11ceb1a43"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9585), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 114",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9586), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 115,
+                            Code = new Guid("d595d241-ffd5-42bf-889d-d3a408164ad1"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9600), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 115",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9601), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 116,
+                            Code = new Guid("6cc71caf-a2eb-47e6-b60c-19694335d508"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9618), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 116",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9619), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 117,
+                            Code = new Guid("cf3b18b6-5160-461d-941f-4af1ec97f551"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9634), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 117",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9635), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 118,
+                            Code = new Guid("64b2ea76-c07a-4074-92be-d257ee946328"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9649), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 118",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9650), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 119,
+                            Code = new Guid("cc3c3184-d5e0-4d42-954e-592453322176"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9664), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 119",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9665), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 120,
+                            Code = new Guid("59986709-eeb9-4155-ae09-dc68a226a035"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9681), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 120",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9683), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 121,
+                            Code = new Guid("753b830b-e532-4d58-a4ce-40381ab4367d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9734), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 121",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9736), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 122,
+                            Code = new Guid("d0a6617d-05b0-4b44-bee8-73b7ac3d521e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9752), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 122",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9753), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 123,
+                            Code = new Guid("9523a4c6-43ab-4852-ba90-c6051628cced"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9767), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 123",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9768), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 124,
+                            Code = new Guid("28f0c3a1-16d5-4fc8-8282-b171f829bffa"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9784), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 124",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9785), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 125,
+                            Code = new Guid("a5ed44e5-2e1a-4629-b3d9-2fb20054f15e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9800), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 125",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9801), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 126,
+                            Code = new Guid("6e709591-541c-43fa-9940-b5a01c0f40ef"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9815), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 126",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9816), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 127,
+                            Code = new Guid("054e9936-5432-4244-ba77-d3dbe7cfe128"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9830), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 127",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9831), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 128,
+                            Code = new Guid("76a86fe9-6c79-4322-9e20-3de0c81544ef"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9847), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 128",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9848), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 129,
+                            Code = new Guid("841da922-0c71-4ba9-a7e0-7fa482e3393c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9863), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 129",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9864), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 130,
+                            Code = new Guid("503fa7eb-7a15-40fa-8a00-4ebb18abcf6f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9878), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 130",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9879), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 131,
+                            Code = new Guid("b353795a-4d9c-43aa-a9b7-1f765dd359a4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9893), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 131",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9894), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 132,
+                            Code = new Guid("687c6a8a-9590-4818-bd35-071cd37ead8c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9910), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 132",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9911), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 133,
+                            Code = new Guid("3b8b5162-7ff5-4811-9a2e-51ee891742d7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9926), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 133",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9927), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 134,
+                            Code = new Guid("c7e0efc8-d8c4-4de7-a824-273498e30a4c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9977), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 134",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9978), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 135,
+                            Code = new Guid("19a92884-3cb7-4293-8430-04ae8345e726"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9994), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 135",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 40, DateTimeKind.Unspecified).AddTicks(9995), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 136,
+                            Code = new Guid("0cd77f64-6b11-4cb8-b9fc-212451032637"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(12), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 136",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(13), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 137,
+                            Code = new Guid("23b55afe-b6b9-4e37-8b17-74e52b5bde9b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(27), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 137",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(28), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 138,
+                            Code = new Guid("e801f37b-ed4d-4456-a88e-2799007be877"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(42), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 138",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(43), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 139,
+                            Code = new Guid("3d465318-2e14-457a-bf8a-2f328232b44a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(57), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 139",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(58), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 140,
+                            Code = new Guid("953942f1-af8c-4161-9c38-0c9341268be0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(75), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 140",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(76), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 141,
+                            Code = new Guid("d18a74fd-6f23-4a5e-ae33-9915ae1e3444"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(90), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 141",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(91), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 142,
+                            Code = new Guid("632ed408-4958-4e55-9b5c-261ccd570a3f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(105), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 142",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(106), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 143,
+                            Code = new Guid("1711a254-72c7-4e26-b634-5636cf239fba"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(120), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 143",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(121), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 144,
+                            Code = new Guid("bf6110c7-a0a4-4448-b7a4-ee4b89fc5f4a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(137), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 144",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(138), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 145,
+                            Code = new Guid("8d00fb80-4c72-4748-adf5-69cf5f86da90"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(152), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 145",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(153), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 146,
+                            Code = new Guid("eafa2625-919b-4cbb-8a5c-6a51a9dc188e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(167), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 146",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(168), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 147,
+                            Code = new Guid("8491cbc1-5f9d-49fd-aaec-12e332f74340"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(237), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 147",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(239), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 148,
+                            Code = new Guid("0f954adb-d9c5-4f07-878a-67bc46436881"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(257), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 148",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(259), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 149,
+                            Code = new Guid("c21f611e-c9a3-4aa9-9d9c-50b5c78bfafb"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(273), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 149",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(274), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 150,
+                            Code = new Guid("77cc17a5-8c0c-4742-9687-be3ed577d918"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(288), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 150",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(289), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 151,
+                            Code = new Guid("1e67671b-bc2b-41cf-abe0-f5f1dfeed7f5"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(302), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 151",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(303), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 152,
+                            Code = new Guid("63de0125-abc8-4c76-9658-2e5310d3870b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(320), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 152",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(321), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 153,
+                            Code = new Guid("f031d15e-84cc-4d2f-9bf6-cd7a494af4aa"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(338), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 153",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(339), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 154,
+                            Code = new Guid("dbc14dbb-a3bf-493e-b713-074584d30e07"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(353), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 154",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(354), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 155,
+                            Code = new Guid("3d16d9db-0796-4eec-80e1-6089b7f7efc0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(368), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 155",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(369), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 156,
+                            Code = new Guid("de2485bb-42fb-4e07-a8f9-da2f1978ae7a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(385), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 156",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(386), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 157,
+                            Code = new Guid("76d9e54a-8663-47e2-bdd4-c006a6c07713"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(401), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 157",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(402), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 158,
+                            Code = new Guid("b178a973-afbb-4eeb-ad54-7bd34da8e0b0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(456), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 158",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(457), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 159,
+                            Code = new Guid("e739206d-af78-4a84-9139-2c1939cd8eb6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(473), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 159",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(474), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 160,
+                            Code = new Guid("9335c7e6-2e52-43b3-9770-e8b226b27b12"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(491), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 160",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(492), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 161,
+                            Code = new Guid("41b8d7b1-0556-4389-a1c4-93d656ddc8c2"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(506), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 161",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(507), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 162,
+                            Code = new Guid("3f3b1b42-38e0-43a0-a659-d9c97b85cfcd"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(522), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 162",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(523), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 163,
+                            Code = new Guid("af217a3f-1d64-4ee8-8ee7-429d39963574"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(536), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 163",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(537), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 164,
+                            Code = new Guid("d189b1bd-53a1-4476-a0ba-53c1fc383c96"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(554), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 164",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(555), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 165,
+                            Code = new Guid("1b168dc7-0a3c-4fb5-adf1-bbc81764f9f4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(570), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 165",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(571), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 166,
+                            Code = new Guid("ddf2396d-1f83-4ea7-a1b1-bde3fc4b138a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(585), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 166",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(586), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 167,
+                            Code = new Guid("9854bc70-0456-4e41-acfd-73ccd3096e10"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(599), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 167",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(600), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 168,
+                            Code = new Guid("f183c6f3-6fee-48c6-a1ad-b67e0a010a99"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(617), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 168",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(618), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 169,
+                            Code = new Guid("c12ba794-095c-45a1-bcdf-93efd636185d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(633), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 169",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(634), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 170,
+                            Code = new Guid("33f1640e-0733-45bb-a621-567be155743e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(648), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 170",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(649), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 171,
+                            Code = new Guid("5cd1629c-c751-4a55-91f9-a3cec9485370"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(700), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 171",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(701), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 172,
+                            Code = new Guid("55cbc76f-a0f4-4101-b25d-d07b522cf7d9"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(719), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 172",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(720), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 173,
+                            Code = new Guid("bb785cdd-274a-4124-a13a-7b96233969d6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(734), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 173",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(735), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 174,
+                            Code = new Guid("86320e2e-6b0e-411a-9612-18c8c4baea96"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(749), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 174",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(750), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 175,
+                            Code = new Guid("fc47e2d6-9ed8-4da9-8585-6121308b890a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(764), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 175",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(765), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 176,
+                            Code = new Guid("9ac3d18b-ea7a-41ea-a959-36a0111aa64c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(782), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 176",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(783), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 177,
+                            Code = new Guid("18bfa086-01ef-4eb6-9e4b-d6375a04c728"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(797), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 177",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(798), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 178,
+                            Code = new Guid("a7b98a25-2fd5-4a2d-a663-613bbc36a02d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(812), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 178",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(813), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 179,
+                            Code = new Guid("8c38c79b-46f2-4f08-a7d3-2fff9d2559c0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(827), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 179",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(828), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 180,
+                            Code = new Guid("6100c653-13f9-488d-9b44-df00e50c3786"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(845), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 180",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(846), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 181,
+                            Code = new Guid("97ad7aad-af2f-4f01-b25f-8eb4d1df51f4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(860), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 181",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(861), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 182,
+                            Code = new Guid("c13aca7c-3a98-4b13-ad3e-6ee96b79ddaa"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(874), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 182",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(875), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 183,
+                            Code = new Guid("7499859c-6a95-45dc-ba5a-87cbad8fd88f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(925), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 183",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(926), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 184,
+                            Code = new Guid("0832f8b2-546f-49f8-a4ad-82c48b97e47f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(945), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 184",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(946), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 185,
+                            Code = new Guid("7bc87450-c6f4-4ae8-afd7-1ac7ad879165"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(961), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 185",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(962), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 186,
+                            Code = new Guid("d64dac97-f254-46ad-95c8-b0ccf256587b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(975), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 186",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(976), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 187,
+                            Code = new Guid("4a4f28f9-21d2-457a-8343-fd0755d88d61"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(990), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 187",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(991), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 188,
+                            Code = new Guid("e00096bf-dec0-43a9-9e25-64e597753232"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1008), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 188",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1009), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 189,
+                            Code = new Guid("0a529572-2709-4ae6-a2b7-94c2e2be92aa"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1023), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 189",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1024), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 190,
+                            Code = new Guid("620f0c4c-2365-4534-838b-7ba8144d3ad4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1038), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 190",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1039), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 191,
+                            Code = new Guid("e16a6e27-f987-46a1-9724-cd3061d4a754"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1053), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 191",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1054), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 192,
+                            Code = new Guid("69afdd27-319f-4a42-81d5-1860c9622a87"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1071), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 192",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1072), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 193,
+                            Code = new Guid("c0de62e1-f341-41d1-831d-01337c9c29b4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1086), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 193",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1087), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 194,
+                            Code = new Guid("03d03765-91c1-47f6-8989-30fa704f3cd6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1101), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 194",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1102), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 195,
+                            Code = new Guid("aba5d06d-67b5-4d44-8ac1-55de30e6b046"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1115), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 195",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1116), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 196,
+                            Code = new Guid("95307ceb-af2d-4bd0-9a25-e87e5be1141b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1186), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 196",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1187), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 197,
+                            Code = new Guid("5c99fa0f-a377-4fdd-a5b3-e0c05957e9b6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1205), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 197",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1206), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 198,
+                            Code = new Guid("3dce4b39-de6f-4231-85a7-bb38231a44dc"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1221), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 198",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1222), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 199,
+                            Code = new Guid("2dd7ec15-5b5f-4380-8764-d90dc9bf5205"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1235), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Booker 199",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1237), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 400,
+                            Code = new Guid("64e2889e-9dce-4f8a-bc2c-37ff8c54921e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1253), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 400",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1254), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 401,
+                            Code = new Guid("c77dfc49-82e2-47a0-855f-58496e77f5f8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1272), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 401",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1272), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 402,
+                            Code = new Guid("ac3c74eb-19db-4cc5-ad42-2f3a5608884e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1287), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 402",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1288), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 403,
+                            Code = new Guid("12c7be7b-3001-4f88-bdbd-071c673633de"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1302), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 403",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1303), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 404,
+                            Code = new Guid("41e634b9-3a66-42b5-ba0e-36a68a0ee962"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1320), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 404",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1321), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 405,
+                            Code = new Guid("7428e720-ebc4-4f8f-a0e2-51b6b2f7020a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1335), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 405",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1336), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 406,
+                            Code = new Guid("5ac3087f-ae93-45c4-b946-2ef06dadd5ee"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1350), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 406",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1351), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 407,
+                            Code = new Guid("89481cec-c8f6-4b0b-bd21-e3c61fd2def2"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1364), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 407",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1365), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 408,
+                            Code = new Guid("6c535cc6-3b08-4d59-b0ae-13c0fcd43788"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1382), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 408",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1383), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 409,
+                            Code = new Guid("6171c782-c949-4f07-af59-a67527339170"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1435), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 409",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1436), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 410,
+                            Code = new Guid("e68828a6-6fd0-43ea-b775-ea1f26272c9f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1452), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 410",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1453), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 411,
+                            Code = new Guid("39ecba63-7dd3-4a8f-a22b-dbba58c8520c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1467), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 411",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1468), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 412,
+                            Code = new Guid("6a4fd9bf-fb2a-42c3-b345-c9905ade1d59"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1485), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 412",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1486), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 413,
+                            Code = new Guid("22327931-88d2-4e9f-92ec-bb0c4d2b916e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1500), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 413",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1501), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 414,
+                            Code = new Guid("359dd114-8998-495d-b409-471e6b07fcbc"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1515), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 414",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1516), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 415,
+                            Code = new Guid("176b9242-8817-4fed-8f98-c4f64bd4593a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1529), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 415",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1530), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 416,
+                            Code = new Guid("77b65319-88e1-493c-a9ec-a0a0ec6093e3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1547), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 416",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1548), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 417,
+                            Code = new Guid("4e7a89aa-1e1e-4f67-9631-52080411bfb6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1564), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 417",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1565), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 418,
+                            Code = new Guid("2a0254ad-a64d-4559-b277-15c8f0a44415"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1579), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 418",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1580), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 419,
+                            Code = new Guid("90e43d91-c061-4d26-8a77-dcf356791fa8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1632), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 419",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1633), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 420,
+                            Code = new Guid("dd37eb37-7d16-4911-a01f-5228da152164"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1650), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 420",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1651), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 421,
+                            Code = new Guid("34de6505-e866-4e60-b8cb-6ec07ed77c63"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1665), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 421",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1666), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 422,
+                            Code = new Guid("b95407eb-8f63-4158-810e-f987cbe0cd1d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1680), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 422",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1681), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 423,
+                            Code = new Guid("bd416353-6ec5-4734-b5fc-8d2d0d8dd2d0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1695), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 423",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1696), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 424,
+                            Code = new Guid("53e33b43-edcc-438c-a621-c822c75ca4ad"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1712), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 424",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1713), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 425,
+                            Code = new Guid("9892b106-4a11-4c26-a453-fdba79e6ba2e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1728), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 425",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1729), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 426,
+                            Code = new Guid("b96c3313-d3fb-4030-a3c8-16ded3e80629"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1742), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 426",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1743), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 427,
+                            Code = new Guid("6728b001-9172-421f-bd42-e1a055f890e6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1757), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 427",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1758), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 428,
+                            Code = new Guid("589be547-384f-485e-b71e-d24b6c0592f0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1774), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 428",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1775), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 429,
+                            Code = new Guid("00bc3e1d-c8a2-419b-848d-b8a54ab000c5"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1789), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 429",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1790), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 430,
+                            Code = new Guid("d9a666c5-1a3c-4ed5-b8aa-dc96b8fa3ef1"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1804), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 430",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1805), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 431,
+                            Code = new Guid("6065cdca-1551-4667-9486-f9432a5b4c42"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1886), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 431",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1887), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 432,
+                            Code = new Guid("22fa2e44-a3c9-4ec1-9f93-7919ff0f8f41"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1906), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 432",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1907), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 433,
+                            Code = new Guid("1a4a7751-409a-4917-9ddf-47f9d3a3b6f6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1922), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 433",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1922), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 434,
+                            Code = new Guid("b881dd8f-a550-4889-afd1-d3ca3e97a85f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1936), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 434",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1937), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 435,
+                            Code = new Guid("0d321930-2593-45c6-9928-55446b906d2e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1951), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 435",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1952), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 436,
+                            Code = new Guid("8ac09ce5-c7d6-46d9-881d-a128a8f807c9"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1968), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 436",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1969), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 437,
+                            Code = new Guid("fc8f9d77-6603-495b-a21c-823880ab2660"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1983), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 437",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1984), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 438,
+                            Code = new Guid("0cc9b64c-1668-4985-a81c-5e5a7abd147f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1998), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 438",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(1999), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 439,
+                            Code = new Guid("281ab0ed-7101-4585-b33c-c5b6d5530847"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2013), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 439",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2014), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 440,
+                            Code = new Guid("57d696d2-3441-4d1f-81e4-6bbea12e910c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2030), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 440",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2031), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 441,
+                            Code = new Guid("926b2aac-5430-4410-89b5-3c3f0dafeb05"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2045), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 441",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2046), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 442,
+                            Code = new Guid("5980f32b-ec54-4e6a-9bfb-976f94bd2b67"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2060), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 442",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2061), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 443,
+                            Code = new Guid("895219dc-8469-41b0-9536-d3cdeb8f7acd"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2074), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 443",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2075), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 444,
+                            Code = new Guid("a87d6c38-69ad-41c5-8e9b-2561b414425f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2128), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 444",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2129), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 445,
+                            Code = new Guid("0e78420b-bd60-4e2f-b920-98c1084bc951"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2144), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 445",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2145), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 446,
+                            Code = new Guid("f5adebd4-1e4d-4e58-86b0-89da3af3967d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2159), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 446",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2160), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 447,
+                            Code = new Guid("06335f8f-7bf4-4970-aa5d-86a097be2d42"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2174), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 447",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2175), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 448,
+                            Code = new Guid("ade0fc4d-7439-46de-9661-c2033f5df698"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2191), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 448",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2192), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 449,
+                            Code = new Guid("ff2fcdf9-030a-4b75-9b11-e4d8c64f7bdd"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2206), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 449",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2207), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 450,
+                            Code = new Guid("0f044f43-871a-4324-8be4-c05c62ed10ff"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2221), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 450",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2222), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 451,
+                            Code = new Guid("9a726eea-f0b6-4e72-bae1-9bcc07a8ce60"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2236), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 451",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2237), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 452,
+                            Code = new Guid("cb271c62-6019-40e4-b1af-69f593497de4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2254), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 452",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2255), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 453,
+                            Code = new Guid("c3e5c3b9-24e6-4c8b-bf3a-450560f57c47"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2269), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 453",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2270), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 454,
+                            Code = new Guid("3f20a042-c126-41eb-86f4-c2de44726cf8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2284), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 454",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2285), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 455,
+                            Code = new Guid("eef06a07-309b-42d4-9601-e2d7ee4a81a9"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2298), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 455",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2299), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 456,
+                            Code = new Guid("99270c8a-95d4-4e00-a6a9-c1357a411d56"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2315), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 456",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2316), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 457,
+                            Code = new Guid("ab98c193-fde9-4b4e-ac7b-d7e84a5e919a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2368), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 457",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2368), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 458,
+                            Code = new Guid("16b1fb61-9b69-471e-966f-4b4a5e6e7e6b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2384), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 458",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2385), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 459,
+                            Code = new Guid("cd66986d-ab0e-4e2f-9a51-fcbe22240220"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2400), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 459",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2401), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 460,
+                            Code = new Guid("a569f1c1-610e-4e57-90a2-60d802cfc3af"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2491), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 460",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2492), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 461,
+                            Code = new Guid("7e18f696-07f3-4473-b9df-6dd4e6445bed"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2507), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 461",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2508), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 462,
+                            Code = new Guid("ee98afe8-a26c-4733-9c20-3deb8b3b826c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2522), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 462",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2523), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 463,
+                            Code = new Guid("fcb6cf58-9a00-4a13-a41b-108406285c85"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2537), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 463",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2538), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 464,
+                            Code = new Guid("99f7106d-7894-4538-8a2d-182bde4c49c4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2554), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 464",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2555), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 465,
+                            Code = new Guid("deaac53c-679b-45af-97ad-c1fa0924edea"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2569), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 465",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2570), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 466,
+                            Code = new Guid("c4d94da3-8328-4407-a177-ab9e254fd7eb"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2584), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 466",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2585), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 467,
+                            Code = new Guid("75122f7f-10e2-43ff-8930-92c245bde4a6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2599), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 467",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2600), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 468,
+                            Code = new Guid("0da2be95-e11e-41f6-a844-3b3b8cbc627e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2616), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 468",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2617), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 469,
+                            Code = new Guid("86915312-5aa1-4841-ae69-b5aaceee0929"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2631), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 469",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2632), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 470,
+                            Code = new Guid("6b3fec96-13fa-4e5e-9498-6763a58b8695"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2687), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 470",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2689), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 471,
+                            Code = new Guid("a484f00e-db7d-4c24-80a7-b2dc21273ad0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2703), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 471",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2703), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 472,
+                            Code = new Guid("2a06a54d-e35b-41a2-8b72-095c79031ec1"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2720), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 472",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2721), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 473,
+                            Code = new Guid("a1fc9110-32ce-4990-ae80-664dd193f9cc"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2735), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 473",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2736), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 474,
+                            Code = new Guid("4160e916-2a6b-4112-8fae-64da68a5b5fe"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2750), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 474",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2751), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 475,
+                            Code = new Guid("074b1082-8264-4213-b4bf-b7aa55bc0e51"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2764), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 475",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2765), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 476,
+                            Code = new Guid("8d32e2f8-3d84-4885-b216-18159f317162"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2782), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 476",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2783), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 477,
+                            Code = new Guid("67877b53-6a07-4e7e-9289-e435a2abecc5"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2797), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 477",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2798), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 478,
+                            Code = new Guid("2114ce37-6ec0-4e78-ad62-69def359b220"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2811), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 478",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2812), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 479,
+                            Code = new Guid("048af1ed-9cb0-4916-a55f-7c00d30ceb2a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2826), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 479",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2827), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 480,
+                            Code = new Guid("f69a81d5-4612-4ff0-89c4-d458aba1c824"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2843), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 480",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2844), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 481,
+                            Code = new Guid("4552cc66-d55d-43ff-9fda-cd821dfd53d1"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2858), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 481",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2859), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 482,
+                            Code = new Guid("b0d70d66-ee9b-472b-a1b3-9d0e2fe98835"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2909), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 482",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2910), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 483,
+                            Code = new Guid("ff249df6-ab5d-4e98-81fa-9ffe113a8de0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2926), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 483",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2927), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 484,
+                            Code = new Guid("f55f4f84-fe0d-4a91-b05c-2dde4f719097"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2944), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 484",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2945), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 485,
+                            Code = new Guid("b29027a7-66ed-41f4-9096-8351ff32eabc"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2959), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 485",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2960), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 486,
+                            Code = new Guid("036222d1-03ec-4ad7-aca0-1c2287445661"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2974), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 486",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2975), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 487,
+                            Code = new Guid("b308477a-f9f8-4745-bec3-ec3388eeb499"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2989), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 487",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(2990), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 488,
+                            Code = new Guid("5e33a5af-e6f5-42f0-9cbf-15cb6105d7d3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3006), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 488",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3007), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 489,
+                            Code = new Guid("373af2c8-42fa-4b48-8534-bf3307ebfce7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3021), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 489",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3022), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 490,
+                            Code = new Guid("4fecfde6-fde3-4d56-b7a8-2b331264101e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3036), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 490",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3037), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 491,
+                            Code = new Guid("51bc5b5f-4438-4515-94cc-2973d001fba2"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3050), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 491",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3051), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 492,
+                            Code = new Guid("c05fd4ca-bc42-4a5b-9fd7-b755262d6a56"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3068), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 492",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3069), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 493,
+                            Code = new Guid("f6b58a84-d691-4def-a80a-b197a1014a7e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3083), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 493",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3084), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 494,
+                            Code = new Guid("0abd9657-04a9-48f2-8530-5ec7ed876d11"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3098), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 494",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3099), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 495,
+                            Code = new Guid("8747ab91-bbc0-4f98-a2b9-e87e26352078"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3167), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 495",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3168), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 496,
+                            Code = new Guid("7779dd36-25a3-47cf-9c57-81b8c30ee90b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3187), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 496",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3188), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 497,
+                            Code = new Guid("e5cd5b41-577f-4fc6-9f2d-005ed08354b7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3202), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 497",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3203), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 498,
+                            Code = new Guid("032dcba3-e65a-4149-ba7d-0ff336e2a184"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3217), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 498",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3218), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0
+                        },
+                        new
+                        {
+                            Id = 499,
+                            Code = new Guid("b1de3cfb-a792-4887-b3b9-bad75fc83e32"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3232), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            Gender = 1,
+                            Name = "Driver 499",
+                            Status = 1,
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(3233), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -3777,7 +11578,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTimeOffset>("LastSeenTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 482, DateTimeKind.Unspecified).AddTicks(7214), new TimeSpan(0, 7, 0, 0, 0)))
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 28, DateTimeKind.Unspecified).AddTicks(6468), new TimeSpan(0, 7, 0, 0, 0)))
                         .HasColumnName("last_seen_time");
 
                     b.Property<int>("RoomId")
@@ -3878,12 +11679,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Code = new Guid("ef09da99-eade-401a-93fc-827a30f84c66"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6263), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("e69106fc-de3c-4838-a324-ce6ced293854"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9717), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             LicensePlate = "51B.000.01",
                             Name = "Wave Alpha",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6264), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9718), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 2,
                             VehicleTypeId = 1
@@ -3891,12 +11692,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            Code = new Guid("86121f7b-9184-488c-a7e1-1fb7b7c80fbb"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6267), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("7a319dc1-3902-47d6-ac3d-a3ff6b8cfff8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9723), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             LicensePlate = "51B.000.02",
                             Name = "BMW I8",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6268), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9723), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 1,
                             VehicleTypeId = 2
@@ -3904,12 +11705,12 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            Code = new Guid("f50e98fe-255b-4ead-ac59-3c69382b7fed"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6270), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("b4395c3f-e8da-4eb6-9fcd-1182c7412c6f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9725), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             LicensePlate = "51B.000.03",
                             Name = "Mazda CX-8",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6270), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9726), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 3,
                             VehicleTypeId = 3
@@ -3917,14 +11718,1314 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            Code = new Guid("b028a871-18e3-4993-817f-88559a295e2b"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6272), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("fa467dff-bd72-4d69-a828-cd13f95e31a9"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9728), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             LicensePlate = "51B.000.04",
                             Name = "Honda CR-V",
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6272), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9729), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 4,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 400,
+                            Code = new Guid("5e9ff70b-065f-4a63-a5a9-27c101520169"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9734), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.400",
+                            Name = "Vehicle 400",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9735), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 400,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 401,
+                            Code = new Guid("94636621-936a-429a-981f-f86d611c2c55"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9746), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.401",
+                            Name = "Vehicle 401",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9747), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 401,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 402,
+                            Code = new Guid("ede4268d-6756-4d0a-9d9b-23f5f9d9d750"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9751), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.402",
+                            Name = "Vehicle 402",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9752), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 402,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 403,
+                            Code = new Guid("3b86699e-22f9-4ac5-88f0-9172b466f66b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9756), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.403",
+                            Name = "Vehicle 403",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9756), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 403,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 404,
+                            Code = new Guid("f8ad79c7-75ff-4fd9-bb6f-625e22ed56c7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9760), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.404",
+                            Name = "Vehicle 404",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9761), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 404,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 405,
+                            Code = new Guid("e804cb12-1f7d-4a26-8883-7e9a13bb0c61"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9765), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.405",
+                            Name = "Vehicle 405",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9766), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 405,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 406,
+                            Code = new Guid("ce9e5c3e-04ef-4d70-b6f7-f29c01d95382"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9770), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.406",
+                            Name = "Vehicle 406",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9770), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 406,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 407,
+                            Code = new Guid("ba92bb03-08c6-4ea1-9ce8-aa0a9ec3e43b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9774), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.407",
+                            Name = "Vehicle 407",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9775), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 407,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 408,
+                            Code = new Guid("71d06c6e-3ed7-4df2-b6e4-419a73f3d9cb"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9781), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.408",
+                            Name = "Vehicle 408",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9782), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 408,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 409,
+                            Code = new Guid("a71a4e7b-3e86-4252-9b0e-216743ad5a72"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9786), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.409",
+                            Name = "Vehicle 409",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9786), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 409,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 410,
+                            Code = new Guid("2ee52b72-3f48-44c1-baa3-3f4db4f4d9f3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9790), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.410",
+                            Name = "Vehicle 410",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9791), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 410,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 411,
+                            Code = new Guid("93d4d278-6b2e-48d6-9cad-268d62c88e0c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9794), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.411",
+                            Name = "Vehicle 411",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9795), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 411,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 412,
+                            Code = new Guid("904bc1a6-2686-4a1e-a77e-d99e7965481f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9799), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.412",
+                            Name = "Vehicle 412",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9799), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 412,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 413,
+                            Code = new Guid("edf71ba2-016a-426c-9aae-6d709621b4b9"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9804), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.413",
+                            Name = "Vehicle 413",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9805), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 413,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 414,
+                            Code = new Guid("caeb194d-4d53-4de9-ba68-d1526647132d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9808), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.414",
+                            Name = "Vehicle 414",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9809), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 414,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 415,
+                            Code = new Guid("fcadcd8c-f697-4852-b5a6-41856dc26f36"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9851), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.415",
+                            Name = "Vehicle 415",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9852), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 415,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 416,
+                            Code = new Guid("2882e4e4-8272-4739-a26d-473cf9e12eb3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9858), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.416",
+                            Name = "Vehicle 416",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9859), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 416,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 417,
+                            Code = new Guid("33aa1a1a-5320-4cbc-9cd2-8a46d0eccca7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9862), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.417",
+                            Name = "Vehicle 417",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9863), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 417,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 418,
+                            Code = new Guid("e8cf2b64-828d-4f4c-af5c-a9309f6175aa"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9867), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.418",
+                            Name = "Vehicle 418",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9867), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 418,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 419,
+                            Code = new Guid("f25462bb-4af5-48e5-8f82-703056a48905"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9871), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.419",
+                            Name = "Vehicle 419",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9872), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 419,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 420,
+                            Code = new Guid("255bceb6-73fb-4d7c-8634-b3ca8be156ec"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9876), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.420",
+                            Name = "Vehicle 420",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9876), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 420,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 421,
+                            Code = new Guid("96e74663-000d-445d-8061-2110e5cb76fb"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9880), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.421",
+                            Name = "Vehicle 421",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9880), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 421,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 422,
+                            Code = new Guid("d679a7a2-1422-48a6-b7db-465267955a65"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9884), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.422",
+                            Name = "Vehicle 422",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9885), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 422,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 423,
+                            Code = new Guid("d8f04c05-c534-4b85-8651-c53f349ba915"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9888), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.423",
+                            Name = "Vehicle 423",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9889), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 423,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 424,
+                            Code = new Guid("dcc03010-afed-4190-957b-20307badf222"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9895), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.424",
+                            Name = "Vehicle 424",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9896), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 424,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 425,
+                            Code = new Guid("6c2544f7-7074-465c-b8c2-fbd81c520aed"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9899), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.425",
+                            Name = "Vehicle 425",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9900), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 425,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 426,
+                            Code = new Guid("4a939a32-cdfb-4122-8bc1-02c5974b987e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9904), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.426",
+                            Name = "Vehicle 426",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9904), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 426,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 427,
+                            Code = new Guid("85f5a475-833c-498c-9cef-fb8c9637af30"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9908), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.427",
+                            Name = "Vehicle 427",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9909), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 427,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 428,
+                            Code = new Guid("51cf854c-f929-4f9d-a32f-b1ff811d50a3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9912), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.428",
+                            Name = "Vehicle 428",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9913), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 428,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 429,
+                            Code = new Guid("74d43732-27d6-4d99-b27f-06f8ac6be582"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9918), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.429",
+                            Name = "Vehicle 429",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9918), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 429,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 430,
+                            Code = new Guid("1d2ab47d-30f1-4bea-bc89-b2b8b240058c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9922), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.430",
+                            Name = "Vehicle 430",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9923), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 430,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 431,
+                            Code = new Guid("71bd548a-d763-4d67-97a1-dae2dad609c7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9927), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.431",
+                            Name = "Vehicle 431",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9927), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 431,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 432,
+                            Code = new Guid("38d80a24-cd9e-4a90-99d5-52548ec7250e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9934), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.432",
+                            Name = "Vehicle 432",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9934), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 432,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 433,
+                            Code = new Guid("1e3cf59b-690d-4b64-a43b-a03382047989"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9938), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.433",
+                            Name = "Vehicle 433",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9939), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 433,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 434,
+                            Code = new Guid("df8fd3ab-e594-4b1a-a718-5bdb3100920f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9942), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.434",
+                            Name = "Vehicle 434",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9943), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 434,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 435,
+                            Code = new Guid("831362a2-5671-4287-b95b-e0af2c137c7f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9946), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.435",
+                            Name = "Vehicle 435",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9947), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 435,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 436,
+                            Code = new Guid("fbba133e-c4a3-4a2f-a792-fad68fc9987f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9951), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.436",
+                            Name = "Vehicle 436",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9951), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 436,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 437,
+                            Code = new Guid("af2a664c-fdc0-44f5-bdf4-a956d41892d6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9955), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.437",
+                            Name = "Vehicle 437",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9956), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 437,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 438,
+                            Code = new Guid("33b2fad0-6e26-47a7-86a3-e81d0a6397af"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9959), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.438",
+                            Name = "Vehicle 438",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9960), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 438,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 439,
+                            Code = new Guid("50b42872-fb95-4f28-b23d-4b86893b4f74"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9964), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.439",
+                            Name = "Vehicle 439",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9964), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 439,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 440,
+                            Code = new Guid("6c65d36c-45a4-4aab-b205-c8e075308a88"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9970), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.440",
+                            Name = "Vehicle 440",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9971), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 440,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 441,
+                            Code = new Guid("f7d90c9b-2baf-4e8c-98ae-6ab3e21a7476"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9975), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.441",
+                            Name = "Vehicle 441",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9975), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 441,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 442,
+                            Code = new Guid("c86d9b44-8428-4f71-b028-fe083de6c784"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9979), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.442",
+                            Name = "Vehicle 442",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9980), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 442,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 443,
+                            Code = new Guid("c1f45b86-db86-4847-a893-b0ebbab7e4d8"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9983), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.443",
+                            Name = "Vehicle 443",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9984), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 443,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 444,
+                            Code = new Guid("4cfe9a55-4b3d-42f1-ae89-4d79982b420d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9988), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.444",
+                            Name = "Vehicle 444",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9988), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 444,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 445,
+                            Code = new Guid("7c01b363-3b02-4540-9342-1c78594b9ee7"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9992), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.445",
+                            Name = "Vehicle 445",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9992), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 445,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 446,
+                            Code = new Guid("b36f4189-4d4f-4886-91dc-b2fed609e95f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9996), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.446",
+                            Name = "Vehicle 446",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9997), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 446,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 447,
+                            Code = new Guid("8dd3797c-cb30-4f03-bcfd-996660c20109"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(36), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.447",
+                            Name = "Vehicle 447",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(37), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 447,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 448,
+                            Code = new Guid("dec35bd4-46f0-4e63-b4ed-3a5c8ec66859"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(43), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.448",
+                            Name = "Vehicle 448",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(43), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 448,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 449,
+                            Code = new Guid("6ea8f960-1bbb-4769-8a74-58c10b3a409f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(47), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.449",
+                            Name = "Vehicle 449",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(48), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 449,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 450,
+                            Code = new Guid("5e7028f9-9d81-4833-9a13-936549114580"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(51), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.450",
+                            Name = "Vehicle 450",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(52), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 450,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 451,
+                            Code = new Guid("cf6e09bd-ccf1-4eee-8cd3-c743220ed202"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(56), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.451",
+                            Name = "Vehicle 451",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(56), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 451,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 452,
+                            Code = new Guid("efc6a9e9-42c0-4474-9f5e-2ee8c4e18ee0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(60), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.452",
+                            Name = "Vehicle 452",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(61), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 452,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 453,
+                            Code = new Guid("fe715dff-b6db-4278-83d9-8b570fb37561"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(64), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.453",
+                            Name = "Vehicle 453",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(65), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 453,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 454,
+                            Code = new Guid("655df375-bee5-4c74-b707-3dc9b95af917"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(68), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.454",
+                            Name = "Vehicle 454",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(69), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 454,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 455,
+                            Code = new Guid("752d7101-bc30-4a27-abdb-daf92fad30c4"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(73), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.455",
+                            Name = "Vehicle 455",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(73), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 455,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 456,
+                            Code = new Guid("4342cc1e-efed-4d44-8c25-b0660745f040"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(80), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.456",
+                            Name = "Vehicle 456",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(80), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 456,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 457,
+                            Code = new Guid("08bf3666-5ddc-481e-be27-18281c5639cf"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(84), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.457",
+                            Name = "Vehicle 457",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(85), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 457,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 458,
+                            Code = new Guid("eac4a44a-21e0-46b4-8679-01af59e1a96d"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(88), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.458",
+                            Name = "Vehicle 458",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(89), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 458,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 459,
+                            Code = new Guid("e6f5faf7-2b8e-45b5-9852-765de6e090c6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(93), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.459",
+                            Name = "Vehicle 459",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(93), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 459,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 460,
+                            Code = new Guid("2c51dce0-2399-422d-aba7-5f383793dd9c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(97), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.460",
+                            Name = "Vehicle 460",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(98), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 460,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 461,
+                            Code = new Guid("bf6521e5-bbf8-4c03-ac1c-5f2a7a980e9f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(102), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.461",
+                            Name = "Vehicle 461",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(103), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 461,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 462,
+                            Code = new Guid("ff50cf42-4c8f-42b3-ac80-6d37e475bfc9"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(107), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.462",
+                            Name = "Vehicle 462",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(107), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 462,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 463,
+                            Code = new Guid("4f3cff3a-b8b9-4b5b-b039-7e7205865489"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(111), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.463",
+                            Name = "Vehicle 463",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(112), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 463,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 464,
+                            Code = new Guid("c8819d48-8d03-4557-b817-ff92019c8cf3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(118), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.464",
+                            Name = "Vehicle 464",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(118), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 464,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 465,
+                            Code = new Guid("54ce702d-cc80-44b3-9c90-09820c762845"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(122), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.465",
+                            Name = "Vehicle 465",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(123), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 465,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 466,
+                            Code = new Guid("8a471a28-3e5d-4d92-8d0f-5976e8e1c2fd"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(126), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.466",
+                            Name = "Vehicle 466",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(127), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 466,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 467,
+                            Code = new Guid("21025098-cfe4-4755-a506-2a0f8dc05597"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(131), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.467",
+                            Name = "Vehicle 467",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(131), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 467,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 468,
+                            Code = new Guid("b81a7f19-e910-4bc4-b371-ef96f34aed7b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(135), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.468",
+                            Name = "Vehicle 468",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(136), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 468,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 469,
+                            Code = new Guid("26360421-69ec-448b-b109-4a123abb54ee"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(139), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.469",
+                            Name = "Vehicle 469",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(140), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 469,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 470,
+                            Code = new Guid("276db587-17bd-41bf-94e7-a1842035781c"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(144), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.470",
+                            Name = "Vehicle 470",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(144), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 470,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 471,
+                            Code = new Guid("627e921c-3dee-4b80-88b5-d758ef2e0c43"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(148), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.471",
+                            Name = "Vehicle 471",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(149), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 471,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 472,
+                            Code = new Guid("bfc5c9e3-0bf8-48bd-95d3-fbbf22052efb"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(155), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.472",
+                            Name = "Vehicle 472",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(156), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 472,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 473,
+                            Code = new Guid("5ddce9e9-64fa-4ceb-ba07-7dfa6be90322"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(159), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.473",
+                            Name = "Vehicle 473",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(160), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 473,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 474,
+                            Code = new Guid("bf937c2c-48fc-4926-8254-5636a1db45ef"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(163), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.474",
+                            Name = "Vehicle 474",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(164), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 474,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 475,
+                            Code = new Guid("082fc9ec-a33a-4bd5-9246-8ef475947827"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(168), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.475",
+                            Name = "Vehicle 475",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(168), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 475,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 476,
+                            Code = new Guid("466e3288-f65b-4d72-b6d7-f5d98943b39e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(226), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.476",
+                            Name = "Vehicle 476",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(227), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 476,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 477,
+                            Code = new Guid("01312a2c-7cab-4bbf-89f7-27a2e684ec15"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(231), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.477",
+                            Name = "Vehicle 477",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(232), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 477,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 478,
+                            Code = new Guid("9d78064f-97eb-4b45-94d1-38edfa3f8f32"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(236), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.478",
+                            Name = "Vehicle 478",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(236), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 478,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 479,
+                            Code = new Guid("6256f841-a1d7-44d8-b324-a92d5a0e3e54"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(240), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.479",
+                            Name = "Vehicle 479",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(240), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 479,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 480,
+                            Code = new Guid("570471ae-4c66-4c4b-a85a-859b7c8f79c0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(247), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.480",
+                            Name = "Vehicle 480",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(248), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 480,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 481,
+                            Code = new Guid("39b09ea1-2756-49e7-bcfe-7666cbf2967f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(251), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.481",
+                            Name = "Vehicle 481",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(252), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 481,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 482,
+                            Code = new Guid("eef73dea-0dcb-42ea-93e5-343852fd1f68"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(256), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.482",
+                            Name = "Vehicle 482",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(256), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 482,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 483,
+                            Code = new Guid("3b8a4157-cd6d-419b-aead-fb064722e5be"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(260), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.483",
+                            Name = "Vehicle 483",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(261), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 483,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 484,
+                            Code = new Guid("56afa9fe-968a-44ad-94c2-8f90d7bb85a6"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(264), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.484",
+                            Name = "Vehicle 484",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(265), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 484,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 485,
+                            Code = new Guid("cdd268cf-1b11-403a-8d97-cae9e3ca65e2"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(269), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.485",
+                            Name = "Vehicle 485",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(269), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 485,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 486,
+                            Code = new Guid("3e282044-3404-4f9d-92a0-90a2930924e3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(273), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.486",
+                            Name = "Vehicle 486",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(274), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 486,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 487,
+                            Code = new Guid("78c98f0b-aa60-4232-9c43-d8c21be41b5a"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(277), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.487",
+                            Name = "Vehicle 487",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(278), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 487,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 488,
+                            Code = new Guid("f4878577-c1de-4240-af84-0f86308a70fc"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(284), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.488",
+                            Name = "Vehicle 488",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(284), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 488,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 489,
+                            Code = new Guid("468bea8c-f5b8-497e-a922-d14295edb51f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(288), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.489",
+                            Name = "Vehicle 489",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(289), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 489,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 490,
+                            Code = new Guid("763e75f8-b7aa-479d-a76c-f86e3c025045"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(293), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.490",
+                            Name = "Vehicle 490",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(293), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 490,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 491,
+                            Code = new Guid("72a2d0c8-b280-4e63-a1a7-f014642bf415"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(297), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.491",
+                            Name = "Vehicle 491",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(298), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 491,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 492,
+                            Code = new Guid("2d574e03-7157-4cae-b945-e57dce53f1d2"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(301), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.492",
+                            Name = "Vehicle 492",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(302), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 492,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 493,
+                            Code = new Guid("7f8c9a52-48d3-46e1-8e26-5f32d083c0ea"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(305), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.493",
+                            Name = "Vehicle 493",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(306), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 493,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 494,
+                            Code = new Guid("969bbae1-d4fe-45d6-8fb7-d41e8f6420fd"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(310), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.494",
+                            Name = "Vehicle 494",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(311), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 494,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 495,
+                            Code = new Guid("cca283e2-58e3-4536-9a0d-eec3ea3d06c3"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(314), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.495",
+                            Name = "Vehicle 495",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(315), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 495,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 496,
+                            Code = new Guid("560bb758-9b19-4375-8b22-96f7700f353b"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(321), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.496",
+                            Name = "Vehicle 496",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(322), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 496,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 497,
+                            Code = new Guid("c7e5ab10-f52f-432d-9bcd-6f8016d2ca05"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(325), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.497",
+                            Name = "Vehicle 497",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(326), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 497,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 498,
+                            Code = new Guid("fafd70fd-760f-4618-9e22-bb7e47c6518e"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(330), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.498",
+                            Name = "Vehicle 498",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(330), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 498,
+                            VehicleTypeId = 3
+                        },
+                        new
+                        {
+                            Id = 499,
+                            Code = new Guid("90bc1e8e-c4f0-4369-8029-24367f30461f"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(334), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedBy = 0,
+                            LicensePlate = "51B.000.499",
+                            Name = "Vehicle 499",
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(335), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedBy = 0,
+                            UserId = 499,
                             VehicleTypeId = 3
                         });
                 });
@@ -3993,40 +13094,40 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Code = new Guid("bcae0dbe-fa75-40d0-b4ba-4de5359ee0c4"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6064), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("cdb70293-0804-44d3-8478-4bd77e33ccd2"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9397), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Name = "ViRide",
                             Slot = 2,
                             Status = 1,
                             Type = 0,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6065), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9398), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 2,
-                            Code = new Guid("acf4219a-e3c0-4b1b-afb4-36ba77ef2620"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6080), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("0a08b82a-ff21-45c7-89e6-5eedb5a658e0"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9419), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Name = "ViCar-4",
                             Slot = 4,
                             Status = 1,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6081), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9420), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         },
                         new
                         {
                             Id = 3,
-                            Code = new Guid("c54dec70-ad18-4091-9c96-420557b1b1a6"),
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6091), new TimeSpan(0, 7, 0, 0, 0)),
+                            Code = new Guid("02fe01d5-c127-485c-8170-2b66cfdc26a1"),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9433), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Name = "ViCar-7",
                             Slot = 7,
                             Status = 1,
                             Type = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6091), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 41, DateTimeKind.Unspecified).AddTicks(9433), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0
                         });
                 });
@@ -4146,10 +13247,10 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Balance = 500000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6320), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(472), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6321), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(473), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 1
                         },
@@ -4157,10 +13258,10 @@ namespace Infrastructure.Migrations
                         {
                             Id = 2,
                             Balance = 500000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6324), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(477), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6325), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(478), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 2
                         },
@@ -4168,10 +13269,10 @@ namespace Infrastructure.Migrations
                         {
                             Id = 3,
                             Balance = 500000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6326), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(479), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6326), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(480), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 3
                         },
@@ -4179,10 +13280,10 @@ namespace Infrastructure.Migrations
                         {
                             Id = 4,
                             Balance = 500000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6327), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(481), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6328), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(482), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 4
                         },
@@ -4190,10 +13291,10 @@ namespace Infrastructure.Migrations
                         {
                             Id = 5,
                             Balance = 500000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6329), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(483), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6330), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(484), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 5
                         },
@@ -4201,10 +13302,10 @@ namespace Infrastructure.Migrations
                         {
                             Id = 6,
                             Balance = 500000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6332), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(487), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6332), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(488), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 6
                         },
@@ -4212,10 +13313,10 @@ namespace Infrastructure.Migrations
                         {
                             Id = 7,
                             Balance = 500000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6333), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(489), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6334), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(490), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 7
                         },
@@ -4223,10 +13324,10 @@ namespace Infrastructure.Migrations
                         {
                             Id = 8,
                             Balance = 500000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6335), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(491), new TimeSpan(0, 7, 0, 0, 0)),
                             CreatedBy = 0,
                             Status = 1,
-                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 10, 18, 22, 25, 20, 492, DateTimeKind.Unspecified).AddTicks(6336), new TimeSpan(0, 7, 0, 0, 0)),
+                            UpdatedAt = new DateTimeOffset(new DateTime(2022, 11, 1, 23, 4, 15, 42, DateTimeKind.Unspecified).AddTicks(492), new TimeSpan(0, 7, 0, 0, 0)),
                             UpdatedBy = 0,
                             UserId = 8
                         });
@@ -4244,6 +13345,10 @@ namespace Infrastructure.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("double precision")
                         .HasColumnName("amount");
+
+                    b.Property<int?>("BookingId")
+                        .HasColumnType("integer")
+                        .HasColumnName("booking_id");
 
                     b.Property<Guid>("Code")
                         .HasColumnType("uuid")
@@ -4286,6 +13391,9 @@ namespace Infrastructure.Migrations
                         .HasColumnName("wallet_id");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookingId")
+                        .IsUnique();
 
                     b.HasIndex("Code")
                         .IsUnique();
@@ -4408,15 +13516,15 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.User", "Driver")
+                    b.HasOne("Domain.Entities.RouteRoutine", "RouteRoutine")
                         .WithMany("BookingDetailDrivers")
-                        .HasForeignKey("DriverId")
+                        .HasForeignKey("RouteRoutineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("BookingDetail");
 
-                    b.Navigation("Driver");
+                    b.Navigation("RouteRoutine");
                 });
 
             modelBuilder.Entity("Domain.Entities.Fare", b =>
@@ -4456,6 +13564,23 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Room");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Notification", b =>
+                {
+                    b.HasOne("Domain.Entities.Event", "Event")
+                        .WithMany("Notifications")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Event");
 
                     b.Navigation("User");
                 });
@@ -4607,11 +13732,17 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.WalletTransaction", b =>
                 {
+                    b.HasOne("Domain.Entities.Booking", "Booking")
+                        .WithOne("WalletTransaction")
+                        .HasForeignKey("Domain.Entities.WalletTransaction", "BookingId");
+
                     b.HasOne("Domain.Entities.Wallet", "Wallet")
                         .WithMany("WalletTransactions")
                         .HasForeignKey("WalletId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Booking");
 
                     b.Navigation("Wallet");
                 });
@@ -4636,11 +13767,19 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Booking", b =>
                 {
                     b.Navigation("BookingDetails");
+
+                    b.Navigation("WalletTransaction")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.BookingDetail", b =>
                 {
                     b.Navigation("BookingDetailDrivers");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Event", b =>
+                {
+                    b.Navigation("Notifications");
                 });
 
             modelBuilder.Entity("Domain.Entities.Fare", b =>
@@ -4684,6 +13823,11 @@ namespace Infrastructure.Migrations
                     b.Navigation("RouteStations");
                 });
 
+            modelBuilder.Entity("Domain.Entities.RouteRoutine", b =>
+                {
+                    b.Navigation("BookingDetailDrivers");
+                });
+
             modelBuilder.Entity("Domain.Entities.RouteStation", b =>
                 {
                     b.Navigation("EndRouteStationBookings");
@@ -4700,11 +13844,11 @@ namespace Infrastructure.Migrations
                 {
                     b.Navigation("Accounts");
 
-                    b.Navigation("BookingDetailDrivers");
-
                     b.Navigation("Bookings");
 
                     b.Navigation("Messages");
+
+                    b.Navigation("Notifications");
 
                     b.Navigation("PromotionUsers");
 

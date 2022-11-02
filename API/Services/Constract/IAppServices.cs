@@ -10,15 +10,10 @@ namespace API.Services.Constract
         IAccountService Account { get; }
         IVerifiedCodeService VerifiedCode { get; }
         IUserService User { get; }
-
         ITokenService Token { get; }
-
         IBookerService Booker { get; }
-
         IDriverService Driver { get; }
-
         IAdminService Admin { get; }
-
         IUserRoomService UserRoom { get; }
         IRoomService Room { get; }
         IMessageService Message  { get; }
@@ -45,5 +40,7 @@ namespace API.Services.Constract
         IFileService File { get; }
         IRedisMQService RedisMQ { get; }
         ISignalRService SignalR { get; }
+        INotificationService Notification { get; }
+        IPricingService Pricing { get; }
     }
 }

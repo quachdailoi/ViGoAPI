@@ -31,7 +31,7 @@ var loggerConfig = new LoggerConfiguration()
     .ReadFrom.Configuration(_config)
     .Enrich.FromLogContext();
 
-if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "production") loggerConfig = loggerConfig.WriteTo.Console();
+//if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "production") loggerConfig = loggerConfig.WriteTo.Console();
 
 var logger = loggerConfig.CreateLogger();
 
@@ -157,15 +157,15 @@ services.ConfigurationSeedData();
 //IoC For Profile
 //services.AddSingleton(provider => new MapperConfiguration(cfg =>
 //{
-//    cfg.AddProfile(new UserMappingProfile());
-//    cfg.AddProfile(new MessageRoomMappingProfile());
-//    cfg.AddProfile(new BookingMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
-//    cfg.AddProfile(new BookingDetailMappingProfile());
-//    cfg.AddProfile(new PromotionMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
-//    cfg.AddProfile(new RouteMappingProfile());
-//    cfg.AddProfile(new StationMappingProfile());
-//    cfg.AddProfile(new BannerMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
-//    cfg.AddProfile(new VehicleMappingProfile());
+//    //cfg.AddProfile(new UserMappingProfile());
+//    //cfg.AddProfile(new MessageRoomMappingProfile());
+//    //cfg.AddProfile(new BookingMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
+//    //cfg.AddProfile(new BookingDetailMappingProfile());
+//    //cfg.AddProfile(new PromotionMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
+//    //cfg.AddProfile(new RouteMappingProfile());
+//    //cfg.AddProfile(new StationMappingProfile());
+//    //cfg.AddProfile(new BannerMappingProfile(provider.CreateScope().ServiceProvider.GetRequiredService<IFileService>()));
+//    //cfg.AddProfile(new VehicleMappingProfile());
 //    cfg.AddProfile(new RouteRoutineMappingProfile());
 //}).CreateMapper());
 

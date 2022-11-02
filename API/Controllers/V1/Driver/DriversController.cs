@@ -531,6 +531,14 @@ namespace API.Controllers.V1.Driver
         ///     TripStatus: 1 (0: Not yet, 1: PickingUp, 2: Arrived, 3: Completed)
         /// ```
         /// </remarks>
+        /// <remarks>
+        /// ```
+        /// 
+        /// 
+        /// 
+        /// 
+        /// ```
+        /// </remarks>
         /// <response code = "200"> Update Trip Status Successfully.</response>
         /// <response code = "400"> 
         ///     Not found booking detail driver with this ID. <br></br>
@@ -551,13 +559,14 @@ namespace API.Controllers.V1.Driver
                 Message = "Not found booking detail driver with this ID."
             });
 
-            if (bookingDetailDriver.DriverId != driver.Id) return ApiResult(new()
+            if (bookingDetailDriver.RouteRoutine.UserId != driver.Id) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status400BadRequest,
                 Message = "This booking detail driver not belong to this Driver."
             });
 
-            if ((int)request.TripStatus != (int)bookingDetailDriver.TripStatus + 1) return ApiResult(new()
+            if (request.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && 
+                (int)request.TripStatus != (int)bookingDetailDriver.TripStatus + 1) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status400BadRequest,
                 Message = "New trip status not a valid next trip status."

@@ -1,5 +1,6 @@
 ﻿using API.Extensions;
 using API.Models;
+using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Responses;
@@ -10,6 +11,7 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace API.Services
 {
@@ -25,12 +27,13 @@ namespace API.Services
             List<BookingDetail> bookingDetails = new();
             for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
             {
-                bookingDetails.Add(new BookingDetail
-                {
-                    Booking = booking,
-                    Date = day,
-                    Price = Fee.RoundToThousands(feePerTrip),
-                });
+                if(booking.DayOfWeeks.Contains(day.DayOfWeek))
+                    bookingDetails.Add(new BookingDetail
+                    {
+                        Booking = booking,
+                        Date = day,
+                        Price = Fee.RoundToThousands(feePerTrip),
+                    });
             }
             return bookingDetails;
         }
@@ -84,25 +87,54 @@ namespace API.Services
 
             foreach (var driverSchedule in driverSchedules)
             {
-                var detailsByDay = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time);
+                //var detailsByDay = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time);
 
-                var routes = (await detailsByDay.Select(x => x.Booking.StartRouteStation.Route).ToListAsync()).DistinctBy(x => x.Id);
+                //var routes = (detailsByDay.Where(bd => bd.BookingDetailDrivers.Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed).Any())).Select(x => new BookingRoutineDTO { Route = x.Booking.StartRouteStation.Route, Date = x.Date, Time = x.Booking.Time}).ToList().DistinctBy(x => x.Route.Id).ToList();
 
-                foreach (var route in routes)
+                var detailRoutines = new List<BookingDetailRoutineDTO>();
+               
+                UnitOfWork.RouteRoutines.GetAllRouteRoutine(driverId).Include(x => x.Route).OrderBy(x => x.StartTime).ToList()
+                    .Where(x =>
+                    {
+                        var details = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time).Where(bd => bd.Booking.StartRouteStation.Route.Id == x.RouteId && x.StartAt <= bd.Date && bd.Date <= x.EndAt && x.StartTime <= bd.Booking.Time && bd.Booking.Time <= x.EndTime);
+                        
+                        if (details.Any())
+                        detailRoutines.Add(new()
+                        {
+                            Routine = x,
+                            BookingDetails = details
+                        });
+                        
+                        return details.Any();
+                    }).ToList();
+
+                foreach (var routineDetail in detailRoutines)
                 {
+                    var routine = routineDetail.Routine;
+
                     RouteScheduleViewModel routeSchedule = new()
                     {
-                        RouteCode = route.Code.ToString()
+                        RouteCode = routine.Route.Code.ToString(),
+                        StartTime = routine.StartTime
                     };
 
-                    var detailsInRoute = detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == route.Id);
+                    //var detailsInRoute = detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId);
+                    var detailsInRouteRoutine = routineDetail.BookingDetails
+                        .Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId)
+                        .Where(x => x.Status != BookingDetails.Status.Cancelled && x.Status != BookingDetails.Status.Completed); //detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId);
 
-                    var schedules = detailsInRoute.Select(x => new ScheduleBookingDetailViewModel
+                    if (!detailsInRouteRoutine.Any()) continue;
+
+                    var schedules = detailsInRouteRoutine.Select(x => new ScheduleBookingDetailViewModel
                     {
-                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.Status != BookingDetailDrivers.Status.Cancelled &&
-                            bdd.DriverId == driverId).OrderByDescending(x => x.CreatedAt).Select(x => x.Code).FirstOrDefault(),
-                        TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.Status != BookingDetailDrivers.Status.Cancelled &&
-                            bdd.DriverId == driverId).OrderByDescending(x => x.CreatedAt).Select(x => x.TripStatus).FirstOrDefault(),
+                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.RouteRoutine.UserId == driverId)
+                            .Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed)
+                            .OrderByDescending(x => x.CreatedAt)
+                            .Select(x => x.Code).FirstOrDefault(),
+                        TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.RouteRoutine.UserId == driverId)
+                            .Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed)
+                            .OrderByDescending(x => x.CreatedAt)
+                            .Select(x => x.TripStatus).FirstOrDefault(),
                         Time = x.Booking.Time,
                         StartStation = new()
                         {
@@ -130,10 +162,10 @@ namespace API.Services
                             PaymentMethod = x.Booking.PaymentMethod,
                             PaymentStatus = x.Booking.Status
                         }
-                    });
-
+                    }).ToList();
+                    //schedules.ToList();
                     // add schedules
-                    routeSchedule.Schedules.AddRange(schedules);
+                    routeSchedule.Schedules = schedules;
 
                     var startStepInSchedules = schedules.Select(x => new StepScheduleViewModel()
                     {
@@ -143,8 +175,9 @@ namespace API.Services
                         TripStatus = x.TripStatus,
                         UserName = x.User.Name,
                         Type = BookingDetailDrivers.StepScheduleType.PickUp,
-                        Index = x.StartStation.Index
-                    }).ToList();
+                        Index = x.StartStation.Index,
+                        Time = x.Time
+                    });
 
                     var endStepInSchedules = schedules.Select(x => new StepScheduleViewModel()
                     {
@@ -154,14 +187,18 @@ namespace API.Services
                         TripStatus = x.TripStatus,
                         UserName = x.User.Name,
                         Type = BookingDetailDrivers.StepScheduleType.DropOff,
-                        Index = x.EndStation.Index
-                    }).ToList();
+                        Index = x.EndStation.Index,
+                        Time = x.Time
+                    });
 
-                    var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Index).AsEnumerable();
+                    var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Time).ThenBy(x => x.Index)
+                        .Where(ValidTripStatus).ToList();
 
-                    routeSchedule.Steps.AddRange(stepInSchedules);
+                    //var obj = ((List<object>)Convert.ChangeType(stepInSchedules, stepInSchedules.GetType())).OfType<StepScheduleViewModel>().ToList();
 
-                    driverSchedule.Routes.Add(routeSchedule);
+                    routeSchedule.Steps = ConvertTo<StepScheduleViewModel>(stepInSchedules);
+
+                    driverSchedule.RouteRoutines.Add(routeSchedule);
                 }
             }
 
@@ -176,6 +213,11 @@ namespace API.Services
 
             return success.SetData(result);
         }
+
+        private List<T> ConvertTo<T>(List<dynamic> list) => ((List<object>)Convert.ChangeType(list, list.GetType())).OfType<T>().ToList();
+
+        Func<dynamic, bool> ValidTripStatus => x => x.TripStatus != BookingDetailDrivers.TripStatus.Completed &&
+                                    x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled;
 
         private static double CalculateDistanceFromStartToEndStation(List<RouteStation> routeStations, int startStationId, int endStationId, double routeDistance)
         {
@@ -198,10 +240,14 @@ namespace API.Services
 
         private static Guid? GetMessageRoomCode(Room? messageRoom) => messageRoom?.Code ?? null;
 
-        private async Task<dynamic> Get(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, List<BookingDetails.Status>? statuses = null, bool isOrderAscending = true)
+        private async Task<dynamic> Get(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, List<Bookings.Status>? bookingStatus = null ,List<BookingDetails.Status>? statuses = null, bool isOrderAscending = true)
         {
             var bookingDetails = UnitOfWork.BookingDetails
                 .List(bd => bd.Booking.UserId == userId);
+
+            if (bookingStatus != null && bookingStatus.Any())
+                bookingDetails = bookingDetails
+                    .Where(bd => bookingStatus.Contains(bd.Booking.Status));
 
             if (statuses != null && statuses.Any())
                 bookingDetails = bookingDetails
@@ -221,14 +267,14 @@ namespace API.Services
             }
 
             bookingDetails = isOrderAscending ? 
-                bookingDetails.OrderBy(e => e.Date).ThenBy(e => e.Booking.Time) :
+                bookingDetails.OrderBy(e => e.Date).ThenBy(e => e.Booking.Time):
                 bookingDetails.OrderByDescending(e => e.Date).ThenByDescending(e => e.Booking.Time);
 
             var paging = bookingDetails.Paging(page: pagingRequest.Page, pageSize: pagingRequest.PageSize);
 
             var result = new PagingViewModel<List<BookerBookingDetailViewModel>>()
             {
-                Items = await paging.Items.MapTo<BookerBookingDetailViewModel>(Mapper,AppServices).ToListAsync(),
+                Items = await paging.Items.MapTo<BookerBookingDetailViewModel>(Mapper, AppServices).ToListAsync(),
                 TotalItemsCount = paging.TotalItemsCount,
                 Page = paging.Page,
                 PageSize = paging.PageSize,
@@ -239,10 +285,23 @@ namespace API.Services
         }
 
         public async Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest,Response successResponse)
-            => successResponse.SetData(await Get(userId, dateFilterRequest, pagingRequest, new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready, BookingDetails.Status.Started }));
+            => successResponse.SetData(
+                await Get(
+                    userId, 
+                    dateFilterRequest, 
+                    pagingRequest,
+                    new List<Bookings.Status> { Bookings.Status.PendingMapping, Bookings.Status.Started},
+                    new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready }));
 
         public async Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse)
-            => successResponse.SetData(await Get(userId, dateFilterRequest, pagingRequest, new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled }, false));
+            => successResponse.SetData(
+                await Get(
+                    userId, 
+                    dateFilterRequest, 
+                    pagingRequest, 
+                    new List<Bookings.Status> { Bookings.Status.Completed, Bookings.Status.CancelledByBooker},
+                    new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled }, 
+                    false));
 
         public Task<BookingDetail?> GetBookingDetailOfBookerByCode(string code, int bookerId)
         {
@@ -288,12 +347,97 @@ namespace API.Services
                     bookingDetail.Status = BookingDetails.Status.Completed;
                     bookingDetail.BookingDetailDrivers
                         .Where(bdr =>
-                            bdr.Status != BookingDetailDrivers.Status.Cancelled)
-                        .First().Status = BookingDetailDrivers.Status.Completed;
+                            bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
+                        .First().TripStatus = BookingDetailDrivers.TripStatus.Completed;
 
                     await UnitOfWork.BookingDetails.Update(bookingDetail);
                 }
             }
+        }
+
+        public Task<BookingDetail?> GetById(int id) =>
+            UnitOfWork.BookingDetails
+            .List(e => e.Id == id)
+            .Include(e => e.Booking)
+            .ThenInclude(b => b.User)
+            .FirstOrDefaultAsync();
+
+        public async Task<bool?> Refund(Guid code, double amount, BookingDetails.RefundTypes refundType)
+        {
+            var bookingDetail = await UnitOfWork.BookingDetails
+                .List(e => e.Code == code)
+                .Include(e => e.Booking)
+                .ThenInclude(b => b.WalletTransactions)
+                .FirstOrDefaultAsync();
+
+            if (bookingDetail == null) return null;
+
+            var wallet = await AppServices.Wallet.GetWallet(bookingDetail.Booking.UserId);
+
+            if (wallet == null) return null;
+
+            try
+            {
+                switch (bookingDetail.Booking.PaymentMethod)
+                {
+                    case Payments.PaymentMethods.Momo:
+                        var transaction = bookingDetail.Booking.WalletTransactions
+                            .Where(trans => trans.Type == WalletTransactions.Types.BookingPaidByMomo && trans.Status == WalletTransactions.Status.Success)
+                            .FirstOrDefault();
+
+                        if(transaction != null)
+                        {
+                            var txnId = long.Parse(transaction.TxnId);
+
+                            var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
+
+                            if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
+
+                            var refundTransaction = new WalletTransactionDTO
+                            {
+                                Amount = amount,
+                                BookingId = bookingDetail.BookingId,
+                                Type = WalletTransactions.Types.BookingRefund,
+                                TxnId = response.transId.ToString(),
+                                WalletId = wallet.Id,
+                                Status = WalletTransactions.Status.Success
+                            };
+
+                            await AppServices.WalletTransaction.Create(refundTransaction);
+                        }
+                        
+
+                        //return true;
+                        break;
+                    case Payments.PaymentMethods.Wallet:
+                        await AppServices.Wallet.UpdateBalance(new WalletTransactionDTO
+                        {
+                            Amount = amount,
+                            BookingId = bookingDetail.BookingId,
+                            Type = WalletTransactions.Types.BookingRefund,
+                            WalletId = wallet.Id,
+                            Status = WalletTransactions.Status.Success
+                        });
+                        break;
+                        //return true;
+                    default: return true;
+                }
+
+                await AppServices.Notification.PushNotification(new NotificationDTO
+                {
+                    EventId = Events.Types.RefundBooking,
+                    UserId = bookingDetail.Booking.UserId,
+                    Type = Notifications.Types.SpecificUser
+                });
+
+                return true;
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return false;
         }
     }
 }

@@ -23,9 +23,12 @@ namespace API.Services
             int endIndex = endRouteStation.Index;
             int routeId = startRouteStation.RouteId;
 
-            return UnitOfWork.RouteStations.List(x => x.RouteId == routeId && (x.Index >= startIndex && x.Index <= endIndex))
-                .OrderBy(x => x.Index)
-                .Select(x => x.Station);
+            var routeStations = UnitOfWork.RouteStations.List(x => x.RouteId == routeId).OrderBy(x => x.Index).AsQueryable();
+
+            if (startIndex < endIndex) routeStations = routeStations.Where(x => x.Index >= startIndex && x.Index <= endIndex);
+            else routeStations = routeStations.Where(x => x.Index >= startIndex && x.Index <= endIndex);
+
+            return routeStations.Select(x => x.Station);
         }
 
         public Task<List<Station>> GetOrderedStationsInRouteAsync(RouteStation startRouteStation, RouteStation endRouteStation)

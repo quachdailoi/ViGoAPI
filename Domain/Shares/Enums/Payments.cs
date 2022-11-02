@@ -15,7 +15,8 @@ namespace Domain.Shares.Enums
             Momo = 1,
             VNPay = 2,
             BankCard = 3,
-            Wallet = 4
+            Wallet = 4,
+            ZaloPay = 5
         }
         public enum MomoStatusCodes
         {
@@ -34,6 +35,12 @@ namespace Domain.Shares.Enums
             LinkWallet,
             [Description("captureWallet")]
             CaptureWallet
+        }
+
+        public enum ZaloPayStatusCodes
+        {
+            Successed = 1,
+            Failed = 2
         }
     }  
 }

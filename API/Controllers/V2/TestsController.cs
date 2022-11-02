@@ -1,9 +1,11 @@
 ﻿using API.Models.DTO;
+using API.Models.Requests;
 using API.TaskQueues;
 using API.Utils;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Classes;
+using FirebaseAdmin.Messaging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -82,6 +84,25 @@ namespace API.Controllers.V2
                     await Task.Delay(TimeSpan.FromSeconds(2), token);
                 }
             }
+        }
+
+        [HttpPost("send-push-notification")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SendPushNotification([FromBody] NotificationRequest request)
+        {
+            var message = new FirebaseAdmin.Messaging.Message()
+            {
+                Data = request.Data,
+                Token = request.Token,
+                Notification = new FirebaseAdmin.Messaging.Notification()
+                {
+                    Title = request.Title,
+                    Body = request.Message
+                }
+            };
+
+            var response = await AppServices.Notification.SendPushNotification(message);
+            return Ok(response);
         }
     }
 }

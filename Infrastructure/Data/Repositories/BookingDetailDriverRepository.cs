@@ -18,7 +18,7 @@ namespace Infrastructure.Data.Repositories
 
         public IQueryable<BookingDetailDriver> GetByDriverId(int driverId)
         {
-            return List(x => x.DriverId == driverId);
+            return List(x => x.RouteRoutine.UserId == driverId);
         }
 
         public Task<BookingDetailDriver> GetById(int id)

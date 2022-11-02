@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using API.Extensions;
+using Domain.Entities;
 using Domain.Shares.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
@@ -13,7 +14,7 @@ namespace API.Models
         public string Name { get; set; }
         public int Gender { get; set; }
         public Users.Status Status { get; set; }
-        public string StatusName { get; set; }
+        public string StatusName { get => Status.DisplayName(); }
         public DateTimeOffset? DateOfBirth { get; set; } = null;
         public string? AvatarUrl { get; set; } = string.Empty;
         public Guid? AvatarCode { get; set; } = Guid.NewGuid();
@@ -23,6 +24,8 @@ namespace API.Models
         public string? PhoneNumber { get; set; } = string.Empty;
         public bool? HasVerifiedPhoneNumber { get; set; } = false;
         public string? RoleName { get; set; } = Roles.GUEST.GetName();
+
+        public WalletViewModel Wallet { get; set; }
     }
     public class DriverViewModel
     {
@@ -35,6 +38,12 @@ namespace API.Models
         public Guid AvatarCode { get; set; } = Guid.NewGuid();
         public string PhoneNumber { get; set; } = string.Empty;
         public VehicleViewModel Vehicle { get; set; }
+    }
+
+    public class DriverInBookingDetailViewModel : DriverViewModel
+    {
+        public BookingDetailDrivers.TripStatus TripStatus { get; set; }
+        public string StatusName { get => TripStatus.DisplayName(); }
     }
 
     public class ContactUserViewModel

@@ -17,10 +17,6 @@ namespace API.Mapper
 
             CreateMap<Booking, BookingViewModel>()
                 .ForMember(
-                    dest => dest.StatusName,
-                    otp => otp.MapFrom(
-                            src => src.Status.DisplayName()))
-                .ForMember(
                     dest => dest.Stations,
                     otp => otp.MapFrom(
                     src => src.StartRouteStation.Route.RouteStations
@@ -32,10 +28,6 @@ namespace API.Mapper
                     dest => dest.CreatedAt,
                     otp => otp.MapFrom(
                             src => src.CreatedAt.ToFormatString()))
-                .ForMember(
-                    dest => dest.TypeName,
-                    opt => opt.MapFrom(
-                            src => src.Type.DisplayName()))
             .IncludeBase<Booking, BookingViewModel>();
 
             CreateMap<Booking, DriverBookingViewModel>()
@@ -76,6 +68,8 @@ namespace API.Mapper
                     dest => dest.EndAt,
                     otp => otp.MapFrom(
                             src => new DateOnly().ParseExact(src.EndAt)));
+
+            CreateMap<Booking, PaymentBookingViewModel>();
         }
     }
 

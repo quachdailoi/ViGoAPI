@@ -16,9 +16,10 @@ namespace Domain.Entities
         public TimeOnly EndTime { get; set; }
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
-        public RouteRoutines.Status Status { get; set; }
+        public RouteRoutines.Status Status { get; set; } = RouteRoutines.Status.Active;
 
         public Route Route { get; set; } = null!;
         public User User { get; set; } = null!;
+        public List<BookingDetailDriver> BookingDetailDrivers { get; set; } = new();
     }
 }

@@ -3,6 +3,6 @@
     public class DriverScheduleViewModel
     {
         public DateOnly Date { get; set; }
-        public List<RouteScheduleViewModel> Routes { get; set; } = new();
+        public ICollection<RouteScheduleViewModel> RouteRoutines { get; set; } = new List<RouteScheduleViewModel>();
     }
 }

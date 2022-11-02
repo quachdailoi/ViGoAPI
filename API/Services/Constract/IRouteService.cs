@@ -18,5 +18,7 @@ namespace API.Services.Constract
         Task<Domain.Entities.Route> CreateRoute(Domain.Entities.Route route);
         Task<Domain.Entities.Route> GetRouteByCode(string code);
         Task<RouteViewModel?> UpdateRoute(Domain.Entities.Route route, List<StationDTO> stationDTOs);
+
+        IQueryable<Domain.Entities.Route> GetRoute(string code);
     }
 }

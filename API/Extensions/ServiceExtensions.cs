@@ -73,7 +73,7 @@ namespace API.Extensions
                         var accessToken = context.Request.Query["access_token"].FirstOrDefault();
 
                         var path = context.HttpContext.Request.Path;
-                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                        if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/hubs") || path.StartsWithSegments("/gps")))
                         {
                             context.Token = accessToken;
                         }
@@ -113,6 +113,9 @@ namespace API.Extensions
             services.AddScoped<IAffiliatePartyRepository, AffiliatePartyRepository>();
             services.AddScoped<IWalletRepository, WalletRepository>();
             services.AddScoped<IWalletTransactionRepository, WalletTransactionRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<IPricingRepository, PricingRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -150,6 +153,8 @@ namespace API.Extensions
             services.AddTransient<IAffiliatePartyService, AffiliatePartyService>();
             services.AddTransient<IWalletService, WalletService>();
             services.AddTransient<IWalletTransactionService, WalletTransactionService>();
+            services.AddTransient<INotificationService, NotificationService>();
+            services.AddTransient<IPricingService, PricingService>();
         }
         public static void ConfigureIoCRedisMessageQueue(this IServiceCollection services)
         {
@@ -174,7 +179,7 @@ namespace API.Extensions
         {
             //services.AddHostedService<MessageTasks>();
             services.AddHostedService<MappingBookingTask>();
-            services.AddHostedService<TestTask>();
+            //services.AddHostedService<TestTask>();
         }
 
         public static void ConfigurationSeedData(this IServiceCollection services)

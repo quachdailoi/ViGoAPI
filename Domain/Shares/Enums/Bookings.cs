@@ -22,13 +22,12 @@ namespace Domain.Shares.Enums
         public enum Status
         {
             Unpaid,
-            PaymentFailed,
             PendingMapping,
             Started,
             Completed,
             CancelledByBooker,
             CancelledBySystem,
-            RefundComplete
+            RefundCompleted
         }
 
         public static readonly double AllowedMappingTimeRange = 3; //minutes

@@ -85,7 +85,12 @@ namespace API.Services
                 .List(route =>
                     route.Status == Routes.Status.Active &&
                     route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.StartStationId) &&
-                    route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.EndStationId))
+                    route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.EndStationId) 
+                    //&& 
+                    //route.RouteRoutines.Any(routeRoutine => 
+                    //    !(routeRoutine.StartAt > dto.EndAt || routeRoutine.EndAt < dto.StartAt) &&
+                    //    (routeRoutine.StartTime <= dto.Time && routeRoutine.EndTime > dto.Time))
+                    )
                 .MapTo<BookerRouteViewModel>(Mapper)
                 .ToListAsync();
 
@@ -168,6 +173,11 @@ namespace API.Services
             }
             await UnitOfWork.CommitAsync();
             return routeViewModel;
+        }
+
+        public IQueryable<Domain.Entities.Route> GetRoute(string code)
+        {
+            return UnitOfWork.Routes.GetRouteByCode(new Guid(code));
         }
     }
 }

@@ -10,15 +10,7 @@ namespace API.Mapper
     {
         public VehicleMappingProfile()
         {
-            CreateMap<VehicleType, VehicleTypeViewModel>()
-                .ForMember(
-                    dest => dest.TypeName,
-                    opt => opt.MapFrom(
-                        src => src.Type.DisplayName()))
-                .ForMember(
-                    dest => dest.StatusName,
-                    opt => opt.MapFrom(
-                            src => src.Status.DisplayName()));
+            CreateMap<VehicleType, VehicleTypeViewModel>();
 
             CreateMap<Vehicle, VehicleViewModel>()
                 .ForMember(

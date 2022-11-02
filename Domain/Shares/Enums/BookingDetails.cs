@@ -13,8 +13,13 @@ namespace Domain.Shares.Enums
             Cancelled,
             Pending,
             Ready,
-            Started,
             Completed
+        }
+
+        public enum RefundTypes
+        {
+            NotFoundDriver = 1,
+            SharingTrip = 2
         }
     }
 }

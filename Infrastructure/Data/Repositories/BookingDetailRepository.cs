@@ -24,7 +24,7 @@ namespace Infrastructure.Data.Repositories
 
         public IQueryable<BookingDetail> GetBookingDetailsByDriverId(int driverId)
         {
-            return List().Where(x => x.BookingDetailDrivers.Any(bdr => bdr.DriverId == driverId));
+            return List().Where(x => x.BookingDetailDrivers.Any(bdr => bdr.RouteRoutine.UserId == driverId));
         }
     }
 }

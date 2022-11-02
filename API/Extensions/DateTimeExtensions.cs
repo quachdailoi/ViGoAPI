@@ -2,6 +2,7 @@
 {
     public static class DateTimeExtensions
     {
+        
         public static DateOnly NowDateOnly => DateOnly.FromDateTime(DateTimeOffset.Now.DateTime);
         public static TimeOnly NowTimeOnly => TimeOnly.FromTimeSpan(DateTimeOffset.Now.TimeOfDay);
         public static bool TryParseExact(this string dateOnlyStr, out DateOnly dateOnly)
@@ -28,7 +29,24 @@
             return timeOnly;
         }
 
-        public static string ToFormatString(this DateOnly dateOnly) => dateOnly.ToString("dd-MM-yyyy"); 
+        public static string ToFormatString(this DateOnly dateOnly) => dateOnly.ToString("dd-MM-yyyy");
+        public static string ToFormatString(this DateOnly dateOnly, string format) => dateOnly.ToString(format); 
+
+        public static List<DateOnly> ToDates(this DateOnly dateOnly1, DateOnly dateOnly2, List<DayOfWeek> dayOfWeeks)
+        {
+            var fromDate = dateOnly1 <= dateOnly2 ? dateOnly1 : dateOnly2;
+            var toDate = dateOnly1 > dateOnly2 ? dateOnly1 : dateOnly2;
+
+            List<DateOnly> dates = new();
+
+            for(var date = fromDate; date <= toDate; date = date.AddDays(1))
+            {
+                if (dayOfWeeks.Contains(date.DayOfWeek))
+                    dates.Add(date);
+            }
+
+            return dates;
+        }
 
         public static DateTime ParseExactDateTime(string dateOnlyStr, string timeOnlyStr)
         {
@@ -39,6 +57,7 @@
         }
 
         public static string ToFormatString(this DateTimeOffset dateTime) => dateTime.ToString("dd-MM-yyyy HH:mm:ss");
+        public static string ToFormatString(this DateTimeOffset dateTime, string format) => dateTime.ToString(format);
 
         public static bool CheckIntersect(DateOnly start1, DateOnly end1, DateOnly start2, DateOnly end2)
         {

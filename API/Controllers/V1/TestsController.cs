@@ -13,6 +13,7 @@ using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace API.Controllers.V1
 {
@@ -67,21 +68,45 @@ namespace API.Controllers.V1
             //var routers = ControllerContext.RouteData.Routers;
             //await _redisMQMessage.Publish("number",number);
 
-            TimeOnly startTime = new TimeOnly(12, 10);
-            TimeOnly endTime = new TimeOnly(12, 15);
+            //TimeOnly startTime = new TimeOnly(12, 10);
+            //TimeOnly endTime = new TimeOnly(12, 15);
 
 
 
             //var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
 
-            return Ok((startTime - endTime).TotalMinutes);
+            var dto = new ZaloCollectionLinkRequestDTO
+            {
+                amount = 50000,
+                //order_id = 1,
+                callback_url = GetControllerContextUri() + "/zalopay/ipn"
+            };
+
+            var response = await AppServices.Payment.GenerateZaloPaymentUrl(dto);
+
+            return Ok(response);
+
+            //return Ok(new
+            //{
+            //    DateTime = DateTime.Now,
+            //    DateTimeUTC = DateTime.UtcNow,
+            //    DateTimeOffset = DateTimeOffset.Now,
+            //    DateOffSetUTC = DateTimeOffset.UtcNow
+            //});
+        }
+
+        [HttpPost("zalopay/ipn")]
+        public IActionResult TestIPN([FromBody] JsonElement request)
+        {
+            var dto = JsonSerializer.Deserialize<MomoPaymentNotificationRequest>(request.GetRawText());
+            return Ok(dto);
         }
 
         [HttpPost("dump/drivers")]
         [AllowAnonymous]
         public async Task<IActionResult> DumpDrivers([FromQuery] DumpDriverRequest request)
         {
-            dynamic vehicleTypes = (await AppServices.VehicleType.GetAll(new())).Data;
+            dynamic vehicleTypes = (await AppServices.VehicleType.Get(new())).Data;
 
             VehicleTypeViewModel vehicleTypeVM = null;
 
@@ -172,7 +197,7 @@ namespace API.Controllers.V1
         [AllowAnonymous]
         public async Task<IActionResult> DumpBookings()
         {
-            dynamic vehicleTypes = (await AppServices.VehicleType.GetAll(new())).Data;
+            dynamic vehicleTypes = (await AppServices.VehicleType.Get(new())).Data;
 
             dynamic routes = (await AppServices.Route.GetAll(new(),new())).Data;
 
@@ -183,6 +208,7 @@ namespace API.Controllers.V1
             var routeRoutines = await AppServices.RouteRoutine.GetByRouteId((int)route.Id);
 
             var totalSuccessBooking = 0;
+            var totalFailedBooking = 0;
 
             foreach(var user in users)
             {
@@ -221,7 +247,8 @@ namespace API.Controllers.V1
                             bookingDto.EndAt = endDate;
                             bookingDto.Time = time;
                             bookingDto.UserId = user.Id;
-                            bookingDto.Type = Bookings.Types.MonthTicket;
+                            bookingDto.DayOfWeeks = new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday };
+                            //bookingDto.Type = Bookings.Types.MonthTicket;
                             bookingDto.IsShared = (new Random()).Next() % 10 < 9;
                             bookingDto.RouteCode = route.Code;
                             bookingDto.StartStationCode = stations[startIndex].Code;
@@ -229,14 +256,20 @@ namespace API.Controllers.V1
 
                             dynamic booking = (await AppServices.Booking.Create(bookingDto, new(), new(), new(), new(), new(), new(), new(),new(), new(), new(), true)).Data;
 
-                            if (booking != null) 
+                            if (booking != null)
                                 totalSuccessBooking++;
+                            else
+                                totalFailedBooking++;
                         }
                     }
                 }
             }
 
-            return Ok(totalSuccessBooking);
+            return Ok(new
+            {
+                Success = totalSuccessBooking,
+                Fail = totalFailedBooking
+            });
         }
 
         [HttpGet("checking-mapping")]
