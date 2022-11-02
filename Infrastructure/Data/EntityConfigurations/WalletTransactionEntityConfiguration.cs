@@ -41,8 +41,8 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasForeignKey(e => e.WalletId);
 
             builder.HasOne(e => e.Booking)
-                .WithOne(b => b.WalletTransaction)
-                .HasForeignKey<WalletTransaction>(e => e.BookingId);
+                .WithMany(b => b.WalletTransactions)
+                .HasForeignKey(e => e.BookingId);
 
             builder.HasIndex(e => e.Code)
                 .IsUnique();

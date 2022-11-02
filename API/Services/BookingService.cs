@@ -624,23 +624,30 @@ namespace API.Services
                 switch (booking.PaymentMethod)
                 {
                     case Payments.PaymentMethods.Momo:
-                        var txnId = long.Parse(booking.WalletTransaction.TxnId);
+                        var transaction = booking.WalletTransactions
+                            .Where(trans => trans.Type == WalletTransactions.Types.BookingPaidByMomo && trans.Status == WalletTransactions.Status.Success)
+                            .FirstOrDefault();
 
-                        var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
-
-                        if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
-
-                        var transaction = new WalletTransactionDTO
+                        if (transaction != null)
                         {
-                            Amount = amount,
-                            BookingId = booking.Id,
-                            Type = WalletTransactions.Types.BookingRefund,
-                            TxnId = response.transId.ToString(),
-                            WalletId = wallet.Id,
-                            Status = WalletTransactions.Status.Success
-                        };
+                            var txnId = long.Parse(transaction.TxnId);
 
-                        await AppServices.WalletTransaction.Create(transaction);
+                            var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
+
+                            if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
+
+                            var refundTransaction = new WalletTransactionDTO
+                            {
+                                Amount = amount,
+                                BookingId = booking.Id,
+                                Type = WalletTransactions.Types.BookingRefund,
+                                TxnId = response.transId.ToString(),
+                                WalletId = wallet.Id,
+                                Status = WalletTransactions.Status.Success
+                            };
+
+                            await AppServices.WalletTransaction.Create(refundTransaction);
+                        }
 
                         //return true;
                         break;
