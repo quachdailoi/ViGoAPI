@@ -298,7 +298,7 @@ namespace API.Services
                     userId, 
                     dateFilterRequest, 
                     pagingRequest, 
-                    new List<Bookings.Status> { Bookings.Status.Completed, Bookings.Status.CancelledByBooker},
+                    new List<Bookings.Status> { Bookings.Status.Started ,Bookings.Status.Completed, Bookings.Status.CancelledByBooker},
                     new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled }, 
                     false));
 
