@@ -116,27 +116,27 @@ namespace API.Controllers.V1
                                                     invalidRouteResponse: new()
                                                     {
                                                         Message = "Route is not exist.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     invalidStationResponse: new()
                                                     {
                                                         Message = "Stations are not exist.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     invalidVehicleTypeResponse: new()
                                                     {
                                                         Message = "Vehicle type is not exist.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     duplicationResponse: new()
                                                     {
                                                         Message = "You have booked at this time in an another booking. Check again!",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     invalidPromotionResponse: new()
                                                     {
                                                         Message = "Promotion code is not available.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     notAvailableResponse: new()
                                                     {
