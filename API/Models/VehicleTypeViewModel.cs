@@ -22,6 +22,27 @@ namespace API.Models
 
     public class VehicleTypeWithFareViewModel : VehicleTypeViewModel
     {
-        public Fare Fare { get; set; }
+        public FareViewModel Fare { get; set; }
+    }
+
+    public class FareViewModel
+    {
+        public double BasePrice { get; set; }
+        public double PricePerKm { get; set; }
+        public int BaseDistance { get; set; }
+        [JsonIgnore]
+        public int VehicleTypeId { get; set; }
+
+        public List<FareTimeLineViewModel> FareTimelines { get; set; } = new();
+    }
+
+    public class FareTimeLineViewModel
+    {
+        public TimeOnly StartTime { get; set; }
+        public TimeOnly EndTime { get; set; }
+        [JsonIgnore]
+        public int FareId { get; set; }
+        public double ExtraFeePerKm { get; set; }
+        public double CeilingExtraPrice { get; set; }
     }
 }

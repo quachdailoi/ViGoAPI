@@ -88,6 +88,16 @@ namespace API.Services
             return successResponse.SetData(dataResponse);
         }
 
+        public async Task<Wallet?> UpdateBalance(int userId, double amount)
+        {
+            var wallet = await GetWallet(userId);
+
+            if (wallet == null) return null;
+
+            wallet.Balance += amount;
+
+            return UnitOfWork.Wallets.Update(wallet).Result ? wallet : null;
+        }
         public async Task<Wallet?> UpdateBalance(WalletTransactionDTO transactionDto)
         {
             var wallet = await UnitOfWork.Wallets

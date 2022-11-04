@@ -39,11 +39,16 @@ namespace API.Services
             });
         }
 
-        public Task<bool> Update(WalletTransactionDTO dto)
+        public async Task<bool> Update(WalletTransactionDTO dto)
         {
-            var transaction = Mapper.Map<WalletTransaction>(dto);
+            var transaction = await UnitOfWork.WalletTransactions.GetByCode(dto.Code);
 
-            return UnitOfWork.WalletTransactions.Update(transaction);
+            if (transaction == null) return false;
+
+            transaction.Status = dto.Status;
+            transaction.TxnId = dto.TxnId;
+
+            return await UnitOfWork.WalletTransactions.Update(transaction);
         }
 
         public async Task<WalletTransactionDTO?> Create(WalletTransactionDTO dto)

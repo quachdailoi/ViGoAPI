@@ -116,27 +116,27 @@ namespace API.Controllers.V1
                                                     invalidRouteResponse: new()
                                                     {
                                                         Message = "Route is not exist.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     invalidStationResponse: new()
                                                     {
                                                         Message = "Stations are not exist.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     invalidVehicleTypeResponse: new()
                                                     {
                                                         Message = "Vehicle type is not exist.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     duplicationResponse: new()
                                                     {
                                                         Message = "You have booked at this time in an another booking. Check again!",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     invalidPromotionResponse: new()
                                                     {
                                                         Message = "Promotion code is not available.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     notAvailableResponse: new()
                                                     {
@@ -538,7 +538,11 @@ namespace API.Controllers.V1
             {
                 dynamic item = dto.parsed_data.parsed_item[0];
 
-                var booking = await AppServices.Booking.GetByCode(Guid.Parse(item.Code));
+                var booking = await AppServices.Booking.GetByCode(Guid.Parse((string)item.Code));
+                WalletTransactionDTO walletTransactionDto = item.WalletTransaction;
+
+                walletTransactionDto.Status = WalletTransactions.Status.Success;
+                walletTransactionDto.TxnId = dto.parsed_data.zp_trans_id.ToString();
 
                 if (booking != null && booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.parsed_data.amount)
                 {
@@ -573,6 +577,8 @@ namespace API.Controllers.V1
                         });
                     }
                 }
+
+                await AppServices.WalletTransaction.Update(walletTransactionDto);
             }
         }
     }

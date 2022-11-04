@@ -1,4 +1,5 @@
 ﻿using API.Extensions;
+using API.Models.DTO;
 using Domain.Entities;
 using Domain.Shares.Classes;
 using Domain.Shares.Enums;
@@ -69,5 +70,6 @@ namespace API.Models
         public TimeOnly Time { get; set; }
         public double TotalPrice { get; set; }
         public double DiscountPrice { get; set; }
+        public WalletTransactionDTO WalletTransaction { get; set; }
     }
 }

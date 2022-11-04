@@ -64,35 +64,18 @@ namespace API.Controllers.V1
         [AllowAnonymous]
         public async Task<IActionResult> Test([FromQuery] int number)
         {
-            //var uri = GetControllerContextUri();
-            //var routers = ControllerContext.RouteData.Routers;
-            //await _redisMQMessage.Publish("number",number);
-
-            //TimeOnly startTime = new TimeOnly(12, 10);
-            //TimeOnly endTime = new TimeOnly(12, 15);
-
-
-
-            //var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
-
-            var dto = new ZaloCollectionLinkRequestDTO
-            {
-                amount = 50000,
-                //order_id = 1,
-                callback_url = GetControllerContextUri() + "/zalopay/ipn"
-            };
-
-            var response = await AppServices.Payment.GenerateZaloPaymentUrl(dto);
-
-            return Ok(response);
-
-            //return Ok(new
+            //var dto = new ZaloCollectionLinkRequestDTO
             //{
-            //    DateTime = DateTime.Now,
-            //    DateTimeUTC = DateTime.UtcNow,
-            //    DateTimeOffset = DateTimeOffset.Now,
-            //    DateOffSetUTC = DateTimeOffset.UtcNow
-            //});
+            //    amount = 50000,
+            //    //order_id = 1,
+            //    callback_url = GetControllerContextUri() + "/zalopay/ipn"
+            //};
+
+            //var response = await AppServices.Payment.GenerateZaloPaymentUrl(dto);
+
+            //return Ok(response);
+
+            return Ok(await AppServices.VehicleType.GetWithFare());
         }
 
         [HttpPost("zalopay/ipn")]
