@@ -10,6 +10,8 @@ namespace Domain.Interfaces.Repositories
 
         Task<bool> Update(T entity);
 
+        Task<bool> UpdateRange(T[] entities);
+
         Task<bool> Remove(T entity);
 
         IQueryable<T> List(Expression<Func<T, bool>> expression = default);

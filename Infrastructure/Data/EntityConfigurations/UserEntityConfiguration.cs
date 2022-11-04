@@ -47,6 +47,10 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.FileId)
                 .HasColumnName("file_id");
 
+            builder.Property(e => e.FCMToken)
+                .IsRequired()
+                .HasColumnName("fcm_token");
+
             builder.HasIndex(e => e.Code).IsUnique();
         }
     }

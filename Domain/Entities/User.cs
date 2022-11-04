@@ -17,6 +17,8 @@ namespace Domain.Entities
         public DateTimeOffset? DateOfBirth { get; set; } = null;
         public int? FileId { get; set; }
 
+        public string FCMToken { get; set; }
+
         public List<Account> Accounts { get; set; } = new();
         public List<UserRoom> UserRooms { get; set; } = new();
 

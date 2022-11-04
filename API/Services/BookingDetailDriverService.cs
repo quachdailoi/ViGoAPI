@@ -4,6 +4,7 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace API.Services
 {
@@ -18,6 +19,15 @@ namespace API.Services
         public async Task<BookingDetailDriver?> GetBookingDetailDriverByCode(string code)
         {
             return await UnitOfWork.BookingDetailDrivers.List(x => x.Code.ToString() == code).FirstOrDefaultAsync();
+        }
+
+        public Task<bool> StartBookingDetailDrivers(string[] codes)
+        {
+            var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString()));
+
+            var updatedDetailDrivers = detailDrivers.ToList().Select(x => { x.TripStatus = BookingDetailDrivers.TripStatus.Start; return x; }).ToArray();
+
+            return UnitOfWork.BookingDetailDrivers.UpdateRange(updatedDetailDrivers);
         }
 
         public async Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus)
@@ -56,6 +66,13 @@ namespace API.Services
             else Logger<BookingDetailDriverService>().LogError("Error: Booking detail null -> cannot set complete or send signal");
 
             return await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver);
+        }
+
+        public List<string> GetUserFCMTokens(string[] codes)
+        {
+            var fcmTokens = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString())).Select(x => x.BookingDetail.Booking.User.FCMToken).ToList();
+
+            return fcmTokens;
         }
     }
 }

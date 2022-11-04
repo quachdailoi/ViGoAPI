@@ -10,8 +10,18 @@ namespace API.Services
         }
 
         public Task<string> SendPushNotification(Message message)
-    {
+        {
             return FirebaseMessaging.DefaultInstance.SendAsync(message);
+        }
+
+        public void SendPushNotifications(Message message, List<string> fcmTokens)
+        {
+            fcmTokens.ForEach(x =>
+            {
+                message.Token = x;
+
+                FirebaseMessaging.DefaultInstance.SendAsync(message);
+            });
         }
     }
 }

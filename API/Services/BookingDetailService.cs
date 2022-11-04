@@ -51,7 +51,7 @@ namespace API.Services
 
         public async Task<Response> GetBookingsOfDriver(int driverId, PagingRequest request, DateFilterRequest dateFilter, Response success)
         {
-            var bookingDetails = UnitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId);
+            var bookingDetails = UnitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId).Where(x => x.Status != BookingDetails.Status.Cancelled && x.Status != BookingDetails.Status.Completed);
 
             if (dateFilter.FromDate != null && dateFilter.ToDate != null)
             {
@@ -140,14 +140,18 @@ namespace API.Services
                             Code = x.Booking.StartRouteStation.Station.Code,
                             Name = x.Booking.StartRouteStation.Station.Name,
                             Address = x.Booking.StartRouteStation.Station.Address,
-                            Index = x.Booking.StartRouteStation.Index
+                            Index = x.Booking.StartRouteStation.Index,
+                            Longitude = x.Booking.StartRouteStation.Station.Longitude,
+                            Latitude = x.Booking.StartRouteStation.Station.Latitude
                         },
                         EndStation = new()
                         {
                             Code = x.Booking.EndRouteStation.Station.Code,
                             Name = x.Booking.EndRouteStation.Station.Name,
                             Address = x.Booking.EndRouteStation.Station.Address,
-                            Index = x.Booking.EndRouteStation.Index
+                            Index = x.Booking.EndRouteStation.Index,
+                            Longitude = x.Booking.StartRouteStation.Station.Longitude,
+                            Latitude = x.Booking.StartRouteStation.Station.Latitude
                         },
                         Distance = CalculateDistanceFromStartToEndStation(x.Booking.StartRouteStation.Route.RouteStations, x.Booking.StartRouteStation.StationId, x.Booking.EndRouteStation.StationId, x.Booking.StartRouteStation.Route.Distance),
                         User = new()
@@ -175,7 +179,9 @@ namespace API.Services
                         UserName = x.User.Name,
                         Type = BookingDetailDrivers.StepScheduleType.PickUp,
                         Index = x.StartStation.Index,
-                        Time = x.Time
+                        Time = x.Time,
+                        Longitude = x.StartStation.Longitude,
+                        Latitude = x.StartStation.Latitude
                     });
 
                     var endStepInSchedules = schedules.Select(x => new StepScheduleViewModel()
@@ -187,7 +193,9 @@ namespace API.Services
                         UserName = x.User.Name,
                         Type = BookingDetailDrivers.StepScheduleType.DropOff,
                         Index = x.EndStation.Index,
-                        Time = x.Time
+                        Time = x.Time,
+                        Longitude = x.StartStation.Longitude,
+                        Latitude = x.StartStation.Latitude
                     });
 
                     var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Time).ThenBy(x => x.Index)

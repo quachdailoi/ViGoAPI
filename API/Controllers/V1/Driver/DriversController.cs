@@ -9,6 +9,7 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using FirebaseAdmin.Auth;
+using FirebaseAdmin.Messaging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -519,6 +520,47 @@ namespace API.Controllers.V1.Driver
                 );
 
             return ApiResult(response);
+        }
+
+        [HttpPut("booking-detail-drivers/start")]
+        public async Task<IActionResult> StartRouteRoutine([FromBody] StartBookingDetailDriversRequest request)
+        {
+            var driver = LoggedInUser;
+
+            // start update all booking detail drivers - trip status to Start
+            var result = await AppServices.BookingDetailDriver.StartBookingDetailDrivers(request.BookingDetailDriverCodes);
+            
+            if (!result) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to start booking detail driver."
+            });
+
+            var fcmTokens = AppServices.BookingDetailDriver.GetUserFCMTokens(request.BookingDetailDriverCodes);
+
+            // send notification to users
+            var message = new FirebaseAdmin.Messaging.Message()
+            {
+                Data = null,
+                Notification = new FirebaseAdmin.Messaging.Notification()
+                {
+                    Title = "ViGo Notification",
+                    Body = "Your driver is coming to pick you up."
+                }
+            };
+
+            AppServices.Notification.SendPushNotifications(message, fcmTokens);
+
+            // send signalR to users
+
+
+            // send sms to phones
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Start booking detail driver successfully."
+            });
         }
 
         /// <summary>
