@@ -319,6 +319,7 @@ namespace API.Controllers.V1
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "StartAt": "15-09-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "31-10-2022",
+        ///         "DayOfWeeks": [0, 1, 2], // 0: sunday, 1: monday, ...
         ///         "Time": "08:00:00",
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657"
         ///     }
