@@ -38,20 +38,20 @@ namespace API.Services
 
             var dates = endDate.ToDates(startDate, dayOfWeeks); 
 
-            var bookingFee = await AppServices.Pricing.CaculateBookingFee(dates.Count, feePerTrip.TotalFee);
+            var bookingFee = (await AppServices.Pricing.CaculateBookingFee(dates.Count, feePerTrip)).Item1;
 
-            feePerTrip.TotalFee = Fee.RoundToThousands(bookingFee / dates.Count);
+            feePerTrip.TotalFee = Fee.RoundToThousands(bookingFee.TotalFee / dates.Count);
 
-            bookingFee = feePerTrip.TotalFee * dates.Count;
+            bookingFee.TotalFee = feePerTrip.TotalFee * dates.Count;
 
             var discountFee = discount;
 
             return new FeeViewModel
             {
                 FeePerTrip = feePerTrip.TotalFee,
-                Fee = bookingFee,
+                Fee = bookingFee.TotalFee,
                 DiscountFee = discountFee,
-                TotalFee = bookingFee - discountFee
+                TotalFee = bookingFee.TotalFee - discountFee
             };
         }
 
@@ -87,17 +87,11 @@ namespace API.Services
 
             var dates = endDate.ToDates(startDate, dayOfWeeks);
 
-            var bookingFee = await AppServices.Pricing.CaculateBookingFee(dates.Count, feePerTrip.TotalFee);
+            feePerTrip = (await AppServices.Pricing.CaculateBookingFee(dates.Count, feePerTrip)).Item2;
 
-            feePerTrip.TotalFee = Fee.RoundToThousands(bookingFee / dates.Count);
+            //feePerTrip.TotalFee = Fee.RoundToThousands(bookingFee / dates.Count);
 
-            return new FeeViewModel
-            {
-                FeePerTrip = feePerTrip.TotalFee,
-                Fee = feePerTrip.Fee,
-                ExtraFee = feePerTrip.ExtraFee,
-                TotalFee = feePerTrip.TotalFee
-            };
+            return feePerTrip;
         }
     }
 }

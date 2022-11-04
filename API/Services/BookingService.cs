@@ -90,8 +90,9 @@ namespace API.Services
             return booking;
         }
 
-        public Task<bool> CheckIsConflictBooking(Booking booking)
-             => UnitOfWork.Bookings
+        public async Task<bool> CheckIsConflictBooking(Booking booking)
+        {
+            var bookings = await UnitOfWork.Bookings
                 .List(e =>
                     (e.Status == Bookings.Status.PendingMapping ||
                     e.Status == Bookings.Status.Started) &&
@@ -99,7 +100,29 @@ namespace API.Services
                     e.Time > booking.Time.AddMinutes(booking.Duration / 60)) &&
                     e.UserId == booking.UserId &&
                     !(e.StartAt > booking.EndAt || e.EndAt < booking.StartAt))
-                .AnyAsync();
+                .Include(e => e.BookingDetails)
+                .ToListAsync();
+
+            //// filter in server
+            if (bookings.Any())
+            {
+                var bookingDetailDateHashSet =
+                    bookings
+                    .Select(b => b.BookingDetails.Select(_b => _b.Date))
+                    .Aggregate((current, next) => current.Union(next))
+                    .ToHashSet();
+
+                var insertedBookingDetailDateHashSet =
+                    booking.BookingDetails.Select(b => b.Date).ToHashSet();
+
+                insertedBookingDetailDateHashSet.IntersectWith(bookingDetailDateHashSet);
+
+                if (insertedBookingDetailDateHashSet.Any())
+                    return true;
+            }
+
+            return false;
+        }
 
         public async Task<Response> Create(
             BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse, Response invalidVehicleTypeResponse,
@@ -155,12 +178,7 @@ namespace API.Services
                 switch (booking.PaymentMethod)
                 {
                     case Payments.PaymentMethods.Momo:
-                        //walletTransactionDto.Type = WalletTransactions.Types.BookingPaidByMomo;
                         walletTransaction.Type = WalletTransactions.Types.BookingPaidByMomo;
-
-                        //await AppServices.WalletTransaction.Update(walletTransactionDto);
-
-                        //if (walletTransactionDto == null) throw new Exception("Fail to generate transaction");
 
                         ((MomoCollectionLinkRequestDTO)paymentDto).amount = (long)booking.TotalPrice;
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = booking.Code.ToString();
@@ -176,13 +194,7 @@ namespace API.Services
                         break;
                     case Payments.PaymentMethods.ZaloPay:
 
-                        //walletTransactionDto.Type = WalletTransactions.Types.BookingPaidByZaloPay;
-
                         walletTransaction.Type = WalletTransactions.Types.BookingPaidByZaloPay;
-
-                        //await AppServices.WalletTransaction.Update(walletTransactionDto);
-
-                        //if (walletTransactionDto == null) throw new Exception("Fail to generate transaction");
 
                         var rawItem = Mapper.Map<PaymentBookingViewModel>(booking);
                         rawItem.WalletTransaction = Mapper.Map<WalletTransactionDTO>(walletTransaction);
@@ -200,30 +212,18 @@ namespace API.Services
                     case Payments.PaymentMethods.Wallet:
                         if (wallet.Balance < booking.TotalPrice) throw new Exception("Insufficient balance.");
 
-                        //walletTransactionDto.Type = WalletTransactions.Types.BookingPaid;
-                        //walletTransactionDto.Status = WalletTransactions.Status.Success;
-
                         walletTransaction.Type = WalletTransactions.Types.BookingPaid;
                         walletTransaction.Status = WalletTransactions.Status.Success;
 
-                        //wallet = await AppServices.Wallet.UpdateBalance(walletTransactionDto);
                         wallet = await AppServices.Wallet.UpdateBalance(booking.UserId, -booking.TotalPrice);
 
                         if (wallet == null) throw new Exception("Fail to pay by wallet.");
 
                         booking.Status = Bookings.Status.PendingMapping;
 
-                        //if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status.");
-
-                        //await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = booking.Id, Type = TaskItems.MappingItemTypes.Booking });
-
                         break;
                     case Payments.PaymentMethods.COD:
                         booking.Status = Bookings.Status.PendingMapping;
-
-                        //if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status.");
-
-                        //await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = booking.Id, Type = TaskItems.MappingItemTypes.Booking });
                         break;
                     default: break;
                 }

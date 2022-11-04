@@ -1,10 +1,11 @@
-﻿using Domain.Entities;
+﻿using API.Models;
+using Domain.Entities;
 
 namespace API.Services.Constract
 {
     public interface IPricingService
     {
         Task<List<Pricing>> Get();
-        Task<double> CaculateBookingFee(int totalBookingDetails, double feePerTrip);
+        Task<Tuple<FeeViewModel, FeeViewModel>> CaculateBookingFee(int totalBookingDetails, FeeViewModel feePerTrip);
     }
 }

@@ -87,7 +87,9 @@ namespace API.Services
                     route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.StartStationId) &&
                     route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.EndStationId)
                     &&
-                    route.RouteRoutines.Any(routeRoutine => routeRoutine.Status == RouteRoutines.Status.Active)
+                    route.RouteRoutines.Any(routeRoutine => 
+                        routeRoutine.Status == RouteRoutines.Status.Active && 
+                        routeRoutine.User.Vehicle.VehicleTypeId == dto.VehicleTypeId)
                     )
                 .MapTo<BookerRouteViewModel>(Mapper)
                 .ToListAsync();
