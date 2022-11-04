@@ -553,18 +553,26 @@ namespace API.Services
 
                 var mappedBookingDetails = routeRoutine.BookingDetailDrivers
                     .Select(bdr => bdr.BookingDetail)
+                    .Where(bd => bd.Date == date)
                     .ToList();
 
                 foreach (var bookingDetail in filterBookingDetails)
                 {
                     var isShared = bookingDetail.Booking.IsShared;
 
-                    if (isShared && IsPossibleMappingWithRouteRoutineWithShare(routeRoutine.StartTime, mappedBookingDetails, bookingDetail, routeStationDic) ||
-                        !isShared && IsPossibleMappingWithRouteRoutineWithoutShare(routeRoutine.StartTime, mappedBookingDetails, bookingDetail, routeStationDic))
+                    if (isShared && IsPossibleMappingWithRouteRoutineWithShare(routeRoutine.StartTime, mappedBookingDetails, bookingDetail, routeStationDic) || 
+                        IsPossibleMappingWithRouteRoutineWithoutShare(routeRoutine.StartTime, mappedBookingDetails, bookingDetail, routeStationDic))
                     {
                         bookingDetail.Status = BookingDetails.Status.Ready;
                         mappedBookingDetails.Add(bookingDetail);
                     }
+
+                    //if (isShared && IsPossibleMappingWithRouteRoutineWithShare(routeRoutine.StartTime, mappedBookingDetails, bookingDetail, routeStationDic) ||
+                    //    !isShared && IsPossibleMappingWithRouteRoutineWithoutShare(routeRoutine.StartTime, mappedBookingDetails, bookingDetail, routeStationDic))
+                    //{
+                    //    bookingDetail.Status = BookingDetails.Status.Ready;
+                    //    mappedBookingDetails.Add(bookingDetail);
+                    //}
                         
                 }
 
