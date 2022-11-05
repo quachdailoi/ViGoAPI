@@ -12,7 +12,7 @@ namespace API.Services
         {
         }
 
-        public async Task<Tuple<FeeViewModel,FeeViewModel>> CaculateBookingFee(int totalBookingDetails, FeeViewModel feePerTrip)
+        public async Task<FeeViewModel> CaculateBookingFee(int totalBookingDetails, FeeViewModel feePerTrip)
         {
             var pricings = await Get();
 
@@ -52,15 +52,13 @@ namespace API.Services
             //    fee += totalInRange * feePerTrip * (1 - discount);
             //}
 
-            var bookingFeeVM = new FeeViewModel
+            return new FeeViewModel
             {
-                FeePerTrip = feePerTrip.TotalFee,
+                FeePerTrip = feePerTrip,
                 Fee = fee,
                 DiscountFee = fee - totalFee,
                 TotalFee = totalFee
             };
-
-            return new Tuple<FeeViewModel, FeeViewModel> (bookingFeeVM, feePerTrip);
         }
 
         public Task<List<Pricing>> Get() => UnitOfWork.Pricings.Get();

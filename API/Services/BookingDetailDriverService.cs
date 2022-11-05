@@ -1,4 +1,6 @@
 ﻿using API.Extensions;
+using API.Models;
+using API.Models.DTO;
 using API.Services.Constract;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
@@ -17,7 +19,11 @@ namespace API.Services
 
         public async Task<BookingDetailDriver?> GetBookingDetailDriverByCode(string code)
         {
-            return await UnitOfWork.BookingDetailDrivers.List(x => x.Code.ToString() == code).Include(x => x.RouteRoutine).FirstOrDefaultAsync();
+            return await UnitOfWork.BookingDetailDrivers
+                .List(x => x.Code.ToString() == code)
+                .Include(x => x.RouteRoutine)
+                .ThenInclude(r => r.User)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus)
@@ -32,6 +38,30 @@ namespace API.Services
                 {
                     bookingDetail.Status = BookingDetails.Status.Completed;
                     bookingDetailDriver.BookingDetail = bookingDetail;
+
+                    var wallet = await AppServices.Wallet.GetWallet(bookingDetailDriver.RouteRoutine.UserId);
+
+                    if(wallet != null)
+                    {
+                        var transactionDto = new WalletTransactionDTO
+                        {
+                            Amount = (bookingDetail.Price + bookingDetail.DiscountPrice) * 0.2,
+                            Status = WalletTransactions.Status.Success,
+                            WalletId = wallet.Id,
+                            Type = WalletTransactions.Types.TripIncome
+                        };
+
+                        if((wallet = AppServices.Wallet.UpdateBalance(transactionDto).Result) != null)
+                            await AppServices.SignalR.SendToUserAsync(bookingDetailDriver.RouteRoutine.User.Code.ToString(), "WalletTransaction", new WalletTransactionViewModel
+                            {
+                                Amount = transactionDto.Amount,
+                                Code = transactionDto.Code,
+                                Status = transactionDto.Status,
+                                Type = transactionDto.Type,
+                                Time = wallet.WalletTransactions.Last().UpdatedAt.ToFormatString()
+                            });
+
+                    }
                 }
 
                 await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", new

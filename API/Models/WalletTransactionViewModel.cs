@@ -12,5 +12,6 @@ namespace API.Models
         public WalletTransactions.Status Status { get; set; }
         public string StatusName { get => Status.DisplayName(); }
         public string Time { get; set; }
+        public Guid? BookingCode { get; set; } = null;
     }
 }

@@ -22,7 +22,7 @@ namespace API.Services
         {
         }
 
-        public List<BookingDetail> GenerateBookingDetail(Booking booking, double feePerTrip)
+        public List<BookingDetail> GenerateBookingDetail(Booking booking, FeeViewModel feePerTrip)
         {
             List<BookingDetail> bookingDetails = new();
             for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
@@ -32,7 +32,8 @@ namespace API.Services
                     {
                         Booking = booking,
                         Date = day,
-                        Price = Fee.RoundToThousands(feePerTrip),
+                        Price = feePerTrip.TotalFee,
+                        DiscountPrice = feePerTrip.DiscountFee
                     });
             }
             return bookingDetails;
