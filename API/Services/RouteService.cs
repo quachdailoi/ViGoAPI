@@ -85,11 +85,11 @@ namespace API.Services
                 .List(route =>
                     route.Status == Routes.Status.Active &&
                     route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.StartStationId) &&
-                    route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.EndStationId) 
-                    //&& 
-                    //route.RouteRoutines.Any(routeRoutine => 
-                    //    !(routeRoutine.StartAt > dto.EndAt || routeRoutine.EndAt < dto.StartAt) &&
-                    //    (routeRoutine.StartTime <= dto.Time && routeRoutine.EndTime > dto.Time))
+                    route.RouteStations.Select(routeStation => routeStation.StationId).Contains(dto.EndStationId)
+                    &&
+                    route.RouteRoutines.Any(routeRoutine => 
+                        routeRoutine.Status == RouteRoutines.Status.Active && 
+                        routeRoutine.User.Vehicle.VehicleTypeId == dto.VehicleTypeId)
                     )
                 .MapTo<BookerRouteViewModel>(Mapper)
                 .ToListAsync();
@@ -130,7 +130,7 @@ namespace API.Services
                     routeViewModel.Stations = stations;
                     routeViewModel.Distance = distance >= 0 ? distance : routeViewModel.Distance + distance;
                     routeViewModel.Duration = duration >= 0 ? duration : routeViewModel.Duration + duration;
-                    routeViewModel.Fee = await AppServices.Fare.CaculateFeeByDistance(dto.VehicleTypeId, routeViewModel.Distance, dto.Time);
+                    routeViewModel.Fee = await AppServices.Fare.CaculateFeePerTrip(dto.VehicleTypeId, dto.StartAt, dto.EndAt, dto.DayOfWeeks, routeViewModel.Distance, dto.Time);
                 }
                 else removeRouteIdHashSet.Add(routeViewModel.Id);
             }

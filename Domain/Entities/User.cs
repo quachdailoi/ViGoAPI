@@ -21,14 +21,11 @@ namespace Domain.Entities
 
         public List<Account> Accounts { get; set; } = new();
         public List<UserRoom> UserRooms { get; set; } = new();
-
         public List<Message> Messages { get; set; } = new();
         public List<Booking> Bookings { get; set; } = new();
-
         public AppFile? File { get; set; }
         public List<PromotionUser> PromotionUsers { get; set; } = null!;
         public List<RouteRoutine> RouteRoutines { get; set; } = null!;
-        public List<BookingDetailDriver> BookingDetailDrivers { get; set; } = new();
         public Vehicle? Vehicle { get; set; } = null;
         public Wallet? Wallet { get; set; } = null;
         public List<Notification> Notifications { get; set; } = new();

@@ -22,7 +22,7 @@ namespace API.Mapper
                     opt => opt.MapFrom(
                         src => src.BookingDetailDrivers
                         .Where(bdr => bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
-                        .FirstOrDefault().Driver))
+                        .FirstOrDefault().RouteRoutine.User))
                 .ForMember(
                     dest => dest.DriverStatus,
                     opt => opt.MapFrom(

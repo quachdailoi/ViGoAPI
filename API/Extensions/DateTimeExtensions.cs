@@ -32,6 +32,22 @@
         public static string ToFormatString(this DateOnly dateOnly) => dateOnly.ToString("dd-MM-yyyy");
         public static string ToFormatString(this DateOnly dateOnly, string format) => dateOnly.ToString(format); 
 
+        public static List<DateOnly> ToDates(this DateOnly dateOnly1, DateOnly dateOnly2, List<DayOfWeek> dayOfWeeks)
+        {
+            var fromDate = dateOnly1 <= dateOnly2 ? dateOnly1 : dateOnly2;
+            var toDate = dateOnly1 > dateOnly2 ? dateOnly1 : dateOnly2;
+
+            List<DateOnly> dates = new();
+
+            for(var date = fromDate; date <= toDate; date = date.AddDays(1))
+            {
+                if (dayOfWeeks.Contains(date.DayOfWeek))
+                    dates.Add(date);
+            }
+
+            return dates;
+        }
+
         public static DateTime ParseExactDateTime(string dateOnlyStr, string timeOnlyStr)
         {
             dateOnlyStr.TryParseExact(out DateOnly dateOnly);

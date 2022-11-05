@@ -134,8 +134,10 @@ namespace API.Services
             }
             catch
             {
-                throw new Exception($"Pay by Momo - Momo server is unavailable");
+                throw new Exception($"Linking Momo - Momo server is unavailable");
             }
+
+            if (obj.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception($"Linking Momo - {obj.message}");
 
             return obj;
         } 
@@ -150,7 +152,7 @@ namespace API.Services
             return Encryption.HashSHA256(rawSignature, secretKey);
         }
 
-        public async Task<bool> MomoRefund(long transId, long amount, string description = "")
+        public async Task<MomoRefundResponse> MomoRefund(long transId, long amount, string description = "")
         {
             var dto = new MomoRefundDTO
             {
@@ -179,9 +181,20 @@ namespace API.Services
 
             var bodyJson = JToken.Parse(body);
 
-            var resultCode = bodyJson.Value<int>("resultCode");
+            var obj = new MomoRefundResponse();
 
-            return resultCode == (int)Payments.MomoStatusCodes.Successed;
+            try
+            {
+                obj = JToken.Parse(body).ToObject<MomoRefundResponse>();
+            }
+            catch
+            {
+                throw new Exception($"Refund Momo - Momo server is unavailable");
+            }
+
+            if (obj.resultCode != (int)Payments.MomoStatusCodes.Successed) throw new Exception($"Refund Momo - {obj.message}");
+
+            return obj;
         }
 
         public async Task<bool> GetTokenUserMomoLinkingWallet(MomoLinkWalletNotificationRequest request)

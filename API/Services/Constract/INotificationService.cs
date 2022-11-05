@@ -1,10 +1,12 @@
-﻿using FirebaseAdmin.Messaging;
+﻿using API.Models.DTO;
+using FirebaseAdmin.Messaging;
 
 namespace API.Services.Constract
 {
     public interface INotificationService
     {
         Task<string> SendPushNotification(Message message);
-        void SendPushNotifications(Message message, List<string> fcmTokens);
+        Task<Domain.Entities.Notification> PushNotification(NotificationDTO dto, bool save = true);
+		void SendPushNotifications(Message message, List<string> fcmTokens);
     }
 }

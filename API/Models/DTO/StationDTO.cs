@@ -17,8 +17,8 @@ namespace API.Models.DTO
         public int StartStationId { get; set; }
         public Guid EndStationCode { get; set; }
         public int EndStationId { get; set; }
-        public Bookings.Types BookingType { get; set; } = Bookings.Types.MonthTicket;
-
+        //public Bookings.Types BookingType { get; set; } = Bookings.Types.MonthTicket;
+        public List<DayOfWeek> DayOfWeeks { get; set; } = new();
         public DateOnly StartAt { get; set; }
         public DateOnly EndAt { get; set; }
         public Guid VehicleTypeCode { get; set; }

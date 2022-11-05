@@ -14,14 +14,19 @@ namespace Domain.Shares.Enums
             VnPayIncome,
             [Description("Pay booking by Wallet")]
             BookingPaid,
-            [Description("Pay refund")]
+            [Description("Booking refund")]
             BookingRefund,
             [Description("Pay booking by Momo")]
             BookingPaidByMomo,
             [Description("Pay booking by ZaloPay")]
             BookingPaidByZaloPay,
             [Description("Pay booking by VnPay")]
-            BookingPaidByVnPay
+            BookingPaidByVnPay,
+            [Description("Booking refund Momo")]
+            BookingRefundMomo,
+            [Description("Booking refund ZaloPay")]
+            BookingRefundZaloPay,
+
         }
         public enum Status
         {

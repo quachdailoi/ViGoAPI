@@ -601,7 +601,7 @@ namespace API.Controllers.V1.Driver
                 Message = "Not found booking detail driver with this ID."
             });
 
-            if (bookingDetailDriver.DriverId != driver.Id) return ApiResult(new()
+            if (bookingDetailDriver.RouteRoutine.UserId != driver.Id) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status400BadRequest,
                 Message = "This booking detail driver not belong to this Driver."

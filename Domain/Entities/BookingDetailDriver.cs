@@ -16,9 +16,9 @@ namespace Domain.Entities
         public BookingDetailDrivers.TripStatus TripStatus { get; set; } = BookingDetailDrivers.TripStatus.NotYet;
 
         public int BookingDetailId { get; set; }
-        public int DriverId { get; set; }
+        public int RouteRoutineId { get; set; }
         
         public BookingDetail BookingDetail { get; set; }
-        public User Driver { get; set; }
+        public RouteRoutine RouteRoutine { get; set; }
     }
 }

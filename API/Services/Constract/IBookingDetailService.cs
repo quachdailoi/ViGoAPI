@@ -1,6 +1,7 @@
 ﻿using API.Models.Requests;
 using API.Models.Response;
 using Domain.Entities;
+using Domain.Shares.Enums;
 
 namespace API.Services.Constract
 {
@@ -17,6 +18,7 @@ namespace API.Services.Constract
         Task<BookingDetail?> GetById(int id);
 
         Task<bool> UpdateBookingDetail(BookingDetail bookingDetail);
+        Task<bool?> Refund(Guid code, double amount, BookingDetails.RefundTypes refundType = BookingDetails.RefundTypes.SharingTrip);
         Task SetCompletedBookingDetail();
     }
 }

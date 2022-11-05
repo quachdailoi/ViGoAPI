@@ -32,6 +32,7 @@ namespace Domain.Interfaces.UnitOfWork
         IWalletTransactionRepository WalletTransactions { get; }
         IEventRepository Events { get; }
         INotificationRepository Notifications { get; }
+        IPricingRepository Pricings { get; }
 
         Task CreateTransactionAsync();
         Task CommitAsync();

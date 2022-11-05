@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Models;
 using API.Services.Constract;
 using API.Utils;
 using AutoMapper;
@@ -11,6 +12,7 @@ namespace API.Services
     {
         public FareService(IAppServices appServices) : base(appServices)
         {
+
         }
 
         public async Task<FeeViewModel> CaculateBookingFee(Bookings.Types bookingType, int vehicleTypeId, DateOnly startDate, DateOnly endDate, double distance, TimeOnly time, double discount = 0)
@@ -18,7 +20,7 @@ namespace API.Services
             var feePerTrip = await CaculateFeeByDistance(vehicleTypeId, distance, time);
 
             var bookingFee = Fee.CaculateFeeByBookingType(bookingType, feePerTrip.TotalFee, startDate, endDate);
-
+            
             var discountFee = discount;
 
             return new FeeViewModel
@@ -27,6 +29,29 @@ namespace API.Services
                 Fee = bookingFee,
                 DiscountFee = discountFee,
                 TotalFee = bookingFee - discountFee
+            };
+        }
+
+        public async Task<FeeViewModel> CaculateBookingFee(int vehicleTypeId, DateOnly startDate, DateOnly endDate, List<DayOfWeek> dayOfWeeks, double distance, TimeOnly time, double discount = 0)
+        {
+            var feePerTrip = await CaculateFeeByDistance(vehicleTypeId, distance, time);
+
+            var dates = endDate.ToDates(startDate, dayOfWeeks); 
+
+            var bookingFee = (await AppServices.Pricing.CaculateBookingFee(dates.Count, feePerTrip)).Item1;
+
+            feePerTrip.TotalFee = Fee.RoundToThousands(bookingFee.TotalFee / dates.Count);
+
+            bookingFee.TotalFee = feePerTrip.TotalFee * dates.Count;
+
+            var discountFee = discount;
+
+            return new FeeViewModel
+            {
+                FeePerTrip = feePerTrip.TotalFee,
+                Fee = bookingFee.TotalFee,
+                DiscountFee = discountFee,
+                TotalFee = bookingFee.TotalFee - discountFee
             };
         }
 
@@ -54,6 +79,19 @@ namespace API.Services
                 ExtraFee = extraFee,
                 TotalFee = feePerTrip + extraFee
             };
+        }
+
+        public async Task<FeeViewModel> CaculateFeePerTrip(int vehicleTypeId, DateOnly startDate, DateOnly endDate, List<DayOfWeek> dayOfWeeks, double distance, TimeOnly time)
+        {
+            var feePerTrip = await CaculateFeeByDistance(vehicleTypeId, distance, time);
+
+            var dates = endDate.ToDates(startDate, dayOfWeeks);
+
+            feePerTrip = (await AppServices.Pricing.CaculateBookingFee(dates.Count, feePerTrip)).Item2;
+
+            //feePerTrip.TotalFee = Fee.RoundToThousands(bookingFee / dates.Count);
+
+            return feePerTrip;
         }
     }
 }

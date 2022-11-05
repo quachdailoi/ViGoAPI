@@ -27,12 +27,13 @@ namespace API.Services
             List<BookingDetail> bookingDetails = new();
             for (var day = booking.StartAt; day <= booking.EndAt; day = day.AddDays(1))
             {
-                bookingDetails.Add(new BookingDetail
-                {
-                    Booking = booking,
-                    Date = day,
-                    Price = Fee.RoundToThousands(feePerTrip),
-                });
+                if(booking.DayOfWeeks.Contains(day.DayOfWeek))
+                    bookingDetails.Add(new BookingDetail
+                    {
+                        Booking = booking,
+                        Date = day,
+                        Price = Fee.RoundToThousands(feePerTrip),
+                    });
             }
             return bookingDetails;
         }
@@ -126,11 +127,11 @@ namespace API.Services
 
                     var schedules = detailsInRouteRoutine.Select(x => new ScheduleBookingDetailViewModel
                     {
-                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.DriverId == driverId)
+                        BookingDetailDriverCode = x.BookingDetailDrivers.Where(bdd => bdd.RouteRoutine.UserId == driverId)
                             .Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed)
                             .OrderByDescending(x => x.CreatedAt)
                             .Select(x => x.Code).FirstOrDefault(),
-                        TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.DriverId == driverId)
+                        TripStatus = x.BookingDetailDrivers.Where(bdd => bdd.RouteRoutine.UserId == driverId)
                             .Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed)
                             .OrderByDescending(x => x.CreatedAt)
                             .Select(x => x.TripStatus).FirstOrDefault(),
@@ -306,7 +307,7 @@ namespace API.Services
                     userId, 
                     dateFilterRequest, 
                     pagingRequest, 
-                    new List<Bookings.Status> { Bookings.Status.Completed, Bookings.Status.CancelledByBooker},
+                    new List<Bookings.Status> { Bookings.Status.Started ,Bookings.Status.Completed, Bookings.Status.CancelledByBooker},
                     new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled }, 
                     false));
 
@@ -368,5 +369,83 @@ namespace API.Services
             .Include(e => e.Booking)
             .ThenInclude(b => b.User)
             .FirstOrDefaultAsync();
+
+        public async Task<bool?> Refund(Guid code, double amount, BookingDetails.RefundTypes refundType)
+        {
+            var bookingDetail = await UnitOfWork.BookingDetails
+                .List(e => e.Code == code)
+                .Include(e => e.Booking)
+                .ThenInclude(b => b.WalletTransactions)
+                .FirstOrDefaultAsync();
+
+            if (bookingDetail == null) return null;
+
+            var wallet = await AppServices.Wallet.GetWallet(bookingDetail.Booking.UserId);
+
+            if (wallet == null) return null;
+
+            try
+            {
+                switch (bookingDetail.Booking.PaymentMethod)
+                {
+                    case Payments.PaymentMethods.Momo:
+                        var transaction = bookingDetail.Booking.WalletTransactions
+                            .Where(trans => trans.Type == WalletTransactions.Types.BookingPaidByMomo && trans.Status == WalletTransactions.Status.Success)
+                            .FirstOrDefault();
+
+                        if(transaction != null)
+                        {
+                            var txnId = long.Parse(transaction.TxnId);
+
+                            var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
+
+                            if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
+
+                            var refundTransaction = new WalletTransactionDTO
+                            {
+                                Amount = amount,
+                                BookingId = bookingDetail.BookingId,
+                                Type = WalletTransactions.Types.BookingRefund,
+                                TxnId = response.transId.ToString(),
+                                WalletId = wallet.Id,
+                                Status = WalletTransactions.Status.Success
+                            };
+
+                            await AppServices.WalletTransaction.Create(refundTransaction);
+                        }
+                        
+
+                        //return true;
+                        break;
+                    case Payments.PaymentMethods.Wallet:
+                        await AppServices.Wallet.UpdateBalance(new WalletTransactionDTO
+                        {
+                            Amount = amount,
+                            BookingId = bookingDetail.BookingId,
+                            Type = WalletTransactions.Types.BookingRefund,
+                            WalletId = wallet.Id,
+                            Status = WalletTransactions.Status.Success
+                        });
+                        break;
+                        //return true;
+                    default: return true;
+                }
+
+                await AppServices.Notification.PushNotification(new NotificationDTO
+                {
+                    EventId = Events.Types.RefundBooking,
+                    UserId = bookingDetail.Booking.UserId,
+                    Type = Notifications.Types.SpecificUser
+                });
+
+                return true;
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return false;
+        }
     }
 }
