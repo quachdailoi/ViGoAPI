@@ -12,6 +12,6 @@ namespace API.Services.Constract
         Task<BookingDetailDriver?> GetBookingDetailDriverByCode(string code);
 
         Task<bool> StartBookingDetailDrivers(string[] codes);
-        List<string> GetUserFCMTokens(string[] codes);
+        List<User> GetUsers(string[] codes);
     }
 }

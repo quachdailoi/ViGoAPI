@@ -92,19 +92,20 @@ namespace API.Services
                 //var routes = (detailsByDay.Where(bd => bd.BookingDetailDrivers.Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed).Any())).Select(x => new BookingRoutineDTO { Route = x.Booking.StartRouteStation.Route, Date = x.Date, Time = x.Booking.Time}).ToList().DistinctBy(x => x.Route.Id).ToList();
 
                 var detailRoutines = new List<BookingDetailRoutineDTO>();
-               
+
                 UnitOfWork.RouteRoutines.GetAllRouteRoutine(driverId).Include(x => x.Route).OrderBy(x => x.StartTime).ToList()
-                    .Where(x =>
+                    .Where(routine =>
                     {
-                        var details = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time).Where(bd => bd.Booking.StartRouteStation.Route.Id == x.RouteId && x.StartAt <= bd.Date && bd.Date <= x.EndAt && x.StartTime <= bd.Booking.Time && bd.Booking.Time <= x.EndTime);
-                        
+                        var details = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time)
+                            .Where(bd => bd.BookingDetailDrivers.Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled).FirstOrDefault().RouteRoutine.Id == routine.Id);
+
                         if (details.Any())
-                        detailRoutines.Add(new()
-                        {
-                            Routine = x,
-                            BookingDetails = details
-                        });
-                        
+                            detailRoutines.Add(new()
+                            {
+                                Routine = routine,
+                                BookingDetails = details
+                            });
+
                         return details.Any();
                     }).ToList();
 

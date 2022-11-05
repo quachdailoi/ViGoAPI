@@ -26,14 +26,6 @@ namespace API.SignalR
             await Groups.AddToGroupAsync(Context.ConnectionId, user.RoleName);
 
             await Clients.Client(Context.ConnectionId).SendAsync("User", user);
-
-            Console.WriteLine("---> signalR");
-        }
-
-        public async Task TestServer()
-        {
-            await Clients.All.SendAsync("Test", "Helloooo");
-            Console.WriteLine("---> signalR test");
         }
 
         [Authorize]

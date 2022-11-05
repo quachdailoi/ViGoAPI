@@ -536,7 +536,7 @@ namespace API.Controllers.V1.Driver
                 Message = "Failed to start booking detail driver."
             });
 
-            var fcmTokens = AppServices.BookingDetailDriver.GetUserFCMTokens(request.BookingDetailDriverCodes);
+            var users = AppServices.BookingDetailDriver.GetUsers(request.BookingDetailDriverCodes);
 
             // send notification to users
             var message = new FirebaseAdmin.Messaging.Message()
@@ -549,10 +549,9 @@ namespace API.Controllers.V1.Driver
                 }
             };
 
-            AppServices.Notification.SendPushNotifications(message, fcmTokens);
-
+            AppServices.Notification.SendPushNotifications(message, users.Select(x => x.FCMToken).ToList());
             // send signalR to users
-
+            await AppServices.SignalR.SendToUsersAsync(users.Select(x => x.Code.ToString()).ToList(), "WaitingForDriver", message);
 
             // send sms to phones
 

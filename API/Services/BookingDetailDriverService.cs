@@ -56,6 +56,8 @@ namespace API.Services
                     bookingDetailDriver.EndTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
                 }
 
+                // cancelled
+
                 await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", new
                 {
                     BookingDetailCode = bookingDetail.Code,
@@ -68,11 +70,11 @@ namespace API.Services
             return await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver);
         }
 
-        public List<string> GetUserFCMTokens(string[] codes)
+        public List<User> GetUsers(string[] codes)
         {
-            var fcmTokens = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString())).Select(x => x.BookingDetail.Booking.User.FCMToken).ToList();
+            var users = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString())).Select(x => x.BookingDetail.Booking.User).ToList();
 
-            return fcmTokens;
+            return users;
         }
     }
 }

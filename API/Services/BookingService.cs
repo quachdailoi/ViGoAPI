@@ -223,7 +223,7 @@ namespace API.Services
 
                         if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status."); 
 
-                        await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                        await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, booking.Id);
 
                         break;
                     case Payments.PaymentMethods.COD:
