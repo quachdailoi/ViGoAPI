@@ -182,7 +182,7 @@ namespace API.Services
 
                         ((MomoCollectionLinkRequestDTO)paymentDto).amount = (long)booking.TotalPrice;
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = booking.Code.ToString();
-                        ((MomoCollectionLinkRequestDTO)paymentDto).orderInfo = "Pay for ViGo booking";
+                        ((MomoCollectionLinkRequestDTO)paymentDto).orderInfo = $"Vigo - Pay Booking # {booking.Code}";
                         ((MomoCollectionLinkRequestDTO)paymentDto).extraData = Encryption.EncodeBase64(Mapper.Map<WalletTransactionDTO>(walletTransaction));
 
                         var momoResponse = await AppServices.Payment.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
@@ -201,6 +201,7 @@ namespace API.Services
 
                         ((ZaloCollectionLinkRequestDTO)paymentDto).amount = (long)booking.TotalPrice;
                         ((ZaloCollectionLinkRequestDTO)paymentDto).raw_item = new List<object>{rawItem};
+                        ((ZaloCollectionLinkRequestDTO)paymentDto).description = $"Vigo - Pay Booking # {((ZaloCollectionLinkRequestDTO)paymentDto).app_trans_id}";
 
                         var zaloPayResponse = await AppServices.Payment.GenerateZaloPaymentUrl((ZaloCollectionLinkRequestDTO)paymentDto);
                         if (zaloPayResponse == null) throw new Exception("Fail to generate zalopay url.");
