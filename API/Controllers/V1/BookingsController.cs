@@ -39,7 +39,6 @@ namespace API.Controllers.V1
         ///     {
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "Time": "04:30:00", // format("hh:mm:ss")
-        ///         "Type": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuaterTicket
         ///         "PaymentMethod": 1, // 0: COD, 1: Momo, 2: VNPay, 3: BankCard, 4: Wallet
         ///         "IsShared": true,
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
@@ -47,6 +46,7 @@ namespace API.Controllers.V1
         ///         "RouteCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657", // get from get route and fee api
         ///         "StartAt": "15-02-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "25-06-2022",
+        ///         "DayOfWeeks": [0, 1, 2], // 0: sunday, 1: monday, ...
         ///         "PromotionCode": "HELLO2022"
         ///     }
         /// ```
@@ -317,9 +317,9 @@ namespace API.Controllers.V1
         ///     {
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
-        ///         "BookingType": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuarterTicket
         ///         "StartAt": "15-09-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "31-10-2022",
+        ///         "DayOfWeeks": [0, 1, 2], // 0: sunday, 1: monday, ...
         ///         "Time": "08:00:00",
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657"
         ///     }
@@ -383,12 +383,12 @@ namespace API.Controllers.V1
         ///     {
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "Time": "04:30:00", // format("hh:mm:ss")
-        ///         "Type": 0, // 0: WeekTicket, 1: MonthTicket, 2: QuaterTicket
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "RouteCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657", // get from get route and fee api
         ///         "StartAt": "15-02-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "25-06-2022",
+        ///         "DayOfWeeks": [0 , 1, 2], // 0: sunday, 1: monday, ...
         ///         "PromotionCode": "HELLO2022"
         ///     }
         /// ```
@@ -474,7 +474,7 @@ namespace API.Controllers.V1
             if (dto.resultCode == (int)Payments.MomoStatusCodes.Successed)
             {
                 walletTransactionDto.Status = WalletTransactions.Status.Success;
-                walletTransactionDto.TxnId += $",{dto.transId}";
+                walletTransactionDto.TxnId = dto.transId.ToString();
 
                 var booking = await AppServices.Booking.GetByCode(Guid.Parse(dto.orderId));
 
@@ -486,7 +486,7 @@ namespace API.Controllers.V1
                         await AppServices.Booking.Update(booking);
 
                         //add job queue to map with specific driver
-                        await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                        await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = booking.Id, Type = TaskItems.MappingItemTypes.Booking });
 
                         await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
                         new
@@ -539,7 +539,11 @@ namespace API.Controllers.V1
             {
                 dynamic item = dto.parsed_data.parsed_item[0];
 
-                var booking = await AppServices.Booking.GetByCode(Guid.Parse(item.Code));
+                var booking = await AppServices.Booking.GetByCode(Guid.Parse((string)item.Code));
+                WalletTransactionDTO walletTransactionDto = item.WalletTransaction;
+
+                walletTransactionDto.Status = WalletTransactions.Status.Success;
+                walletTransactionDto.TxnId = dto.parsed_data.zp_trans_id.ToString();
 
                 if (booking != null && booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.parsed_data.amount)
                 {
@@ -549,7 +553,7 @@ namespace API.Controllers.V1
                         await AppServices.Booking.Update(booking);
 
                         //add job queue to map with specific driver
-                        await AppServices.RedisMQ.Publish(MappingBookingTask.BOOKING_QUEUE, booking.Id);
+                        await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = booking.Id, Type = TaskItems.MappingItemTypes.Booking });
 
                         await AppServices.SignalR.SendToUserAsync(booking.User.Code.ToString(), "BookingPaymentResult",
                         new
@@ -574,6 +578,8 @@ namespace API.Controllers.V1
                         });
                     }
                 }
+
+                await AppServices.WalletTransaction.Update(walletTransactionDto);
             }
         }
     }

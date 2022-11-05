@@ -15,5 +15,11 @@ namespace Domain.Shares.Enums
             Ready,
             Completed
         }
+
+        public enum RefundTypes
+        {
+            NotFoundDriver = 1,
+            SharingTrip = 2
+        }
     }
 }

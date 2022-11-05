@@ -18,7 +18,7 @@ namespace API.Services
         {
         }
 
-        public async Task<Response> GetAll(Response successResponse)
+        public async Task<Response> Get(Response successResponse)
         {
             var vehicleTypes = 
                 (await UnitOfWork.VehicleTypes
@@ -39,59 +39,39 @@ namespace API.Services
             return successResponse.SetData(vehicleTypesGrouping);
         }
 
+        public async Task<Response> GetWithFare(Response successResponse)
+        {
+            var vehicleTypes =
+                (await UnitOfWork.VehicleTypes
+                    .List(vehicleType =>
+                        vehicleType.Status == VehicleTypes.Status.Active)
+                    .MapTo<VehicleTypeWithFareViewModel>(Mapper)
+                    .ToListAsync());
+
+            var vehicleTypesGrouping = vehicleTypes
+                .GroupBy(e => new { Type = e.Type, TypeName = e.TypeName })
+                .Select(e => new
+                {
+                    Type = e.Key.Type,
+                    TypeName = e.Key.TypeName,
+                    VehicleTypes = e.ToList()
+                });
+
+            return successResponse.SetData(vehicleTypesGrouping);
+        }
+
         public Task<VehicleType?> GetByCode(Guid code) =>
             UnitOfWork.VehicleTypes
             .List(vehicleType => 
                 vehicleType.Code == code && vehicleType.Status == VehicleTypes.Status.Active)
             .FirstOrDefaultAsync();
-        private Task<List<VehicleType>> GetAllWithFare() =>
-            UnitOfWork.VehicleTypes
-                    .List(vehicleType => vehicleType.Status == VehicleTypes.Status.Active)
-                    .Include(vehicleType => vehicleType.Fare)
-                    .ThenInclude(fare => fare.FareTimelines)
-                    .ToListAsync();
-        private Task SetVehicleTypeCache(out List<VehicleType> vehicleTypes)
-        {
-            vehicleTypes = GetAllWithFare().Result;
 
-            var vehicleTypeCacheStr = JsonConvert.SerializeObject(vehicleTypes, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
-
-            return Cache.SetStringAsync("vehicle_type_fares", vehicleTypeCacheStr);
-        }
-        public async Task<List<VehicleType>> GetWithFare()
-        {
-            var vehicleTypeWithFaresCacheStr = await Cache.GetStringAsync("vehicle_type_fares");
-
-            var vehicleTypeWithFares = new List<VehicleType>();
-
-            if(vehicleTypeWithFaresCacheStr == null)
-            {
-                vehicleTypeWithFares =
-                    await UnitOfWork.VehicleTypes
+        public Task<List<VehicleType>> GetWithFare() 
+            => UnitOfWork.VehicleTypes
                     .List(vehicleType => vehicleType.Status == VehicleTypes.Status.Active)
                     .Include(vehicleType => vehicleType.Fare)
                     .ThenInclude(fare => fare.FareTimelines)
                     .ToListAsync();
 
-
-
-                vehicleTypeWithFaresCacheStr = JsonConvert.SerializeObject(vehicleTypeWithFares , new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
-
-                await Cache.SetStringAsync("vehicle_type_fares", vehicleTypeWithFaresCacheStr);
-            }
-            else
-            {
-                try
-                {
-                    vehicleTypeWithFares = JsonConvert.DeserializeObject<List<VehicleType>>(vehicleTypeWithFaresCacheStr);
-                }
-                catch
-                {
-                    await SetVehicleTypeCache(out vehicleTypeWithFares);
-                }
-            }
-
-            return vehicleTypeWithFares;
-        }
     }
 }

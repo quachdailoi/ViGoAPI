@@ -72,6 +72,13 @@ namespace API.Validators
                         .GreaterThan(DateTimeOffset.Now)
                         .WithMessage("Time has passed");
                 });
+
+            RuleFor(x => x.DayOfWeeks)
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty()
+                .WithMessage("{PropertyName} must be not empty")
+                .NotNull()
+                .WithMessage("{PropertyName} must be not null");
         }
     }
 }

@@ -13,7 +13,8 @@ namespace Domain.Entities
         public double DiscountPrice { get; set; }
         public Payments.PaymentMethods PaymentMethod { get; set; } = Payments.PaymentMethods.COD;
         public Bookings.Options Option { get; set; }
-        public Bookings.Types Type { get; set; }
+        //public Bookings.Types Type { get; set; }
+        public List<DayOfWeek> DayOfWeeks { get; set; } = new();
         public bool IsShared { get; set; }
         public int StartRouteStationId { get; set; }
         public int EndRouteStationId { get; set; }
@@ -30,6 +31,7 @@ namespace Domain.Entities
         public User User { get; set; }
         public VehicleType VehicleType { get; set; }
         public List<BookingDetail> BookingDetails { get; set; } = new();
+        public List<WalletTransaction> WalletTransactions { get; set; } = new();
 
         //Promotion
         public Promotion? Promotion { get; set; } = null;

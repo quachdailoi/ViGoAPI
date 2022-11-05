@@ -17,7 +17,7 @@ namespace API.Services
 
         public async Task<BookingDetailDriver?> GetBookingDetailDriverByCode(string code)
         {
-            return await UnitOfWork.BookingDetailDrivers.List(x => x.Code.ToString() == code).FirstOrDefaultAsync();
+            return await UnitOfWork.BookingDetailDrivers.List(x => x.Code.ToString() == code).Include(x => x.RouteRoutine).FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus)

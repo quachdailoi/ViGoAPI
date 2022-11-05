@@ -5,8 +5,9 @@ namespace API.Services.Constract
 {
     public interface IVehicleTypeService
     {
-        Task<Response> GetAll(Response successResponse);
+        Task<Response> Get(Response successResponse);
         Task<VehicleType?> GetByCode(Guid Code);
         Task<List<VehicleType>> GetWithFare();
+        Task<Response> GetWithFare(Response successResponse);
     }
 }

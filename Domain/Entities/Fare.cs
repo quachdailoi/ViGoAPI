@@ -13,6 +13,7 @@ namespace Domain.Entities
         public double BasePrice { get; set; }
         public double PricePerKm { get; set; }
         public int BaseDistance { get; set; }
+        [JsonIgnore]
         public int VehicleTypeId { get; set; }
 
         [JsonIgnore]

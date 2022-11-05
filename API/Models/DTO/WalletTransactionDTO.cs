@@ -10,6 +10,7 @@ namespace API.Models.DTO
         public WalletTransactions.Types Type { get; set; }
         public WalletTransactions.Status Status { get; set; } = WalletTransactions.Status.Pending;
         public int WalletId { get; set; }
+        public int BookingId { get; set; }
         //public Wallet Wallet { get; set; }
     }
 }
