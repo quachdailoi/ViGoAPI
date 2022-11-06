@@ -2,6 +2,7 @@
 using API.Models;
 using API.Models.DTO;
 using API.Services.Constract;
+using API.Utils;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
@@ -45,7 +46,7 @@ namespace API.Services
                     {
                         var transactionDto = new WalletTransactionDTO
                         {
-                            Amount = (bookingDetail.Price + bookingDetail.DiscountPrice) * 0.2,
+                            Amount = Fee.FloorToHundreds((bookingDetail.Price + bookingDetail.DiscountPrice) * 0.2),
                             Status = WalletTransactions.Status.Success,
                             WalletId = wallet.Id,
                             Type = WalletTransactions.Types.TripIncome

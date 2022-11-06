@@ -141,6 +141,7 @@ namespace API.Services
                 case WalletTransactions.Types.ZaloPayIncome:
                 case WalletTransactions.Types.VnPayIncome:
                 case WalletTransactions.Types.BookingRefund:
+                case WalletTransactions.Types.TripIncome:
                     wallet.Balance += transactionDto.Amount;
                     break;
                 default:

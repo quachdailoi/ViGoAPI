@@ -136,6 +136,9 @@ namespace API.Services
 
             if (vehicleType == null) return invalidVehicleTypeResponse;
 
+            if (dto.IsShared && vehicleType.Type == VehicleTypes.Type.ViRide) 
+                return invalidVehicleTypeResponse.SetMessage("This vehicle type can not be applied sharing condition.");
+
             dto.VehicleTypeId = vehicleType.Id;
 
             var booking = await GenerateBooking(dto);
