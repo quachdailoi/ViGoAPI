@@ -257,5 +257,8 @@ namespace API.Services
         }
 
         public Task<bool> Update(RouteRoutine routeRoutine) => UnitOfWork.RouteRoutines.Update(routeRoutine);
-    }
+        public Task<bool> ExistAnyRoutines()
+        {
+            return UnitOfWork.RouteRoutines.GetAllRouteRoutine().AnyAsync();
+        }    }
 }

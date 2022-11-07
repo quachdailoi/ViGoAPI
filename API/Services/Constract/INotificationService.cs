@@ -7,5 +7,6 @@ namespace API.Services.Constract
     {
         Task<string> SendPushNotification(Message message);
         Task<Domain.Entities.Notification> PushNotification(NotificationDTO dto, bool save = true);
+		void SendPushNotifications(Message message, List<string> fcmTokens);
     }
 }

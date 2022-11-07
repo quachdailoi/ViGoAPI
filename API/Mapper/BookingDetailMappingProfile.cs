@@ -57,6 +57,20 @@ namespace API.Mapper
                     otp => otp.MapFrom(
                         src => src.Booking.User))
                 .IncludeBase<BookingDetail, BookingDetailViewModel>();
+
+            CreateMap<BookingDetail, IncomeViewModel>()
+                .ForMember(
+                    dest => dest.BookingDetailCode,
+                    opt => opt.MapFrom(
+                        src => src.Code
+                    )
+                ).
+                ForMember(
+                    dest => dest.DateTime,
+                    opt => opt.MapFrom(
+                        src => src.Date.ToDateTime((TimeOnly)src.BookingDetailDrivers.Where(x => x.TripStatus == BookingDetailDrivers.TripStatus.Completed).FirstOrDefault().EndTime)
+                    )
+                );
         }
     }
 }

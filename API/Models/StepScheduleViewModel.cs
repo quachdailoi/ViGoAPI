@@ -9,6 +9,8 @@ namespace API.Models
         public BookingDetailDrivers.TripStatus TripStatus { get; set; }
         public Guid StationCode { get; set; }
         public string StationName { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
         public string UserName { get; set; }
         public BookingDetailDrivers.StepScheduleType Type { get; set; }
 

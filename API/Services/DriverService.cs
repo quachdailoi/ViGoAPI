@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Services.Constract;
@@ -67,6 +68,28 @@ namespace API.Services
                 duplicateReponse,
                 failedResponse
             );
+        }
+
+        public TotalIncomeViewModel GetIncome(int driverId, string? fromDateStr, string? toDateStr, PagingRequest request)
+        {
+            var bookingDetails = UnitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId)
+                    .Where(x => x.Status == BookingDetails.Status.Completed);
+
+            if (toDateStr != null && fromDateStr != null)
+            {
+                var fromDate = DateTimeExtensions.ParseExactDateOnly(fromDateStr);
+                var toDate = DateTimeExtensions.ParseExactDateOnly(toDateStr);
+                
+                bookingDetails = bookingDetails.Where(x => fromDate <= x.Date && x.Date <= toDate);
+            }
+
+            var incomes = bookingDetails.MapTo<IncomeViewModel>(Mapper)
+                    .Paging(page: request.Page, pageSize: request.PageSize);
+
+            return new TotalIncomeViewModel
+            {
+                Incomes = incomes
+            };
         }
     }
 }
