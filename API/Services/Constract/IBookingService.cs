@@ -20,6 +20,7 @@ namespace API.Services.Constract
         Task<Booking?> GetByCode(Guid code);
         Task<Booking?> MappingBooking(int bookingId);
         Task<RouteRoutine?> MappingRouteRoutine(int routeRoutineId);
+        Task<BookingDetail?> MappingBookingDetail(int bookingDetailId);
         Task<bool> CheckIsConflictBooking(Booking booking);
         Task<bool?> Refund(Guid code);
     }

@@ -16,7 +16,11 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.Time,
                     opt => opt.MapFrom(
-                        src => src.UpdatedAt.ToFormatString()));
+                        src => src.UpdatedAt.ToFormatString()))
+                .ForMember(
+                    dest => dest.BookingCode,
+                    opt => opt.MapFrom(
+                        src => src.Booking.Code));
 
             CreateMap<WalletTransaction, WalletTransactionDTO>().ReverseMap();
 

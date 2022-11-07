@@ -1,6 +1,8 @@
-﻿using API.Models.DTO;
+﻿using API.Extensions;
+using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Settings;
 using API.SignalR.Constract;
 using API.Utils;
 using AutoMapper;
@@ -36,7 +38,7 @@ namespace API.Controllers.V1
         ///     PUT api/wallets/top-up 
         ///     {
         ///         "Amount": 200000,
-        ///         "Type": 1, // 1: Momo, 2: VNPay, 3: ZaloPay
+        ///         "Type": 1, // 1: Momo, 2: ZaloPay
         ///     }
         /// ```
         /// </remarks>
@@ -63,6 +65,12 @@ namespace API.Controllers.V1
                     paymentDto = new MomoCollectionLinkRequestDTO
                     {
                         ipnUrl = $"{GetControllerContextUri()}/top-up/ipn/momo"
+                    };
+                    break;
+                case AffiliateParties.PartyTypes.ZaloPay:
+                    paymentDto = new ZaloCollectionLinkRequestDTO
+                    {
+                        callback_url = $"{GetControllerContextUri()}/top-up/ipn/zalopay"
                     };
                     break;
                 default:
@@ -143,6 +151,49 @@ namespace API.Controllers.V1
             }
 
             
+            return NoContent();
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)] // api for momo return result of transaction
+        [HttpPost("top-up/ipn/zalopay")]
+        [AllowAnonymous]
+        public async Task<IActionResult> HandleTopUpWalletZaloPayPaymentIPN([FromBody] JsonElement request)
+        {
+            var dto = JsonSerializer.Deserialize<ZaloPayPaymentNotificationRequest>(request.GetRawText());           
+
+            var key2 = Configuration.Get(ZaloPaySettings.Key2);
+
+            if (dto == null || string.IsNullOrEmpty(key2)) NoContent();
+
+            var reqmac = Encryption.HMACSHA256(dto.data, key2);
+
+            if (reqmac == dto.mac)
+            {
+                var walletTransactionDto = dto.parsed_data.parsed_item<WalletTransactionDTO>()[0];
+                
+                walletTransactionDto.Status = WalletTransactions.Status.Success;
+                walletTransactionDto.TxnId = dto.parsed_data.zp_trans_id.ToString();
+
+                var wallet = await AppServices.Wallet.UpdateBalance(walletTransactionDto);
+
+                if (wallet != null)
+                {
+                    await _signalRService.SendToUserAsync(wallet.User.Code.ToString(), "TopUpResult",
+                        new
+                        {
+                            TransactionCode = walletTransactionDto.Code,
+                            Amount = walletTransactionDto.Amount,
+                            IsSuccess = walletTransactionDto.Status == WalletTransactions.Status.Success
+                        });
+
+                    return Ok(new
+                    {
+                        return_code = 1,
+                        return_message = "Successfully"
+                    });
+                }
+            }
+
             return NoContent();
         }
 

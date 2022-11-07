@@ -25,7 +25,7 @@ namespace API.Services
 
             return new FeeViewModel
             {
-                FeePerTrip = feePerTrip.TotalFee,
+                FeePerTrip = feePerTrip,
                 Fee = bookingFee,
                 DiscountFee = discountFee,
                 TotalFee = bookingFee - discountFee
@@ -38,7 +38,7 @@ namespace API.Services
 
             var dates = endDate.ToDates(startDate, dayOfWeeks); 
 
-            var bookingFee = (await AppServices.Pricing.CaculateBookingFee(dates.Count, feePerTrip)).Item1;
+            var bookingFee = await AppServices.Pricing.CaculateBookingFee(dates.Count, feePerTrip);
 
             feePerTrip.TotalFee = Fee.RoundToThousands(bookingFee.TotalFee / dates.Count);
 
@@ -48,7 +48,7 @@ namespace API.Services
 
             return new FeeViewModel
             {
-                FeePerTrip = feePerTrip.TotalFee,
+                FeePerTrip = feePerTrip,
                 Fee = bookingFee.TotalFee,
                 DiscountFee = discountFee,
                 TotalFee = bookingFee.TotalFee - discountFee
@@ -87,7 +87,7 @@ namespace API.Services
 
             var dates = endDate.ToDates(startDate, dayOfWeeks);
 
-            feePerTrip = (await AppServices.Pricing.CaculateBookingFee(dates.Count, feePerTrip)).Item2;
+            feePerTrip = (await AppServices.Pricing.CaculateBookingFee(dates.Count, feePerTrip)).FeePerTrip;
 
             //feePerTrip.TotalFee = Fee.RoundToThousands(bookingFee / dates.Count);
 

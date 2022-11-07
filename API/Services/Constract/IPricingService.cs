@@ -6,6 +6,6 @@ namespace API.Services.Constract
     public interface IPricingService
     {
         Task<List<Pricing>> Get();
-        Task<Tuple<FeeViewModel, FeeViewModel>> CaculateBookingFee(int totalBookingDetails, FeeViewModel feePerTrip);
+        Task<FeeViewModel> CaculateBookingFee(int totalBookingDetails, FeeViewModel feePerTrip);
     }
 }
