@@ -12,6 +12,7 @@ namespace API.Services.Constract
         Task<BookingDetailDriver?> GetBookingDetailDriverByCode(string code);
 
         Task<bool> StartBookingDetailDrivers(string[] codes);
+        Task<bool?> CancelBookingDetailDrivers(string[] codes, string reason);
         List<User> GetUsers(string[] codes);
     }
 }

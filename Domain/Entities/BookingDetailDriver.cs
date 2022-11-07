@@ -13,6 +13,7 @@ namespace Domain.Entities
         public Guid Code { get; set; } = Guid.NewGuid();
         public TimeOnly? StartTime { get; set; } = null;
         public TimeOnly? EndTime { get; set; } = null;
+        public string CancelledReason { get; set; } = string.Empty;
         public BookingDetailDrivers.TripStatus TripStatus { get; set; } = BookingDetailDrivers.TripStatus.NotYet;
 
         public int BookingDetailId { get; set; }

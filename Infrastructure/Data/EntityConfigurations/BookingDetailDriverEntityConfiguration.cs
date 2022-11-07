@@ -28,6 +28,9 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.EndTime)
                 .HasColumnName("end_time");
 
+            builder.Property(e => e.CancelledReason)
+                .HasColumnName("cancelled_reason");
+
             builder.Property(e => e.RouteRoutineId)
                 .HasColumnName("route_routine_id")
                 .IsRequired();

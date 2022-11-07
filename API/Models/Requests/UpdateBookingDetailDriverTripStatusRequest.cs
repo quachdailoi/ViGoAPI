@@ -12,4 +12,10 @@ namespace API.Models.Requests
     {
         public string[] BookingDetailDriverCodes { get; set; }
     }
+
+    public class CancelBookingDetailDriversRequest
+    {
+        public string[] BookingDetailDriverCodes { get; set; }
+        public string Reason { get; set; } = string.Empty;
+    }
 }

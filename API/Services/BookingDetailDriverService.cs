@@ -2,6 +2,7 @@
 using API.Models;
 using API.Models.DTO;
 using API.Services.Constract;
+using API.TaskQueues.TaskResolver;
 using API.Utils;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
@@ -37,6 +38,38 @@ namespace API.Services
             return UnitOfWork.BookingDetailDrivers.UpdateRange(updatedDetailDrivers);
         }
 
+        public async Task<bool?> CancelBookingDetailDrivers(string[] codes, string reason)
+        {
+            var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString()));
+
+            var updatedDetailDrivers = detailDrivers
+                .Include(x => x.BookingDetail)
+                .ToList()
+                .Select(x => 
+                { 
+                    x.TripStatus = BookingDetailDrivers.TripStatus.Cancelled; 
+                    x.BookingDetail.Status = BookingDetails.Status.Pending;
+                    x.BookingDetail.MessageRoom = null;
+                    x.BookingDetail.MessageRoomId = null;
+                    x.CancelledReason = reason;
+                    return x; 
+                })
+                .ToArray();
+
+            if(updatedDetailDrivers.Any(x => x.BookingDetail.Date <= DateTimeExtensions.NowDateOnly) || updatedDetailDrivers.Count() != codes.Count())
+                return null;
+
+            if (!UnitOfWork.BookingDetailDrivers.UpdateRange(updatedDetailDrivers).Result)
+                return false;
+
+            foreach (var updatedDetailDriver in updatedDetailDrivers)
+            {
+                await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = updatedDetailDriver.BookingDetailId, Type = TaskItems.MappingItemTypes.BookingDetail });
+            }
+
+            return true;
+        }
+
         public async Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus)
         {
             bookingDetailDriver.TripStatus = tripStatus;
@@ -56,35 +89,42 @@ namespace API.Services
 
             if (bookingDetail != null)
             {
-                if (tripStatus == BookingDetailDrivers.TripStatus.Completed)
+                switch (tripStatus)
                 {
-                    bookingDetail.Status = BookingDetails.Status.Completed;
-                    bookingDetailDriver.BookingDetail = bookingDetail;
-					bookingDetailDriver.EndTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
+                    case BookingDetailDrivers.TripStatus.PickedUp:
+                        bookingDetail.Status = BookingDetails.Status.Started;
+                        bookingDetailDriver.BookingDetail = bookingDetail;
+                        bookingDetailDriver.StartTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
+                        break;
+                    case BookingDetailDrivers.TripStatus.Completed:
+                        bookingDetail.Status = BookingDetails.Status.Completed;
+                        bookingDetailDriver.BookingDetail = bookingDetail;
+                        bookingDetailDriver.EndTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
 
-                    var wallet = await AppServices.Wallet.GetWallet(bookingDetailDriver.RouteRoutine.UserId);
+                        var wallet = await AppServices.Wallet.GetWallet(bookingDetailDriver.RouteRoutine.UserId);
 
-                    if(wallet != null)
-                    {
-                        var transactionDto = new WalletTransactionDTO
+                        if (wallet != null)
                         {
-                            Amount = Fee.FloorToHundreds((bookingDetail.Price + bookingDetail.DiscountPrice) * 0.2),
-                            Status = WalletTransactions.Status.Success,
-                            WalletId = wallet.Id,
-                            Type = WalletTransactions.Types.TripIncome
-                        };
-
-                        if((wallet = AppServices.Wallet.UpdateBalance(transactionDto).Result) != null)
-                            await AppServices.SignalR.SendToUserAsync(bookingDetailDriver.RouteRoutine.User.Code.ToString(), "WalletTransaction", new WalletTransactionViewModel
+                            var transactionDto = new WalletTransactionDTO
                             {
-                                Amount = transactionDto.Amount,
-                                Code = transactionDto.Code,
-                                Status = transactionDto.Status,
-                                Type = transactionDto.Type,
-                                Time = wallet.WalletTransactions.Last().UpdatedAt.ToFormatString()
-                            });
+                                Amount = Fee.FloorToHundreds((bookingDetail.Price + bookingDetail.DiscountPrice) * 0.2),
+                                Status = WalletTransactions.Status.Success,
+                                WalletId = wallet.Id,
+                                Type = WalletTransactions.Types.TripIncome
+                            };
 
-                    }
+                            if ((wallet = AppServices.Wallet.UpdateBalance(transactionDto).Result) != null)
+                                await AppServices.SignalR.SendToUserAsync(bookingDetailDriver.RouteRoutine.User.Code.ToString(), "WalletTransaction", new WalletTransactionViewModel
+                                {
+                                    Amount = transactionDto.Amount,
+                                    Code = transactionDto.Code,
+                                    Status = transactionDto.Status,
+                                    Type = transactionDto.Type,
+                                    Time = wallet.WalletTransactions.Last().UpdatedAt.ToFormatString()
+                                });
+
+                        }
+                        break;
                 }
 
                 // cancelled
