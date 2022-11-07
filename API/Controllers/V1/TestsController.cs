@@ -13,6 +13,8 @@ using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Text.Json;
 
 namespace API.Controllers.V1
@@ -75,14 +77,27 @@ namespace API.Controllers.V1
 
             //return Ok(response);
 
-            return Ok(await AppServices.VehicleType.GetWithFare());
+            var obj = new List<TestObject> { new TestObject
+            {
+                Name = "asdasd",
+                Age = 12
+            }};
+
+            var json = JsonConvert.SerializeObject(obj);
+
+            var arr = JsonConvert.DeserializeObject<List<object>>(json);
+
+            TestObject testObj = JsonConvert.DeserializeObject<TestObject>(arr[0].ToString());
+
+            return Ok();
+
+            //return Ok(await AppServices.VehicleType.GetWithFare());
         }
 
-        [HttpPost("zalopay/ipn")]
-        public IActionResult TestIPN([FromBody] JsonElement request)
+        public class TestObject
         {
-            var dto = JsonSerializer.Deserialize<MomoPaymentNotificationRequest>(request.GetRawText());
-            return Ok(dto);
+            public string Name { get; set; }
+            public int Age { get; set; }
         }
 
         [HttpPost("dump/drivers")]

@@ -22,11 +22,12 @@ namespace Domain.Shares.Enums
             BookingPaidByZaloPay,
             [Description("Pay booking by VnPay")]
             BookingPaidByVnPay,
-            [Description("Booking refund Momo")]
+            [Description("Refund booking by Momo")]
             BookingRefundMomo,
-            [Description("Booking refund ZaloPay")]
+            [Description("Refund booking by ZaloPay")]
             BookingRefundZaloPay,
-
+            [Description("Get income from trip")]
+            TripIncome
         }
         public enum Status
         {
