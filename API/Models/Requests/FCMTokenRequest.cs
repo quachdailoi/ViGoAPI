@@ -2,6 +2,6 @@
 {
     public class FCMTokenRequest
     {
-        public string FCMToken { get; set; }
+        public string? FCMToken { get; set; }
     }
 }

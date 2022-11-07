@@ -43,7 +43,7 @@ namespace API.Services
 
             var bookingDetail = await AppServices.BookingDetail.GetById(bookingDetailDriver.BookingDetailId);
 
-            if (bookingDetail == null) throw new Exception("Something wrong, not found booking detail of this driver.");
+            if (bookingDetail == null) throw new Exception("Something went wrong, not found booking detail of this driver.");
 
             var today = DateTimeExtensions.NowDateOnly;
             var bookingDetailDate = bookingDetail.Date;
@@ -91,7 +91,7 @@ namespace API.Services
 
                 await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", new
                 {
-                    BookingDetailCode = bookingDetail.Code,
+                    BookingDetailDriverCode = bookingDetailDriver.Code,
                     TripStatus = tripStatus,
                     TripStatusName = tripStatus.DisplayName()
                 });

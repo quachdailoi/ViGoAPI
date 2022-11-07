@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Twilio.Rest.Api.V2010.Account;
+using static Domain.Shares.Enums.BookingDetailDrivers;
 
 namespace API.Controllers.V1.Driver
 {
@@ -551,7 +552,16 @@ namespace API.Controllers.V1.Driver
 
             AppServices.Notification.SendPushNotifications(message, users.Select(x => x.FCMToken).ToList());
             // send signalR to users
-            await AppServices.SignalR.SendToUsersAsync(users.Select(x => x.Code.ToString()).ToList(), "WaitingForDriver", message);
+            for(int i = 0; i < users.Count; i++)
+            {
+                var userCode = users[0].Code.ToString();
+                await AppServices.SignalR.SendToUserAsync(userCode, "TripStatus", new
+                {
+                    BookingDetailDriverCode = request.BookingDetailDriverCodes[i],
+                    TripStatus = TripStatus.Start,
+                    TripStatusName = "Start"
+                });
+            }
 
             // send sms to phones
 

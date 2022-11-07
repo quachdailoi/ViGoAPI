@@ -714,7 +714,7 @@ namespace API.Controllers.V1.Booker
             var userVM = LoggedInUser;
 
             var user = AppServices.User.GetUserById(userVM.Id).FirstOrDefault();
-            if (request != null) user.FCMToken = request.FCMToken;
+            if (request != null && request.FCMToken != null) user.FCMToken = request.FCMToken;
 
             var rs = await AppServices.User.UpdateUser(user);
             if (rs) Logger.LogError("Update FCM Token fail.");
