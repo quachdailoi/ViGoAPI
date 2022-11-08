@@ -5,6 +5,7 @@ using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Responses;
 using API.Services.Constract;
+using API.TaskQueues.TaskResolver;
 using API.Utils;
 using AutoMapper;
 using Domain.Entities;
@@ -366,7 +367,7 @@ namespace API.Services
         public async Task<bool?> Refund(Guid code, double amount, BookingDetails.RefundTypes refundType)
         {
             var bookingDetail = await UnitOfWork.BookingDetails
-                .List(e => e.Code == code)
+                .List(e => e.Code == code && e.Status == BookingDetails.Status.PendingRefund)
                 .Include(e => e.Booking)
                 .ThenInclude(b => b.WalletTransactions)
                 .FirstOrDefaultAsync();
@@ -441,9 +442,65 @@ namespace API.Services
             return false;
         }
 
-        public Task CheckingMapping()
+        public async Task CheckingMappingStatus()
         {
-            throw new NotImplementedException();
+            var theFollowingDay = DateTimeExtensions.NowDateOnly.AddDays(1);
+
+            var bookingDetails = UnitOfWork.BookingDetails
+                .List(e => e.Date == theFollowingDay && e.Status == BookingDetails.Status.Pending)
+                .Include(e => e.Booking)
+                .ThenInclude(b => b.User)
+                .ToList()
+                .Select(e =>
+                {
+                    e.Status = BookingDetails.Status.PendingRefund;
+                    return e;
+                })
+                .ToArray();
+
+            if (bookingDetails.Any() && UnitOfWork.BookingDetails.UpdateRange(bookingDetails).Result)
+            {
+                foreach (var bookingDetail in bookingDetails)
+                {
+                    await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "BookingDetailMapping", new
+                    {
+                        BookingDetailCode = bookingDetail.Code,
+                        MappingStatus = false,
+                        Message = "Can not find driver for your trip in next day. Refund is in process."
+                    });
+                    await AppServices.RedisMQ.Publish(RefundBookingTask.REFUND_QUEUE, new RefundItemDTO
+                    {
+                        Amount = bookingDetail.Price,
+                        Code = bookingDetail.Code,
+                        Type = TaskItems.RefundItemTypes.BookingDetail
+                    });
+                }
+            }
+            else Logger<BookingDetailDriverService>().LogError("Error: Booking detail null -> cannot update booking detail status to pending refund");
+        }
+
+        public async Task CheckingExistTripInDay()
+        {
+            var today = DateTimeExtensions.NowDateOnly;
+
+            HashSet<Guid> userCodes = new();
+
+            var bookingDetails = await UnitOfWork.BookingDetails
+                .List(e => e.Date == today && e.Status == BookingDetails.Status.Ready)
+                .Include(e => e.Booking)
+                .ThenInclude(b => b.User)
+                .Include(e => e.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet))
+                .ThenInclude(bdr => bdr.RouteRoutine)
+                .ThenInclude(r => r.User)
+                .ToListAsync();
+
+            foreach(var bookingDetail in bookingDetails)
+            {
+                userCodes.Add(bookingDetail.Booking.User.Code);
+                userCodes.Add(bookingDetail.BookingDetailDrivers.First().RouteRoutine.User.Code);
+            }
+
+            await AppServices.SignalR.SendToUsersAsync(userCodes.Select(code => code.ToString()).ToList(), "TripOfToday", "Today you have trip to complete.");
         }
     }
 }
