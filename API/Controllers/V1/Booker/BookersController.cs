@@ -738,7 +738,7 @@ namespace API.Controllers.V1.Booker
         /// <remarks>
         /// ```
         /// Sample request:
-        ///     PUT api/drivers/booking-detail/rating-and-feedback
+        ///     PUT api/bookers/booking-detail/rating-and-feedback
         ///     TripStatus: 1,
         /// ```
         /// </remarks>
@@ -750,12 +750,11 @@ namespace API.Controllers.V1.Booker
         /// </response>
         /// <response code = "500"> Fail to update Trip Status for booking detail driver.</response>
         [HttpPut("booking-detail/rating-and-feedback")]
-        public async Task<IActionResult> UpdateTripStatus([FromBody] RatingAndFeedbackRequest request)
+        public async Task<IActionResult> RatingAndFeedback([FromBody] RatingAndFeedbackRequest request)
         {
             var booker = LoggedInUser;
 
             var bookingDetailOfBooker = await AppServices.BookingDetail.GetBookingDetailOfBookerByCode(request.BookingDetailCode, booker.Id);
-
 
             if (bookingDetailOfBooker == null) return ApiResult(new()
             {
@@ -784,6 +783,32 @@ namespace API.Controllers.V1.Booker
             {
                 StatusCode = StatusCodes.Status200OK,
                 Message = "Give rating and feedback successfully."
+            });
+        }
+
+        /// <summary>
+        ///     List all notifications.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/bookers/notifications
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Get notification Successfully.</response>
+        /// <response code = "500"> Fail to get notifications.</response>
+        [HttpGet("notifications")]
+        public IActionResult GetNotifications([FromQuery] PagingRequest pagingRequest, [FromQuery]DateFilterRequest dateFilterRequest)
+        {
+            var booker = LoggedInUser;
+
+            var notificationsPaging = AppServices.Notification.GetNotificationsOfUser(booker.Id, pagingRequest, dateFilterRequest);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Get notifications successfully.",
+                Data = notificationsPaging
             });
         }
     }

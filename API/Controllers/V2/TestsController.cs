@@ -98,6 +98,13 @@ namespace API.Controllers.V2
                 {
                     Title = request.Title,
                     Body = request.Message
+                },
+                Apns = new()
+                {
+                    Aps = new()
+                    {
+                        Sound = "notification.mp3"
+                    }
                 }
             };
 

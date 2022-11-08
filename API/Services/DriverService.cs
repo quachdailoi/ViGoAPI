@@ -70,7 +70,7 @@ namespace API.Services
             );
         }
 
-        public TotalIncomeViewModel GetIncome(int driverId, string? fromDateStr, string? toDateStr, PagingRequest request)
+        public TotalIncomeViewModel GetIncome(int driverId, string? fromDateStr, string? toDateStr)
         {
             var bookingDetails = UnitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId)
                     .Where(x => x.Status == BookingDetails.Status.Completed);
@@ -83,8 +83,8 @@ namespace API.Services
                 bookingDetails = bookingDetails.Where(x => fromDate <= x.Date && x.Date <= toDate);
             }
 
-            var incomes = bookingDetails.MapTo<IncomeViewModel>(Mapper)
-                    .Paging(page: request.Page, pageSize: request.PageSize);
+            var incomes = bookingDetails.MapTo<IncomeViewModel>(Mapper);
+                    //.Paging(page: request.Page, pageSize: request.PageSize);
 
             return new TotalIncomeViewModel
             {

@@ -280,18 +280,9 @@ namespace API.Services
                 bookingDetails.OrderBy(e => e.Date).ThenBy(e => e.Booking.Time):
                 bookingDetails.OrderByDescending(e => e.Date).ThenByDescending(e => e.Booking.Time);
 
-            var paging = bookingDetails.Paging(page: pagingRequest.Page, pageSize: pagingRequest.PageSize);
-
-            var result = new PagingViewModel<List<BookerBookingDetailViewModel>>()
-            {
-                Items = await paging.Items.MapTo<BookerBookingDetailViewModel>(Mapper, AppServices).ToListAsync(),
-                TotalItemsCount = paging.TotalItemsCount,
-                Page = paging.Page,
-                PageSize = paging.PageSize,
-                TotalPagesCount = paging.TotalPagesCount
-            };
-
-            return result;
+            var paging = bookingDetails.PagingMap<BookingDetail, BookerBookingDetailViewModel>(Mapper, page: pagingRequest.Page, pageSize: pagingRequest.PageSize, AppServices);
+            
+            return paging;
         }
 
         public async Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest,Response successResponse)
@@ -433,7 +424,7 @@ namespace API.Services
                     default: return true;
                 }
 
-                await AppServices.Notification.PushNotification(new NotificationDTO
+                await AppServices.Notification.PushNotificationSignalR(new NotificationDTO
                 {
                     EventId = Events.Types.RefundBooking,
                     UserId = bookingDetail.Booking.UserId,

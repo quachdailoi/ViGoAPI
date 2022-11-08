@@ -19,6 +19,9 @@ namespace Domain.Shares.Enums
             RefundBooking = 3,
             RefundBookingDetail = 4,
             Promotion = 5,
+            StartTrip = 6,
+            PickedUp = 7,
+            Completed = 8
         }
 
         public enum Status
