@@ -26,7 +26,7 @@ namespace Domain.Shares.Enums
             Started,
             Completed,
             CancelledByBooker,
-            CancelledBySystem,
+            PendingRefund,
             RefundCompleted
         }
 

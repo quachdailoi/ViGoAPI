@@ -64,6 +64,8 @@ namespace Infrastructure.Data
             new PricingSeeder(builder);
 
             new NotificationSeeder(builder);
+
+            new SettingSeeder(builder);
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)
@@ -177,6 +179,9 @@ namespace Infrastructure.Data
 
             new PricingEntityConfiguration()
                 .Configure(builder.Entity<Pricing>());
+
+            new SettingEntityConfiguration()
+                .Configure(builder.Entity<Setting>());
         }
 
         public DbSet<Account> Accounts { get; set; }
@@ -208,5 +213,6 @@ namespace Infrastructure.Data
         public DbSet<Event> Events { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Pricing> Pricings { get; set; }
+        public DbSet<Setting> Settings { get; set; }
     }
 }

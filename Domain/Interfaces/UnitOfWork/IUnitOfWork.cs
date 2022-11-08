@@ -33,6 +33,7 @@ namespace Domain.Interfaces.UnitOfWork
         IEventRepository Events { get; }
         INotificationRepository Notifications { get; }
         IPricingRepository Pricings { get; }
+        ISettingRepository Settings { get; }
 
         Task CreateTransactionAsync();
         Task CommitAsync();

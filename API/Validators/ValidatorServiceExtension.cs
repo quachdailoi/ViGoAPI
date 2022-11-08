@@ -17,6 +17,7 @@ namespace API.Validators
             services.AddScoped<IValidator<GetProvisionalBookingRequest>, GetProvisionalBookingRequestValidator>();
             services.AddScoped<IValidator<WalletTopUpRequest>, WalletTopUpRequestValidator>();
             services.AddScoped<IValidator<RatingAndFeedbackRequest>, RatingAndFeedBackRequestValidator>();
+            services.AddScoped<IValidator<CancelBookingDetailDriversRequest>, CancelBookingDetailDriversRequestValidator>();
         }
     }
 }

@@ -42,6 +42,7 @@ namespace Infrastructure.Data.UnitOfWork
         public IEventRepository Events { get; }
         public INotificationRepository Notifications { get; }
         public IPricingRepository Pricings { get; }
+        public ISettingRepository Settings { get; }
 
         public UnitOfWork(
             AppDbContext dbContext, 
@@ -74,7 +75,8 @@ namespace Infrastructure.Data.UnitOfWork
             IWalletTransactionRepository walletTransactionRepository,
             IEventRepository eventRepository,
             INotificationRepository notificationRepository,
-            IPricingRepository pricingRepository)
+            IPricingRepository pricingRepository,
+            ISettingRepository settingRepository)
         {
             _dbContext = dbContext;
 
@@ -107,6 +109,7 @@ namespace Infrastructure.Data.UnitOfWork
             Events = eventRepository;
             Notifications = notificationRepository;
             Pricings = pricingRepository;
+            Settings = settingRepository;
 
             _logger = loggerFactory.CreateLogger("logs");
         }
