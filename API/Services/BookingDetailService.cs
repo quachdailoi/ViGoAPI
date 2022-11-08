@@ -301,7 +301,7 @@ namespace API.Services
                     dateFilterRequest, 
                     pagingRequest,
                     new List<Bookings.Status> { Bookings.Status.PendingMapping, Bookings.Status.Started},
-                    new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready }));
+                    new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready , BookingDetails.Status.Started}));
 
         public async Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse)
             => successResponse.SetData(
@@ -310,7 +310,7 @@ namespace API.Services
                     dateFilterRequest, 
                     pagingRequest, 
                     new List<Bookings.Status> { Bookings.Status.Started ,Bookings.Status.Completed, Bookings.Status.CancelledByBooker},
-                    new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled }, 
+                    new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled}, 
                     false));
 
         public Task<BookingDetail?> GetBookingDetailOfBookerByCode(string code, int bookerId)
