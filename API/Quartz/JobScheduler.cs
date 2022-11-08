@@ -7,7 +7,10 @@ namespace API.Quartz
 {
     public interface IJobScheduler
     {
-        Task StartMessageJob<T>(string room, object message, string cronSchedule) where T : IMessageJob;
+        Task StartMessageJob<T>(string room, object message, string cronSchedule) where T : IJob;
+        Task UpdateDriverRatingJob(string cronSchedule);
+        Task CheckingMappingJob(string cronSchedule);
+        Task NotifyTripJob(string cronSchedule);
     }
     public class JobScheduler : IJobScheduler
     {
@@ -17,7 +20,8 @@ namespace API.Quartz
             _scheduler = new StdSchedulerFactory().GetScheduler().Result;
             _scheduler.JobFactory = jobFactory;
         }
-        public async Task StartMessageJob<T>(string room, object message, string cronSchedule) where T : IMessageJob
+
+        public async Task StartMessageJob<T>(string room, object message, string cronSchedule) where T : IJob
         {
             JobDataMap dataMap = new();
 
@@ -38,6 +42,21 @@ namespace API.Quartz
 
             await _scheduler.ScheduleJob(jobDetail, trigger);
             await _scheduler.Start();
+        }
+
+        public Task UpdateDriverRatingJob(string cronSchedule)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CheckingMappingJob(string cronSchedule)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task NotifyTripJob(string cronSchedule)
+        {
+            throw new NotImplementedException();
         }
     }
 }
