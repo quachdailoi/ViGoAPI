@@ -434,9 +434,10 @@ namespace API.Services
 
                 var orderedRouteRoutines = rawOrderedRouteRoutines
                     .OrderBy(routeRoutine => routeRoutine.BookingDetailDrivers.Count)
+                    .ThenByDescending(routeRoutine => routeRoutine.User.Rating)
+                    .ThenBy(routeRoutine => routeRoutine.User.CancelledTripRate)
                     .ToList();
 
-                //then order by driver point
 
                 var mappedBookingDetailsDic = orderedRouteRoutines.ToDictionary(
                     key => key.Id, 
@@ -622,9 +623,9 @@ namespace API.Services
 
             var orderedRouteRoutines = routeRoutines
                     .OrderBy(routeRoutine => routeRoutine.BookingDetailDrivers.Count)
+                    .ThenByDescending(routeRoutine => routeRoutine.User.Rating)
+                    .ThenBy(routeRoutine => routeRoutine.User.CancelledTripRate)
                     .ToList();
-
-            //then order by driver point
 
             var mappedBookingDetailsDic = orderedRouteRoutines.ToDictionary(
                 key => key.Id,
