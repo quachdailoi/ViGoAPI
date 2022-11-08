@@ -51,6 +51,7 @@ namespace API.Services
         public IWalletTransactionService WalletTransaction => Load<IWalletTransactionService>();
         public INotificationService Notification => Load<INotificationService>();
         public IPricingService Pricing => Load<IPricingService>();
+        public ISettingService Setting => Load<ISettingService>();
 
         private T Load<T>() where T : class => Provider.GetRequiredService<T>();
     }

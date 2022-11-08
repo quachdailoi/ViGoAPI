@@ -21,5 +21,6 @@ namespace API.Services.Constract
         Task<bool> UpdateBookingDetail(BookingDetail bookingDetail);
         Task<bool?> Refund(Guid code, double amount, BookingDetails.RefundTypes refundType = BookingDetails.RefundTypes.SharingTrip);
         Task SetCompletedBookingDetail();
+        Task CheckingMapping();
     }
 }

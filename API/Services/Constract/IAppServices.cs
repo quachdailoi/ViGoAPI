@@ -42,5 +42,6 @@ namespace API.Services.Constract
         ISignalRService SignalR { get; }
         INotificationService Notification { get; }
         IPricingService Pricing { get; }
+        ISettingService Setting { get; }
     }
 }

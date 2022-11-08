@@ -449,5 +449,10 @@ namespace API.Services
 
             return false;
         }
+
+        public Task CheckingMapping()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

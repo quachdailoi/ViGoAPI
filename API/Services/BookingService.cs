@@ -21,6 +21,7 @@ namespace API.Services
     {
         public BookingService(IAppServices appServices) : base(appServices)
         {
+
         }
 
         private async Task<Booking> GenerateBooking(BookingDTO dto)
@@ -271,8 +272,9 @@ namespace API.Services
             var curBookingStartStation = routeStationDic[bookingDetail.Booking.StartRouteStationId];
             var timeArriveCurBookingStartStation = routeRoutineStartTime.AddMinutes(curBookingStartStation.DurationFromFirstStationInRoute / 60);
 
+            var allowedMappingTimeRange = double.Parse(AppServices.Setting.GetValue(Settings.AllowedMappingTimeRange).Result ?? "3");
 
-            return timeArriveCurBookingStartStation.ToTimeSpan(bookingDetail.Booking.Time).TotalMinutes <= Bookings.AllowedMappingTimeRange;
+            return timeArriveCurBookingStartStation.ToTimeSpan(bookingDetail.Booking.Time).TotalMinutes <= allowedMappingTimeRange;
         }
 
         private bool IsSatisfiedSlotCondition(List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)

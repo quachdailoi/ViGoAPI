@@ -105,9 +105,11 @@ namespace API.Services
 
                         if (wallet != null)
                         {
+                            var tradeDiscount = double.Parse(AppServices.Setting.GetValue(Settings.TradeDiscount).Result ?? "0.2");
+
                             var transactionDto = new WalletTransactionDTO
                             {
-                                Amount = Fee.FloorToHundreds((bookingDetail.Price + bookingDetail.DiscountPrice) * 0.2),
+                                Amount = Fee.FloorToHundreds((bookingDetail.Price + bookingDetail.DiscountPrice) * (1-tradeDiscount)),
                                 Status = WalletTransactions.Status.Success,
                                 WalletId = wallet.Id,
                                 Type = WalletTransactions.Types.TripIncome
