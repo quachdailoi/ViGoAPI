@@ -17,8 +17,8 @@ namespace Domain.Shares.Enums
         public enum PartyTypes
         {
             Momo = 1,
-            VNPay = 2,
-            ZaloPay = 3
+            VNPay = 3,
+            ZaloPay = 2
         }
     }
 }

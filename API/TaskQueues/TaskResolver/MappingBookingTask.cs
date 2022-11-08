@@ -51,10 +51,6 @@ namespace API.TaskQueues.TaskResolver
                                     if (!_appService.Booking.Update(booking).Result)
                                         throw new Exception("Fail to update booking after mapping");
                                 }
-                                else
-                                {
-                                    //throw new Exception("Exist null booking in mapping task");
-                                }
                                 break;
                             case TaskItems.MappingItemTypes.RouteRoutine:
                                 var routeRoutine = await _appService.Booking.MappingRouteRoutine(item.Id);
@@ -62,6 +58,14 @@ namespace API.TaskQueues.TaskResolver
                                 {
                                     if(!_appService.RouteRoutine.Update(routeRoutine).Result)
                                         throw new Exception("Fail to update route routine after mapping");
+                                }
+                                break;
+                            case TaskItems.MappingItemTypes.BookingDetail:
+                                var bookingDetail = await _appService.Booking.MappingBookingDetail(item.Id);
+                                if(bookingDetail != null)
+                                {
+                                    if(!_appService.BookingDetail.UpdateBookingDetail(bookingDetail).Result)
+                                        throw new Exception("Fail to update booking detail after re-mapping");
                                 }
                                 break;
                         }

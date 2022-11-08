@@ -98,6 +98,25 @@ namespace Infrastructure.Data.Repositories
             return false;
         }
 
+        public virtual async Task<bool> UpdateRange(T[] entities)
+        {
+            try
+            {
+                if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))
+                {
+                    entities = entities.Select(entity => { ((IBaseEntity)entity).UpdatedAt = DateTimeOffset.Now; return entity; }).ToArray();
+                }
+                DbSet.UpdateRange(entities);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "{Repo} Update Range function error.", typeof(T));
+            }
+            return false;
+        }
+
         public async Task<List<T>> Add(List<T> entities)
         {
             try

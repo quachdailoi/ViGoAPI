@@ -10,5 +10,9 @@ namespace API.Services.Constract
         Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus);
 
         Task<BookingDetailDriver?> GetBookingDetailDriverByCode(string code);
+
+        Task<bool> StartBookingDetailDrivers(string[] codes);
+        Task<bool?> CancelBookingDetailDrivers(string[] codes, string reason);
+        List<User> GetUsers(string[] codes);
     }
 }

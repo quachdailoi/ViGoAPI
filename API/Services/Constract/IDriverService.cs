@@ -23,5 +23,7 @@ namespace API.Services.Constract
             Response duplicateReponse,
             Response failedResponse
         );
+
+        TotalIncomeViewModel GetIncome(int driverId, string? fromDate, string? toDate, PagingRequest request);
     }
 }

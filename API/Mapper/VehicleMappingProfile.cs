@@ -12,6 +12,12 @@ namespace API.Mapper
         {
             CreateMap<VehicleType, VehicleTypeViewModel>();
 
+            CreateMap<VehicleType, VehicleTypeWithFareViewModel>();
+
+            CreateMap<Fare, FareViewModel>();
+
+            CreateMap<FareTimeline, FareTimeLineViewModel>();
+
             CreateMap<Vehicle, VehicleViewModel>()
                 .ForMember(
                     dest => dest.Type,

@@ -79,7 +79,7 @@ namespace API.Models.DTO
         }
 
         [MaxLength(256)]
-        public string description { get => $"Vigo - Pay Booking # {app_trans_id}"; }
+        public string description { get; set; }
 
         [MaxLength(1024)]
         public string embed_data { get; private set; } = "{}";

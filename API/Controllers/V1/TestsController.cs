@@ -13,6 +13,8 @@ using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Text.Json;
 
 namespace API.Controllers.V1
@@ -64,42 +66,38 @@ namespace API.Controllers.V1
         [AllowAnonymous]
         public async Task<IActionResult> Test([FromQuery] int number)
         {
-            //var uri = GetControllerContextUri();
-            //var routers = ControllerContext.RouteData.Routers;
-            //await _redisMQMessage.Publish("number",number);
-
-            //TimeOnly startTime = new TimeOnly(12, 10);
-            //TimeOnly endTime = new TimeOnly(12, 15);
-
-
-
-            //var momoRequestType = Payments.MomoRequestType.CaptureWallet.DisplayName();
-
-            var dto = new ZaloCollectionLinkRequestDTO
-            {
-                amount = 50000,
-                //order_id = 1,
-                callback_url = GetControllerContextUri() + "/zalopay/ipn"
-            };
-
-            var response = await AppServices.Payment.GenerateZaloPaymentUrl(dto);
-
-            return Ok(response);
-
-            //return Ok(new
+            //var dto = new ZaloCollectionLinkRequestDTO
             //{
-            //    DateTime = DateTime.Now,
-            //    DateTimeUTC = DateTime.UtcNow,
-            //    DateTimeOffset = DateTimeOffset.Now,
-            //    DateOffSetUTC = DateTimeOffset.UtcNow
-            //});
+            //    amount = 50000,
+            //    //order_id = 1,
+            //    callback_url = GetControllerContextUri() + "/zalopay/ipn"
+            //};
+
+            //var response = await AppServices.Payment.GenerateZaloPaymentUrl(dto);
+
+            //return Ok(response);
+
+            var obj = new List<TestObject> { new TestObject
+            {
+                Name = "asdasd",
+                Age = 12
+            }};
+
+            var json = JsonConvert.SerializeObject(obj);
+
+            var arr = JsonConvert.DeserializeObject<List<object>>(json);
+
+            TestObject testObj = JsonConvert.DeserializeObject<TestObject>(arr[0].ToString());
+
+            return Ok();
+
+            //return Ok(await AppServices.VehicleType.GetWithFare());
         }
 
-        [HttpPost("zalopay/ipn")]
-        public IActionResult TestIPN([FromBody] JsonElement request)
+        public class TestObject
         {
-            var dto = JsonSerializer.Deserialize<MomoPaymentNotificationRequest>(request.GetRawText());
-            return Ok(dto);
+            public string Name { get; set; }
+            public int Age { get; set; }
         }
 
         [HttpPost("dump/drivers")]

@@ -11,6 +11,6 @@ namespace Domain.Interfaces.Repositories
     {
         IQueryable<RouteRoutine> GetActiveRoutines(int driverId);
 
-        IQueryable<RouteRoutine> GetAllRouteRoutine(int driverId);
+        IQueryable<RouteRoutine> GetAllRouteRoutine(int? driverId = null);
     }
 }

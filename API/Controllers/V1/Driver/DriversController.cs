@@ -9,11 +9,13 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using FirebaseAdmin.Auth;
+using FirebaseAdmin.Messaging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Twilio.Rest.Api.V2010.Account;
+using static Domain.Shares.Enums.BookingDetailDrivers;
 
 namespace API.Controllers.V1.Driver
 {
@@ -521,6 +523,55 @@ namespace API.Controllers.V1.Driver
             return ApiResult(response);
         }
 
+        [HttpPut("booking-detail-drivers/start")]
+        public async Task<IActionResult> StartRouteRoutine([FromBody] StartBookingDetailDriversRequest request)
+        {
+            var driver = LoggedInUser;
+
+            // start update all booking detail drivers - trip status to Start
+            var result = await AppServices.BookingDetailDriver.StartBookingDetailDrivers(request.BookingDetailDriverCodes);
+            
+            if (!result) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to start booking detail driver."
+            });
+
+            var users = AppServices.BookingDetailDriver.GetUsers(request.BookingDetailDriverCodes);
+
+            // send notification to users
+            var message = new FirebaseAdmin.Messaging.Message()
+            {
+                Data = null,
+                Notification = new FirebaseAdmin.Messaging.Notification()
+                {
+                    Title = "ViGo Notification",
+                    Body = "Your driver is coming to pick you up."
+                }
+            };
+
+            AppServices.Notification.SendPushNotifications(message, users.Select(x => x.FCMToken).ToList());
+            // send signalR to users
+            for(int i = 0; i < users.Count; i++)
+            {
+                var userCode = users[0].Code.ToString();
+                await AppServices.SignalR.SendToUserAsync(userCode, "TripStatus", new
+                {
+                    BookingDetailDriverCode = request.BookingDetailDriverCodes[i],
+                    TripStatus = TripStatus.Start,
+                    TripStatusName = "Start"
+                });
+            }
+
+            // send sms to phones
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Start booking detail driver successfully."
+            });
+        }
+
         /// <summary>
         ///     Update trip status of booking detail driver.
         /// </summary>
@@ -584,6 +635,59 @@ namespace API.Controllers.V1.Driver
             {
                 StatusCode = StatusCodes.Status200OK,
                 Message = "Update trip status for booking detail driver successfully."
+            });
+        }
+
+        /// <summary>
+        ///     Get driver's income by day paging.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/drivers/incomes
+        ///     Page: 1,
+        ///     PageSize: 3,
+        ///     FromDate: ...,
+        ///     ToDate: ...
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Get imcomes of driver successfully.</response>
+        [HttpGet("incomes")]
+        public async Task<IActionResult> GetIncome([FromQuery] PagingRequest pagingRequest, [FromQuery] DateFilterRequest dateFilterRequest)
+        {
+            var driver = LoggedInUser;
+
+            var incomes = AppServices.Driver.GetIncome(driver.Id, dateFilterRequest.FromDate, dateFilterRequest.ToDate, pagingRequest);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Get Driver's income success fully",
+                Data = incomes,
+            });
+        }
+
+        [HttpPut("booking-detail-driver/cancel")]
+        public async Task<IActionResult> CancelTrip([FromBody] CancelBookingDetailDriversRequest request)
+        {
+            var result = await AppServices.BookingDetailDriver.CancelBookingDetailDrivers(request.BookingDetailDriverCodes, request.Reason);
+
+            if (!result.HasValue) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "All booking detail driver's date must be existed and after today."
+            });
+
+            if (!result.Value) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to cancel booking detail driver."
+            });
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Cancel booking detail driver successfully."
             });
         }
     }

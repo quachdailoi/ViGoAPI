@@ -59,18 +59,33 @@ namespace API.Services
 
                         ((MomoCollectionLinkRequestDTO)paymentDto).amount = (long)walletTransaction.Amount;
                         ((MomoCollectionLinkRequestDTO)paymentDto).orderId = walletTransaction.Code.ToString();
-                        ((MomoCollectionLinkRequestDTO)paymentDto).orderInfo = "Top up ViGo Wallet";
+                        ((MomoCollectionLinkRequestDTO)paymentDto).orderInfo = "ViWallet - Top up";
                         ((MomoCollectionLinkRequestDTO)paymentDto).extraData = Encryption.EncodeBase64(Mapper.Map<WalletTransactionDTO>(walletTransaction));
 
 
-                        var response = await AppServices.Payment.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
+                        var momoResponse = await AppServices.Payment.GenerateMomoPaymentUrl((MomoCollectionLinkRequestDTO)paymentDto);
 
-                        if (response == null) throw new Exception();
+                        if (momoResponse == null) throw new Exception();
 
                         dataResponse = new
                         {
-                            PayUrl = response.deeplink,
-                            WebUrl = response.payUrl
+                            PayUrl = momoResponse.deeplink,
+                            WebUrl = momoResponse.payUrl
+                        };
+                        break;
+                    case WalletTransactions.Types.ZaloPayIncome:
+                        ((ZaloCollectionLinkRequestDTO)paymentDto).amount = (long)walletTransaction.Amount;
+                        ((ZaloCollectionLinkRequestDTO)paymentDto).raw_item = new List<object> { Mapper.Map<WalletTransactionDTO>(walletTransaction) };
+                        ((ZaloCollectionLinkRequestDTO)paymentDto).description = "ViWallet - Top up";
+
+                        var zaloPayResponse = await AppServices.Payment.GenerateZaloPaymentUrl((ZaloCollectionLinkRequestDTO)paymentDto);
+
+                        if (zaloPayResponse == null) throw new Exception();
+
+                        dataResponse = new
+                        {
+                            PayUrl = zaloPayResponse.order_url,
+                            ZpTransToken = zaloPayResponse.zp_trans_token
                         };
                         break;
                     default:
@@ -88,6 +103,16 @@ namespace API.Services
             return successResponse.SetData(dataResponse);
         }
 
+        public async Task<Wallet?> UpdateBalance(int userId, double amount)
+        {
+            var wallet = await GetWallet(userId);
+
+            if (wallet == null) return null;
+
+            wallet.Balance += amount;
+
+            return UnitOfWork.Wallets.Update(wallet).Result ? wallet : null;
+        }
         public async Task<Wallet?> UpdateBalance(WalletTransactionDTO transactionDto)
         {
             var wallet = await UnitOfWork.Wallets
@@ -116,6 +141,7 @@ namespace API.Services
                 case WalletTransactions.Types.ZaloPayIncome:
                 case WalletTransactions.Types.VnPayIncome:
                 case WalletTransactions.Types.BookingRefund:
+                case WalletTransactions.Types.TripIncome:
                     wallet.Balance += transactionDto.Amount;
                     break;
                 default:

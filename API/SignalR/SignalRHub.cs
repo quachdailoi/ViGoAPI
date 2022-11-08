@@ -1,6 +1,7 @@
 ﻿using API.JwtFeatures;
 using API.Models;
 using API.SignalR.Constract;
+using Domain.Entities;
 using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;

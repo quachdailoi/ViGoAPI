@@ -17,7 +17,8 @@ namespace Domain.Shares.Enums
         public enum MappingItemTypes
         {
             Booking = 1,
-            RouteRoutine = 2
+            RouteRoutine = 2,
+            BookingDetail = 3
         }
     }
 }

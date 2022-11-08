@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,7 @@ namespace Infrastructure.Data.Repositories
         public WalletTransactionRepository(AppDbContext dbContext, ILogger<GenericRepository<WalletTransaction>> logger) : base(dbContext, logger)
         {
         }
+
+        public Task<WalletTransaction> GetByCode(Guid code) => List(e => e.Code == code).FirstOrDefaultAsync();
     }
 }

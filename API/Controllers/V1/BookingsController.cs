@@ -1,4 +1,5 @@
 ﻿using API.Extensions;
+using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
@@ -39,7 +40,7 @@ namespace API.Controllers.V1
         ///     {
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "Time": "04:30:00", // format("hh:mm:ss")
-        ///         "PaymentMethod": 1, // 0: COD, 1: Momo, 2: VNPay, 3: BankCard, 4: Wallet
+        ///         "PaymentMethod": 1, // 0: COD, 1: Momo, 2: VNPay, 3: BankCard, 4: Wallet, 5: ZaloPay
         ///         "IsShared": true,
         ///         "StartStationCode": "352f7023-91c0-4201-b7b8-f9919f1181d9",
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
@@ -116,27 +117,27 @@ namespace API.Controllers.V1
                                                     invalidRouteResponse: new()
                                                     {
                                                         Message = "Route is not exist.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     invalidStationResponse: new()
                                                     {
                                                         Message = "Stations are not exist.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     invalidVehicleTypeResponse: new()
                                                     {
                                                         Message = "Vehicle type is not exist.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     duplicationResponse: new()
                                                     {
                                                         Message = "You have booked at this time in an another booking. Check again!",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     invalidPromotionResponse: new()
                                                     {
                                                         Message = "Promotion code is not available.",
-                                                        StatusCode = StatusCodes.Status200OK
+                                                        StatusCode = StatusCodes.Status400BadRequest
                                                     },
                                                     notAvailableResponse: new()
                                                     {
@@ -319,6 +320,7 @@ namespace API.Controllers.V1
         ///         "EndStationCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "StartAt": "15-09-2022", // format("dd-MM-yyyy")
         ///         "EndAt": "31-10-2022",
+        ///         "DayOfWeeks": [0, 1, 2], // 0: sunday, 1: monday, ...
         ///         "Time": "08:00:00",
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657"
         ///     }
@@ -524,21 +526,25 @@ namespace API.Controllers.V1
 
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpPost("ipn/zalopay")]
-        public async Task HandleBookingZaloPayPaymentIPN([FromBody] JsonElement request)
+        public async Task<IActionResult> HandleBookingZaloPayPaymentIPN([FromBody] JsonElement request)
         {
             var dto = JsonSerializer.Deserialize<ZaloPayPaymentNotificationRequest>(request.GetRawText());
 
             var key2 = Configuration.Get(ZaloPaySettings.Key2);
 
-            if (dto == null || string.IsNullOrEmpty(key2)) return;
+            if (dto == null || string.IsNullOrEmpty(key2)) return NoContent();
 
             var reqmac = Encryption.HMACSHA256(dto.data, key2);
 
             if (reqmac == dto.mac)
             {
-                dynamic item = dto.parsed_data.parsed_item[0];
+                var item = dto.parsed_data.parsed_item<PaymentBookingViewModel>()[0];
 
-                var booking = await AppServices.Booking.GetByCode(Guid.Parse(item.Code));
+                var booking = await AppServices.Booking.GetByCode(item.Code);
+                WalletTransactionDTO walletTransactionDto = item.WalletTransaction;
+
+                walletTransactionDto.Status = WalletTransactions.Status.Success;
+                walletTransactionDto.TxnId = dto.parsed_data.zp_trans_id.ToString();
 
                 if (booking != null && booking.Status == Bookings.Status.Unpaid && booking.TotalPrice == dto.parsed_data.amount)
                 {
@@ -573,7 +579,16 @@ namespace API.Controllers.V1
                         });
                     }
                 }
+
+                await AppServices.WalletTransaction.Update(walletTransactionDto);
+
+                return Ok(new
+                {
+                    return_code = 1,
+                    return_message = "Successfully"
+                });
             }
+            return NoContent();
         }
     }
 }

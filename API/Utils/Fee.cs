@@ -16,6 +16,8 @@ namespace API.Utils
             { Bookings.Types.QuaterTicket, new BookingTypeDetail { Discount = 0.03, TempTotalDate = 31 + 28 + 31}}
         };
         public static double RoundToThousands(double fee) => Math.Ceiling(fee / 1000) * 1000;
+        public static double FloorToHundreds(double fee) => Math.Floor(fee / 100) * 100;
+        public static double FloorToThousands(double fee) => Math.Floor(fee / 1000) * 1000;
         public static double CaculateFeeByBookingType(Bookings.Types bookingType, double feePerTrip, DateOnly startDate, DateOnly endDate)
         {
             var bookingTypeDetail = FeeDiscountByBookingType[bookingType];

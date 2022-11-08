@@ -13,6 +13,7 @@ namespace Domain.Shares.Enums
             Cancelled,
             Pending,
             Ready,
+            Started,
             Completed
         }
 

@@ -37,6 +37,8 @@ namespace API.Models
         public string? Name { get; set; }
         public Guid Code { get; set; }
         public string? Address { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
 
         [JsonIgnore]
         public int Index { get; set; }

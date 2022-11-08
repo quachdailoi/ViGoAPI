@@ -16,5 +16,6 @@ namespace API.Services.Constract
         Task<dynamic> GetMappedBookingDetailDriverByRouteRoutine();
         Task<List<RouteRoutine>> GetRouteRoutineFitBookingCondition(Booking booking);
         Task<bool> Update(RouteRoutine routeRoutine);
+        Task<bool> ExistAnyRoutines();
     }
 }

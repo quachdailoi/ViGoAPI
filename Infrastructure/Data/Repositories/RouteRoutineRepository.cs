@@ -22,9 +22,13 @@ namespace Infrastructure.Data.Repositories
                     .Where(x => x.Status == RouteRoutines.Status.Active);
         }
 
-        public IQueryable<RouteRoutine> GetAllRouteRoutine(int driverId)
+        public IQueryable<RouteRoutine> GetAllRouteRoutine(int? driverId = null)
         {
-            return List().Where(x => x.UserId == driverId);
+
+            if (driverId != null) 
+                return List().Where(x => x.UserId == driverId);
+
+            return List();
         }
     }
 }

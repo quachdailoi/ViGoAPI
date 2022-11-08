@@ -1,4 +1,5 @@
-﻿using API.Models.Requests;
+﻿using API.Models;
+using API.Models.Requests;
 using API.Models.Response;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -7,7 +8,7 @@ namespace API.Services.Constract
 {
     public interface IBookingDetailService
     {
-        List<BookingDetail> GenerateBookingDetail(Booking booking, double feePerTrip);
+        List<BookingDetail> GenerateBookingDetail(Booking booking, FeeViewModel feePerTrip);
         Task<Response> GetNextBookingDetail(int userId, Response successResponse);
         Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse);
         Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse);
