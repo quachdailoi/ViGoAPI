@@ -62,6 +62,8 @@ namespace Infrastructure.Data
             new EventSeeder(builder);
 
             new PricingSeeder(builder);
+
+            new NotificationSeeder(builder);
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)

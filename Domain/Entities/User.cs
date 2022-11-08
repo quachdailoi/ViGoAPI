@@ -18,6 +18,10 @@ namespace Domain.Entities
         public int? FileId { get; set; }
 
         public string FCMToken { get; set; }
+        public double? Rating { get; set; } = null;
+        public double CancelledTripRate { get; set; }
+        public int SuddenlyCancelledTrips { get; set; }
+
 
         public List<Account> Accounts { get; set; } = new();
         public List<UserRoom> UserRooms { get; set; } = new();

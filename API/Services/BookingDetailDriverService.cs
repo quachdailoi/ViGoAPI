@@ -55,9 +55,12 @@ namespace API.Services
             var now = DateTimeExtensions.NowTimeOnly;
             var bookingDetailTime = bookingDetail.Booking.Time;
 
-            if (tripStatus == BookingDetailDrivers.TripStatus.PickedUp || tripStatus == BookingDetailDrivers.TripStatus.Completed)
-                if (today < bookingDetailDate || now < bookingDetailTime) throw new Exception("This booking detail of driver doesn't occur today so cannot set status PickedUp and Completed for it.");
+            //if (tripStatus == BookingDetailDrivers.TripStatus.PickedUp )
+            //    if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(-10)) throw new Exception("Invalid time to set status PickedUp for it.");
 
+            //if (tripStatus ==  BookingDetailDrivers.TripStatus.Completed)
+            //    if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(3)) throw new Exception("Invalid time to set status Completed for it.");
+            
             if (bookingDetail != null)
             {
                 if (tripStatus == BookingDetailDrivers.TripStatus.Completed)
@@ -87,7 +90,6 @@ namespace API.Services
                                 Type = transactionDto.Type,
                                 Time = wallet.WalletTransactions.Last().UpdatedAt.ToFormatString()
                             });
-
                     }
                 }
 

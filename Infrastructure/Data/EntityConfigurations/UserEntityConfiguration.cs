@@ -51,6 +51,16 @@ namespace Infrastructure.Data.EntityConfigurations
                 .IsRequired(false)
                 .HasColumnName("fcm_token");
 
+            builder.Property(e => e.Rating)
+                .IsRequired(false)
+                .HasColumnName("rating");
+
+            builder.Property(e => e.CancelledTripRate)
+                .HasColumnName("cancelled_trip_rate");
+
+            builder.Property(e => e.SuddenlyCancelledTrips)
+                .HasColumnName("suddenly_cancelled_trips");
+
             builder.HasIndex(e => e.Code).IsUnique();
         }
     }

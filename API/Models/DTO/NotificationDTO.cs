@@ -5,6 +5,7 @@ namespace API.Models.DTO
     public class NotificationDTO : BaseDTO
     {
         public Guid Code { get; set; } = Guid.NewGuid();
+        public string? Token { get; set; }
         public string Description { get; set; } = string.Empty;
         public Notifications.Types Type { get; set; }
         public object? Data { get; set; } = null;
