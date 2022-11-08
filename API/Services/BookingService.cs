@@ -780,7 +780,7 @@ namespace API.Services
                     default: return true;
                 }
 
-                await AppServices.Notification.PushNotification(new NotificationDTO
+                await AppServices.Notification.PushNotificationSignalR(new NotificationDTO
                 {
                     EventId = Events.Types.RefundBooking,
                     UserId = booking.UserId,

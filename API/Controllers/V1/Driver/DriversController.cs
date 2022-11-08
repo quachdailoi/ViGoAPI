@@ -1,6 +1,7 @@
 ﻿using API.Extensions;
 using API.JwtFeatures;
 using API.Models;
+using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
@@ -538,7 +539,7 @@ namespace API.Controllers.V1.Driver
             });
 
             var users = AppServices.BookingDetailDriver.GetUsers(request.BookingDetailDriverCodes);
-
+            var notiInfo = users.ToDictionary(x => x.Id, x => x.FCMToken);
             // send notification to users
             var message = new FirebaseAdmin.Messaging.Message()
             {
@@ -550,7 +551,13 @@ namespace API.Controllers.V1.Driver
                 }
             };
 
-            AppServices.Notification.SendPushNotifications(message, users.Select(x => x.FCMToken).ToList());
+            var notiDTO = new NotificationDTO()
+            {
+                EventId = Events.Types.StartTrip,
+                Type = Notifications.Types.Booker
+            };
+
+            AppServices.Notification.SendPushNotifications(notiDTO, notiInfo);
             // send signalR to users
             for(int i = 0; i < users.Count; i++)
             {
@@ -653,17 +660,43 @@ namespace API.Controllers.V1.Driver
         /// </remarks>
         /// <response code = "200"> Get imcomes of driver successfully.</response>
         [HttpGet("incomes")]
-        public async Task<IActionResult> GetIncome([FromQuery] PagingRequest pagingRequest, [FromQuery] DateFilterRequest dateFilterRequest)
+        public async Task<IActionResult> GetIncome([FromQuery] DateFilterRequest dateFilterRequest)
         {
             var driver = LoggedInUser;
 
-            var incomes = AppServices.Driver.GetIncome(driver.Id, dateFilterRequest.FromDate, dateFilterRequest.ToDate, pagingRequest);
+            var incomes = AppServices.Driver.GetIncome(driver.Id, dateFilterRequest.FromDate, dateFilterRequest.ToDate);
 
             return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status200OK,
                 Message = "Get Driver's income success fully",
                 Data = incomes,
+            });
+        }
+
+        /// <summary>
+        ///     List all notifications.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/drivers/notifications
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Get notification Successfully.</response>
+        /// <response code = "500"> Fail to get notifications.</response>
+        [HttpGet("notifications")]
+        public IActionResult GetNotifications([FromQuery] PagingRequest pagingRequest, [FromQuery] DateFilterRequest dateFilterRequest)
+        {
+            var driver = LoggedInUser;
+
+            var notificationsPaging = AppServices.Notification.GetNotificationsOfUser(driver.Id, pagingRequest, dateFilterRequest);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Get notifications successfully.",
+                Data = notificationsPaging
             });
         }
 

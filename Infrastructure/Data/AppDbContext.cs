@@ -63,6 +63,8 @@ namespace Infrastructure.Data
 
             new PricingSeeder(builder);
 
+            new NotificationSeeder(builder);
+
             new SettingSeeder(builder);
         }
 

@@ -153,8 +153,8 @@ namespace API.Services
                             Name = x.Booking.EndRouteStation.Station.Name,
                             Address = x.Booking.EndRouteStation.Station.Address,
                             Index = x.Booking.EndRouteStation.Index,
-                            Longitude = x.Booking.StartRouteStation.Station.Longitude,
-                            Latitude = x.Booking.StartRouteStation.Station.Latitude
+                            Longitude = x.Booking.EndRouteStation.Station.Longitude,
+                            Latitude = x.Booking.EndRouteStation.Station.Latitude
                         },
                         Distance = CalculateDistanceFromStartToEndStation(x.Booking.StartRouteStation.Route.RouteStations, x.Booking.StartRouteStation.StationId, x.Booking.EndRouteStation.StationId, x.Booking.StartRouteStation.Route.Distance),
                         User = new()
@@ -197,8 +197,8 @@ namespace API.Services
                         Type = BookingDetailDrivers.StepScheduleType.DropOff,
                         Index = x.EndStation.Index,
                         Time = x.Time,
-                        Longitude = x.StartStation.Longitude,
-                        Latitude = x.StartStation.Latitude
+                        Longitude = x.EndStation.Longitude,
+                        Latitude = x.EndStation.Latitude
                     });
 
                     var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Time).ThenBy(x => x.Index)
@@ -280,18 +280,9 @@ namespace API.Services
                 bookingDetails.OrderBy(e => e.Date).ThenBy(e => e.Booking.Time):
                 bookingDetails.OrderByDescending(e => e.Date).ThenByDescending(e => e.Booking.Time);
 
-            var paging = bookingDetails.Paging(page: pagingRequest.Page, pageSize: pagingRequest.PageSize);
-
-            var result = new PagingViewModel<List<BookerBookingDetailViewModel>>()
-            {
-                Items = await paging.Items.MapTo<BookerBookingDetailViewModel>(Mapper, AppServices).ToListAsync(),
-                TotalItemsCount = paging.TotalItemsCount,
-                Page = paging.Page,
-                PageSize = paging.PageSize,
-                TotalPagesCount = paging.TotalPagesCount
-            };
-
-            return result;
+            var paging = bookingDetails.PagingMap<BookingDetail, BookerBookingDetailViewModel>(Mapper, page: pagingRequest.Page, pageSize: pagingRequest.PageSize, AppServices);
+            
+            return paging;
         }
 
         public async Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest,Response successResponse)
@@ -301,7 +292,7 @@ namespace API.Services
                     dateFilterRequest, 
                     pagingRequest,
                     new List<Bookings.Status> { Bookings.Status.PendingMapping, Bookings.Status.Started},
-                    new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready }));
+                    new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready , BookingDetails.Status.Started}));
 
         public async Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse)
             => successResponse.SetData(
@@ -310,7 +301,7 @@ namespace API.Services
                     dateFilterRequest, 
                     pagingRequest, 
                     new List<Bookings.Status> { Bookings.Status.Started ,Bookings.Status.Completed, Bookings.Status.CancelledByBooker},
-                    new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled }, 
+                    new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled}, 
                     false));
 
         public Task<BookingDetail?> GetBookingDetailOfBookerByCode(string code, int bookerId)
@@ -433,7 +424,7 @@ namespace API.Services
                     default: return true;
                 }
 
-                await AppServices.Notification.PushNotification(new NotificationDTO
+                await AppServices.Notification.PushNotificationSignalR(new NotificationDTO
                 {
                     EventId = Events.Types.RefundBooking,
                     UserId = bookingDetail.Booking.UserId,
