@@ -30,9 +30,13 @@ namespace API.Services
 
         public Task<bool> StartBookingDetailDrivers(string[] codes)
         {
-            var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString()));
+            var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString())).Include(x => x.BookingDetail);
 
-            var updatedDetailDrivers = detailDrivers.ToList().Select(x => { x.TripStatus = BookingDetailDrivers.TripStatus.Start; return x; }).ToArray();
+            var updatedDetailDrivers = detailDrivers.ToList().Select(x => {
+                    x.TripStatus = BookingDetailDrivers.TripStatus.Start;
+                    x.BookingDetail.Status = BookingDetails.Status.Started;
+                    return x;
+            }).ToArray();
 
             return UnitOfWork.BookingDetailDrivers.UpdateRange(updatedDetailDrivers);
         }
