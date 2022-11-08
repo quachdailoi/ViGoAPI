@@ -79,5 +79,6 @@ namespace API.Models
         public string LastSeenTime { get; set; }
         public string? AvatarUrl { get; set; } = string.Empty;
         public Guid? AvatarCode { get; set; } = Guid.NewGuid();
+        public string? PhoneNumber { get; set; }
     }
 }
