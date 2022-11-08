@@ -153,8 +153,8 @@ namespace API.Services
                             Name = x.Booking.EndRouteStation.Station.Name,
                             Address = x.Booking.EndRouteStation.Station.Address,
                             Index = x.Booking.EndRouteStation.Index,
-                            Longitude = x.Booking.StartRouteStation.Station.Longitude,
-                            Latitude = x.Booking.StartRouteStation.Station.Latitude
+                            Longitude = x.Booking.EndRouteStation.Station.Longitude,
+                            Latitude = x.Booking.EndRouteStation.Station.Latitude
                         },
                         Distance = CalculateDistanceFromStartToEndStation(x.Booking.StartRouteStation.Route.RouteStations, x.Booking.StartRouteStation.StationId, x.Booking.EndRouteStation.StationId, x.Booking.StartRouteStation.Route.Distance),
                         User = new()
@@ -197,8 +197,8 @@ namespace API.Services
                         Type = BookingDetailDrivers.StepScheduleType.DropOff,
                         Index = x.EndStation.Index,
                         Time = x.Time,
-                        Longitude = x.StartStation.Longitude,
-                        Latitude = x.StartStation.Latitude
+                        Longitude = x.EndStation.Longitude,
+                        Latitude = x.EndStation.Latitude
                     });
 
                     var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Time).ThenBy(x => x.Index)
