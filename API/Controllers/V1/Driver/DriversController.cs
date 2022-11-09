@@ -541,16 +541,6 @@ namespace API.Controllers.V1.Driver
             var users = AppServices.BookingDetailDriver.GetUsers(request.BookingDetailDriverCodes);
             var notiInfo = users.ToDictionary(x => x.Id, x => x.FCMToken);
             // send notification to users
-            var message = new FirebaseAdmin.Messaging.Message()
-            {
-                Data = null,
-                Notification = new FirebaseAdmin.Messaging.Notification()
-                {
-                    Title = "ViGo Notification",
-                    Body = "Your driver is coming to pick you up."
-                }
-            };
-
             var notiDTO = new NotificationDTO()
             {
                 EventId = Events.Types.StartTrip,

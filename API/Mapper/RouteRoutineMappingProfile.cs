@@ -34,6 +34,10 @@ namespace API.Mapper
 
             CreateMap<RouteRoutine, RouteRoutineViewModel>()
                 .ForMember(
+                    dest => dest.Distance,
+                    opt => opt.MapFrom(x => x.Route.Distance)
+                )
+                .ForMember(
                     dest => dest.RouteCode,
                     opt => opt.MapFrom(x => x.Route.Code)
                 )
