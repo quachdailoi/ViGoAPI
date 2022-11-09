@@ -113,13 +113,13 @@ namespace API.Quartz
 
         public async Task RunTestJob()
         {
-            var cronSchedule0 = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(10,00));
+            var cronSchedule0 = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(11,00));
 
-            var cronSchedule1 = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(9, 55));
+            var cronSchedule1 = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(10, 30));
 
-            var cronSchedule2 = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(9, 50));
+            var cronSchedule2 = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(10, 00));
 
-            var cronSchedule3 = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(9, 45));
+            var cronSchedule3 = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(13, 00));
 
             IJobDetail jobDetail = JobBuilder.Create<TestJob>()
                 .WithIdentity("Test")
