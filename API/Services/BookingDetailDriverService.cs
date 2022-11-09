@@ -62,16 +62,17 @@ namespace API.Services
                 })
                 .ToArray();
 
-            //if(updatedDetailDrivers.Any(x => x.BookingDetail.Date <= DateTimeExtensions.NowDateOnly) || updatedDetailDrivers.Count() != codes.Count())
-            //    return null;
+            //if (updatedDetailDrivers.Any(bdr => bdr.BookingDetail.Date == DateTimeExtensions.NowDateOnly.AddDays(1)))
+            //{
+            //    //var allowedDriverCancelTripTimeStr = await AppServices.Setting.GetValue(Settings.AllowedDriverCancelTripTime);
 
-                //var allowedDriverCancelTripTime = allowedDriverCancelTripTimeStr != null ? TimeOnly.Parse(allowedDriverCancelTripTimeStr) : new TimeOnly(19, 45);
+            //    //var allowedDriverCancelTripTime = allowedDriverCancelTripTimeStr != null ? TimeOnly.Parse(allowedDriverCancelTripTimeStr) : new TimeOnly(19, 45);
 
-                var allowedDriverCancelTripTime = new TimeOnly(19, 45);
+            //    var allowedDriverCancelTripTime = new TimeOnly(19, 45);
 
-                if (DateTimeExtensions.NowTimeOnly > allowedDriverCancelTripTime)
-                    return invalidAllowedTimeResponse;
-            }
+            //    if (DateTimeExtensions.NowTimeOnly > allowedDriverCancelTripTime)
+            //        return invalidAllowedTimeResponse;
+            //}
 
             if (updatedDetailDrivers.Any(x => x.BookingDetail.Date <= DateTimeExtensions.NowDateOnly) || updatedDetailDrivers.Count() != codes.Count())
                 return invalidBookingDetailDriverResponse;

@@ -15,8 +15,9 @@ namespace Domain.Shares.Enums
         TimeAfterComplete,
         TradeDiscount,
         DefaultPageSize,
-        TimeRatingAfterComplete
+        TimeRatingAfterComplete,
         CheckingMappingStatusTime,
         NotifyTripInDayTime,
-        AllowedDriverCancelTripTime    }
+        AllowedDriverCancelTripTime    
+    }
 }
