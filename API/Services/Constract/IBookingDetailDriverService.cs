@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using API.Models.Response;
+using Domain.Entities;
 using Domain.Shares.Enums;
 
 namespace API.Services.Constract
@@ -12,7 +13,8 @@ namespace API.Services.Constract
         Task<BookingDetailDriver?> GetBookingDetailDriverByCode(string code);
 
         Task<bool> StartBookingDetailDrivers(string[] codes);
-        Task<bool?> CancelBookingDetailDrivers(string[] codes, string reason);
+        Task<Response> CancelBookingDetailDrivers(string[] codes, string reason, Response invalidAllowedTimeResponse,
+            Response invalidBookingDetailDriverResponse, Response successResponse, Response failResponse);
         List<User> GetUsers(string[] codes);
     }
 }

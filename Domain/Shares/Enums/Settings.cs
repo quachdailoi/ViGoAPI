@@ -13,6 +13,9 @@ namespace Domain.Shares.Enums
         AllowedCancelTripPercent,
         TimeBeforePickingUp,
         TimeBeforeComplete,
-        TradeDiscount
+        TradeDiscount,
+        CheckingMappingStatusTime,
+        NotifyTripInDayTime,
+        AllowedDriverCancelTripTime
     }
 }

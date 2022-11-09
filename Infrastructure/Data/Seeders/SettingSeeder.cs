@@ -32,6 +32,24 @@ namespace Infrastructure.Data.Seeders
                     Id = Settings.AllowedCancelTripPercent,
                     Key = Settings.AllowedCancelTripPercent.ToString(),
                     Value = "0.1"
+                },
+                new Setting
+                {
+                    Id = Settings.CheckingMappingStatusTime,
+                    Key = Settings.CheckingMappingStatusTime.ToString(),
+                    Value = new TimeOnly(20,00).ToString()
+                },
+                new Setting
+                {
+                    Id = Settings.NotifyTripInDayTime,
+                    Key = Settings.NotifyTripInDayTime.ToString(),
+                    Value = new TimeOnly(6,00).ToString()
+                },
+                new Setting
+                {
+                    Id = Settings.AllowedDriverCancelTripTime,
+                    Key = Settings.AllowedDriverCancelTripTime.ToString(),
+                    Value = new TimeOnly(19,45).ToString()
                 }
             });
         }
