@@ -78,6 +78,22 @@ namespace Infrastructure.Data.Seeders
                     Status = Domain.Shares.Enums.Events.Status.Active,
                     Type = Domain.Shares.Enums.Events.SubTypes.Default
                 },
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.HasNewRating,
+                    Tittle = "New Rating And Feedback",
+                    Content = "You have new rating and feedback",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
+                },
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.HaveTripInDay,
+                    Tittle = "You have a trip today.",
+                    Content = "Today, you have a trip to complete. Good luck.",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
+                },
             };
 
             builder.Entity<Event>().HasData(events);

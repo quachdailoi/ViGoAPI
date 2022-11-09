@@ -26,5 +26,7 @@ namespace API.Services.Constract
 
         TotalIncomeViewModel GetIncome(int driverId, string? fromDateStr, string? toDateStr);
         Task UpdateDriverRatingAndCancelledTripRate();
+
+        Task UpdateDriverRating(int driverId);
     }
 }

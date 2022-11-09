@@ -21,7 +21,9 @@ namespace Domain.Shares.Enums
             Promotion = 5,
             StartTrip = 6,
             PickedUp = 7,
-            Completed = 8
+            Completed = 8,
+            HasNewRating = 9,
+            HaveTripInDay = 10
         }
 
         public enum Status

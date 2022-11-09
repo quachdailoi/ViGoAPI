@@ -60,8 +60,8 @@ namespace API.Services
                 })
                 .ToArray();
 
-            if(updatedDetailDrivers.Any(x => x.BookingDetail.Date <= DateTimeExtensions.NowDateOnly) || updatedDetailDrivers.Count() != codes.Count())
-                return null;
+            //if(updatedDetailDrivers.Any(x => x.BookingDetail.Date <= DateTimeExtensions.NowDateOnly) || updatedDetailDrivers.Count() != codes.Count())
+            //    return null;
 
             if (!UnitOfWork.BookingDetailDrivers.UpdateRange(updatedDetailDrivers).Result)
                 return false;
@@ -81,29 +81,27 @@ namespace API.Services
             var bookingDetail = await AppServices.BookingDetail.GetById(bookingDetailDriver.BookingDetailId);
 
             if (bookingDetail == null) throw new Exception("Something went wrong, not found booking detail of this driver.");
-
-            var today = DateTimeExtensions.NowDateOnly;
-            var bookingDetailDate = bookingDetail.Date;
-
-            var now = DateTimeExtensions.NowTimeOnly;
-            var bookingDetailTime = bookingDetail.Booking.Time;
-
-            //if (tripStatus == BookingDetailDrivers.TripStatus.PickedUp )
-            //    if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(-10)) throw new Exception("Invalid time to set status PickedUp for it.");
-
-            //if (tripStatus ==  BookingDetailDrivers.TripStatus.Completed)
-            //    if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(3)) throw new Exception("Invalid time to set status Completed for it.");
             
             if (bookingDetail != null)
             {
+                var today = DateTimeExtensions.NowDateOnly;
+                var bookingDetailDate = bookingDetail.Date;
+
+                var now = DateTimeExtensions.NowTimeOnly;
+                var bookingDetailTime = bookingDetail.Booking.Time;
+
                 switch (tripStatus)
                 {
                     case BookingDetailDrivers.TripStatus.PickedUp:
+                        //if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(-1 * await AppServices.Setting.GetValue(Settings.TimeBeforePickingUp, 10))) 
+                        //    throw new Exception("Invalid time to set status PickedUp for it.");
                         bookingDetail.Status = BookingDetails.Status.Started;
                         bookingDetailDriver.BookingDetail = bookingDetail;
                         bookingDetailDriver.StartTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
                         break;
                     case BookingDetailDrivers.TripStatus.Completed:
+                        //if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(await AppServices.Setting.GetValue(Settings.TimeAfterComplete, 3))) 
+                        //    throw new Exception("Invalid time to set status Completed for it.");
                         bookingDetail.Status = BookingDetails.Status.Completed;
                         bookingDetailDriver.BookingDetail = bookingDetail;
                         bookingDetailDriver.EndTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
@@ -131,7 +129,6 @@ namespace API.Services
                                     Type = transactionDto.Type,
                                     Time = wallet.WalletTransactions.Last().UpdatedAt.ToFormatString()
                                 });
-
                         }
                         break;
                 }

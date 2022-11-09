@@ -8,11 +8,11 @@ namespace API.Services.Constract
 {
     public interface INotificationService
     {
-        Task<Domain.Entities.Notification> PushNotificationSignalR(NotificationDTO dto, bool save = true);
-        Task<string> SendPushNotification(NotificationDTO dto, bool isSave = false);
+        Task<Domain.Entities.Notification> PushNotificationSignalR(NotificationDTO dto);
+        Task SendPushNotification(NotificationDTO dto, bool isSave = true);
         Task<string> SendPushNotification(Message message);
 
-        void SendPushNotifications(NotificationDTO dto, Dictionary<int, string> userInfos, bool isSave = false);
+        Task SendPushNotifications(NotificationDTO dto, Dictionary<int, string> userInfos, bool isSave = true);
 
         PagingViewModel<IQueryable<NotificationViewModel>>? GetNotificationsOfUser(int userId, PagingRequest pagingRequest, DateFilterRequest dateFilterRequest);
     }

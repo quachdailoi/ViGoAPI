@@ -28,6 +28,14 @@ namespace API.Services
                 await Cache.SetStringAsync($"Setting:{key}", value);
             }
             return value;
-        } 
+        }
+        
+        public async Task<T> GetValue<T>(Settings key, T defaultValue)
+        {
+            var setting = await GetValue(key);
+            if (setting == null) return defaultValue;
+
+            return (T)Convert.ChangeType(setting, typeof(T));
+        }
     }
 }

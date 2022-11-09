@@ -12,7 +12,9 @@ namespace Domain.Shares.Enums
         AllowedMappingTimeRange,
         AllowedCancelTripPercent,
         TimeBeforePickingUp,
-        TimeBeforeComplete,
-        TradeDiscount
+        TimeAfterComplete,
+        TradeDiscount,
+        DefaultPageSize,
+        TimeRatingAfterComplete
     }
 }

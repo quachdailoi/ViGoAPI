@@ -755,7 +755,9 @@ namespace API.Controllers.V1.Booker
             var booker = LoggedInUser;
 
             var bookingDetailOfBooker = await AppServices.BookingDetail.GetBookingDetailOfBookerByCode(request.BookingDetailCode, booker.Id);
-
+            
+            var bookingDetailDriver = AppServices.BookingDetail.GetBookingDetailDriverOfBookingDetail(request.BookingDetailCode);
+            
             if (bookingDetailOfBooker == null) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status400BadRequest,
@@ -767,7 +769,23 @@ namespace API.Controllers.V1.Booker
                 StatusCode = StatusCodes.Status400BadRequest,
                 Message = "Booking detail must be completed to give rating and feedback."
             });
-            
+
+            // check booking detail must be rated after complete 24h
+            //var limitTime = bookingDetailOfBooker.Date.ToDateTime(((TimeOnly)bookingDetailDriver.EndTime)
+            //                    .AddHours(await AppServices.Setting.GetValue(Settings.TimeRatingAfterComplete, 24)));
+            //if (DateTimeOffset.Now.DateTime > limitTime) return ApiResult(new()
+            //{
+            //    StatusCode = StatusCodes.Status400BadRequest,
+            //    Message = "Out of datetime to give rating and feedback, you must give it before 24h from the completing of your booking."
+            //});
+
+            // check booking detail have been given rating and feedback
+            //if (bookingDetailOfBooker.Rating != null || bookingDetailOfBooker.FeedBack != null) return ApiResult(new()
+            //{
+            //    StatusCode = StatusCodes.Status400BadRequest,
+            //    Message = "This booking detail have been given rating and feedback."
+            //});
+
             bookingDetailOfBooker.Rating = request.Rating;
             bookingDetailOfBooker.FeedBack = request.FeedBack;
 
@@ -778,6 +796,28 @@ namespace API.Controllers.V1.Booker
                 StatusCode = StatusCodes.Status500InternalServerError,
                 Message = "Fail to give rating and feedback for booking detail."
             });
+
+            // update rating for driver
+            
+
+            var driver = bookingDetailDriver.RouteRoutine.User;
+
+            AppServices.Driver.UpdateDriverRating(driver.Id);
+
+            // send notification to driver
+            var notiDTO = new NotificationDTO()
+            {
+                EventId = Events.Types.HasNewRating,
+                Type = Notifications.Types.SpecificUser,
+                Token = driver.FCMToken,
+                UserId = driver.Id,
+                Data = new
+                {
+                    BookingDetailDriverCode = bookingDetailDriver.Code
+                }
+            };
+
+            await AppServices.Notification.SendPushNotification(notiDTO);
 
             return ApiResult(new()
             {

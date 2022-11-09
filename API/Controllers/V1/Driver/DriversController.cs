@@ -544,10 +544,11 @@ namespace API.Controllers.V1.Driver
             var notiDTO = new NotificationDTO()
             {
                 EventId = Events.Types.StartTrip,
-                Type = Notifications.Types.Booker
+                Type = Notifications.Types.SpecificUser
             };
 
-            AppServices.Notification.SendPushNotifications(notiDTO, notiInfo);
+            await AppServices.Notification.SendPushNotifications(notiDTO, notiInfo);
+
             // send signalR to users
             for(int i = 0; i < users.Count; i++)
             {
