@@ -25,7 +25,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish
-      run: dotnet publish -c Realease -o '${{ github.workspace }}/out'
+      run: dotnet publish -c Release -o '${{ github.workspace }}/out'
     - name: Zip package
       run: 
         cd ${{ github.workspace }}/out
