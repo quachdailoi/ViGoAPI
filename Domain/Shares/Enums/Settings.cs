@@ -12,10 +12,12 @@ namespace Domain.Shares.Enums
         AllowedMappingTimeRange,
         AllowedCancelTripPercent,
         TimeBeforePickingUp,
-        TimeBeforeComplete,
+        TimeAfterComplete,
         TradeDiscount,
+        DefaultPageSize,
+        TimeRatingAfterComplete,
         CheckingMappingStatusTime,
         NotifyTripInDayTime,
-        AllowedDriverCancelTripTime
+        AllowedDriverCancelTripTime    
     }
 }

@@ -462,6 +462,19 @@ namespace API.Services
             {
                 foreach (var bookingDetail in bookingDetails)
                 {
+                    var booker = bookingDetail.Booking.User;
+
+                    // send notification to driver
+                    var notiDTO = new NotificationDTO()
+                    {
+                        EventId = Events.Types.RefundBookingDetail,
+                        Type = Notifications.Types.SpecificUser,
+                        Token = booker.FCMToken,
+                        UserId = booker.Id
+                    };
+
+                    await AppServices.Notification.SendPushNotification(notiDTO);
+
                     await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "BookingDetailMapping", new
                     {
                         BookingDetailCode = bookingDetail.Code,
@@ -484,6 +497,7 @@ namespace API.Services
             var today = DateTimeExtensions.NowDateOnly;
 
             HashSet<Guid> userCodes = new();
+            Dictionary<int, User> users = new();
 
             var bookingDetails = await UnitOfWork.BookingDetails
                 .List(e => e.Date == today && e.Status == BookingDetails.Status.Ready)
@@ -496,11 +510,40 @@ namespace API.Services
 
             foreach(var bookingDetail in bookingDetails)
             {
-                userCodes.Add(bookingDetail.Booking.User.Code);
-                userCodes.Add(bookingDetail.BookingDetailDrivers.First().RouteRoutine.User.Code);
+                var booker = bookingDetail.Booking.User;
+                var driver = bookingDetail.BookingDetailDrivers.Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
+                    .First().RouteRoutine.User;
+
+                userCodes.Add(booker.Code);
+                userCodes.Add(driver.Code);
+
+                try{ users.Add(booker.Id, booker); } catch (Exception) {}
+                try { users.Add(driver.Id, driver); } catch(Exception) {}
+            }
+
+            foreach(var user in users.Values)
+            {
+                // send notification to driver and booker
+                var notiDTO = new NotificationDTO()
+                {
+                    EventId = Events.Types.HaveTripInDay,
+                    Type = Notifications.Types.SpecificUser,
+                    Token = user.FCMToken,
+                    UserId = user.Id
+                };
+
+                await AppServices.Notification.SendPushNotification(notiDTO);
             }
 
             await AppServices.SignalR.SendToUsersAsync(userCodes.Select(code => code.ToString()).ToList(), "TripOfToday", "Today you have trip to complete.");
+        }
+
+        public BookingDetailDriver? GetBookingDetailDriverOfBookingDetail(string bookingDetailCode)
+        {
+            return UnitOfWork.BookingDetails.GetBookingDetailByCodeAsync(bookingDetailCode)
+                .Include(x => x.BookingDetailDrivers).ThenInclude(x => x.RouteRoutine.User)
+                .Select(x => x.BookingDetailDrivers.Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled).FirstOrDefault())
+                .FirstOrDefault();
         }
     }
 }

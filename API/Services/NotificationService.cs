@@ -18,10 +18,9 @@ namespace API.Services
         {
         }
 
-        public async Task<Domain.Entities.Notification> PushNotificationSignalR(NotificationDTO dto, bool save = true)
+        public async Task<Domain.Entities.Notification> PushNotificationSignalR(NotificationDTO dto)
         {
             var notification = Mapper.Map<Domain.Entities.Notification>(dto);
-            if(save) notification = await UnitOfWork.Notifications.Add(notification);
 
             switch (notification.Type)
             {
@@ -50,8 +49,10 @@ namespace API.Services
             return notification;
         }
 
-        public async Task<string> SendPushNotification(NotificationDTO dto, bool isSave = false)
+        public async Task SendPushNotification(NotificationDTO dto, bool isSave = true)
         {
+            await PushNotificationSignalR(dto);
+
             var message = MapToNotiMessage(dto);
 
             if (isSave)
@@ -61,7 +62,7 @@ namespace API.Services
                 await UnitOfWork.Notifications.Add(notification);
             }
 
-            return await FirebaseMessaging.DefaultInstance.SendAsync(message);
+            FirebaseMessaging.DefaultInstance.SendAsync(message);
         }
 
         public Task<string> SendPushNotification(Message message)
@@ -69,7 +70,7 @@ namespace API.Services
             return FirebaseMessaging.DefaultInstance.SendAsync(message);
         }
 
-        public void SendPushNotifications(NotificationDTO dto, Dictionary<int, string> userInfos, bool isSave = false)
+        public async Task SendPushNotifications(NotificationDTO dto, Dictionary<int, string> userInfos, bool isSave = true)
         {
             var listNotiSave = new List<Domain.Entities.Notification>();
             var message = MapToNotiMessage(dto);
@@ -78,14 +79,19 @@ namespace API.Services
             {
                 message.Token = info.Value; // fcm token
                 dto.UserId = info.Key;
+                dto.Token = info.Value;
+                await PushNotificationSignalR(dto);
 
-                var notification = Mapper.Map<Domain.Entities.Notification>(dto);
-                listNotiSave.Add(notification);
+                if (isSave)
+                {
+                    var notification = Mapper.Map<Domain.Entities.Notification>(dto);
+                    listNotiSave.Add(notification);
+                }
 
                 FirebaseMessaging.DefaultInstance.SendAsync(message);
             }
 
-            UnitOfWork.Notifications.Add(listNotiSave);
+            await UnitOfWork.Notifications.Add(listNotiSave);
         }
 
         private Message MapToNotiMessage(NotificationDTO dto)

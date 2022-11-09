@@ -116,5 +116,22 @@ namespace API.Services
 
             await UnitOfWork.Users.UpdateRange(drivers);
         }
+
+        public async Task UpdateDriverRating(int driverId)
+        {
+            var driver = AppServices.User.GetUserById(driverId)?.FirstOrDefault();
+            if (driver == null) throw new Exception("Not found driver.");
+
+            var bookingDetailDrivers = UnitOfWork.BookingDetailDrivers.List(bdr => bdr.RouteRoutine.UserId == driver.Id);
+
+            var ratingTrips = bookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.Completed && bdr.BookingDetail.Rating.HasValue);
+
+            var totalRating = ratingTrips.Select(bdr => bdr.BookingDetail.Rating).Sum();
+            var totalRatingTrip = ratingTrips.Count();
+
+            driver.Rating = totalRating / totalRatingTrip;
+
+            await UnitOfWork.Users.Update(driver);
+        }
     }
 }

@@ -35,6 +35,30 @@ namespace Infrastructure.Data.Seeders
                 },
                 new Setting
                 {
+                    Id = Settings.TimeAfterComplete,
+                    Key = Settings.TimeAfterComplete.ToString(),
+                    Value = "3"
+                },
+                new Setting
+                {
+                    Id = Settings.TimeBeforePickingUp,
+                    Key = Settings.TimeBeforePickingUp.ToString(),
+                    Value = "10"
+                },
+                new Setting
+                {
+                    Id = Settings.DefaultPageSize,
+                    Key = Settings.DefaultPageSize.ToString(),
+                    Value = "5"
+                },
+                new Setting
+                {
+                    Id = Settings.TimeRatingAfterComplete,
+                    Key = Settings.TimeRatingAfterComplete.ToString(),
+                    Value = "24"
+                },
+                new Setting
+                {
                     Id = Settings.CheckingMappingStatusTime,
                     Key = Settings.CheckingMappingStatusTime.ToString(),
                     Value = new TimeOnly(20,00).ToString()

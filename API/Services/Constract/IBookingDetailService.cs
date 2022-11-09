@@ -23,5 +23,6 @@ namespace API.Services.Constract
         Task SetCompletedBookingDetail();
         Task CheckingMappingStatus();
         Task CheckingExistTripInDay();
+        BookingDetailDriver? GetBookingDetailDriverOfBookingDetail(string bookingDetailCode);
     }
 }
