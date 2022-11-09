@@ -188,6 +188,7 @@ namespace API.Extensions
         {
             //services.AddHostedService<MessageTasks>();
             services.AddHostedService<MappingBookingTask>();
+            services.AddHostedService<RefundBookingTask>();
             //services.AddHostedService<TestTask>();
         }
 
