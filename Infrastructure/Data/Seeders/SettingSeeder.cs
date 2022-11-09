@@ -57,6 +57,24 @@ namespace Infrastructure.Data.Seeders
                     Key = Settings.TimeRatingAfterComplete.ToString(),
                     Value = "24"
                 },
+                new Setting
+                {
+                    Id = Settings.CheckingMappingStatusTime,
+                    Key = Settings.CheckingMappingStatusTime.ToString(),
+                    Value = new TimeOnly(20,00).ToString()
+                },
+                new Setting
+                {
+                    Id = Settings.NotifyTripInDayTime,
+                    Key = Settings.NotifyTripInDayTime.ToString(),
+                    Value = new TimeOnly(6,00).ToString()
+                },
+                new Setting
+                {
+                    Id = Settings.AllowedDriverCancelTripTime,
+                    Key = Settings.AllowedDriverCancelTripTime.ToString(),
+                    Value = new TimeOnly(19,45).ToString()
+                }
             });
         }
     }

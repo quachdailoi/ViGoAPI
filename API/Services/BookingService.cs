@@ -583,9 +583,7 @@ namespace API.Services
             var bookingDetail =
                 await UnitOfWork.BookingDetails
                 .List(e => e.Id == bookingDetailId &&
-                           e.Status == BookingDetails.Status.Pending &&
-                           e.BookingDetailDrivers.Any(bdr =>
-                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet))
+                           e.Status == BookingDetails.Status.Pending)
                 .Include(e => e.BookingDetailDrivers)
                 .Include(e => e.Booking)
                 .ThenInclude(b => b.StartRouteStation)
@@ -593,7 +591,7 @@ namespace API.Services
 
             if (bookingDetail == null) return null;
 
-            var cancelledRouteRoutineIds = bookingDetail.BookingDetailDrivers.Select(bdr => bdr.RouteRoutineId).ToList();
+            var cancelledRouteRoutineIds = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.Cancelled).Select(bdr => bdr.RouteRoutineId).ToList();
 
             var routeStationDic =
                 (await UnitOfWork.Routes

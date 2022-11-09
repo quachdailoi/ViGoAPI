@@ -11,9 +11,9 @@ namespace API.Quartz
         }
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            //await _jobScheduler.CheckingMappingJob();
+            await _jobScheduler.CheckingMappingJob();
             await _jobScheduler.RunTestJob();
-            //await _jobScheduler.NotifyTripJob();
+            await _jobScheduler.NotifyTripJob();
             //await _jobScheduler.UpdateDriverRatingJob();
         }
 
