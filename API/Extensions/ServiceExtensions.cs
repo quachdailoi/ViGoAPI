@@ -24,6 +24,7 @@ using API.Validators;
 using API.Worker;
 using API.Models.DTO;
 using Microsoft.Extensions.Hosting;
+using Quartz;
 
 namespace API.Extensions
 {
@@ -171,10 +172,16 @@ namespace API.Extensions
         public static void ConfigureIoCCronJob(this IServiceCollection services)
         {
             // Sign job
-            services.AddTransient<MessageJob>();
+            services.AddSingleton<MessageJob>();
+            services.AddSingleton<CheckingMappingJob>();
+            services.AddSingleton<UpdateDriverRatingJob>();
+            services.AddSingleton<NotifyTripJob>();
+            services.AddSingleton<TestJob>();
 
             services.AddTransient<IJobFactory, JobFactory>();
             services.AddSingleton<IJobScheduler, JobScheduler>();
+
+            services.AddHostedService<JobHostService>();
         }
 
         public static void ConfigurationJobQueue(this IServiceCollection services)

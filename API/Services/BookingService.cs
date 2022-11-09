@@ -730,6 +730,8 @@ namespace API.Services
 
             if (booking == null) return null;
 
+            if (booking.Status != Bookings.Status.PendingRefund) return null;
+
             var wallet = await AppServices.Wallet.GetWallet(booking.UserId);
 
             if (wallet == null) return null;

@@ -37,7 +37,7 @@ namespace API.TaskQueues.TaskResolver
                             default: break;
                         }
 
-                        if (!result.HasValue || !result.Value)
+                        if (result.HasValue && !result.Value)
                             currentJobs.TryAdd(item, TimeSpan.FromMilliseconds(1000));
                     }
                 }

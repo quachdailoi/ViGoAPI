@@ -91,5 +91,30 @@ namespace API.Services
                 Incomes = incomes
             };
         }
+
+        public async Task UpdateDriverRatingAndCancelledTripRate()
+        {
+            var drivers = UnitOfWork.Users
+                .List(u => u.Accounts.Any(account => account.RoleId == Roles.DRIVER) && u.Status == Users.Status.Active)
+                .ToArray();
+
+            foreach(var driver in drivers)
+            {
+                var bookingDetailDrivers = UnitOfWork.BookingDetailDrivers
+                    .List(bdr => bdr.RouteRoutine.UserId == driver.Id);
+
+                var ratingTrips = bookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.Completed && bdr.BookingDetail.Rating.HasValue);
+
+                var totalRating = ratingTrips.Select(bdr => bdr.BookingDetail.Rating).Sum();
+                var totalRatingTrip = ratingTrips.Count();
+                var totalBookingDetailDriver = bookingDetailDrivers.Count();
+                var totalCancelledBookingDetailDriver = bookingDetailDrivers.Count(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.Cancelled);
+
+                driver.Rating = totalRating / totalRatingTrip;
+                driver.CancelledTripRate = (totalCancelledBookingDetailDriver - driver.SuddenlyCancelledTrips) / totalBookingDetailDriver;
+            }
+
+            await UnitOfWork.Users.UpdateRange(drivers);
+        }
     }
 }
