@@ -1,6 +1,7 @@
 ﻿using API.Extensions;
 using API.Models;
 using API.Models.DTO;
+using API.Models.Response;
 using API.Services.Constract;
 using API.TaskQueues.TaskResolver;
 using API.Utils;
@@ -42,7 +43,8 @@ namespace API.Services
             return UnitOfWork.BookingDetailDrivers.UpdateRange(updatedDetailDrivers);
         }
 
-        public async Task<bool?> CancelBookingDetailDrivers(string[] codes, string reason)
+        public async Task<Response> CancelBookingDetailDrivers(string[] codes, string reason, Response invalidAllowedTimeResponse, 
+            Response invalidBookingDetailDriverResponse, Response successResponse, Response failResponse)
         {
             var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString()));
 
@@ -60,18 +62,30 @@ namespace API.Services
                 })
                 .ToArray();
 
-            if(updatedDetailDrivers.Any(x => x.BookingDetail.Date <= DateTimeExtensions.NowDateOnly) || updatedDetailDrivers.Count() != codes.Count())
-                return null;
+            if(updatedDetailDrivers.Any(bdr => bdr.BookingDetail.Date == DateTimeExtensions.NowDateOnly.AddDays(1)))
+            {
+                //var allowedDriverCancelTripTimeStr = await AppServices.Setting.GetValue(Settings.AllowedDriverCancelTripTime);
+
+                //var allowedDriverCancelTripTime = allowedDriverCancelTripTimeStr != null ? TimeOnly.Parse(allowedDriverCancelTripTimeStr) : new TimeOnly(19, 45);
+
+                var allowedDriverCancelTripTime = new TimeOnly(19, 45);
+
+                if (DateTimeExtensions.NowTimeOnly > allowedDriverCancelTripTime)
+                    return invalidAllowedTimeResponse;
+            }
+
+            if (updatedDetailDrivers.Any(x => x.BookingDetail.Date <= DateTimeExtensions.NowDateOnly) || updatedDetailDrivers.Count() != codes.Count())
+                return invalidBookingDetailDriverResponse;
 
             if (!UnitOfWork.BookingDetailDrivers.UpdateRange(updatedDetailDrivers).Result)
-                return false;
+                return failResponse;
 
             foreach (var updatedDetailDriver in updatedDetailDrivers)
             {
                 await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = updatedDetailDriver.BookingDetailId, Type = TaskItems.MappingItemTypes.BookingDetail });
             }
 
-            return true;
+            return successResponse;
         }
 
         public async Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus)

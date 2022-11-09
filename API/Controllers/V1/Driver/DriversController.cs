@@ -693,25 +693,32 @@ namespace API.Controllers.V1.Driver
         [HttpPut("booking-detail-driver/cancel")]
         public async Task<IActionResult> CancelTrip([FromBody] CancelBookingDetailDriversRequest request)
         {
-            var result = await AppServices.BookingDetailDriver.CancelBookingDetailDrivers(request.BookingDetailDriverCodes, request.Reason);
+            var response = 
+                await AppServices.BookingDetailDriver.CancelBookingDetailDrivers(
+                    request.BookingDetailDriverCodes, 
+                    request.Reason,
+                    invalidAllowedTimeResponse: new()
+                    {
+                        StatusCode = StatusCodes.Status400BadRequest,
+                        Message = "You can not cancel any trip in the following day after 19:45."
+                    },
+                    invalidBookingDetailDriverResponse: new()
+                    {
+                        StatusCode = StatusCodes.Status400BadRequest,
+                        Message = "All booking detail driver's date must be existed and after today."
+                    },
+                    successResponse: new()
+                    {
+                        StatusCode = StatusCodes.Status200OK,
+                        Message = "Cancel booking detail driver successfully."
+                    },
+                    failResponse: new()
+                    {
+                        StatusCode = StatusCodes.Status500InternalServerError,
+                        Message = "Failed to cancel booking detail driver."
+                    });
 
-            if (!result.HasValue) return ApiResult(new()
-            {
-                StatusCode = StatusCodes.Status400BadRequest,
-                Message = "All booking detail driver's date must be existed and after today."
-            });
-
-            if (!result.Value) return ApiResult(new()
-            {
-                StatusCode = StatusCodes.Status500InternalServerError,
-                Message = "Failed to cancel booking detail driver."
-            });
-
-            return ApiResult(new()
-            {
-                StatusCode = StatusCodes.Status200OK,
-                Message = "Cancel booking detail driver successfully."
-            });
+            return ApiResult(response);
         }
     }
 }
