@@ -94,6 +94,14 @@ namespace Infrastructure.Data.Seeders
                     Status = Domain.Shares.Enums.Events.Status.Active,
                     Type = Domain.Shares.Enums.Events.SubTypes.Default
                 },
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.CompletedRefund,
+                    Tittle = "Complete Refund",
+                    Content = "We have refunded for you successfully. Sorry for not serving you in the best way.",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
+                }
             };
 
             builder.Entity<Event>().HasData(events);

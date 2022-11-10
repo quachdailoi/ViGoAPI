@@ -286,24 +286,55 @@ namespace API.Services
             return paging;
         }
 
-        public async Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest,Response successResponse)
-            => successResponse.SetData(
-                await Get(
-                    userId, 
-                    dateFilterRequest, 
-                    pagingRequest,
-                    new List<Bookings.Status> { Bookings.Status.PendingMapping, Bookings.Status.Started},
-                    new List<BookingDetails.Status> { BookingDetails.Status.Pending ,BookingDetails.Status.Ready , BookingDetails.Status.Started}));
+        public async Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, BookingDetails.Status? status, Response successResponse, Response invalidStatusResponse)
+        {
+            var bookingDetailStatus = new List<BookingDetails.Status> { BookingDetails.Status.Pending, BookingDetails.Status.Ready, BookingDetails.Status.Started };
 
-        public async Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse)
-            => successResponse.SetData(
+            if(status.HasValue)
+            {
+                if (bookingDetailStatus.Contains(status.Value))
+                {
+                    bookingDetailStatus.Clear();
+                    bookingDetailStatus.Add(status.Value);
+                }
+                else return invalidStatusResponse;
+                
+            }
+
+            return successResponse.SetData(
                 await Get(
-                    userId, 
-                    dateFilterRequest, 
-                    pagingRequest, 
-                    new List<Bookings.Status> { Bookings.Status.Started ,Bookings.Status.Completed, Bookings.Status.CancelledByBooker},
-                    new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled}, 
+                    userId,
+                    dateFilterRequest,
+                    pagingRequest,
+                    new List<Bookings.Status> { Bookings.Status.PendingMapping, Bookings.Status.Started },
+                    bookingDetailStatus));
+        }
+                
+
+        public async Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, BookingDetails.Status? status, Response successResponse, Response invalidStatusResponse)
+        {
+            var bookingDetailStatus = new List<BookingDetails.Status> { BookingDetails.Status.Completed, BookingDetails.Status.Cancelled, BookingDetails.Status.PendingRefund, BookingDetails.Status.CompletedRefund };
+
+            if (status.HasValue)
+            {
+                if (bookingDetailStatus.Contains(status.Value))
+                {
+                    bookingDetailStatus.Clear();
+                    bookingDetailStatus.Add(status.Value);
+                }
+                else return invalidStatusResponse;
+
+            }
+
+            return successResponse.SetData(
+                await Get(
+                    userId,
+                    dateFilterRequest,
+                    pagingRequest,
+                    new List<Bookings.Status> { Bookings.Status.Started, Bookings.Status.Completed, Bookings.Status.CancelledByBooker },
+                    bookingDetailStatus,
                     false));
+        }
 
         public Task<BookingDetail?> GetBookingDetailOfBookerByCode(string code, int bookerId)
         {
@@ -370,6 +401,8 @@ namespace API.Services
                 .List(e => e.Code == code && e.Status == BookingDetails.Status.PendingRefund)
                 .Include(e => e.Booking)
                 .ThenInclude(b => b.WalletTransactions)
+                .Include(e => e.Booking)
+                .ThenInclude(b => b.User)
                 .FirstOrDefaultAsync();
 
             if (bookingDetail == null) return null;
@@ -378,39 +411,43 @@ namespace API.Services
 
             if (wallet == null) return null;
 
+            var isSuccess = false;
+
             try
             {
                 switch (bookingDetail.Booking.PaymentMethod)
                 {
                     case Payments.PaymentMethods.Momo:
-                        var transaction = bookingDetail.Booking.WalletTransactions
-                            .Where(trans => trans.Type == WalletTransactions.Types.BookingPaidByMomo && trans.Status == WalletTransactions.Status.Success)
-                            .FirstOrDefault();
+                        //var transaction = bookingDetail.Booking.WalletTransactions
+                        //    .Where(trans => trans.Type == WalletTransactions.Types.BookingPaidByMomo && trans.Status == WalletTransactions.Status.Success)
+                        //    .FirstOrDefault();
 
-                        if(transaction != null)
-                        {
-                            var txnId = long.Parse(transaction.TxnId);
+                        //if(transaction != null)
+                        //{
+                        //    var txnId = long.Parse(transaction.TxnId);
 
-                            var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
+                        //    var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
 
-                            if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
+                        //    if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
 
-                            var refundTransaction = new WalletTransactionDTO
-                            {
-                                Amount = amount,
-                                BookingId = bookingDetail.BookingId,
-                                Type = WalletTransactions.Types.BookingRefund,
-                                TxnId = response.transId.ToString(),
-                                WalletId = wallet.Id,
-                                Status = WalletTransactions.Status.Success
-                            };
+                        //    var refundTransaction = new WalletTransactionDTO
+                        //    {
+                        //        Amount = amount,
+                        //        BookingId = bookingDetail.BookingId,
+                        //        Type = WalletTransactions.Types.BookingRefund,
+                        //        TxnId = response.transId.ToString(),
+                        //        WalletId = wallet.Id,
+                        //        Status = WalletTransactions.Status.Success
+                        //    };
 
-                            await AppServices.WalletTransaction.Create(refundTransaction);
-                        }
+                        //    await AppServices.WalletTransaction.Create(refundTransaction);
+
+                        //    isSuccess = true;
+                        //}
                         
 
-                        //return true;
-                        break;
+                        ////return true;
+                        //break;
                     case Payments.PaymentMethods.Wallet:
                         await AppServices.Wallet.UpdateBalance(new WalletTransactionDTO
                         {
@@ -420,17 +457,29 @@ namespace API.Services
                             WalletId = wallet.Id,
                             Status = WalletTransactions.Status.Success
                         });
+
+                        isSuccess = true;
                         break;
                         //return true;
                     default: return true;
                 }
 
-                await AppServices.Notification.PushNotificationSignalR(new NotificationDTO
+                if (isSuccess)
                 {
-                    EventId = Events.Types.RefundBooking,
-                    UserId = bookingDetail.Booking.UserId,
-                    Type = Notifications.Types.SpecificUser
-                });
+                    bookingDetail.Status = BookingDetails.Status.CompletedRefund;
+
+                    await UpdateBookingDetail(bookingDetail);
+
+                    var notiDTO = new NotificationDTO()
+                    {
+                        EventId = Events.Types.RefundBookingDetail,
+                        Type = Notifications.Types.SpecificUser,
+                        Token = bookingDetail.Booking.User.FCMToken,
+                        UserId = bookingDetail.Booking.User.Id
+                    };
+
+                    await AppServices.Notification.SendPushNotification(notiDTO);
+                }
 
                 return true;
             }
@@ -475,12 +524,6 @@ namespace API.Services
 
                     await AppServices.Notification.SendPushNotification(notiDTO);
 
-                    await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "BookingDetailMapping", new
-                    {
-                        BookingDetailCode = bookingDetail.Code,
-                        MappingStatus = false,
-                        Message = "Can not find driver for your trip in next day. Refund is in process."
-                    });
                     await AppServices.RedisMQ.Publish(RefundBookingTask.REFUND_QUEUE, new RefundItemDTO
                     {
                         Amount = bookingDetail.Price,
@@ -496,7 +539,6 @@ namespace API.Services
         {
             var today = DateTimeExtensions.NowDateOnly;
 
-            HashSet<Guid> userCodes = new();
             Dictionary<int, User> users = new();
 
             var bookingDetails = await UnitOfWork.BookingDetails
@@ -513,9 +555,6 @@ namespace API.Services
                 var booker = bookingDetail.Booking.User;
                 var driver = bookingDetail.BookingDetailDrivers.Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
                     .First().RouteRoutine.User;
-
-                userCodes.Add(booker.Code);
-                userCodes.Add(driver.Code);
 
                 try{ users.Add(booker.Id, booker); } catch (Exception) {}
                 try { users.Add(driver.Id, driver); } catch(Exception) {}
@@ -534,8 +573,6 @@ namespace API.Services
 
                 await AppServices.Notification.SendPushNotification(notiDTO);
             }
-
-            await AppServices.SignalR.SendToUsersAsync(userCodes.Select(code => code.ToString()).ToList(), "TripOfToday", "Today you have trip to complete.");
         }
 
         public BookingDetailDriver? GetBookingDetailDriverOfBookingDetail(string bookingDetailCode)
