@@ -717,7 +717,7 @@ namespace API.Controllers.V1.Booker
             if (request != null && request.FCMToken != null) user.FCMToken = request.FCMToken;
 
             var rs = await AppServices.User.UpdateUser(user);
-            if (rs) Logger.LogError("Update FCM Token fail.");
+            if (!rs) Logger.LogError("Update FCM Token fail.");
 
             var profileResponse =
                 await AppServices.Account.GetProfile(
