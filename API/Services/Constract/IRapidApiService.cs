@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using API.Models.DTO;
 using API.Models.Response;
+using Domain.Entities;
 using Domain.Shares.Classes;
 
 namespace API.Services.Constract
@@ -11,5 +12,6 @@ namespace API.Services.Constract
         Task<Domain.Entities.Route?> CreateRouteByListOfStation(List<StationDTO> stations);
         Task<Response> CreateRoute(List<StationDTO> stations, Response success, Response failed);
         Task<RouteViewModel?> UpdateRouteByListOfStation(Domain.Entities.Route route, List<StationDTO> stations);
+        Task<KeyValuePair<double, double>> CalculateDistanceAndDurationFrom2Station(Station station1, Station station2);
     }
 }

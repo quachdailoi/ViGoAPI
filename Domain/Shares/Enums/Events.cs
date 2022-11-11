@@ -23,7 +23,9 @@ namespace Domain.Shares.Enums
             PickedUp = 7,
             Completed = 8,
             HasNewRating = 9,
-            HaveTripInDay = 10
+            HaveTripInDay = 10,
+            NearlyBan = 11,
+            BanDriver = 12
         }
 
         public enum Status

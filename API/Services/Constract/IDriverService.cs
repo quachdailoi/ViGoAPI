@@ -28,5 +28,6 @@ namespace API.Services.Constract
         Task UpdateDriverRatingAndCancelledTripRate();
 
         Task UpdateDriverRating(int driverId);
+        Task UpdateCancelledTripRate(int driverId);
     }
 }

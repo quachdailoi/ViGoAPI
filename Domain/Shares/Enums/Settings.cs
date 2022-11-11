@@ -18,6 +18,11 @@ namespace Domain.Shares.Enums
         TimeRatingAfterComplete,
         CheckingMappingStatusTime,
         NotifyTripInDayTime,
-        AllowedDriverCancelTripTime    
+        AllowedDriverCancelTripTime,
+        TotalTripsCalculateRating,
+        TotalTripsCalculateCancelledRate,
+        MaxCancelledTripRate,
+        NotifiedCancelledTripRate,
+        TimeSpanRoundUp
     }
 }

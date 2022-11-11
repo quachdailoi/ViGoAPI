@@ -74,7 +74,31 @@ namespace Infrastructure.Data.Seeders
                     Id = Settings.AllowedDriverCancelTripTime,
                     Key = Settings.AllowedDriverCancelTripTime.ToString(),
                     Value = new TimeOnly(19,45).ToString()
-                }
+                },
+                new Setting
+                {
+                    Id = Settings.TotalTripsCalculateRating,
+                    Key = Settings.TotalTripsCalculateRating.ToString(),
+                    Value = "100"
+                },
+                new Setting
+                {
+                    Id = Settings.MaxCancelledTripRate,
+                    Key = Settings.MaxCancelledTripRate.ToString(),
+                    Value = "0.1"
+                },
+                new Setting
+                {
+                    Id = Settings.NotifiedCancelledTripRate,
+                    Key = Settings.NotifiedCancelledTripRate.ToString(),
+                    Value = "0.08"
+                },
+                new Setting
+                {
+                    Id = Settings.TimeSpanRoundUp,
+                    Key = Settings.TimeSpanRoundUp.ToString(),
+                    Value = "5"
+                },
             });
         }
     }

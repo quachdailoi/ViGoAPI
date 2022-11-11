@@ -62,6 +62,18 @@ namespace API.Controllers.V1.Driver
                 });
             }
 
+            var checkValidDistance = await AppServices.RouteRoutine.CheckValidDistanceNewRoutine(request);
+
+            if (checkValidDistance != null)
+            {
+                return ApiResult(new()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = $"{checkValidDistance.Compare} {checkValidDistance.ValidTime}",
+                    Data = checkValidDistance
+                });
+            }
+
             var response = 
                 await AppServices.RouteRoutine.CreateRouteRoutine(
                     request,

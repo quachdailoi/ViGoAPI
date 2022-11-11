@@ -71,7 +71,39 @@
 
         public static TimeOnly RoundUp(this TimeOnly time, int minutes = 30)
         {
-            if (time.Minute <= minutes) return new TimeOnly(time.Hour, minutes);
+            if (minutes > 60) throw new Exception("Minute round must lower than 60.");
+            var hour = time.Hour;
+            var minute = time.Minute;
+
+            if (minute % minutes == 0) return time;
+
+            for (var i = 1; i <= (60 / minutes)+1; i++) 
+            {
+                if (minutes * i >= 60)
+                {
+                    hour += 1;
+                    minute = minutes * i - 60;
+                    return new TimeOnly(hour, minute);
+                }
+
+                if (minute < minutes * i) return new TimeOnly(hour, minutes * i);
+            }
+
+            return new TimeOnly(time.Hour + 1, 0);
+        }
+
+        public static TimeOnly RoundDown(this TimeOnly time, int minutes = 30)
+        {
+            if (minutes > 60) throw new Exception("Minute round must lower than 60.");
+            var hour = time.Hour;
+            var minute = time.Minute;
+
+            if (minute % minutes == 0) return time;
+
+            for (var i = 1; i <= (60 / minutes) + 1; i++)
+            {
+                if (minute < minutes * i) return new TimeOnly(hour, minutes * (i-1));
+            }
 
             return new TimeOnly(time.Hour + 1, 0);
         }

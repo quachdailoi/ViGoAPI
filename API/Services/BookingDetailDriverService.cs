@@ -84,7 +84,7 @@ namespace API.Services
             {
                 await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = updatedDetailDriver.BookingDetailId, Type = TaskItems.MappingItemTypes.BookingDetail });
             }
-
+           
             return successResponse;
         }
 
