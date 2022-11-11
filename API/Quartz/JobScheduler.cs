@@ -78,15 +78,15 @@ namespace API.Quartz
 
         public async Task CheckingMappingJob()
         {
-            //using var scope = _serviceProvider.CreateScope();
+            using var scope = _serviceProvider.CreateScope();
 
-            //var appService = scope.ServiceProvider.GetRequiredService<IAppServices>();
-            //var timeStr = await appService.Setting.GetValue(Domain.Shares.Enums.Settings.CheckingMappingStatusTime);
+            var appService = scope.ServiceProvider.GetRequiredService<IAppServices>();
+            var timeStr = await appService.Setting.GetValue(Domain.Shares.Enums.Settings.CheckingMappingStatusTime);
 
-            //var time = TimeOnly.Parse(timeStr != null ? timeStr : "20:00:00");
-            //var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(time);
+            var time = TimeOnly.Parse(timeStr != null ? timeStr : "20:00:00");
+            var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(time);
 
-            var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(20,00));
+            //var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(1,15));
 
             IJobDetail jobDetail = JobBuilder.Create<CheckingMappingJob>()
                 .WithIdentity("CheckingMappingJobIdentity")
@@ -104,15 +104,15 @@ namespace API.Quartz
 
         public async Task NotifyTripJob()
         {
-            //using var scope = _serviceProvider.CreateScope();
+            using var scope = _serviceProvider.CreateScope();
 
-            //var appService = scope.ServiceProvider.GetRequiredService<IAppServices>();
-            //var timeStr = await appService.Setting.GetValue(Domain.Shares.Enums.Settings.NotifyTripInDayTime);
+            var appService = scope.ServiceProvider.GetRequiredService<IAppServices>();
+            var timeStr = await appService.Setting.GetValue(Domain.Shares.Enums.Settings.NotifyTripInDayTime);
 
-            //var time = TimeOnly.Parse(timeStr != null ? timeStr : "06:00:00");
-            //var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(time);
+            var time = TimeOnly.Parse(timeStr != null ? timeStr : "06:00:00");
+            var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(time);
 
-            var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(6, 00));
+            //var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(0, 35));
 
             IJobDetail jobDetail = JobBuilder.Create<NotifyTripJob>()
                 .WithIdentity("NotifyTripJobIdentity")

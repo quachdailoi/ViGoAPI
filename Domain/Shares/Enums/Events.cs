@@ -23,7 +23,8 @@ namespace Domain.Shares.Enums
             PickedUp = 7,
             Completed = 8,
             HasNewRating = 9,
-            HaveTripInDay = 10
+            HaveTripInDay = 10,
+            CompletedRefund = 11
         }
 
         public enum Status

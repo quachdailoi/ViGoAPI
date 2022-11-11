@@ -16,7 +16,7 @@ namespace Domain.Shares.Enums
             Started,
             Completed,
             PendingRefund,
-            RefundCompleted
+            CompletedRefund
         }
 
         public enum RefundTypes

@@ -228,8 +228,6 @@ namespace API.Services
 
                         if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status."); 
 
-                        await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, booking.Id);
-
                         break;
                     case Payments.PaymentMethods.COD:
                         booking.Status = Bookings.Status.PendingMapping;
@@ -371,7 +369,7 @@ namespace API.Services
                     driverUserMessageRoomDic[routeRoutine.User.Code] = room;
 
                     bookingDetail.MessageRoomId = room.Id;
-                    bookingDetail.MessageRoom = room;
+                    //bookingDetail.MessageRoom = room;
 
                     return;
                 }
@@ -540,6 +538,7 @@ namespace API.Services
                                e.Booking.VehicleTypeId == routeRoutine.User.Vehicle.VehicleTypeId)
                     .Include(e => e.BookingDetailDrivers)
                     .Include(e => e.Booking)
+                    .ThenInclude(b => b.User)
                     .OrderByDescending(e => e.Booking.IsShared)
                     .ThenBy(e => e.Booking.Time)
                     .ToListAsync();
@@ -568,12 +567,10 @@ namespace API.Services
                         
                 }
 
-                routeRoutine.BookingDetailDrivers.AddRange(mappedBookingDetails.Select(bd
-                    => new BookingDetailDriver
-                    {
-                        BookingDetail = bd,
-                        RouteRoutineId = routeRoutineId
-                    }));
+                var driverUserMessageRoomDic = new Dictionary<Guid, Room>();
+
+                foreach (var bookingDetail in mappedBookingDetails)
+                    await MapBookingDetailWithRouteRoutine(bookingDetail, routeRoutine, driverUserMessageRoomDic);
             }
 
             return routeRoutine;
@@ -587,6 +584,8 @@ namespace API.Services
                 .Include(e => e.BookingDetailDrivers)
                 .Include(e => e.Booking)
                 .ThenInclude(b => b.StartRouteStation)
+                .Include(e => e.Booking)
+                .ThenInclude(b => b.User)
                 .FirstOrDefaultAsync();
 
             if (bookingDetail == null) return null;
@@ -734,39 +733,43 @@ namespace API.Services
 
             if (wallet == null) return null;
 
+            bool isSuccess = false;
+
             try
             {
                 var amount = booking.TotalPrice - booking.DiscountPrice;
                 switch (booking.PaymentMethod)
                 {
                     case Payments.PaymentMethods.Momo:
-                        var transaction = booking.WalletTransactions
-                            .Where(trans => trans.Type == WalletTransactions.Types.BookingPaidByMomo && trans.Status == WalletTransactions.Status.Success)
-                            .FirstOrDefault();
+                        //var transaction = booking.WalletTransactions
+                        //    .Where(trans => trans.Type == WalletTransactions.Types.BookingPaidByMomo && trans.Status == WalletTransactions.Status.Success)
+                        //    .FirstOrDefault();
 
-                        if (transaction != null)
-                        {
-                            var txnId = long.Parse(transaction.TxnId);
+                        //if (transaction != null)
+                        //{
+                        //    var txnId = long.Parse(transaction.TxnId);
 
-                            var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
+                        //    var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
 
-                            if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
+                        //    if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
 
-                            var refundTransaction = new WalletTransactionDTO
-                            {
-                                Amount = amount,
-                                BookingId = booking.Id,
-                                Type = WalletTransactions.Types.BookingRefund,
-                                TxnId = response.transId.ToString(),
-                                WalletId = wallet.Id,
-                                Status = WalletTransactions.Status.Success
-                            };
+                        //    var refundTransaction = new WalletTransactionDTO
+                        //    {
+                        //        Amount = amount,
+                        //        BookingId = booking.Id,
+                        //        Type = WalletTransactions.Types.BookingRefund,
+                        //        TxnId = response.transId.ToString(),
+                        //        WalletId = wallet.Id,
+                        //        Status = WalletTransactions.Status.Success
+                        //    };
 
-                            await AppServices.WalletTransaction.Create(refundTransaction);
-                        }
+                        //    await AppServices.WalletTransaction.Create(refundTransaction);
 
-                        //return true;
-                        break;
+                        //    isSuccess = true;
+                        //}
+
+                        ////return true;
+                        //break;
                     case Payments.PaymentMethods.Wallet:
                         await AppServices.Wallet.UpdateBalance(new WalletTransactionDTO
                         {
@@ -776,19 +779,30 @@ namespace API.Services
                             WalletId = wallet.Id,
                             Status = WalletTransactions.Status.Success
                         });
+                        isSuccess = true;
                         break;
                     //return true;
                     default: return true;
                 }
 
-                await AppServices.Notification.PushNotificationSignalR(new NotificationDTO
+                if (isSuccess)
                 {
-                    EventId = Events.Types.RefundBooking,
-                    UserId = booking.UserId,
-                    Type = Notifications.Types.SpecificUser
-                });
+                    booking.Status = Bookings.Status.CompletedRefund;
 
-                return true;
+                    await Update(booking);
+
+                    var notiDTO = new NotificationDTO()
+                    {
+                        EventId = Events.Types.RefundBooking,
+                        Type = Notifications.Types.SpecificUser,
+                        Token = booking.User.FCMToken,
+                        UserId = booking.User.Id
+                    };
+
+                    await AppServices.Notification.SendPushNotification(notiDTO);
+
+                    return true;
+                }  
             }
             catch (Exception e)
             {
