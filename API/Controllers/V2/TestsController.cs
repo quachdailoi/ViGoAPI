@@ -113,6 +113,24 @@ namespace API.Controllers.V2
             return Ok(response);
         }
 
+        [HttpGet("check-exist-trip-today")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CheckExistTripToday()
+        {
+            await AppServices.BookingDetail.CheckingExistTripInDay();
+
+            return Ok();
+        }
+
+        [HttpGet("check-mapping-tomorrow")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CheckMappingTomorrow()
+        {
+            await AppServices.BookingDetail.CheckingMappingStatus();
+
+            return Ok();
+        }
+
         [HttpPost("send-push-notification")]
         public async Task<IActionResult> SendPushNotification()
         {
