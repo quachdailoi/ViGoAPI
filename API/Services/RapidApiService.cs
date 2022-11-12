@@ -91,8 +91,8 @@ namespace API.Services
 
             var bodyJson = await TrueWayMatrix_CalculateDrivingMatrix(originParam, destinationParam);
 
-            var distance = bodyJson.distances[0][0];
-            var duration = bodyJson.durations[0][0];
+            var distance = (double)bodyJson.distances[0][0];
+            var duration = (double)bodyJson.durations[0][0];
 
             return KeyValuePair.Create(distance, duration);
         }

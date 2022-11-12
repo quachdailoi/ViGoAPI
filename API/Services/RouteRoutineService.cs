@@ -129,11 +129,23 @@ namespace API.Services
                 RouteRoutine? routinePre = null;
                 RouteRoutine? routineNext = null;
 
-                try { endTimePre = timelines[i - 1].Time; endStationPre = timelines[i - 1].Station; } 
-                catch { endTimePre = new TimeOnly(0, 0, 1); endStationPre = null; }
+                try { 
+                    endTimePre = timelines[i - 1].Time; 
+                    endStationPre = timelines[i - 1].Station; 
+                    routinePre = timelines[i - 1].Routine; 
+                } 
+                catch { 
+                    endTimePre = new TimeOnly(0, 0, 1); 
+                }
 
-                try { startTimeNext = timelines[i].Time; startStationNext = timelines[i].Station; } 
-                catch { startTimeNext = new TimeOnly(23, 59, 59); startStationNext = null; }
+                try { 
+                    startTimeNext = timelines[i].Time; 
+                    startStationNext = timelines[i].Station;
+                    routineNext = timelines[i].Routine;
+                } 
+                catch { 
+                    startTimeNext = new TimeOnly(23, 59, 59); 
+                }
 
                 if (endTimePre < request.StartTimeParsed && request.EndTimeParsed < startTimeNext)
                 {
@@ -152,7 +164,7 @@ namespace API.Services
                             };
                         }
                     }
-                    else if (startStationNext != null)
+                    if (startStationNext != null)
                     {
                         var disAndDur = await AppServices.RapidApi.CalculateDistanceAndDurationFrom2Station(newEndStation, startStationNext);
                         
@@ -162,7 +174,7 @@ namespace API.Services
                         {
                             return new InvalidRoutineViewModel()
                             {
-                                ConflictedRoutine = Mapper.Map<RouteRoutineViewModel>(routinePre),
+                                ConflictedRoutine = Mapper.Map<RouteRoutineViewModel>(routineNext),
                                 ValidTime = validTimeNext,
                                 Compare = "New routine must end before"
                             };
