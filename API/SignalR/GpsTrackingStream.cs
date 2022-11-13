@@ -15,7 +15,7 @@ namespace API.SignalR
         public static Dictionary<Guid, HashSet<string>> connectionIdDic = new();
         private delegate TResult GetWriterItems<TResult, TData>(TData data);
         private readonly int delay = 1000;
-        private readonly double radiusLimit = 3000; // meters
+        public readonly static double radiusLimit = 3000; // meters
 
         private readonly ILocationService _locationService;
         private readonly IJwtHandler _jwtHandler;

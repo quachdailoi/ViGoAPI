@@ -55,7 +55,7 @@ namespace API.Services
             };
         }
 
-        public async Task<FeeViewModel> CaculateFeeByDistance(int vehicleTypeId, double distance, TimeOnly time)
+        public async Task<FeeViewModel> CaculateFeeByDistance(int vehicleTypeId, double distance, TimeOnly time, bool includeBasePrice = true)
         {
             var vehicleTypeWithFare = await AppServices.VehicleType.GetWithFare();
 
@@ -63,9 +63,14 @@ namespace API.Services
 
             var extraByTimeline = fare.FareTimelines.Find(timeline => timeline.StartTime.CompareTo(time) <= 0 && timeline.EndTime.CompareTo(time) > 0);
 
-            var feePerTrip = fare.BasePrice;
+            var feePerTrip = distance / 1000 * fare.PricePerKm;
 
-            if(distance > fare.BaseDistance) feePerTrip += (distance - fare.BaseDistance) / 1000 * fare.PricePerKm;
+            if (includeBasePrice)
+            {
+                feePerTrip = fare.BasePrice;
+
+                if (distance > fare.BaseDistance) feePerTrip += (distance - fare.BaseDistance) / 1000 * fare.PricePerKm;
+            }
 
             feePerTrip = Fee.RoundToThousands(feePerTrip);
 
