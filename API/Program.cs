@@ -103,8 +103,10 @@ else
 }
 
 services.AddDbContextPool<AppDbContext>(options =>
-        options.UseNpgsql(connectionString)
-);
+{
+    options.UseNpgsql(connectionString);
+    options.EnableSensitiveDataLogging();
+});
 
 //var serviceProvider = builder.Services.BuildServiceProvider();
 //try
