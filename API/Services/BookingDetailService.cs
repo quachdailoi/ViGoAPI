@@ -89,10 +89,6 @@ namespace API.Services
 
             foreach (var driverSchedule in driverSchedules)
             {
-                //var detailsByDay = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time);
-
-                //var routes = (detailsByDay.Where(bd => bd.BookingDetailDrivers.Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && bdd.TripStatus != BookingDetailDrivers.TripStatus.Completed).Any())).Select(x => new BookingRoutineDTO { Route = x.Booking.StartRouteStation.Route, Date = x.Date, Time = x.Booking.Time}).ToList().DistinctBy(x => x.Route.Id).ToList();
-
                 var detailRoutines = new List<BookingDetailRoutineDTO>();
 
                 UnitOfWork.RouteRoutines.GetAllRouteRoutine(driverId).Include(x => x.Route).OrderBy(x => x.StartTime).ToList()
@@ -121,10 +117,9 @@ namespace API.Services
                         StartTime = routine.StartTime
                     };
 
-                    //var detailsInRoute = detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId);
                     var detailsInRouteRoutine = routineDetail.BookingDetails
                         .Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId)
-                        .Where(x => x.Status != BookingDetails.Status.Cancelled && x.Status != BookingDetails.Status.Completed); //detailsByDay.Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId);
+                        .Where(x => x.Status != BookingDetails.Status.Cancelled && x.Status != BookingDetails.Status.Completed); 
 
                     if (!detailsInRouteRoutine.Any()) continue;
 
@@ -170,7 +165,7 @@ namespace API.Services
                             PaymentStatus = x.Booking.Status
                         }
                     }).ToList();
-                    //schedules.ToList();
+
                     // add schedules
                     routeSchedule.Schedules = schedules;
 
@@ -204,8 +199,6 @@ namespace API.Services
 
                     var stepInSchedules = startStepInSchedules.Concat(endStepInSchedules).OrderBy(x => x.Time).ThenBy(x => x.Index)
                         .Where(ValidTripStatus).ToList();
-
-                    //var obj = ((List<object>)Convert.ChangeType(stepInSchedules, stepInSchedules.GetType())).OfType<StepScheduleViewModel>().ToList();
 
                     routeSchedule.Steps = ConvertTo<StepScheduleViewModel>(stepInSchedules);
 
@@ -391,8 +384,9 @@ namespace API.Services
         public Task<BookingDetail?> GetById(int id) =>
             UnitOfWork.BookingDetails
             .List(e => e.Id == id)
-            .Include(e => e.Booking)
-            .ThenInclude(b => b.User)
+            .Include(e => e.Booking.User)
+            .Include(e => e.Booking.StartRouteStation.Station)
+            .Include(e => e.Booking.EndRouteStation.Station)
             .FirstOrDefaultAsync();
 
         public async Task<bool?> Refund(Guid code, double amount, BookingDetails.RefundTypes refundType)

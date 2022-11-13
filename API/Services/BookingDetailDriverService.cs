@@ -1,6 +1,7 @@
 ﻿using API.Extensions;
 using API.Models;
 using API.Models.DTO;
+using API.Models.Requests;
 using API.Models.Response;
 using API.Services.Constract;
 using API.TaskQueues.TaskResolver;
@@ -84,11 +85,11 @@ namespace API.Services
             {
                 await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = updatedDetailDriver.BookingDetailId, Type = TaskItems.MappingItemTypes.BookingDetail });
             }
-
+           
             return successResponse;
         }
 
-        public async Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus)
+        public async Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus, double? latitude, double? longitude)
         {
             bookingDetailDriver.TripStatus = tripStatus;
 
@@ -116,6 +117,9 @@ namespace API.Services
                     case BookingDetailDrivers.TripStatus.Completed:
                         //if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(await AppServices.Setting.GetValue(Settings.TimeAfterComplete, 3))) 
                         //    throw new Exception("Invalid time to set status Completed for it.");
+
+                        await CheckRadiusToComplete(bookingDetail, latitude, longitude);
+
                         bookingDetail.Status = BookingDetails.Status.Completed;
                         bookingDetailDriver.BookingDetail = bookingDetail;
                         bookingDetailDriver.EndTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
@@ -178,6 +182,20 @@ namespace API.Services
             else Logger<BookingDetailDriverService>().LogError("Error: Booking detail null -> cannot set complete or send signal");
 
             return await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver);
+        }
+
+        private async Task CheckRadiusToComplete(BookingDetail detail, double? latitude, double? longitude)
+        {
+            if (latitude == null || longitude == null)
+                throw new Exception("Must input coordinate for checking location to complete.");
+
+            var endStationLatitude = detail.Booking.EndRouteStation.Station.Latitude;
+            var endStationLongitude = detail.Booking.EndRouteStation.Station.Longitude;
+
+            var distance = ILocationService.CalculateDistanceAsTheCrowFlies(endStationLatitude, endStationLongitude, (double)latitude, (double)longitude);
+
+            if (distance > await AppServices.Setting.GetValue(Settings.RadiusToComplete, 100.0))
+                throw new Exception($"Your location must be within {distance}m to complete.");
         }
 
         public List<User> GetUsers(string[] codes)

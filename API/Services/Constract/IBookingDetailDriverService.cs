@@ -8,7 +8,7 @@ namespace API.Services.Constract
     {
         Task<List<BookingDetailDriver>> Create(List<BookingDetailDriver> bookingDetailDrivers);
 
-        Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus);
+        Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus, double? latitude, double? longitude);
 
         Task<BookingDetailDriver?> GetBookingDetailDriverByCode(string code);
 

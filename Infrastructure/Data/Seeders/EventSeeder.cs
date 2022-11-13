@@ -104,13 +104,20 @@ namespace Infrastructure.Data.Seeders
                 },
                 new()
                 {
-                    Id = Domain.Shares.Enums.Events.Types.HaveTripSuddenly,
-                    Tittle = "You have a new trip.",
-                    Content = "You have been mapped with new booker at this time.",
+                    Id = Domain.Shares.Enums.Events.Types.NearlyBan,
+                    Tittle = "Be Cautions!!!",
+                    Content = "Be careful with the rate of cancelled trip, you reach 80% of permission of cancelled trip rate.",
                     Status = Domain.Shares.Enums.Events.Status.Active,
                     Type = Domain.Shares.Enums.Events.SubTypes.Default
-                }
-            };
+                },
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.BanDriver,
+                    Tittle = "You were banned!!!",
+                    Content = "You reach the limit of permission of cannceled trip rate, you were banned now. Contact with our office for handling this problem.",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
+                },            };
 
             builder.Entity<Event>().HasData(events);
         }

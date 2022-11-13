@@ -25,6 +25,9 @@ namespace Domain.Shares.Enums
             HasNewRating = 9,
             HaveTripInDay = 10,
             CompletedRefund = 11,
+            NearlyBan = 12,
+            BanDriver = 13
+            CompletedRefund = 11,
             HaveTripSuddenly = 12
         }
 
