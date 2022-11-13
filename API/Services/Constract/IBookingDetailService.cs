@@ -12,6 +12,7 @@ namespace API.Services.Constract
         Task<Response> GetNextBookingDetail(int userId, Response successResponse);
         Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, BookingDetails.Status? status, Response successResponse, Response invalidStatusResponse);
         Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, BookingDetails.Status? status, Response successResponse, Response invalidStatusResponse);
+        Task<BookerBookingDetailViewModel?> GetBookerViewModelByCode(Guid code);
 
         Task<Response> GetBookingsOfDriver(int driverId, PagingRequest pagingRequest, DateFilterRequest dateFilterRequest, Response success);
         Task<BookingDetail?> GetBookingDetailOfBookerByCode(string code, int bookerId);
@@ -24,5 +25,7 @@ namespace API.Services.Constract
         Task CheckingMappingStatus();
         Task CheckingExistTripInDay();
         BookingDetailDriver? GetBookingDetailDriverOfBookingDetail(string bookingDetailCode);
+        List<BookingDetail> PossibleSharingBookingDetails(List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic);
+        Task<FeeViewModel?> CaculateFeeAfterCompleted(Guid code);
     }
 }

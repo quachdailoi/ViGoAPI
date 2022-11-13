@@ -21,6 +21,7 @@ namespace API.Services.Constract
         Task<Booking?> MappingBooking(int bookingId);
         Task<RouteRoutine?> MappingRouteRoutine(int routeRoutineId);
         Task<BookingDetail?> MappingBookingDetail(int bookingDetailId);
+        Task<BookingDetail?> MappingBookingDetailSuddenly(Guid code);
         Task<bool> CheckIsConflictBooking(Booking booking);
         Task<bool?> Refund(Guid code);
     }

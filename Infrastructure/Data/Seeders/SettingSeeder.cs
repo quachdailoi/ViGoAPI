@@ -74,6 +74,12 @@ namespace Infrastructure.Data.Seeders
                     Id = Settings.AllowedDriverCancelTripTime,
                     Key = Settings.AllowedDriverCancelTripTime.ToString(),
                     Value = new TimeOnly(19,45).ToString()
+                },
+                new Setting
+                {
+                    Id = Settings.DiscountPerEachSharingCase,
+                    Key = Settings.DiscountPerEachSharingCase.ToString(),
+                    Value = "0.1"
                 }
             });
         }

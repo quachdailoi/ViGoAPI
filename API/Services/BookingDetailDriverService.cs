@@ -122,13 +122,32 @@ namespace API.Services
 
                         var wallet = await AppServices.Wallet.GetWallet(bookingDetailDriver.RouteRoutine.UserId);
 
+                        var totalFee = bookingDetail.Price + bookingDetail.DiscountPrice;
+
+                        if (bookingDetail.Booking.IsShared)
+                        {
+                            var bookerReturnFee = (await AppServices.BookingDetail.CaculateFeeAfterCompleted(bookingDetail.Code))?.DiscountFee;
+
+                            if (bookerReturnFee.HasValue && bookerReturnFee.Value > 0)
+                            {
+                                await AppServices.RedisMQ.Publish(RefundBookingTask.REFUND_QUEUE, new RefundItemDTO
+                                {
+                                    Amount = bookerReturnFee.Value,
+                                    Code = bookingDetail.Code,
+                                    Type = TaskItems.RefundItemTypes.BookingDetail
+                                });
+
+                                totalFee -= bookerReturnFee.Value;
+                            }                               
+                        }
+
                         if (wallet != null)
                         {
-                            var tradeDiscount = double.Parse(AppServices.Setting.GetValue(Settings.TradeDiscount).Result ?? "0.2");
+                            var tradeDiscount = await AppServices.Setting.GetValue<double>(Settings.TradeDiscount,0.2);
 
                             var transactionDto = new WalletTransactionDTO
                             {
-                                Amount = Fee.FloorToHundreds((bookingDetail.Price + bookingDetail.DiscountPrice) * (1-tradeDiscount)),
+                                Amount = Fee.FloorToHundreds(totalFee * (1-tradeDiscount)),
                                 Status = WalletTransactions.Status.Success,
                                 WalletId = wallet.Id,
                                 Type = WalletTransactions.Types.TripIncome

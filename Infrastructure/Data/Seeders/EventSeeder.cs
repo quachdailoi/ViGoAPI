@@ -101,6 +101,14 @@ namespace Infrastructure.Data.Seeders
                     Content = "We have refunded for you successfully. Sorry for not serving you in the best way.",
                     Status = Domain.Shares.Enums.Events.Status.Active,
                     Type = Domain.Shares.Enums.Events.SubTypes.Default
+                },
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.HaveTripSuddenly,
+                    Tittle = "You have a new trip.",
+                    Content = "You have been mapped with new booker at this time.",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
                 }
             };
 

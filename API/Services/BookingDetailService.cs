@@ -582,5 +582,129 @@ namespace API.Services
                 .Select(x => x.BookingDetailDrivers.Where(bdd => bdd.TripStatus != BookingDetailDrivers.TripStatus.Cancelled).FirstOrDefault())
                 .FirstOrDefault();
         }
+
+        public async Task<FeeViewModel?> CaculateFeeAfterCompleted(Guid code)
+        {
+            var bookingDetail =
+                await UnitOfWork.BookingDetails
+                .List(e => e.Code == code && e.Status == BookingDetails.Status.Completed)
+                .Include(e => e.Booking)
+                .ThenInclude(b => b.StartRouteStation)
+                .Include(e => e.BookingDetailDrivers.Where(bdr =>
+                                        bdr.TripStatus == BookingDetailDrivers.TripStatus.Completed))
+                .FirstOrDefaultAsync();
+
+            if (bookingDetail == null || !bookingDetail.BookingDetailDrivers.Any())
+                return null;
+
+            var routeStationDic =
+                (await UnitOfWork.Routes
+                .List(e => e.Id == bookingDetail.Booking.StartRouteStation.RouteId && e.Status == Routes.Status.Active)
+                .Include(e => e.RouteStations)
+                .ThenInclude(rs => rs.Station)
+                .FirstOrDefaultAsync())?
+                .RouteStations
+                .ToDictionary(e => e.Id);
+
+            if (routeStationDic == null)
+                return null;
+
+            var bookingDetailInTrips =
+                (await UnitOfWork.RouteRoutines
+                .List(e => e.Id == bookingDetail.BookingDetailDrivers.First().RouteRoutineId)
+                .Include(e => e.BookingDetailDrivers.Where(bdr =>
+                                    bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled &&
+                                    bdr.BookingDetail.Date == bookingDetail.Date &&
+                                    bdr.BookingDetailId != bookingDetail.Id))
+                .ThenInclude(e => e.BookingDetail)
+                .ThenInclude(e => e.Booking)
+                .FirstOrDefaultAsync())?
+                .BookingDetailDrivers
+                .Select(bdr => bdr.BookingDetail)
+                .ToList();
+
+            if (bookingDetailInTrips == null)
+                return null;
+
+            var possibleSharingBookingDetails = PossibleSharingBookingDetails(bookingDetailInTrips, bookingDetail, routeStationDic);
+
+            var steps = routeStationDic.Values
+                .Where(routeStation =>
+                    routeStation.DistanceFromFirstStationInRoute >= routeStationDic[bookingDetail.Booking.StartRouteStationId].DistanceFromFirstStationInRoute &&
+                    routeStation.DistanceFromFirstStationInRoute < routeStationDic[bookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute)
+                .Select(routeStation =>
+                {
+                    routeStation.NextRouteStation = routeStationDic[routeStation.NextRouteStationId.Value];
+                    return routeStation;
+                })
+                .ToList();
+
+            var sharingStepsInTrip = new List<StepInTripDTO>();
+
+            foreach (var routeStation in steps)
+            {
+                var stepInTrip = new StepInTripDTO
+                {
+                    RouteStation = routeStation,
+                    Count = 1
+                };
+
+                possibleSharingBookingDetails
+                    .Where(possibleSharingBookingDetail =>
+                        routeStationDic[possibleSharingBookingDetail.Booking.StartRouteStationId].DistanceFromFirstStationInRoute <= routeStation.DistanceFromFirstStationInRoute &&
+                        routeStationDic[possibleSharingBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute >= routeStation.NextRouteStation.DistanceFromFirstStationInRoute)
+                    .ToList()
+                    .ForEach(possibleSharingBookingDetail =>
+                    {
+                        stepInTrip.Count++;
+                    });
+
+                if(stepInTrip.Count > 1)
+                    sharingStepsInTrip.Add(stepInTrip);
+            }
+
+            double discount = 0;
+
+            var discountPerEachSharingCase = await AppServices.Setting.GetValue<double>(Settings.DiscountPerEachSharingCase, 0.1);
+
+            foreach (var sharingStep in sharingStepsInTrip)
+            {
+                var distance = sharingStep.RouteStation.NextRouteStation.DistanceFromFirstStationInRoute - sharingStep.RouteStation.DistanceFromFirstStationInRoute;
+                discount += (await AppServices.Fare.CaculateFeeByDistance(bookingDetail.Booking.VehicleTypeId, distance, bookingDetail.Booking.Time)).TotalFee * sharingStep.Count * discountPerEachSharingCase;
+            }
+
+            return new FeeViewModel
+            {
+                Fee = bookingDetail.Price,
+                DiscountFee = discount,
+                TotalFee = bookingDetail.Price - discount
+            };
+        }
+
+        public List<BookingDetail> PossibleSharingBookingDetails(List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic)
+        {
+            var curStartStation = routeStationDic[bookingDetail.Booking.StartRouteStationId];
+            var curEndStation = routeStationDic[bookingDetail.Booking.EndRouteStationId];
+
+            //var filterMappedBookingDetails = mappedBookingDetails
+            //    .Where(mappedBookingDetail =>
+            //        !(((mappedBookingDetail.Booking.Time - bookingDetail.Booking.Time.AddMinutes(bookingDetail.Booking.Duration)).TotalMinutes >= Bookings.AllowedMappingTimeRange) ||
+            //           (bookingDetail.Booking.Time - mappedBookingDetail.Booking.Time.AddMinutes(mappedBookingDetail.Booking.Duration)).TotalMinutes >= Bookings.AllowedMappingTimeRange))
+            //    .ToList();
+
+            return mappedBookingDetails
+                    .Where(mappedBookingDetail =>
+                        !(curStartStation.DistanceFromFirstStationInRoute >= routeStationDic[mappedBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute ||
+                          curEndStation.DistanceFromFirstStationInRoute <= routeStationDic[mappedBookingDetail.Booking.StartRouteStationId].DistanceFromFirstStationInRoute))
+                    .OrderBy(mappedBookingDetail => mappedBookingDetail.Booking.Time)
+                    .ToList();
+        }
+
+        public Task<BookerBookingDetailViewModel?> GetBookerViewModelByCode(Guid code)
+        {
+            return UnitOfWork.BookingDetails.GetBookingDetailByCodeAsync(code.ToString())
+                .MapTo<BookerBookingDetailViewModel>(Mapper)
+                .FirstOrDefaultAsync();
+        }
     }
 }
