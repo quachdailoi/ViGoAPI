@@ -10,8 +10,8 @@ namespace API.Services.Constract
     {
         List<BookingDetail> GenerateBookingDetail(Booking booking, FeeViewModel feePerTrip);
         Task<Response> GetNextBookingDetail(int userId, Response successResponse);
-        Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse);
-        Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, Response successResponse);
+        Task<Response> GetOnGoing(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, BookingDetails.Status? status, Response successResponse, Response invalidStatusResponse);
+        Task<Response> GetHistory(int userId, DateFilterRequest dateFilterRequest, PagingRequest pagingRequest, BookingDetails.Status? status, Response successResponse, Response invalidStatusResponse);
 
         Task<Response> GetBookingsOfDriver(int driverId, PagingRequest pagingRequest, DateFilterRequest dateFilterRequest, Response success);
         Task<BookingDetail?> GetBookingDetailOfBookerByCode(string code, int bookerId);

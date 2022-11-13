@@ -195,25 +195,32 @@ namespace API.Controllers.V1
         ///     GET api/bookings/history 
         ///     {
         ///         Page: 1,
-        ///         PageSize: 5
+        ///         PageSize: 5,
+        ///         Status: 4, // 0: Cancelled, 4: Completed, 5: PendingRefund, 6: CompletedRefund
         ///     }
         /// </remarks>
         /// <response code = "200"> Get bookings successfully.</response>
         /// <response code="500"> Failed to get bookings.</response>
         [HttpGet("history")]
         [Authorize(Roles = "BOOKER")]
-        public async Task<IActionResult> GetBookingDetailHistory([FromQuery] PagingRequest pagingRequest)
+        public async Task<IActionResult> GetBookingDetailHistory([FromQuery] PagingRequest pagingRequest, BookingDetails.Status? Status = null)
         {
             var user = LoggedInUser;
 
             var response = await AppServices.BookingDetail.GetHistory(
                                             user.Id,
-                                            dateFilterRequest: new DateFilterRequest { ToDate = DateTimeExtensions.NowDateOnly.ToFormatString() },
+                                            dateFilterRequest: new DateFilterRequest (),
                                             pagingRequest: pagingRequest,
+                                            Status,
                                             successResponse: new()
                                             {
                                                 Message = "Get booking details successfully.",
                                                 StatusCode = StatusCodes.Status200OK
+                                            },
+                                            invalidStatusResponse: new()
+                                            {
+                                                Message = "Status is invalid.",
+                                                StatusCode = StatusCodes.Status400BadRequest
                                             }
                                             );
             return ApiResult(response);
@@ -228,14 +235,15 @@ namespace API.Controllers.V1
         ///     GET api/bookings/on-going 
         ///     {
         ///         Page: 1,
-        ///         PageSize: 5
+        ///         PageSize: 5,
+        ///         Status: 1, // 1: Pending, 2: Ready, 3: Started (nullable)
         ///     }
         /// </remarks>
         /// <response code = "200"> Get bookings successfully.</response>
         /// <response code="500"> Failed to get bookings.</response>
         [HttpGet("on-going")]
         [Authorize(Roles = "BOOKER")]
-        public async Task<IActionResult> GetBookingDetailOnGoing([FromQuery] PagingRequest pagingRequest)
+        public async Task<IActionResult> GetBookingDetailOnGoing([FromQuery] PagingRequest pagingRequest, BookingDetails.Status? Status = null)
         {
             var user = LoggedInUser;
 
@@ -243,10 +251,16 @@ namespace API.Controllers.V1
                                             user.Id,
                                             dateFilterRequest: new DateFilterRequest { FromDate = DateTimeExtensions.NowDateOnly.ToFormatString() },
                                             pagingRequest: pagingRequest,
+                                            Status,
                                             successResponse: new()
                                             {
                                                 Message = "Get booking details successfully.",
                                                 StatusCode = StatusCodes.Status200OK
+                                            },
+                                            invalidStatusResponse: new()
+                                            {
+                                                Message = "Status is invalid.",
+                                                StatusCode = StatusCodes.Status400BadRequest
                                             }
                                             );
             return ApiResult(response);

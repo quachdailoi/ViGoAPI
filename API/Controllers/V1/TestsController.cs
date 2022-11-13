@@ -77,27 +77,11 @@ namespace API.Controllers.V1
 
             //return Ok(response);
 
-            var obj = new List<TestObject> { new TestObject
-            {
-                Name = "asdasd",
-                Age = 12
-            }};
+            var result = await AppServices.Payment.MomoRefund(2790637780, 15000);
 
-            var json = JsonConvert.SerializeObject(obj);
-
-            var arr = JsonConvert.DeserializeObject<List<object>>(json);
-
-            TestObject testObj = JsonConvert.DeserializeObject<TestObject>(arr[0].ToString());
-
-            return Ok();
+            return Ok(result);
 
             //return Ok(await AppServices.VehicleType.GetWithFare());
-        }
-
-        public class TestObject
-        {
-            public string Name { get; set; }
-            public int Age { get; set; }
         }
 
         [HttpPost("dump/drivers")]

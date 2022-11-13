@@ -27,7 +27,7 @@ namespace Domain.Shares.Enums
             Completed,
             CancelledByBooker,
             PendingRefund,
-            RefundCompleted
+            CompletedRefund
         }
 
         public static readonly double AllowedMappingTimeRange = 3; //minutes

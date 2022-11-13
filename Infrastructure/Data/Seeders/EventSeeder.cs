@@ -96,6 +96,14 @@ namespace Infrastructure.Data.Seeders
                 },
                 new()
                 {
+                    Id = Domain.Shares.Enums.Events.Types.CompletedRefund,
+                    Tittle = "Complete Refund",
+                    Content = "We have refunded for you successfully. Sorry for not serving you in the best way.",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
+                },
+                new()
+                {
                     Id = Domain.Shares.Enums.Events.Types.NearlyBan,
                     Tittle = "Be Cautions!!!",
                     Content = "Be careful with the rate of cancelled trip, you reach 80% of permission of cancelled trip rate.",
@@ -109,8 +117,7 @@ namespace Infrastructure.Data.Seeders
                     Content = "You reach the limit of permission of cannceled trip rate, you were banned now. Contact with our office for handling this problem.",
                     Status = Domain.Shares.Enums.Events.Status.Active,
                     Type = Domain.Shares.Enums.Events.SubTypes.Default
-                },
-            };
+                },            };
 
             builder.Entity<Event>().HasData(events);
         }
