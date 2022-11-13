@@ -1,5 +1,6 @@
 ﻿using API.Extensions;
 using API.Models;
+using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Services.Constract;
@@ -124,12 +125,57 @@ namespace API.Services
 
             var bookingDetailDrivers = UnitOfWork.BookingDetailDrivers.List(bdr => bdr.RouteRoutine.UserId == driver.Id);
 
-            var ratingTrips = bookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.Completed && bdr.BookingDetail.Rating.HasValue);
+            var ratingTrips = bookingDetailDrivers
+                .OrderByDescending(x => x.StartTime)
+                .Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.Completed && bdr.BookingDetail.Rating.HasValue)
+                .Take(await AppServices.Setting.GetValue(Settings.TotalTripsCalculateRating, 100));
 
             var totalRating = ratingTrips.Select(bdr => bdr.BookingDetail.Rating).Sum();
             var totalRatingTrip = ratingTrips.Count();
 
             driver.Rating = totalRating / totalRatingTrip;
+
+            await UnitOfWork.Users.Update(driver);
+        }
+
+        public async Task UpdateCancelledTripRate(int driverId)
+        {
+            var driver = AppServices.User.GetUserById(driverId)?.FirstOrDefault();
+            if (driver == null) throw new Exception("Not found driver.");
+
+            var bookingDetailDrivers = UnitOfWork.BookingDetailDrivers.List(bdr => bdr.RouteRoutine.UserId == driver.Id)
+                .OrderByDescending(x => x.StartTime)
+                .Where(x => x.TripStatus == BookingDetailDrivers.TripStatus.Completed || x.TripStatus == BookingDetailDrivers.TripStatus.Cancelled)
+                .Take(await AppServices.Setting.GetValue(Settings.TotalTripsCalculateCancelledRate, 100));
+
+            var totalCompleted = bookingDetailDrivers.Count();
+
+            var totalCancelled = bookingDetailDrivers.Where(x => x.TripStatus == BookingDetailDrivers.TripStatus.Cancelled).Count();
+
+            var cancelledTripRate = totalCancelled * 1.0 / totalCompleted;
+            driver.CancelledTripRate = cancelledTripRate;
+
+            if (cancelledTripRate >= await AppServices.Setting.GetValue(Settings.NotifiedCancelledTripRate, 0.08) && 
+                    cancelledTripRate < await AppServices.Setting.GetValue(Settings.MaxCancelledTripRate, 0.1))
+            {
+                //send notification to driver
+                var notiDTO = new NotificationDTO()
+                {
+                    EventId = Events.Types.NearlyBan,
+                    Token = driver.FCMToken,
+                    UserId = driverId
+                };
+                await AppServices.Notification.SendPushNotification(notiDTO);
+            } else if (cancelledTripRate >= await AppServices.Setting.GetValue(Settings.MaxCancelledTripRate, 0.1))
+            {
+                var notiDTO = new NotificationDTO()
+                {
+                    EventId = Events.Types.BanDriver,
+                    Token = driver.FCMToken,
+                    UserId = driverId
+                };
+                await AppServices.Notification.SendPushNotification(notiDTO);
+            }
 
             await UnitOfWork.Users.Update(driver);
         }

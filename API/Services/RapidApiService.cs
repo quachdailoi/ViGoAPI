@@ -83,6 +83,20 @@ namespace API.Services
             throw new Exception("Failed on all rapid api keys.");
         }
 
+        public async Task<KeyValuePair<double, double>> CalculateDistanceAndDurationFrom2Station(Station station1, Station station2)
+        {
+
+            string originParam = $"{station1.Latitude},{station1.Longitude}";
+            string destinationParam = $"{station2.Latitude},{station2.Longitude}";
+
+            var bodyJson = await TrueWayMatrix_CalculateDrivingMatrix(originParam, destinationParam);
+
+            var distance = (double)bodyJson.distances[0][0];
+            var duration = (double)bodyJson.durations[0][0];
+
+            return KeyValuePair.Create(distance, duration);
+        }
+
         private static List<DistanceStationDTO> LoadRealDistanceAndTime(ref List<DistanceStationDTO> stations, dynamic? distances, dynamic? durations)
         {
             for (var index = 0; index < stations.Count; index++)

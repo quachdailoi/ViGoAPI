@@ -74,7 +74,61 @@ namespace Infrastructure.Data.Seeders
                     Id = Settings.AllowedDriverCancelTripTime,
                     Key = Settings.AllowedDriverCancelTripTime.ToString(),
                     Value = new TimeOnly(19,45).ToString()
-                }
+                },
+                new Setting
+                {
+                    Id = Settings.TotalTripsCalculateRating,
+                    Key = Settings.TotalTripsCalculateRating.ToString(),
+                    Value = "100"
+                },
+                new Setting
+                {
+                    Id = Settings.MaxCancelledTripRate,
+                    Key = Settings.MaxCancelledTripRate.ToString(),
+                    Value = "0.1"
+                },
+                new Setting
+                {
+                    Id = Settings.NotifiedCancelledTripRate,
+                    Key = Settings.NotifiedCancelledTripRate.ToString(),
+                    Value = "0.08"
+                },
+                new Setting
+                {
+                    Id = Settings.TimeSpanRounded,
+                    Key = Settings.TimeSpanRounded.ToString(),
+                    Value = "5"
+                },
+                new Setting
+                {
+                    Id = Settings.TimeSpanBufferToCreateRoutine,
+                    Key = Settings.TimeSpanBufferToCreateRoutine.ToString(),
+                    Value = "5"
+                },
+                new Setting
+                {
+                    Id = Settings.TimeToCreateTomorrowRoutine,
+                    Key = Settings.TimeToCreateTomorrowRoutine.ToString(),
+                    Value = "20:00:00"
+                },
+                new Setting
+                {
+                    Id = Settings.RadiusNearbyStation,
+                    Key = Settings.RadiusNearbyStation.ToString(),
+                    Value = "6000"
+                },
+                new Setting
+                {
+                    Id = Settings.RadiusToComplete,
+                    Key = Settings.RadiusToComplete.ToString(),
+                    Value = "100"
+                },
+                new Setting
+                {
+                    Id = Settings.LastDayNumberForNextMonthRoutine,
+                    Key = Settings.LastDayNumberForNextMonthRoutine.ToString(),
+                    Value = "7"
+                },
             });
         }
     }

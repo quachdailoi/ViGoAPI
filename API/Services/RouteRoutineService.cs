@@ -25,20 +25,10 @@ namespace API.Services
             var driverRouteRoutineCurrent = UnitOfWork.RouteRoutines.GetActiveRoutines(request.UserId)
                     .Where(x => x.EndAt >= DateTimeExtensions.NowDateOnly);
 
-            var NewStartAt = DateTimeExtensions.ParseExactDateOnly(request.StartAt);
-            var NewEndAt = DateTimeExtensions.ParseExactDateOnly(request.EndAt);
-            var NewStartTime = DateTimeExtensions.ParseExactTimeOnly(request.StartTime);
-            var NewEndTime = NewStartTime.AddMinutes(request.Route.Duration / 60);
-
-            request.StartAtParsed = NewStartAt;
-            request.EndAtParsed = NewEndAt;
-            request.StartTimeParsed = NewStartTime;
-            request.EndTimeParsed = NewEndTime;
-
             if (driverRouteRoutineCurrent == null || !driverRouteRoutineCurrent.Any()) return true;
 
             return !driverRouteRoutineCurrent.ToList()
-                .Where(x => (NewStartAt <= x.EndAt && NewEndAt >= x.StartAt && NewStartTime < x.EndTime.RoundUp(30) && NewEndTime.RoundUp(30) > x.StartTime))
+                .Where(x => (request.StartAtParsed <= x.EndAt && request.EndAtParsed >= x.StartAt && request.StartTimeParsed < x.EndTime.RoundUp(5) && request.EndTimeParsed.RoundUp(5) > x.StartTime))
                 .Any();
         }
 
@@ -79,6 +69,188 @@ namespace API.Services
 
             await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = routeRoutineCreated.Id, Type = TaskItems.MappingItemTypes.RouteRoutine });
             return success.SetData(viewModel);
+        }
+
+        public async Task<InvalidRoutineViewModel?> CheckValidDistanceNewRoutine(CreateRouteRoutineRequest request)
+        {
+            var driverRouteRoutine = UnitOfWork.RouteRoutines.GetActiveRoutines(request.UserId)
+                .Include(x => x.Route)
+                .ThenInclude(x => x.RouteStations)
+                .ThenInclude(x => x.Station)
+                .Where(x => x.EndAt >= DateTimeExtensions.NowDateOnly)
+                .Where(x => request.StartAtParsed <= x.EndAt && request.EndAtParsed >= x.StartAt);
+
+            var timelines = new List<TimelineDTO>();
+
+            foreach(var routeRoutine in driverRouteRoutine)
+            {
+                timelines.Add(new()
+                {
+                    Station = routeRoutine.Route.RouteStations.MinBy(x => x.Index).Station,
+                    Time = routeRoutine.StartTime,
+                    Routine = routeRoutine
+                });
+                timelines.Add(new()
+                {
+                    Station = routeRoutine.Route.RouteStations.MaxBy(x => x.Index).Station,
+                    Time = routeRoutine.EndTime,
+                    Routine = routeRoutine
+                });
+            }
+
+            timelines = timelines.DistinctBy(x => x.Time).OrderBy(x => x.Time).ToList();
+
+            var newRouteStations = UnitOfWork.Routes.List(x => x.Code.ToString() == request.RouteCode).Include(x => x.RouteStations).ThenInclude(x => x.Station).FirstOrDefault().RouteStations;
+            
+            var newStartStation = newRouteStations.MinBy(x => x.Index).Station;
+            var newEndStation = newRouteStations.MaxBy(x => x.Index).Station;
+
+            for (var i = 0; i <= timelines.Count; i++)
+            {
+                TimeOnly endTimePre;
+                TimeOnly startTimeNext;
+
+                Station? endStationPre = null;
+                Station? startStationNext = null;
+
+                RouteRoutine? routinePre = null;
+                RouteRoutine? routineNext = null;
+
+                try { 
+                    endTimePre = timelines[i - 1].Time; 
+                    endStationPre = timelines[i - 1].Station; 
+                    routinePre = timelines[i - 1].Routine; 
+                } 
+                catch { 
+                    endTimePre = new TimeOnly(0, 0, 1); 
+                }
+
+                try { 
+                    startTimeNext = timelines[i].Time; 
+                    startStationNext = timelines[i].Station;
+                    routineNext = timelines[i].Routine;
+                } 
+                catch { 
+                    startTimeNext = new TimeOnly(23, 59, 59); 
+                }
+
+                if (endTimePre < request.StartTimeParsed && request.EndTimeParsed < startTimeNext)
+                {
+                    var timeSpanRounded = await AppServices.Setting.GetValue(Settings.TimeSpanRounded, 5);
+                    var timeSpanBuffer = await AppServices.Setting.GetValue(Settings.TimeSpanBufferToCreateRoutine, 5);
+                    if (endStationPre != null)
+                    {
+                        var disAndDur = await AppServices.RapidApi.CalculateDistanceAndDurationFrom2Station(endStationPre, newStartStation);
+                        var validTimePre = endTimePre.AddMinutes(disAndDur.Value / 60)
+                            .RoundUp(timeSpanRounded)
+                            .AddMinutes(timeSpanBuffer);
+
+                        if (validTimePre > request.StartTimeParsed)
+                        {
+                            return new InvalidRoutineViewModel() 
+                            {
+                                ConflictedRoutine = Mapper.Map<RouteRoutineViewModel>(routinePre),
+                                ValidTime = validTimePre,
+                                Compare = "New routine must start after"
+                            };
+                        }
+                    }
+                    if (startStationNext != null)
+                    {
+                        var disAndDur = await AppServices.RapidApi.CalculateDistanceAndDurationFrom2Station(newEndStation, startStationNext);
+                        
+                        var validTimeNext = startTimeNext.AddMinutes(- disAndDur.Value / 60)
+                            .RoundDown(timeSpanRounded)
+                            .AddMinutes(- timeSpanBuffer);
+
+                        if (validTimeNext < request.EndTimeParsed)
+                        {
+                            return new InvalidRoutineViewModel()
+                            {
+                                ConflictedRoutine = Mapper.Map<RouteRoutineViewModel>(routineNext),
+                                ValidTime = validTimeNext,
+                                Compare = "New routine must end before"
+                            };
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public async Task<Response?> CheckTimeToCreateRoutine(CreateRouteRoutineRequest request)
+        {
+            var timelineToCreate = 
+                DateTimeExtensions.ParseExactTimeOnly(
+                    await AppServices.Setting.GetValue(Settings.TimeToCreateTomorrowRoutine, "20:00:00"));
+
+            var nowTimeOnly = DateTimeExtensions.NowTimeOnly;
+            var nowDateOnly = DateTimeExtensions.NowDateOnly;
+
+            if (nowTimeOnly < timelineToCreate)
+            {
+                // can create routine start from tomorrow
+                
+                if (request.StartAtParsed < nowDateOnly.AddDays(1)) return new()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "You can only create route routine from tomorrow."
+                };
+            } else
+            {
+                // can create routine start from the day after tomorrow
+                if (request.StartAtParsed < nowDateOnly.AddDays(2)) return new()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = $"You can only create route routine from the day after tomorrow, now is after {timelineToCreate}."
+                };
+            }
+
+            return null;
+        }
+
+        public async Task<Response?> CheckDateToCreateRoutine(CreateRouteRoutineRequest request)
+        {
+            var nowDateOnly = DateTimeExtensions.NowDateOnly;
+            var firstDayOfNextMonth = new DateOnly(nowDateOnly.Year, nowDateOnly.Month + 1, 01);
+            var lastDayOfNextMonth = firstDayOfNextMonth.AddMonths(1).AddDays(-1);
+
+            var startRoutineMonth = request.StartAtParsed.Month;
+            var endRoutineMonth = request.EndAtParsed.Month;
+            var startRoutineYear = request.StartAtParsed.Year;
+            var endRoutineYear = request.EndAtParsed.Year;
+
+            if (startRoutineMonth != endRoutineMonth || startRoutineYear != endRoutineYear) return new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "You just sign routine with start date and end date in the same month."
+            };
+
+            var dayForNextMonthRoutine = firstDayOfNextMonth.AddDays(- await AppServices.Setting.GetValue(Settings.LastDayNumberForNextMonthRoutine, 7));
+
+            // before last 7 days of this month, driver can only sign routine in this month.
+            if (nowDateOnly < dayForNextMonthRoutine)
+            {
+                if (nowDateOnly.Month != startRoutineMonth)
+                {
+                    return new()
+                    {
+                        StatusCode = StatusCodes.Status400BadRequest,
+                        Message = $"At this time, you just can sign routine in this month only. For the next month routine, back to sign routine after {dayForNextMonthRoutine}"
+                    };
+                }
+            } 
+            else
+            {
+                if (nowDateOnly.Month != startRoutineMonth || nowDateOnly.Month + 1 != startRoutineMonth) return new()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "You just sign routine for the rest of this month or the whole next month."
+                };
+            }
+
+            return null;
         }
 
         public async Task<Response> GetRouteRoutineOfDriver(int driverId, Response success)

@@ -31,6 +31,10 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.CancelledReason)
                 .HasColumnName("cancelled_reason");
 
+            builder.Property(e => e.CompleteWithoutBooker)
+                .HasDefaultValue(false)
+                .HasColumnName("complete_without_booker");
+
             builder.Property(e => e.RouteRoutineId)
                 .HasColumnName("route_routine_id")
                 .IsRequired();

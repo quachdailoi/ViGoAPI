@@ -1,4 +1,5 @@
-﻿using API.Models.Requests;
+﻿using API.Models;
+using API.Models.Requests;
 using API.Models.Response;
 using Domain.Entities;
 
@@ -17,5 +18,8 @@ namespace API.Services.Constract
         Task<List<RouteRoutine>> GetRouteRoutineFitBookingCondition(Booking booking);
         Task<bool> Update(RouteRoutine routeRoutine);
         Task<bool> ExistAnyRoutines();
+        Task<InvalidRoutineViewModel?> CheckValidDistanceNewRoutine(CreateRouteRoutineRequest request);
+        Task<Response?> CheckTimeToCreateRoutine(CreateRouteRoutineRequest request);
+        Task<Response?> CheckDateToCreateRoutine(CreateRouteRoutineRequest request);
     }
 }

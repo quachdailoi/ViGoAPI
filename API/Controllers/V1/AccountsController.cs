@@ -110,7 +110,5 @@ namespace API.Controllers.V1
 
             return Ok(new Response(StatusCode: 200, Message: "Token revoked successfully."));
         }
-
-
     }
 }

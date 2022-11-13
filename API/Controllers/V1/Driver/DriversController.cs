@@ -621,7 +621,7 @@ namespace API.Controllers.V1.Driver
                 Message = "New trip status not a valid next trip status."
             });
 
-            var updateResult = await AppServices.BookingDetailDriver.UpdateTripStatus(bookingDetailDriver, request.TripStatus);
+            var updateResult = await AppServices.BookingDetailDriver.UpdateTripStatus(bookingDetailDriver, request.TripStatus, request.Latitude, request.Longitude);
 
             if (!updateResult) return ApiResult(new()
             {
@@ -694,6 +694,7 @@ namespace API.Controllers.V1.Driver
         [HttpPut("booking-detail-driver/cancel")]
         public async Task<IActionResult> CancelTrip([FromBody] CancelBookingDetailDriversRequest request)
         {
+            var driver = LoggedInUser;
             var response = 
                 await AppServices.BookingDetailDriver.CancelBookingDetailDrivers(
                     request.BookingDetailDriverCodes, 
@@ -701,23 +702,32 @@ namespace API.Controllers.V1.Driver
                     invalidAllowedTimeResponse: new()
                     {
                         StatusCode = StatusCodes.Status400BadRequest,
-                        Message = "You can not cancel any trip in the following day after 19:45."
+                        Message = "You can not cancel any trip in the following day after 19:45.",
+                        Success = false
                     },
                     invalidBookingDetailDriverResponse: new()
                     {
                         StatusCode = StatusCodes.Status400BadRequest,
-                        Message = "All booking detail driver's date must be existed and after today."
+                        Message = "All booking detail driver's date must be existed and after today.",
+                        Success = false
                     },
                     successResponse: new()
                     {
                         StatusCode = StatusCodes.Status200OK,
-                        Message = "Cancel booking detail driver successfully."
+                        Message = "Cancel booking detail driver successfully.",
+                        Success = true
                     },
                     failResponse: new()
                     {
                         StatusCode = StatusCodes.Status500InternalServerError,
-                        Message = "Failed to cancel booking detail driver."
+                        Message = "Failed to cancel booking detail driver.",
+                        Success = false
                     });
+
+            if (response.Success)
+            {
+                await AppServices.Driver.UpdateCancelledTripRate(driver.Id);
+            }
 
             return ApiResult(response);
         }

@@ -23,14 +23,14 @@ namespace API.Services
 
         public async Task<Response> GetNearByStationsByCoordinates(CoordinatesDTO coordinates, Response success, Response failed)
         {
-                var distanceStations = GetNearByStationsAsTheCrowFlies(coordinates);
+                var distanceStations = await GetNearByStationsAsTheCrowFlies(coordinates);
 
                 var sortedDistanceStations = await AppServices.RapidApi.CalculateDrivingMatrix(coordinates, distanceStations);
 
                 return success.SetData(sortedDistanceStations);
         }
 
-        public List<DistanceStationDTO> GetNearByStationsAsTheCrowFlies(CoordinatesDTO coordinates)
+        public async Task<List<DistanceStationDTO>> GetNearByStationsAsTheCrowFlies(CoordinatesDTO coordinates)
         {
             var startStationCode = coordinates.StartStationCode;
             int? startStationId = null;
@@ -63,6 +63,8 @@ namespace API.Services
                 stations = stations.Where(x => stationIdsInSameRouteOfStart.Contains(x.Id));
             }
 
+            var radiusNearby = await AppServices.Setting.GetValue(Settings.RadiusNearbyStation, 6000.0);
+
             var reasonableStations = stations.ToList()
                 .Select(x => new DistanceStationDTO
                 {
@@ -76,7 +78,7 @@ namespace API.Services
                     },
                     Distance = ILocationService.CalculateDistanceAsTheCrowFlies(coordinates.Latitude, coordinates.Longitude, x.Latitude, x.Longitude),
                 })
-                .Where(x => x.Distance <= 6000) // circular 6km
+                .Where(x => x.Distance <= radiusNearby) // circular 6km
                 .OrderBy(x => x.Distance)
                 .Take(10);
 

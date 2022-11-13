@@ -5,6 +5,7 @@ using API.Utils;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Classes;
+using Domain.Shares.Enums;
 using FirebaseAdmin.Messaging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -86,7 +87,7 @@ namespace API.Controllers.V2
             }
         }
 
-        [HttpPost("send-push-notification")]
+        [HttpGet("send-push-notification")]
         [AllowAnonymous]
         public async Task<IActionResult> SendPushNotification([FromBody] NotificationRequest request)
         {
@@ -126,6 +127,22 @@ namespace API.Controllers.V2
         public async Task<IActionResult> CheckMappingTomorrow()
         {
             await AppServices.BookingDetail.CheckingMappingStatus();
+
+            return Ok();
+        }
+
+        [HttpPost("send-push-notification")]
+        public async Task<IActionResult> SendPushNotification()
+        {
+            var notiDTO = new NotificationDTO()
+            {
+                EventId = Events.Types.HaveTripInDay,
+                Token = LoggedInUser.FCMToken,
+                Type = Notifications.Types.SpecificUser,
+                UserId = LoggedInUser.Id
+            };
+
+            await AppServices.Notification.SendPushNotification(notiDTO);
 
             return Ok();
         }
