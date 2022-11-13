@@ -28,6 +28,7 @@ namespace Domain.Shares.Enums
         TimeToCreateTomorrowRoutine,
         RadiusNearbyStation,
         RadiusToComplete,
-        LastDayNumberForNextMonthRoutine
+        LastDayNumberForNextMonthRoutine,
+        DiscountPerEachSharingCase
     }
 }
