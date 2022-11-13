@@ -5,7 +5,9 @@ namespace API.Models.Requests
     public class UpdateBookingDetailDriverTripStatusRequest
     {
         public string BookingDetailDriverCode { get; set; }
-        public BookingDetailDrivers.TripStatus TripStatus { get; set; } 
+        public BookingDetailDrivers.TripStatus TripStatus { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
     }
 
     public class StartBookingDetailDriversRequest

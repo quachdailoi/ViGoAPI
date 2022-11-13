@@ -52,7 +52,6 @@ namespace API.Services
 
         public List<User> GetUsersByCode(List<Guid> userCodes)
         {
-
             var user = UnitOfWork.Users.GetUsersByCode(userCodes);
 
             return user.ToList();

@@ -708,30 +708,6 @@ namespace API.Controllers.V1.Booker
             return ApiResult(createResponse);
         }
 
-        [HttpPost("profile")]
-        public async Task<IActionResult> GetProfile([FromBody] FCMTokenRequest? request)
-        {
-            var userVM = LoggedInUser;
-
-            var user = AppServices.User.GetUserById(userVM.Id).FirstOrDefault();
-            if (request != null && request.FCMToken != null) user.FCMToken = request.FCMToken;
-
-            var rs = await AppServices.User.UpdateUser(user);
-            if (!rs) Logger.LogError("Update FCM Token fail.");
-
-            var profileResponse =
-                await AppServices.Account.GetProfile(
-                    userVM.Id,
-                    successResponse: new()
-                    {
-                        StatusCode = StatusCodes.Status200OK,
-                        Message = "Get user's profile successfully."
-                    }
-                );
-
-            return ApiResult(profileResponse);
-        }
-
         /// <summary>
         ///     Update rating and feedback for completed booking details.
         /// </summary>

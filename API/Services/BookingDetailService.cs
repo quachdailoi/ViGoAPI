@@ -353,8 +353,9 @@ namespace API.Services
         public Task<BookingDetail?> GetById(int id) =>
             UnitOfWork.BookingDetails
             .List(e => e.Id == id)
-            .Include(e => e.Booking)
-            .ThenInclude(b => b.User)
+            .Include(e => e.Booking.User)
+            .Include(e => e.Booking.StartRouteStation.Station)
+            .Include(e => e.Booking.EndRouteStation.Station)
             .FirstOrDefaultAsync();
 
         public async Task<bool?> Refund(Guid code, double amount, BookingDetails.RefundTypes refundType)

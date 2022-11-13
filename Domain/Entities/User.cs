@@ -17,7 +17,7 @@ namespace Domain.Entities
         public DateTimeOffset? DateOfBirth { get; set; } = null;
         public int? FileId { get; set; }
 
-        public string? FCMToken { get; set; }
+        public string? FCMToken { get; set; } = null;
         public double? Rating { get; set; } = null;
         public double CancelledTripRate { get; set; }
         public int SuddenlyCancelledTrips { get; set; }

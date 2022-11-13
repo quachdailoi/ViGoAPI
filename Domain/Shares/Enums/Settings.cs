@@ -23,6 +23,11 @@ namespace Domain.Shares.Enums
         TotalTripsCalculateCancelledRate,
         MaxCancelledTripRate,
         NotifiedCancelledTripRate,
-        TimeSpanRoundUp
+        TimeSpanRounded,
+        TimeSpanBufferToCreateRoutine,
+        TimeToCreateTomorrowRoutine,
+        RadiusNearbyStation,
+        RadiusToComplete,
+        LastDayNumberForNextMonthRoutine
     }
 }

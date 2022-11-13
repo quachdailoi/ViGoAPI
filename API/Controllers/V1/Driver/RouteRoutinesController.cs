@@ -1,4 +1,5 @@
-﻿using API.Models.Requests;
+﻿using API.Extensions;
+using API.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -50,8 +51,26 @@ namespace API.Controllers.V1.Driver
                     Message = "Not found route to create routine."
                 });
             }
-
             request.Route = foundedRoute.FirstOrDefault(); // use to map route id
+
+            // parse date and time from string to right type
+            var NewStartAt = DateTimeExtensions.ParseExactDateOnly(request.StartAt);
+            var NewEndAt = DateTimeExtensions.ParseExactDateOnly(request.EndAt);
+            var NewStartTime = DateTimeExtensions.ParseExactTimeOnly(request.StartTime);
+            var NewEndTime = NewStartTime.AddMinutes(request.Route.Duration / 60);
+
+            request.StartAtParsed = NewStartAt;
+            request.EndAtParsed = NewEndAt;
+            request.StartTimeParsed = NewStartTime;
+            request.EndTimeParsed = NewEndTime;
+
+            var checkValidTime = await AppServices.RouteRoutine.CheckTimeToCreateRoutine(request);
+            if (checkValidTime != null) return ApiResult(checkValidTime);
+
+            var checkValidDate = await AppServices.RouteRoutine.CheckDateToCreateRoutine(request);
+            if (checkValidDate != null) return ApiResult(checkValidDate); 
+
+            //
 
             if (!AppServices.RouteRoutine.CheckValidRoutineForRoute(request))
             {

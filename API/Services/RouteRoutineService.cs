@@ -25,23 +25,10 @@ namespace API.Services
             var driverRouteRoutineCurrent = UnitOfWork.RouteRoutines.GetActiveRoutines(request.UserId)
                     .Where(x => x.EndAt >= DateTimeExtensions.NowDateOnly);
 
-            var NewStartAt = DateTimeExtensions.ParseExactDateOnly(request.StartAt);
-            var NewEndAt = DateTimeExtensions.ParseExactDateOnly(request.EndAt);
-            var NewStartTime = DateTimeExtensions.ParseExactTimeOnly(request.StartTime);
-            var NewEndTime = NewStartTime.AddMinutes(request.Route.Duration / 60);
-
-            request.StartAtParsed = NewStartAt;
-            request.EndAtParsed = NewEndAt;
-            request.StartTimeParsed = NewStartTime;
-            request.EndTimeParsed = NewEndTime;
-
             if (driverRouteRoutineCurrent == null || !driverRouteRoutineCurrent.Any()) return true;
-            var xy = NewStartTime.RoundUp(5);
-            var x = driverRouteRoutineCurrent.ToList()
-                .Where(x => (NewStartAt <= x.EndAt && NewEndAt >= x.StartAt && NewStartTime < x.EndTime.RoundUp(5) && NewEndTime.RoundUp(5) > x.StartTime));
 
             return !driverRouteRoutineCurrent.ToList()
-                .Where(x => (NewStartAt <= x.EndAt && NewEndAt >= x.StartAt && NewStartTime < x.EndTime.RoundUp(5) && NewEndTime.RoundUp(5) > x.StartTime))
+                .Where(x => (request.StartAtParsed <= x.EndAt && request.EndAtParsed >= x.StartAt && request.StartTimeParsed < x.EndTime.RoundUp(5) && request.EndTimeParsed.RoundUp(5) > x.StartTime))
                 .Any();
         }
 
@@ -149,10 +136,14 @@ namespace API.Services
 
                 if (endTimePre < request.StartTimeParsed && request.EndTimeParsed < startTimeNext)
                 {
+                    var timeSpanRounded = await AppServices.Setting.GetValue(Settings.TimeSpanRounded, 5);
+                    var timeSpanBuffer = await AppServices.Setting.GetValue(Settings.TimeSpanBufferToCreateRoutine, 5);
                     if (endStationPre != null)
                     {
                         var disAndDur = await AppServices.RapidApi.CalculateDistanceAndDurationFrom2Station(endStationPre, newStartStation);
-                        var validTimePre = endTimePre.AddMinutes(disAndDur.Value / 60).RoundUp(5).AddMinutes(5);
+                        var validTimePre = endTimePre.AddMinutes(disAndDur.Value / 60)
+                            .RoundUp(timeSpanRounded)
+                            .AddMinutes(timeSpanBuffer);
 
                         if (validTimePre > request.StartTimeParsed)
                         {
@@ -168,7 +159,9 @@ namespace API.Services
                     {
                         var disAndDur = await AppServices.RapidApi.CalculateDistanceAndDurationFrom2Station(newEndStation, startStationNext);
                         
-                        var validTimeNext = startTimeNext.AddMinutes(- disAndDur.Value / 60).RoundDown(5).AddMinutes(-5);
+                        var validTimeNext = startTimeNext.AddMinutes(- disAndDur.Value / 60)
+                            .RoundDown(timeSpanRounded)
+                            .AddMinutes(- timeSpanBuffer);
 
                         if (validTimeNext < request.EndTimeParsed)
                         {
@@ -181,6 +174,80 @@ namespace API.Services
                         }
                     }
                 }
+            }
+
+            return null;
+        }
+
+        public async Task<Response?> CheckTimeToCreateRoutine(CreateRouteRoutineRequest request)
+        {
+            var timelineToCreate = 
+                DateTimeExtensions.ParseExactTimeOnly(
+                    await AppServices.Setting.GetValue(Settings.TimeToCreateTomorrowRoutine, "20:00:00"));
+
+            var nowTimeOnly = DateTimeExtensions.NowTimeOnly;
+            var nowDateOnly = DateTimeExtensions.NowDateOnly;
+
+            if (nowTimeOnly < timelineToCreate)
+            {
+                // can create routine start from tomorrow
+                
+                if (request.StartAtParsed < nowDateOnly.AddDays(1)) return new()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "You can only create route routine from tomorrow."
+                };
+            } else
+            {
+                // can create routine start from the day after tomorrow
+                if (request.StartAtParsed < nowDateOnly.AddDays(2)) return new()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = $"You can only create route routine from the day after tomorrow, now is after {timelineToCreate}."
+                };
+            }
+
+            return null;
+        }
+
+        public async Task<Response?> CheckDateToCreateRoutine(CreateRouteRoutineRequest request)
+        {
+            var nowDateOnly = DateTimeExtensions.NowDateOnly;
+            var firstDayOfNextMonth = new DateOnly(nowDateOnly.Year, nowDateOnly.Month + 1, 01);
+            var lastDayOfNextMonth = firstDayOfNextMonth.AddMonths(1).AddDays(-1);
+
+            var startRoutineMonth = request.StartAtParsed.Month;
+            var endRoutineMonth = request.EndAtParsed.Month;
+            var startRoutineYear = request.StartAtParsed.Year;
+            var endRoutineYear = request.EndAtParsed.Year;
+
+            if (startRoutineMonth != endRoutineMonth || startRoutineYear != endRoutineYear) return new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "You just sign routine with start date and end date in the same month."
+            };
+
+            var dayForNextMonthRoutine = firstDayOfNextMonth.AddDays(- await AppServices.Setting.GetValue(Settings.LastDayNumberForNextMonthRoutine, 7));
+
+            // before last 7 days of this month, driver can only sign routine in this month.
+            if (nowDateOnly < dayForNextMonthRoutine)
+            {
+                if (nowDateOnly.Month != startRoutineMonth)
+                {
+                    return new()
+                    {
+                        StatusCode = StatusCodes.Status400BadRequest,
+                        Message = $"At this time, you just can sign routine in this month only. For the next month routine, back to sign routine after {dayForNextMonthRoutine}"
+                    };
+                }
+            } 
+            else
+            {
+                if (nowDateOnly.Month != startRoutineMonth || nowDateOnly.Month + 1 != startRoutineMonth) return new()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Message = "You just sign routine for the rest of this month or the whole next month."
+                };
             }
 
             return null;

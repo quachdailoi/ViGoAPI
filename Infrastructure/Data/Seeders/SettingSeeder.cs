@@ -95,9 +95,39 @@ namespace Infrastructure.Data.Seeders
                 },
                 new Setting
                 {
-                    Id = Settings.TimeSpanRoundUp,
-                    Key = Settings.TimeSpanRoundUp.ToString(),
+                    Id = Settings.TimeSpanRounded,
+                    Key = Settings.TimeSpanRounded.ToString(),
                     Value = "5"
+                },
+                new Setting
+                {
+                    Id = Settings.TimeSpanBufferToCreateRoutine,
+                    Key = Settings.TimeSpanBufferToCreateRoutine.ToString(),
+                    Value = "5"
+                },
+                new Setting
+                {
+                    Id = Settings.TimeToCreateTomorrowRoutine,
+                    Key = Settings.TimeToCreateTomorrowRoutine.ToString(),
+                    Value = "20:00:00"
+                },
+                new Setting
+                {
+                    Id = Settings.RadiusNearbyStation,
+                    Key = Settings.RadiusNearbyStation.ToString(),
+                    Value = "6000"
+                },
+                new Setting
+                {
+                    Id = Settings.RadiusToComplete,
+                    Key = Settings.RadiusToComplete.ToString(),
+                    Value = "100"
+                },
+                new Setting
+                {
+                    Id = Settings.LastDayNumberForNextMonthRoutine,
+                    Key = Settings.LastDayNumberForNextMonthRoutine.ToString(),
+                    Value = "7"
                 },
             });
         }

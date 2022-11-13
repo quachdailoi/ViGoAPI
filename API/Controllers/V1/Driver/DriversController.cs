@@ -621,7 +621,7 @@ namespace API.Controllers.V1.Driver
                 Message = "New trip status not a valid next trip status."
             });
 
-            var updateResult = await AppServices.BookingDetailDriver.UpdateTripStatus(bookingDetailDriver, request.TripStatus);
+            var updateResult = await AppServices.BookingDetailDriver.UpdateTripStatus(bookingDetailDriver, request.TripStatus, request.Latitude, request.Longitude);
 
             if (!updateResult) return ApiResult(new()
             {

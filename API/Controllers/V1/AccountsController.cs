@@ -110,28 +110,5 @@ namespace API.Controllers.V1
 
             return Ok(new Response(StatusCode: 200, Message: "Token revoked successfully."));
         }
-
-        [HttpPost("logout")]
-        [Authorize(Roles = "DRIVER,ADMIN,BOOKER")]
-        public async Task<IActionResult> Logout()
-        {
-            var user = AppServices.User.GetUserById(LoggedInUser.Id).FirstOrDefault();
-
-            user.FCMToken = null;
-
-            var rs = await AppServices.User.UpdateUser(user);
-
-            if (rs) return ApiResult(new()
-            {
-                StatusCode = StatusCodes.Status200OK,
-                Message = "You logout successfully."
-            });
-
-            return ApiResult(new()
-            {
-                StatusCode = StatusCodes.Status200OK,
-                Message = "You logout failed."
-            });
-        }
     }
 }

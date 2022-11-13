@@ -27,7 +27,9 @@ namespace API.Models
         public string FCMToken { get; set; }
 
         public WalletViewModel Wallet { get; set; }
+        public VehicleViewModel Vehicle { get; set; }
     }
+
     public class DriverViewModel
     {
         [JsonIgnore]

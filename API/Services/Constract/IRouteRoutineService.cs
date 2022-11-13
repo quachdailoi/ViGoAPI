@@ -19,5 +19,7 @@ namespace API.Services.Constract
         Task<bool> Update(RouteRoutine routeRoutine);
         Task<bool> ExistAnyRoutines();
         Task<InvalidRoutineViewModel?> CheckValidDistanceNewRoutine(CreateRouteRoutineRequest request);
+        Task<Response?> CheckTimeToCreateRoutine(CreateRouteRoutineRequest request);
+        Task<Response?> CheckDateToCreateRoutine(CreateRouteRoutineRequest request);
     }
 }
