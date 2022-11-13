@@ -129,6 +129,12 @@ namespace Infrastructure.Data.Seeders
                     Key = Settings.LastDayNumberForNextMonthRoutine.ToString(),
                     Value = "7"
                 },
+                new Setting
+                {
+                    Id = Settings.DiscountPerEachSharingCase,
+                    Key = Settings.DiscountPerEachSharingCase.ToString(),
+                    Value = "0.1"
+                }
             });
         }
     }

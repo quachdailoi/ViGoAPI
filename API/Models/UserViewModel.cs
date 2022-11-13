@@ -41,6 +41,8 @@ namespace API.Models
         public Guid AvatarCode { get; set; } = Guid.NewGuid();
         public string PhoneNumber { get; set; } = string.Empty;
         public VehicleViewModel Vehicle { get; set; }
+        [JsonIgnore]
+        public string FCMToken { get; set; }
     }
 
     public class DriverInBookingDetailViewModel : DriverViewModel

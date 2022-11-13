@@ -827,5 +827,69 @@ namespace API.Controllers.V1.Booker
                 Data = notificationsPaging
             });
         }
+
+        /// <summary>
+        ///     Report driver not comming.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/bookers/reports/driver-not-comming
+        ///     {
+        ///         "Code" : "5592d1e0-a96a-4cca-967e-9cd0eb130657"
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Your trip have been mapped with new driver.</response>
+        /// <response code = "200"> Sorry we can not find any driver to pick up you at this time.</response>
+        /// <response code = "400">Booking detail is not exist.</response>
+        /// <response code = "500"> Fail to update booking detail.</response>
+        [HttpPost("reports/driver-not-comming")]
+        public async Task<IActionResult> ReportDriverNotComming([FromBody] ReportDriverNotCommingRequest request)
+        {
+            var bookingDetail = await AppServices.Booking.MappingBookingDetailSuddenly(request.Code);
+
+            if (bookingDetail == null)
+                return ApiResult(new Response
+                {
+                    Message = "Booking detail is not exist.",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+
+            if (!AppServices.BookingDetail.UpdateBookingDetail(bookingDetail).Result)
+                return ApiResult(new Response
+                {
+                    Message = "Fail to update booking detail.",
+                    StatusCode = StatusCodes.Status500InternalServerError
+                });
+
+            var mappedBookingDetailDriver = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet).FirstOrDefault();
+
+            if (mappedBookingDetailDriver == null)
+                return ApiResult(new Response
+                {
+                    Message = "Sorry we can not find any driver to pick up you at this time.",
+                    StatusCode = StatusCodes.Status200OK
+                });
+
+            var bookingDetailVM = await AppServices.BookingDetail.GetBookerViewModelByCode(request.Code);
+
+            var notiDTO = new NotificationDTO()
+            {
+                EventId = Events.Types.HaveTripSuddenly,
+                Type = Notifications.Types.SpecificUser,
+                Token = bookingDetailVM.Driver.FCMToken,
+                UserId = bookingDetailVM.Driver.Id
+            };
+
+            await AppServices.Notification.SendPushNotification(notiDTO);
+
+            return ApiResult(new Response
+            {
+                Data = bookingDetailVM,
+                Message = "Your trip have been mapped with new driver.",
+                StatusCode = StatusCodes.Status200OK
+            });
+        }
     }
 }
