@@ -186,11 +186,15 @@ namespace API.Services
 
         private async Task CheckRadiusToComplete(BookingDetail detail, double? latitude, double? longitude)
         {
-            if (latitude == null || longitude == null)
+            var booking = UnitOfWork.BookingDetails.List(x => x.Id == detail.Id).Select(x => x.Booking);
+
+            var endStation = booking.Select(x => x.EndRouteStation.Station).FirstOrDefault();
+
+            if (latitude == null || longitude == null || endStation == null)
                 throw new Exception("Must input coordinate for checking location to complete.");
 
-            var endStationLatitude = detail.Booking.EndRouteStation.Station.Latitude;
-            var endStationLongitude = detail.Booking.EndRouteStation.Station.Longitude;
+            var endStationLatitude = endStation.Latitude;
+            var endStationLongitude = endStation.Longitude;
 
             var distance = ILocationService.CalculateDistanceAsTheCrowFlies(endStationLatitude, endStationLongitude, (double)latitude, (double)longitude);
 

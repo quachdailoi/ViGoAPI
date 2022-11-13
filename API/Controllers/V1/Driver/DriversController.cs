@@ -614,6 +614,12 @@ namespace API.Controllers.V1.Driver
                 Message = "This booking detail driver not belong to this Driver."
             });
 
+            if (request.TripStatus == TripStatus.Start) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "Please use start trip api to start trip."
+            });
+
             if (request.TripStatus != BookingDetailDrivers.TripStatus.Cancelled &&
                 (int)request.TripStatus != (int)bookingDetailDriver.TripStatus + 1)
             {
