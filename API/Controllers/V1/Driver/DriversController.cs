@@ -614,12 +614,30 @@ namespace API.Controllers.V1.Driver
                 Message = "This booking detail driver not belong to this Driver."
             });
 
-            if (request.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && 
-                (int)request.TripStatus != (int)bookingDetailDriver.TripStatus + 1) return ApiResult(new()
+            if (request.TripStatus == TripStatus.Start) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status400BadRequest,
-                Message = "New trip status not a valid next trip status."
+                Message = "Please use start trip api to start trip."
             });
+
+            if (request.TripStatus != BookingDetailDrivers.TripStatus.Cancelled &&
+                (int)request.TripStatus != (int)bookingDetailDriver.TripStatus + 1)
+            {
+                if (request.TripStatus == TripStatus.Completed)
+                {
+                    // complete without picked booker up
+                    bookingDetailDriver.TripStatus = TripStatus.Completed;
+                    bookingDetailDriver.CompleteWithoutBooker = true;
+                } 
+                else
+                {
+                    return ApiResult(new()
+                    {
+                        StatusCode = StatusCodes.Status400BadRequest,
+                        Message = "New trip status not a valid next trip status."
+                    });
+                }
+            }
 
             var updateResult = await AppServices.BookingDetailDriver.UpdateTripStatus(bookingDetailDriver, request.TripStatus, request.Latitude, request.Longitude);
 
