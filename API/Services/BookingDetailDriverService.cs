@@ -91,8 +91,6 @@ namespace API.Services
 
         public async Task<bool> UpdateTripStatus(BookingDetailDriver bookingDetailDriver, BookingDetailDrivers.TripStatus tripStatus, double? latitude, double? longitude)
         {
-            bookingDetailDriver.TripStatus = tripStatus;
-
             var bookingDetail = await AppServices.BookingDetail.GetById(bookingDetailDriver.BookingDetailId);
 
             if (bookingDetail == null) throw new Exception("Something went wrong, not found booking detail of this driver.");
@@ -110,6 +108,9 @@ namespace API.Services
                     case BookingDetailDrivers.TripStatus.PickedUp:
                         //if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(-1 * await AppServices.Setting.GetValue(Settings.TimeBeforePickingUp, 10))) 
                         //    throw new Exception("Invalid time to set status PickedUp for it.");
+
+                        await CheckRadiusFromStartStation(bookingDetail, latitude, longitude);
+
                         bookingDetail.Status = BookingDetails.Status.Started;
                         bookingDetailDriver.BookingDetail = bookingDetail;
                         bookingDetailDriver.StartTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
@@ -118,7 +119,14 @@ namespace API.Services
                         //if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(await AppServices.Setting.GetValue(Settings.TimeAfterComplete, 3))) 
                         //    throw new Exception("Invalid time to set status Completed for it.");
 
-                        await CheckRadiusToComplete(bookingDetail, latitude, longitude);
+                        if (bookingDetailDriver.TripStatus == BookingDetailDrivers.TripStatus.Start)
+                        {
+                            await CheckRadiusFromStartStation(bookingDetail, latitude, longitude);
+                        } 
+                        else
+                        {
+                            await CheckRadiusFromEndStation(bookingDetail, latitude, longitude);
+                        }
 
                         bookingDetail.Status = BookingDetails.Status.Completed;
                         bookingDetailDriver.BookingDetail = bookingDetail;
@@ -181,17 +189,19 @@ namespace API.Services
             }
             else Logger<BookingDetailDriverService>().LogError("Error: Booking detail null -> cannot set complete or send signal");
 
+            bookingDetailDriver.TripStatus = tripStatus;
+
             return await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver);
         }
 
-        private async Task CheckRadiusToComplete(BookingDetail detail, double? latitude, double? longitude)
+        private async Task CheckRadiusFromEndStation(BookingDetail detail, double? latitude, double? longitude)
         {
             var booking = UnitOfWork.BookingDetails.List(x => x.Id == detail.Id).Select(x => x.Booking);
 
             var endStation = booking.Select(x => x.EndRouteStation.Station).FirstOrDefault();
 
             if (latitude == null || longitude == null || endStation == null)
-                throw new Exception("Must input coordinate for checking location to complete.");
+                throw new Exception("Must input coordinate for checking location.");
 
             var endStationLatitude = endStation.Latitude;
             var endStationLongitude = endStation.Longitude;
@@ -199,7 +209,25 @@ namespace API.Services
             var distance = ILocationService.CalculateDistanceAsTheCrowFlies(endStationLatitude, endStationLongitude, (double)latitude, (double)longitude);
 
             if (distance > await AppServices.Setting.GetValue(Settings.RadiusToComplete, 100.0))
-                throw new Exception($"Your location must be within {distance}m to complete.");
+                throw new Exception($"Your location must be within {distance}m from the end station.");
+        }
+
+        private async Task CheckRadiusFromStartStation(BookingDetail detail, double? latitude, double? longitude)
+        {
+            var booking = UnitOfWork.BookingDetails.List(x => x.Id == detail.Id).Select(x => x.Booking);
+
+            var startStation = booking.Select(x => x.StartRouteStation.Station).FirstOrDefault();
+
+            if (latitude == null || longitude == null || startStation == null)
+                throw new Exception("Must input coordinate for checking location.");
+
+            var startStationLatitude = startStation.Latitude;
+            var startStationLongitude = startStation.Longitude;
+
+            var distance = ILocationService.CalculateDistanceAsTheCrowFlies(startStationLatitude, startStationLongitude, (double)latitude, (double)longitude);
+
+            if (distance > await AppServices.Setting.GetValue(Settings.RadiusToComplete, 100.0))
+                throw new Exception($"Your location must be within {distance}m from the start station.");
         }
 
         public List<User> GetUsers(string[] codes)
