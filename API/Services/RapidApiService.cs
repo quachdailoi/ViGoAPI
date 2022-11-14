@@ -140,9 +140,11 @@ namespace API.Services
 
             return this.BuildCoordinateString(param);
         }
-        public async Task<Domain.Entities.Route?> CreateRouteByListOfStation(List<StationDTO> stations)
+        public async Task<Domain.Entities.Route?> CreateRouteByListOfStation(List<StationDTO> stations, int? userId = null)
         {
             var constructedRoute = await TrueWayDirection_FindDrivingRoute(stations);
+
+            if (userId.HasValue) constructedRoute.UpdatedBy = userId.Value;
 
             await UnitOfWork.CreateTransactionAsync();
 
@@ -173,14 +175,14 @@ namespace API.Services
             return createdRoute;
         }
 
-        public async Task<Response> CreateRoute(List<StationDTO> stations, Response success, Response failed)
+        public async Task<Response> CreateRoute(int adminId, List<StationDTO> stations, Response success, Response failed)
         {
-            var createdRoute = await this.CreateRouteByListOfStation(stations);
+            var createdRoute = await this.CreateRouteByListOfStation(stations, adminId);
             if (createdRoute == null) return failed;
             var routeVM = 
                 (await UnitOfWork.Routes.List()
                     .Where(x => x.Id == createdRoute.Id)
-                    .MapTo<RouteViewModel>(Mapper)
+                    .MapTo<RouteViewModel>(Mapper, AppServices)
                     .FirstAsync()).ProcessStation();
 
             return success.SetData(routeVM);
@@ -206,7 +208,7 @@ namespace API.Services
             var routeVM =
                (await UnitOfWork.Routes.List()
                    .Where(x => x.Id == route.Id)
-                   .MapTo<RouteViewModel>(Mapper)
+                   .MapTo<RouteViewModel>(Mapper, AppServices)
                    .FirstOrDefaultAsync())?.ProcessStation();
 
             return routeVM;

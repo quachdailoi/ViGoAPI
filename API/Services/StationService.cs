@@ -12,6 +12,7 @@ using Domain.Shares.Enums;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using FluentValidation;
+using API.Models.Requests;
 
 namespace API.Services
 {
@@ -286,6 +287,44 @@ namespace API.Services
                 .FirstOrDefault();
 
             return Tuple.Create(startStation, endStation);
+        }
+
+        public bool CheckStationWasBooked(int stationId)
+        {
+            var bookings = UnitOfWork.BookingDetails.List(x => x.Status == BookingDetails.Status.Pending ||
+                x.Status == BookingDetails.Status.Ready || x.Status == BookingDetails.Status.Started)
+                .Include(x => x.Booking.StartRouteStation.Station)
+                .Include(x => x.Booking.StartRouteStation.Station)
+                .Select(x => new
+                {
+                    BookingId = x.BookingId,
+                    Booking = x.Booking
+                }).ToList()
+                .GroupBy(x => x.BookingId)
+                .SelectMany(x => x.Select(y => y.Booking));
+
+            var startStationIds = bookings.Select(x => x.StartRouteStation.Station.Id);
+            var endStationIds = bookings.Select(x => x.EndRouteStation.Station.Id);
+
+            var stationIds = startStationIds.Concat(endStationIds).DistinctBy(x => x);
+
+            return stationIds.Contains(stationId);
+        }
+
+        public Task<bool> UpdateStation(UpdateStationRequest request, Station station)
+        {
+            station.Longitude = request.Longitude;
+            station.Latitude = request.Latitude;
+            station.Name = request.Name;
+            station.Address = request.Address;
+            station.Status = (Stations.Status)request.StationStatus;
+
+            return UnitOfWork.Stations.Update(station);
+        }
+
+        public Task<bool> DeleteStation(Station station)
+        {
+            return UnitOfWork.Stations.Remove(station);
         }
     }
 }

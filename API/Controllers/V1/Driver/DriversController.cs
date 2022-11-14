@@ -577,15 +577,7 @@ namespace API.Controllers.V1.Driver
         /// ```
         /// Sample request:
         ///     PUT api/drivers/booking-detail-driver/trip-status
-        ///     TripStatus: 1 (0: Not yet, 1: PickingUp, 2: Arrived, 3: Completed)
-        /// ```
-        /// </remarks>
-        /// <remarks>
-        /// ```
-        /// 
-        /// 
-        /// 
-        /// 
+        ///     TripStatus: 2 (0: Not yet, 2: PickedUp, 3: Completed)
         /// ```
         /// </remarks>
         /// <response code = "200"> Update Trip Status Successfully.</response>

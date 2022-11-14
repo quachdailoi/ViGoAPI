@@ -25,6 +25,8 @@ using API.Worker;
 using API.Models.DTO;
 using Microsoft.Extensions.Hosting;
 using Quartz;
+using Vonage;
+using Vonage.Request;
 
 namespace API.Extensions
 {
@@ -158,6 +160,16 @@ namespace API.Extensions
             services.AddTransient<INotificationService, NotificationService>();
             services.AddTransient<IPricingService, PricingService>();
             services.AddTransient<ISettingService, SettingService>();
+
+            services.AddSingleton<VonageClient>(provider =>
+            {
+                var config = provider.GetRequiredService<IConfiguration>();
+                var key = "fcd41a9b";
+                var secret = "qUQwLm8I7rXdKt2S";
+                var credentials = Credentials.FromApiKeyAndSecret(key, secret);
+
+                return new VonageClient(credentials);
+            });
         }
         public static void ConfigureIoCRedisMessageQueue(this IServiceCollection services)
         {
