@@ -1,5 +1,6 @@
 ﻿using API.Models.DTO;
 using API.Models.Requests;
+using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -38,9 +39,10 @@ namespace API.Controllers.V1
         /// <response code="500">Fail to get routes</response>
         /// 
         [HttpPost]
-        //[Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> CreateRoute([FromBody] CreateRouteRequest request)
         {
+            var admin = LoggedInUser;
             var stationCodes = request.StationCodes;
 
             //if (stationCodes.Distinct().Count() != stationCodes.Count())
@@ -54,8 +56,9 @@ namespace API.Controllers.V1
 
             var stationDtos = await AppServices.Station.GetStationDTOsByCodes(stationCodes);
 
-            var createRouteResponse = 
+            var createRouteResponse =
                 await AppServices.RapidApi.CreateRoute(
+                    adminId: admin.Id,
                     stationDtos,
                     success: new()
                     {
@@ -79,7 +82,7 @@ namespace API.Controllers.V1
         /// <response code="500">Fail to get routes</response>
         /// 
         [HttpPut]
-        //[Authorize(Roles = "ADMIN")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> UpdateRoute([FromBody] UpdateRouteRequest request)
         {
             var stationCodes = request.StationCodes;
@@ -98,6 +101,14 @@ namespace API.Controllers.V1
             {
                 StatusCode = StatusCodes.Status400BadRequest,
                 Message = "Not found any route with this code."
+            });
+
+            var routeWasBooked = AppServices.Route.CheckRouteWasBooked(route.Id);
+
+            if (routeWasBooked) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "This route was booked by passenger, cannot update."
             });
 
             var stationDtos = await AppServices.Station.GetStationDTOsByCodes(stationCodes);
@@ -119,19 +130,63 @@ namespace API.Controllers.V1
         }
 
         /// <summary>
+        /// Delete route from list of stations.
+        /// </summary>
+        /// <response code="200">Get routes successfully</response>
+        /// <response code="500">Fail to get routes</response>
+        /// 
+        [HttpDelete("{code}")]
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> DeleteRoute(string code)
+        {
+            var route = await AppServices.Route.GetRouteByCode(code);
+
+            if (route == null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "Not found any route with this code."
+            });
+
+            var routeWasBooked = AppServices.Route.CheckRouteWasBooked(route.Id);
+
+            if (routeWasBooked) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "This route was booked by passenger, cannot delete."
+            });
+
+            route.UpdatedBy = LoggedInUser.Id;
+
+            var rs = await AppServices.Route.DeleteRoute(route);
+
+            if (!rs) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to delete route."
+            });
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Deleted route successfully."
+            });
+        }
+
+        /// <summary>
         /// Create route from list of stations.
         /// </summary>
         /// <response code="200">Get routes successfully</response>
         /// <response code="500">Fail to get routes</response>
         /// 
         [HttpPost("dump")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> DumpRoutes(int routeNumber)
         {
             var dumpsId = Utils.DumpRoutes.GetListStationIdsToDumpRoutes()[routeNumber - 1];
 
             Console.WriteLine($"{DateTimeOffset.Now} - Start creating.");
             var stationDtos = await AppServices.Station.GetStationDTOsByIds(dumpsId);
-            var newRoute = await AppServices.RapidApi.CreateRoute(stationDtos, new(), new());
+            var newRoute = await AppServices.RapidApi.CreateRoute(LoggedInUser.Id, stationDtos, new(), new());
             Console.WriteLine($"{DateTimeOffset.Now} - End creating.");
             
             return Ok(newRoute);

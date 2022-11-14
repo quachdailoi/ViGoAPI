@@ -14,15 +14,18 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
+using Vonage;
 
 namespace API.Services
 {
     public class VerifiedCodeService : BaseService, IVerifiedCodeService
     {
         private static Random random = new Random();
+        private readonly VonageClient _vonageClient;
 
-        public VerifiedCodeService(IAppServices appServices) : base(appServices)
+        public VerifiedCodeService(IAppServices appServices, VonageClient vonageClient) : base(appServices)
         {
+            _vonageClient = vonageClient;
         }
 
         private string GenerateOtpCode(int length)
@@ -37,6 +40,13 @@ namespace API.Services
             var message = $"Otp code from ViGo App: {otp}";
 
             return SendSMS(message, phoneNumber);
+        }
+
+        private Task SendPhoneOtp_Vonage(string phoneNumber, string otp)
+        {
+            var message = $"Otp code from ViGo App: {otp}";
+
+            return SendSMS_Vonage(message, phoneNumber);
         }
 
         private Task<string?> SendGmailOtp(string gmail, string otp)
@@ -106,6 +116,18 @@ namespace API.Services
                 from: new Twilio.Types.PhoneNumber(fromPhoneNumber),
                 to: new Twilio.Types.PhoneNumber(toPhoneNumber)
             );
+        }
+
+        private Task SendSMS_Vonage(string sms, string toPhoneNumber)
+        {
+            var x =_vonageClient.SmsClient.SendAnSmsAsync(new Vonage.Messaging.SendSmsRequest()
+            {
+                To = toPhoneNumber,
+                From = "ViGo",
+                Text = sms
+            });
+
+            return Task.CompletedTask;
         }
             
         private async Task<Response> SaveCode(SendOtpRequest request, string otp, Response successResponse, Response errorResponse)
@@ -216,15 +238,17 @@ namespace API.Services
                 return errorResponse;
             }
 
-            var messageResource = await SendPhoneOtp(request.Registration, otp);
+            //var messageResource = await SendPhoneOtp(request.Registration, otp);
 
-            if (messageResource?.Status == MessageResource.StatusEnum.Failed)
-            {
-                await UnitOfWork.Rollback();
-                return errorResponse;
-            }
+            //if (messageResource?.Status == MessageResource.StatusEnum.Failed)
+            //{
+            //    await UnitOfWork.Rollback();
+            //    return errorResponse;
+            //}
 
-            UnitOfWork.CommitAsync();
+            await SendPhoneOtp_Vonage(request.Registration, otp);
+
+            await UnitOfWork.CommitAsync();
             return successResponse;
         }
 

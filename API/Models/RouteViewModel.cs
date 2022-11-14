@@ -35,6 +35,7 @@ namespace API.Models
 
             return this;
         }
+        public ContactUserViewModel? UpdatedByAdmin { get; set; } = null;
     }
 
     public class BookerRouteViewModel : RouteViewModel
