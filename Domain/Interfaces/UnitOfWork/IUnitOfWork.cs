@@ -34,6 +34,7 @@ namespace Domain.Interfaces.UnitOfWork
         INotificationRepository Notifications { get; }
         IPricingRepository Pricings { get; }
         ISettingRepository Settings { get; }
+        IReportRepository Reports { get; }
 
         Task CreateTransactionAsync();
         Task CommitAsync();

@@ -158,14 +158,25 @@ namespace API.Services
                             };
 
                             if ((wallet = AppServices.Wallet.UpdateBalance(transactionDto).Result) != null)
-                                await AppServices.SignalR.SendToUserAsync(bookingDetailDriver.RouteRoutine.User.Code.ToString(), "WalletTransaction", new WalletTransactionViewModel
+                            {
+                                var notiDTO = new NotificationDTO()
                                 {
-                                    Amount = transactionDto.Amount,
-                                    Code = transactionDto.Code,
-                                    Status = transactionDto.Status,
-                                    Type = transactionDto.Type,
-                                    Time = wallet.WalletTransactions.Last().UpdatedAt.ToFormatString()
-                                });
+                                    EventId = Events.Types.TripIncome,
+                                    Type = Notifications.Types.SpecificUser,
+                                    Token = bookingDetailDriver.RouteRoutine.User.FCMToken,
+                                    UserId = bookingDetailDriver.RouteRoutine.UserId
+                                };
+
+                                await AppServices.Notification.SendPushNotification(notiDTO);
+                            }
+                                //await AppServices.SignalR.SendToUserAsync(bookingDetailDriver.RouteRoutine.User.Code.ToString(), "WalletTransaction", new WalletTransactionViewModel
+                                //{
+                                //    Amount = transactionDto.Amount,
+                                //    Code = transactionDto.Code,
+                                //    Status = transactionDto.Status,
+                                //    Type = transactionDto.Type,
+                                //    Time = wallet.WalletTransactions.Last().UpdatedAt.ToFormatString()
+                                //});
                         }
                         break;
                 }

@@ -117,7 +117,24 @@ namespace Infrastructure.Data.Seeders
                     Content = "You reach the limit of permission of cannceled trip rate, you were banned now. Contact with our office for handling this problem.",
                     Status = Domain.Shares.Enums.Events.Status.Active,
                     Type = Domain.Shares.Enums.Events.SubTypes.Default
-                },            };
+                }, 
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.HaveTripSuddenly,
+                    Tittle = "New trip",
+                    Content = "You have new trip at this time, please check your schedule today.",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
+                },
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.TripIncome,
+                    Tittle = "Trip income",
+                    Content = "You have received your earning for completing trip.",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
+                }
+            };
 
             builder.Entity<Event>().HasData(events);
         }

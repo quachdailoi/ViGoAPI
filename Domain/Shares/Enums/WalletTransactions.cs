@@ -27,7 +27,9 @@ namespace Domain.Shares.Enums
             [Description("Refund booking by ZaloPay")]
             BookingRefundZaloPay,
             [Description("Get income from trip")]
-            TripIncome
+            TripIncome,
+            [Description("Pay for driver")]
+            PayForDriver
         }
         public enum Status
         {

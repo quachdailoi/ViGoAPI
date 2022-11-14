@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace Domain.Shares.Enums
 {
-    public class Wallets
+    public class Reports
     {
         public enum Status
         {
-            Inactive,
-            Active
+            Pending = 0,
+            Processced = 1,
+            ProcessingDenied = 2
         }
 
         public enum Types
         {
-            Personal,
-            System
+            DriverNotComming = 1,
+            BookerNotComming = 2
         }
     }
 }

@@ -2,6 +2,7 @@
 using API.JwtFeatures;
 using API.Models;
 using API.Models.Requests;
+using API.Models.Response;
 using API.Models.Settings;
 using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -79,6 +80,19 @@ namespace API.Controllers.V1.Admin
                     RefreshTokenExpiredTime = DateTimeOffset.Now.AddDays(Configuration.Get<double>(JwtSettings.RefreshTokenTTLDays)),
                     User = user
                 }
+            });
+        }
+
+        [HttpGet("finance")]
+        public async Task<IActionResult> GetFinance([FromQuery] DateFilterRequest request)
+        {
+            var finance = await AppServices.Wallet.GetFinance(request);
+
+            return ApiResult(new Response
+            {
+                Data = finance,
+                Message = "Get finance information successfully.",
+                StatusCode = StatusCodes.Status200OK
             });
         }
 

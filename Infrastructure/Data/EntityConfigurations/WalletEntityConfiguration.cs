@@ -27,6 +27,9 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.Property(e => e.Status)
                 .HasColumnName("status");
 
+            builder.Property(e => e.Type)
+                .HasColumnName("type");
+
             builder.HasOne(e => e.User)
                 .WithOne(u => u.Wallet)
                 .HasForeignKey<Wallet>(e => e.UserId);

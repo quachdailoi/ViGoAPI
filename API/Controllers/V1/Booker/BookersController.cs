@@ -5,6 +5,7 @@ using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
+using API.TaskQueues.TaskResolver;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -866,11 +867,19 @@ namespace API.Controllers.V1.Booker
             var mappedBookingDetailDriver = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet).FirstOrDefault();
 
             if (mappedBookingDetailDriver == null)
+            {
+                await AppServices.RedisMQ.Publish(RefundBookingTask.REFUND_QUEUE, new RefundItemDTO
+                {
+                    Amount = bookingDetail.Price,
+                    Code = bookingDetail.Code,
+                    Type = TaskItems.RefundItemTypes.BookingDetail
+                });
                 return ApiResult(new Response
                 {
                     Message = "Sorry we can not find any driver to pick up you at this time.",
                     StatusCode = StatusCodes.Status200OK
                 });
+            }
 
             var bookingDetailVM = await AppServices.BookingDetail.GetBookerViewModelByCode(request.Code);
 
