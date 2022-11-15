@@ -30,7 +30,7 @@ namespace Infrastructure.Data.Seeders
                 });
             }
 
-            builder.Entity<Notification>().HasData(notifications);
+            //builder.Entity<Notification>().HasData(notifications);
         }
     }
 }

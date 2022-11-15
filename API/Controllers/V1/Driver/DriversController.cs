@@ -618,7 +618,6 @@ namespace API.Controllers.V1.Driver
                 if (request.TripStatus == TripStatus.Completed)
                 {
                     // complete without picked booker up
-                    bookingDetailDriver.TripStatus = TripStatus.Completed;
                     bookingDetailDriver.CompleteWithoutBooker = true;
                 } 
                 else

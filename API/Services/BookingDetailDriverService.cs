@@ -207,9 +207,10 @@ namespace API.Services
             var endStationLongitude = endStation.Longitude;
 
             var distance = ILocationService.CalculateDistanceAsTheCrowFlies(endStationLatitude, endStationLongitude, (double)latitude, (double)longitude);
+            var radius = await AppServices.Setting.GetValue(Settings.RadiusToComplete, 100.0);
 
-            if (distance > await AppServices.Setting.GetValue(Settings.RadiusToComplete, 100.0))
-                throw new Exception($"Your location must be within {distance}m from the end station.");
+            if (distance > radius)
+                throw new Exception($"Your location must be within {radius}m from the end station.");
         }
 
         private async Task CheckRadiusFromStartStation(BookingDetail detail, double? latitude, double? longitude)
@@ -225,9 +226,10 @@ namespace API.Services
             var startStationLongitude = startStation.Longitude;
 
             var distance = ILocationService.CalculateDistanceAsTheCrowFlies(startStationLatitude, startStationLongitude, (double)latitude, (double)longitude);
+            var radius = await AppServices.Setting.GetValue(Settings.RadiusToComplete, 100.0);
 
-            if (distance > await AppServices.Setting.GetValue(Settings.RadiusToComplete, 100.0))
-                throw new Exception($"Your location must be within {distance}m from the start station.");
+            if (distance > radius)
+                throw new Exception($"Your location must be within {radius}m from the start station.");
         }
 
         public List<User> GetUsers(string[] codes)
