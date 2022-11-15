@@ -71,26 +71,39 @@ namespace API.Services
             );
         }
 
-        public TotalIncomeViewModel GetIncome(int driverId, string? fromDateStr, string? toDateStr)
+        public List<TotalIncomeViewModel> GetIncome(int driverId, string? fromDateStr, string? toDateStr)
         {
-            var bookingDetails = UnitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId)
-                    .Where(x => x.Status == BookingDetails.Status.Completed);
+            var listTotalIncome = new List<TotalIncomeViewModel>();
+
+            var walletId = UnitOfWork.Users.GetUserById(driverId).Select(x => x.Wallet.Id).FirstOrDefault();
+
+            var transactions = UnitOfWork.WalletTransactions.List(x => x.WalletId == walletId)
+                    .Where(x => x.Type == WalletTransactions.Types.TripIncome && x.Status == WalletTransactions.Status.Success);
 
             if (toDateStr != null && fromDateStr != null)
             {
                 var fromDate = DateTimeExtensions.ParseExactDateOnly(fromDateStr);
                 var toDate = DateTimeExtensions.ParseExactDateOnly(toDateStr);
-                
-                bookingDetails = bookingDetails.Where(x => fromDate <= x.Date && x.Date <= toDate);
+                    
+                transactions = transactions.Where(x => fromDate <= DateOnly.FromDateTime(x.CreatedAt.DateTime) && 
+                                                            DateOnly.FromDateTime(x.CreatedAt.DateTime) <= toDate);
             }
 
-            var incomes = bookingDetails.MapTo<IncomeViewModel>(Mapper);
-                    //.Paging(page: request.Page, pageSize: request.PageSize);
+            var incomes = transactions.MapTo<IncomeViewModel>(Mapper);
+            //.Paging(page: request.Page, pageSize: request.PageSize);
 
-            return new TotalIncomeViewModel
+            var incomesByDate = incomes.ToList().GroupBy(x => DateOnly.FromDateTime(x.DateTime.DateTime));
+
+            for (var index = 0; index < incomesByDate.Count(); index++)
             {
-                Incomes = incomes
-            };
+                var incomesInOneDate = incomesByDate.ElementAt(index).ToList();
+                listTotalIncome.Add(new()
+                {
+                    Incomes = incomesInOneDate
+                });
+            }
+
+            return listTotalIncome;
         }
 
         public async Task UpdateDriverRatingAndCancelledTripRate()
