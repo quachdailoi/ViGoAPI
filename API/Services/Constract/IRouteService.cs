@@ -20,5 +20,8 @@ namespace API.Services.Constract
         Task<RouteViewModel?> UpdateRoute(Domain.Entities.Route route, List<StationDTO> stationDTOs);
 
         IQueryable<Domain.Entities.Route> GetRoute(string code);
+
+        bool CheckRouteWasBooked(int routeId);
+        Task<bool> DeleteRoute(Domain.Entities.Route route);
     }
 }

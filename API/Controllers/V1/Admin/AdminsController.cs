@@ -221,6 +221,36 @@ namespace API.Controllers.V1.Admin
             return ApiResult(response);
         }
 
+        [HttpPost("gmail/loginFake")]
+        [AllowAnonymous]
+        public async Task<IActionResult> LoginFake([FromForm] string gmail)
+        {
+            Response response = new();
+
+            var user = await AppServices.Admin.GetUserViewModel(gmail, RegistrationTypes.Gmail);
+
+            if (user == null)
+            {
+                response.SetStatusCode(StatusCodes.Status500InternalServerError)
+                    .SetMessage("Login failed - not found user with this gmail");
+                return ApiResult(response);
+            }
+
+            string token = _jwtHandler.GenerateToken(user);
+            string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
+
+            response.SetStatusCode(StatusCodes.Status200OK)
+                .SetMessage("Login successfully.")
+                .SetData(new LoginSuccessViewModel
+                {
+                    AccessToken = token,
+                    RefreshToken = refreshToken,
+                    User = user
+                });
+
+            return ApiResult(response);
+        }
+
         [HttpGet("test")]
         public IActionResult TestAuthen()
         {

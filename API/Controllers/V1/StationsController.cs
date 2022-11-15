@@ -131,6 +131,87 @@ namespace API.Controllers.V1
             return ApiResult(response);
         }
 
+        /// <summary>
+        /// Update station
+        /// </summary>
+        /// <response code="200">Update station successfully</response>
+        /// <response code="400">Not exist station</response>
+        /// <response code="500">Failure</response>
+        [HttpPut]
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> UpdateStation([FromBody] UpdateStationRequest request)
+        {
+            var station = AppServices.Station.GetStationByCode(request.Code).FirstOrDefault();
 
+            if (station == null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "Not found any stations with this code."
+            });
+
+            var stationWasBooked = AppServices.Station.CheckStationWasBooked(station.Id);
+            if (stationWasBooked) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Station was booked by passanger, cannot update."
+            });
+
+            station.UpdatedBy = LoggedInUser.Id;
+
+            var rs = await AppServices.Station.UpdateStation(request, station);
+            if (!rs) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to update station."
+            });
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Updated station successfully."
+            });
+        }
+
+        /// <summary>
+        /// Delete station
+        /// </summary>
+        /// <response code="200">Delete station successfully</response>
+        /// <response code="400">Not exist station</response>
+        /// <response code="500">Failure</response>
+        [HttpDelete("{code}")]
+        [Authorize(Roles = "ADMIN")]
+        public async Task<IActionResult> DeleteStation(string code)
+        {
+            var station = AppServices.Station.GetStationByCode(new Guid(code)).FirstOrDefault();
+
+            if (station == null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "Not found any stations with this code."
+            });
+
+            var stationWasBooked = AppServices.Station.CheckStationWasBooked(station.Id);
+            if (stationWasBooked) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Station was booked by passanger, cannot delete."
+            });
+
+            station.UpdatedBy = LoggedInUser.Id;
+
+            var rs = await AppServices.Station.DeleteStation(station);
+
+            if (!rs) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to delete station."
+            });
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Deleted station successfully."
+            });
+        }
     }
 }

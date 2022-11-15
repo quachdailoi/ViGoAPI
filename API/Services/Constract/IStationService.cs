@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using API.Models.DTO;
+using API.Models.Requests;
 using API.Models.Response;
 using Domain.Entities;
 
@@ -23,5 +24,8 @@ namespace API.Services.Constract
         IQueryable<Station> GetStationByCode(Guid code);
         Task<Station?> GetStationByCodeAsync(Guid code);
         Task<Guid?> NotExistedRouteCode(List<Guid> stationCodes);
+        bool CheckStationWasBooked(int stationId);
+        Task<bool> UpdateStation(UpdateStationRequest request, Station station);
+        Task<bool> DeleteStation(Station station);
     }
 }

@@ -79,7 +79,7 @@ namespace API.Controllers.V2
                 foreach (var stationIds in listOfStationIds)
                 {
                     var stationDtos = await AppServices.Station.GetStationDTOsByIds(stationIds);
-                    var newRoute = await AppServices.RapidApi.CreateRouteByListOfStation(stationDtos);
+                    var newRoute = await AppServices.RapidApi.CreateRouteByListOfStation(stationDtos, 9);
 
                     Console.WriteLine($"Route added with ID: {newRoute.Id}");
                     await Task.Delay(TimeSpan.FromSeconds(2), token);

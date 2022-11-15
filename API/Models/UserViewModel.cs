@@ -19,7 +19,7 @@ namespace API.Models
         public string? AvatarUrl { get; set; } = string.Empty;
         public Guid? AvatarCode { get; set; } = Guid.NewGuid();
 
-        public string? Gmail { get; set; } = string.Empty ;
+        public string? Gmail { get; set; } = string.Empty;
         public bool? HasVerifiedGmail { get; set; } = false;
         public string? PhoneNumber { get; set; } = string.Empty;
         public bool? HasVerifiedPhoneNumber { get; set; } = false;
@@ -28,6 +28,9 @@ namespace API.Models
 
         public WalletViewModel Wallet { get; set; }
         public VehicleViewModel Vehicle { get; set; }
+        public double? Rating { get; set; }
+        public double? CancelledTripRate { get; set; }
+        public int? SuddenlyCancelledTrips { get; set; }
     }
 
     public class DriverViewModel

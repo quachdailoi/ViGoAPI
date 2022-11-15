@@ -48,7 +48,7 @@ namespace API.Services
                 routes = routes.Where(route => route.RouteStations.Where(rs => rs.Station.Code.ToString() == request.StartStationCode).Any());
             }
                 
-            var result = await routes.MapTo<RouteViewModel>(Mapper).ToListAsync();
+            var result = await routes.MapTo<RouteViewModel>(Mapper, AppServices).ToListAsync();
 
             if (result != null && result.Count != 0) foreach(var route in result) route.ProcessStation();
 
@@ -178,6 +178,27 @@ namespace API.Services
         public IQueryable<Domain.Entities.Route> GetRoute(string code)
         {
             return UnitOfWork.Routes.GetRouteByCode(new Guid(code));
+        }
+
+        public bool CheckRouteWasBooked(int routeId)
+        {
+            var bookings = UnitOfWork.BookingDetails.List(x => x.Status == BookingDetails.Status.Pending ||
+                x.Status == BookingDetails.Status.Ready || x.Status == BookingDetails.Status.Started)
+                .Include(x => x.Booking.StartRouteStation.Route)
+                .Select(x => new
+                {
+                    BookingId = x.BookingId,
+                    Booking = x.Booking
+                }).ToList()
+                .GroupBy(x => x.BookingId)
+                .SelectMany(x => x.Select(y => y.Booking));
+
+            return bookings.Select(x => x.StartRouteStation.Route.Id).DistinctBy(x => x).Contains(routeId);
+        }
+
+        public Task<bool> DeleteRoute(Domain.Entities.Route route)
+        {
+            return UnitOfWork.Routes.Remove(route);
         }
     }
 }
