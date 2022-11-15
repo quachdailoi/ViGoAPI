@@ -10,9 +10,9 @@ namespace Domain.Shares.Enums
     {
         public enum Status
         {
-            Pending = 0,
-            Processced = 1,
-            ProcessingDenied = 2
+            Pending = 1,
+            Processced = 2,
+            ProcessingDenied = 3 
         }
 
         public enum Types

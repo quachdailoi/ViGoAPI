@@ -28,7 +28,8 @@ namespace Domain.Shares.Enums
             NearlyBan = 12,
             BanDriver = 13,
             HaveTripSuddenly = 14,
-            TripIncome = 15
+            TripIncome = 15,
+            NewReport = 16
         }
 
         public enum Status

@@ -16,6 +16,24 @@ namespace API.Services
         {
         }
 
+        public async Task<Response> Create(ReportDTO reportDto, Response successResponse, Response failResponse)
+        {
+            var report = Mapper.Map<Report>(reportDto);
+
+            report = await UnitOfWork.Reports.Add(report);
+
+            if (report == null)
+                return failResponse;
+
+            await AppServices.Notification.SendPushNotification(new NotificationDTO
+            {
+                Type = Notifications.Types.Admin,
+                EventId = Events.Types.NewReport
+            });
+
+            return successResponse;
+        }
+
         public async Task<Response> Get(PagingRequest request, Response response, Reports.Status? status = null)
         {
             var reports = UnitOfWork.Reports.List();
