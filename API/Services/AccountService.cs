@@ -234,7 +234,7 @@ namespace API.Services
             var defaultAvatar = new AppFile
             {
                 Path = $"{Configuration.Get(AwsSettings.UserAvatarFolder)}{Configuration.Get(AwsSettings.DefaultAvatar)}",
-                Type = FileTypes.Image,
+                Type = FileTypes.AvatarImage,
             };
 
             var newUser = new User()

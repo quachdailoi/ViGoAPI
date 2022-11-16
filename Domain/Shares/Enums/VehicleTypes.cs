@@ -22,5 +22,15 @@ namespace Domain.Shares.Enums
             Inactive,
             Active,
         }
+
+        public enum SpecificType
+        {
+            [Description("ViRide")]
+            ViRide = 1,
+            [Description("ViCar-4")]
+            ViCar4 = 2,
+            [Description("ViCar-7")]
+            ViCar7 = 3
+        }
     }
 }

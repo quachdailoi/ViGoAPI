@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Base;
+using Domain.Shares.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Domain.Entities
         public double PricePerKm { get; set; }
         public int BaseDistance { get; set; }
         [JsonIgnore]
-        public int VehicleTypeId { get; set; }
+        public VehicleTypes.SpecificType VehicleTypeId { get; set; }
 
         [JsonIgnore]
         public VehicleType VehicleType { get; set; }

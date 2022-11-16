@@ -15,7 +15,7 @@ namespace Infrastructure.Data.Seeders
         {
             builder.Entity<VehicleType>().HasData(new VehicleType
             {
-                Id = 1,
+                Id = VehicleTypes.SpecificType.ViRide,
                 Name = "ViRide",
                 Code = Guid.NewGuid(),
                 Slot = 2,
@@ -24,7 +24,7 @@ namespace Infrastructure.Data.Seeders
 
             builder.Entity<VehicleType>().HasData(new VehicleType
             {
-                Id = 2,
+                Id = VehicleTypes.SpecificType.ViCar4,
                 Name = "ViCar-4",
                 Code = Guid.NewGuid(),
                 Slot = 4,
@@ -33,7 +33,7 @@ namespace Infrastructure.Data.Seeders
 
             builder.Entity<VehicleType>().HasData(new VehicleType
             {
-                Id = 3,
+                Id = VehicleTypes.SpecificType.ViCar7,
                 Name = "ViCar-7",
                 Code = Guid.NewGuid(),
                 Slot = 7,

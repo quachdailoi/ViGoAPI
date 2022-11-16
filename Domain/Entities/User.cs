@@ -22,6 +22,7 @@ namespace Domain.Entities
         public double CancelledTripRate { get; set; }
         public int SuddenlyCancelledTrips { get; set; }
 
+        public List<UserLicense> UserLicenses { get; set; }
 
         public List<Account> Accounts { get; set; } = new();
         public List<UserRoom> UserRooms { get; set; } = new();

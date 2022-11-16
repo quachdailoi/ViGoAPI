@@ -43,6 +43,15 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.AvatarCode,
                     opt => opt.MapFrom(src => src.File.Code)
+                ).ForMember(
+                    dest => dest.Identification,
+                    opt => opt.MapFrom(src => src.UserLicenses.Where(x => x.LicenseTypeId == LicenseTypes.Identification).FirstOrDefault())
+                ).ForMember(
+                    dest => dest.DriverLicense,
+                    opt => opt.MapFrom(src => src.UserLicenses.Where(x => x.LicenseTypeId == LicenseTypes.DriverLicense).FirstOrDefault())
+                ).ForMember(
+                    dest => dest.VehicleRegistration,
+                    opt => opt.MapFrom(src => src.UserLicenses.Where(x => x.LicenseTypeId == LicenseTypes.VehicleRegistration).FirstOrDefault())
                 );
 
             CreateMap<User, DriverViewModel>()

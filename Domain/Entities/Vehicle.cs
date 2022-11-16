@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Base;
+using Domain.Shares.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Domain.Entities
         public Guid Code { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = String.Empty;
         public string LicensePlate { get; set; } = String.Empty;
-        public int VehicleTypeId { get; set; }
+        public VehicleTypes.SpecificType VehicleTypeId { get; set; }
         public int UserId { get; set; }
 
         public VehicleType VehicleType { get; set; }

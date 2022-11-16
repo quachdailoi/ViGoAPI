@@ -29,5 +29,8 @@ namespace API.Services.Constract
 
         Task UpdateDriverRating(int driverId);
         Task UpdateCancelledTripRate(int driverId);
+
+        Task<bool> CheckExistRegistration(string registration, RegistrationTypes registrationTypes);
+        Task<UserViewModel> CreateDriver(CreateDriverRequest request);
     }
 }

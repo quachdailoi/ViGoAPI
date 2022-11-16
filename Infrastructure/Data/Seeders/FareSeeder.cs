@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Infrastructure.Data.Seeders
                 new()
                 {
                     Id = 1,
-                    VehicleTypeId = 1,
+                    VehicleTypeId = VehicleTypes.SpecificType.ViRide,
                     BaseDistance = 2000,
                     BasePrice = 12000,
                     PricePerKm = 4000
@@ -25,7 +26,7 @@ namespace Infrastructure.Data.Seeders
                 new()
                 {
                     Id = 2,
-                    VehicleTypeId = 2,
+                    VehicleTypeId = VehicleTypes.SpecificType.ViCar4,
                     BaseDistance = 2000,
                     BasePrice = 20000,
                     PricePerKm = 10000
@@ -33,7 +34,7 @@ namespace Infrastructure.Data.Seeders
                 new()
                 {
                     Id = 3,
-                    VehicleTypeId = 3,
+                    VehicleTypeId = VehicleTypes.SpecificType.ViCar7,
                     BaseDistance = 2000,
                     BasePrice = 30000,
                     PricePerKm = 12000

@@ -28,6 +28,7 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("license_plate");
 
             builder.Property(e => e.VehicleTypeId)
+                .HasConversion<int>()
                 .HasColumnName("vehicle_type_id");
 
             builder.Property(e => e.UserId)

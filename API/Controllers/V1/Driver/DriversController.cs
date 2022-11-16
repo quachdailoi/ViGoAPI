@@ -740,5 +740,36 @@ namespace API.Controllers.V1.Driver
 
             return ApiResult(response);
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> CreateDriver([FromForm] CreateDriverRequest request)
+        {
+            var existPhoneNumber = await AppServices.Driver.CheckExistRegistration(request.PhoneNumber, RegistrationTypes.Phone);
+
+            if (existPhoneNumber) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "This phone number belong to an existed driver."
+            });
+
+            var existEmail = await AppServices.Driver.CheckExistRegistration(request.Email, RegistrationTypes.Gmail);
+            if (existEmail) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "This email belong to an existed driver."
+            });
+
+            //check license codes
+
+            var driver = await AppServices.Driver.CreateDriver(request);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Submit registration successfully. Wait for approval from admin.",
+                Data = driver
+            });
+        }
     }
 }

@@ -7,9 +7,13 @@ namespace API.Services.Constract
     public interface IFileService
     {
         Task<Response> UploadFileAsync(S3ObjectDto obj, Response successResponse, Response errorResponse);
+
+        Task<bool> UploadFileAsync(S3ObjectDto obj);
         string? GetPresignedUrl(string filePath);
         string? GetPresignedUrl(AppFile? file);
 
         Task<string> GetFilePathById(int id);
+
+        Task<AppFile?> UploadFileAsync(string path, IFormFile file);
     }
 }

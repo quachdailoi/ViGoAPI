@@ -1,4 +1,6 @@
-﻿using API.AWS.S3;
+﻿using Amazon.Runtime.Internal;
+using Amazon.S3.Model.Internal.MarshallTransformations;
+using API.AWS.S3;
 using API.Extensions;
 using API.Models;
 using API.Models.Requests;
@@ -98,6 +100,38 @@ namespace API.Services
 
             await UnitOfWork.CommitAsync(); // commit
             return result;
+        }
+
+        public async Task<AppFile?> UpdateUserAvatar(string userCode, IFormFile avatar)
+        {
+            var user = await UnitOfWork.Users.GetUserByCode(userCode).Include(x => x.File).FirstOrDefaultAsync();
+
+            var userFile = user?.File ?? new AppFile();
+
+            // Process file
+            await using var memoryStream = new MemoryStream();
+            await avatar.CopyToAsync(memoryStream);
+
+            var fileExt = Path.GetExtension(avatar.FileName);
+            var docName = $"{Configuration.Get(AwsSettings.UserAvatarFolder)}{userCode}{fileExt}";
+
+            userFile.Path = docName;
+
+            if (!await UnitOfWork.Users.Update(user)) return null;
+
+            // call server
+            var s3Obj = new S3ObjectDto()
+            {
+                BucketName = Configuration.Get(AwsSettings.BucketName) ?? "",
+                InputStream = memoryStream,
+                Name = docName
+            };
+
+            var result = await AppServices.File.UploadFileAsync(s3Obj);
+
+            if (!result) return null;
+
+            return userFile;
         }
 
         public async Task<Response> GetEmailWithFireBaseAuthAsync(LoginByEmailRequest request)

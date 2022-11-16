@@ -66,6 +66,10 @@ namespace Infrastructure.Data
             new NotificationSeeder(builder);
 
             new SettingSeeder(builder);
+
+            new UserLicenseTypeSeeder(builder);
+
+            new UserLicenseSeeder(builder);
         }
 
         private void ConfigSoftDeleteQuery(ModelBuilder builder)
@@ -182,6 +186,12 @@ namespace Infrastructure.Data
 
             new SettingEntityConfiguration()
                 .Configure(builder.Entity<Setting>());
+
+            new LicenseTypeEntityConfiguration()
+                .Configure(builder.Entity<LicenseType>());
+
+            new UserLicenseEntityConfiguration()
+                .Configure(builder.Entity<UserLicense>());
         }
 
         public DbSet<Account> Accounts { get; set; }

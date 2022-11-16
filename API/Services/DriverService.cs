@@ -3,6 +3,7 @@ using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Settings;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
@@ -178,6 +179,133 @@ namespace API.Services
             }
 
             await UnitOfWork.Users.Update(driver);
+        }
+
+        public Task<bool> CheckExistRegistration(string registration, RegistrationTypes registrationTypes)
+        {
+            return UnitOfWork.Accounts.GetAccountByRegistration(registration, registrationTypes)
+                .Where(x => x.RoleId == Roles.DRIVER && x.Verified == true).AnyAsync();
+        }
+
+        public async Task<UserViewModel> CreateDriver(CreateDriverRequest request)
+        {
+            await UnitOfWork.CreateTransactionAsync();
+
+            var phoneAccount = new Account()
+            {
+                Registration = request.PhoneNumber,
+                RegistrationType = RegistrationTypes.Phone,
+                RoleId = Roles.DRIVER,
+                Verified = false
+            };
+
+            var emailAccount = new Account()
+            {
+                Registration = request.Email,
+                RegistrationType = RegistrationTypes.Gmail,
+                RoleId = Roles.DRIVER,
+                Verified = false
+            };
+
+            // upload avatar
+            var newUser = new User()
+            {
+                Name = request.Name,
+                Gender = request.Gender,
+                DateOfBirth = request.DateOfBirth,
+                Accounts = new() { phoneAccount, emailAccount },
+                Status = Users.Status.Pending
+            };
+
+            var avatarPath = $"{Configuration.Get(AwsSettings.UserAvatarFolder)}{newUser.Code}";
+            var avatar = await AppServices.File.UploadFileAsync(avatarPath, request.Avatar);
+
+            if (avatar == null)
+            {
+                await UnitOfWork.Rollback(); // rollback
+                throw new Exception("Failed to upload user's avatar.");
+            }
+
+            newUser.FileId = avatar.Id;
+
+            var identificationPathFrontSide = $"{Configuration.Get(AwsSettings.IdentiticationFolder)}{newUser.Code}_front";
+            var identificationPathBackSide = $"{Configuration.Get(AwsSettings.IdentiticationFolder)}{newUser.Code}_back";
+            var idFrontSide = await AppServices.File.UploadFileAsync(identificationPathFrontSide, request.IdentificationFrontSideImage);
+            var idBackSide = await AppServices.File.UploadFileAsync(identificationPathBackSide, request.IdentificationBackSideImage);
+
+            if (idFrontSide == null || idBackSide == null)
+            {
+                await UnitOfWork.Rollback(); // rollback
+                throw new Exception("Failed to upload identification.");
+            }
+
+            var driverLicensePathFrontSide = $"{Configuration.Get(AwsSettings.DriverLicenseFolder)}{newUser.Code}_front";
+            var driverLicensePathBackSide = $"{Configuration.Get(AwsSettings.DriverLicenseFolder)}{newUser.Code}_back";
+            var driverLicenseFrontSide = await AppServices.File.UploadFileAsync(driverLicensePathFrontSide, request.DriverLicenseFrontSideImage);
+            var driverLicenseBackSide = await AppServices.File.UploadFileAsync(driverLicensePathBackSide, request.DriverLicenseBackSideImage);
+
+            if (driverLicenseFrontSide == null || driverLicenseBackSide == null)
+            {
+                await UnitOfWork.Rollback(); // rollback
+                throw new Exception("Failed to upload driver license.");
+            }
+
+            var vehicleRegistrationPathFrontSide = $"{Configuration.Get(AwsSettings.VehicleRegistration)}{newUser.Code}_front";
+            var vehicleRegistrationPathBackSide = $"{Configuration.Get(AwsSettings.VehicleRegistration)}{newUser.Code}_back";
+            var vehicleRegistrationFrontSide = await AppServices.File.UploadFileAsync(vehicleRegistrationPathFrontSide, request.VehicleRegistrationFrontSideImage);
+            var vehicleRegistrationBackSide = await AppServices.File.UploadFileAsync(vehicleRegistrationPathBackSide, request.VehicleRegistrationBackSideImage);
+
+            if (vehicleRegistrationFrontSide == null || vehicleRegistrationBackSide == null)
+            {
+                await UnitOfWork.Rollback(); // rollback
+                throw new Exception("Failed to upload vehicle registration certificate.");
+            }
+                
+            newUser.UserLicenses.Add(new()
+            {
+                Code = request.IdentificationCode,
+                UserId = newUser.Id,
+                FrontSideFileId = idFrontSide.Id,
+                BackSideFileId = idBackSide.Id,
+                LicenseTypeId = LicenseTypes.Identification
+            });
+
+            newUser.UserLicenses.Add(new()
+            {
+                Code = request.DriverLicenseCode,
+                UserId = newUser.Id,
+                FrontSideFileId = driverLicenseFrontSide.Id,
+                BackSideFileId = driverLicenseBackSide.Id,
+                LicenseTypeId = LicenseTypes.DriverLicense
+            });
+
+            newUser.UserLicenses.Add(new()
+            {
+                Code = request.VehicleRegistrationCode,
+                UserId = newUser.Id,
+                FrontSideFileId = vehicleRegistrationFrontSide.Id,
+                BackSideFileId = vehicleRegistrationBackSide.Id,
+                LicenseTypeId = LicenseTypes.VehicleRegistration
+            });
+
+            newUser.Vehicle = new()
+            {
+                Name = request.VehicleName,
+                LicensePlate = request.LicensePlate,
+                VehicleTypeId = request.VehicleType
+            };
+
+            newUser = await UnitOfWork.Users.Add(newUser);
+
+            if (newUser == null)
+            {
+                await UnitOfWork.Rollback(); // rollback
+                throw new Exception("Failed to create new user.");
+            }
+
+            await UnitOfWork.CommitAsync();
+
+            return Mapper.Map<UserViewModel>(newUser);
         }
     }
 }
