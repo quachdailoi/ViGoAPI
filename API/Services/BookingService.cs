@@ -221,7 +221,7 @@ namespace API.Services
                         walletTransaction.Type = WalletTransactions.Types.BookingPaid;
                         walletTransaction.Status = WalletTransactions.Status.Success;
 
-                        wallet = await AppServices.Wallet.UpdateBalance(Mapper.Map<WalletTransactionDTO>(walletTransaction));
+                        wallet = await AppServices.Wallet.UpdateBalance(Mapper.Map<WalletTransactionDTO>(walletTransaction), false);
 
                         if (wallet == null) throw new Exception("Fail to pay by wallet.");
 

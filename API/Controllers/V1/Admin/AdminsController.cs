@@ -138,8 +138,6 @@ namespace API.Controllers.V1.Admin
                 });
 
             return ApiResult(response);
-
-            return Ok();
         }
 
         /// <summary>
