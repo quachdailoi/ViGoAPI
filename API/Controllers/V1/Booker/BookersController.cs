@@ -5,6 +5,7 @@ using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
+using API.TaskQueues.TaskResolver;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -847,49 +848,28 @@ namespace API.Controllers.V1.Booker
         [HttpPost("reports/driver-not-comming")]
         public async Task<IActionResult> ReportDriverNotComming([FromBody] ReportDriverNotCommingRequest request)
         {
-            var bookingDetail = await AppServices.Booking.MappingBookingDetailSuddenly(request.Code);
+            var reportDto = new ReportDTO
+            {
+                Title = "Driver is not comming.",
+                Content = "Driver is not comming.",
+                Data = request.Code,
+                Type = Reports.Types.DriverNotComming
+            };
 
-            if (bookingDetail == null)
-                return ApiResult(new Response
+            var response = await AppServices.Report.Create(
+                reportDto,
+                successResponse: new()
                 {
-                    Message = "Booking detail is not exist.",
-                    StatusCode = StatusCodes.Status400BadRequest
-                });
-
-            if (!AppServices.BookingDetail.UpdateBookingDetail(bookingDetail).Result)
-                return ApiResult(new Response
+                    Message = "Report successfully.",
+                    StatusCode = StatusCodes.Status200OK
+                },
+                failResponse: new()
                 {
-                    Message = "Fail to update booking detail.",
+                    Message = "Fail to report.",
                     StatusCode = StatusCodes.Status500InternalServerError
                 });
 
-            var mappedBookingDetailDriver = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet).FirstOrDefault();
-
-            if (mappedBookingDetailDriver == null)
-                return ApiResult(new Response
-                {
-                    Message = "Sorry we can not find any driver to pick up you at this time.",
-                    StatusCode = StatusCodes.Status200OK
-                });
-
-            var bookingDetailVM = await AppServices.BookingDetail.GetBookerViewModelByCode(request.Code);
-
-            var notiDTO = new NotificationDTO()
-            {
-                EventId = Events.Types.HaveTripSuddenly,
-                Type = Notifications.Types.SpecificUser,
-                Token = bookingDetailVM.Driver.FCMToken,
-                UserId = bookingDetailVM.Driver.Id
-            };
-
-            await AppServices.Notification.SendPushNotification(notiDTO);
-
-            return ApiResult(new Response
-            {
-                Data = bookingDetailVM,
-                Message = "Your trip have been mapped with new driver.",
-                StatusCode = StatusCodes.Status200OK
-            });
+            return ApiResult(response);
         }
     }
 }

@@ -34,6 +34,7 @@ namespace Domain.Entities
         public Vehicle? Vehicle { get; set; } = null;
         public Wallet? Wallet { get; set; } = null;
         public List<Notification> Notifications { get; set; } = new();
+        public List<Report> Reports { get; set; } = new();
 
         // virtual property - be careful - must have auto include before use these.
         public string? FilePath => File?.Path;

@@ -113,7 +113,7 @@ namespace API.Services
 
             return UnitOfWork.Wallets.Update(wallet).Result ? wallet : null;
         }
-        public async Task<Wallet?> UpdateBalance(WalletTransactionDTO transactionDto)
+        public async Task<Wallet?> UpdateBalance(WalletTransactionDTO transactionDto, bool saveTransaction = true)
         {
             var wallet = await UnitOfWork.Wallets
                 .List(wallet => wallet.Id == transactionDto.WalletId && wallet.Status == Wallets.Status.Active)
@@ -123,16 +123,19 @@ namespace API.Services
 
             if (wallet == null) return null;
 
-            var transaction = wallet.WalletTransactions.Find(trans => trans.Id == transactionDto.Id);
+            if (saveTransaction)
+            {
+                var transaction = wallet.WalletTransactions.Find(trans => trans.Id == transactionDto.Id);
 
-            if (transaction != null)
-            {
-                transaction.Status = transactionDto.Status;
-            }
-            else 
-            {
-                transaction = Mapper.Map<WalletTransaction>(transactionDto);
-                wallet.WalletTransactions.Add(transaction);
+                if (transaction != null)
+                {
+                    transaction.Status = transactionDto.Status;
+                }
+                else
+                {
+                    transaction = Mapper.Map<WalletTransaction>(transactionDto);
+                    wallet.WalletTransactions.Add(transaction);
+                }
             }
 
             switch (transactionDto.Type)
@@ -141,17 +144,118 @@ namespace API.Services
                 case WalletTransactions.Types.ZaloPayIncome:
                 case WalletTransactions.Types.VnPayIncome:
                 case WalletTransactions.Types.BookingRefund:
-                case WalletTransactions.Types.TripIncome:
                     wallet.Balance += transactionDto.Amount;
                     break;
-                default:
+                case WalletTransactions.Types.TripIncome:
+                    wallet.Balance += transactionDto.Amount;
+                    transactionDto.Type = WalletTransactions.Types.PayForDriver;
+                    break;
+                case WalletTransactions.Types.BookingPaid:
                     wallet.Balance -= transactionDto.Amount;
+                    break;
+                default:
+                    
                     break;
             }
 
             if (wallet.Balance < 0) return null;
 
+            if(transactionDto.Status == WalletTransactions.Status.Success)
+                await UpdateSystemWalletBalance(transactionDto);
+
             return UnitOfWork.Wallets.Update(wallet).Result ? wallet : null;
+        }
+
+        public async Task<bool?> UpdateSystemWalletBalance(WalletTransactionDTO transactionDto)
+        {
+            var wallet = await UnitOfWork.Wallets
+                .List(wallet => wallet.Type == Wallets.Types.System)
+                .Include(wallet => wallet.WalletTransactions)
+                .FirstOrDefaultAsync();
+
+            if (wallet == null) return null;
+
+            var transaction = Mapper.Map<WalletTransaction>(transactionDto);
+
+            transaction.TxnId = String.Empty;
+            transaction.BookingId = null;
+            transaction.Id = 0;
+            transaction.Code = Guid.NewGuid();
+            transaction.WalletId = wallet.Id;
+
+            wallet.WalletTransactions.Add(transaction);
+
+            switch (transactionDto.Type)
+            {
+                case WalletTransactions.Types.BookingPaid:
+                case WalletTransactions.Types.BookingPaidByMomo:
+                case WalletTransactions.Types.BookingPaidByZaloPay:
+                case WalletTransactions.Types.BookingPaidByVnPay:
+                    wallet.Balance += transactionDto.Amount;
+                    break;
+                case WalletTransactions.Types.BookingRefund:
+                case WalletTransactions.Types.BookingRefundMomo:
+                case WalletTransactions.Types.BookingRefundZaloPay:
+                case WalletTransactions.Types.PayForDriver:
+                    wallet.Balance -= transactionDto.Amount;
+                    break;
+                default:
+                    return null;
+            }
+
+            return UnitOfWork.Wallets.Update(wallet).Result;
+        }
+
+        //public async Task<WalletViewModel?> GetSystemWallet()
+        //{
+        //    return await UnitOfWork.Wallets
+        //        .List(wallet => wallet.Type == Wallets.Types.System)
+        //        .MapTo<WalletViewModel>(Mapper)
+        //        .FirstOrDefaultAsync();
+        //}
+
+        public async Task<FinanceDTO> GetFinance(DateFilterRequest dateFilterRequest)
+        {
+            var queryable = UnitOfWork.WalletTransactions
+                .List(walletTransaction => walletTransaction.Wallet.Type == Wallets.Types.System);
+
+            if (!String.IsNullOrEmpty(dateFilterRequest.FromDate))
+            {
+                var fromDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilterRequest.FromDate).ToDateTime(TimeOnly.MinValue);
+                queryable = queryable.Where(x => x.CreatedAt >= fromDateParse);
+            }
+            if (!String.IsNullOrEmpty(dateFilterRequest.ToDate))
+            {
+                var toDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilterRequest.ToDate).ToDateTime(TimeOnly.MaxValue);
+                queryable = queryable.Where(x => x.CreatedAt <= toDateParse);
+            }
+
+            var walletTransactions = await queryable.ToListAsync();
+
+            var financeDto = new FinanceDTO();
+
+            foreach(var transaction in walletTransactions)
+            {
+                switch (transaction.Type)
+                {
+                    case WalletTransactions.Types.BookingPaid:
+                    case WalletTransactions.Types.BookingPaidByMomo:
+                    case WalletTransactions.Types.BookingPaidByZaloPay:
+                    case WalletTransactions.Types.BookingPaidByVnPay:
+                        financeDto.TotalRevenue += transaction.Amount;
+                        break;
+                    case WalletTransactions.Types.BookingRefund:
+                    case WalletTransactions.Types.BookingRefundMomo:
+                    case WalletTransactions.Types.BookingRefundZaloPay:
+                        financeDto.TotalRefund += transaction.Amount;
+                        break;
+                    case WalletTransactions.Types.PayForDriver:
+                        financeDto.TotalPayForDriver += transaction.Amount;
+                        break;
+                }
+            }
+
+            return financeDto;
         }
     }
 }

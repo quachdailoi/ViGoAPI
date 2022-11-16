@@ -43,5 +43,6 @@ namespace API.Services.Constract
         INotificationService Notification { get; }
         IPricingService Pricing { get; }
         ISettingService Setting { get; }
+        IReportService Report { get; }
     }
 }

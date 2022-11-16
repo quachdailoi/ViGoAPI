@@ -120,6 +120,7 @@ namespace API.Extensions
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IPricingRepository, PricingRepository>();
             services.AddScoped<ISettingRepository, SettingRepository>();
+            services.AddScoped<IReportRepository, ReportRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -160,6 +161,7 @@ namespace API.Extensions
             services.AddTransient<INotificationService, NotificationService>();
             services.AddTransient<IPricingService, PricingService>();
             services.AddTransient<ISettingService, SettingService>();
+            services.AddTransient<IReportService, ReportService>();
 
             services.AddSingleton<VonageClient>(provider =>
             {
@@ -215,6 +217,7 @@ namespace API.Extensions
             {
                 options.MapType<DateOnly>(() => new OpenApiSchema { Format = "date", Type = "string" });
                 options.MapType<TimeOnly>(() => new OpenApiSchema { Format = "time", Type = "string" });
+                options.CustomSchemaIds(type => SwaggerHelper.GetSchemaId(type));
 
                 //options.SwaggerDoc("v1", new OpenApiInfo { Title = "MaaS API Project", Version = "v1" });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

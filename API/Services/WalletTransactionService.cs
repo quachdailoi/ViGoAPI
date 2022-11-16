@@ -48,6 +48,9 @@ namespace API.Services
             transaction.Status = dto.Status;
             transaction.TxnId = dto.TxnId;
 
+            if (dto.Status == WalletTransactions.Status.Success)
+                await AppServices.Wallet.UpdateSystemWalletBalance(dto);
+
             return await UnitOfWork.WalletTransactions.Update(transaction);
         }
 
@@ -58,6 +61,9 @@ namespace API.Services
             transaction = await UnitOfWork.WalletTransactions.Add(transaction);
 
             if (transaction == null) return null;
+
+            if (dto.Status == WalletTransactions.Status.Success)
+                await AppServices.Wallet.UpdateSystemWalletBalance(dto);
 
             return Mapper.Map<WalletTransactionDTO>(transaction);
         }

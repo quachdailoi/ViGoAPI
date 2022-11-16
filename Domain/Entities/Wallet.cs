@@ -12,9 +12,11 @@ namespace Domain.Entities
     {
         public double Balance { get; set; }
         public Wallets.Status Status { get; set; } = Wallets.Status.Active;
-        public int UserId { get; set; }
+        public int? UserId { get; set; } = null;
 
-        public User User { get; set; }
+        public User? User { get; set; } = null;
+        public Wallets.Types Type { get; set; } = Wallets.Types.Personal;
+
         public List<AffiliateAccount> AffiliateAccounts = new();
         public List<WalletTransaction> WalletTransactions = new();
     }

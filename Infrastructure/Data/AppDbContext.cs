@@ -187,12 +187,13 @@ namespace Infrastructure.Data
             new SettingEntityConfiguration()
                 .Configure(builder.Entity<Setting>());
 
+            new ReportEntityConfiguration()
+                .Configure(builder.Entity<Report>());
             new LicenseTypeEntityConfiguration()
                 .Configure(builder.Entity<LicenseType>());
 
             new UserLicenseEntityConfiguration()
-                .Configure(builder.Entity<UserLicense>());
-        }
+                .Configure(builder.Entity<UserLicense>());        }
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -224,5 +225,6 @@ namespace Infrastructure.Data
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Pricing> Pricings { get; set; }
         public DbSet<Setting> Settings { get; set; }
+        public DbSet<Report> Reports { get; set; }
     }
 }
