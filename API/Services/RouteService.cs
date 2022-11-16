@@ -91,7 +91,7 @@ namespace API.Services
                     //    routeRoutine.Status == RouteRoutines.Status.Active && 
                     //    routeRoutine.User.Vehicle.VehicleTypeId == dto.VehicleTypeId)
                     )
-                .MapTo<BookerRouteViewModel>(Mapper)
+                .MapTo<BookerRouteViewModel>(Mapper,AppServices)
                 .ToListAsync();
 
             var removeRouteIdHashSet = new HashSet<int>();
