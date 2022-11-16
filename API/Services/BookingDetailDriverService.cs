@@ -162,7 +162,8 @@ namespace API.Services
                                 Amount = Fee.FloorToHundreds(totalFee * (1-tradeDiscount)),
                                 Status = WalletTransactions.Status.Success,
                                 WalletId = wallet.Id,
-                                Type = WalletTransactions.Types.TripIncome
+                                Type = WalletTransactions.Types.TripIncome,
+                                BookingId = bookingDetail.Booking.Id
                             };
 
                             if ((wallet = AppServices.Wallet.UpdateBalance(transactionDto).Result) != null)

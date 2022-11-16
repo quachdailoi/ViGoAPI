@@ -29,6 +29,25 @@ namespace API.Mapper
                     dest => dest.Type,
                     otp => otp.MapFrom(
                         src => GetWalletTopUpTransactionType(src.Type)));
+
+            CreateMap<WalletTransaction, IncomeViewModel>()
+                .ForMember(
+                    dest => dest.Date,
+                    otp => otp.MapFrom(src => DateOnly.FromDateTime(src.CreatedAt.DateTime))
+                )
+                .ForMember(
+                    dest => dest.Time,
+                    otp => otp.MapFrom(src => TimeOnly.FromDateTime(src.CreatedAt.DateTime))
+                ).ForMember(
+                    dest => dest.TransactionCode,
+                    otp => otp.MapFrom(src => src.Code)
+                ).ForMember(
+                    dest => dest.StartStation,
+                    otp => otp.MapFrom(src => src.Booking.StartRouteStation.Station)
+                ).ForMember(
+                    dest => dest.EndStation,
+                    otp => otp.MapFrom(src => src.Booking.EndRouteStation.Station)
+                );
         }
 
         private WalletTransactions.Types GetWalletTopUpTransactionType(AffiliateParties.PartyTypes type)

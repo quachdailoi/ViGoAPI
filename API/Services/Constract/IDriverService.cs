@@ -24,7 +24,7 @@ namespace API.Services.Constract
             Response failedResponse
         );
 
-        TotalIncomeViewModel GetIncome(int driverId, string? fromDateStr, string? toDateStr);
+        List<TotalIncomeViewModel> GetIncome(int driverId, string? fromDateStr, string? toDateStr);
         Task UpdateDriverRatingAndCancelledTripRate();
 
         Task UpdateDriverRating(int driverId);
