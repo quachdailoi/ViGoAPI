@@ -80,10 +80,12 @@ namespace API.Services
             var transactions = UnitOfWork.WalletTransactions.List(x => x.WalletId == walletId)
                     .Where(x => x.Type == WalletTransactions.Types.TripIncome && x.Status == WalletTransactions.Status.Success);
 
+            DateOnly? fromDate = null;
+            DateOnly? toDate = null;
             if (toDateStr != null && fromDateStr != null)
             {
-                var fromDate = DateTimeExtensions.ParseExactDateOnly(fromDateStr);
-                var toDate = DateTimeExtensions.ParseExactDateOnly(toDateStr);
+                fromDate = DateTimeExtensions.ParseExactDateOnly(fromDateStr);
+                toDate = DateTimeExtensions.ParseExactDateOnly(toDateStr);
                     
                 transactions = transactions.Where(x => fromDate <= DateOnly.FromDateTime(x.CreatedAt.DateTime) && 
                                                             DateOnly.FromDateTime(x.CreatedAt.DateTime) <= toDate);
@@ -92,7 +94,7 @@ namespace API.Services
             var incomes = transactions.MapTo<IncomeViewModel>(Mapper);
             //.Paging(page: request.Page, pageSize: request.PageSize);
 
-            var incomesByDate = incomes.ToList().GroupBy(x => DateOnly.FromDateTime(x.DateTime.DateTime));
+            var incomesByDate = incomes.OrderByDescending(x => x.Date).ToList().GroupBy(x => x.Date);
 
             for (var index = 0; index < incomesByDate.Count(); index++)
             {
@@ -102,6 +104,28 @@ namespace API.Services
                     Incomes = incomesInOneDate
                 });
             }
+
+            var minDate = (DateOnly)(fromDate != null ? fromDate : incomesByDate.MinBy(x => x.Key).Key);
+            var maxDate = (DateOnly)(toDate != null ? toDate : incomesByDate.MaxBy(x => x.Key).Key);
+
+            while(minDate <= maxDate)
+            {
+                var totalIncome = listTotalIncome.Where(x => x.Incomes.FirstOrDefault()?.Date == minDate).FirstOrDefault();
+                if (totalIncome != null)
+                {
+                    totalIncome.Date = minDate;
+                } 
+                else
+                {
+                    listTotalIncome.Add(new()
+                    {
+                        Date = minDate
+                    });
+                }
+                minDate = minDate.AddDays(1);
+            }
+
+            listTotalIncome = listTotalIncome.OrderBy(x => x.Date).ToList();
 
             return listTotalIncome;
         }

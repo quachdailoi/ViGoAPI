@@ -32,11 +32,21 @@ namespace API.Mapper
 
             CreateMap<WalletTransaction, IncomeViewModel>()
                 .ForMember(
-                    dest => dest.DateTime,
-                    otp => otp.MapFrom(src => src.CreatedAt)
+                    dest => dest.Date,
+                    otp => otp.MapFrom(src => DateOnly.FromDateTime(src.CreatedAt.DateTime))
+                )
+                .ForMember(
+                    dest => dest.Time,
+                    otp => otp.MapFrom(src => TimeOnly.FromDateTime(src.CreatedAt.DateTime))
                 ).ForMember(
                     dest => dest.TransactionCode,
                     otp => otp.MapFrom(src => src.Code)
+                ).ForMember(
+                    dest => dest.StartStation,
+                    otp => otp.MapFrom(src => src.Booking.StartRouteStation.Station)
+                ).ForMember(
+                    dest => dest.EndStation,
+                    otp => otp.MapFrom(src => src.Booking.EndRouteStation.Station)
                 );
         }
 
