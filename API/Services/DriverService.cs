@@ -167,8 +167,8 @@ namespace API.Services
                 .Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.Completed && bdr.BookingDetail.Rating.HasValue)
                 .Take(await AppServices.Setting.GetValue(Settings.TotalTripsCalculateRating, 100));
 
-            var totalRating = ratingTrips.Select(bdr => bdr.BookingDetail.Rating).Sum();
-            var totalRatingTrip = ratingTrips.Count();
+            var totalRating = ratingTrips.Select(bdr => bdr.BookingDetail.Rating).Sum() + 5;
+            var totalRatingTrip = ratingTrips.Count() + 1;
 
             driver.Rating = totalRating / totalRatingTrip;
 
