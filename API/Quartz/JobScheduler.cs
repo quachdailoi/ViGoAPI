@@ -112,7 +112,7 @@ namespace API.Quartz
             var time = TimeOnly.Parse(timeStr != null ? timeStr : "06:00:00");
             var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(time);
 
-            //var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(0, 35));
+            //var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(0, 40));
 
             IJobDetail jobDetail = JobBuilder.Create<NotifyTripJob>()
                 .WithIdentity("NotifyTripJobIdentity")

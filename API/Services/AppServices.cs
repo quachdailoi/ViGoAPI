@@ -52,6 +52,7 @@ namespace API.Services
         public INotificationService Notification => Load<INotificationService>();
         public IPricingService Pricing => Load<IPricingService>();
         public ISettingService Setting => Load<ISettingService>();
+        public IReportService Report => Load<IReportService>();
 
         private T Load<T>() where T : class => Provider.GetRequiredService<T>();
     }
