@@ -65,9 +65,9 @@ namespace API.Services
             return uploadRS.Success;
         }
 
-        public async Task<AppFile?> UploadFileAsync(string path, IFormFile file)
+        public async Task<AppFile?> UploadFileAsync(string path, IFormFile file, FileTypes fileType = FileTypes.AvatarImage)
         {
-            var fileObj = new AppFile();
+            var fileObj = new AppFile() { Type = fileType };
             // Process file
             await using var memoryStream = new MemoryStream();
             await file.CopyToAsync(memoryStream);

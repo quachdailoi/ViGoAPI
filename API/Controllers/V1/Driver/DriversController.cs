@@ -5,6 +5,7 @@ using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
+using API.Validators;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
@@ -743,26 +744,20 @@ namespace API.Controllers.V1.Driver
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateDriver([FromForm] CreateDriverRequest request)
+        public async Task<IActionResult> DriverRegister([FromForm] DriverRegistrationRequest request)
         {
-            var existPhoneNumber = await AppServices.Driver.CheckExistRegistration(request.PhoneNumber, RegistrationTypes.Phone);
-
-            if (existPhoneNumber) return ApiResult(new()
+            //validate request
+            var validationErrorMsg = await DriverRegistrationRequestValidator.Validate(request, AppServices);
+            if (validationErrorMsg != null) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status400BadRequest,
-                Message = "This phone number belong to an existed driver."
+                Message = validationErrorMsg
             });
 
-            var existEmail = await AppServices.Driver.CheckExistRegistration(request.Email, RegistrationTypes.Gmail);
-            if (existEmail) return ApiResult(new()
-            {
-                StatusCode = StatusCodes.Status400BadRequest,
-                Message = "This email belong to an existed driver."
-            });
+            var driver = await AppServices.Driver.SubmitDriverRegistration(request);
 
-            //check license codes
-
-            var driver = await AppServices.Driver.CreateDriver(request);
+            // send mail to email verify account
+            //...
 
             return ApiResult(new()
             {

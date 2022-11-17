@@ -53,6 +53,7 @@ namespace API.Services
         public IPricingService Pricing => Load<IPricingService>();
         public ISettingService Setting => Load<ISettingService>();
         public IReportService Report => Load<IReportService>();
+        public IUserLicenseService UserLicense => Load<IUserLicenseService>();
 
         private T Load<T>() where T : class => Provider.GetRequiredService<T>();
     }

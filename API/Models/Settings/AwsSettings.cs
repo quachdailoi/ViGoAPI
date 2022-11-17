@@ -14,7 +14,9 @@
 
         public static string DriverLicenseFolder = $"{Section}DriverLicenseFolder";
 
-        public static string VehicleRegistration = $"{Section}VehicleRegistration";
+        public static string VehicleRegistrationFolder = $"{Section}VehicleRegistrationFolder";
+
+        public static string DriverRegistrationFolder = $"{Section}DriverRegistrationFolder";
 
         public static string BucketName = $"{Section}BucketName";
 

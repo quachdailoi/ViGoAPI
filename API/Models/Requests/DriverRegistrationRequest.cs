@@ -1,10 +1,12 @@
 ﻿using Domain.Shares.Enums;
+using Newtonsoft.Json.Converters;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace API.Models.Requests
 {
-    public class CreateDriverRequest
+    public class DriverRegistrationRequest
     {
         [Required]
         [MaxLength(30, ErrorMessage = "The Name field has max length is 30 characters.")]
@@ -15,7 +17,7 @@ namespace API.Models.Requests
         public Users.Genders Gender { get; set; } = 0;
 
         [Required]
-        public DateTimeOffset? DateOfBirth { get; set; } = null;
+        public DateTimeOffset DateOfBirth { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
         [Required]
@@ -44,6 +46,7 @@ namespace API.Models.Requests
         public string VehicleName { get; set; }
         [Required]
         public string LicensePlate { get; set; }
+
         [Required]
         [DefaultValue(VehicleTypes.SpecificType.ViRide)]
         public VehicleTypes.SpecificType VehicleType { get; set; }

@@ -35,7 +35,7 @@ namespace Domain.Interfaces.UnitOfWork
         IPricingRepository Pricings { get; }
         ISettingRepository Settings { get; }
         IReportRepository Reports { get; }
-
+        IUserLicenseRepository UserLicenses { get; }
         Task CreateTransactionAsync();
         Task CommitAsync();
         Task Rollback();

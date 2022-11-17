@@ -226,5 +226,7 @@ namespace Infrastructure.Data
         public DbSet<Pricing> Pricings { get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<LicenseType> LicenseTypes { get; set; }
+        public DbSet<UserLicense> UserLicenses { get; set; }
     }
 }

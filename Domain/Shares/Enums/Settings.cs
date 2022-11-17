@@ -29,6 +29,7 @@ namespace Domain.Shares.Enums
         RadiusNearbyStation,
         RadiusToComplete,
         LastDayNumberForNextMonthRoutine,
-        DiscountPerEachSharingCase
+        DiscountPerEachSharingCase,
+        DriverRegistrationFileSizeLimit
     }
 }

@@ -121,6 +121,7 @@ namespace API.Extensions
             services.AddScoped<IPricingRepository, PricingRepository>();
             services.AddScoped<ISettingRepository, SettingRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<IUserLicenseRepository, UserLicenseRepository>();
         }
 
         public static void ConfigureIoCServices(this IServiceCollection services)
@@ -162,6 +163,7 @@ namespace API.Extensions
             services.AddTransient<IPricingService, PricingService>();
             services.AddTransient<ISettingService, SettingService>();
             services.AddTransient<IReportService, ReportService>();
+            services.AddTransient<IUserLicenseService, UserLicenseService>();
 
             services.AddSingleton<VonageClient>(provider =>
             {

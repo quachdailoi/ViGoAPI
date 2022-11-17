@@ -62,8 +62,6 @@ namespace Infrastructure.Data.Seeders
             }
 
             builder.Entity<Vehicle>().HasData(vehicles);
-
-            
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Responses;
 using Domain.Entities;
 using Domain.Shares.Enums;
 
@@ -31,6 +32,7 @@ namespace API.Services.Constract
         Task UpdateCancelledTripRate(int driverId);
 
         Task<bool> CheckExistRegistration(string registration, RegistrationTypes registrationTypes);
-        Task<UserViewModel> CreateDriver(CreateDriverRequest request);
+        Task<UserViewModel?> SubmitDriverRegistration(DriverRegistrationRequest request);
+        PagingViewModel<IQueryable<UserViewModel>>? GetPendingDriver(PagingRequest pagingRequest);
     }
 }

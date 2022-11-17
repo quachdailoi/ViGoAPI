@@ -257,5 +257,18 @@ namespace API.Controllers.V1.Admin
             var user = LoggedInUser;
             return Ok(user);
         }
+
+        [HttpGet("driver-registraions")]
+        public async Task<IActionResult> GetDriverRegistrations([FromQuery] PagingRequest pagingRequest)
+        {
+            var pendingDrivers = AppServices.Driver.GetPendingDriver(pagingRequest);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Get pending driver successfully.",
+                Data = pendingDrivers
+            });
+        }
     }
 }

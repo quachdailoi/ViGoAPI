@@ -1,6 +1,7 @@
 ﻿using API.AWS.S3;
 using API.Models.Response;
 using Domain.Entities;
+using Domain.Shares.Enums;
 
 namespace API.Services.Constract
 {
@@ -14,6 +15,6 @@ namespace API.Services.Constract
 
         Task<string> GetFilePathById(int id);
 
-        Task<AppFile?> UploadFileAsync(string path, IFormFile file);
+        Task<AppFile?> UploadFileAsync(string path, IFormFile file, FileTypes fileType = FileTypes.AvatarImage);
     }
 }

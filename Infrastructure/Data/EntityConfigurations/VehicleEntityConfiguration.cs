@@ -37,6 +37,9 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.HasIndex(e => e.Code)
                 .IsUnique();
 
+            builder.HasIndex(e => e.LicensePlate)
+                .IsUnique();
+
             builder.HasOne(e => e.VehicleType)
                 .WithMany(v => v.Vehicles)
                 .HasForeignKey(e => e.VehicleTypeId)

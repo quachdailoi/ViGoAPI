@@ -3,6 +3,7 @@ using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Responses;
 using API.Models.Settings;
 using API.Services.Constract;
 using AutoMapper;
@@ -224,7 +225,7 @@ namespace API.Services
                 .Where(x => x.RoleId == Roles.DRIVER && x.Verified == true).AnyAsync();
         }
 
-        public async Task<UserViewModel> CreateDriver(CreateDriverRequest request)
+        public async Task<UserViewModel?> SubmitDriverRegistration(DriverRegistrationRequest request)
         {
             await UnitOfWork.CreateTransactionAsync();
 
@@ -244,7 +245,7 @@ namespace API.Services
                 Verified = false
             };
 
-            // upload avatar
+            //upload avatar
             var newUser = new User()
             {
                 Name = request.Name,
@@ -265,10 +266,11 @@ namespace API.Services
 
             newUser.FileId = avatar.Id;
 
+            // identification
             var identificationPathFrontSide = $"{Configuration.Get(AwsSettings.IdentiticationFolder)}{newUser.Code}_front";
             var identificationPathBackSide = $"{Configuration.Get(AwsSettings.IdentiticationFolder)}{newUser.Code}_back";
-            var idFrontSide = await AppServices.File.UploadFileAsync(identificationPathFrontSide, request.IdentificationFrontSideImage);
-            var idBackSide = await AppServices.File.UploadFileAsync(identificationPathBackSide, request.IdentificationBackSideImage);
+            var idFrontSide = await AppServices.File.UploadFileAsync(identificationPathFrontSide, request.IdentificationFrontSideImage, FileTypes.IdentificationImageFront);
+            var idBackSide = await AppServices.File.UploadFileAsync(identificationPathBackSide, request.IdentificationBackSideImage, FileTypes.IdentificationImageBack);
 
             if (idFrontSide == null || idBackSide == null)
             {
@@ -276,10 +278,11 @@ namespace API.Services
                 throw new Exception("Failed to upload identification.");
             }
 
+            // driver's license
             var driverLicensePathFrontSide = $"{Configuration.Get(AwsSettings.DriverLicenseFolder)}{newUser.Code}_front";
             var driverLicensePathBackSide = $"{Configuration.Get(AwsSettings.DriverLicenseFolder)}{newUser.Code}_back";
-            var driverLicenseFrontSide = await AppServices.File.UploadFileAsync(driverLicensePathFrontSide, request.DriverLicenseFrontSideImage);
-            var driverLicenseBackSide = await AppServices.File.UploadFileAsync(driverLicensePathBackSide, request.DriverLicenseBackSideImage);
+            var driverLicenseFrontSide = await AppServices.File.UploadFileAsync(driverLicensePathFrontSide, request.DriverLicenseFrontSideImage, FileTypes.DriverLicenceFront);
+            var driverLicenseBackSide = await AppServices.File.UploadFileAsync(driverLicensePathBackSide, request.DriverLicenseBackSideImage, FileTypes.DriverLicenceBack);
 
             if (driverLicenseFrontSide == null || driverLicenseBackSide == null)
             {
@@ -287,10 +290,11 @@ namespace API.Services
                 throw new Exception("Failed to upload driver license.");
             }
 
-            var vehicleRegistrationPathFrontSide = $"{Configuration.Get(AwsSettings.VehicleRegistration)}{newUser.Code}_front";
-            var vehicleRegistrationPathBackSide = $"{Configuration.Get(AwsSettings.VehicleRegistration)}{newUser.Code}_back";
-            var vehicleRegistrationFrontSide = await AppServices.File.UploadFileAsync(vehicleRegistrationPathFrontSide, request.VehicleRegistrationFrontSideImage);
-            var vehicleRegistrationBackSide = await AppServices.File.UploadFileAsync(vehicleRegistrationPathBackSide, request.VehicleRegistrationBackSideImage);
+            //vehicle registration
+            var vehicleRegistrationPathFrontSide = $"{Configuration.Get(AwsSettings.VehicleRegistrationFolder)}{newUser.Code}_front";
+            var vehicleRegistrationPathBackSide = $"{Configuration.Get(AwsSettings.VehicleRegistrationFolder)}{newUser.Code}_back";
+            var vehicleRegistrationFrontSide = await AppServices.File.UploadFileAsync(vehicleRegistrationPathFrontSide, request.VehicleRegistrationFrontSideImage, FileTypes.VehicleRegistrationFront);
+            var vehicleRegistrationBackSide = await AppServices.File.UploadFileAsync(vehicleRegistrationPathBackSide, request.VehicleRegistrationBackSideImage, FileTypes.VehicleRegistrationBack);
 
             if (vehicleRegistrationFrontSide == null || vehicleRegistrationBackSide == null)
             {
@@ -341,8 +345,16 @@ namespace API.Services
             }
 
             await UnitOfWork.CommitAsync();
+            return UnitOfWork.Users.GetUserById(newUser.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
+        }
 
-            return Mapper.Map<UserViewModel>(newUser);
+        public PagingViewModel<IQueryable<UserViewModel>>? GetPendingDriver(PagingRequest pagingRequest)
+        {
+            var pendingDriver = UnitOfWork.Users.List(x => x.Status == Users.Status.Pending).MapTo<UserViewModel>(Mapper, AppServices);
+
+            var paging = pendingDriver.Paging(page: pagingRequest.Page, pageSize: pagingRequest.PageSize);
+
+            return paging;
         }
     }
 }
