@@ -17,10 +17,11 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.Stations,
                     opt => opt.MapFrom(src => src.RouteStations.Select(item => item.Station))
-                ).ForMember(
-                    dest => dest.UpdatedByAdmin,
-                    opt => opt.MapFrom(src => service.User.GetUserById(src.UpdatedBy).ToList()[0])
                 );
+                //.ForMember(
+                //    dest => dest.UpdatedByAdmin,
+                //    opt => opt.MapFrom(src => service.User.GetUserById(src.UpdatedBy).ToList()[0])
+                //);
 
             CreateMap<Domain.Entities.Route, BookerRouteViewModel>()
                 .IncludeBase<Domain.Entities.Route, RouteViewModel>();
