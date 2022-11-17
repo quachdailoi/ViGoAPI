@@ -47,7 +47,7 @@ namespace API.Services
             {
                 routes = routes.Where(route => route.RouteStations.Where(rs => rs.Station.Code.ToString() == request.StartStationCode).Any());
             }
-                
+
             var result = await routes.MapTo<RouteViewModel>(Mapper, AppServices).ToListAsync();
 
             if (result != null && result.Count != 0) foreach(var route in result) route.ProcessStation();
@@ -91,7 +91,7 @@ namespace API.Services
                     //    routeRoutine.Status == RouteRoutines.Status.Active && 
                     //    routeRoutine.User.Vehicle.VehicleTypeId == dto.VehicleTypeId)
                     )
-                .MapTo<BookerRouteViewModel>(Mapper)
+                .MapTo<BookerRouteViewModel>(Mapper,AppServices)
                 .ToListAsync();
 
             var removeRouteIdHashSet = new HashSet<int>();
