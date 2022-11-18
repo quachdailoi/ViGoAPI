@@ -11,13 +11,17 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.EntityConfigurations
 {
-    public class VehicleTypeEntityConfiguration : BaseEntityConfiguration<VehicleType>
+    public class VehicleTypeEntityConfiguration : IEntityTypeConfiguration<VehicleType>
     {
-        public override void Configure(EntityTypeBuilder<VehicleType> builder)
+        public void Configure(EntityTypeBuilder<VehicleType> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("vehicle_types");
+
+            builder.HasKey(x => x.Id);
+
+            builder.Property(e => e.Id)
+                .HasColumnName("id")
+                .HasConversion<int>();
 
             builder.Property(e => e.Code)
                 .HasColumnName("code");

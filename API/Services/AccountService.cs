@@ -234,7 +234,7 @@ namespace API.Services
             var defaultAvatar = new AppFile
             {
                 Path = $"{Configuration.Get(AwsSettings.UserAvatarFolder)}{Configuration.Get(AwsSettings.DefaultAvatar)}",
-                Type = FileTypes.Image,
+                Type = FileTypes.AvatarImage,
             };
 
             var newUser = new User()
@@ -266,6 +266,11 @@ namespace API.Services
             var profile = await AppServices.User.GetUserViewModelById(userId);
 
             return successResponse.SetData(profile);
+        }
+
+        public Task<bool> UpdateAccount(Account acc)
+        {
+            return UnitOfWork.Accounts.Update(acc);
         }
     }
 }

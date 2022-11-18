@@ -9,6 +9,7 @@ using API.Models.Settings;
 using API.Services.Constract;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
+using Domain.Shares.Enums;
 using System.Net.Mime;
 
 namespace API.Services
@@ -55,6 +56,60 @@ namespace API.Services
                 _logger.LogError(ex.Message);
                 return errorResponse;
             }
+        }
+
+        public async Task<bool> UploadFileAsync(S3ObjectDto obj)
+        {
+            var uploadRS = await UploadFileAsync(obj, new() { Success = true }, new() { Success = false });
+
+            return uploadRS.Success;
+        }
+
+        public async Task<AppFile?> UploadFileAsync(string path, IFormFile file, FileTypes fileType = FileTypes.AvatarImage)
+        {
+            var fileObj = new AppFile() { Type = fileType };
+            // Process file
+            await using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+
+            var fileExt = Path.GetExtension(file.FileName);
+            var docName = $"{path}{fileExt}";
+            fileObj.Path = docName;
+
+            fileObj = await UnitOfWork.Files.Add(fileObj);
+
+            if (fileObj == null) return null;
+
+            // call server
+            var s3Obj = new S3ObjectDto()
+            {
+                BucketName = Configuration.Get(AwsSettings.BucketName) ?? "",
+                InputStream = memoryStream,
+                Name = docName
+            };
+
+            var result = await AppServices.File.UploadFileAsync(s3Obj);
+
+            if (!result) return null;
+
+            return fileObj;
+        }
+
+        public async Task<bool> UpdateS3File(string path, IFormFile file)
+        {
+            // Process file
+            await using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+
+            // call server
+            var s3Obj = new S3ObjectDto()
+            {
+                BucketName = Configuration.Get(AwsSettings.BucketName) ?? "",
+                InputStream = memoryStream,
+                Name = path
+            };
+
+            return await UploadFileAsync(s3Obj);
         }
 
         public string? GetPresignedUrl(string filePath)

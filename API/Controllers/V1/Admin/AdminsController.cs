@@ -4,6 +4,7 @@ using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
+using API.Validators;
 using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -64,6 +65,8 @@ namespace API.Controllers.V1.Admin
                     StatusCode = StatusCodes.Status400BadRequest
                 });
             }
+
+            await AppServices.User.CheckValidUserToLogin(user, RegistrationTypes.Gmail);
 
             string token = _jwtHandler.GenerateToken(user);
             string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
@@ -312,6 +315,40 @@ namespace API.Controllers.V1.Admin
         {
             var user = LoggedInUser;
             return Ok(user);
+        }
+
+        [HttpGet("driver-registraions")]
+        public IActionResult GetDriverRegistrations([FromQuery] PagingRequest pagingRequest)
+        {
+            var pendingDrivers = AppServices.Driver.GetPendingDriverPaging(pagingRequest);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Get pending driver successfully.",
+                Data = pendingDrivers
+            });
+        }
+
+        [HttpPut("driver-registrations/{userCode}")]
+        public async Task<IActionResult> UpdateDriverRegistration(string userCode, [FromForm] DriverRegistrationRequest request, [FromForm] Users.Status status)
+        {
+            //validate request
+            var validationErrorMsg = await DriverRegistrationRequestValidator.Validate(request, AppServices, isCreated: false);
+            if (validationErrorMsg != null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = validationErrorMsg
+            });
+
+            var driver = await AppServices.Driver.UpdateDriverRegistration(userCode, request, status);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Update driver registration successfully.",
+                Data = driver
+            });
         }
     }
 }

@@ -10,5 +10,6 @@
         public static string Password { get; set; } = $"{Section}Password";
         public static string Host { get; set; } = $"{Section}Host";
         public static string Port { get; set; } = $"{Section}Port";
+        public static string VerifiedAccountHost { get; set; } = $"{Section}VerifiedAccountHost";
     }
 }

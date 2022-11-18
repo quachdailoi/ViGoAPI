@@ -145,7 +145,7 @@ namespace API.Controllers.V1
                     Vehicle = new Vehicle
                     {
                         LicensePlate = $"Dummy_{DateTime.Now}_{i}",
-                        VehicleTypeId = vehicleTypeVM.Id,
+                        VehicleTypeId = (VehicleTypes.SpecificType)vehicleTypeVM.Id,
                         Name = $"Dummy{DateTime.Now.Ticks}{i}"
                     },
                     RouteRoutines = startTimes

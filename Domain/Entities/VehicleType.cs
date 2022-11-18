@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class VehicleType : BaseEntity
+    public class VehicleType
     {
+        public VehicleTypes.SpecificType Id { get; set; }
         public Guid Code { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = String.Empty;
         public int Slot { get; set; }

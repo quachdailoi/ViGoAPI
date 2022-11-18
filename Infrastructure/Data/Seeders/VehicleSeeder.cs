@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,10 @@ namespace Infrastructure.Data.Seeders
             {
                 new Vehicle
                 {
-                    Id = 1, 
+                    Id = 1,
                     Name = "Wave Alpha",
                     LicensePlate= "51B.000.01",
-                    VehicleTypeId = 1,
+                    VehicleTypeId = VehicleTypes.SpecificType.ViRide,
                     UserId = 2
                 },
                 new Vehicle
@@ -27,7 +28,7 @@ namespace Infrastructure.Data.Seeders
                     Id = 2,
                     Name = "BMW I8",
                     LicensePlate = "51B.000.02",
-                    VehicleTypeId = 2,
+                    VehicleTypeId = VehicleTypes.SpecificType.ViCar4,
                     UserId = 1
                 },
                 new Vehicle
@@ -35,7 +36,7 @@ namespace Infrastructure.Data.Seeders
                     Id = 3,
                     Name = "Mazda CX-8",
                     LicensePlate = "51B.000.03",
-                    VehicleTypeId = 3,
+                    VehicleTypeId = VehicleTypes.SpecificType.ViCar7,
                     UserId = 3
                 },
                 new Vehicle
@@ -43,7 +44,7 @@ namespace Infrastructure.Data.Seeders
                     Id = 4,
                     Name = "Honda CR-V",
                     LicensePlate = "51B.000.04",
-                    VehicleTypeId = 3,
+                    VehicleTypeId = VehicleTypes.SpecificType.ViCar7,
                     UserId = 4
                 }
             };
@@ -55,14 +56,12 @@ namespace Infrastructure.Data.Seeders
                     Id = i,
                     Name = $"Vehicle {i}",
                     LicensePlate = $"51B.000.{i}",
-                    VehicleTypeId = 3,
+                    VehicleTypeId = VehicleTypes.SpecificType.ViCar4,
                     UserId = i
                 });
             }
 
             builder.Entity<Vehicle>().HasData(vehicles);
-
-            
         }
     }
 }

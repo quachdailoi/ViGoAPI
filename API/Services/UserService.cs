@@ -1,4 +1,6 @@
-﻿using API.AWS.S3;
+﻿using Amazon.Runtime.Internal;
+using Amazon.S3.Model.Internal.MarshallTransformations;
+using API.AWS.S3;
 using API.Extensions;
 using API.Models;
 using API.Models.Requests;
@@ -100,6 +102,38 @@ namespace API.Services
             return result;
         }
 
+        public async Task<AppFile?> UpdateUserAvatar(string userCode, IFormFile avatar)
+        {
+            var user = await UnitOfWork.Users.GetUserByCode(userCode).Include(x => x.File).FirstOrDefaultAsync();
+
+            var userFile = user?.File ?? new AppFile();
+
+            // Process file
+            await using var memoryStream = new MemoryStream();
+            await avatar.CopyToAsync(memoryStream);
+
+            var fileExt = Path.GetExtension(avatar.FileName);
+            var docName = $"{Configuration.Get(AwsSettings.UserAvatarFolder)}{userCode}{fileExt}";
+
+            userFile.Path = docName;
+
+            if (!await UnitOfWork.Users.Update(user)) return null;
+
+            // call server
+            var s3Obj = new S3ObjectDto()
+            {
+                BucketName = Configuration.Get(AwsSettings.BucketName) ?? "",
+                InputStream = memoryStream,
+                Name = docName
+            };
+
+            var result = await AppServices.File.UploadFileAsync(s3Obj);
+
+            if (!result) return null;
+
+            return userFile;
+        }
+
         public async Task<Response> GetEmailWithFireBaseAuthAsync(LoginByEmailRequest request)
         {
             FirebaseAuth firebaseAuth = FirebaseAuth.DefaultInstance;
@@ -131,5 +165,22 @@ namespace API.Services
         public Task<List<User>> GetByRole(Roles role) => UnitOfWork.Users.List(user => user.Accounts.Select(acc => acc.Role).First().Id == role).ToListAsync();
 
         public Task CreateRange(List<User> users) => UnitOfWork.Users.Add(users);
+
+        public Task CheckValidUserToLogin(UserViewModel userVm, RegistrationTypes registrationType)
+        {
+            var user = AppServices.User.GetUserById(userVm.Id)?.Include(x => x.Accounts).FirstOrDefault();
+
+            if (user == null) throw new Exception("Login failed, not found user. Please try again.");
+
+            if (user.Status != Users.Status.Active) throw new Exception("Login failed, user is not active to login.");
+
+            var accLogin = user.Accounts.Where(x => x.RegistrationType == registrationType).FirstOrDefault();
+
+            if (accLogin == null) throw new Exception("Login failed, not found account. Please try again.");
+
+            if (!accLogin.Verified) throw new Exception("Login failed, account was not verified to login.");
+
+            return Task.CompletedTask;
+        }
     }
 }

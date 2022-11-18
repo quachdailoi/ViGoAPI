@@ -15,7 +15,7 @@ namespace API.Services
 
         }
 
-        public async Task<FeeViewModel> CaculateBookingFee(Bookings.Types bookingType, int vehicleTypeId, DateOnly startDate, DateOnly endDate, double distance, TimeOnly time, double discount = 0)
+        public async Task<FeeViewModel> CaculateBookingFee(Bookings.Types bookingType, VehicleTypes.SpecificType vehicleTypeId, DateOnly startDate, DateOnly endDate, double distance, TimeOnly time, double discount = 0)
         {
             var feePerTrip = await CaculateFeeByDistance(vehicleTypeId, distance, time);
 
@@ -32,7 +32,7 @@ namespace API.Services
             };
         }
 
-        public async Task<FeeViewModel> CaculateBookingFee(int vehicleTypeId, DateOnly startDate, DateOnly endDate, List<DayOfWeek> dayOfWeeks, double distance, TimeOnly time, double discount = 0)
+        public async Task<FeeViewModel> CaculateBookingFee(VehicleTypes.SpecificType vehicleTypeId, DateOnly startDate, DateOnly endDate, List<DayOfWeek> dayOfWeeks, double distance, TimeOnly time, double discount = 0)
         {
             var feePerTrip = await CaculateFeeByDistance(vehicleTypeId, distance, time);
 
@@ -55,7 +55,7 @@ namespace API.Services
             };
         }
 
-        public async Task<FeeViewModel> CaculateFeeByDistance(int vehicleTypeId, double distance, TimeOnly time, bool includeBasePrice = true)
+        public async Task<FeeViewModel> CaculateFeeByDistance(VehicleTypes.SpecificType vehicleTypeId, double distance, TimeOnly time, bool includeBasePrice = true)
         {
             var vehicleTypeWithFare = await AppServices.VehicleType.GetWithFare();
 
@@ -86,7 +86,7 @@ namespace API.Services
             };
         }
 
-        public async Task<FeeViewModel> CaculateFeePerTrip(int vehicleTypeId, DateOnly startDate, DateOnly endDate, List<DayOfWeek> dayOfWeeks, double distance, TimeOnly time)
+        public async Task<FeeViewModel> CaculateFeePerTrip(VehicleTypes.SpecificType vehicleTypeId, DateOnly startDate, DateOnly endDate, List<DayOfWeek> dayOfWeeks, double distance, TimeOnly time)
         {
             var feePerTrip = await CaculateFeeByDistance(vehicleTypeId, distance, time);
 

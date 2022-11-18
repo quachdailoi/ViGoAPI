@@ -1,4 +1,5 @@
-﻿using API.Services.Constract;
+﻿using API.JwtFeatures;
+using API.Services.Constract;
 using API.SignalR.Constract;
 using API.TaskQueues;
 using AutoMapper;
@@ -16,6 +17,7 @@ namespace API.Services
             Provider = provider.CreateScope().ServiceProvider;
         }
 
+        public IJwtHandler JwtHandler => Load<IJwtHandler>();
         public IAccountService Account => Load<IAccountService>();
         public IVerifiedCodeService VerifiedCode => Load<IVerifiedCodeService>();
         public IUserService User => Load<IUserService>();
@@ -53,6 +55,7 @@ namespace API.Services
         public IPricingService Pricing => Load<IPricingService>();
         public ISettingService Setting => Load<ISettingService>();
         public IReportService Report => Load<IReportService>();
+        public IUserLicenseService UserLicense => Load<IUserLicenseService>();
 
         private T Load<T>() where T : class => Provider.GetRequiredService<T>();
     }

@@ -42,5 +42,7 @@ namespace Domain.Shares.Enums
         Penalty = 2,
         RouteRoutine = 3,
         Pricing = 4
+        DiscountPerEachSharingCase,
+        DriverRegistrationFileSizeLimit
     }
 }

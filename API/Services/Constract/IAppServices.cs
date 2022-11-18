@@ -1,4 +1,5 @@
 ﻿
+using API.JwtFeatures;
 using API.SignalR.Constract;
 using API.TaskQueues;
 
@@ -7,6 +8,7 @@ namespace API.Services.Constract
     public interface IAppServices
     {
         IServiceProvider Provider { get; }
+        IJwtHandler JwtHandler { get; }
         IAccountService Account { get; }
         IVerifiedCodeService VerifiedCode { get; }
         IUserService User { get; }
@@ -44,5 +46,6 @@ namespace API.Services.Constract
         IPricingService Pricing { get; }
         ISettingService Setting { get; }
         IReportService Report { get; }
+        IUserLicenseService UserLicense { get; }
     }
 }

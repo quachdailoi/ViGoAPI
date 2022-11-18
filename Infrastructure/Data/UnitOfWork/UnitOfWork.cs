@@ -44,6 +44,7 @@ namespace Infrastructure.Data.UnitOfWork
         public IPricingRepository Pricings { get; }
         public ISettingRepository Settings { get; }
         public IReportRepository Reports { get; }
+        public IUserLicenseRepository UserLicenses { get; }
 
         public UnitOfWork(
             AppDbContext dbContext, 
@@ -78,7 +79,8 @@ namespace Infrastructure.Data.UnitOfWork
             INotificationRepository notificationRepository,
             IPricingRepository pricingRepository,
             ISettingRepository settingRepository,
-            IReportRepository reportRepository)
+            IReportRepository reportRepository,
+            IUserLicenseRepository userLicensesRepository)
         {
             _dbContext = dbContext;
 
@@ -113,8 +115,9 @@ namespace Infrastructure.Data.UnitOfWork
             Pricings = pricingRepository;
             Settings = settingRepository;
             Reports = reportRepository;
+            UserLicenses = userLicensesRepository;
 
-            _logger = loggerFactory.CreateLogger("logs");
+            _logger = loggerFactory.CreateLogger("logs");  
         }
 
         public async Task CommitAsync()

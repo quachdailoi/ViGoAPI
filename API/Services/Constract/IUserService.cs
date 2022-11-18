@@ -14,8 +14,10 @@ namespace API.Services.Constract
         Task<List<User>> GetByRole(Roles role);
         List<User> GetUsersByCode(List<Guid> userCodes);
         Task<Response> UpdateUserAvatar(string userCode, IFormFile avatar, Response successResponse, Response errorResponse);
+        Task<AppFile?> UpdateUserAvatar(string userCode, IFormFile avatar);
 
         Task<Response> GetEmailWithFireBaseAuthAsync(LoginByEmailRequest request);
         Task CreateRange(List<User> users);
+        Task CheckValidUserToLogin(UserViewModel userVm, RegistrationTypes registrationType);
     }
 }

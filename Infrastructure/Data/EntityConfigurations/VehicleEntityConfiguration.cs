@@ -28,12 +28,16 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("license_plate");
 
             builder.Property(e => e.VehicleTypeId)
+                .HasConversion<int>()
                 .HasColumnName("vehicle_type_id");
 
             builder.Property(e => e.UserId)
                 .HasColumnName("user_id");
 
             builder.HasIndex(e => e.Code)
+                .IsUnique();
+
+            builder.HasIndex(e => e.LicensePlate)
                 .IsUnique();
 
             builder.HasOne(e => e.VehicleType)
