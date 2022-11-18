@@ -148,8 +148,6 @@ namespace Infrastructure.Data.Seeders
                     Id = Settings.DriverRegistrationFileSizeLimit,
                     Key = Settings.DriverRegistrationFileSizeLimit.ToString(),
                     Value = "20"
-                    Value = "0.1",
-                    Type = SettingTypes.Pricing
                 },
                 new Setting
                 {

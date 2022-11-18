@@ -32,7 +32,8 @@ namespace Domain.Shares.Enums
         ThresholdDiscountPerEachSharingCase,
         AllowedCancelAfterCreateBookingTime,
         AllowedBookerCancelTripTime,
-        TradeDisountForBookerCancelTrip
+        TradeDisountForBookerCancelTrip,
+        DriverRegistrationFileSizeLimit
 
     }
 
@@ -42,7 +43,5 @@ namespace Domain.Shares.Enums
         Penalty = 2,
         RouteRoutine = 3,
         Pricing = 4
-        DiscountPerEachSharingCase,
-        DriverRegistrationFileSizeLimit
     }
 }
