@@ -1,15 +1,18 @@
 ﻿using AgeCalculator;
 using API.Models.Requests;
+using API.Services;
 using API.Services.Constract;
 using Domain.Entities;
 using Domain.Shares.Enums;
+using FluentValidation;
 using Microsoft.IdentityModel.Tokens;
+using Serilog.Sinks.File;
 
 namespace API.Validators
 {
     public static class DriverRegistrationRequestValidator
     {
-        public static async Task<string?> Validate(DriverRegistrationRequest request, IAppServices appServices)
+        public static async Task<string?> Validate(DriverRegistrationRequest request, IAppServices appServices, bool isCreated)
         {
             // check date of birth for higher 18 years old driver
             var age = new Age(request.DateOfBirth.DateTime, DateTime.Today);
@@ -24,48 +27,57 @@ namespace API.Validators
             if (existedEmail) return "This email already belongs to another driver.";
 
             var fileSize = await appServices.Setting.GetValue(Settings.DriverRegistrationFileSizeLimit, 20);
-            // check size of avatar
-            var avatarSize = request.Avatar.Length / 1000000; //MB
-            if (avatarSize > fileSize) return $"Avatar file's size exceeded {fileSize}MB.";
+            
+            if (isCreated)
+            {
+                // check identification code
+                appServices.CheckDuplicateLicenseCode(request.IdentificationCode, LicenseTypes.Identification, "Identification");
 
-            // check identification code
-            var identification = appServices.UserLicense.GetLicenseByCodeAndType(request.IdentificationCode, LicenseTypes.Identification);
-            if (!identification.IsNullOrEmpty()) return "Identification code already belongs to another driver.";
+                // check driver's license code
+                appServices.CheckDuplicateLicenseCode(request.DriverLicenseCode, LicenseTypes.DriverLicense, "Driver's license");
 
-            // check driver's license code
-            var driverLicense = appServices.UserLicense.GetLicenseByCodeAndType(request.DriverLicenseCode, LicenseTypes.DriverLicense);
-            if (!driverLicense.IsNullOrEmpty()) return "Driver's license code already belongs to another driver.";
+                // check vehicle registration certificate code
+                appServices.CheckDuplicateLicenseCode(request.VehicleRegistrationCode, LicenseTypes.VehicleRegistration, "Vehicle registration certificate");
 
-            // check vehicle registration certificate code
-            var vehicleRegistraion = appServices.UserLicense.GetLicenseByCodeAndType(request.VehicleRegistrationCode, LicenseTypes.VehicleRegistration);
-            if (!vehicleRegistraion.IsNullOrEmpty()) return "Vehicle registration certificate code already belongs to another driver.";
+                // check size of avatar
+                CheckFileSize(request.Avatar, "Avatar", fileSize);
+                //check size of identification files
+                CheckFileSize(request.IdentificationFrontSideImage, "Identification front side", fileSize);
+                CheckFileSize(request.IdentificationBackSideImage, "Identification back side", fileSize);
+                //check size of driver license files
+                CheckFileSize(request.DriverLicenseFrontSideImage, "Driver license front side", fileSize);
+                CheckFileSize(request.DriverLicenseBackSideImage, "Driver license back side", fileSize);
+                //check size of vehicle registration files
+                CheckFileSize(request.VehicleRegistrationFrontSideImage, "Vehicle registration certificate front side", fileSize);
+                CheckFileSize(request.VehicleRegistrationBackSideImage, "Vehicle registration certificate back side", fileSize);
 
-            //check size of identification files
-            var identificationFSSize = request.IdentificationFrontSideImage.Length / 1000000; //MB
-            if (identificationFSSize > fileSize) return $"Identification front side file's size exceeded {fileSize}MB.";
-
-            var identificationBSSize = request.IdentificationBackSideImage.Length / 1000000; //MB
-            if (identificationBSSize > fileSize) return $"Identification back side file's size exceeded {fileSize}MB.";
-
-            //check size of driver license files
-            var driverLicenseFSSize = request.DriverLicenseFrontSideImage.Length / 1000000; //MB
-            if (driverLicenseFSSize > fileSize) return $"Driver license front side file's size exceeded {fileSize}MB.";
-
-            var driverLicenseBSSize = request.DriverLicenseBackSideImage.Length / 1000000; //MB
-            if (driverLicenseBSSize > fileSize) return $"Driver license back side file's size exceeded {fileSize}MB.";
-
-            //check size of vehicle registration files
-            var vehicleRegistrationFSSize = request.VehicleRegistrationFrontSideImage.Length / 1000000; //MB
-            if (vehicleRegistrationFSSize > fileSize) return $"Vehicle registration certificate front side file's size exceeded {fileSize}MB.";
-
-            var vehicleRegistrationBSSize = request.DriverLicenseBackSideImage.Length / 1000000; //MB
-            if (vehicleRegistrationBSSize > fileSize) return $"Vehicle registration certificate back side file's size exceeded {fileSize}MB.";
-
-            //check license plate
-            var vehicle = appServices.Vehicle.GetVehicleByLicensePlate(request.LicensePlate);
-            if (!vehicle.IsNullOrEmpty()) return "License plate already belongs to another driver's vehicle.";
+                //check license plate
+                appServices.CheckDuplicateLicensePlate(request.LicensePlate);
+            }
 
             return null; // everything is OK
+        }
+
+        private static void CheckFileSize(IFormFile? file, string fileName, int fileSize)
+        {
+            if (file == null) throw new ValidationException($"{fileName} is required.");
+            else
+            {
+                var avatarSize = file.Length / 1000000; //MB
+                if (avatarSize > fileSize) throw new ValidationException($"Avatar file's size exceeded {fileSize}MB.");
+            }
+        }
+
+        public static void CheckDuplicateLicenseCode(this IAppServices appServices, string licenseCode, LicenseTypes type, string licenseName)
+        {
+            var license = appServices.UserLicense.GetLicenseByCodeAndType(licenseCode, type);
+            if (!license.IsNullOrEmpty()) throw new ValidationException($"{licenseName} code already belongs to another driver.");
+        }
+
+        public static void CheckDuplicateLicensePlate(this IAppServices appServices, string licensePlate)
+        {
+            var vehicle = appServices.Vehicle.GetVehicleByLicensePlate(licensePlate);
+            if (!vehicle.IsNullOrEmpty()) throw new ValidationException("License plate already belongs to another driver's vehicle.");
         }
     }
 }

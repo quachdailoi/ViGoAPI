@@ -22,26 +22,19 @@ namespace API.Models.Requests
         public string PhoneNumber { get; set; }
         [Required]
         public string Email { get; set; }
-        [Required]
-        public IFormFile Avatar { get; set; }
+        public IFormFile? Avatar { get; set; }
         [Required]
         public string IdentificationCode { get; set; }
-        [Required]
-        public IFormFile IdentificationFrontSideImage { get; set; }
-        [Required]
-        public IFormFile IdentificationBackSideImage { get; set; }
+        public IFormFile? IdentificationFrontSideImage { get; set; }
+        public IFormFile? IdentificationBackSideImage { get; set; }
         [Required]
         public string DriverLicenseCode { get; set; }
-        [Required]
-        public IFormFile DriverLicenseFrontSideImage { get; set; }
-        [Required]
-        public IFormFile DriverLicenseBackSideImage { get; set; }
+        public IFormFile? DriverLicenseFrontSideImage { get; set; }
+        public IFormFile? DriverLicenseBackSideImage { get; set; }
         [Required]
         public string VehicleRegistrationCode { get; set; }
-        [Required]
-        public IFormFile VehicleRegistrationFrontSideImage { get; set; }
-        [Required]
-        public IFormFile VehicleRegistrationBackSideImage { get; set; }
+        public IFormFile? VehicleRegistrationFrontSideImage { get; set; }
+        public IFormFile? VehicleRegistrationBackSideImage { get; set; }
         [Required]
         public string VehicleName { get; set; }
         [Required]
@@ -50,6 +43,5 @@ namespace API.Models.Requests
         [Required]
         [DefaultValue(VehicleTypes.SpecificType.ViRide)]
         public VehicleTypes.SpecificType VehicleType { get; set; }
-
     }
 }

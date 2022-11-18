@@ -747,7 +747,7 @@ namespace API.Controllers.V1.Driver
         public async Task<IActionResult> DriverRegister([FromForm] DriverRegistrationRequest request)
         {
             //validate request
-            var validationErrorMsg = await DriverRegistrationRequestValidator.Validate(request, AppServices);
+            var validationErrorMsg = await DriverRegistrationRequestValidator.Validate(request, AppServices, isCreated: true);
             if (validationErrorMsg != null) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status400BadRequest,

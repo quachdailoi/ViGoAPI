@@ -33,6 +33,7 @@ namespace API.Services.Constract
 
         Task<bool> CheckExistRegistration(string registration, RegistrationTypes registrationTypes);
         Task<UserViewModel?> SubmitDriverRegistration(DriverRegistrationRequest request);
-        PagingViewModel<IQueryable<UserViewModel>>? GetPendingDriver(PagingRequest pagingRequest);
+        PagingViewModel<IQueryable<UserViewModel>>? GetPendingDriverPaging(PagingRequest pagingRequest);
+        Task<UserViewModel?> UpdateDriverRegistration(string userCode, DriverRegistrationRequest request, Users.Status userStatus);
     }
 }

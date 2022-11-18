@@ -16,5 +16,6 @@ namespace API.Services.Constract
         Task<string> GetFilePathById(int id);
 
         Task<AppFile?> UploadFileAsync(string path, IFormFile file, FileTypes fileType = FileTypes.AvatarImage);
+        Task<bool> UpdateS3File(string path, IFormFile file);
     }
 }

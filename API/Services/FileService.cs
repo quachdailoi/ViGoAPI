@@ -95,6 +95,23 @@ namespace API.Services
             return fileObj;
         }
 
+        public async Task<bool> UpdateS3File(string path, IFormFile file)
+        {
+            // Process file
+            await using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+
+            // call server
+            var s3Obj = new S3ObjectDto()
+            {
+                BucketName = Configuration.Get(AwsSettings.BucketName) ?? "",
+                InputStream = memoryStream,
+                Name = path
+            };
+
+            return await UploadFileAsync(s3Obj);
+        }
+
         public string? GetPresignedUrl(string filePath)
         {
             if (filePath == null) return null;
