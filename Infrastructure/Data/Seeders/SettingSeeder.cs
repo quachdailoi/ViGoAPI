@@ -134,6 +134,12 @@ namespace Infrastructure.Data.Seeders
                     Id = Settings.DiscountPerEachSharingCase,
                     Key = Settings.DiscountPerEachSharingCase.ToString(),
                     Value = "0.1"
+                },
+                new Setting
+                {
+                    Id = Settings.DriverRegistrationFileSizeLimit,
+                    Key = Settings.DriverRegistrationFileSizeLimit.ToString(),
+                    Value = "20"
                 }
             });
         }

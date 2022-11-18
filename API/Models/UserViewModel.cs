@@ -31,6 +31,10 @@ namespace API.Models
         public double? Rating { get; set; }
         public double? CancelledTripRate { get; set; }
         public int? SuddenlyCancelledTrips { get; set; }
+
+        public UserLicenseViewModel Identification { get; set; }
+        public UserLicenseViewModel DriverLicense { get; set; }
+        public UserLicenseViewModel VehicleRegistration { get; set; }
     }
 
     public class DriverViewModel

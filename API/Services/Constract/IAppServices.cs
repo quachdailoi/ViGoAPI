@@ -44,5 +44,6 @@ namespace API.Services.Constract
         IPricingService Pricing { get; }
         ISettingService Setting { get; }
         IReportService Report { get; }
+        IUserLicenseService UserLicense { get; }
     }
 }

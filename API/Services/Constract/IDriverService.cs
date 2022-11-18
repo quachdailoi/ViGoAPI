@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Responses;
 using Domain.Entities;
 using Domain.Shares.Enums;
 
@@ -29,5 +30,10 @@ namespace API.Services.Constract
 
         Task UpdateDriverRating(int driverId);
         Task UpdateCancelledTripRate(int driverId);
+
+        Task<bool> CheckExistRegistration(string registration, RegistrationTypes registrationTypes);
+        Task<UserViewModel?> SubmitDriverRegistration(DriverRegistrationRequest request);
+        PagingViewModel<IQueryable<UserViewModel>>? GetPendingDriverPaging(PagingRequest pagingRequest);
+        Task<UserViewModel?> UpdateDriverRegistration(string userCode, DriverRegistrationRequest request, Users.Status userStatus);
     }
 }

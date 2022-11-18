@@ -5,6 +5,7 @@ using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
+using API.Validators;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
@@ -739,6 +740,31 @@ namespace API.Controllers.V1.Driver
             }
 
             return ApiResult(response);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> DriverRegister([FromForm] DriverRegistrationRequest request)
+        {
+            //validate request
+            var validationErrorMsg = await DriverRegistrationRequestValidator.Validate(request, AppServices, isCreated: true);
+            if (validationErrorMsg != null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = validationErrorMsg
+            });
+
+            var driver = await AppServices.Driver.SubmitDriverRegistration(request);
+
+            // send mail to email verify account
+            //...
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Submit registration successfully. Wait for approval from admin.",
+                Data = driver
+            });
         }
     }
 }

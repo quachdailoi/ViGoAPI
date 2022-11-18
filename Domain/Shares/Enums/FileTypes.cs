@@ -8,7 +8,14 @@ namespace Domain.Shares.Enums
 {
     public enum FileTypes
     {
-        Image = 1,
-        Video = 2
+        AvatarImage = 1,
+        BannerImage = 2,
+        PromotionImage = 3,
+        IdentificationImageFront = 4,
+        IdentificationImageBack = 5,
+        DriverLicenceFront = 6,
+        DriverLicenceBack = 7,
+        VehicleRegistrationFront = 8,
+        VehicleRegistrationBack = 9,
     }
 }

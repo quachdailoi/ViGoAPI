@@ -65,6 +65,7 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("end_route_station_id");
 
             builder.Property(e => e.VehicleTypeId)
+                .HasConversion<int>()
                 .HasColumnName("vehicle_type_id");
 
             builder.Property(e => e.PaymentMethod)

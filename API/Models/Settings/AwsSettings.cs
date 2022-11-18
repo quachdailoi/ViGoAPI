@@ -10,6 +10,14 @@
 
         public static string UserAvatarFolder = $"{Section}UserAvatarFolder";
 
+        public static string IdentiticationFolder = $"{Section}IdentiticationFolder";
+
+        public static string DriverLicenseFolder = $"{Section}DriverLicenseFolder";
+
+        public static string VehicleRegistrationFolder = $"{Section}VehicleRegistrationFolder";
+
+        public static string DriverRegistrationFolder = $"{Section}DriverRegistrationFolder";
+
         public static string BucketName = $"{Section}BucketName";
 
         public static string RegionEndPoint = $"{Section}RegionEndPoint";

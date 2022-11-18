@@ -1,4 +1,5 @@
 ﻿using API.Services.Constract;
+using Domain.Entities;
 
 namespace API.Services
 {
@@ -6,6 +7,11 @@ namespace API.Services
     {
         public VehicleService(IAppServices appServices) : base(appServices)
         {
+        }
+
+        public IQueryable<Vehicle> GetVehicleByLicensePlate(string licensePlate)
+        {
+            return UnitOfWork.Vehicles.List(x => x.LicensePlate == licensePlate);
         }
     }
 }

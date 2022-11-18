@@ -25,7 +25,7 @@ namespace Domain.Entities
         public DateOnly EndAt { get; set; }
         public int UserId { get; set; }
         public int? PromotionId { get; set; } = null;
-        public int VehicleTypeId { get; set; }
+        public VehicleTypes.SpecificType VehicleTypeId { get; set; }
         public Bookings.Status Status { get; set; } = Bookings.Status.Unpaid;
 
         public User User { get; set; }

@@ -17,7 +17,9 @@ namespace Domain.Shares.Enums
         public enum Status
         {
             Inactive,
-            Active
+            Active,
+            Pending,
+            Rejected
         }
     }
 }
