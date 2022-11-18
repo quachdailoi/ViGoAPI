@@ -25,25 +25,22 @@ namespace Infrastructure.Data.Seeders
                 {
                     Id = Settings.TradeDiscount,
                     Key = Settings.TradeDiscount.ToString(),
-                    Value = "0.2"
-                },
-                new Setting
-                {
-                    Id = Settings.AllowedCancelTripPercent,
-                    Key = Settings.AllowedCancelTripPercent.ToString(),
-                    Value = "0.1"
+                    Value = "0.2",
+                    Type = SettingTypes.Pricing
                 },
                 new Setting
                 {
                     Id = Settings.TimeAfterComplete,
                     Key = Settings.TimeAfterComplete.ToString(),
-                    Value = "3"
+                    Value = "3",
+                    Type = SettingTypes.Trip
                 },
                 new Setting
                 {
                     Id = Settings.TimeBeforePickingUp,
                     Key = Settings.TimeBeforePickingUp.ToString(),
-                    Value = "10"
+                    Value = "10",
+                    Type = SettingTypes.Trip
                 },
                 new Setting
                 {
@@ -55,43 +52,50 @@ namespace Infrastructure.Data.Seeders
                 {
                     Id = Settings.TimeRatingAfterComplete,
                     Key = Settings.TimeRatingAfterComplete.ToString(),
-                    Value = "24"
+                    Value = "24",
+                    Type = SettingTypes.Trip
                 },
                 new Setting
                 {
                     Id = Settings.CheckingMappingStatusTime,
                     Key = Settings.CheckingMappingStatusTime.ToString(),
-                    Value = new TimeOnly(20,00).ToString()
+                    Value = "20:00:00",
+                    Type = SettingTypes.Trip
                 },
                 new Setting
                 {
                     Id = Settings.NotifyTripInDayTime,
                     Key = Settings.NotifyTripInDayTime.ToString(),
-                    Value = new TimeOnly(6,00).ToString()
+                    Value = "06:00:00",
+                    Type = SettingTypes.Trip
                 },
                 new Setting
                 {
                     Id = Settings.AllowedDriverCancelTripTime,
                     Key = Settings.AllowedDriverCancelTripTime.ToString(),
-                    Value = new TimeOnly(19,45).ToString()
+                    Value = "19:45:00",
+                    Type = SettingTypes.Trip
                 },
                 new Setting
                 {
                     Id = Settings.TotalTripsCalculateRating,
                     Key = Settings.TotalTripsCalculateRating.ToString(),
-                    Value = "100"
+                    Value = "100",
+                    Type = SettingTypes.Trip
                 },
                 new Setting
                 {
                     Id = Settings.MaxCancelledTripRate,
                     Key = Settings.MaxCancelledTripRate.ToString(),
-                    Value = "0.1"
+                    Value = "0.1",
+                    Type = SettingTypes.Penalty
                 },
                 new Setting
                 {
                     Id = Settings.NotifiedCancelledTripRate,
                     Key = Settings.NotifiedCancelledTripRate.ToString(),
-                    Value = "0.08"
+                    Value = "0.08",
+                    Type = SettingTypes.Penalty
                 },
                 new Setting
                 {
@@ -109,31 +113,64 @@ namespace Infrastructure.Data.Seeders
                 {
                     Id = Settings.TimeToCreateTomorrowRoutine,
                     Key = Settings.TimeToCreateTomorrowRoutine.ToString(),
-                    Value = "20:00:00"
+                    Value = "20:00:00",
+                    Type = SettingTypes.RouteRoutine
                 },
                 new Setting
                 {
                     Id = Settings.RadiusNearbyStation,
                     Key = Settings.RadiusNearbyStation.ToString(),
-                    Value = "6000"
+                    Value = "6000",
+                    Type = SettingTypes.Trip
                 },
                 new Setting
                 {
                     Id = Settings.RadiusToComplete,
                     Key = Settings.RadiusToComplete.ToString(),
-                    Value = "100"
+                    Value = "100",
+                    Type = SettingTypes.Trip
                 },
                 new Setting
                 {
                     Id = Settings.LastDayNumberForNextMonthRoutine,
                     Key = Settings.LastDayNumberForNextMonthRoutine.ToString(),
-                    Value = "7"
+                    Value = "7",
+                    Type = SettingTypes.RouteRoutine
                 },
                 new Setting
                 {
                     Id = Settings.DiscountPerEachSharingCase,
                     Key = Settings.DiscountPerEachSharingCase.ToString(),
-                    Value = "0.1"
+                    Value = "0.1",
+                    Type = SettingTypes.Pricing
+                },
+                new Setting
+                {
+                    Id = Settings.ThresholdDiscountPerEachSharingCase,
+                    Key = Settings.ThresholdDiscountPerEachSharingCase.ToString(),
+                    Value = "0.5",
+                    Type = SettingTypes.Pricing
+                },
+                new Setting
+                {
+                    Id = Settings.AllowedCancelAfterCreateBookingTime,
+                    Key = Settings.AllowedCancelAfterCreateBookingTime.ToString(),
+                    Value = "30",
+                    Type = SettingTypes.Trip
+                },
+                new Setting
+                {
+                    Id = Settings.AllowedBookerCancelTripTime,
+                    Key = Settings.AllowedBookerCancelTripTime.ToString(),
+                    Value = "19:45:00",
+                    Type = SettingTypes.Trip
+                },
+                new Setting
+                {
+                    Id = Settings.TradeDisountForBookerCancelTrip,
+                    Key = Settings.TradeDisountForBookerCancelTrip.ToString(),
+                    Value = "0.1",
+                    Type = SettingTypes.Pricing
                 }
             });
         }

@@ -394,7 +394,7 @@ namespace API.Controllers.V1
         /// <remarks>
         /// ```
         /// Sample request:
-        ///     POST api/bookings/booking-provision 
+        ///     GET api/bookings/booking-provision 
         ///     {
         ///         "VehicleTypeCode": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
         ///         "Time": "04:30:00", // format("hh:mm:ss")
@@ -460,6 +460,108 @@ namespace API.Controllers.V1
                                                         StatusCode = StatusCodes.Status400BadRequest
                                                     }
                                                     );
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        ///     Cancel booking.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     PUT api/bookings/cancel
+        ///     {
+        ///         "Code": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <response code = "200"> Cancel booking successfully.</response>
+        /// <response code = "400"> 
+        ///     Booking is not exist. <br></br>
+        ///     You only can cancel booking less or equal {number} minutes after created time. <br></br>
+        /// </response>
+        /// <response code="500"> Fail to cancel booking.</response>
+        [HttpPut("cancel")]
+        [Authorize(Roles = "BOOKER")]
+        public async Task<IActionResult> CancelBooking([FromBody] CancelBookingRequest request)
+        {
+            var allowedCancelAfterCreateBookingTime = await AppServices.Setting.GetValue<int>(Settings.AllowedCancelAfterCreateBookingTime, 30);
+
+            var response = await AppServices.Booking.Cancel(
+                request.Code,
+                successResponse: new()
+                {
+                    Message = "Cancel booking successfully.",
+                    StatusCode = StatusCodes.Status200OK
+                },
+                notExistReponse: new()
+                {
+                    Message = "Booking is not exist.",
+                    StatusCode = StatusCodes.Status400BadRequest
+                },
+                notAllowResponse: new()
+                {
+                    Message = $"You only can cancel booking less or equal {allowedCancelAfterCreateBookingTime} minutes after created time.",
+                    StatusCode = StatusCodes.Status400BadRequest
+                },
+                failResponse: new()
+                {
+                    Message = "Fail to cancel booking.",
+                    StatusCode = StatusCodes.Status500InternalServerError
+                });
+
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        ///     Cancel booking detail.
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     PUT api/bookings/bookingdetail/cancel
+        ///     {
+        ///         "Code": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <response code = "200"> Cancel trip successfully.</response>
+        /// <response code = "400"> 
+        ///     Trip is not exist. <br></br>
+        ///     You only can cancel tomorrow or after trip and for tomorrow trip, you can not cancel after {time} <br></br>
+        /// </response>
+        /// <response code="500"> Fail to cancel trip.</response>
+        [HttpPut("bookingdetail/cancel")]
+        [Authorize(Roles = "BOOKER")]
+        public async Task<IActionResult> CancelBookingDetail([FromBody] CancelBookingDetailRequest request)
+        {
+            var allowedBookerCancelTripTime = await AppServices.Setting.GetValue<TimeOnly>(Settings.AllowedBookerCancelTripTime, new TimeOnly(19, 45));
+
+            var response = await AppServices.BookingDetail.Cancel(
+                request.Code,
+                successResponse: new()
+                {
+                    Message = "Cancel trip successfully.",
+                    StatusCode = StatusCodes.Status200OK
+                },
+                notFoundResponse: new()
+                {
+                    Message = "Trip is not exist.",
+                    StatusCode = StatusCodes.Status400BadRequest
+                },
+                notAllowResponse: new()
+                {
+                    Message = $"You only can cancel tomorrow or after trip and for tomorrow trip, you can not cancel after {allowedBookerCancelTripTime.ToString("HH:mm:ss")}",
+                    StatusCode = StatusCodes.Status400BadRequest
+                },
+                failedResponse: new()
+                {
+                    Message = "Fail to cancel trip.",
+                    StatusCode = StatusCodes.Status500InternalServerError
+                });
+
             return ApiResult(response);
         }
 

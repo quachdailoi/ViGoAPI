@@ -10,7 +10,6 @@ namespace Domain.Shares.Enums
     public enum Settings
     {
         AllowedMappingTimeRange,
-        AllowedCancelTripPercent,
         TimeBeforePickingUp,
         TimeAfterComplete,
         TradeDiscount,
@@ -29,6 +28,19 @@ namespace Domain.Shares.Enums
         RadiusNearbyStation,
         RadiusToComplete,
         LastDayNumberForNextMonthRoutine,
-        DiscountPerEachSharingCase
+        DiscountPerEachSharingCase,
+        ThresholdDiscountPerEachSharingCase,
+        AllowedCancelAfterCreateBookingTime,
+        AllowedBookerCancelTripTime,
+        TradeDisountForBookerCancelTrip
+
+    }
+
+    public enum SettingTypes
+    {
+        Trip = 1,
+        Penalty = 2,
+        RouteRoutine = 3,
+        Pricing = 4
     }
 }

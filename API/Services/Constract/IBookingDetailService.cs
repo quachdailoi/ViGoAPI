@@ -27,5 +27,6 @@ namespace API.Services.Constract
         BookingDetailDriver? GetBookingDetailDriverOfBookingDetail(string bookingDetailCode);
         List<BookingDetail> PossibleSharingBookingDetails(List<BookingDetail> mappedBookingDetails, BookingDetail bookingDetail, Dictionary<int, RouteStation> routeStationDic);
         Task<FeeViewModel?> CaculateFeeAfterCompleted(Guid code);
+        Task<Response> Cancel(Guid code, Response successResponse, Response notFoundResponse, Response notAllowResponse, Response failedResponse);
     }
 }

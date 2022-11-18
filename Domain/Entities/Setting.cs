@@ -12,5 +12,6 @@ namespace Domain.Entities
         public Settings Id { get; set; }
         public string Key { get; set; }
         public string Value { get; set; }
+        public SettingTypes? Type { get; set; } = null;
     }
 }

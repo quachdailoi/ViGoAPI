@@ -89,7 +89,7 @@ namespace API.Controllers.V1.Admin
         /// <remarks>
         /// ```
         /// Sample request:
-        ///     GET api/admins/finance
+        ///     GET api/admins/dashboard
         ///     {
         ///         "FromDate": "01/01/2022",
         ///         "ToDate": "05/05/2022"
@@ -98,16 +98,17 @@ namespace API.Controllers.V1.Admin
         /// </remarks>
         /// <response code = "200"> Get finance information successfully.</response>
         [HttpGet("finance")]
-        public async Task<IActionResult> GetFinance([FromQuery] DateFilterRequest request)
+        public async Task<IActionResult> GetDashboardInfo([FromQuery] MonthFilterRequest request)
         {
-            var finance = await AppServices.Wallet.GetFinance(request);
+            var response = await AppServices.Wallet.GetDashboardInfo(
+                request,
+                successReponse: new()
+                {
+                    Message = "Get finance information successfully.",
+                    StatusCode = StatusCodes.Status200OK
+                });
 
-            return ApiResult(new Response
-            {
-                Data = finance,
-                Message = "Get finance information successfully.",
-                StatusCode = StatusCodes.Status200OK
-            });
+            return ApiResult(response);
         }
 
         /// <summary>
@@ -218,6 +219,63 @@ namespace API.Controllers.V1.Admin
 
             return ApiResult(response);
         }
+
+        /// <summary>
+        ///     Get system's settings
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/admins/settings
+        /// ```
+        /// </remarks>
+        /// <response code = "200">Get report data successfully.</response>
+        [HttpGet("settings")]
+        public async Task<IActionResult> GetSettings()
+        {
+            var response = await AppServices.Setting.GetAll(new Response
+            {
+                Message = "Get settings successfully.",
+                StatusCode = StatusCodes.Status200OK
+            });
+
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        ///     Update system's settings
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/admins/settings
+        ///     {
+        ///         [
+        ///             {key , "value"} // key: setting's id 
+        ///         ]
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <response code = "200">Get report data successfully.</response>
+        [HttpPost("settings")]
+        public async Task<IActionResult> UpdateSettings(UpdateSettingRequest request)
+        {
+            var result = await AppServices.Setting.Update(request.Settings);
+
+            if (!result)
+                return ApiResult(new Response
+                {
+                    Message = "Fail to update settings.",
+                    StatusCode = StatusCodes.Status500InternalServerError
+                });
+
+            return ApiResult(new Response
+            {
+                Message = "Update settings successfully.",
+                StatusCode = StatusCodes.Status200OK
+            });
+        }
+
 
         [HttpPost("gmail/loginFake")]
         [AllowAnonymous]

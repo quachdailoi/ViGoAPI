@@ -50,8 +50,8 @@ namespace API.Services
             {
                 FeePerTrip = feePerTrip,
                 Fee = bookingFee.TotalFee,
-                DiscountFee = discountFee,
-                TotalFee = bookingFee.TotalFee - discountFee
+                DiscountFee = bookingFee.DiscountFee + discountFee,
+                TotalFee = bookingFee.TotalFee - (bookingFee.DiscountFee + discountFee)
             };
         }
 

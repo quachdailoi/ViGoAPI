@@ -388,10 +388,11 @@ namespace API.Services
                 .ThenInclude(x => x.User)
             .FirstOrDefaultAsync();
 
-        public async Task<bool?> Refund(Guid code, double amount, BookingDetails.RefundTypes refundType)
+        public async Task<bool?> Refund(Guid code, double amount, BookingDetails.RefundTypes refundType = BookingDetails.RefundTypes.SharingTrip)
         {
             var bookingDetail = await UnitOfWork.BookingDetails
-                .List(e => e.Code == code && e.Status == BookingDetails.Status.PendingRefund)
+                .List(e => e.Code == code && ((e.Status == BookingDetails.Status.PendingRefund && refundType == BookingDetails.RefundTypes.NotFoundDriver) || 
+                    (e.Status == BookingDetails.Status.Completed && refundType == BookingDetails.RefundTypes.SharingTrip)))
                 .Include(e => e.Booking)
                 .ThenInclude(b => b.WalletTransactions)
                 .Include(e => e.Booking)
@@ -459,7 +460,8 @@ namespace API.Services
 
                 if (isSuccess)
                 {
-                    bookingDetail.Status = BookingDetails.Status.CompletedRefund;
+                    if(refundType == BookingDetails.RefundTypes.NotFoundDriver)
+                        bookingDetail.Status = BookingDetails.Status.CompletedRefund;
 
                     await UpdateBookingDetail(bookingDetail);
 
@@ -659,11 +661,15 @@ namespace API.Services
             double discount = 0;
 
             var discountPerEachSharingCase = await AppServices.Setting.GetValue<double>(Settings.DiscountPerEachSharingCase, 0.1);
+            var thresholdDiscountPerEachSharingCase = await AppServices.Setting.GetValue<double>(Settings.ThresholdDiscountPerEachSharingCase, 0.5);
 
             foreach (var sharingStep in sharingStepsInTrip)
             {
                 var distance = sharingStep.RouteStation.NextRouteStation.DistanceFromFirstStationInRoute - sharingStep.RouteStation.DistanceFromFirstStationInRoute;
-                discount += (await AppServices.Fare.CaculateFeeByDistance(bookingDetail.Booking.VehicleTypeId, distance, bookingDetail.Booking.Time)).TotalFee * sharingStep.Count * discountPerEachSharingCase;
+                var discountPercent = sharingStep.Count * discountPerEachSharingCase;
+                if (discountPercent > thresholdDiscountPerEachSharingCase) discountPercent = thresholdDiscountPerEachSharingCase;
+
+                discount += (await AppServices.Fare.CaculateFeeByDistance(bookingDetail.Booking.VehicleTypeId, distance, bookingDetail.Booking.Time)).TotalFee * discountPercent;
             }
 
             return new FeeViewModel
@@ -698,6 +704,49 @@ namespace API.Services
             return UnitOfWork.BookingDetails.GetBookingDetailByCodeAsync(code.ToString())
                 .MapTo<BookerBookingDetailViewModel>(Mapper)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<Response> Cancel(Guid code, Response successResponse, Response notFoundResponse, Response notAllowResponse, Response failedResponse)
+        {
+            var bookingDetail = await UnitOfWork.BookingDetails
+                .List(e => e.Code == code)
+                .Include(e => e.BookingDetailDrivers)
+                .FirstOrDefaultAsync();
+
+            if (bookingDetail == null) return notFoundResponse;
+
+            var allowedBookerCancelTripTime = await AppServices.Setting.GetValue<TimeOnly>(Settings.AllowedBookerCancelTripTime, new TimeOnly(19, 45));
+
+            var tomorrowDateOnly = DateTimeExtensions.NowDateOnly.AddDays(1);
+            var nowTimeOnly = DateTimeExtensions.NowTimeOnly;
+
+
+            if (bookingDetail.Date < tomorrowDateOnly || (bookingDetail.Date == tomorrowDateOnly && nowTimeOnly > allowedBookerCancelTripTime))
+                return notAllowResponse;
+
+            bookingDetail.Status = BookingDetails.Status.PendingRefund;
+            bookingDetail.DeletedAt = DateTimeOffset.Now;
+
+            var bookingDetailDriver = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet).FirstOrDefault();
+
+            if (bookingDetailDriver != null) bookingDetailDriver.TripStatus = BookingDetailDrivers.TripStatus.Cancelled;
+
+            if (!await UnitOfWork.BookingDetails.Update(bookingDetail))
+                return failedResponse;
+
+            if (bookingDetailDriver != null) 
+                await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = bookingDetailDriver.Id, Type = TaskItems.MappingItemTypes.RouteRoutine });
+
+            var tradeDisountForBookerCancelTrip = await AppServices.Setting.GetValue<double>(Settings.TradeDisountForBookerCancelTrip, 0.1);
+
+            await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new RefundItemDTO 
+            { 
+                Code = bookingDetail.Code, 
+                Amount = (1- tradeDisountForBookerCancelTrip) * bookingDetail.Price, 
+                Type = TaskItems.RefundItemTypes.BookingDetail 
+            });
+
+            return successResponse;
         }
     }
 }

@@ -28,6 +28,9 @@ namespace Infrastructure.Data.EntityConfigurations
                 .IsRequired()
                 .HasColumnName("value");
 
+            builder.Property(e => e.Type)
+                .HasColumnName("Type");
+
             builder.HasIndex(e => e.Key)
                 .IsUnique();
         }
