@@ -362,6 +362,14 @@ namespace API.Services
             }
 
             await UnitOfWork.CommitAsync();
+
+            //send mail to driver to notify them for waiting
+            AppServices.VerifiedCode.SendMail(
+                mail: newUser.Gmail,
+                subject: "ViGo: Welcome to ViGo system",
+                content: "Hello our future driver, we received your driver registration, please waiting for admin to approve it."
+            );
+
             return UnitOfWork.Users.GetUserById(newUser.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
         }
 
@@ -492,18 +500,22 @@ namespace API.Services
 
             pendingDriver.Status = userStatus;
 
+            var rs = await UnitOfWork.Users.Update(pendingDriver);
+            if (!rs) return null;
+            var userVM = UnitOfWork.Users.GetUserById(pendingDriver.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
+
             if (userStatus == Users.Status.Rejected)
             {
                 //send mail 
+                AppServices.VerifiedCode.SendMail(pendingDriver.Gmail, "ViGo: Rejected Your Driver Registration", "You driver registration was rejected, please contact to admin for details and support.");
             }
             else if (userStatus == Users.Status.Active)
             {
                 //send mail
+                var token = AppServices.JwtHandler.GenerateToken(userVM, isExpired: false);
+                AppServices.VerifiedCode.SendVerifiedAccountLink(pendingDriver.Gmail, token);
             }
 
-            var rs = await UnitOfWork.Users.Update(pendingDriver);
-            if (!rs) return null;
-            var userVM = UnitOfWork.Users.GetUserById(pendingDriver.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
             return userVM;
         }
 

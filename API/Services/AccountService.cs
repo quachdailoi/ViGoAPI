@@ -267,5 +267,10 @@ namespace API.Services
 
             return successResponse.SetData(profile);
         }
+
+        public Task<bool> UpdateAccount(Account acc)
+        {
+            return UnitOfWork.Accounts.Update(acc);
+        }
     }
 }

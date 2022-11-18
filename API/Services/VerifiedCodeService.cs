@@ -1,4 +1,5 @@
-﻿using API.Extensions;
+﻿using Amazon.Runtime.Internal;
+using API.Extensions;
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
@@ -12,20 +13,18 @@ using MailKit.Net.Smtp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using Org.BouncyCastle.Crypto.Macs;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
-using Vonage;
 
 namespace API.Services
 {
     public class VerifiedCodeService : BaseService, IVerifiedCodeService
     {
         private static Random random = new Random();
-        private readonly VonageClient _vonageClient;
 
-        public VerifiedCodeService(IAppServices appServices, VonageClient vonageClient) : base(appServices)
+        public VerifiedCodeService(IAppServices appServices) : base(appServices)
         {
-            _vonageClient = vonageClient;
         }
 
         private string GenerateOtpCode(int length)
@@ -46,7 +45,7 @@ namespace API.Services
         {
             var message = $"Otp code from ViGo App: {otp}";
 
-            return SendSMS_Vonage(message, phoneNumber);
+            return SendSMS(message, phoneNumber);
         }
 
         private Task<string?> SendGmailOtp(string gmail, string otp)
@@ -56,6 +55,17 @@ namespace API.Services
                 To = gmail,
                 Subject = "Vigo App: Verify Email",
                 Body = $"Otp code from ViGo App: {otp}"
+            };
+            return SendMail(mailContent);
+        }
+
+        public Task SendMail(string mail, string subject, string content)
+        {
+            MailContent mailContent = new()
+            {
+                To = mail,
+                Subject = subject,
+                Body = content
             };
             return SendMail(mailContent);
         }
@@ -116,18 +126,6 @@ namespace API.Services
                 from: new Twilio.Types.PhoneNumber(fromPhoneNumber),
                 to: new Twilio.Types.PhoneNumber(toPhoneNumber)
             );
-        }
-
-        private Task SendSMS_Vonage(string sms, string toPhoneNumber)
-        {
-            var x =_vonageClient.SmsClient.SendAnSmsAsync(new Vonage.Messaging.SendSmsRequest()
-            {
-                To = toPhoneNumber,
-                From = "ViGo",
-                Text = sms
-            });
-
-            return Task.CompletedTask;
         }
             
         private async Task<Response> SaveCode(SendOtpRequest request, string otp, Response successResponse, Response errorResponse)
@@ -274,6 +272,16 @@ namespace API.Services
 
             UnitOfWork.CommitAsync();
             return successResponse;
+        }
+
+        public Task SendVerifiedAccountLink(string email, string token)
+        {
+            var host = Configuration.Get(MailSettings.VerifiedAccountHost);
+            var link = string.Format(host, token);
+
+            SendMail(email, "ViGo: Verified Your Email Account", $"Click link to verified your email account: {link}");
+
+            return Task.CompletedTask;
         }
 
         public async Task<Response> SendAndSaveOtp(SendOtpRequest request, Response successResponse, Response errorResponse)

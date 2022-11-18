@@ -156,6 +156,8 @@ namespace API.Controllers.V1.Booker
                 return Unauthorized(response);
             }
 
+            await AppServices.User.CheckValidUserToLogin(user, RegistrationTypes.Phone);
+
             string token = _jwtHandler.GenerateToken(user);
             string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
 

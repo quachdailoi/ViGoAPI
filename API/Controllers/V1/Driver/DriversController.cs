@@ -12,10 +12,12 @@ using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using FirebaseAdmin.Auth;
 using FirebaseAdmin.Messaging;
+using Infrastructure.Data.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 using Twilio.Rest.Api.V2010.Account;
 using static Domain.Shares.Enums.BookingDetailDrivers;
 
@@ -74,6 +76,8 @@ namespace API.Controllers.V1.Driver
                     StatusCode = StatusCodes.Status400BadRequest
                 });
             }
+
+            await AppServices.User.CheckValidUserToLogin(user, RegistrationTypes.Gmail);
 
             string token = _jwtHandler.GenerateToken(user);
             string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
@@ -465,6 +469,8 @@ namespace API.Controllers.V1.Driver
                 return ApiResult(response);
             }
 
+            await AppServices.User.CheckValidUserToLogin(user, RegistrationTypes.Gmail);
+
             string token = _jwtHandler.GenerateToken(user);
             string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
 
@@ -764,6 +770,50 @@ namespace API.Controllers.V1.Driver
                 StatusCode = StatusCodes.Status200OK,
                 Message = "Submit registration successfully. Wait for approval from admin.",
                 Data = driver
+            });
+        }
+
+        [HttpGet("email/verify/{token}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> VerifyEmailAccount(string token)
+        {
+            var driverVM = LoggedInUser;
+
+            if (driverVM == null || driverVM.RoleName != Roles.DRIVER.GetName()) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to verify your email account. Contact to amdmin to take support."
+            });
+
+            if (driverVM.Status == Users.Status.Pending)
+            {
+                return ApiResult(new()
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Message = "Waiting for approval from admin before verify email."
+                });
+            }
+
+            var emailAccount = AppServices.Account.GetAccountByUserCode(driverVM.Code.ToString(), RegistrationTypes.Gmail)?.FirstOrDefault();
+
+            if (emailAccount == null) throw new Exception("Something went wrong when verify email account.");
+
+            if (emailAccount.Verified == false) emailAccount.Verified = true;
+
+            var rs = await AppServices.Account.UpdateAccount(emailAccount);
+
+            if (!rs) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Something went wrong when verify email account."
+            });
+
+            //send email to notify user
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Verified email account successfully, now you can use email to login to ViGo."
             });
         }
     }

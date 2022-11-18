@@ -20,8 +20,9 @@ namespace API.Middleware
         public async Task Invoke(HttpContext context, IJwtHandler jwtHandler)
         {
             var metaData = context.GetEndpoint()?.Metadata;
+            
 
-            if(metaData != null)
+            if (metaData != null)
             {
                 var hasAuthorizeAttribute = metaData.Any(m => m is AuthorizeAttribute);
 
@@ -36,9 +37,17 @@ namespace API.Middleware
                         var user = await jwtHandler.GetUserViewModelByTokenAsync(token);
 
                         context.Items["User"] = user;
+                    } 
+                    else
+                    {
+                        var token = (string?)context.GetRouteData().Values["token"];
+
+                        var user = await jwtHandler.GetUserViewModelByTokenAsync(token);
+
+                        context.Items["User"] = user;
                     }                  
                 }
-            }
+            } 
             await _next(context);
         }
     }
