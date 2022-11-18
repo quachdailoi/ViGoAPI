@@ -94,8 +94,8 @@ namespace API.Controllers.V1.Admin
         /// Sample request:
         ///     GET api/admins/dashboard
         ///     {
-        ///         "FromDate": "01/01/2022",
-        ///         "ToDate": "05/05/2022"
+        ///         "FromMonth": "05/2022",
+        ///         "ToMonth": "11/2022"
         ///     }
         /// ```
         /// </remarks>
