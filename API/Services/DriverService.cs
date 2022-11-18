@@ -197,7 +197,7 @@ namespace API.Services
                 .Where(x => x.TripStatus == BookingDetailDrivers.TripStatus.Completed || x.TripStatus == BookingDetailDrivers.TripStatus.Cancelled)
                 .Take(await AppServices.Setting.GetValue(Settings.TotalTripsCalculateCancelledRate, 100));
 
-            var totalCompleted = bookingDetailDrivers.Count();
+            var totalCompleted = 100;
 
             var totalCancelled = bookingDetailDrivers.Where(x => x.TripStatus == BookingDetailDrivers.TripStatus.Cancelled).Count();
 
