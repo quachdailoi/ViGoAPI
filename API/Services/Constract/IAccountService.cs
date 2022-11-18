@@ -34,5 +34,7 @@ namespace API.Services.Constract
          );
 
         Task<Response> GetProfile(int userId, Response successResponse);
+
+        Task<bool> UpdateAccount(Account acc);
     }
 }

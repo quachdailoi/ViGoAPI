@@ -6,7 +6,7 @@ namespace API.JwtFeatures
 {
     public interface IJwtHandler
     {
-        string GenerateToken(UserViewModel user, string? ipAddress = null);
+        string GenerateToken(UserViewModel user, bool isExpired = true, string? ipAddress = null);
         Task<string> GenerateRefreshToken(string userCode);
         IQueryable<User>? GetUserByToken(string token);
 

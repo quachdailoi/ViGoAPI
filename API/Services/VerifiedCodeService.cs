@@ -1,4 +1,5 @@
-﻿using API.Extensions;
+﻿using Amazon.Runtime.Internal;
+using API.Extensions;
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
@@ -12,9 +13,11 @@ using MailKit.Net.Smtp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using Org.BouncyCastle.Crypto.Macs;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Vonage;
+using static System.Net.WebRequestMethods;
 
 namespace API.Services
 {
@@ -56,6 +59,17 @@ namespace API.Services
                 To = gmail,
                 Subject = "Vigo App: Verify Email",
                 Body = $"Otp code from ViGo App: {otp}"
+            };
+            return SendMail(mailContent);
+        }
+
+        public Task SendMail(string mail, string subject, string content)
+        {
+            MailContent mailContent = new()
+            {
+                To = mail,
+                Subject = subject,
+                Body = content
             };
             return SendMail(mailContent);
         }
@@ -274,6 +288,16 @@ namespace API.Services
 
             UnitOfWork.CommitAsync();
             return successResponse;
+        }
+
+        public Task SendVerifiedAccountLink(string email, string token)
+        {
+            var host = Configuration.Get(MailSettings.VerifiedAccountHost);
+            var link = string.Format(host, token);
+
+            SendMail(email, "ViGo: Verified Your Email Account", $"Click link to verified your email account: {link}");
+
+            return Task.CompletedTask;
         }
 
         public async Task<Response> SendAndSaveOtp(SendOtpRequest request, Response successResponse, Response errorResponse)

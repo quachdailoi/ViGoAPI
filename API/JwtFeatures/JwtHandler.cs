@@ -61,9 +61,9 @@ namespace API.JwtFeatures
 			return claims;
 		}
 
-		private SecurityTokenDescriptor GenerateTokenDescriptor(UserViewModel user, string? ipAddress = null)
+		private SecurityTokenDescriptor GenerateTokenDescriptor(UserViewModel user, bool isExpired = true, string? ipAddress = null)
 		{
-			var tokenDescriptor = GenerateTokenDescriptor();
+			var tokenDescriptor = GenerateTokenDescriptor(isExpired);
 
 			tokenDescriptor.Subject = new ClaimsIdentity(new[] 
 			{ 
@@ -101,7 +101,7 @@ namespace API.JwtFeatures
 			return tokenDescriptor;
 		}
 
-		private SecurityTokenDescriptor GenerateTokenDescriptor()
+		private SecurityTokenDescriptor GenerateTokenDescriptor(bool isExpired = true)
 		{
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
@@ -109,17 +109,21 @@ namespace API.JwtFeatures
 				Issuer = _config.Get(JwtSettings.Issuer),
 				Audience = _config.Get(JwtSettings.Audience),
 				NotBefore = DateTimeOffset.Now.DateTime,
-				Expires = DateTimeOffset.Now.AddMinutes(_config.Get<double>(JwtSettings.AccessTokenTTLMinutes)).DateTime,
 			};
+
+			if (isExpired)
+			{
+				tokenDescriptor.Expires = DateTimeOffset.Now.AddMinutes(_config.Get<double>(JwtSettings.AccessTokenTTLMinutes)).DateTime;
+            }
 
 			return tokenDescriptor;
 		}
 
-		public string GenerateToken(UserViewModel user, string? ipAddress = null)
+		public string GenerateToken(UserViewModel user, bool isExpired = true, string? ipAddress = null)
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();
 
-			var tokenDescriptor = GenerateTokenDescriptor(user, ipAddress);
+			var tokenDescriptor = GenerateTokenDescriptor(user, isExpired, ipAddress);
 
 			var securityToken = tokenHandler.CreateToken(tokenDescriptor);
 
