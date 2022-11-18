@@ -66,6 +66,8 @@ namespace API.Controllers.V1.Admin
                 });
             }
 
+            await AppServices.User.CheckValidUserToLogin(user, RegistrationTypes.Gmail);
+
             string token = _jwtHandler.GenerateToken(user);
             string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
 

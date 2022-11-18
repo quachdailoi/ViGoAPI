@@ -108,11 +108,11 @@ namespace API.JwtFeatures
 				SigningCredentials = _signingCredentials,
 				Issuer = _config.Get(JwtSettings.Issuer),
 				Audience = _config.Get(JwtSettings.Audience),
-				NotBefore = DateTimeOffset.Now.DateTime,
 			};
 
 			if (isExpired)
 			{
+				tokenDescriptor.NotBefore = DateTimeOffset.Now.DateTime;
 				tokenDescriptor.Expires = DateTimeOffset.Now.AddMinutes(_config.Get<double>(JwtSettings.AccessTokenTTLMinutes)).DateTime;
             }
 

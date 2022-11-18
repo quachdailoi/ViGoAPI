@@ -165,5 +165,22 @@ namespace API.Services
         public Task<List<User>> GetByRole(Roles role) => UnitOfWork.Users.List(user => user.Accounts.Select(acc => acc.Role).First().Id == role).ToListAsync();
 
         public Task CreateRange(List<User> users) => UnitOfWork.Users.Add(users);
+
+        public Task CheckValidUserToLogin(UserViewModel userVm, RegistrationTypes registrationType)
+        {
+            var user = AppServices.User.GetUserById(userVm.Id)?.Include(x => x.Accounts).FirstOrDefault();
+
+            if (user == null) throw new Exception("Login failed, not found user. Please try again.");
+
+            if (user.Status != Users.Status.Active) throw new Exception("Login failed, user is not active to login.");
+
+            var accLogin = user.Accounts.Where(x => x.RegistrationType == registrationType).FirstOrDefault();
+
+            if (accLogin == null) throw new Exception("Login failed, not found account. Please try again.");
+
+            if (!accLogin.Verified) throw new Exception("Login failed, account was not verified to login.");
+
+            return Task.CompletedTask;
+        }
     }
 }

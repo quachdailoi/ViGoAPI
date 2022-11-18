@@ -19,14 +19,11 @@ using System.Text;
 using API.TaskQueues.TaskResolver;
 using Microsoft.AspNetCore.Http.Json;
 using API.Utils;
-using FluentValidation;
 using API.Validators;
 using API.Worker;
 using API.Models.DTO;
 using Microsoft.Extensions.Hosting;
 using Quartz;
-using Vonage;
-using Vonage.Request;
 
 namespace API.Extensions
 {
@@ -164,16 +161,6 @@ namespace API.Extensions
             services.AddTransient<ISettingService, SettingService>();
             services.AddTransient<IReportService, ReportService>();
             services.AddTransient<IUserLicenseService, UserLicenseService>();
-
-            services.AddSingleton<VonageClient>(provider =>
-            {
-                var config = provider.GetRequiredService<IConfiguration>();
-                var key = "fcd41a9b";
-                var secret = "qUQwLm8I7rXdKt2S";
-                var credentials = Credentials.FromApiKeyAndSecret(key, secret);
-
-                return new VonageClient(credentials);
-            });
         }
         public static void ConfigureIoCRedisMessageQueue(this IServiceCollection services)
         {

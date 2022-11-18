@@ -77,6 +77,8 @@ namespace API.Controllers.V1.Driver
                 });
             }
 
+            await AppServices.User.CheckValidUserToLogin(user, RegistrationTypes.Gmail);
+
             string token = _jwtHandler.GenerateToken(user);
             string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
 
@@ -467,6 +469,8 @@ namespace API.Controllers.V1.Driver
                 return ApiResult(response);
             }
 
+            await AppServices.User.CheckValidUserToLogin(user, RegistrationTypes.Gmail);
+
             string token = _jwtHandler.GenerateToken(user);
             string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
 
@@ -775,7 +779,7 @@ namespace API.Controllers.V1.Driver
         {
             var driverVM = LoggedInUser;
 
-            if (driverVM == null) return ApiResult(new()
+            if (driverVM == null || driverVM.RoleName != Roles.DRIVER.GetName()) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status500InternalServerError,
                 Message = "Failed to verify your email account. Contact to amdmin to take support."
@@ -803,6 +807,8 @@ namespace API.Controllers.V1.Driver
                 StatusCode = StatusCodes.Status500InternalServerError,
                 Message = "Something went wrong when verify email account."
             });
+
+            //send email to notify user
 
             return ApiResult(new()
             {
