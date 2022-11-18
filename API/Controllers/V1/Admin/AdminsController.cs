@@ -100,7 +100,7 @@ namespace API.Controllers.V1.Admin
         /// ```
         /// </remarks>
         /// <response code = "200"> Get finance information successfully.</response>
-        [HttpGet("finance")]
+        [HttpGet("dashboard")]
         public async Task<IActionResult> GetDashboardInfo([FromQuery] MonthFilterRequest request)
         {
             var response = await AppServices.Wallet.GetDashboardInfo(
