@@ -139,6 +139,7 @@ namespace API.Services
                 await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", new
                 {
                     BookingDetailDriverCode = bookingDetailDriver.Code,
+                    BookingDetailCode = bookingDetailDriver.BookingDetail.Code,
                     TripStatus = tripStatus,
                     TripStatusName = tripStatus.DisplayName()
                 });
