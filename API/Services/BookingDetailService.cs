@@ -725,7 +725,7 @@ namespace API.Services
                 return notAllowResponse;
 
             bookingDetail.Status = BookingDetails.Status.PendingRefund;
-            bookingDetail.DeletedAt = DateTimeOffset.Now;
+            //bookingDetail.DeletedAt = DateTimeOffset.Now;
 
             var bookingDetailDriver = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet).FirstOrDefault();
 
@@ -735,11 +735,11 @@ namespace API.Services
                 return failedResponse;
 
             if (bookingDetailDriver != null) 
-                await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = bookingDetailDriver.Id, Type = TaskItems.MappingItemTypes.RouteRoutine });
+                await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = bookingDetailDriver.RouteRoutineId, Type = TaskItems.MappingItemTypes.RouteRoutine });
 
             var tradeDisountForBookerCancelTrip = await AppServices.Setting.GetValue<double>(Settings.TradeDisountForBookerCancelTrip, 0.1);
 
-            await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new RefundItemDTO 
+            await AppServices.RedisMQ.Publish(RefundBookingTask.REFUND_QUEUE, new RefundItemDTO 
             { 
                 Code = bookingDetail.Code, 
                 Amount = (1- tradeDisountForBookerCancelTrip) * bookingDetail.Price, 
