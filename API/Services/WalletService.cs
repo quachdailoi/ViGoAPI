@@ -304,7 +304,7 @@ namespace API.Services
 
             return new
             {
-                TotalDriverReport = totalBookerReport,
+                TotalDriverReport = totalDriverReport,
                 TotalBookerReport = totalBookerReport
             };
         }

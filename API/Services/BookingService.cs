@@ -689,7 +689,7 @@ namespace API.Services
             var bookingDetail =
                 await UnitOfWork.BookingDetails
                 .List(e => e.Code == code &&
-                           e.Status == BookingDetails.Status.Pending)
+                           e.Status == BookingDetails.Status.Ready)
                 .Include(e => e.BookingDetailDrivers)
                 .ThenInclude(bdr => bdr.RouteRoutine)
                 .ThenInclude(r => r.User)
@@ -756,6 +756,9 @@ namespace API.Services
                     .ToList();
 
             await MappingBookingDetail(bookingDetail, orderedRouteRoutines);
+
+            if (!bookingDetail.BookingDetailDrivers.Any(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet))
+                bookingDetail.Status = BookingDetails.Status.PendingRefund;
 
             return bookingDetail;
         }

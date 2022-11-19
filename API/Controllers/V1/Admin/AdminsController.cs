@@ -153,7 +153,7 @@ namespace API.Controllers.V1.Admin
         ///     PUT api/admins/report
         ///     {
         ///         "Code": "5592d1e0-a96a-4cca-967e-9cd0eb130657",
-        ///         "Status": 1, // 0: Pending, 1: Processed, 2: ProcessingDenied
+        ///         "Status": 2, // 1: Pending, 2: Processed, 3: ProcessingDenied
         ///     }
         /// ```
         /// </remarks>
