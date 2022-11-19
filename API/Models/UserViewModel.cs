@@ -20,9 +20,9 @@ namespace API.Models
         public Guid? AvatarCode { get; set; } = Guid.NewGuid();
 
         public string? Gmail { get; set; } = string.Empty;
-        public bool? HasVerifiedGmail { get; set; } = false;
+        public bool HasVerifiedGmail { get; set; } = false;
         public string? PhoneNumber { get; set; } = string.Empty;
-        public bool? HasVerifiedPhoneNumber { get; set; } = false;
+        public bool HasVerifiedPhoneNumber { get; set; } = false;
         public string? RoleName { get; set; } = Roles.GUEST.GetName();
         public string FCMToken { get; set; }
 

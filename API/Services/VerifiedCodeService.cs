@@ -274,12 +274,15 @@ namespace API.Services
             return successResponse;
         }
 
-        public Task SendVerifiedAccountLink(string email, string token)
+        public Task SendVerifiedAccountLink(string email, string token, bool resend = true)
         {
             var host = Configuration.Get(MailSettings.VerifiedAccountHost);
             var link = string.Format(host, token);
 
-            SendMail(email, "ViGo: Verified Your Email Account", $"Click link to verified your email account: {link}");
+            var content = $"Click link to verified your email account: {link}";
+            
+            if (resend) SendMail(email, "ViGo: Email Verification Reminded.", content); 
+            else SendMail(email, "ViGo: Verified Your Email Account", content);
 
             return Task.CompletedTask;
         }
