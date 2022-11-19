@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace Domain.Entities
@@ -21,6 +22,27 @@ namespace Domain.Entities
         
         public User User { get; set; }
 
-        public virtual T? GetData<T>() => JsonSerializer.Deserialize<T>(JsonSerializer.Serialize(Data));
+        public virtual T? GetData<T>() 
+        {
+            dynamic data;
+
+            try
+            {
+                data = JsonSerializer.Deserialize<T>(JsonSerializer.Serialize(Data));
+            }
+            catch
+            {
+                if (typeof(T).IsAssignableTo(typeof(Guid)))
+                {
+                    data = Guid.Parse((string)JsonValue.Parse(Data.ToString()));
+                }
+                else
+                {
+                    data = (T)Convert.ChangeType((string)Data, typeof(T));
+                }
+                
+            }
+            return data;
+        }  
     }
 }

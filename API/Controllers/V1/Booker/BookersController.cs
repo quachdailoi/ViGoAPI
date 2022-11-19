@@ -855,7 +855,8 @@ namespace API.Controllers.V1.Booker
                 Title = "Driver is not comming.",
                 Content = "Driver is not comming.",
                 Data = request.Code,
-                Type = Reports.Types.DriverNotComming
+                Type = Reports.Types.DriverNotComming,
+                UserId = LoggedInUser.Id
             };
 
             var response = await AppServices.Report.Create(

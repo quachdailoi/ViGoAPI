@@ -10,6 +10,7 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.Dynamic;
 
 namespace API.Services
 {
@@ -214,27 +215,136 @@ namespace API.Services
         //        .FirstOrDefaultAsync();
         //}
 
-        public async Task<FinanceDTO> GetFinance(DateFilterRequest dateFilterRequest)
+        public async Task<Response> GetDashboardInfo(MonthFilterRequest monthFilterRequest, Response successReponse)
         {
-            var queryable = UnitOfWork.WalletTransactions
-                .List(walletTransaction => walletTransaction.Wallet.Type == Wallets.Types.System);
+            var budget = UnitOfWork.Wallets.List(x => x.Type == Wallets.Types.System).FirstOrDefault()?.Balance ?? 0;
 
-            if (!String.IsNullOrEmpty(dateFilterRequest.FromDate))
+            var transactionQueryable = UnitOfWork.WalletTransactions
+                .List(x => x.Wallet.Type == Wallets.Types.System);
+
+            var bookingDetailQueryable = UnitOfWork.BookingDetails.List().Include(x => x.BookingDetailDrivers);
+
+            var reportQueryable = UnitOfWork.Reports.List().Include(x => x.User);
+
+            if (!String.IsNullOrEmpty(monthFilterRequest.FromMonth))
             {
-                var fromDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilterRequest.FromDate).ToDateTime(TimeOnly.MinValue);
-                queryable = queryable.Where(x => x.CreatedAt >= fromDateParse);
+                var fromMonthParsed = monthFilterRequest.FromMonthParsed().Value.ToDateTime(TimeOnly.MinValue);
+                transactionQueryable = transactionQueryable.Where(x => x.CreatedAt >= fromMonthParsed);
             }
-            if (!String.IsNullOrEmpty(dateFilterRequest.ToDate))
+            if (!String.IsNullOrEmpty(monthFilterRequest.ToMonth))
             {
-                var toDateParse = DateTimeExtensions.ParseExactDateOnly(dateFilterRequest.ToDate).ToDateTime(TimeOnly.MaxValue);
-                queryable = queryable.Where(x => x.CreatedAt <= toDateParse);
+                var toMonthParsed = monthFilterRequest.ToMonthParsed().Value.ToDateTime(TimeOnly.MaxValue);
+                transactionQueryable = transactionQueryable.Where(x => x.CreatedAt <= toMonthParsed);
             }
 
-            var walletTransactions = await queryable.ToListAsync();
+            transactionQueryable = transactionQueryable.OrderBy(x => x.CreatedAt);
 
+            var transactions = transactionQueryable.ToList(); 
+
+            var fromDate = monthFilterRequest.FromMonth != null ? monthFilterRequest.FromMonthParsed().Value : transactions.FirstOrDefault()?.CreatedAt.ToDateOnly().FirstDateOfMonth();
+
+            var toDate = monthFilterRequest.ToMonth != null ? monthFilterRequest.ToMonthParsed().Value : DateTimeExtensions.NowDateOnly.LastDateOfMonth();
+
+            var data = new Dictionary<string, object>();
+
+            var bookingDetails = new List<BookingDetail>();
+
+            var reports = new List<Report>();
+
+            if(fromDate.HasValue)
+            {
+                bookingDetails = bookingDetailQueryable.Where(x => x.Date >= fromDate.Value && x.Date <= toDate).ToList();
+
+                var fromDateTime = fromDate.Value.ToDateTime(TimeOnly.MinValue);
+                var toDateTime = toDate.ToDateTime(TimeOnly.MaxValue);
+
+                reports = reportQueryable.Where(x => x.CreatedAt >= fromDateTime && x.CreatedAt <= toDateTime).ToList();
+
+                for(var date = fromDate.Value; date <= toDate; date = date.AddMonths(1))
+                {
+                    var firstDateOfMonth = date.FirstDateOfMonth();
+                    var lastDateOfMonth = date.LastDateOfMonth();
+
+                    var transactionsInMonth = transactions.Where(x => x.CreatedAt.ToDateOnly() >= firstDateOfMonth && x.CreatedAt.ToDateOnly() <= lastDateOfMonth).ToList();
+                    
+                    var bookingDetailsInMonth = bookingDetails.Where(x => x.Date >= firstDateOfMonth && x.Date <= lastDateOfMonth).ToList();
+                    
+                    var reportsInMonth = reports.Where(x => x.CreatedAt.ToDateOnly() >= firstDateOfMonth && x.CreatedAt.ToDateOnly() <= lastDateOfMonth).ToList();
+                    
+                    var bookingDetailDriversInMonth = new List<BookingDetailDriver>();
+                    bookingDetailsInMonth.ForEach(x => bookingDetailDriversInMonth.AddRange(x.BookingDetailDrivers));
+
+                    var finance = GetFinanceInfo(transactionsInMonth);
+                    var bookingDetailInfo = GetBookingDetailsInfo(bookingDetailsInMonth);
+                    var bookingDetailDriverInfo = GetBookingDetailDriversInfo(bookingDetailDriversInMonth);
+                    var reportInfo = GetReportsInfo(reportsInMonth);
+
+
+                    dynamic item = new ExpandoObject();
+
+                    item.Finance = finance;
+                    item.BookingDetailInfo = bookingDetailInfo;
+                    item.BookingDetailDrvierInfo = bookingDetailDriverInfo;
+                    item.ReportInfo = reportInfo;
+
+                    data.TryAdd(date.ToString("MM-yyyy"), item);
+                }
+            }
+
+            return successReponse.SetData(new
+            {
+                Budget = budget,
+                Items = data
+            });
+        }
+        private dynamic GetReportsInfo(List<Report> reports)
+        {
+            var totalDriverReport = reports.Count(x => x.User.RoleName == Roles.DRIVER.GetName());
+            var totalBookerReport = reports.Count(x => x.User.RoleName == Roles.BOOKER.GetName());
+
+            return new
+            {
+                TotalDriverReport = totalDriverReport,
+                TotalBookerReport = totalBookerReport
+            };
+        }
+        private dynamic GetBookingDetailDriversInfo(List<BookingDetailDriver> bookingDetailDrivers)
+        {
+            var total = bookingDetailDrivers.Count;
+            var totalCompleted = bookingDetailDrivers.Count(x => x.TripStatus == BookingDetailDrivers.TripStatus.Completed);
+            var totalCancelled = bookingDetailDrivers.Count(x => x.TripStatus == BookingDetailDrivers.TripStatus.Cancelled);
+            var totalPending = bookingDetailDrivers.Count(x => x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled && x.TripStatus != BookingDetailDrivers.TripStatus.Completed);
+
+            return new
+            {
+                Total = total,
+                TotalCompleted = totalCompleted,
+                TotalCancelled = totalCancelled,
+                TotalPending = totalPending
+            };
+        }
+
+        private dynamic GetBookingDetailsInfo(List<BookingDetail> bookingDetails)
+        {
+            var total = bookingDetails.Count;
+            var totalCompleted = bookingDetails.Count(x => x.Status == BookingDetails.Status.Completed);
+            var totalCancelled = bookingDetails.Count(x => x.Status == BookingDetails.Status.PendingRefund || x.Status == BookingDetails.Status.CompletedRefund || x.Status == BookingDetails.Status.Cancelled);
+            var totalPending = bookingDetails.Count(x => x.Status == BookingDetails.Status.Pending || x.Status == BookingDetails.Status.Ready || x.Status == BookingDetails.Status.Started);
+
+            return new
+            {
+                Total = total,
+                TotalCompleted = totalCompleted,
+                TotalCancelled = totalCancelled,
+                TotalPending = totalPending
+            };
+        }
+
+        private FinanceDTO GetFinanceInfo(List<WalletTransaction> transactions)
+        {
             var financeDto = new FinanceDTO();
 
-            foreach(var transaction in walletTransactions)
+            foreach (var transaction in transactions)
             {
                 switch (transaction.Type)
                 {

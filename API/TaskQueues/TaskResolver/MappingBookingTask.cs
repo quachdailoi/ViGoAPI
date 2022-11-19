@@ -68,6 +68,9 @@ namespace API.TaskQueues.TaskResolver
                                         throw new Exception("Fail to update booking detail after re-mapping");
                                 }
                                 break;
+                            case TaskItems.MappingItemTypes.CancelBooking:
+                                await _appService.Booking.MappingRouteRoutineAfterCancelBooking(item.Id);
+                                break;
                         }
                         
                     }

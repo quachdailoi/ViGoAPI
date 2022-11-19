@@ -11,14 +11,16 @@ namespace Domain.Shares.Enums
         public enum RefundItemTypes
         {
             Booking = 1,
-            BookingDetail = 2
+            BookingDetail = 2,
+            TripSharing = 3
         }
 
         public enum MappingItemTypes
         {
             Booking = 1,
             RouteRoutine = 2,
-            BookingDetail = 3
+            BookingDetail = 3,
+            CancelBooking = 4
         }
     }
 }

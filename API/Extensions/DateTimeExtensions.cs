@@ -115,5 +115,9 @@
 
             return time1 - time2;
         }
+
+        public static DateOnly FirstDateOfMonth(this DateOnly date) => ParseExactDateOnly("01-" + date.Month.ToString().PadLeft(2, '0') +"-"+ date.Year.ToString().PadLeft(4, '0'));
+        public static DateOnly LastDateOfMonth(this DateOnly date) => ParseExactDateOnly(DateTime.DaysInMonth(date.Year,date.Month).ToString().PadLeft(2,'0') + "-" + date.Month.ToString().PadLeft(2, '0') + "-" + date.Year.ToString().PadLeft(4, '0'));
+        public static DateOnly ToDateOnly(this DateTimeOffset datetime) => new(datetime.Year, datetime.Month, datetime.Day);
     }
 }

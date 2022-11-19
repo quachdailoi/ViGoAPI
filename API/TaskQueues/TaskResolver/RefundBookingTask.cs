@@ -32,6 +32,9 @@ namespace API.TaskQueues.TaskResolver
                                 result = await _appService.Booking.Refund(item.Code);                            
                                 break;
                             case TaskItems.RefundItemTypes.BookingDetail:
+                                result = await _appService.BookingDetail.Refund(item.Code, item.Amount.Value, BookingDetails.RefundTypes.NotFoundDriver);
+                                break;
+                            case TaskItems.RefundItemTypes.TripSharing:
                                 result = await _appService.BookingDetail.Refund(item.Code, item.Amount.Value);
                                 break;
                             default: break;

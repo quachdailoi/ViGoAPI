@@ -18,6 +18,8 @@ namespace API.Validators
             services.AddScoped<IValidator<WalletTopUpRequest>, WalletTopUpRequestValidator>();
             services.AddScoped<IValidator<RatingAndFeedbackRequest>, RatingAndFeedBackRequestValidator>();
             services.AddScoped<IValidator<CancelBookingDetailDriversRequest>, CancelBookingDetailDriversRequestValidator>();
+            services.AddScoped<IValidator<MonthFilterRequest>, MonthFilterRequestValidator>();
+            services.AddScoped<IValidator<UpdateSettingRequest>, UpdateSettingRequestValidator>();
         }
     }
 }
