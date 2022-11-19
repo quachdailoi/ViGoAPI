@@ -294,7 +294,7 @@ namespace API.Services
             var bookings = UnitOfWork.BookingDetails.List(x => x.Status == BookingDetails.Status.Pending ||
                 x.Status == BookingDetails.Status.Ready || x.Status == BookingDetails.Status.Started)
                 .Include(x => x.Booking.StartRouteStation.Station)
-                .Include(x => x.Booking.StartRouteStation.Station)
+                .Include(x => x.Booking.EndRouteStation.Station)
                 .Select(x => new
                 {
                     BookingId = x.BookingId,
