@@ -55,9 +55,9 @@ namespace Infrastructure.Data.Repositories
         {
             try
             {
-                var exist = await DbSet.FindAsync(((IBaseEntity)entity).Id);
+                var exist = DbSet.Any(x => ((IBaseEntity)entity).Id == ((IBaseEntity)x).Id);
 
-                if (exist == null) return false;
+                if (!exist) return false;
 
                 //DbSet.Remove(entity);
                 if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))
