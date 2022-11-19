@@ -25,9 +25,7 @@ namespace API.Services
                 feePerTrip.DiscountFee = Fee.FloorToThousands(feePerTrip.TotalFee * pricing.Discount);
 
                 if (feePerTrip.DiscountFee < 1000 && pricing.Discount > 0) feePerTrip.DiscountFee = 1000;
-            } 
-
-            
+            }  
 
             feePerTrip.TotalFee -= feePerTrip.DiscountFee;
 

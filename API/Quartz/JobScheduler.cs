@@ -81,9 +81,8 @@ namespace API.Quartz
             using var scope = _serviceProvider.CreateScope();
 
             var appService = scope.ServiceProvider.GetRequiredService<IAppServices>();
-            var timeStr = await appService.Setting.GetValue(Domain.Shares.Enums.Settings.CheckingMappingStatusTime);
+            var time = await appService.Setting.GetValue<TimeOnly>(Domain.Shares.Enums.Settings.CheckingMappingStatusTime, new TimeOnly(20,00));
 
-            var time = TimeOnly.Parse(timeStr != null ? timeStr : "20:00:00");
             var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(time);
 
             //var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(1,15));
@@ -107,9 +106,8 @@ namespace API.Quartz
             using var scope = _serviceProvider.CreateScope();
 
             var appService = scope.ServiceProvider.GetRequiredService<IAppServices>();
-            var timeStr = await appService.Setting.GetValue(Domain.Shares.Enums.Settings.NotifyTripInDayTime);
+            var time = await appService.Setting.GetValue<TimeOnly>(Domain.Shares.Enums.Settings.NotifyTripInDayTime, new TimeOnly(06,00));
 
-            var time = TimeOnly.Parse(timeStr != null ? timeStr : "06:00:00");
             var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(time);
 
             //var cronSchedule = Utils.CronExpression.ParseFromSpecificTimeOnlyDaily(new TimeOnly(0, 40));

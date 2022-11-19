@@ -24,5 +24,7 @@ namespace API.Services.Constract
         Task<BookingDetail?> MappingBookingDetailSuddenly(Guid code);
         Task<bool> CheckIsConflictBooking(Booking booking);
         Task<bool?> Refund(Guid code);
+        Task<Response> Cancel(Guid code, Response successResponse, Response notExistReponse, Response notAllowResponse, Response failResponse);
+        Task MappingRouteRoutineAfterCancelBooking(int bookingId);
     }
 }

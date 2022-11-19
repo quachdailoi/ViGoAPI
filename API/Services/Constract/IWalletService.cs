@@ -14,6 +14,6 @@ namespace API.Services.Constract
         Task<Wallet?> GetWallet(int userId);
 
         Task<bool?> UpdateSystemWalletBalance(WalletTransactionDTO transactionDto);
-        Task<FinanceDTO> GetFinance(DateFilterRequest dateFilterRequest);
+        Task<Response> GetDashboardInfo(MonthFilterRequest monthFilterRequest, Response successReponse);
     }
 }

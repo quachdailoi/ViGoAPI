@@ -9,7 +9,7 @@ namespace API.Models.Requests
         public string? FromDate { get; set; }
         public string? ToDate { get; set; }
 
-        public DateOnly FromDateParsed() =>  DateTimeExtensions.ParseExactDateOnly(FromDate); 
+        public DateOnly FromDateParsed() => DateTimeExtensions.ParseExactDateOnly(FromDate); 
         public DateOnly ToDateParsed() => DateTimeExtensions.ParseExactDateOnly(ToDate);
     }
 }

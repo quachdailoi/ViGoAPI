@@ -131,7 +131,28 @@ namespace API.Services
                         bookingDetail.Status = BookingDetails.Status.Completed;
                         bookingDetailDriver.BookingDetail = bookingDetail;
                         bookingDetailDriver.EndTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
+                        break;
+                }
 
+                // cancelled
+
+                await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", new
+                {
+                    BookingDetailDriverCode = bookingDetailDriver.Code,
+                    BookingDetailCode = bookingDetailDriver.BookingDetail.Code,
+                    TripStatus = tripStatus,
+                    TripStatusName = tripStatus.DisplayName()
+                });
+            }
+            else Logger<BookingDetailDriverService>().LogError("Error: Booking detail null -> cannot set complete or send signal");
+
+            bookingDetailDriver.TripStatus = tripStatus;
+
+            if(await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver))
+            {
+                switch (bookingDetailDriver.TripStatus)
+                {
+                    case BookingDetailDrivers.TripStatus.Completed:
                         var wallet = await AppServices.Wallet.GetWallet(bookingDetailDriver.RouteRoutine.UserId);
 
                         var totalFee = bookingDetail.Price + bookingDetail.DiscountPrice;
@@ -146,20 +167,20 @@ namespace API.Services
                                 {
                                     Amount = bookerReturnFee.Value,
                                     Code = bookingDetail.Code,
-                                    Type = TaskItems.RefundItemTypes.BookingDetail
+                                    Type = TaskItems.RefundItemTypes.TripSharing
                                 });
 
                                 totalFee -= bookerReturnFee.Value;
-                            }                               
+                            }
                         }
 
                         if (wallet != null)
                         {
-                            var tradeDiscount = await AppServices.Setting.GetValue<double>(Settings.TradeDiscount,0.2);
+                            var tradeDiscount = await AppServices.Setting.GetValue<double>(Settings.TradeDiscount, 0.2);
 
                             var transactionDto = new WalletTransactionDTO
                             {
-                                Amount = Fee.FloorToHundreds(totalFee * (1-tradeDiscount)),
+                                Amount = Fee.FloorToHundreds(totalFee * (1 - tradeDiscount)),
                                 Status = WalletTransactions.Status.Success,
                                 WalletId = wallet.Id,
                                 Type = WalletTransactions.Types.TripIncome,
@@ -178,32 +199,13 @@ namespace API.Services
 
                                 await AppServices.Notification.SendPushNotification(notiDTO);
                             }
-                                //await AppServices.SignalR.SendToUserAsync(bookingDetailDriver.RouteRoutine.User.Code.ToString(), "WalletTransaction", new WalletTransactionViewModel
-                                //{
-                                //    Amount = transactionDto.Amount,
-                                //    Code = transactionDto.Code,
-                                //    Status = transactionDto.Status,
-                                //    Type = transactionDto.Type,
-                                //    Time = wallet.WalletTransactions.Last().UpdatedAt.ToFormatString()
-                                //});
                         }
                         break;
                 }
+                return true;
+            };
 
-                // cancelled
-
-                await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", new
-                {
-                    BookingDetailDriverCode = bookingDetailDriver.Code,
-                    TripStatus = tripStatus,
-                    TripStatusName = tripStatus.DisplayName()
-                });
-            }
-            else Logger<BookingDetailDriverService>().LogError("Error: Booking detail null -> cannot set complete or send signal");
-
-            bookingDetailDriver.TripStatus = tripStatus;
-
-            return await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver);
+            return false;
         }
 
         private async Task CheckRadiusFromEndStation(BookingDetail detail, double? latitude, double? longitude)

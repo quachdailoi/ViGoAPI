@@ -60,12 +60,12 @@ namespace API.Services
             switch (report.Type)
             {
                 case Reports.Types.DriverNotComming:
-                    var bookingDetailCode = report.GetData<Guid?>();
+                    var bookingDetailCode = report.GetData<Guid>();
 
-                    if (bookingDetailCode == null)
-                        return notFoundResponse;
+                    //if (bookingDetailCode == null)
+                    //    return notFoundResponse;
 
-                    data = await AppServices.BookingDetail.GetBookerViewModelByCode(bookingDetailCode.Value);
+                    data = await AppServices.BookingDetail.GetBookerViewModelByCode(bookingDetailCode);
                     break;
                 default:
                     return notFoundResponse;
@@ -92,37 +92,34 @@ namespace API.Services
                     switch (report.Type)
                     {
                         case Reports.Types.DriverNotComming:
-                            var bookingDetailCode = report.GetData<Guid?>();
-                            if (bookingDetailCode != null)
+                            var bookingDetailCode = report.GetData<Guid>();
+                            var bookingDetail = await AppServices.Booking.MappingBookingDetailSuddenly(bookingDetailCode);
+
+                            if (bookingDetail != null && UnitOfWork.BookingDetails.Update(bookingDetail).Result)
                             {
-                                var bookingDetail = await AppServices.Booking.MappingBookingDetailSuddenly(bookingDetailCode.Value);
-
-                                if(bookingDetail != null)
+                                var bookingDetailDriver = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet).FirstOrDefault();
+                                if (bookingDetailDriver != null)
                                 {
-                                    var bookingDetailDriver = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet).FirstOrDefault();
-                                    if (bookingDetailDriver != null && UnitOfWork.BookingDetails.Update(bookingDetail).Result)
-                                    {
-                                        var driver = await UnitOfWork.RouteRoutines.List(e => e.Id == bookingDetailDriver.RouteRoutineId).Select(e => e.User).FirstOrDefaultAsync();
+                                    var driver = await UnitOfWork.RouteRoutines.List(e => e.Id == bookingDetailDriver.RouteRoutineId).Select(e => e.User).FirstOrDefaultAsync();
 
-                                        var notiDTO = new NotificationDTO()
-                                        {
-                                            EventId = Events.Types.HaveTripSuddenly,
-                                            Type = Notifications.Types.SpecificUser,
-                                            Token = driver?.FCMToken,
-                                            UserId = driver?.Id
-                                        };
-
-                                        await AppServices.Notification.SendPushNotification(notiDTO);
-                                    }
-                                    else if(bookingDetailDriver == null)
+                                    var notiDTO = new NotificationDTO()
                                     {
-                                        await AppServices.RedisMQ.Publish(RefundBookingTask.REFUND_QUEUE, new RefundItemDTO
-                                        {
-                                            Amount = bookingDetail.Price,
-                                            Code = bookingDetail.Code,
-                                            Type = TaskItems.RefundItemTypes.BookingDetail
-                                        });
-                                    }
+                                        EventId = Events.Types.HaveTripSuddenly,
+                                        Type = Notifications.Types.SpecificUser,
+                                        Token = driver?.FCMToken,
+                                        UserId = driver?.Id
+                                    };
+
+                                    await AppServices.Notification.SendPushNotification(notiDTO);
+                                }
+                                else
+                                {
+                                    await AppServices.RedisMQ.Publish(RefundBookingTask.REFUND_QUEUE, new RefundItemDTO
+                                    {
+                                        Amount = bookingDetail.Price,
+                                        Code = bookingDetail.Code,
+                                        Type = TaskItems.RefundItemTypes.BookingDetail
+                                    });
                                 }
                             }
                             break;

@@ -13,6 +13,7 @@ namespace API.Models
         public double Latitude { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
+        public Stations.Status Status { get; set; } = Stations.Status.Active;
     }
 
     public class StationInRouteViewModel : StationViewModel , IComparable<StationInRouteViewModel>

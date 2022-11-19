@@ -66,6 +66,7 @@ namespace API.Services
                 // caculate price
                 var fee = await AppServices.Fare.CaculateBookingFee(dto.VehicleTypeId, dto.StartAt, dto.EndAt, dto.DayOfWeeks, booking.Distance, dto.Time);
                 booking.TotalPrice = fee.TotalFee;
+                booking.DiscountPrice = fee.DiscountFee;
 
                 // generate booking detail by booking schedule
                 booking.BookingDetails = AppServices.BookingDetail.GenerateBookingDetail(booking,fee.FeePerTrip);
@@ -85,6 +86,14 @@ namespace API.Services
                         booking.DiscountPrice = discountPriceByPercentage < promotion.MaxDecrease ? discountPriceByPercentage : promotion.MaxDecrease;
 
                         booking.PromotionId = promotion.Id;
+
+                        // caculate price
+                        fee = await AppServices.Fare.CaculateBookingFee(dto.VehicleTypeId, dto.StartAt, dto.EndAt, dto.DayOfWeeks, booking.Distance, dto.Time, booking.DiscountPrice);
+                        booking.TotalPrice = fee.TotalFee;
+                        booking.DiscountPrice = fee.DiscountFee;
+
+                        // generate booking detail by booking schedule
+                        booking.BookingDetails = AppServices.BookingDetail.GenerateBookingDetail(booking, fee.FeePerTrip);
                     }                 
                 }
             }
@@ -271,7 +280,7 @@ namespace API.Services
             var curBookingStartStation = routeStationDic[bookingDetail.Booking.StartRouteStationId];
             var timeArriveCurBookingStartStation = routeRoutineStartTime.AddMinutes(curBookingStartStation.DurationFromFirstStationInRoute / 60);
 
-            var allowedMappingTimeRange = double.Parse(AppServices.Setting.GetValue(Settings.AllowedMappingTimeRange).Result ?? "3");
+            var allowedMappingTimeRange = AppServices.Setting.GetValue<double>(Settings.AllowedMappingTimeRange,3).Result;
 
             return timeArriveCurBookingStartStation.ToTimeSpan(bookingDetail.Booking.Time).TotalMinutes <= allowedMappingTimeRange;
         }
@@ -409,7 +418,9 @@ namespace API.Services
                     .Include(e => e.User)
                     .Include(e => e.BookingDetailDrivers.Where(bdr => 
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
-                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet))
+                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet &&
+                                bdr.BookingDetail.Status != BookingDetails.Status.PendingRefund && 
+                                bdr.BookingDetail.Status != BookingDetails.Status.CompletedRefund))
                     .ThenInclude(bdr => bdr.BookingDetail)
                     .ThenInclude(bd => bd.Booking)
                     .ToListAsync());
@@ -478,7 +489,6 @@ namespace API.Services
 
             return booking;
         }
-
         public async Task<RouteRoutine?> MappingRouteRoutine(int routeRoutineId)
         {
             var routeRoutine =
@@ -487,7 +497,10 @@ namespace API.Services
                 .Include(e => e.User)
                 .ThenInclude(u => u.Vehicle)
                 .ThenInclude(v => v.VehicleType)
-                .Include(e => e.BookingDetailDrivers)
+                .Include(e => e.BookingDetailDrivers.Where(bdr =>
+                              bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled &&  
+                              bdr.BookingDetail.Status != BookingDetails.Status.PendingRefund &&
+                              bdr.BookingDetail.Status != BookingDetails.Status.CompletedRefund))
                 .ThenInclude(bdr => bdr.BookingDetail)
                 .ThenInclude(bd => bd.Booking)
                 .FirstOrDefaultAsync();
@@ -509,8 +522,6 @@ namespace API.Services
                 //throw new Exception("Not exist route station");
                 return null;
 
-            var slot = routeRoutine.User.Vehicle.VehicleType.Slot;
-
             for (var date = routeRoutine.StartAt; date <= routeRoutine.EndAt; date = date.AddDays(1))
             {
                 var notMappedBookingDetails =
@@ -519,10 +530,14 @@ namespace API.Services
                                e.Date == date &&
                                e.Booking.Time < routeRoutine.EndTime && e.Booking.Time >= routeRoutine.StartTime &&
                                e.Booking.Status == Bookings.Status.Started &&
-                               e.Booking.VehicleTypeId == routeRoutine.User.Vehicle.VehicleTypeId)
+                               e.Booking.VehicleTypeId == routeRoutine.User.Vehicle.VehicleTypeId &&
+                               e.Booking.DeletedAt != null &&
+                               e.DeletedAt != null)
                     .Include(e => e.BookingDetailDrivers)
                     .Include(e => e.Booking)
                     .ThenInclude(b => b.User)
+                    .Include(e => e.Booking)
+                    .ThenInclude(b => b.VehicleType)
                     .OrderByDescending(e => e.Booking.IsShared)
                     .ThenBy(e => e.Booking.Time)
                     .ToListAsync();
@@ -538,6 +553,8 @@ namespace API.Services
                     .Where(bd => bd.Date == date)
                     .ToList();
 
+                var newMappedBookingDetails = new List<BookingDetail>();
+
                 foreach (var bookingDetail in filterBookingDetails)
                 {
                     var isShared = bookingDetail.Booking.IsShared;
@@ -546,14 +563,14 @@ namespace API.Services
                         IsPossibleMappingWithRouteRoutineWithoutShare(routeRoutine.StartTime, mappedBookingDetails, bookingDetail, routeStationDic))
                     {
                         bookingDetail.Status = BookingDetails.Status.Ready;
-                        mappedBookingDetails.Add(bookingDetail);
+                        newMappedBookingDetails.Add(bookingDetail);
                     }
                         
                 }
 
                 var driverUserMessageRoomDic = new Dictionary<Guid, Room>();
 
-                foreach (var bookingDetail in mappedBookingDetails)
+                foreach (var bookingDetail in newMappedBookingDetails)
                     await MapBookingDetailWithRouteRoutine(bookingDetail, routeRoutine, driverUserMessageRoomDic);
             }
 
@@ -570,9 +587,12 @@ namespace API.Services
                 .List(e => e.Id == bookingDetail.Booking.StartRouteStation.RouteId && e.Status == Routes.Status.Active)
                 .Include(e => e.RouteStations)
                 .ThenInclude(rs => rs.Station)
-                .FirstAsync())
+                .FirstOrDefaultAsync())?
                 .RouteStations
                 .ToDictionary(e => e.Id);
+
+            if (routeStationDic == null)
+                return;
 
             var mappedBookingDetailsDic = routeRoutines.ToDictionary(
                 key => key.Id,
@@ -634,6 +654,8 @@ namespace API.Services
                 .ThenInclude(b => b.StartRouteStation)
                 .Include(e => e.Booking)
                 .ThenInclude(b => b.User)
+                .Include(e => e.Booking)
+                .ThenInclude(b => b.VehicleType)
                 .FirstOrDefaultAsync();
 
             if (bookingDetail == null) return null;
@@ -649,7 +671,9 @@ namespace API.Services
                     .Include(e => e.User)
                     .Include(e => e.BookingDetailDrivers.Where(bdr =>
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
-                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet))
+                                bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet &&
+                                bdr.BookingDetail.Status != BookingDetails.Status.PendingRefund &&
+                                bdr.BookingDetail.Status != BookingDetails.Status.CompletedRefund))
                     .ThenInclude(bdr => bdr.BookingDetail)
                     .ThenInclude(bd => bd.Booking)
                     .ToListAsync();
@@ -670,7 +694,7 @@ namespace API.Services
             var bookingDetail =
                 await UnitOfWork.BookingDetails
                 .List(e => e.Code == code &&
-                           e.Status == BookingDetails.Status.Pending)
+                           e.Status == BookingDetails.Status.Ready)
                 .Include(e => e.BookingDetailDrivers)
                 .ThenInclude(bdr => bdr.RouteRoutine)
                 .ThenInclude(r => r.User)
@@ -679,11 +703,15 @@ namespace API.Services
                 .ThenInclude(srs => srs.Station)
                 .Include(e => e.Booking)
                 .ThenInclude(b => b.User)
+                .Include(e => e.Booking)
+                .ThenInclude(b => b.VehicleType)
                 .FirstOrDefaultAsync();
 
             if (bookingDetail == null) return null;
 
-            bookingDetail.BookingDetailDrivers.Last().TripStatus = BookingDetailDrivers.TripStatus.Cancelled;
+            var bookingDetailDriver = bookingDetail.BookingDetailDrivers.OrderBy(e => e.CreatedAt).LastOrDefault(); 
+
+            if(bookingDetailDriver != null) bookingDetailDriver.TripStatus = BookingDetailDrivers.TripStatus.Cancelled;
 
             var cancelledRouteRoutineIds = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.Cancelled).Select(bdr => bdr.RouteRoutineId).ToList();
 
@@ -719,7 +747,9 @@ namespace API.Services
                     .Include(e => e.User)
                     .Include(e => e.BookingDetailDrivers.Where(bdr =>
                                 bdr.BookingDetail.Date == bookingDetail.Date &&
-                                (bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet || bdr.TripStatus == BookingDetailDrivers.TripStatus.PickedUp || bdr.TripStatus == BookingDetailDrivers.TripStatus.Start)))
+                                (bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet || bdr.TripStatus == BookingDetailDrivers.TripStatus.PickedUp || bdr.TripStatus == BookingDetailDrivers.TripStatus.Start) &&
+                                bdr.BookingDetail.Status != BookingDetails.Status.PendingRefund &&
+                                bdr.BookingDetail.Status != BookingDetails.Status.CompletedRefund))
                     .ThenInclude(bdr => bdr.BookingDetail)
                     .ThenInclude(bd => bd.Booking)
                     .ToListAsync();
@@ -731,6 +761,9 @@ namespace API.Services
                     .ToList();
 
             await MappingBookingDetail(bookingDetail, orderedRouteRoutines);
+
+            if (!bookingDetail.BookingDetailDrivers.Any(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet))
+                bookingDetail.Status = BookingDetails.Status.PendingRefund;
 
             return bookingDetail;
         }
@@ -870,6 +903,66 @@ namespace API.Services
             }
 
             return false;
+        }
+
+        public async Task<Response> Cancel(Guid code, Response successResponse, Response notExistReponse, Response notAllowResponse, Response failResponse)
+        {
+            var booking = await UnitOfWork.Bookings
+                .List(e => e.Code == code)
+                .Include(e => e.BookingDetails)
+                .ThenInclude(bd => bd.BookingDetailDrivers)
+                .FirstOrDefaultAsync();
+
+            if (booking == null) return notExistReponse;
+
+            var allowedCancelAfterCreateBookingTime = await AppServices.Setting.GetValue<int>(Settings.AllowedCancelAfterCreateBookingTime, 30);
+
+            var now = DateTimeOffset.Now;
+
+            if ((now - booking.CreatedAt).TotalMinutes > allowedCancelAfterCreateBookingTime) return notAllowResponse;
+
+            booking.Status = Bookings.Status.PendingRefund;
+            //booking.DeletedAt = now;
+
+            booking.BookingDetails.ForEach(bd => 
+            {
+                bd.Status = BookingDetails.Status.CompletedRefund;
+                //bd.DeletedAt = now;
+                var bookingDetailDrvier = bd.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet).FirstOrDefault();
+
+                if (bookingDetailDrvier != null) bookingDetailDrvier.TripStatus = BookingDetailDrivers.TripStatus.Cancelled;
+            });
+
+            if (!await UnitOfWork.Bookings.Update(booking)) return failResponse;
+
+            await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = booking.Id, Type = TaskItems.MappingItemTypes.CancelBooking });
+
+            await AppServices.RedisMQ.Publish(RefundBookingTask.REFUND_QUEUE, new RefundItemDTO { Amount = booking.TotalPrice, Code = booking.Code, Type = TaskItems.RefundItemTypes.Booking });
+            
+            return successResponse;
+        }
+
+        public async Task MappingRouteRoutineAfterCancelBooking(int bookingId)
+        {
+            var booking = await UnitOfWork.Bookings
+                .List(e => e.Id == bookingId)
+                .Include(e => e.BookingDetails)
+                .ThenInclude(bd => bd.BookingDetailDrivers)
+                .FirstOrDefaultAsync();
+
+            if (booking == null) return;
+
+            HashSet<int> mappedRouteRoutineIds = new();
+
+            booking.BookingDetails.ForEach(bd => bd.BookingDetailDrivers
+                .Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet)
+                .ToList()
+                .ForEach(bdr => mappedRouteRoutineIds.Add(bdr.RouteRoutineId)));
+
+            foreach(var id in mappedRouteRoutineIds)
+            {
+                await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = id, Type = TaskItems.MappingItemTypes.RouteRoutine });
+            }
         }
     }
 }

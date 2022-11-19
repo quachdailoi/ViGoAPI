@@ -1,4 +1,5 @@
-﻿using Domain.Shares.Enums;
+﻿using API.Models.Response;
+using Domain.Shares.Enums;
 
 namespace API.Services.Constract
 {
@@ -6,5 +7,7 @@ namespace API.Services.Constract
     {
         Task<string?> GetValue(Settings key);
         Task<T> GetValue<T>(Settings key, T defaultValue);
+        Task<Response> GetAll(Response response);
+        Task<bool> Update(Dictionary<Settings, string> items);
     }
 }
