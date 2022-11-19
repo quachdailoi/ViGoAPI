@@ -31,9 +31,9 @@ namespace API.Services
                 .FirstOrDefaultAsync();
         }
 
-        public Task<bool> StartBookingDetailDrivers(string[] codes)
+        public async Task<bool> StartBookingDetailDrivers(string[] codes)
         {
-            var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString())).Include(x => x.BookingDetail);
+            var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString())).Include(x => x.BookingDetail).ThenInclude(x => x.Booking).ThenInclude(x => x.User);
 
             var updatedDetailDrivers = detailDrivers.ToList().Select(x => {
                     x.TripStatus = BookingDetailDrivers.TripStatus.Start;
@@ -41,7 +41,21 @@ namespace API.Services
                     return x;
             }).ToArray();
 
-            return UnitOfWork.BookingDetailDrivers.UpdateRange(updatedDetailDrivers);
+            if (UnitOfWork.BookingDetailDrivers.UpdateRange(updatedDetailDrivers).Result)
+            {
+                var notifiDto = new NotificationDTO
+                {
+                    EventId = Events.Types.StartTrip,
+                    Type = Notifications.Types.SpecificUser
+                };
+
+                var userInfos = updatedDetailDrivers.ToDictionary(key => key.BookingDetail.Booking.UserId, value => value.BookingDetail.Booking.User.FCMToken);
+                await AppServices.Notification.SendPushNotifications(notifiDto, userInfos);
+
+                return true;
+            };
+
+            return false;
         }
 
         public async Task<Response> CancelBookingDetailDrivers(string[] codes, string reason, Response invalidAllowedTimeResponse, 
@@ -149,6 +163,7 @@ namespace API.Services
 
             if(await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver))
             {
+                var notiDTO = new NotificationDTO();
                 switch (bookingDetailDriver.TripStatus)
                 {
                     case BookingDetailDrivers.TripStatus.Completed:
@@ -188,7 +203,7 @@ namespace API.Services
 
                             if ((wallet = AppServices.Wallet.UpdateBalance(transactionDto).Result) != null)
                             {
-                                var notiDTO = new NotificationDTO()
+                                notiDTO = new NotificationDTO()
                                 {
                                     EventId = Events.Types.TripIncome,
                                     Type = Notifications.Types.SpecificUser,
