@@ -750,10 +750,10 @@ namespace API.Controllers.V1.Driver
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> DriverRegister([FromForm] DriverRegistrationRequest request)
+        public async Task<IActionResult> DriverRegister([FromForm] CreateDriverRegistrationRequest request)
         {
             //validate request
-            var validationErrorMsg = await DriverRegistrationRequestValidator.Validate(request, AppServices, isCreated: true);
+            var validationErrorMsg = await request.Validate(AppServices);
             if (validationErrorMsg != null) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status400BadRequest,
@@ -761,9 +761,6 @@ namespace API.Controllers.V1.Driver
             });
 
             var driver = await AppServices.Driver.SubmitDriverRegistration(request);
-
-            // send mail to email verify account
-            //...
 
             return ApiResult(new()
             {

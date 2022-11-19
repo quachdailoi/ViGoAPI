@@ -13,6 +13,7 @@ using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Serilog.Sinks.File;
 
 namespace API.Services
 {
@@ -235,7 +236,7 @@ namespace API.Services
                 .Where(x => x.RoleId == Roles.DRIVER && x.Verified == true).AnyAsync();
         }
 
-        public async Task<UserViewModel?> SubmitDriverRegistration(DriverRegistrationRequest request)
+        public async Task<UserViewModel?> SubmitDriverRegistration(CreateDriverRegistrationRequest request)
         {
             await UnitOfWork.CreateTransactionAsync();
 
@@ -363,14 +364,13 @@ namespace API.Services
 
             await UnitOfWork.CommitAsync();
 
-            //send mail to driver to notify them for waiting
-            AppServices.VerifiedCode.SendMail(
-                mail: newUser.Gmail,
-                subject: "ViGo: Welcome to ViGo system",
-                content: "Hello our future driver, we received your driver registration, please waiting for admin to approve it."
-            );
+            //send mail to driver to verify email account
+            var userVM = UnitOfWork.Users.GetUserById(newUser.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
 
-            return UnitOfWork.Users.GetUserById(newUser.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
+            var token = AppServices.JwtHandler.GenerateToken(userVM, isExpired: false);
+            AppServices.VerifiedCode.SendVerifiedAccountLink(userVM.Gmail, token, resend: false);
+
+            return userVM;
         }
 
         public PagingViewModel<IQueryable<UserViewModel>>? GetPendingDriverPaging(PagingRequest pagingRequest)
@@ -382,20 +382,14 @@ namespace API.Services
             return paging;
         }
 
-        public async Task<UserViewModel?> UpdateDriverRegistration(string userCode, DriverRegistrationRequest request, Users.Status userStatus)
+        public async Task<UserViewModel?> UpdateDriverRegistration(User pendingDriver, UpdateDriverRegistrationRequest request, Users.Status userStatus)
         {
-            var pendingDriver = await UnitOfWork.Users.List(x => x.Status == Users.Status.Pending && x.Code.ToString() == userCode)
-                .Include(x => x.File)
-                .Include(x => x.Vehicle)
-                .Include(x => x.Accounts)
-                .Include(x => x.UserLicenses)
-                .FirstOrDefaultAsync();
-
             if (pendingDriver == null) throw new ValidationException("Not found pending driver with this code.");
-
+            var fileSize = await AppServices.Setting.GetValue(Settings.DriverRegistrationFileSizeLimit, 20);
             var file = request.Avatar;
             if (file != null)
             {
+                file.CheckFileSize("Avatar", fileSize); // check avatar size
                 var path = pendingDriver.FilePath;
 
                 if (!await AppServices.File.UpdateS3File(path, file))
@@ -406,6 +400,7 @@ namespace API.Services
             file = request.IdentificationFrontSideImage;
             if (file != null)
             {
+                file.CheckFileSize("Identification front side", fileSize); // check size
                 var path = identification.FrontSideFile.Path;
 
                 if (!await AppServices.File.UpdateS3File(path, file))
@@ -415,6 +410,7 @@ namespace API.Services
             file = request.IdentificationBackSideImage;
             if (file != null)
             {
+                file.CheckFileSize("Identification back side", fileSize); // check size
                 var path = identification.BackSideFile.Path;
 
                 if (!await AppServices.File.UpdateS3File(path, file))
@@ -425,6 +421,7 @@ namespace API.Services
             file = request.DriverLicenseFrontSideImage;
             if (file != null)
             {
+                file.CheckFileSize("Driver license front side", fileSize);
                 var path = driverLicense.FrontSideFile.Path;
 
                 if (!await AppServices.File.UpdateS3File(path, file))
@@ -434,6 +431,7 @@ namespace API.Services
             file = request.DriverLicenseBackSideImage;
             if (file != null)
             {
+                file.CheckFileSize("Driver license back side", fileSize);
                 var path = driverLicense.BackSideFile.Path;
 
                 if (!await AppServices.File.UpdateS3File(path, file))
@@ -444,6 +442,7 @@ namespace API.Services
             file = request.VehicleRegistrationFrontSideImage;
             if (file != null)
             {
+                file.CheckFileSize("Vehicle registration certificate front side", fileSize);
                 var path = vehicleRegistration.FrontSideFile.Path;
 
                 if (!await AppServices.File.UpdateS3File(path, file))
@@ -453,6 +452,7 @@ namespace API.Services
             file = request.VehicleRegistrationBackSideImage;
             if (file != null)
             {
+                file.CheckFileSize("Vehicle registration certificate back side", fileSize);
                 var path = vehicleRegistration.BackSideFile.Path;
 
                 if (!await AppServices.File.UpdateS3File(path, file))
@@ -463,8 +463,6 @@ namespace API.Services
             pendingDriver.Name = request.Name;
             pendingDriver.Gender = request.Gender;
             pendingDriver.DateOfBirth = request.DateOfBirth;
-            pendingDriver.Accounts.Where(x => x.RegistrationType == RegistrationTypes.Phone).First().Registration = request.PhoneNumber;
-            pendingDriver.Accounts.Where(x => x.RegistrationType == RegistrationTypes.Gmail).First().Registration = request.Email;
 
             // check duplicate when change license code
             var identificationCodeOld = pendingDriver.UserLicenses.Where(x => x.LicenseTypeId == LicenseTypes.Identification).First().Code;
@@ -475,23 +473,12 @@ namespace API.Services
             var driverLicenseCodeNew = request.DriverLicenseCode;
             var vehicleRegistrationCodeNew = request.VehicleRegistrationCode;
 
-            if (identificationCodeOld != identificationCodeNew)
-            {
-                AppServices.CheckDuplicateLicenseCode(request.IdentificationCode, LicenseTypes.Identification, "Identification");
-                AppServices.CheckDuplicateLicenseCode(request.DriverLicenseCode, LicenseTypes.DriverLicense, "Driver's license");
-                AppServices.CheckDuplicateLicenseCode(request.VehicleRegistrationCode, LicenseTypes.VehicleRegistration, "Vehicle registration certificate");
-            }
-
             identificationCodeOld = identificationCodeNew;
             driverLicenseCodeOld = driverLicenseCodeNew;
             vehicleRegistrationCodeOld = driverLicenseCodeNew;
 
             var licensePlateOld = pendingDriver.Vehicle.LicensePlate;
             var licensePlateNew = request.LicensePlate;
-            if (licensePlateOld != licensePlateNew)
-            {
-                AppServices.CheckDuplicateLicensePlate(licensePlateNew);
-            }
 
             licensePlateOld = licensePlateNew;
 
@@ -511,9 +498,19 @@ namespace API.Services
             }
             else if (userStatus == Users.Status.Active)
             {
-                //send mail
-                var token = AppServices.JwtHandler.GenerateToken(userVM, isExpired: false);
-                AppServices.VerifiedCode.SendVerifiedAccountLink(pendingDriver.Gmail, token);
+                // if email account was not verified resend mail to user to verify account.
+                if (!userVM.HasVerifiedGmail)
+                {
+                    //send mail
+                    var token = AppServices.JwtHandler.GenerateToken(userVM, isExpired: false);
+                    AppServices.VerifiedCode.SendVerifiedAccountLink(userVM.Gmail, token, resend: true);
+                    throw new Exception("Driver's email was not verified, mail to remind driver to verify their mail was resent");
+                } 
+                else
+                {
+                    // send mail
+                    AppServices.VerifiedCode.SendMail(pendingDriver.Gmail, "ViGo: Approve Your Driver Registration", "You driver registration was approved, now you can use email to login to ViGo.");
+                }
             }
 
             return userVM;
@@ -531,6 +528,16 @@ namespace API.Services
             }
 
             return fileObj;
+        }
+
+        public Task<User?> GetPendingDriverByCode(string userCode)
+        {
+            return UnitOfWork.Users.List(x => x.Status == Users.Status.Pending && x.Code.ToString() == userCode)
+                .Include(x => x.File)
+                .Include(x => x.Vehicle)
+                .Include(x => x.Accounts)
+                .Include(x => x.UserLicenses)
+                .FirstOrDefaultAsync();
         }
     }
 }

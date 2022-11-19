@@ -6,6 +6,7 @@ using API.Models.Response;
 using API.Models.Settings;
 using API.Validators;
 using Domain.Shares.Enums;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -331,17 +332,22 @@ namespace API.Controllers.V1.Admin
         }
 
         [HttpPut("driver-registrations/{userCode}")]
-        public async Task<IActionResult> UpdateDriverRegistration(string userCode, [FromForm] DriverRegistrationRequest request, [FromForm] Users.Status status)
+        public async Task<IActionResult> UpdateDriverRegistration(string userCode, [FromForm] UpdateDriverRegistrationRequest request, [FromForm] Users.Status status)
         {
+            var pendingDriver = await AppServices.Driver.GetPendingDriverByCode(userCode);
+
+            if (pendingDriver == null)
+                throw new ValidationException("Not found pending driver with this code.");
+
             //validate request
-            var validationErrorMsg = await DriverRegistrationRequestValidator.Validate(request, AppServices, isCreated: false);
+            var validationErrorMsg = request.Validate(AppServices, pendingDriver);
             if (validationErrorMsg != null) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status400BadRequest,
                 Message = validationErrorMsg
             });
 
-            var driver = await AppServices.Driver.UpdateDriverRegistration(userCode, request, status);
+            var driver = await AppServices.Driver.UpdateDriverRegistration(pendingDriver, request, status);
 
             return ApiResult(new()
             {

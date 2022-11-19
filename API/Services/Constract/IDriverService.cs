@@ -32,8 +32,9 @@ namespace API.Services.Constract
         Task UpdateCancelledTripRate(int driverId);
 
         Task<bool> CheckExistRegistration(string registration, RegistrationTypes registrationTypes);
-        Task<UserViewModel?> SubmitDriverRegistration(DriverRegistrationRequest request);
+        Task<UserViewModel?> SubmitDriverRegistration(CreateDriverRegistrationRequest request);
         PagingViewModel<IQueryable<UserViewModel>>? GetPendingDriverPaging(PagingRequest pagingRequest);
-        Task<UserViewModel?> UpdateDriverRegistration(string userCode, DriverRegistrationRequest request, Users.Status userStatus);
+        Task<UserViewModel?> UpdateDriverRegistration(User pendingDriver, UpdateDriverRegistrationRequest request, Users.Status userStatus);
+        Task<User?> GetPendingDriverByCode(string userCode);
     }
 }
