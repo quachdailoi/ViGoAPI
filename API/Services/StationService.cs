@@ -13,6 +13,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using FluentValidation;
 using API.Models.Requests;
+using static System.Collections.Specialized.BitVector32;
 
 namespace API.Services
 {
@@ -92,19 +93,18 @@ namespace API.Services
         }
         public bool CheckDuplicateStations(List<StationDTO> stations)
         {
-            return stations.DistinctBy(station => $"{station.Latitude}|{station.Longitude}").Any();
+            if (stations.Count() == 1) return false;
+            return stations.GroupBy(x => new {x.Latitude, x.Longitude}).Select(g => g.Count() > 1).Any();
         }
-        private Task<bool> CheckDulpicateStationsWithinDatabase(List<StationDTO> stations)
+        private bool CheckDulpicateStationsWithinDatabase(List<StationDTO> stations)
         {
-            return UnitOfWork.Stations.List(station => stations.Exists(_station => _station.Latitude == station.Latitude &&
-                                                                                               _station.Longitude == station.Longitude) &&
-                                                                               station.Status == Stations.Status.Active)
-                                                              .AnyAsync();
+            var listCompare = stations.Select(x => $"{x.Latitude}|{x.Longitude}");
+            var dbStations = UnitOfWork.Stations.List(x => x.Status == Stations.Status.Active).ToList().Select(x => $"{x.Latitude}|{x.Longitude}");
+            return dbStations.Any(x => listCompare.Contains(x));
         }
         public async Task<Response> Create(List<StationDTO> stations, int userId, Response successResponse, Response duplicateResponse, Response errorResponse)
         {
-
-            if (!(await CheckDulpicateStationsWithinDatabase(stations))) return duplicateResponse;
+            if (CheckDulpicateStationsWithinDatabase(stations)) return duplicateResponse;
 
             foreach (var station in stations)
             {
