@@ -12,6 +12,6 @@ namespace API.Services.Constract
         Task<Response?> CheckValidTimeSendOtp(SendOtpRequest request, Response errorResponse);
         Task<Response> SendAndSaveOtp(SendOtpRequest request, Response successResponse, Response errorResponse);
         Task SendMail(string mail, string subject, string content);
-        Task SendVerifiedAccountLink(string email, string token);
+        Task SendVerifiedAccountLink(string email, string token, bool resend = true);
     }
 }

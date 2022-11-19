@@ -12,7 +12,7 @@ namespace API.Validators
 {
     public static class DriverRegistrationRequestValidator
     {
-        public static async Task<string?> Validate(DriverRegistrationRequest request, IAppServices appServices, bool isCreated)
+        public static async Task<string?> Validate(this CreateDriverRegistrationRequest request, IAppServices appServices)
         {
             // check date of birth for higher 18 years old driver
             var age = new Age(request.DateOfBirth.DateTime, DateTime.Today);
@@ -26,39 +26,76 @@ namespace API.Validators
             var existedEmail = await appServices.Driver.CheckExistRegistration(request.Email, RegistrationTypes.Gmail);
             if (existedEmail) return "This email already belongs to another driver.";
 
-            var fileSize = await appServices.Setting.GetValue(Settings.DriverRegistrationFileSizeLimit, 20);
-            
-            if (isCreated)
-            {
-                // check identification code
-                appServices.CheckDuplicateLicenseCode(request.IdentificationCode, LicenseTypes.Identification, "Identification");
+            // check identification code
+            appServices.CheckDuplicateLicenseCode(request.IdentificationCode, LicenseTypes.Identification, "Identification");
 
-                // check driver's license code
-                appServices.CheckDuplicateLicenseCode(request.DriverLicenseCode, LicenseTypes.DriverLicense, "Driver's license");
+            // check driver's license code
+            appServices.CheckDuplicateLicenseCode(request.DriverLicenseCode, LicenseTypes.DriverLicense, "Driver's license");
 
-                // check vehicle registration certificate code
-                appServices.CheckDuplicateLicenseCode(request.VehicleRegistrationCode, LicenseTypes.VehicleRegistration, "Vehicle registration certificate");
+            // check vehicle registration certificate code
+            appServices.CheckDuplicateLicenseCode(request.VehicleRegistrationCode, LicenseTypes.VehicleRegistration, "Vehicle registration certificate");
 
-                // check size of avatar
-                CheckFileSize(request.Avatar, "Avatar", fileSize);
-                //check size of identification files
-                CheckFileSize(request.IdentificationFrontSideImage, "Identification front side", fileSize);
-                CheckFileSize(request.IdentificationBackSideImage, "Identification back side", fileSize);
-                //check size of driver license files
-                CheckFileSize(request.DriverLicenseFrontSideImage, "Driver license front side", fileSize);
-                CheckFileSize(request.DriverLicenseBackSideImage, "Driver license back side", fileSize);
-                //check size of vehicle registration files
-                CheckFileSize(request.VehicleRegistrationFrontSideImage, "Vehicle registration certificate front side", fileSize);
-                CheckFileSize(request.VehicleRegistrationBackSideImage, "Vehicle registration certificate back side", fileSize);
+            //check license plate
+            appServices.CheckDuplicateLicensePlate(request.LicensePlate);
 
-                //check license plate
-                appServices.CheckDuplicateLicensePlate(request.LicensePlate);
-            }
+            // check all files size
+            await appServices.CheckFileSize(request);
 
-            return null; // everything is OK
+            return null;
         }
 
-        private static void CheckFileSize(IFormFile? file, string fileName, int fileSize)
+        public static string? Validate(this UpdateDriverRegistrationRequest request, IAppServices appServices, User pendingDriver)
+        {
+            // check date of birth for higher 18 years old driver
+            var age = new Age(request.DateOfBirth.DateTime, DateTime.Today);
+            if (age.Years < 18) return "Driver must be over 18 years old.";
+
+            // check duplicate when change license code
+            var identificationCodeOld = pendingDriver.UserLicenses.Where(x => x.LicenseTypeId == LicenseTypes.Identification).First().Code;
+            var driverLicenseCodeOld = pendingDriver.UserLicenses.Where(x => x.LicenseTypeId == LicenseTypes.DriverLicense).First().Code;
+            var vehicleRegistrationCodeOld = pendingDriver.UserLicenses.Where(x => x.LicenseTypeId == LicenseTypes.VehicleRegistration).First().Code;
+
+            var identificationCodeNew = request.IdentificationCode;
+            var driverLicenseCodeNew = request.DriverLicenseCode;
+            var vehicleRegistrationCodeNew = request.VehicleRegistrationCode;
+
+            if (identificationCodeOld != identificationCodeNew)
+                appServices.CheckDuplicateLicenseCode(request.IdentificationCode, LicenseTypes.Identification, "Identification");
+            if (driverLicenseCodeOld != driverLicenseCodeNew)
+                appServices.CheckDuplicateLicenseCode(request.DriverLicenseCode, LicenseTypes.DriverLicense, "Driver's license");
+            if (vehicleRegistrationCodeOld != vehicleRegistrationCodeNew)
+                appServices.CheckDuplicateLicenseCode(request.VehicleRegistrationCode, LicenseTypes.VehicleRegistration, "Vehicle registration certificate");
+
+            // check duplicate when change license plate
+            var licensePlateOld = pendingDriver.Vehicle.LicensePlate;
+            var licensePlateNew = request.LicensePlate;
+            if (licensePlateOld != licensePlateNew)
+                appServices.CheckDuplicateLicensePlate(licensePlateNew);
+
+            //check all files size
+            //await appServices.CheckFileSize(request); //File size checked in update method
+
+            return null;
+        }
+
+        private static async Task CheckFileSize(this IAppServices appServices, UpdateDriverRegistrationRequest request)
+        {
+            var fileSize = await appServices.Setting.GetValue(Settings.DriverRegistrationFileSizeLimit, 20);
+
+            // check size of avatar
+            request.Avatar.CheckFileSize("Avatar", fileSize);
+            //check size of identification files
+            request.IdentificationFrontSideImage.CheckFileSize("Identification front side", fileSize);
+            request.IdentificationBackSideImage.CheckFileSize( "Identification back side", fileSize);
+            //check size of driver license files
+            request.DriverLicenseFrontSideImage.CheckFileSize("Driver license front side", fileSize);
+            request.DriverLicenseBackSideImage.CheckFileSize("Driver license back side", fileSize);
+            //check size of vehicle registration files
+            request.VehicleRegistrationFrontSideImage.CheckFileSize("Vehicle registration certificate front side", fileSize);
+            request.VehicleRegistrationBackSideImage.CheckFileSize("Vehicle registration certificate back side", fileSize);
+        }
+
+        public static void CheckFileSize(this IFormFile? file, string fileName, int fileSize)
         {
             if (file == null) throw new ValidationException($"{fileName} is required.");
             else
