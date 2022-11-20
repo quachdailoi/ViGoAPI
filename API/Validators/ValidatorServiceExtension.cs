@@ -19,7 +19,9 @@ namespace API.Validators
             services.AddScoped<IValidator<RatingAndFeedbackRequest>, RatingAndFeedBackRequestValidator>();
             services.AddScoped<IValidator<CancelBookingDetailDriversRequest>, CancelBookingDetailDriversRequestValidator>();
             services.AddScoped<IValidator<MonthFilterRequest>, MonthFilterRequestValidator>();
-            services.AddScoped<IValidator<UpdateSettingRequest>, UpdateSettingRequestValidator>();
+            //services.AddScoped<IValidator<UpdateSettingRequest>, UpdateSettingRequestValidator>();
+            services.AddScoped<IValidator<CreateBannerRequest>, CreateBannerRequestValidator>();
+            services.AddScoped<IValidator<UpdateBannerRequest>, UpdateBannerRequestValidator>();
         }
     }
 }

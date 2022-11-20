@@ -41,6 +41,18 @@ namespace API.Models
                 }
             }
         }
+        [JsonIgnore]
+        public Guid? BookingDetailDriverCode
+        {
+            get => Driver?.BookingDetailDriverCode;
+            set
+            {
+                if(Driver != null && value.HasValue)
+                {
+                    Driver.BookingDetailDriverCode = value.Value;
+                }
+            }
+        }
     }
     public class DriverBookingDetailViewModel : BookingDetailViewModel
     {

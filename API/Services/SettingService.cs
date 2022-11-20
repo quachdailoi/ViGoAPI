@@ -28,7 +28,9 @@ namespace API.Services
                     {
                         Id = setting.Id,
                         Key = setting.Key,
-                        Value = setting.Value
+                        Value = setting.Value,
+                        DataType = setting.Id.GetUnitAndDataType().Item1,
+                        Unit = setting.Id.GetUnitAndDataType().Item2
                     })
                 });
 
