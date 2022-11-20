@@ -9,7 +9,9 @@ namespace API.Mapper
     {
         public ReportMappingProfile()
         {
-            CreateMap<Report, ReportViewModel>();
+            CreateMap<Report, ReportViewModel>()
+                .ForMember(dest => dest.DateTime,
+                    opt => opt.MapFrom(src => src.CreatedAt));
 
             CreateMap<Report, ReportDTO>().ReverseMap();
         }

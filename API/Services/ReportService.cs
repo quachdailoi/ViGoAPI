@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Extensions;
+using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
@@ -7,6 +8,7 @@ using API.TaskQueues.TaskResolver;
 using Domain.Entities;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.Dynamic;
 
 namespace API.Services
 {
@@ -50,12 +52,15 @@ namespace API.Services
         {
             var report =
                 await UnitOfWork.Reports.List(e => e.Code == code)
+                .MapTo<ReportViewModel>(Mapper)
                 .FirstOrDefaultAsync();
 
             if (report == null)
                 return notFoundResponse;
 
-            dynamic? data;
+            dynamic data = new ExpandoObject();
+
+            data = report;
 
             switch (report.Type)
             {
@@ -65,7 +70,7 @@ namespace API.Services
                     //if (bookingDetailCode == null)
                     //    return notFoundResponse;
 
-                    data = await AppServices.BookingDetail.GetBookerViewModelByCode(bookingDetailCode);
+                    data.Data = await AppServices.BookingDetail.GetBookerViewModelByCode(bookingDetailCode);
                     break;
                 default:
                     return notFoundResponse;

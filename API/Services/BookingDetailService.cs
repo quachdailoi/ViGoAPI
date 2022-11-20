@@ -467,7 +467,7 @@ namespace API.Services
 
                     var notiDTO = new NotificationDTO()
                     {
-                        EventId = Events.Types.RefundBookingDetail,
+                        EventId = Events.Types.CompletedRefund,
                         Type = Notifications.Types.SpecificUser,
                         Token = bookingDetail.Booking.User.FCMToken,
                         UserId = bookingDetail.Booking.User.Id
@@ -669,8 +669,10 @@ namespace API.Services
                 var discountPercent = sharingStep.Count * discountPerEachSharingCase;
                 if (discountPercent > thresholdDiscountPerEachSharingCase) discountPercent = thresholdDiscountPerEachSharingCase;
 
-                discount += (await AppServices.Fare.CaculateFeeByDistance(bookingDetail.Booking.VehicleTypeId, distance, bookingDetail.Booking.Time)).TotalFee * discountPercent;
+                discount += ((await AppServices.Fare.CaculateFeeByDistance(bookingDetail.Booking.VehicleTypeId, distance, bookingDetail.Booking.Time)).TotalFee * discountPercent);
             }
+
+            discount = Fee.FloorToHundreds(discount);
 
             return new FeeViewModel
             {

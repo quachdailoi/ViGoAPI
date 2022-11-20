@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Dynamic;
 using System.Text.Json;
 
 namespace API.Controllers.V1
@@ -77,9 +78,17 @@ namespace API.Controllers.V1
 
             //return Ok(response);
 
-            var result = await AppServices.Payment.MomoRefund(2790637780, 15000);
+            //var result = await AppServices.Payment.MomoRefund(2790637780, 15000);
 
-            return Ok(result);
+            //var value = await AppServices.Setting.GetValue<double>(Settings.DiscountPerEachSharingCase,0.5);
+
+            dynamic value = new ExpandoObject();
+
+            value.X = 2;
+
+            value.X = "asdasd";
+
+            return Ok(value);
 
             //return Ok(await AppServices.VehicleType.GetWithFare());
         }

@@ -66,7 +66,7 @@ namespace API.Services
                 // caculate price
                 var fee = await AppServices.Fare.CaculateBookingFee(dto.VehicleTypeId, dto.StartAt, dto.EndAt, dto.DayOfWeeks, booking.Distance, dto.Time);
                 booking.TotalPrice = fee.TotalFee;
-                booking.DiscountPrice = fee.DiscountFee;
+                //booking.DiscountPrice = fee.DiscountFee;
 
                 // generate booking detail by booking schedule
                 booking.BookingDetails = AppServices.BookingDetail.GenerateBookingDetail(booking,fee.FeePerTrip);
@@ -90,7 +90,7 @@ namespace API.Services
                         // caculate price
                         fee = await AppServices.Fare.CaculateBookingFee(dto.VehicleTypeId, dto.StartAt, dto.EndAt, dto.DayOfWeeks, booking.Distance, dto.Time, booking.DiscountPrice);
                         booking.TotalPrice = fee.TotalFee;
-                        booking.DiscountPrice = fee.DiscountFee;
+                        //booking.DiscountPrice = fee.DiscountFee;
 
                         // generate booking detail by booking schedule
                         booking.BookingDetails = AppServices.BookingDetail.GenerateBookingDetail(booking, fee.FeePerTrip);
@@ -806,9 +806,9 @@ namespace API.Services
 
             return successResponse.SetData(new FeeViewModel
             {
-                Fee = booking.TotalPrice,
+                Fee = booking.TotalPrice + booking.DiscountPrice,
                 DiscountFee = booking.DiscountPrice,
-                TotalFee = booking.TotalPrice - booking.DiscountPrice
+                TotalFee = booking.TotalPrice
             });
         }
         public Task<Booking?> GetByCode(Guid code) => UnitOfWork.Bookings.List(booking => booking.Code == code).Include(booking => booking.User).FirstOrDefaultAsync();
@@ -886,7 +886,7 @@ namespace API.Services
 
                     var notiDTO = new NotificationDTO()
                     {
-                        EventId = Events.Types.RefundBooking,
+                        EventId = Events.Types.CompletedRefund,
                         Type = Notifications.Types.SpecificUser,
                         Token = booking.User.FCMToken,
                         UserId = booking.User.Id
