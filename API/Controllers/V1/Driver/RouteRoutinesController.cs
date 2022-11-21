@@ -41,9 +41,9 @@ namespace API.Controllers.V1.Driver
         {
             request.UserId = LoggedInUser.Id;
 
-            var foundedRoute = AppServices.Route.GetRoute(request.RouteCode);
+            var foundedRoute = AppServices.Route.GetRoute(request.RouteCode).FirstOrDefault();
 
-            if (foundedRoute == null || foundedRoute.Count() == 0)
+            if (foundedRoute == null)
             {
                 return ApiResult(new()
                 {
@@ -51,13 +51,13 @@ namespace API.Controllers.V1.Driver
                     Message = "Not found route to create routine."
                 });
             }
-            request.Route = foundedRoute.FirstOrDefault(); // use to map route id
-
+            request.RouteId = foundedRoute.Id;
+            
             // parse date and time from string to right type
             var NewStartAt = DateTimeExtensions.ParseExactDateOnly(request.StartAt);
             var NewEndAt = DateTimeExtensions.ParseExactDateOnly(request.EndAt);
             var NewStartTime = DateTimeExtensions.ParseExactTimeOnly(request.StartTime);
-            var NewEndTime = NewStartTime.AddMinutes(request.Route.Duration / 60);
+            var NewEndTime = NewStartTime.AddMinutes(foundedRoute.Duration / 60);
 
             request.StartAtParsed = NewStartAt;
             request.EndAtParsed = NewEndAt;
