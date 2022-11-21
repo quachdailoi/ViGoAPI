@@ -503,6 +503,29 @@ namespace API.Controllers.V1.Admin
         }
 
         /// <summary>
+        ///     Get driver by code
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     Get api/admins/drivers/abcascsda
+        /// ```
+        /// </remarks>
+        /// <response code = "200">Get driver successfully.</response>
+        [HttpGet("drivers/{code}")]
+        public IActionResult GetDriverByCode(string code)
+        {
+            var driver = AppServices.Driver.GetDriverByCode(code);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Get driver successfully.",
+                Data = driver
+            });
+        }
+
+        /// <summary>
         ///     Search station by search value, with search value is a part of Code or Name or Address
         /// </summary>
         /// <remarks>

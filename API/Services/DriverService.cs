@@ -554,5 +554,12 @@ namespace API.Services
 
             return drivers;
         }
+
+        public UserViewModel? GetDriverByCode(string code)
+        {
+            var driver = UnitOfWork.Users.GetUserByCode(code).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
+
+            return driver;
+        }
     }
 }

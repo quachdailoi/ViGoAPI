@@ -37,5 +37,6 @@ namespace API.Services.Constract
         Task<UserViewModel?> UpdateDriverRegistration(User pendingDriver, UpdateDriverRegistrationRequest request, Users.Status userStatus);
         Task<User?> GetPendingDriverByCode(string userCode);
         PagingViewModel<IQueryable<DriverViewModel>>? GetDrivers(string searchValue, Users.Status status, PagingRequest paging);
+        UserViewModel? GetDriverByCode(string code);
     }
 }
