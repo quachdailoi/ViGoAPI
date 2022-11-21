@@ -1,6 +1,7 @@
 ﻿using API.Extensions;
 using API.Models;
 using API.Models.DTO;
+using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
 using API.Services.Constract;
@@ -9,6 +10,7 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Classes;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
 
 namespace API.Services
@@ -140,12 +142,28 @@ namespace API.Services
 
             return this.BuildCoordinateString(param);
         }
-        public async Task<Domain.Entities.Route?> CreateRouteByListOfStation(List<StationDTO> stations, int? userId = null)
+        private string GenerateNameOfRoute(List<StationDTO> stations)
+        {
+            var firstStation = stations.First();
+            var lastStation = stations.Last();
+            var lastName = lastStation.Name;
+            if (firstStation.Id == lastStation.Id)
+            {
+                lastName = stations[stations.Count - 2].Name;
+            }
+            return $"{stations.First().Name} - {lastName}";
+        }
+        public async Task<Domain.Entities.Route?> CreateRouteByListOfStation(List<StationDTO> stations, int? userId = null, string? routeName = null)
         {
             var constructedRoute = await TrueWayDirection_FindDrivingRoute(stations);
 
             if (userId.HasValue) constructedRoute.UpdatedBy = userId.Value;
 
+            if (!routeName.IsNullOrEmpty()) constructedRoute.Name = routeName;
+            else
+            {
+                constructedRoute.Name = GenerateNameOfRoute(stations);
+            }
             await UnitOfWork.CreateTransactionAsync();
 
             bool isSuccessTransaction = true;
@@ -175,9 +193,11 @@ namespace API.Services
             return createdRoute;
         }
 
-        public async Task<Response> CreateRoute(int adminId, List<StationDTO> stations, Response success, Response failed)
+        public async Task<Response> CreateRoute(int adminId, CreateRouteRequest request, Response success, Response failed)
         {
-            var createdRoute = await this.CreateRouteByListOfStation(stations, adminId);
+            var stations = await AppServices.Station.GetStationDTOsByCodes(request.StationCodes);
+
+            var createdRoute = await CreateRouteByListOfStation(stations, adminId);
             if (createdRoute == null) return failed;
             var routeVM = 
                 (await UnitOfWork.Routes.List()

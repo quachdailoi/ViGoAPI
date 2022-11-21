@@ -43,8 +43,6 @@ namespace API.Controllers.V1
         public async Task<IActionResult> CreateRoute([FromBody] CreateRouteRequest request)
         {
             var admin = LoggedInUser;
-            var stationCodes = request.StationCodes;
-
             //if (stationCodes.Distinct().Count() != stationCodes.Count())
             //{
             //    return ApiResult(new()
@@ -54,12 +52,10 @@ namespace API.Controllers.V1
             //    });
             //}
 
-            var stationDtos = await AppServices.Station.GetStationDTOsByCodes(stationCodes);
-
             var createRouteResponse =
                 await AppServices.RapidApi.CreateRoute(
                     adminId: admin.Id,
-                    stationDtos,
+                    request,
                     success: new()
                     {
                         StatusCode = StatusCodes.Status200OK,
@@ -186,7 +182,7 @@ namespace API.Controllers.V1
 
             Console.WriteLine($"{DateTimeOffset.Now} - Start creating.");
             var stationDtos = await AppServices.Station.GetStationDTOsByIds(dumpsId);
-            var newRoute = await AppServices.RapidApi.CreateRoute(LoggedInUser.Id, stationDtos, new(), new());
+            var newRoute = AppServices.RapidApi.CreateRouteByListOfStation(stationDtos, 9);
             Console.WriteLine($"{DateTimeOffset.Now} - End creating.");
             
             return Ok(newRoute);

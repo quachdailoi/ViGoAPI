@@ -3,5 +3,6 @@
     public class CreateRouteRequest
     {
         public List<Guid> StationCodes { get; set; } = new();
+        public string? RouteName { get; set; }
     }
 }

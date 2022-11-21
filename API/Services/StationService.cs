@@ -13,7 +13,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using FluentValidation;
 using API.Models.Requests;
-using static System.Collections.Specialized.BitVector32;
+using API.Models.Responses;
 
 namespace API.Services
 {
@@ -325,6 +325,19 @@ namespace API.Services
         public Task<bool> DeleteStation(Station station)
         {
             return UnitOfWork.Stations.Remove(station);
+        }
+
+        public PagingViewModel<IQueryable<StationViewModel>>? GetStations(string searchValue, PagingRequest paging)
+        {
+            searchValue = searchValue.ToLower();
+            var stations =
+                UnitOfWork.Stations.List(x =>
+                    x.Code.ToString().Contains(searchValue) ||
+                    x.Name.ToLower().Contains(searchValue) ||
+                    x.Address.ToLower().Contains(searchValue)
+                ).PagingMap<Station, StationViewModel>(Mapper, paging.Page, paging.PageSize);
+
+            return stations;
         }
     }
 }

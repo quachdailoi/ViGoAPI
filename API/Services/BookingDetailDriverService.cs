@@ -11,6 +11,7 @@ using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
 using Twilio.Rest.Api.V2010.Account;
+using static Domain.Shares.Enums.BookingDetailDrivers;
 
 namespace API.Services
 {
@@ -36,9 +37,9 @@ namespace API.Services
             var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString())).Include(x => x.BookingDetail).ThenInclude(x => x.Booking).ThenInclude(x => x.User);
 
             var updatedDetailDrivers = detailDrivers.ToList().Select(x => {
-                    x.TripStatus = BookingDetailDrivers.TripStatus.Start;
-                    x.BookingDetail.Status = BookingDetails.Status.Started;
-                    return x;
+                x.TripStatus = BookingDetailDrivers.TripStatus.Start;
+                x.BookingDetail.Status = BookingDetails.Status.Started;
+                return x;
             }).ToArray();
 
             if (UnitOfWork.BookingDetailDrivers.UpdateRange(updatedDetailDrivers).Result)
@@ -52,13 +53,28 @@ namespace API.Services
                 var userInfos = updatedDetailDrivers.ToDictionary(key => key.BookingDetail.Booking.UserId, value => value.BookingDetail.Booking.User.FCMToken);
                 await AppServices.Notification.SendPushNotifications(notifiDto, userInfos);
 
+                var users = AppServices.BookingDetailDriver.GetUsers(codes);
+
+                // send signalR to users
+                for (int i = 0; i < users.Count; i++)
+                {
+                    var userCode = users[0].Code.ToString();
+                    await AppServices.SignalR.SendToUserAsync(userCode, "TripStatus", new
+                    {
+                        BookingDetailDriverCode = codes[i],
+                        BookingDetailCode = updatedDetailDrivers[i].BookingDetail.Code,
+                        TripStatus = TripStatus.Start,
+                        TripStatusName = "Start"
+                    });
+                }
+
                 return true;
             };
 
             return false;
         }
 
-        public async Task<Response> CancelBookingDetailDrivers(string[] codes, string reason, Response invalidAllowedTimeResponse, 
+        public async Task<Response> CancelBookingDetailDrivers(string[] codes, string reason, Response invalidAllowedTimeResponse,
             Response invalidBookingDetailDriverResponse, Response successResponse, Response failResponse)
         {
             var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString()));
@@ -66,14 +82,14 @@ namespace API.Services
             var updatedDetailDrivers = detailDrivers
                 .Include(x => x.BookingDetail)
                 .ToList()
-                .Select(x => 
-                { 
-                    x.TripStatus = BookingDetailDrivers.TripStatus.Cancelled; 
+                .Select(x =>
+                {
+                    x.TripStatus = BookingDetailDrivers.TripStatus.Cancelled;
                     x.BookingDetail.Status = BookingDetails.Status.Pending;
                     x.BookingDetail.MessageRoom = null;
                     x.BookingDetail.MessageRoomId = null;
                     x.CancelledReason = reason;
-                    return x; 
+                    return x;
                 })
                 .ToArray();
 
@@ -99,7 +115,7 @@ namespace API.Services
             {
                 await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = updatedDetailDriver.BookingDetailId, Type = TaskItems.MappingItemTypes.BookingDetail });
             }
-           
+
             return successResponse;
         }
 
@@ -108,7 +124,7 @@ namespace API.Services
             var bookingDetail = await AppServices.BookingDetail.GetById(bookingDetailDriver.BookingDetailId);
 
             if (bookingDetail == null) throw new Exception("Something went wrong, not found booking detail of this driver.");
-            
+
             if (bookingDetail != null)
             {
                 var today = DateTimeExtensions.NowDateOnly;
@@ -136,7 +152,7 @@ namespace API.Services
                         if (bookingDetailDriver.TripStatus == BookingDetailDrivers.TripStatus.Start)
                         {
                             //await CheckRadiusFromStartStation(bookingDetail, latitude, longitude);
-                        } 
+                        }
                         else
                         {
                             //await CheckRadiusFromEndStation(bookingDetail, latitude, longitude);
@@ -162,7 +178,7 @@ namespace API.Services
 
             bookingDetailDriver.TripStatus = tripStatus;
 
-            if(await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver))
+            if (await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver))
             {
                 var notiDTO = new NotificationDTO();
                 switch (bookingDetailDriver.TripStatus)

@@ -12,6 +12,7 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using FluentValidation;
+using Infrastructure.Data.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Serilog.Sinks.File;
 
@@ -538,6 +539,20 @@ namespace API.Services
                 .Include(x => x.Accounts)
                 .Include(x => x.UserLicenses)
                 .FirstOrDefaultAsync();
+        }
+
+        public PagingViewModel<IQueryable<DriverViewModel>>? GetDrivers(string searchValue, Users.Status status, PagingRequest paging)
+        {
+            searchValue = searchValue.ToLower();
+            var drivers = UnitOfWork.Users.List(x => x.Status == status && x.Accounts.First().Role.Id == Roles.DRIVER)
+                .Where(x => x.Code.ToString().Contains(searchValue) || 
+                            x.Name.ToLower().Contains(searchValue) || 
+                            x.Accounts.Any(x => x.RegistrationType == RegistrationTypes.Phone && x.Registration.Contains(searchValue)) ||
+                            x.Accounts.Any(x => x.RegistrationType == RegistrationTypes.Gmail && x.Registration.ToLower().Contains(searchValue))
+                )
+                .PagingMap<User, DriverViewModel>(Mapper, paging.Page, paging.PageSize, AppServices);
+
+            return drivers;
         }
     }
 }
