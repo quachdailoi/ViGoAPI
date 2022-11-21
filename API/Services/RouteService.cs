@@ -3,6 +3,7 @@ using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Responses;
 using API.Services.Constract;
 using API.Utils;
 using AutoMapper;
@@ -200,5 +201,18 @@ namespace API.Services
         {
             return UnitOfWork.Routes.Remove(route);
         }
+
+        public PagingViewModel<IQueryable<RouteViewModel>>? GetRoutes(string searchValue, PagingRequest paging)
+        {
+            searchValue = searchValue.ToLower();
+            var routes =
+                UnitOfWork.Routes.List(
+                    x => x.Code.ToString().Contains(searchValue) ||
+                    x.Name.ToLower().Contains(searchValue) ||
+                    x.RouteStations.Any(rs => rs.Station.Name.ToLower().Contains(searchValue) || rs.Station.Address.ToLower().Contains(searchValue))
+                ).PagingMap<Domain.Entities.Route, RouteViewModel>(Mapper, paging.Page, paging.PageSize, AppServices);
+
+            return routes;
+        } 
     }
 }

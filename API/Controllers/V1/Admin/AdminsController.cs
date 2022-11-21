@@ -474,5 +474,84 @@ namespace API.Controllers.V1.Admin
 
             return ApiResult(response);
         }
+
+		/// <summary>
+        ///     Search driver by status and search value, with search value is a part of Code or Name or Phone Number or Gmail
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     Get api/admins/drivers
+        ///     SearchValue: abc
+        ///     Status: 1 (0: Inactive, 1: Active, 2: Pending, 3: Rejected)
+        ///     Page: 1
+        ///     PageSize: 5
+        /// ```
+        /// </remarks>
+        /// <response code = "200">Get driver successfully.</response>
+        [HttpGet("drivers")]
+        public IActionResult SearchDriver([FromQuery] SearchDriverRequest request)
+        {
+            var drivers = AppServices.Driver.GetDrivers(request.SearchValue, request.Status, request.Paging);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Get drivers successfully.",
+                Data = drivers
+            });
+        }
+
+        /// <summary>
+        ///     Search station by search value, with search value is a part of Code or Name or Address
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     Get api/admins/stations
+        ///     SearchValue: abc
+        ///     Page: 1
+        ///     PageSize: 5
+        /// ```
+        /// </remarks>
+        /// <response code = "200">Get stations successfully.</response>
+        [HttpGet("stations")]
+        public IActionResult SearchStations([FromQuery] SearchStationRequest request)
+        {
+            var stations = AppServices.Station.GetStations(request.SearchValue, request.Paging);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Get stations successfully.",
+                Data = stations
+            });
+        }
+
+        /// <summary>
+        ///     Search routes by search value, with search value is a part of Code or Name or a part of Station Name or Station Address
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     Get api/admins/routes
+        ///     SearchValue: abc
+        ///     Page: 1
+        ///     PageSize: 5
+        /// ```
+        /// </remarks>
+        /// <response code = "200">Get routes successfully.</response>
+        [HttpGet("routes")]
+        public IActionResult SearchRoutes([FromQuery] SearchRouteRequest request)
+        {
+            var routes = AppServices.Route.GetRoutes(request.SearchValue, request.Paging);
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Get routes successfully.",
+                Data = routes
+            });
+        }
     }
 }

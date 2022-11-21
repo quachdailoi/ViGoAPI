@@ -29,6 +29,10 @@ namespace Infrastructure.Data.EntityConfigurations
                 .IsRequired()
                 .HasColumnName("code");
 
+            builder.Property(e => e.Name)
+                .IsRequired()
+                .HasColumnName("name");
+
             builder.Property(e => e.Steps)
                 .IsRequired()
                 .HasColumnType("jsonb[]")

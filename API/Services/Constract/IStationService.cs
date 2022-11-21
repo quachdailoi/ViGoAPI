@@ -2,6 +2,7 @@
 using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Responses;
 using Domain.Entities;
 
 namespace API.Services.Constract
@@ -27,5 +28,6 @@ namespace API.Services.Constract
         bool CheckStationWasBooked(int stationId);
         Task<bool> UpdateStation(UpdateStationRequest request, Station station);
         Task<bool> DeleteStation(Station station);
+        PagingViewModel<IQueryable<StationViewModel>>? GetStations(string searchValue, PagingRequest paging);
     }
 }

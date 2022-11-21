@@ -11,6 +11,7 @@ namespace API.Models
         [JsonIgnore]
         public int Id { get; set; }
         public Guid Code { get; set; }
+        public string Name { get; set; }
         public double Distance { get; set; }
         public double Duration { get; set; }
         public Routes.Status Status { get; set; } = Routes.Status.Active;

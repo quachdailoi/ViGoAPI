@@ -538,37 +538,14 @@ namespace API.Controllers.V1.Driver
 
             // start update all booking detail drivers - trip status to Start
             var result = await AppServices.BookingDetailDriver.StartBookingDetailDrivers(request.BookingDetailDriverCodes);
-            
+
             if (!result) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status500InternalServerError,
                 Message = "Failed to start booking detail driver."
             });
 
-            var users = AppServices.BookingDetailDriver.GetUsers(request.BookingDetailDriverCodes);
-            var notiInfo = users.ToDictionary(x => x.Id, x => x.FCMToken);
-            // send notification to users
-            var notiDTO = new NotificationDTO()
-            {
-                EventId = Events.Types.StartTrip,
-                Type = Notifications.Types.SpecificUser
-            };
-
-            await AppServices.Notification.SendPushNotifications(notiDTO, notiInfo);
-
-            // send signalR to users
-            for(int i = 0; i < users.Count; i++)
-            {
-                var userCode = users[0].Code.ToString();
-                await AppServices.SignalR.SendToUserAsync(userCode, "TripStatus", new
-                {
-                    BookingDetailDriverCode = request.BookingDetailDriverCodes[i],
-                    TripStatus = TripStatus.Start,
-                    TripStatusName = "Start"
-                });
-            }
-
-            // send sms to phones
+            // send sms to phones...
 
             return ApiResult(new()
             {
