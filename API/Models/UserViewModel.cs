@@ -55,6 +55,7 @@ namespace API.Models
     public class DriverInBookingDetailViewModel : DriverViewModel
     {
         public BookingDetailDrivers.TripStatus TripStatus { get; set; }
+        public Guid BookingDetailDriverCode { get; set; }
         public string StatusName { get => TripStatus.DisplayName(); }
     }
 

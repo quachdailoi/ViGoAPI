@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using API.Models.Requests;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.V1
@@ -21,6 +22,6 @@ namespace API.Controllers.V1
                 );
 
             return ApiResult(response);
-        }
+        }       
     }
 }

@@ -10,6 +10,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace API.Controllers.V1.Admin
 {
@@ -131,11 +132,12 @@ namespace API.Controllers.V1.Admin
         /// </remarks>
         /// <response code = "200"> Get reports successfully.</response>
         [HttpGet("reports")]
-        public async Task<IActionResult> GetReports([FromQuery] PagingRequest pagingRequest, Reports.Status? Status = null)
+        public async Task<IActionResult> GetReports([FromQuery] PagingRequest pagingRequest, Reports.Status? Status = null, string? PhoneNumber = null)
         {
             var response = await AppServices.Report.Get(
                 pagingRequest,
                 status: Status,
+                phoneNumber: PhoneNumber,
                 response: new()
                 {
                     Message = "Get reports successfully.",
@@ -164,7 +166,7 @@ namespace API.Controllers.V1.Admin
         [HttpPut("report")]
         public async Task<IActionResult> UpdateReportStatus([FromBody] UpdateReportStatusRequest request)
         {
-            var result = await AppServices.Report.UpdateStatus(request.Code, request.Status);
+            var result = await AppServices.Report.UpdateStatus(LoggedInUser.Id, request.Code, request.Status);
 
             var response = new Response();
 
@@ -231,6 +233,7 @@ namespace API.Controllers.V1.Admin
         /// ```
         /// Sample request:
         ///     GET api/admins/settings
+        ///     "Data type": 1: integer, 2: double, 3: time
         /// ```
         /// </remarks>
         /// <response code = "200">Get report data successfully.</response>
@@ -264,6 +267,23 @@ namespace API.Controllers.V1.Admin
         [HttpPost("settings")]
         public async Task<IActionResult> UpdateSettings(UpdateSettingRequest request)
         {
+            var errors = new Dictionary<Settings, string>();
+
+            foreach(var setting in request.Settings)
+            {
+                if(!UpdateSettingRequestValidator.ValidateSettingValue(setting.Key,setting.Value, out var errMsg))
+                {
+                    errors.TryAdd(setting.Key, errMsg);
+                }
+            }
+
+            if (errors.Any())
+                return ApiResult(new Response
+                {
+                    Message = JsonConvert.SerializeObject(errors),
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+
             var result = await AppServices.Setting.Update(request.Settings);
 
             if (!result)
@@ -358,6 +378,104 @@ namespace API.Controllers.V1.Admin
         }
 
         /// <summary>
+        ///     Create banner
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/admins/banner
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Create banner successfully.</response>
+        /// <response code = "500"> Fail to create banner.</response>
+        [HttpPost("banner")]
+        public async Task<IActionResult> Create([FromForm] CreateBannerRequest request)
+        {
+            var response =
+                await AppServices.Banner.Create(
+                    request,
+                    successResponse: new()
+                    {
+                        Message = "Create banner successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    },
+                    failResponse: new()
+                    {
+                        Message = "Fail to create banner.",
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    });
+
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        ///     Update banner
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     PUT api/admins/banner
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Create banner successfully.</response>
+        /// <response code = "500"> Fail to create banner.</response>
+        [HttpPut("banner")]
+        public async Task<IActionResult> Update([FromForm] UpdateBannerRequest request)
+        {
+            var response =
+                await AppServices.Banner.Update(
+                    request,
+                    successResponse: new()
+                    {
+                        Message = "Update banners successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    },
+                    notExistResponse: new()
+                    {
+                        Message = "Banner is not exist.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    failResponse: new()
+                    {
+                        Message = "Fail to update banners.",
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    });
+
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        ///     Update banner's priority
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     PUT api/admins/banners/priority
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Create banner successfully.</response>
+        /// <response code = "500"> Fail to create banner.</response>
+        [HttpPut("banners/priority")]
+        public async Task<IActionResult> UpdatePriority([FromBody] UpdateBannerPriorityRequest request)
+        {
+            var response =
+                await AppServices.Banner.UpdatePriority(
+                    request.Banners,
+                    successResponse: new()
+                    {
+                        Message = "Update banners successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    },
+                    failResponse: new()
+                    {
+                        Message = "Fail to update banners.",
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    });
+
+            return ApiResult(response);
+        }
+
+		/// <summary>
         ///     Search driver by status and search value, with search value is a part of Code or Name or Phone Number or Gmail
         /// </summary>
         /// <remarks>
