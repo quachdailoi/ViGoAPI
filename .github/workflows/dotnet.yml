@@ -20,7 +20,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: 
-        dotnet restore && dotnet tool restore  
+        dotnet restore && dotnet tool restore && export ASPNETCORE_ENVIRONMENT=production
     - name: Build
       run: dotnet build --no-restore
     - name: Test
