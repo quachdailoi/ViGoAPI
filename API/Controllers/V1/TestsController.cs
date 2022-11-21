@@ -82,15 +82,41 @@ namespace API.Controllers.V1
 
             //var value = await AppServices.Setting.GetValue<double>(Settings.DiscountPerEachSharingCase,0.5);
 
-            dynamic value = new ExpandoObject();
+            var list = new List<Number>
+            {
+                new Number
+                {
+                    Value = 2,
+                    Items = new List<int>{1,2,3,4,5}
+                },
+                new Number
+                {
+                    Value = 3,
+                    Items = new List<int>{1,2,3,4,5}
+                },
+                new Number
+                {
+                    Value = 4,
+                    Items = new List<int>{1,2,3,4,5,7,8,9,10}
+                },
+                new Number
+                {
+                    Value = 0,
+                    Items = new List<int>{1,2,3,4,5}
+                }
+            };
 
-            value.X = 2;
+            list = list.OrderBy(x => x.Value == 0 ? int.MaxValue - x.Items.Count : x.Items.Count / x.Value).ThenBy(x => x.Value).ToList();
 
-            value.X = "asdasd";
-
-            return Ok(value);
+            return Ok(list);
 
             //return Ok(await AppServices.VehicleType.GetWithFare());
+        }
+
+        public class Number
+        {
+            public int Value { get; set; }
+            public List<int> Items { get; set; } = new();
         }
 
         [HttpPost("dump/drivers")]

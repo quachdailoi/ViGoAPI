@@ -30,6 +30,12 @@ namespace API.Mapper
                         .Where(bdr => bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
                         .FirstOrDefault().TripStatus))
                 .ForMember(
+                    dest => dest.BookingDetailDriverCode,
+                    opt => opt.MapFrom(
+                        src => src.BookingDetailDrivers
+                        .Where(bdr => bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
+                        .FirstOrDefault().Code))
+                .ForMember(
                     dest => dest.Time,
                     opt => opt.MapFrom(
                         src => src.Booking.Time))

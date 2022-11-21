@@ -1,5 +1,6 @@
 ﻿using API.Models;
 using API.Models.DTO;
+using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
 
@@ -9,9 +10,15 @@ namespace API.Mapper
     {
         public ReportMappingProfile()
         {
+            IAppServices? service = null;
+
             CreateMap<Report, ReportViewModel>()
-                .ForMember(dest => dest.DateTime,
-                    opt => opt.MapFrom(src => src.CreatedAt));
+                .ForMember(
+                    dest => dest.DateTime,
+                    opt => opt.MapFrom(src => src.CreatedAt))
+                .ForMember(
+                    dest => dest.UpdatedAdmin,
+                    opt => opt.MapFrom(src => service.User.GetUserById(src.UpdatedBy).ToList()[0]));
 
             CreateMap<Report, ReportDTO>().ReverseMap();
         }

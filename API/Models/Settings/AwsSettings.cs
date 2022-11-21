@@ -18,6 +18,8 @@
 
         public static string DriverRegistrationFolder = $"{Section}DriverRegistrationFolder";
 
+        public static string BannerFolder = $"{Section}BannerFolder";
+
         public static string BucketName = $"{Section}BucketName";
 
         public static string RegionEndPoint = $"{Section}RegionEndPoint";

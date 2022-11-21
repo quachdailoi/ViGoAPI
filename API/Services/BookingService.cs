@@ -426,7 +426,9 @@ namespace API.Services
                     .ToListAsync());
 
                 var orderedRouteRoutines = rawOrderedRouteRoutines
-                    .OrderBy(routeRoutine => routeRoutine.BookingDetailDrivers.Count)
+                    .OrderBy(routeRoutine => routeRoutine.User.Rating == 0 ? 
+                        int.MaxValue - routeRoutine.BookingDetailDrivers.Count : 
+                        routeRoutine.BookingDetailDrivers.Count / routeRoutine.User.Rating)
                     .ThenByDescending(routeRoutine => routeRoutine.User.Rating)
                     .ThenBy(routeRoutine => routeRoutine.User.CancelledTripRate)
                     .ToList();
@@ -679,7 +681,9 @@ namespace API.Services
                     .ToListAsync();
 
             var orderedRouteRoutines = routeRoutines
-                    .OrderBy(routeRoutine => routeRoutine.BookingDetailDrivers.Count)
+                    .OrderBy(routeRoutine => routeRoutine.User.Rating == 0 ?
+                        int.MaxValue - routeRoutine.BookingDetailDrivers.Count :
+                        routeRoutine.BookingDetailDrivers.Count / routeRoutine.User.Rating)
                     .ThenByDescending(routeRoutine => routeRoutine.User.Rating)
                     .ThenBy(routeRoutine => routeRoutine.User.CancelledTripRate)
                     .ToList();
@@ -755,7 +759,9 @@ namespace API.Services
                     .ToListAsync();
 
             var orderedRouteRoutines = routeRoutines
-                    .OrderBy(routeRoutine => routeRoutine.BookingDetailDrivers.Count)
+                    .OrderBy(routeRoutine => routeRoutine.User.Rating == 0 ?
+                        int.MaxValue - routeRoutine.BookingDetailDrivers.Count :
+                        routeRoutine.BookingDetailDrivers.Count / routeRoutine.User.Rating)
                     .ThenByDescending(routeRoutine => routeRoutine.User.Rating)
                     .ThenBy(routeRoutine => routeRoutine.User.CancelledTripRate)
                     .ToList();

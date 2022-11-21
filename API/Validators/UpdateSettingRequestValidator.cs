@@ -24,7 +24,7 @@ namespace API.Validators
 
         }
 
-        public bool ValidateSettingValue(Settings key, string value, out string errorMsg)
+        public static bool ValidateSettingValue(Settings key, string value, out string errorMsg)
         {
             errorMsg = string.Empty;
             switch (key)
@@ -39,13 +39,13 @@ namespace API.Validators
                     {
                         if(doubleParsedValue < 0 || doubleParsedValue > 1)
                         {
-                            errorMsg = $"{key.DisplayName()} must be a double value between 0 and 1";
+                            errorMsg = $"{key.DisplayName()} must be a double value between 0% and 100%";
                             return false;
                         }
                     }
                     else
                     {
-                        errorMsg = $"{key.DisplayName()} must be a double value between 0 and 1";
+                        errorMsg = $"{key.DisplayName()} must be a double value between 0% and 100%";
                         return false;
                     }
                     break;

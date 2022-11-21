@@ -36,12 +36,15 @@ namespace API.Services
             return successResponse;
         }
 
-        public async Task<Response> Get(PagingRequest request, Response response, Reports.Status? status = null)
+        public async Task<Response> Get(PagingRequest request, Response response, Reports.Status? status = null, string? phoneNumber = null)
         {
             var reports = UnitOfWork.Reports.List();
 
             if (status.HasValue)
                 reports = reports.Where(e => e.Status == status.Value);
+
+            if (phoneNumber != null)
+                reports = reports.Where(e => e.User.Accounts.Any(a => a.RegistrationType == RegistrationTypes.Phone && a.Registration == phoneNumber));
 
             var paging = reports.PagingMap<Report, ReportViewModel>(Mapper, page: request.Page, pageSize: request.PageSize, AppServices);
 
@@ -52,7 +55,7 @@ namespace API.Services
         {
             var report =
                 await UnitOfWork.Reports.List(e => e.Code == code)
-                .MapTo<ReportViewModel>(Mapper)
+                .MapTo<ReportViewModel>(Mapper,AppServices)
                 .FirstOrDefaultAsync();
 
             if (report == null)
@@ -80,7 +83,7 @@ namespace API.Services
             return successResponse.SetData(data);
         }
 
-        public async Task<bool?> UpdateStatus(Guid code, Reports.Status status)
+        public async Task<bool?> UpdateStatus(int userId, Guid code, Reports.Status status)
         {
             var report =
                 await UnitOfWork.Reports.List(e => e.Code == code)
@@ -129,6 +132,7 @@ namespace API.Services
                             }
                             break;
                     }
+                    report.UpdatedBy = userId;
                     break;
                 default:
                     break;

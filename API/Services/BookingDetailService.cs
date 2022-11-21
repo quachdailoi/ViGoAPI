@@ -669,7 +669,7 @@ namespace API.Services
                 var discountPercent = sharingStep.Count * discountPerEachSharingCase;
                 if (discountPercent > thresholdDiscountPerEachSharingCase) discountPercent = thresholdDiscountPerEachSharingCase;
 
-                discount += ((await AppServices.Fare.CaculateFeeByDistance(bookingDetail.Booking.VehicleTypeId, distance, bookingDetail.Booking.Time)).TotalFee * discountPercent);
+                discount += ((await AppServices.Fare.CaculateFeeByDistance(bookingDetail.Booking.VehicleTypeId, distance, bookingDetail.Booking.Time, false, false)).TotalFee * discountPercent);
             }
 
             discount = Fee.FloorToHundreds(discount);

@@ -141,7 +141,8 @@ namespace Infrastructure.Data.Seeders
                 {
                     Id = Settings.DiscountPerEachSharingCase,
                     Key = Settings.DiscountPerEachSharingCase.ToString(),
-                    Value = "0.1"
+                    Value = "0.1",
+                    Type = SettingTypes.Pricing
                 },
                 new Setting
                 {
@@ -176,6 +177,12 @@ namespace Infrastructure.Data.Seeders
                     Key = Settings.TradeDisountForBookerCancelTrip.ToString(),
                     Value = "0.1",
                     Type = SettingTypes.Pricing
+                },
+                new Setting
+                {
+                    Id = Settings.BannerFileSizeLimit,
+                    Key = Settings.BannerFileSizeLimit.ToString(),
+                    Value = "20"
                 }
             });
         }

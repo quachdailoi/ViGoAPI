@@ -21,6 +21,7 @@ namespace API.Models
         public DateTimeOffset DateTime { get; set; }
 
         public ContactUserViewModel User { get; set; }
+        public ContactUserViewModel? UpdatedAdmin { get; set; } = null;
 
         public virtual T? GetData<T>()
         {
