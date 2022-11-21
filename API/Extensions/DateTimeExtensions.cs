@@ -15,6 +15,11 @@
             return TimeOnly.TryParseExact(dateOnlyStr, "HH:mm:ss", out timeOnly);
         }
 
+        public static bool TryParseExact(this string dateTimeStr, out DateTimeOffset dateTimeOffset)
+        {
+            return DateTimeOffset.TryParseExact(dateTimeStr, "dd-MM-yyyy HH:mm:ss", null, System.Globalization.DateTimeStyles.None ,out dateTimeOffset);
+        }
+
         public static DateOnly ParseExactDateOnly(string dateOnlyStr)
         {
             dateOnlyStr.TryParseExact(out DateOnly dateOnly);
@@ -27,6 +32,13 @@
             timeOnlyStr.TryParseExact(out TimeOnly timeOnly);
 
             return timeOnly;
+        }
+
+        public static DateTimeOffset ParseExactDateTime(string timeOnlyStr)
+        {
+            timeOnlyStr.TryParseExact(out DateTimeOffset dateTimeOffset);
+
+            return dateTimeOffset;
         }
 
         public static string ToFormatString(this DateOnly dateOnly) => dateOnly.ToString("dd-MM-yyyy");

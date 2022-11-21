@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Dynamic;
+using System.Security.Cryptography;
 using System.Text.Json;
 
 namespace API.Controllers.V1
@@ -83,33 +84,7 @@ namespace API.Controllers.V1
 
             //var value = await AppServices.Setting.GetValue<double>(Settings.DiscountPerEachSharingCase,0.5);
 
-            var list = new List<Number>
-            {
-                new Number
-                {
-                    Value = 2,
-                    Items = new List<int>{1,2,3,4,5}
-                },
-                new Number
-                {
-                    Value = 3,
-                    Items = new List<int>{1,2,3,4,5}
-                },
-                new Number
-                {
-                    Value = 4,
-                    Items = new List<int>{1,2,3,4,5,7,8,9,10}
-                },
-                new Number
-                {
-                    Value = 0,
-                    Items = new List<int>{1,2,3,4,5}
-                }
-            };
-
-            list = list.OrderBy(x => x.Value == 0 ? int.MaxValue - x.Items.Count : x.Items.Count / x.Value).ThenBy(x => x.Value).ToList();
-
-            return Ok(list);
+            return Ok(Guid.NewGuid().ToString().Split("-").Last().Substring(0,10).ToUpper());
 
             //return Ok(await AppServices.VehicleType.GetWithFare());
         }

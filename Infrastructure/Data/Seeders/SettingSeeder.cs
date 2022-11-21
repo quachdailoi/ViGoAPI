@@ -183,6 +183,12 @@ namespace Infrastructure.Data.Seeders
                     Id = Settings.BannerFileSizeLimit,
                     Key = Settings.BannerFileSizeLimit.ToString(),
                     Value = "20"
+                },
+                new Setting
+                {
+                    Id = Settings.PromotionFileSizeLimit,
+                    Key = Settings.BannerFileSizeLimit.ToString(),
+                    Value = "20"
                 }
             });
         }
