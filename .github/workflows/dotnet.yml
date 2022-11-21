@@ -11,7 +11,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    env:
+      ASPNETCORE_ENVIRONMENT: production
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET Core
@@ -20,7 +21,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: 
-        dotnet restore && dotnet tool restore && export ASPNETCORE_ENVIRONMENT=production
+        dotnet restore && dotnet tool restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
