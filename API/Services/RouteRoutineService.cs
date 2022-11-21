@@ -38,7 +38,7 @@ namespace API.Services
         {
             var newRouteRoutineData = new RouteRoutine()
             {
-                RouteId = request.Route.Id,
+                RouteId = request.RouteId,
                 StartTime = request.StartTimeParsed,
                 EndTime = request.EndTimeParsed,
                 StartAt = request.StartAtParsed,

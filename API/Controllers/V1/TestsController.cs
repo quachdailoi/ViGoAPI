@@ -1,4 +1,5 @@
 ﻿using API.Extensions;
+using API.Extensions;
 using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
@@ -237,7 +238,7 @@ namespace API.Controllers.V1
 
                         var fitRouteRoutines = routeRoutines
                             .Where(routeRoutine =>
-                                routeRoutine.User.Vehicle.VehicleTypeId == vehicleType.Id)
+                                routeRoutine.User.Vehicle.VehicleTypeId == (VehicleTypes.SpecificType)vehicleType.Id)
                             .ToList();
 
                         foreach (var routeRoutine in fitRouteRoutines)

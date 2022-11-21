@@ -12,7 +12,7 @@ namespace API.Mapper
             CreateMap<CreateRouteRoutineRequest, RouteRoutine>()
                 .ForMember(
                     dest => dest.RouteId,
-                    opt => opt.MapFrom(x => x.Route.Id)
+                    opt => opt.MapFrom(x => x.RouteId)
                 )
                 .ForMember(
                     dest => dest.StartAt,
