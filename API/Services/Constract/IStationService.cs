@@ -29,5 +29,6 @@ namespace API.Services.Constract
         Task<bool> UpdateStation(UpdateStationRequest request, Station station);
         Task<bool> DeleteStation(Station station);
         PagingViewModel<IQueryable<StationViewModel>>? GetStations(string searchValue, PagingRequest paging);
+        IQueryable<StationViewModel> GetStations(string searchValue);
     }
 }

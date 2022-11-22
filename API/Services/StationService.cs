@@ -339,6 +339,19 @@ namespace API.Services
 
             return stations;
         }
+
+        public IQueryable<StationViewModel> GetStations(string searchValue)
+        {
+            searchValue = searchValue.ToLower();
+            var stations =
+                UnitOfWork.Stations.List(x =>
+                    x.Code.ToString().Contains(searchValue) ||
+                    x.Name.ToLower().Contains(searchValue) ||
+                    x.Address.ToLower().Contains(searchValue)
+                ).MapTo<StationViewModel>(Mapper, AppServices);
+
+            return stations;
+        }
     }
 }
 

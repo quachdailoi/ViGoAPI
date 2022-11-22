@@ -3,7 +3,7 @@ namespace API.Models.Requests
 {
     public class SearchRouteRequest
     {
-        public string SearchValue { get; set; }
-        public PagingRequest Paging { get; set; }
+        public string SearchValue { get; set; } = string.Empty;
+        public PagingRequest? Paging { get; set; }
     }
 }

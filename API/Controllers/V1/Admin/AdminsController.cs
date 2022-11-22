@@ -126,18 +126,17 @@ namespace API.Controllers.V1.Admin
         ///     {
         ///         "Page": 1,
         ///         "PageSize": 10,
-        ///         "Status": 0, // 0: Pending, 1: Processed, 2: ProcessingDenied (nullable)
+        ///         "SearchValue": "abc"
         ///     }
         /// ```
         /// </remarks>
         /// <response code = "200"> Get reports successfully.</response>
         [HttpGet("reports")]
-        public async Task<IActionResult> GetReports([FromQuery] PagingRequest pagingRequest, Reports.Status? Status = null, string? PhoneNumber = null)
+        public IActionResult GetReports([FromQuery] SearchReportRequest request)
         {
-            var response = await AppServices.Report.Get(
-                pagingRequest,
-                status: Status,
-                phoneNumber: PhoneNumber,
+            var response = AppServices.Report.Get(
+                request.Paging,
+                searchValue: request.SearchValue,
                 response: new()
                 {
                     Message = "Get reports successfully.",
@@ -541,7 +540,10 @@ namespace API.Controllers.V1.Admin
         [HttpGet("stations")]
         public IActionResult SearchStations([FromQuery] SearchStationRequest request)
         {
-            var stations = AppServices.Station.GetStations(request.SearchValue, request.Paging);
+            object? stations;
+
+            if (request.Paging != null) stations = AppServices.Station.GetStations(request.SearchValue, request.Paging);
+            else stations = AppServices.Station.GetStations(request.SearchValue);
 
             return ApiResult(new()
             {
@@ -567,7 +569,10 @@ namespace API.Controllers.V1.Admin
         [HttpGet("routes")]
         public IActionResult SearchRoutes([FromQuery] SearchRouteRequest request)
         {
-            var routes = AppServices.Route.GetRoutes(request.SearchValue, request.Paging);
+            object? routes;
+
+            if (request.Paging != null) routes = AppServices.Route.GetRoutes(request.SearchValue, request.Paging);
+            else routes = AppServices.Route.GetRoutes(request.SearchValue);
 
             return ApiResult(new()
             {
