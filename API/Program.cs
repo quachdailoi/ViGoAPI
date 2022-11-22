@@ -80,8 +80,9 @@ FirebaseApp.Create(new AppOptions
 });
 
 string connectionString = string.Empty;
-
-if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
+var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+Console.WriteLine($"===> ENVIRONMENT: {env}");
+if (env == "production")
 {
     // Use connection string provided at runtime by Heroku.
     var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");

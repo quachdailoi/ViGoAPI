@@ -213,6 +213,19 @@ namespace API.Services
                 ).PagingMap<Domain.Entities.Route, RouteViewModel>(Mapper, paging.Page, paging.PageSize, AppServices);
 
             return routes;
-        } 
+        }
+
+        public IQueryable<RouteViewModel>? GetRoutes(string searchValue)
+        {
+            searchValue = searchValue.ToLower();
+            var routes =
+                UnitOfWork.Routes.List(
+                    x => x.Code.ToString().Contains(searchValue) ||
+                    x.Name.ToLower().Contains(searchValue) ||
+                    x.RouteStations.Any(rs => rs.Station.Name.ToLower().Contains(searchValue) || rs.Station.Address.ToLower().Contains(searchValue))
+                ).MapTo<RouteViewModel>(Mapper, AppServices);
+
+            return routes;
+        }
     }
 }

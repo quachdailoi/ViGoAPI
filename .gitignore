@@ -465,3 +465,5 @@ Domain/obj/
 
 # Migration
 # Migrations/
+
+appsettings.Production.json
