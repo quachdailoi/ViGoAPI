@@ -7,7 +7,7 @@ namespace API.Services.Constract
 {
     public interface IReportService
     {
-        Task<Response> Get(PagingRequest request, Response response, Reports.Status? status = null, string? phoneNumber = null);
+        Response Get(PagingRequest? request, Response response, string searchValue);
         Task<bool?> UpdateStatus(int userId, Guid code, Reports.Status status);
         Task<Response> GetData(Guid code, Response successResponse, Response notFoundResponse);
         Task<Response> Create(ReportDTO reportDTO, Response successResponse, Response failResponse);

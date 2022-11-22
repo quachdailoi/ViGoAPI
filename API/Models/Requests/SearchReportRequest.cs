@@ -1,6 +1,6 @@
 ﻿namespace API.Models.Requests
 {
-    public class SearchStationRequest
+    public class SearchReportRequest
     {
         public string SearchValue { get; set; } = string.Empty;
         public PagingRequest? Paging { get; set; }

@@ -36,19 +36,22 @@ namespace API.Services
             return successResponse;
         }
 
-        public async Task<Response> Get(PagingRequest request, Response response, Reports.Status? status = null, string? phoneNumber = null)
+        public Response Get(PagingRequest? paging, Response response, string searchValue)
         {
-            var reports = UnitOfWork.Reports.List();
+            searchValue = searchValue.Trim().ToLower();
 
-            if (status.HasValue)
-                reports = reports.Where(e => e.Status == status.Value);
+            object? data;
 
-            if (phoneNumber != null)
-                reports = reports.Where(e => e.User.Accounts.Any(a => a.RegistrationType == RegistrationTypes.Phone && a.Registration == phoneNumber));
+            var reports = UnitOfWork.Reports
+                    .List(
+                        e => e.User.Accounts.Any(a => a.RegistrationType == RegistrationTypes.Phone && a.Registration.Contains(searchValue)) ||
+                        e.User.Name.Contains(searchValue)
+                    );
 
-            var paging = reports.PagingMap<Report, ReportViewModel>(Mapper, page: request.Page, pageSize: request.PageSize, AppServices);
+            if (paging != null) data = reports.PagingMap<Report, ReportViewModel>(Mapper, page: paging.Page, pageSize: paging.PageSize, AppServices);
+            else data = reports.MapTo<ReportViewModel>(Mapper, AppServices);
 
-            return response.SetData(paging);
+            return response.SetData(data);
         }
 
         public async Task<Response> GetData(Guid code, Response successResponse, Response notFoundResponse)

@@ -25,5 +25,6 @@ namespace API.Services.Constract
         bool CheckRouteWasBooked(int routeId);
         Task<bool> DeleteRoute(Domain.Entities.Route route);
         PagingViewModel<IQueryable<RouteViewModel>>? GetRoutes(string searchValue, PagingRequest paging);
+        IQueryable<RouteViewModel>? GetRoutes(string searchValue);
     }
 }
