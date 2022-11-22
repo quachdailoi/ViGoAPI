@@ -18,6 +18,7 @@ namespace API.TaskQueues.TaskResolver
         public override Task Solve(IServiceProvider serviceProvider)
         {
             var _appService = serviceProvider.GetRequiredService<IAppServices>();
+            var _logger = serviceProvider.GetRequiredService<ILogger<RefundBookingTask>>();
             var subscriber = _appService.RedisMQ.GetSubscriber();
 
             var thread = new Thread(new ThreadStart(
@@ -25,23 +26,31 @@ namespace API.TaskQueues.TaskResolver
                 {
                     foreach (var item in currentJobs.GetConsumingEnumerable())
                     {
-                        bool? result = null;
-                        switch (item.Type)
+                        try
                         {
-                            case TaskItems.RefundItemTypes.Booking:
-                                result = await _appService.Booking.Refund(item.Code);                            
-                                break;
-                            case TaskItems.RefundItemTypes.BookingDetail:
-                                result = await _appService.BookingDetail.Refund(item.Code, item.Amount.Value, BookingDetails.RefundTypes.NotFoundDriver);
-                                break;
-                            case TaskItems.RefundItemTypes.TripSharing:
-                                result = await _appService.BookingDetail.Refund(item.Code, item.Amount.Value);
-                                break;
-                            default: break;
-                        }
+                            bool? result = null;
+                            switch (item.Type)
+                            {
+                                case TaskItems.RefundItemTypes.Booking:
+                                    result = await _appService.Booking.Refund(item.Code);
+                                    break;
+                                case TaskItems.RefundItemTypes.BookingDetail:
+                                    result = await _appService.BookingDetail.Refund(item.Code, item.Amount.Value, BookingDetails.RefundTypes.NotFoundDriver);
+                                    break;
+                                case TaskItems.RefundItemTypes.TripSharing:
+                                    result = await _appService.BookingDetail.Refund(item.Code, item.Amount.Value);
+                                    break;
+                                default: break;
+                            }
 
-                        if (result.HasValue && !result.Value)
-                            currentJobs.TryAdd(item, TimeSpan.FromMilliseconds(1000));
+                            if (result.HasValue && !result.Value)
+                                currentJobs.TryAdd(item, TimeSpan.FromMilliseconds(1000));
+                        }
+                        catch(Exception ex)
+                        {
+                            _logger.LogError(ex, "Error occurred executing {RefundTaskItem}.", nameof(item));
+                        }
+                        
                     }
                 }
                 ));
