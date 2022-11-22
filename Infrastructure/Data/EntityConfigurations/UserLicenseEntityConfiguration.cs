@@ -43,7 +43,20 @@ namespace Infrastructure.Data.EntityConfigurations
                 .WithMany(p => p.UserLicenses)
                 .HasForeignKey(e => e.LicenseTypeId);
 
-            builder.HasIndex(e => e.Code).IsUnique();
+            builder
+                .HasIndex(e => e.Code)
+                .HasFilter($"license_type_id = {(int)LicenseTypes.Identification}")
+                .IsUnique();
+
+            builder
+                .HasIndex(e => e.Code)
+                .HasFilter($"license_type_id = {(int)LicenseTypes.DriverLicense}")
+                .IsUnique();
+
+            builder
+                .HasIndex(e => e.Code)
+                .HasFilter($"license_type_id = {(int)LicenseTypes.VehicleRegistration}")
+                .IsUnique();
 
             builder.HasOne(x => x.FrontSideFile)
                 .WithMany(s => s.FrontSideUserLicenses)
