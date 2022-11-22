@@ -7,7 +7,6 @@ namespace API.Models
 {
     public class VehicleTypeViewModel
     {
-        [JsonIgnore]
         public int Id { get; set; }
         public Guid Code { get; set; } = Guid.NewGuid();
         public string Name { get; set; } = String.Empty;

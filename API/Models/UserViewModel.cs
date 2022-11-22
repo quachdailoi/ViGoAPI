@@ -32,9 +32,9 @@ namespace API.Models
         public double? CancelledTripRate { get; set; }
         public int? SuddenlyCancelledTrips { get; set; }
 
-        public UserLicenseViewModel Identification { get; set; }
-        public UserLicenseViewModel DriverLicense { get; set; }
-        public UserLicenseViewModel VehicleRegistration { get; set; }
+        public UserLicenseViewModel? Identification { get; set; } = null;
+        public UserLicenseViewModel? DriverLicense { get; set; } = null;
+        public UserLicenseViewModel? VehicleRegistration { get; set; } = null;
     }
 
     public class DriverViewModel
@@ -43,10 +43,14 @@ namespace API.Models
         public int Id { get; set; }
         public Guid Code { get; set; }
         public string Name { get; set; }
+        public DateTimeOffset? DateOfBirth { get; set; } = null;
+        public Users.Status Status { get; set; }
+        public string StatusName { get => Status.DisplayName(); }
         public int Gender { get; set; }
         public string? AvatarUrl { get; set; } = string.Empty;
         public Guid? AvatarCode { get; set; } = Guid.NewGuid();
         public string PhoneNumber { get; set; } = string.Empty;
+        public string Gmail { get; set; } = string.Empty;
         public VehicleViewModel Vehicle { get; set; }
         [JsonIgnore]
         public string FCMToken { get; set; }
