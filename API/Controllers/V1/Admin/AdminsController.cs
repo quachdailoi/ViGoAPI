@@ -576,5 +576,134 @@ namespace API.Controllers.V1.Admin
                 Data = routes
             });
         }
+
+        /// <summary>
+        ///     Get promotion
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     Get api/admins/promotions
+        /// ```
+        /// </remarks>
+        /// <response code = "200">Get promotions successfully.</response>
+        [HttpGet("promotions")]
+        public async Task<IActionResult> GetPromotion()
+        {
+            return ApiResult(new Response
+            {
+                Data = await AppServices.Promotion.Get(),
+                Message = "Get promotions successfully.",
+                StatusCode = StatusCodes.Status200OK
+            });
+        }
+
+        /// <summary>
+        ///     Create promotion
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     Post api/admins/promotion
+        ///     {
+        ///         Name : "abc",
+        ///         Code : "TEST2022" // nullable (server auto generate if null),
+        ///         Details: "abc",
+        ///         DiscountPercentage: 0.5,
+        ///         MaxDecrease: 50000,
+        ///         Type: 0, // 0: holiday, 1: more and more, 2: new user
+        ///         TotalUsage: 100, //nullable
+        ///         UsagePerUser: 2, //nullable
+        ///         ValidFrom: "22-11-2022 06:00:00", //nullable (dd-MM-yyyy HH:mm:ss)
+        ///         ValidUntil: "22-11-2022 16:00:00", //nullable
+        ///         MinTotalPrice: 10000, //nullable
+        ///         MinTickets: 20, //nullable
+        ///         PaymentMethods: 1, // 1: momo, 2:vnpay, 3: bankcard, 4: wallet, 5: zalopay
+        ///         VehicleTypes: 1, // 0: ViRide, 1: ViCar
+        ///         File: (file), //nullable
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <response code = "200">Create promotion successfully.</response>
+        /// <response code = "400">Duplicate promotion code.</response>
+        /// <response code = "500">Fail to create promotion.</response>
+        [HttpPost("promotion")]
+        public async Task<IActionResult> CreatePromotion([FromForm] CreatePromotionRequest request)
+        {
+            var response =
+                await AppServices.Promotion.Create(
+                    request,
+                    successResponse: new()
+                    {
+                        Message = "Create promotion successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    },
+                    duplicateResponse: new()
+                    {
+                        Message = "Duplicate promotion code.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    errorResponse: new()
+                    {
+                        Message = "Fail to create promotion.",
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    });
+
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        ///     Update promotion
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     Put api/admins/promotion
+        ///     {
+        ///         Name : "abc",
+        ///         Code : "TEST2022",
+        ///         Details: "abc",
+        ///         DiscountPercentage: 0.5,
+        ///         MaxDecrease: 50000,
+        ///         Type: 0, // 0: holiday, 1: more and more, 2: new user
+        ///         TotalUsage: 100, //nullable
+        ///         UsagePerUser: 2, //nullable
+        ///         ValidFrom: "22-11-2022 06:00:00", //nullable (dd-MM-yyyy HH:mm:ss)
+        ///         ValidUntil: "22-11-2022 16:00:00", //nullable
+        ///         MinTotalPrice: 10000, //nullable
+        ///         MinTickets: 20, //nullable
+        ///         PaymentMethods: 1, // 1: momo, 2:vnpay, 3: bankcard, 4: wallet, 5: zalopay
+        ///         VehicleTypes: 1, // 0: ViRide, 1: ViCar
+        ///         File: (file), //nullable
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <response code = "200">Update promotion successfully.</response>
+        /// <response code = "400">Promotion is not exist.</response>
+        /// <response code = "500">Fail to update promotion.</response>
+        [HttpPut("promotion")]
+        public async Task<IActionResult> UpdatePromotion([FromForm] UpdatePromotionRequest request)
+        {
+            var response =
+                await AppServices.Promotion.Update(
+                    request,
+                    successResponse: new()
+                    {
+                        Message = "Update promotion successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    },
+                    notExistResponse: new()
+                    {
+                        Message = "Promotion is not exist.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    errorResponse: new()
+                    {
+                        Message = "Fail to update promotion.",
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    });
+
+            return ApiResult(response);
+        }
     }
 }

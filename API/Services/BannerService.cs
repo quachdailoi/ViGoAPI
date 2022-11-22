@@ -38,12 +38,12 @@ namespace API.Services
                 Priority = request.Priority
             };
 
-            var file = await AppServices.File.UploadFileAsync(Configuration.Get<string>(AwsSettings.BannerFolder), request.File, Domain.Shares.Enums.FileTypes.BannerImage);
+            var file = await AppServices.File.UploadFileAsync($"{Configuration.Get<string>(AwsSettings.BannerFolder)}{Guid.NewGuid}", request.File, Domain.Shares.Enums.FileTypes.BannerImage);
 
             if (file == null)
                 return failResponse;
 
-            banner.File = file;
+            banner.FileId = file.Id;
 
             banner = await UnitOfWork.Banners.Add(banner);
 
@@ -62,6 +62,7 @@ namespace API.Services
         {
             var banner = await UnitOfWork.Banners
                 .List(x => x.Id == request.Id)
+                .Include(x => x.File)
                 .FirstOrDefaultAsync();
 
             if (banner == null) return notExistResponse;

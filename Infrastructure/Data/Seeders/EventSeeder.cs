@@ -81,7 +81,7 @@ namespace Infrastructure.Data.Seeders
                 new()
                 {
                     Id = Domain.Shares.Enums.Events.Types.HasNewRating,
-                    Tittle = "New Rating And Feedback",
+                    Tittle = "New rating and feedback",
                     Content = "You have new rating and feedback",
                     Status = Domain.Shares.Enums.Events.Status.Active,
                     Type = Domain.Shares.Enums.Events.SubTypes.Default
@@ -97,7 +97,7 @@ namespace Infrastructure.Data.Seeders
                 new()
                 {
                     Id = Domain.Shares.Enums.Events.Types.CompletedRefund,
-                    Tittle = "Complete Refund",
+                    Tittle = "Complete refund",
                     Content = "We have refunded for you successfully.",
                     Status = Domain.Shares.Enums.Events.Status.Active,
                     Type = Domain.Shares.Enums.Events.SubTypes.Default
@@ -105,7 +105,7 @@ namespace Infrastructure.Data.Seeders
                 new()
                 {
                     Id = Domain.Shares.Enums.Events.Types.NearlyBan,
-                    Tittle = "Be Cautions!!!",
+                    Tittle = "Be cautions!!!",
                     Content = "Be careful with the rate of cancelled trip, you reach 80% of permission of cancelled trip rate.",
                     Status = Domain.Shares.Enums.Events.Status.Active,
                     Type = Domain.Shares.Enums.Events.SubTypes.Default
