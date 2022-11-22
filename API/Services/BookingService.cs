@@ -331,15 +331,22 @@ namespace API.Services
             return (!mappedBookingDetailConflictWithBookingDetail.Any() &&
                     IsSatisfiedTimeCondition(routeRoutineStartTime, bookingDetail, routeStationDic));
         }
-        private async Task MapBookingDetailWithRouteRoutine(BookingDetail bookingDetail, RouteRoutine routeRoutine, Dictionary<Guid,Room> driverUserMessageRoomDic)
+        private async Task MapBookingDetailWithRouteRoutine(BookingDetail bookingDetail, RouteRoutine routeRoutine, Dictionary<Guid,Room> driverUserMessageRoomDic, bool mapForBookingDetail = true)
         {
             bookingDetail.Status = BookingDetails.Status.Ready;
-            bookingDetail.BookingDetailDrivers.Add(
-                new BookingDetailDriver
-                {
-                    BookingDetailId = bookingDetail.Id,
-                    RouteRoutineId = routeRoutine.Id,
-                });
+            if(mapForBookingDetail) 
+                bookingDetail.BookingDetailDrivers.Add(
+                    new BookingDetailDriver
+                    {
+                        BookingDetailId = bookingDetail.Id,
+                        RouteRoutineId = routeRoutine.Id,
+                    });
+            else
+                routeRoutine.BookingDetailDrivers.Add(
+                    new BookingDetailDriver
+                    {
+                        BookingDetail = bookingDetail
+                    });
 
             if (!driverUserMessageRoomDic.TryGetValue(routeRoutine.User.Code, out var room))
             {
@@ -532,9 +539,7 @@ namespace API.Services
                                e.Date == date &&
                                e.Booking.Time < routeRoutine.EndTime && e.Booking.Time >= routeRoutine.StartTime &&
                                e.Booking.Status == Bookings.Status.Started &&
-                               e.Booking.VehicleTypeId == routeRoutine.User.Vehicle.VehicleTypeId &&
-                               e.Booking.DeletedAt != null &&
-                               e.DeletedAt != null)
+                               e.Booking.VehicleTypeId == routeRoutine.User.Vehicle.VehicleTypeId)
                     .Include(e => e.BookingDetailDrivers)
                     .Include(e => e.Booking)
                     .ThenInclude(b => b.User)
@@ -573,7 +578,7 @@ namespace API.Services
                 var driverUserMessageRoomDic = new Dictionary<Guid, Room>();
 
                 foreach (var bookingDetail in newMappedBookingDetails)
-                    await MapBookingDetailWithRouteRoutine(bookingDetail, routeRoutine, driverUserMessageRoomDic);
+                    await MapBookingDetailWithRouteRoutine(bookingDetail, routeRoutine, driverUserMessageRoomDic,false);
             }
 
             return routeRoutine;
