@@ -55,6 +55,7 @@
 		<PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.4.0" />
 		<PackageReference Include="Twilio" Version="5.80.1" />
 
 		<PackageReference Include="System.Collections" Version="4.3.0" />

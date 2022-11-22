@@ -25,6 +25,12 @@ namespace API.Validators
             return x;
         }
 
+        protected bool DatetimeTryParse(string datetimeStr)
+        {
+            DateTimeOffset datetime;
+            return DateTimeExtensions.TryParseExact(datetimeStr, out datetime);
+        }
+
         protected bool DateOnlyTryParse(string? timeStr)
         {
             DateOnly date;
@@ -41,6 +47,12 @@ namespace API.Validators
         protected TimeOnly TimeOnlyParse(string timeOnlyString)
         {
             return new TimeOnly().ParseExact(timeOnlyString);
+        }
+
+        protected DateTimeOffset DatetimeParse(string datetimeString)
+        {
+            var split = datetimeString.Split(" ");
+            return ToDateTime(split[0], split[1]);
         }
 
         protected DateTimeOffset ToDateTime(string dateOnlyStr, string timeOnlyStr)

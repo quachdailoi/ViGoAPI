@@ -20,6 +20,8 @@
 
         public static string BannerFolder = $"{Section}BannerFolder";
 
+        public static string PromotionFolder = $"{Section}PromotionFolder";
+
         public static string BucketName = $"{Section}BucketName";
 
         public static string RegionEndPoint = $"{Section}RegionEndPoint";

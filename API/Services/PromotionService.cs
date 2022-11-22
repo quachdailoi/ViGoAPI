@@ -2,6 +2,7 @@
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
+using API.Models.Settings;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
@@ -106,7 +107,7 @@ namespace API.Services
             var bannerPromotions = 
                 await UnitOfWork.Promotions.List().Where(CheckPromotionValidFrom).Where(CheckPromotionValidUntil)
                     .OrderByDescending(x => x.CreatedAt)
-                    .MapTo<PromotionViewModel>(Mapper)
+                    .MapTo<PromotionViewModel>(Mapper, AppServices)
                     .ToListAsync();
 
             if (!bannerPromotions.Any()) return emptyResponse;
@@ -136,5 +137,86 @@ namespace API.Services
 
             return result != null && result.IsBookingAvailable ? result.Promotion : null;
         }
+
+        public async Task<Response> Create(CreatePromotionRequest request, Response successResponse, Response duplicateResponse, Response errorResponse)
+        {
+            var promotion = Mapper.Map<Promotion>(request);
+
+            if (!string.IsNullOrWhiteSpace(request.Code))
+            {
+                if (UnitOfWork.Promotions.List(x => x.Code == request.Code).Any())
+                    return duplicateResponse;
+
+                promotion.Code = request.Code;
+            }
+            else
+            {
+                //generate code
+                do
+                {
+                    promotion.Code = Guid.NewGuid().ToString().Split("-").Last().Substring(0, 10).ToUpper();
+                } while (UnitOfWork.Promotions.List(x => x.Code == promotion.Code).Any());
+            }
+
+            if (request.File != null)
+            {
+                var file = await AppServices.File.UploadFileAsync($"{Configuration.Get<string>(AwsSettings.PromotionFolder)}{Guid.NewGuid()}", request.File, FileTypes.PromotionImage);
+                if (file == null) return errorResponse;
+                promotion.FileId = file.Id;
+            }
+
+            var promotionCondition = Mapper.Map<PromotionCondition>(request);
+
+            promotion.PromotionCondition = promotionCondition;
+
+            promotion = await UnitOfWork.Promotions.Add(promotion);
+
+            if (promotion == null) return errorResponse;
+
+            var promotionVM = await UnitOfWork.Promotions
+                .List(x => x.Id == promotion.Id)
+                .MapTo<AdminPromotionViewModel>(Mapper, AppServices)
+                .FirstOrDefaultAsync();
+
+            return successResponse.SetData(promotionVM);
+        }
+
+        public async Task<Response> Update(UpdatePromotionRequest request, Response successResponse, Response notExistResponse,Response errorResponse)
+        {
+            var promotion = await UnitOfWork.Promotions
+                .List(x => x.Code == request.Code)
+                .Include(x => x.PromotionCondition)
+                .FirstOrDefaultAsync();
+
+            if (promotion == null) return notExistResponse;
+
+            promotion = Mapper.Map<Promotion>(request);
+
+            if(request.File != null)
+            {
+                if (promotion.File != null)
+                {
+                    if (!await AppServices.File.UpdateS3File(promotion.File.Path, request.File)) return errorResponse;
+                }
+                else
+                {
+                    var file = await AppServices.File.UploadFileAsync($"{Configuration.Get<string>(AwsSettings.PromotionFolder)}{Guid.NewGuid()}", request.File, FileTypes.PromotionImage);
+                    if (file == null) return errorResponse;
+                    promotion.FileId = file.Id;
+                }                    
+            }
+
+            promotion.PromotionCondition = Mapper.Map<PromotionCondition>(request);
+
+            if (!await UnitOfWork.Promotions.Update(promotion)) return errorResponse;
+
+            return successResponse;
+        }
+
+        public Task<List<AdminPromotionViewModel>> Get()
+        => UnitOfWork.Promotions
+            .List(x => x.Status == Promotions.Status.Available)
+            .MapTo<AdminPromotionViewModel>(Mapper, AppServices)
+            .ToListAsync();
     }
 }

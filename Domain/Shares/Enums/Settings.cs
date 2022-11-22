@@ -34,7 +34,8 @@ namespace Domain.Shares.Enums
         AllowedBookerCancelTripTime,
         TradeDisountForBookerCancelTrip,
         DriverRegistrationFileSizeLimit,
-        BannerFileSizeLimit
+        BannerFileSizeLimit,
+        PromotionFileSizeLimit
 
     }
 

@@ -17,7 +17,7 @@ namespace Domain.Entities
         public double DiscountPercentage { get; set; }
         public double MaxDecrease { get; set; }
         public Promotions.Types Type { get; set; }
-        public Promotions.Status Status { get; set; }
+        public Promotions.Status Status { get; set; } = Promotions.Status.Available;
 
         public AppFile? File { get; set; }
         public List<Booking> Bookings { get; set; }

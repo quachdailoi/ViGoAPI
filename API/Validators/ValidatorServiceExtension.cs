@@ -22,6 +22,8 @@ namespace API.Validators
             //services.AddScoped<IValidator<UpdateSettingRequest>, UpdateSettingRequestValidator>();
             services.AddScoped<IValidator<CreateBannerRequest>, CreateBannerRequestValidator>();
             services.AddScoped<IValidator<UpdateBannerRequest>, UpdateBannerRequestValidator>();
+            services.AddScoped<IValidator<CreatePromotionRequest>, CreatePromotionRequestValidator>();
+            services.AddScoped<IValidator<UpdatePromotionRequest>, UpdatePromotionRequestValidator>();
         }
     }
 }
