@@ -686,11 +686,12 @@ namespace API.Controllers.V1.Admin
         /// <response code = "200">Update promotion successfully.</response>
         /// <response code = "400">Promotion is not exist.</response>
         /// <response code = "500">Fail to update promotion.</response>
-        [HttpPut("promotion")]
-        public async Task<IActionResult> UpdatePromotion([FromForm] UpdatePromotionRequest request)
+        [HttpPut("promotions/{promotionId:int}")]
+        public async Task<IActionResult> UpdatePromotion(int promotionId, [FromForm] UpdatePromotionRequest request)
         {
             var response =
                 await AppServices.Promotion.Update(
+                    promotionId,
                     request,
                     successResponse: new()
                     {

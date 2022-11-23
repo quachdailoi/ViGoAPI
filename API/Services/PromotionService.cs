@@ -181,10 +181,10 @@ namespace API.Services
             return successResponse.SetData(promotionVM);
         }
 
-        public async Task<Response> Update(UpdatePromotionRequest request, Response successResponse, Response notExistResponse,Response errorResponse)
+        public async Task<Response> Update(int promotionId, UpdatePromotionRequest request, Response successResponse, Response notExistResponse,Response errorResponse)
         {
             var promotion = await UnitOfWork.Promotions
-                .List(x => x.Code == request.Code)
+                .List(x => x.Id == promotionId)
                 .Include(x => x.PromotionCondition)
                 .FirstOrDefaultAsync();
 

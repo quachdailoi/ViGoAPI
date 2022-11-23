@@ -18,7 +18,7 @@ namespace API.Mapper
                     opt => opt.MapFrom(src => src.CreatedAt))
                 .ForMember(
                     dest => dest.UpdatedAdmin,
-                    opt => opt.MapFrom(src => service.User.GetUserById(src.UpdatedBy).ToList()[0]));
+                    opt => opt.MapFrom(src => service.User.GetById(src.UpdatedBy)));
 
             CreateMap<Report, ReportDTO>().ReverseMap();
         }

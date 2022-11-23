@@ -19,5 +19,6 @@ namespace API.Services.Constract
         Task<Response> GetEmailWithFireBaseAuthAsync(LoginByEmailRequest request);
         Task CreateRange(List<User> users);
         Task CheckValidUserToLogin(UserViewModel userVm, RegistrationTypes registrationType);
+        User? GetById(int? id);
     }
 }
