@@ -245,10 +245,8 @@ namespace API.Controllers.V1
         [Authorize(Roles = "BOOKER")]
         public async Task<IActionResult> GetBookingDetailOnGoing([FromQuery] PagingRequest pagingRequest, BookingDetails.Status? Status = null)
         {
-            var user = LoggedInUser;
-
             var response = await AppServices.BookingDetail.GetOnGoing(
-                                            user.Id,
+                                            LoggedInUser.Id,
                                             dateFilterRequest: new DateFilterRequest { FromDate = DateTimeExtensions.NowDateOnly.ToFormatString() },
                                             pagingRequest: pagingRequest,
                                             Status,
@@ -266,7 +264,26 @@ namespace API.Controllers.V1
             return ApiResult(response);
         }
 
+        [HttpGet("booking-detail")]
+        [Authorize(Roles = "BOOKER")]
+        public async Task<IActionResult> GetBookingDetail([FromQuery] Guid Code)
+        {
+            var bookingDetailVM = await AppServices.BookingDetail.GetBookerViewModelByCode(Code);
 
+            if (bookingDetailVM == null)
+                return ApiResult(new Response
+                {
+                    Message = "Booking detail is not exist.",
+                    StatusCode = StatusCodes.Status200OK
+                });
+
+            return ApiResult(new Response
+            {
+                Data = bookingDetailVM,
+                Message = "Get booking detail successfully.",
+                StatusCode = StatusCodes.Status200OK
+            });
+        }
 
         ///// <summary>
         /////     Get booking details belong to user.
