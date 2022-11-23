@@ -1,5 +1,6 @@
 ﻿using API.Models.Requests;
 using API.Services.Constract;
+using Domain.Shares.Enums;
 using FluentValidation;
 
 namespace API.Validators
@@ -52,8 +53,7 @@ namespace API.Validators
                 .WithMessage("{PropertyName} must greater than or equal to 0");
 
             RuleFor(x => x.Type)
-                .NotEmpty()
-                .WithMessage("{PropertyName} must be not empty")
+                .Must(x => (int)x >= (int)Promotions.Types.Holiday && (int)x <= (int)Promotions.Types.MoreAndMore)
                 .NotNull()
                 .WithMessage("{PropertyName} must be not null");
 

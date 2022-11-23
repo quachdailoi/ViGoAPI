@@ -186,13 +186,33 @@ namespace API.Services
             var promotion = await UnitOfWork.Promotions
                 .List(x => x.Id == promotionId)
                 .Include(x => x.PromotionCondition)
+                .Include(x => x.File)
                 .FirstOrDefaultAsync();
 
             if (promotion == null) return notExistResponse;
 
-            promotion = Mapper.Map<Promotion>(request);
+            promotion.Code = request.Code;
+            promotion.Name = request.Name;
+            promotion.Details = request.Details;
+            promotion.DiscountPercentage = request.DiscountPercentage;
+            promotion.MaxDecrease = request.MaxDecrease;
+            promotion.Type = request.Type;
+            promotion.Status = request.Status;
 
-            if(request.File != null)
+            // update condition
+            promotion.PromotionCondition.TotalUsage = request.TotalUsage;
+            promotion.PromotionCondition.UsagePerUser = request.UsagePerUser;
+            promotion.PromotionCondition.ValidFrom = request.ValidFromParsed();
+            promotion.PromotionCondition.ValidUntil = request.ValidFromParsed();
+            promotion.PromotionCondition.MinTickets = request.MinTickets;
+            promotion.PromotionCondition.MinTotalPrice = request.MinTotalPrice;
+            promotion.PromotionCondition.PaymentMethods = request.PaymentMethods;
+            promotion.PromotionCondition.VehicleTypes = request.VehicleTypes;
+
+            // update user promotion
+
+            // file
+            if (request.File != null)
             {
                 if (promotion.File != null)
                 {
@@ -206,7 +226,7 @@ namespace API.Services
                 }                    
             }
 
-            promotion.PromotionCondition = Mapper.Map<PromotionCondition>(request);
+            //promotion.PromotionCondition = Mapper.Map<PromotionCondition>(request);
 
             if (!await UnitOfWork.Promotions.Update(promotion)) return errorResponse;
 

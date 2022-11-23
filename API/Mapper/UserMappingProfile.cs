@@ -74,7 +74,8 @@ namespace API.Mapper
                     otp => otp.MapFrom(src => src.File.GetFilePath(service)))
                 .ForMember(
                     dest => dest.AvatarCode,
-                    opt => opt.MapFrom(src => src.File.Code)).ReverseMap();
+                    opt => opt.MapFrom(src => src.File.Code))
+                .ReverseMap();
 
             CreateMap<User, MessageUserViewModel>()
                 .ForMember(
