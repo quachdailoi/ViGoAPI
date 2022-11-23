@@ -45,9 +45,6 @@ namespace API.Mapper
             CreateMap<CreatePromotionRequest, Promotion>()
                 .ForMember(
                     dest => dest.File,
-                    opt => opt.Ignore())
-                .ForMember(
-                    dest => dest.Code,
                     opt => opt.Ignore());
 
             CreateMap<CreatePromotionRequest, PromotionCondition>()
@@ -65,10 +62,13 @@ namespace API.Mapper
                     dest => dest.File,
                     opt => opt.Ignore())
                 .ForMember(
-                    dest => dest.Code,
+                    dest => dest.Id,
                     opt => opt.Ignore());
 
             CreateMap<UpdatePromotionRequest, PromotionCondition>()
+                .ForMember(
+                    dest => dest.Id,
+                    opt => opt.Ignore())
                 .ForMember(
                     dest => dest.ValidFrom,
                     opt => opt.MapFrom(

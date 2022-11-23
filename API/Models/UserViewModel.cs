@@ -67,7 +67,7 @@ namespace API.Models
         public string Name { get; set; }
         public int Gender { get; set; }
         public string? AvatarUrl { get; set; } = string.Empty;
-        public Guid AvatarCode { get; set; } = Guid.NewGuid();
+        public Guid? AvatarCode { get; set; } = Guid.NewGuid();
         public string PhoneNumber { get; set; } = string.Empty;
     }
 
