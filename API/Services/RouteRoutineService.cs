@@ -243,7 +243,7 @@ namespace API.Services
             } 
             else
             {
-                if (nowDateOnly.Month != startRoutineMonth || nowDateOnly.Month + 1 != startRoutineMonth) return new()
+                if (nowDateOnly.Month != startRoutineMonth && nowDateOnly.Month + 1 != startRoutineMonth) return new()
                 {
                     StatusCode = StatusCodes.Status400BadRequest,
                     Message = "You just sign routine for the rest of this month or the whole next month."
