@@ -54,6 +54,13 @@ namespace API.Validators
 
             RuleFor(x => x.Type)
                 .Must(x => (int)x >= (int)Promotions.Types.Holiday && (int)x <= (int)Promotions.Types.MoreAndMore)
+                .WithMessage("{PropertyName} is out of range")
+                .NotNull()
+                .WithMessage("{PropertyName} must be not null");
+
+            RuleFor(x => x.Status)
+                .Must(x => (int)x >= (int)Promotions.Status.Unavailable && (int)x <= (int)Promotions.Status.Available)
+                .WithMessage("{PropertyName} is out of range")
                 .NotNull()
                 .WithMessage("{PropertyName} must be not null");
 

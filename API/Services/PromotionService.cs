@@ -191,25 +191,7 @@ namespace API.Services
 
             if (promotion == null) return notExistResponse;
 
-            promotion.Code = request.Code;
-            promotion.Name = request.Name;
-            promotion.Details = request.Details;
-            promotion.DiscountPercentage = request.DiscountPercentage;
-            promotion.MaxDecrease = request.MaxDecrease;
-            promotion.Type = request.Type;
-            promotion.Status = request.Status;
-
-            // update condition
-            promotion.PromotionCondition.TotalUsage = request.TotalUsage;
-            promotion.PromotionCondition.UsagePerUser = request.UsagePerUser;
-            promotion.PromotionCondition.ValidFrom = request.ValidFromParsed();
-            promotion.PromotionCondition.ValidUntil = request.ValidFromParsed();
-            promotion.PromotionCondition.MinTickets = request.MinTickets;
-            promotion.PromotionCondition.MinTotalPrice = request.MinTotalPrice;
-            promotion.PromotionCondition.PaymentMethods = request.PaymentMethods;
-            promotion.PromotionCondition.VehicleTypes = request.VehicleTypes;
-
-            // update user promotion
+            promotion = Mapper.Map(request, promotion);
 
             // file
             if (request.File != null)
@@ -226,7 +208,7 @@ namespace API.Services
                 }                    
             }
 
-            //promotion.PromotionCondition = Mapper.Map<PromotionCondition>(request);
+            promotion.PromotionCondition = Mapper.Map(request, promotion.PromotionCondition);
 
             if (!await UnitOfWork.Promotions.Update(promotion)) return errorResponse;
 
