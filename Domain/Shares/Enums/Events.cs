@@ -29,7 +29,8 @@ namespace Domain.Shares.Enums
             BanDriver = 13,
             HaveTripSuddenly = 14,
             TripIncome = 15,
-            NewReport = 16
+            NewReport = 16,
+            CancelByBooker = 17
         }
 
         public enum Status

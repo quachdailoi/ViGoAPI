@@ -36,7 +36,6 @@ namespace Domain.Shares.Enums
         DriverRegistrationFileSizeLimit,
         BannerFileSizeLimit,
         PromotionFileSizeLimit
-
     }
 
     public enum SettingTypes

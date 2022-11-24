@@ -44,7 +44,7 @@ namespace API.Validators
         {
             try
             {
-                file.CheckFileSize(file.FileName, fileSizeLimit);
+                file.ValideSize(file.FileName, fileSizeLimit);
             }
             catch { return false; }
 

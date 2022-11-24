@@ -11,7 +11,9 @@ namespace Domain.Shares.Enums
         LoginOTP,
         RegisterOTP,
         VerificationOTP,
-        UpdateOTP
+        UpdateOTP,
+        MailLinkOTP,
+        SMSLinkOTP
     }
 
     public static class OtpTypesExtensions
@@ -28,6 +30,10 @@ namespace Domain.Shares.Enums
                     return 2;
                 case OtpTypes.UpdateOTP:
                     return 3;
+                case OtpTypes.MailLinkOTP:
+                    return 4;
+                case OtpTypes.SMSLinkOTP:
+                    return 5;
                 default:
                     return -1;
             }

@@ -722,24 +722,25 @@ namespace API.Services
             var tomorrowDateOnly = DateTimeExtensions.NowDateOnly.AddDays(1);
             var nowTimeOnly = DateTimeExtensions.NowTimeOnly;
 
-
             if (bookingDetail.Date < tomorrowDateOnly || (bookingDetail.Date == tomorrowDateOnly && nowTimeOnly > allowedBookerCancelTripTime))
                 return notAllowResponse;
+
+            var tradeDisountForBookerCancelTrip = await AppServices.Setting.GetValue(Settings.TradeDisountForBookerCancelTrip, 0.1);
+            if (bookingDetail.Status == BookingDetails.Status.Pending) tradeDisountForBookerCancelTrip = 0;
 
             bookingDetail.Status = BookingDetails.Status.PendingRefund;
             //bookingDetail.DeletedAt = DateTimeOffset.Now;
 
             var bookingDetailDriver = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet).FirstOrDefault();
 
-            if (bookingDetailDriver != null) bookingDetailDriver.TripStatus = BookingDetailDrivers.TripStatus.Cancelled;
+            if (bookingDetailDriver == null) throw new Exception("Not found booking detail driver.");
+
+            bookingDetailDriver.TripStatus = BookingDetailDrivers.TripStatus.Cancelled;
 
             if (!await UnitOfWork.BookingDetails.Update(bookingDetail))
                 return failedResponse;
 
-            if (bookingDetailDriver != null) 
-                await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = bookingDetailDriver.RouteRoutineId, Type = TaskItems.MappingItemTypes.RouteRoutine });
-
-            var tradeDisountForBookerCancelTrip = await AppServices.Setting.GetValue<double>(Settings.TradeDisountForBookerCancelTrip, 0.1);
+            await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = bookingDetailDriver.RouteRoutineId, Type = TaskItems.MappingItemTypes.RouteRoutine });
 
             await AppServices.RedisMQ.Publish(RefundBookingTask.REFUND_QUEUE, new RefundItemDTO 
             { 
@@ -747,6 +748,18 @@ namespace API.Services
                 Amount = (1- tradeDisountForBookerCancelTrip) * bookingDetail.Price, 
                 Type = TaskItems.RefundItemTypes.BookingDetail 
             });
+
+            var driver = bookingDetailDriver.RouteRoutine.User;
+
+            var notiDTO = new NotificationDTO()
+            {
+                EventId = Events.Types.CancelByBooker,
+                Type = Notifications.Types.SpecificUser,
+                Token = driver.FCMToken,
+                UserId = driver.Id
+            };
+
+            await AppServices.Notification.SendPushNotification(notiDTO);
 
             return successResponse;
         }
