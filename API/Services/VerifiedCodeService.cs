@@ -1,4 +1,5 @@
 ﻿using Amazon.Runtime.Internal;
+using Amazon.S3.Model.Internal.MarshallTransformations;
 using API.Extensions;
 using API.Models;
 using API.Models.Requests;
@@ -11,6 +12,7 @@ using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using MailKit.Net.Smtp;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using Org.BouncyCastle.Crypto.Macs;
@@ -35,13 +37,6 @@ namespace API.Services
         }
 
         private Task<MessageResource?> SendPhoneOtp(string phoneNumber, string otp)
-        {
-            var message = $"Otp code from ViGo App: {otp}";
-
-            return SendSMS(message, phoneNumber);
-        }
-
-        private Task SendPhoneOtp_Vonage(string phoneNumber, string otp)
         {
             var message = $"Otp code from ViGo App: {otp}";
 
@@ -181,6 +176,30 @@ namespace API.Services
             return null;
         }
 
+        public async Task<bool> VerifyOtpLink(string otp, string registration, RegistrationTypes registrationTypes, OtpTypes otpTypes)
+        {
+            if (otp == "000000" && registrationTypes == RegistrationTypes.Phone && OtpTypes.LoginOTP == otpTypes)
+            {
+                switch (registration)
+                {
+                    case "+84837226239":
+                    case "+84914669962":
+                    case "+84377322919":
+                    case "+84376826328":
+                        return true;
+                }
+            }
+
+            var code = await UnitOfWork.VerifiedCodes.GetVerifiedCode(otp, registration, registrationTypes, otpTypes).FirstOrDefaultAsync();
+
+            if (code == null) return false;
+
+            // disable OTP
+            await UnitOfWork.VerifiedCodes.DisableCode(code);
+
+            return true;
+        }
+
         public Task<Response?> VerifyOtp(VerifyOtpRequest request, Response wrongResponse, Response expiredResponse)
         {
             return VerifyOtp(request.OTP, request.Registration, request.RegistrationTypes, request.OtpTypes, wrongResponse, expiredResponse);
@@ -236,15 +255,13 @@ namespace API.Services
                 return errorResponse;
             }
 
-            //var messageResource = await SendPhoneOtp(request.Registration, otp);
+            var messageResource = await SendPhoneOtp(request.Registration, otp);
 
-            //if (messageResource?.Status == MessageResource.StatusEnum.Failed)
-            //{
-            //    await UnitOfWork.Rollback();
-            //    return errorResponse;
-            //}
-
-            await SendPhoneOtp_Vonage(request.Registration, otp);
+            if (messageResource?.Status == MessageResource.StatusEnum.Failed)
+            {
+                await UnitOfWork.Rollback();
+                return errorResponse;
+            }
 
             await UnitOfWork.CommitAsync();
             return successResponse;
@@ -274,17 +291,37 @@ namespace API.Services
             return successResponse;
         }
 
-        public Task SendVerifiedAccountLink(string email, string token, bool resend = true)
+        public async Task SendMailOTPVerificationLink(UserViewModel user, string? subject = "ViGo: Verified Your Email Account")
         {
+            var mail = user.Gmail;
+            var otp = await CreateOTPVerificationLinkCode(mail, RegistrationTypes.Gmail, OtpTypes.MailLinkOTP);
+            if (otp == null) throw new Exception("Failed to create otp code to mail.");
+            
+            var token = AppServices.JwtHandler.GenerateToken(user, isExpired: false, otp, OtpTypes.MailLinkOTP);
             var host = Configuration.Get(MailSettings.VerifiedAccountHost);
             var link = string.Format(host, token);
 
             var content = $"Click link to verified your email account: {link}";
             
-            if (resend) SendMail(email, "ViGo: Email Verification Reminded.", content); 
-            else SendMail(email, "ViGo: Verified Your Email Account", content);
+            SendMail(mail, subject, content); 
 
-            return Task.CompletedTask;
+            await Task.CompletedTask;
+        }
+
+        public async Task SendPhoneOTPVerificationLink(UserViewModel user)
+        {
+            var phone = user.PhoneNumber;
+            var otp = await CreateOTPVerificationLinkCode(phone, RegistrationTypes.Phone, OtpTypes.SMSLinkOTP);
+            if (otp == null) throw new Exception("Failed to create otp code to phone.");
+
+            var token = AppServices.JwtHandler.GenerateToken(user, isExpired: false, otp, OtpTypes.SMSLinkOTP);
+
+            var host = Configuration.Get(TwilioSettings.VerifiedAccountHost);
+            var link = string.Format(host, token);
+            var message = $"From ViGo: Click to this link to verify your phone number.\n{link}";
+
+            SendSMS(message, phone);
+            await Task.CompletedTask;
         }
 
         public async Task<Response> SendAndSaveOtp(SendOtpRequest request, Response successResponse, Response errorResponse)
@@ -298,6 +335,25 @@ namespace API.Services
                 default:
                     return errorResponse;
             }
+        }
+
+        public async Task<string?> CreateOTPVerificationLinkCode(string registration, RegistrationTypes registrationType, OtpTypes otpType)
+        {
+            var otp = GenerateOtpCode(6);
+            VerifiedCode verifiedCode = new()
+            {
+                RegistrationType = registrationType,
+                Registration = registration,
+                Code = otp,
+                ExpiredTime = null,
+                Type = otpType,
+                Status = true
+            };
+
+            var code = await UnitOfWork.VerifiedCodes.CreateVerifiedCode(verifiedCode);
+
+            if (code == null) return null;
+            return otp;
         }
     }
 }

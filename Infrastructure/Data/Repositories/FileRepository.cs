@@ -16,9 +16,11 @@ namespace Infrastructure.Data.Repositories
         {
         }
 
-        public Task<AppFile> GetById(int id)
+        public async Task<AppFile?> GetById(int? id)
         {
-            return List().Where(x => x.Id == id).FirstOrDefaultAsync();
+            if(id == null) return null;
+
+            return await List().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }

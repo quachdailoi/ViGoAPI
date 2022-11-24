@@ -5,6 +5,7 @@ using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Responses;
 using API.Services.Constract;
+using API.Utilities;
 using API.Utils;
 using AutoMapper;
 using Domain.Entities;
@@ -218,12 +219,11 @@ namespace API.Services
 
         public IQueryable<RouteViewModel>? GetRoutes(string searchValue)
         {
-            searchValue = searchValue.ToLower();
             var routes =
                 UnitOfWork.Routes.List(
-                    x => x.Code.ToString().Contains(searchValue) ||
-                    x.Name.ToLower().Contains(searchValue) ||
-                    x.RouteStations.Any(rs => rs.Station.Name.ToLower().Contains(searchValue) || rs.Station.Address.ToLower().Contains(searchValue))
+                    x => x.Code.ToString().TrimContainsIgnoreCase(searchValue) ||
+                    x.Name.TrimContainsIgnoreCase(searchValue) ||
+                    x.RouteStations.Any(rs => rs.Station.Name.TrimContainsIgnoreCase(searchValue) || rs.Station.Address.TrimContainsIgnoreCase(searchValue))
                 ).MapTo<RouteViewModel>(Mapper, AppServices);
 
             return routes;

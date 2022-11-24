@@ -215,11 +215,15 @@ namespace API.Services
             return successResponse;
         }
 
-        public Task<List<AdminPromotionViewModel>> Get()
-        => UnitOfWork.Promotions
-            .List(x => x.Status == Promotions.Status.Available)
-            .MapTo<AdminPromotionViewModel>(Mapper, AppServices)
-            .ToListAsync();
+        public Task<List<AdminPromotionViewModel>> Get(string searchValue)
+        {
+            searchValue = searchValue.Trim().ToLower();
+            return UnitOfWork.Promotions
+               .List(x => x.Status == Promotions.Status.Available)
+               .Where(x => x.Name.Trim().ToLower().Contains(searchValue) || x.Code.ToLower().Contains(searchValue))
+               .MapTo<AdminPromotionViewModel>(Mapper, AppServices)
+               .ToListAsync();
+        }
 
         public async Task<Response> Delete(List<int> ids, Response successResponse, Response notFoundResponse, Response failResponse)
         {

@@ -19,7 +19,6 @@ namespace Infrastructure.Data.EntityConfigurations
             builder.ToTable("verified_codes");
 
             builder.Property(e => e.ExpiredTime)
-                .IsRequired()
                 .HasColumnName("expired_time");
 
             builder.Property(e => e.Registration)

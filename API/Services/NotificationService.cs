@@ -5,7 +5,6 @@ using FirebaseAdmin.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using API.Utils;
 using API.Models.Requests;
 using API.Models.Responses;
 using API.Models;
@@ -102,7 +101,7 @@ namespace API.Services
 
             var message = new FirebaseAdmin.Messaging.Message()
             {
-                Data = Utils.Utils.ToDictionary<string>(dto.Data),
+                Data = Utilities.Utils.ToDictionary<string>(dto.Data),
                 Token = dto.Token,
                 Notification = new Notification()
                 {

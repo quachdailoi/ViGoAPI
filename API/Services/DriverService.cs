@@ -6,6 +6,7 @@ using API.Models.Response;
 using API.Models.Responses;
 using API.Models.Settings;
 using API.Services.Constract;
+using API.Utilities;
 using API.Validators;
 using AutoMapper;
 using Domain.Entities;
@@ -15,6 +16,7 @@ using FluentValidation;
 using Infrastructure.Data.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Serilog.Sinks.File;
+using System.Text.RegularExpressions;
 
 namespace API.Services
 {
@@ -237,7 +239,7 @@ namespace API.Services
                 .Where(x => x.RoleId == Roles.DRIVER && x.Verified == true).AnyAsync();
         }
 
-        public async Task<UserViewModel?> SubmitDriverRegistration(CreateDriverRegistrationRequest request)
+        public async Task<UserViewModel?> SubmitDriverRegistration(DriverInformationRequest request)
         {
             await UnitOfWork.CreateTransactionAsync();
 
@@ -258,7 +260,7 @@ namespace API.Services
             };
 
             //upload avatar
-            var newUser = new User()
+            User newUser = new()
             {
                 Name = request.Name,
                 Gender = request.Gender,
@@ -277,76 +279,34 @@ namespace API.Services
             newUser.FileId = avatar.Id;
 
             // identification
-            var identificationFrontSide = await UploadUserFile(
-                $"{newUser.Code}_front",
-                request.IdentificationFrontSideImage,
-                _identificationFolder,
-                FileTypes.IdentificationImageFront,
-                "identification's front side image");
-
-            var identificationBackSide = await UploadUserFile(
-                $"{newUser.Code}_back",
-                request.IdentificationBackSideImage,
-                _identificationFolder,
-                FileTypes.IdentificationImageBack,
-                "identification's back side image");
+            var identification = await UploadLicense2Side(
+                user: newUser,
+                licenseCode: request.IdentificationCode,
+                licenseType: LicenseTypes.Identification,
+                fileF: request.IdentificationFrontSideImage,
+                fileB: request.IdentificationBackSideImage
+            );
+            newUser.UserLicenses.Add(identification);
 
             // driver's license
-            var driverLicenseFrontSide = await UploadUserFile(
-                $"{newUser.Code}_front",
-                request.DriverLicenseFrontSideImage,
-                _driverLicenseFolder,
-                FileTypes.DriverLicenceFront,
-                "driver license's front side image");
-
-            var driverLicenseBackSide = await UploadUserFile(
-                $"{newUser.Code}_back",
-                request.DriverLicenseBackSideImage,
-                _driverLicenseFolder,
-                FileTypes.DriverLicenceBack,
-                "driver license's back side image");
+            var driverLicense = await UploadLicense2Side(
+                user: newUser,
+                licenseCode: request.DriverLicenseCode,
+                licenseType: LicenseTypes.DriverLicense,
+                fileF: request.DriverLicenseFrontSideImage,
+                fileB: request.DriverLicenseBackSideImage
+            );
+            newUser.UserLicenses.Add(driverLicense);
 
             //vehicle registration
-            var vehicleRegistrationFrontSide = await UploadUserFile(
-                $"{newUser.Code}_front",
-                request.VehicleRegistrationFrontSideImage,
-                _vehicleRegistrationFolder,
-                FileTypes.VehicleRegistrationFront,
-                "vehicle registration's front side image");
-
-            var vehicleRegistrationBackSide = await UploadUserFile(
-                $"{newUser.Code}_back",
-                request.VehicleRegistrationBackSideImage,
-                _vehicleRegistrationFolder,
-                FileTypes.VehicleRegistrationBack,
-                "vehicle registration's back side image");
-                
-            newUser.UserLicenses.Add(new()
-            {
-                Code = request.IdentificationCode,
-                UserId = newUser.Id,
-                FrontSideFileId = identificationFrontSide.Id,
-                BackSideFileId = identificationBackSide.Id,
-                LicenseTypeId = LicenseTypes.Identification
-            });
-
-            newUser.UserLicenses.Add(new()
-            {
-                Code = request.DriverLicenseCode,
-                UserId = newUser.Id,
-                FrontSideFileId = driverLicenseFrontSide.Id,
-                BackSideFileId = driverLicenseBackSide.Id,
-                LicenseTypeId = LicenseTypes.DriverLicense
-            });
-
-            newUser.UserLicenses.Add(new()
-            {
-                Code = request.VehicleRegistrationCode,
-                UserId = newUser.Id,
-                FrontSideFileId = vehicleRegistrationFrontSide.Id,
-                BackSideFileId = vehicleRegistrationBackSide.Id,
-                LicenseTypeId = LicenseTypes.VehicleRegistration
-            });
+            var vehicleRegistration = await UploadLicense2Side(
+                user: newUser,
+                licenseCode: request.VehicleRegistrationCode,
+                licenseType: LicenseTypes.VehicleRegistration,
+                fileF: request.VehicleRegistrationFrontSideImage,
+                fileB: request.VehicleRegistrationBackSideImage
+            );
+            newUser.UserLicenses.Add(vehicleRegistration);
 
             newUser.Vehicle = new()
             {
@@ -354,6 +314,8 @@ namespace API.Services
                 LicensePlate = request.LicensePlate,
                 VehicleTypeId = request.VehicleType
             };
+
+            newUser.Wallet = new();
 
             newUser = await UnitOfWork.Users.Add(newUser);
 
@@ -363,15 +325,71 @@ namespace API.Services
                 throw new Exception("Failed to create new user.");
             }
 
+            var userVM = UnitOfWork.Users.GetUserById(newUser.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
+            //send mail to driver to verify email account
+            await AppServices.VerifiedCode.SendMailOTPVerificationLink(userVM);
+            //send sms to driver to verify phone number account
+            await AppServices.VerifiedCode.SendPhoneOTPVerificationLink(userVM);
             await UnitOfWork.CommitAsync();
 
-            //send mail to driver to verify email account
-            var userVM = UnitOfWork.Users.GetUserById(newUser.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
-
-            var token = AppServices.JwtHandler.GenerateToken(userVM, isExpired: false);
-            AppServices.VerifiedCode.SendVerifiedAccountLink(userVM.Gmail, token, resend: false);
-
             return userVM;
+        }
+
+        private async Task<UserLicense> UploadLicense2Side(User user, string licenseCode, LicenseTypes licenseType, IFormFile? fileF, IFormFile? fileB)
+        {
+            FileTypes front;
+            FileTypes back;
+            string folder; 
+            string fileTypeName;
+
+            switch (licenseType)
+            {
+                case LicenseTypes.Identification:
+                    front = FileTypes.IdentificationImageFront;
+                    back = FileTypes.IdentificationImageBack;
+                    folder = _identificationFolder;
+                    fileTypeName = "identification's {0} side image";
+                    break;
+                case LicenseTypes.DriverLicense:
+                    front = FileTypes.DriverLicenceFront;
+                    back = FileTypes.DriverLicenceBack;
+                    folder = _driverLicenseFolder;
+                    fileTypeName = "driver license's {0} side image";
+                    break;
+                default:
+                    front = FileTypes.VehicleRegistrationFront;
+                    back = FileTypes.VehicleRegistrationBack;
+                    folder = _vehicleRegistrationFolder;
+                    fileTypeName = "vehicle registration's {0} side image";
+                    break;
+            }
+
+            if (fileF == null) throw new ValidationException(string.Format($"Not found {fileTypeName} to upload.", "front"));
+            if (folder == null) throw new ValidationException("Not found folder to save file");
+            var licenseFrontSide = await UploadUserFile(
+                fileName: $"{user.Code}_front",
+                file: fileF,
+                folder: folder,
+                fileType: front,
+                fileTypeName: string.Format(fileTypeName, "front"));
+
+            if (fileB == null) throw new ValidationException(string.Format($"Not found {fileTypeName} to upload.", "back"));
+            if (folder == null) throw new ValidationException("Not found folder to save file");
+            var licenseBackSide = await UploadUserFile(
+                fileName: $"{user.Code}_back",
+                file: fileB,
+                folder: folder,
+                fileType: back,
+                fileTypeName: string.Format(fileTypeName, "back"));
+
+            return new()
+            {
+                Code = licenseCode,
+                UserId = user.Id,
+                FrontSideFileId = licenseFrontSide.Id,
+                BackSideFileId = licenseBackSide.Id,
+                LicenseTypeId = licenseType
+            };
         }
 
         public PagingViewModel<IQueryable<UserViewModel>>? GetPendingDriverPaging(PagingRequest pagingRequest)
@@ -383,136 +401,309 @@ namespace API.Services
             return paging;
         }
 
-        public async Task<UserViewModel?> UpdateDriverRegistration(User pendingDriver, UpdateDriverRegistrationRequest request, Users.Status userStatus)
+        public async Task<UserViewModel?> UpdateDriver(string driverCode, DriverInformationRequest request, Users.Status userStatus)
         {
-            if (pendingDriver == null) throw new ValidationException("Not found pending driver with this code.");
-            var fileSize = await AppServices.Setting.GetValue(Settings.DriverRegistrationFileSizeLimit, 20);
-            var file = request.Avatar;
-            if (file != null)
+            var driver = UnitOfWork.Users.List(x => x.Code.ToString() == driverCode).FirstOrDefault();
+
+            var avatar = await UnitOfWork.Files.GetById(driver?.FileId);
+
+            if (driver == null) throw new ValidationException("Not found driver with this code to update.");
+
+            var isSuccess = true;
+
+            await UnitOfWork.CreateTransactionAsync();
+            // update avatar
+            var newAvatar = request.Avatar;
+            
+            if (newAvatar != null)
             {
-                file.CheckFileSize("Avatar", fileSize); // check avatar size
-                var path = pendingDriver.FilePath;
+                if (avatar != null) // update avtar path
+                {
+                    var path = avatar.Path;
 
-                if (!await AppServices.File.UpdateS3File(path, file))
-                    throw new Exception("Failed to update avatar file.");
+                    isSuccess = await AppServices.File.UpdateS3File(path, newAvatar);
+                }
+                else // create new avatar
+                {
+                    var path = $"{Configuration.Get(AwsSettings.UserAvatarFolder)}{driver.Code}";
+
+                    var uploaded = await AppServices.File.UploadFileAsync(path, newAvatar);
+                    
+                    isSuccess = uploaded != null;
+                    driver.FileId = uploaded.Id;
+                }
             }
+            if (!isSuccess) throw new Exception("Failed to update avatar file.");
+            //-----------------
 
-            var identification = AppServices.UserLicense.GetLicenseByUserIdAndType(pendingDriver.Id, LicenseTypes.Identification).FirstOrDefault();
-            file = request.IdentificationFrontSideImage;
-            if (file != null)
-            {
-                file.CheckFileSize("Identification front side", fileSize); // check size
-                var path = identification.FrontSideFile.Path;
-
-                if (!await AppServices.File.UpdateS3File(path, file))
-                    throw new Exception("Failed to update identification's front side file.");
-            }
-
-            file = request.IdentificationBackSideImage;
-            if (file != null)
-            {
-                file.CheckFileSize("Identification back side", fileSize); // check size
-                var path = identification.BackSideFile.Path;
-
-                if (!await AppServices.File.UpdateS3File(path, file))
-                    throw new Exception("Failed to update identification's front side file.");
-            }
-
-            var driverLicense = AppServices.UserLicense.GetLicenseByUserIdAndType(pendingDriver.Id, LicenseTypes.DriverLicense).FirstOrDefault();
-            file = request.DriverLicenseFrontSideImage;
-            if (file != null)
-            {
-                file.CheckFileSize("Driver license front side", fileSize);
-                var path = driverLicense.FrontSideFile.Path;
-
-                if (!await AppServices.File.UpdateS3File(path, file))
-                    throw new Exception("Failed to update driver license's front side file.");
-            }
-
-            file = request.DriverLicenseBackSideImage;
-            if (file != null)
-            {
-                file.CheckFileSize("Driver license back side", fileSize);
-                var path = driverLicense.BackSideFile.Path;
-
-                if (!await AppServices.File.UpdateS3File(path, file))
-                    throw new Exception("Failed to update driver license's front side file.");
-            }
-
-            var vehicleRegistration = AppServices.UserLicense.GetLicenseByUserIdAndType(pendingDriver.Id, LicenseTypes.VehicleRegistration).FirstOrDefault();
-            file = request.VehicleRegistrationFrontSideImage;
-            if (file != null)
-            {
-                file.CheckFileSize("Vehicle registration certificate front side", fileSize);
-                var path = vehicleRegistration.FrontSideFile.Path;
-
-                if (!await AppServices.File.UpdateS3File(path, file))
-                    throw new Exception("Failed to update vehicle registration's front side file.");
-            }
-
-            file = request.VehicleRegistrationBackSideImage;
-            if (file != null)
-            {
-                file.CheckFileSize("Vehicle registration certificate back side", fileSize);
-                var path = vehicleRegistration.BackSideFile.Path;
-
-                if (!await AppServices.File.UpdateS3File(path, file))
-                    throw new Exception("Failed to update vehicle registration's front side file.");
-            }
-
-            //update info
-            pendingDriver.Name = request.Name;
-            pendingDriver.Gender = request.Gender;
-            pendingDriver.DateOfBirth = request.DateOfBirth;
-
-            // check duplicate when change license code
-            var identificationCodeOld = pendingDriver.UserLicenses.Where(x => x.LicenseTypeId == LicenseTypes.Identification).First().Code;
-            var driverLicenseCodeOld = pendingDriver.UserLicenses.Where(x => x.LicenseTypeId == LicenseTypes.DriverLicense).First().Code;
-            var vehicleRegistrationCodeOld = pendingDriver.UserLicenses.Where(x => x.LicenseTypeId == LicenseTypes.VehicleRegistration).First().Code;
+            var validator = new DriverInformationRequestValidator(AppServices, ValidateTypes.CREATE);
 
             var identificationCodeNew = request.IdentificationCode;
             var driverLicenseCodeNew = request.DriverLicenseCode;
             var vehicleRegistrationCodeNew = request.VehicleRegistrationCode;
 
-            identificationCodeOld = identificationCodeNew;
-            driverLicenseCodeOld = driverLicenseCodeNew;
-            vehicleRegistrationCodeOld = driverLicenseCodeNew;
+            // update identification
+            var frontFile = request.IdentificationFrontSideImage;
+            var backFile = request.IdentificationBackSideImage;
+            var identification = AppServices.UserLicense.GetLicenseByUserIdAndType(driver.Id, LicenseTypes.Identification).FirstOrDefault();
+            
+            var errorMsg = "";
+            if (identification == null)
+            {
+                // not found identification -> create new
+                // check 2 image not null
+                errorMsg = "Not found identification, we need 2 image file to update";
+                
+                validator.CheckFileSize(frontFile, errorMsg);
+                validator.CheckFileSize(backFile, errorMsg);
 
-            var licensePlateOld = pendingDriver.Vehicle.LicensePlate;
+                identification = await UploadLicense2Side(driver, request.IdentificationCode, LicenseTypes.Identification, frontFile, backFile);
+                //driver.UserLicenses.Add(identification);
+                identification = await UnitOfWork.UserLicenses.Add(identification);
+            } 
+            else // update
+            {
+                // FRONT SIDE
+                if (frontFile != null)
+                {
+                    var path = identification.FrontSideFile.Path;
+
+                    if (!await AppServices.File.UpdateS3File(path, frontFile))
+                        throw new Exception("Failed to update identification's front side file.");
+                }
+
+                // BACK SIDE
+                if (backFile != null)
+                {
+                    var path = identification.BackSideFile.Path;
+
+                    if (!await AppServices.File.UpdateS3File(path, backFile))
+                        throw new Exception("Failed to update identification's front side file.");
+                }
+                identification.Code = identificationCodeNew;
+                identification.FrontSideFile = null;
+                identification.BackSideFile = null;
+                if (!await UnitOfWork.UserLicenses.Update(identification)) throw new Exception("Failed to update identification.");
+            }
+            //-----------------
+
+            // update driver license
+            frontFile = request.DriverLicenseFrontSideImage;
+            backFile = request.DriverLicenseBackSideImage;
+            var driverLicense = AppServices.UserLicense.GetLicenseByUserIdAndType(driver.Id, LicenseTypes.DriverLicense).FirstOrDefault();
+
+            if (driverLicense == null)
+            {
+                // not found driver license -> create new
+                // check 2 image not null
+                errorMsg = "Not found driver license, we need 2 image file to update";
+
+                validator.CheckFileSize(frontFile, errorMsg);
+                validator.CheckFileSize(backFile, errorMsg);
+
+                driverLicense = await UploadLicense2Side(driver, request.DriverLicenseCode, LicenseTypes.DriverLicense, frontFile, backFile);
+                driverLicense = await UnitOfWork.UserLicenses.Add(driverLicense);
+            }
+            else
+            {
+                // FRONT SIDE
+                if (frontFile != null)
+                {
+                    var path = driverLicense.FrontSideFile.Path;
+
+                    if (!await AppServices.File.UpdateS3File(path, frontFile))
+                        throw new Exception("Failed to update driver license's front side file.");
+                }
+
+                // BACK SIDE
+                if (backFile != null)
+                {
+                    var path = driverLicense.BackSideFile.Path;
+
+                    if (!await AppServices.File.UpdateS3File(path, backFile))
+                        throw new Exception("Failed to update driver license's front side file.");
+                }
+                driverLicense.Code = driverLicenseCodeNew;
+                driverLicense.FrontSideFile = null;
+                driverLicense.BackSideFile = null;
+
+                if (!await UnitOfWork.UserLicenses.Update(driverLicense)) throw new Exception("Failed to update driver license.");
+            }
+            //-----------------
+
+            // update vehicle registration
+            frontFile = request.VehicleRegistrationFrontSideImage;
+            backFile = request.VehicleRegistrationBackSideImage;
+            var vehicleRegistration = AppServices.UserLicense.GetLicenseByUserIdAndType(driver.Id, LicenseTypes.VehicleRegistration).FirstOrDefault();
+
+            if (vehicleRegistration == null)
+            {
+                // not found vehicle registration -> create new
+                // check 2 image not null
+                errorMsg = "Not found vehicle registration, we need 2 image file to update";
+
+                validator.CheckFileSize(frontFile, errorMsg);
+                validator.CheckFileSize(backFile, errorMsg);
+
+                vehicleRegistration = await UploadLicense2Side(driver, request.VehicleRegistrationCode, LicenseTypes.VehicleRegistration, frontFile, backFile);
+                vehicleRegistration = await UnitOfWork.UserLicenses.Add(vehicleRegistration);
+            }
+            else
+            {
+                if (frontFile != null)
+                {
+                    var path = vehicleRegistration.FrontSideFile.Path;
+
+                    if (!await AppServices.File.UpdateS3File(path, frontFile))
+                        throw new Exception("Failed to update vehicle registration's front side file.");
+                }
+
+                if (backFile != null)
+                {
+                    var path = vehicleRegistration.BackSideFile.Path;
+
+                    if (!await AppServices.File.UpdateS3File(path, backFile))
+                        throw new Exception("Failed to update vehicle registration's front side file.");
+                }
+
+                vehicleRegistration.Code = vehicleRegistrationCodeNew;
+                vehicleRegistration.FrontSideFile = null;
+                vehicleRegistration.BackSideFile = null;
+
+                if (!await UnitOfWork.UserLicenses.Update(vehicleRegistration)) throw new Exception("Failed to update vehicle registration.");
+            }
+            //-----------------
+
+            //update info
+            driver.Name = request.Name;
+            driver.Gender = request.Gender;
+            driver.DateOfBirth = request.DateOfBirth;
+
+            //check not found vehicle data of driver
             var licensePlateNew = request.LicensePlate;
+            var vehicleNameNew = request.VehicleName;
+            var vehicleTypeIdNew = request.VehicleType;
 
-            licensePlateOld = licensePlateNew;
+            var vehicle = UnitOfWork.Vehicles.List(x => x.UserId == driver.Id).FirstOrDefault();
+            if (vehicle != null) // update
+            {
+                vehicle.LicensePlate = licensePlateNew;
+                vehicle.Name = vehicleNameNew;
+                vehicle.VehicleTypeId = vehicleTypeIdNew;
 
-            pendingDriver.Vehicle.Name = request.VehicleName;
-            pendingDriver.Vehicle.VehicleTypeId = request.VehicleType;
+                if (!await UnitOfWork.Vehicles.Update(vehicle)) throw new Exception("Failed to update vehicle's license plate.");
+            }
+            else // create new
+            {
+                vehicle = new()
+                {
+                    Name = vehicleNameNew,
+                    VehicleTypeId = vehicleTypeIdNew,
+                    LicensePlate = licensePlateNew,
+                    UserId = driver.Id
+                };
 
-            pendingDriver.Status = userStatus;
+                if (await UnitOfWork.Vehicles.Add(vehicle) != null) throw new Exception("Failed to add new vehicle for driver.");
+            }
 
-            var rs = await UnitOfWork.Users.Update(pendingDriver);
-            if (!rs) return null;
-            var userVM = UnitOfWork.Users.GetUserById(pendingDriver.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
+            var emailAcc = AppServices.Account.GetAccountByUserCode(driver.Code.ToString(), RegistrationTypes.Gmail)?.FirstOrDefault();
+            var phoneAcc = AppServices.Account.GetAccountByUserCode(driver.Code.ToString(), RegistrationTypes.Phone)?.FirstOrDefault();
 
-            if (userStatus == Users.Status.Rejected)
+            var userVM = UnitOfWork.Users.GetUserById(driver.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
+
+            var sendMailOption = 0;
+            var sendSMS = false;
+
+            if (driver.Status == Users.Status.Pending && userStatus == Users.Status.Rejected)
             {
                 //send mail 
-                AppServices.VerifiedCode.SendMail(pendingDriver.Gmail, "ViGo: Rejected Your Driver Registration", "You driver registration was rejected, please contact to admin for details and support.");
+                sendMailOption = 1;
             }
-            else if (userStatus == Users.Status.Active)
+            else if (driver.Status == Users.Status.Pending && userStatus == Users.Status.Active)
             {
                 // if email account was not verified resend mail to user to verify account.
-                if (!userVM.HasVerifiedGmail)
+
+                if (emailAcc.Registration == request.Email)
                 {
-                    //send mail
-                    var token = AppServices.JwtHandler.GenerateToken(userVM, isExpired: false);
-                    AppServices.VerifiedCode.SendVerifiedAccountLink(userVM.Gmail, token, resend: true);
-                    throw new Exception("Driver's email was not verified, mail to remind driver to verify their mail was resent");
-                } 
+                    if (!userVM.HasVerifiedGmail)
+                    {
+                        //send mail
+                        await AppServices.VerifiedCode.SendMailOTPVerificationLink(userVM, "ViGo - REMINDED: Your driver registration is valid, final step: Click to this link");
+                        throw new Exception("Driver's email was not verified, mail to remind driver to verify their mail was resent");
+                    }
+                    else
+                    {
+                        // send mail
+                        sendMailOption = 4;
+                    }
+                }
                 else
                 {
-                    // send mail
-                    AppServices.VerifiedCode.SendMail(pendingDriver.Gmail, "ViGo: Approve Your Driver Registration", "You driver registration was approved, now you can use email to login to ViGo.");
+                    
+                    emailAcc.Registration = request.Email;
+                    emailAcc.Verified = false;
+                    userVM.Gmail = request.Email;
+                    if (!await UnitOfWork.Accounts.Update(emailAcc)) throw new Exception("Failed to update email.");
+                    //send mail to driver to verify email account
+                    sendMailOption = 2;
                 }
             }
+            else if (driver.Status == Users.Status.Active && userStatus == Users.Status.Active)
+            {
+                if (emailAcc.Registration != request.Email)
+                {
+                    emailAcc.Registration = request.Email;
+                    userVM.Gmail = request.Email;
+                    emailAcc.Verified = false;
+                    if (!await UnitOfWork.Accounts.Update(emailAcc)) throw new Exception("Failed to update email.");
+                    //send mail to driver to verify email account
+                    sendMailOption = 2;
+                    
+                }
+            }
+
+            if (phoneAcc.Registration != request.PhoneNumber)
+            {
+
+                phoneAcc.Registration = request.PhoneNumber;
+                userVM.PhoneNumber = request.PhoneNumber;
+                phoneAcc.Verified = false;
+                if (!await UnitOfWork.Accounts.Update(phoneAcc)) throw new Exception("Failed to update phone number.");
+                //send verification sms when change phone number
+                sendSMS = true;
+            }
+
+            driver.Status = userStatus;
+
+            var rs = await UnitOfWork.Users.Update(driver);
+            if (!rs) return null;
+
+            await UnitOfWork.CommitAsync();
+
+            switch(sendMailOption)
+            {
+                case 0:
+                    //not send mail
+                    break;
+                case 1:
+                    //send reject mail
+                    AppServices.VerifiedCode.SendMail(emailAcc.Registration, "ViGo: Rejected Your Driver Registration", "Your driver registration was rejected, please contact to admin for details and support.");
+                    break;
+                case 2:
+                    //send mail verification
+                    await AppServices.VerifiedCode.SendMailOTPVerificationLink(userVM);
+                    break;
+                case 3:
+                    //resend mail verification - notification
+                    break;
+                case 4:
+                    //send mail approve
+                    await AppServices.VerifiedCode.SendMail(emailAcc.Registration, "ViGo: Approve Your Driver Registration", "You driver registration was approved, now you can use email to login to ViGo.");
+                    break;
+            }
+            if(sendSMS) await AppServices.VerifiedCode.SendPhoneOTPVerificationLink(userVM);
+
+            userVM = UnitOfWork.Users.GetUserById(driver.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
 
             return userVM;
         }
@@ -531,7 +722,7 @@ namespace API.Services
             return fileObj;
         }
 
-        public Task<User?> GetPendingDriverByCode(string userCode)
+        public Task<User?> GetDriverByCode(string userCode)
         {
             return UnitOfWork.Users.List(x => x.Status == Users.Status.Pending && x.Code.ToString() == userCode)
                 .Include(x => x.File)
@@ -543,19 +734,19 @@ namespace API.Services
 
         public PagingViewModel<IQueryable<DriverViewModel>>? GetDrivers(string searchValue, Users.Status status, PagingRequest paging)
         {
-            searchValue = searchValue.ToLower();
+            searchValue = searchValue.Trim().ToLower();
             var drivers = UnitOfWork.Users.List(x => x.Status == status && x.Accounts.First().Role.Id == Roles.DRIVER)
-                .Where(x => x.Code.ToString().Contains(searchValue) || 
-                            x.Name.ToLower().Contains(searchValue) || 
-                            x.Accounts.Any(x => x.RegistrationType == RegistrationTypes.Phone && x.Registration.Contains(searchValue)) ||
-                            x.Accounts.Any(x => x.RegistrationType == RegistrationTypes.Gmail && x.Registration.ToLower().Contains(searchValue))
+                .Where(x => x.Code.ToString().Contains(searchValue) ||
+                            x.Name.Trim().ToLower().Contains(searchValue) ||
+                            x.Accounts.Any(acc => acc.RegistrationType == RegistrationTypes.Gmail && acc.Registration.Trim().ToLower().Contains(searchValue)) ||
+                            x.Accounts.Any(acc => acc.RegistrationType == RegistrationTypes.Phone && acc.Registration.Trim().ToLower().Contains(searchValue))
                 )
                 .PagingMap<User, DriverViewModel>(Mapper, paging.Page, paging.PageSize, AppServices);
 
             return drivers;
         }
 
-        public UserViewModel? GetDriverByCode(string code)
+        public UserViewModel? GetDriverVMByCode(string code)
         {
             var driver = UnitOfWork.Users.GetUserByCode(code).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
 

@@ -23,6 +23,8 @@ namespace API.Controllers
         protected IConfiguration Configuration => _config ?? (_config = HttpContext.RequestServices.GetRequiredService<IConfiguration>());
 
         protected UserViewModel? LoggedInUser => ((UserViewModel?)(HttpContextAccessor.HttpContext?.Items["User"]));
+        protected string? VerificationOTPLinkCode => ((string?)(HttpContextAccessor.HttpContext?.Items["OTP"]));
+        protected OtpTypes? VerificationOTPLinkCodeType => ((OtpTypes?)(HttpContextAccessor.HttpContext?.Items["OTP_TYPE"]));
 
         protected Response? CheckLoggedInUserToGetAccount(RegistrationTypes accountType, out UserViewModel? loggedInUser, out Account? account)
         {

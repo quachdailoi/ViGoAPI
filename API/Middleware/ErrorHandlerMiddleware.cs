@@ -1,5 +1,7 @@
 ﻿using API.Models.Response;
+using Domain.Interfaces.UnitOfWork;
 using FluentValidation;
+using Infrastructure.Data.UnitOfWork;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -19,7 +21,7 @@ namespace API.Middleware
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, ILogger<ErrorHandlerMiddleware> logger)
+        public async Task Invoke(HttpContext context, ILogger<ErrorHandlerMiddleware> logger, IUnitOfWork unitOfWork)
         {
             try
             {
@@ -31,6 +33,8 @@ namespace API.Middleware
             }
             catch (Exception error)
             {
+                await unitOfWork.Rollback();
+                
                 var response = context.Response;
                 response.ContentType = "application/json";
 
