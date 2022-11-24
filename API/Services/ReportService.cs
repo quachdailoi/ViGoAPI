@@ -18,9 +18,28 @@ namespace API.Services
         {
         }
 
-        public async Task<Response> Create(ReportDTO reportDto, Response successResponse, Response failResponse)
+        public async Task<Response> Create(ReportDTO reportDto, Response successResponse, Response duplicateResponse,Response failResponse)
         {
             var report = Mapper.Map<Report>(reportDto);
+
+            switch (reportDto.Type)
+            {
+                case Reports.Types.DriverNotComming:
+                    var duplicateReport = await UnitOfWork.Reports.List(x => x.Data == $"\"{reportDto.Data}\"").FirstOrDefaultAsync();
+
+                    if(duplicateReport != null)
+                        switch (duplicateReport.Status)
+                        {
+                            case Reports.Status.Pending:
+                                return duplicateResponse.SetMessage("This report has been received and in processcing.");
+                            case Reports.Status.Processced:
+                                return duplicateResponse.SetMessage("This report has been processed");
+                            default:
+                                return duplicateResponse.SetMessage("This report has been ignored to process");
+
+                        };
+                    break;
+            }
 
             report = await UnitOfWork.Reports.Add(report);
 
@@ -132,7 +151,26 @@ namespace API.Services
                                         Type = TaskItems.RefundItemTypes.BookingDetail
                                     });
                                 }
+
+                                var reportedDriver = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.Cancelled).OrderBy(e => e.CreatedAt).LastOrDefault()?.RouteRoutine.User;
+
+                                if(reportedDriver != null)
+                                {
+                                    await AppServices.User.UpdateStatus(reportedDriver.Id, Users.Status.Inactive);
+
+                                    var bookingDetailIds = await AppServices.BookingDetailDriver.GetNotYetBookingDetailId(reportedDriver.Id);
+
+                                    foreach(var id in bookingDetailIds)
+                                    {
+                                        await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO
+                                        {
+                                            Id = id,
+                                            Type = TaskItems.MappingItemTypes.BookingDetail
+                                        });
+                                    }
+                                }
                             }
+
                             break;
                     }
                     report.UpdatedBy = userId;

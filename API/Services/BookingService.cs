@@ -412,7 +412,8 @@ namespace API.Services
             var routeRoutines =
                 UnitOfWork.RouteRoutines
                 .List(routeRoutine => (routeRoutine.StartTime <= booking.Time && routeRoutine.EndTime > booking.Time) &&
-                                      routeRoutine.RouteId == booking.StartRouteStation.RouteId && routeRoutine.User.Vehicle.VehicleTypeId == booking.VehicleTypeId);
+                                      routeRoutine.RouteId == booking.StartRouteStation.RouteId && routeRoutine.User.Vehicle.VehicleTypeId == booking.VehicleTypeId &&
+                                      routeRoutine.User.Status == Users.Status.Active);
 
             var driverUserMessageRoomDic = new Dictionary<Guid, Room>();
 
@@ -673,7 +674,7 @@ namespace API.Services
                 await UnitOfWork.RouteRoutines
                 .List(routeRoutine => (routeRoutine.StartTime <= bookingDetail.Booking.Time && routeRoutine.EndTime > bookingDetail.Booking.Time) &&
                                       routeRoutine.RouteId == bookingDetail.Booking.StartRouteStation.RouteId && routeRoutine.User.Vehicle.VehicleTypeId == bookingDetail.Booking.VehicleTypeId &&
-                                      !cancelledRouteRoutineIds.Contains(routeRoutine.Id))
+                                      !cancelledRouteRoutineIds.Contains(routeRoutine.Id) && routeRoutine.User.Status == Users.Status.Active)
                 .Where(routeRoutine => !(routeRoutine.StartAt > bookingDetail.Date || routeRoutine.EndAt < bookingDetail.Date))
                     .Include(e => e.User)
                     .Include(e => e.BookingDetailDrivers.Where(bdr =>
@@ -751,7 +752,7 @@ namespace API.Services
                 await UnitOfWork.RouteRoutines
                 .List(routeRoutine => (routeRoutine.StartTime <= bookingDetail.Booking.Time && routeRoutine.EndTime > bookingDetail.Booking.Time) &&
                                       routeRoutine.RouteId == bookingDetail.Booking.StartRouteStation.RouteId && routeRoutine.User.Vehicle.VehicleTypeId == bookingDetail.Booking.VehicleTypeId &&
-                                      !cancelledRouteRoutineIds.Contains(routeRoutine.Id) && availableDrivers.Contains(routeRoutine.User.Code))
+                                      !cancelledRouteRoutineIds.Contains(routeRoutine.Id) && availableDrivers.Contains(routeRoutine.User.Code) && routeRoutine.User.Status == Users.Status.Active)
                 .Where(routeRoutine => !(routeRoutine.StartAt > bookingDetail.Date || routeRoutine.EndAt < bookingDetail.Date))
                     .Include(e => e.User)
                     .Include(e => e.BookingDetailDrivers.Where(bdr =>

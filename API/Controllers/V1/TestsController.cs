@@ -67,23 +67,8 @@ namespace API.Controllers.V1
 
         [HttpGet("test")]
         [AllowAnonymous]
-        public async Task<IActionResult> Test([FromQuery] int number)
+        public async Task<IActionResult> Test()
         {
-            //var dto = new ZaloCollectionLinkRequestDTO
-            //{
-            //    amount = 50000,
-            //    //order_id = 1,
-            //    callback_url = GetControllerContextUri() + "/zalopay/ipn"
-            //};
-
-            //var response = await AppServices.Payment.GenerateZaloPaymentUrl(dto);
-
-            //return Ok(response);
-
-            //var result = await AppServices.Payment.MomoRefund(2790637780, 15000);
-
-            //var value = await AppServices.Setting.GetValue<double>(Settings.DiscountPerEachSharingCase,0.5);
-
             var settingTime = await AppServices.Setting.GetValue<TimeOnly>(Settings.AllowedBookerCancelTripTime, new TimeOnly(19, 45));
 
             var nowTime = DateTimeExtensions.NowTimeOnly;
@@ -96,8 +81,6 @@ namespace API.Controllers.V1
                 TomorrowDate = tomorrowDate,
                 IsExpried = settingTime < nowTime
             });
-
-            //return Ok(await AppServices.VehicleType.GetWithFare());
         }
 
         public class Number

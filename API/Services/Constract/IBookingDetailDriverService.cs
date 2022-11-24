@@ -16,5 +16,6 @@ namespace API.Services.Constract
         Task<Response> CancelBookingDetailDrivers(string[] codes, string reason, Response invalidAllowedTimeResponse,
             Response invalidBookingDetailDriverResponse, Response successResponse, Response failResponse);
         List<User> GetUsers(string[] codes);
+        Task<List<int>> GetNotYetBookingDetailId(int driverId);
     }
 }

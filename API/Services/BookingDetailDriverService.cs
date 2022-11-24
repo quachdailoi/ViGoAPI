@@ -283,5 +283,13 @@ namespace API.Services
 
             return users;
         }
+
+        public Task<List<int>> GetNotYetBookingDetailId(int driverId)
+        {
+            return UnitOfWork.BookingDetailDrivers
+                .List(x => x.TripStatus == TripStatus.NotYet && x.RouteRoutine.UserId == driverId)
+                .Select(x => x.BookingDetailId)
+                .ToListAsync();
+        }
     }
 }

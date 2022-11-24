@@ -191,5 +191,16 @@ namespace API.Services
 
             return Task.CompletedTask;
         }
+
+        public async Task<bool?> UpdateStatus(int userId, Users.Status status)
+        {
+            var user = await UnitOfWork.Users.List(x => x.Id == userId).FirstOrDefaultAsync();
+
+            if (user == null) return null;
+
+            user.Status = status;
+
+            return await UnitOfWork.Users.Update(user);
+        }
     }
 }
