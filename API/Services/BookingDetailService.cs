@@ -735,9 +735,9 @@ namespace API.Services
 
             var bookingDetailDriver = bookingDetail.BookingDetailDrivers.Where(bdr => bdr.TripStatus == BookingDetailDrivers.TripStatus.NotYet).FirstOrDefault();
 
-            if (bookingDetailDriver == null) throw new Exception("Not found booking detail driver.");
+            if(bookingDetailDriver != null)
 
-            bookingDetailDriver.TripStatus = BookingDetailDrivers.TripStatus.Cancelled;
+                bookingDetailDriver.TripStatus = BookingDetailDrivers.TripStatus.Cancelled;
 
             if (!await UnitOfWork.BookingDetails.Update(bookingDetail))
                 return failedResponse;
@@ -751,17 +751,20 @@ namespace API.Services
                 Type = TaskItems.RefundItemTypes.BookingDetail 
             });
 
-            var driver = bookingDetailDriver.RouteRoutine.User;
-
-            var notiDTO = new NotificationDTO()
+            if(bookingDetailDriver != null)
             {
-                EventId = Events.Types.CancelByBooker,
-                Type = Notifications.Types.SpecificUser,
-                Token = driver.FCMToken,
-                UserId = driver.Id
-            };
+                var driver = bookingDetailDriver.RouteRoutine.User;
 
-            await AppServices.Notification.SendPushNotification(notiDTO);
+                var notiDTO = new NotificationDTO()
+                {
+                    EventId = Events.Types.CancelByBooker,
+                    Type = Notifications.Types.SpecificUser,
+                    Token = driver.FCMToken,
+                    UserId = driver.Id
+                };
+
+                await AppServices.Notification.SendPushNotification(notiDTO);
+            }     
 
             return successResponse;
         }
