@@ -377,6 +377,30 @@ namespace API.Controllers.V1.Admin
         }
 
         /// <summary>
+        ///     Get banners
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/admins/banners
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Get banners successfully.</response>
+        [HttpGet("banners")]
+        public async Task<IActionResult> GetBanners()
+        {
+            var response =
+                await AppServices.Banner.GetBanners(
+                    new Response
+                    {
+                        Message = "Get banners successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    });
+
+            return ApiResult(response);
+        }
+
+        /// <summary>
         ///     Create banner
         /// </summary>
         /// <remarks>
@@ -468,6 +492,46 @@ namespace API.Controllers.V1.Admin
                     failResponse: new()
                     {
                         Message = "Fail to update banners.",
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    });
+
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        ///     Delete banner
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     DELETE api/admins/banners
+        ///     {
+        ///         "Ids" : [1,2,3]
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Delete banners successfully.</response>
+        /// <response code = "400"> Banners are not exist.</response>
+        /// <response code = "500"> Fail to delete banners.</response>
+        [HttpDelete("banner")]
+        public async Task<IActionResult> DeleteBanners([FromBody] DeleteBannerRequest request)
+        {
+            var response =
+                await AppServices.Banner.Delete(
+                    request.Ids,
+                    successResponse: new()
+                    {
+                        Message = "Delete banners successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    },
+                    notFoundResponse: new()
+                    {
+                        Message = "Banners are not exist.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    failResponse: new()
+                    {
+                        Message = "Fail to delete banners.",
                         StatusCode = StatusCodes.Status500InternalServerError
                     });
 
@@ -671,6 +735,7 @@ namespace API.Controllers.V1.Admin
         ///         DiscountPercentage: 0.5,
         ///         MaxDecrease: 50000,
         ///         Type: 0, // 0: holiday, 1: more and more, 2: new user
+        ///         Status: 1, // 0: Unavailable, 1: Available
         ///         TotalUsage: 100, //nullable
         ///         UsagePerUser: 2, //nullable
         ///         ValidFrom: "22-11-2022 06:00:00", //nullable (dd-MM-yyyy HH:mm:ss)
@@ -706,6 +771,46 @@ namespace API.Controllers.V1.Admin
                     errorResponse: new()
                     {
                         Message = "Fail to update promotion.",
+                        StatusCode = StatusCodes.Status500InternalServerError
+                    });
+
+            return ApiResult(response);
+        }
+
+        /// <summary>
+        ///     Delete promotions
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     DELETE api/admins/promotions
+        ///     {
+        ///         "Ids" : [1,2,3]
+        ///     }
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Delete promotions successfully.</response>
+        /// <response code = "400"> Promotions are not exist.</response>
+        /// <response code = "500"> Fail to delete promotions.</response>
+        [HttpDelete("promotions")]
+        public async Task<IActionResult> DeletePromotions([FromBody] DeletePromotionRequest request)
+        {
+            var response =
+                await AppServices.Promotion.Delete(
+                    request.Ids,
+                    successResponse: new()
+                    {
+                        Message = "Delete promotions successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    },
+                    notFoundResponse: new()
+                    {
+                        Message = "Promotions are not exist.",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    },
+                    failResponse: new()
+                    {
+                        Message = "Fail to delete promotions.",
                         StatusCode = StatusCodes.Status500InternalServerError
                     });
 

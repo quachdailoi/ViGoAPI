@@ -220,5 +220,31 @@ namespace API.Services
             .List(x => x.Status == Promotions.Status.Available)
             .MapTo<AdminPromotionViewModel>(Mapper, AppServices)
             .ToListAsync();
+
+        public async Task<Response> Delete(List<int> ids, Response successResponse, Response notFoundResponse, Response failResponse)
+        {
+            var promotions = await UnitOfWork.Promotions
+                .List(x => ids.Contains(x.Id))
+                .Include(x => x.File)
+                .Include(x => x.PromotionCondition)
+                .ToListAsync();
+
+            if (promotions == null || !promotions.Any()) return notFoundResponse;
+
+            var now = DateTimeOffset.Now;
+
+            foreach (var promotion in promotions)
+            {
+                promotion.DeletedAt = now;
+                promotion.PromotionCondition.DeletedAt = now;
+
+                if(promotion.File != null)
+                    promotion.File.DeletedAt = now;
+            }
+
+            if (!await UnitOfWork.Promotions.UpdateRange(promotions.ToArray())) return failResponse;
+
+            return successResponse;
+        }
     }
 }
