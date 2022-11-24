@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 using FluentValidation;
 using API.Models.Requests;
 using API.Models.Responses;
+using API.Utils;
+using API.Utilities;
 
 namespace API.Services
 {
@@ -342,12 +344,11 @@ namespace API.Services
 
         public IQueryable<StationViewModel> GetStations(string searchValue)
         {
-            searchValue = searchValue.ToLower();
             var stations =
                 UnitOfWork.Stations.List(x =>
-                    x.Code.ToString().Contains(searchValue) ||
-                    x.Name.ToLower().Contains(searchValue) ||
-                    x.Address.ToLower().Contains(searchValue)
+                    x.Code.ToString().TrimContainsIgnoreCase(searchValue) ||
+                    x.Name.TrimContainsIgnoreCase(searchValue) ||
+                    x.Address.TrimContainsIgnoreCase(searchValue)
                 ).MapTo<StationViewModel>(Mapper, AppServices);
 
             return stations;

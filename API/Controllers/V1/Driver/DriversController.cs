@@ -727,15 +727,11 @@ namespace API.Controllers.V1.Driver
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> DriverRegister([FromForm] CreateDriverRegistrationRequest request)
+        public async Task<IActionResult> DriverRegister([FromForm] DriverInformationRequest request)
         {
             //validate request
-            var validationErrorMsg = await request.Validate(AppServices);
-            if (validationErrorMsg != null) return ApiResult(new()
-            {
-                StatusCode = StatusCodes.Status400BadRequest,
-                Message = validationErrorMsg
-            });
+            var validator = new DriverInformationRequestValidator(AppServices, validateType: ValidateTypes.CREATE);
+            await validator.Validate(request);
 
             var driver = await AppServices.Driver.SubmitDriverRegistration(request);
 
@@ -751,22 +747,33 @@ namespace API.Controllers.V1.Driver
         [AllowAnonymous]
         public async Task<IActionResult> VerifyEmailAccount(string token)
         {
-            var driverVM = LoggedInUser;
+            var driverVM = AppServices.JwtHandler.GetUserViewModelByToken(token);
+            var otpAndType = AppServices.JwtHandler.GetOtpAndTypeFromToken(token);
+            var otp = otpAndType?.Item1;
+            var otpType = otpAndType?.Item2;
 
-            if (driverVM == null || driverVM.RoleName != Roles.DRIVER.GetName()) return ApiResult(new()
+            if (driverVM == null || driverVM.RoleName != Roles.DRIVER.GetName() || otp == null || otpType == null) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status500InternalServerError,
-                Message = "Failed to verify your email account. Contact to amdmin to take support."
+                Message = "Failed to verify your email. Contact to amdmin to take support."
             });
 
-            if (driverVM.Status == Users.Status.Pending)
+            //if (driverVM.Status == Users.Status.Pending)
+            //{
+            //    return ApiResult(new()
+            //    {
+            //        StatusCode = StatusCodes.Status500InternalServerError,
+            //        Message = "Waiting for approval from admin before verify email."
+            //    });
+            //}
+
+            var verify = await AppServices.VerifiedCode.VerifyOtpLink(otp, driverVM.Gmail, RegistrationTypes.Gmail, OtpTypes.MailLinkOTP);
+
+            if (!verify) return ApiResult(new()
             {
-                return ApiResult(new()
-                {
-                    StatusCode = StatusCodes.Status500InternalServerError,
-                    Message = "Waiting for approval from admin before verify email."
-                });
-            }
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to verify your email or it already was verified. Contact to amdmin to take support."
+            });
 
             var emailAccount = AppServices.Account.GetAccountByUserCode(driverVM.Code.ToString(), RegistrationTypes.Gmail)?.FirstOrDefault();
 
@@ -779,7 +786,7 @@ namespace API.Controllers.V1.Driver
             if (!rs) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status500InternalServerError,
-                Message = "Something went wrong when verify email account."
+                Message = "Something went wrong when verify email."
             });
 
             //send email to notify user
@@ -788,6 +795,61 @@ namespace API.Controllers.V1.Driver
             {
                 StatusCode = StatusCodes.Status200OK,
                 Message = "Verified email account successfully, now you can use email to login to ViGo."
+            });
+        }
+
+        [HttpGet("phone/verify/{token}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> VerifyPhoneAccount(string token)
+        {
+            var driverVM = AppServices.JwtHandler.GetUserViewModelByToken(token);
+            var otpAndType = AppServices.JwtHandler.GetOtpAndTypeFromToken(token);
+            var otp = otpAndType?.Item1;
+            var otpType = otpAndType?.Item2;
+
+            if (driverVM == null || driverVM.RoleName != Roles.DRIVER.GetName() || otp == null || otpType == null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to verify your phone number. Contact to amdmin to take support."
+            });
+
+            //if (driverVM.Status == Users.Status.Pending)
+            //{
+            //    return ApiResult(new()
+            //    {
+            //        StatusCode = StatusCodes.Status500InternalServerError,
+            //        Message = "Waiting for approval from admin before verify email."
+            //    });
+            //}
+
+            var verify = await AppServices.VerifiedCode.VerifyOtpLink(otp, driverVM.PhoneNumber, RegistrationTypes.Phone, OtpTypes.SMSLinkOTP);
+
+            if (!verify) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to verify your phone number or it already was verified. Contact to amdmin to take support."
+            });
+
+            var phoneAccount = AppServices.Account.GetAccountByUserCode(driverVM.Code.ToString(), RegistrationTypes.Phone)?.FirstOrDefault();
+
+            if (phoneAccount == null) throw new Exception("Something went wrong when verify your phone number.");
+
+            if (phoneAccount.Verified == false) phoneAccount.Verified = true;
+
+            var rs = await AppServices.Account.UpdateAccount(phoneAccount);
+
+            if (!rs) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Something went wrong when verify you phone number."
+            });
+
+            //send mail to notify user
+
+            return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "Verified phone number successfully."
             });
         }
     }

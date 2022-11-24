@@ -4,6 +4,7 @@ using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
 using API.Services.Constract;
+using API.Utilities;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
@@ -23,6 +24,17 @@ namespace API.Services
             var banners = await UnitOfWork.Banners.GetAll()
                 .Where(x => x.Active == true && x.Priority != null)
                 .OrderBy(x => x.Priority)
+                .MapTo<BannerViewModel>(Mapper, AppServices)
+                .ToListAsync();
+
+            return succeess.SetData(banners);
+        }
+
+        public async Task<Response> GetAllBanners(string title, Response succeess)
+        {
+            title = title.Trim().ToLower();
+            var banners = await UnitOfWork.Banners.GetAll()
+                .Where(x => x.Title.Trim().ToLower().Contains(title))
                 .MapTo<BannerViewModel>(Mapper, AppServices)
                 .ToListAsync();
 

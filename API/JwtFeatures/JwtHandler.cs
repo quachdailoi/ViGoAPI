@@ -3,6 +3,7 @@ using API.Models;
 using API.Models.Settings;
 using API.Services.Constract;
 using Domain.Entities;
+using Domain.Shares.Enums;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -36,16 +37,17 @@ namespace API.JwtFeatures
 			return new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha512);
 		}
 
-		private IDictionary<string, object> GetClaims(UserViewModel user, string? ipAddress = null)
+		private IDictionary<string, object> GetClaims(UserViewModel user, string? otp = null, OtpTypes? otpType = null)
 		{
 			IDictionary<string, object> claims = new Dictionary<string, object>();
 			claims.Add(ClaimTypes.Name, user.Name);
 			claims.Add(ClaimTypes.DateOfBirth, user.DateOfBirth);
 			claims.Add(ClaimTypes.Role, user.RoleName);
 
-			if (!string.IsNullOrEmpty(ipAddress))
+			if (!string.IsNullOrEmpty(otp) && otpType != null)
             {
-				claims.Add("ipAddress", ipAddress);
+				claims.Add("otp", otp);
+				claims.Add("otp_type", otpType);
             }
 
 			if (!string.IsNullOrEmpty(user.Gmail))
@@ -61,16 +63,24 @@ namespace API.JwtFeatures
 			return claims;
 		}
 
-		private SecurityTokenDescriptor GenerateTokenDescriptor(UserViewModel user, bool isExpired = true, string? ipAddress = null)
+		private SecurityTokenDescriptor GenerateTokenDescriptor(UserViewModel user, bool isExpired = true, string? otp = null, OtpTypes? otpType = null)
 		{
 			var tokenDescriptor = GenerateTokenDescriptor(isExpired);
 
-			tokenDescriptor.Subject = new ClaimsIdentity(new[] 
-			{ 
+			List<Claim> claims = new()
+			{
 				new Claim("id", user.Id.ToString()),
-				new Claim("code", user.Code.ToString())
-			});
-			tokenDescriptor.Claims = GetClaims(user, ipAddress);
+				new Claim("code", user.Code.ToString()),
+			};
+
+			if (otp != null && otpType != null)
+			{
+				claims.Add(new Claim("otp", otp));
+				claims.Add(new Claim("otp_type", ((int)otpType).ToString()));
+			}
+
+			tokenDescriptor.Subject = new ClaimsIdentity(claims);
+			tokenDescriptor.Claims = GetClaims(user, otp, otpType);
 
 			return tokenDescriptor;
 		}
@@ -119,11 +129,11 @@ namespace API.JwtFeatures
 			return tokenDescriptor;
 		}
 
-		public string GenerateToken(UserViewModel user, bool isExpired = true, string? ipAddress = null)
+		public string GenerateToken(UserViewModel user, bool isExpired = true, string? otp = null, OtpTypes? otpType = null)
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();
 
-			var tokenDescriptor = GenerateTokenDescriptor(user, isExpired, ipAddress);
+			var tokenDescriptor = GenerateTokenDescriptor(user, isExpired, otp, otpType);
 
 			var securityToken = tokenHandler.CreateToken(tokenDescriptor);
 
@@ -158,6 +168,29 @@ namespace API.JwtFeatures
 				return null;
 			}
 		}
+
+		public Tuple<string, OtpTypes>? GetOtpAndTypeFromToken(string? token)
+		{
+            if (token == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                GetPrincipal(token, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                var otp = jwtToken.Claims.First(x => x.Type == "otp").Value;
+				var otpType = (OtpTypes)int.Parse(jwtToken.Claims.First(x => x.Type == "otp_type").Value);
+
+                return new(otp, otpType);
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
 		public IQueryable<User>? GetUserByToken(string token)
         {

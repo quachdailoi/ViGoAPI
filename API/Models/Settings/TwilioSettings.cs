@@ -12,5 +12,6 @@
         public static string TimeResend = $"{Section}TimeResend";
 
         public static string ExpiredTime = $"{Section}ExpiredTime";
+        public static string VerifiedAccountHost { get; set; } = $"{Section}VerifiedAccountHost";
     }
 }

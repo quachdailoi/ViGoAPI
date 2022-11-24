@@ -14,6 +14,6 @@ namespace API.Services.Constract
         Task<Promotion?> GetPromotionByCode(string code, int userId, double totalPrice, int totalTickets, Payments.PaymentMethods paymentMethods);
         Task<Response> Create(CreatePromotionRequest request, Response successResponse, Response duplicateResponse, Response errorResponse);
         Task<Response> Update(UpdatePromotionRequest request, Response successResponse, Response notExistResponse, Response errorResponse);
-        Task<List<AdminPromotionViewModel>> Get();
+        Task<List<AdminPromotionViewModel>> Get(string searchValue);
     }
 }

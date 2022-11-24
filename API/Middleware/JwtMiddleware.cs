@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 
 namespace API.Middleware
@@ -37,15 +38,7 @@ namespace API.Middleware
                         var user = await jwtHandler.GetUserViewModelByTokenAsync(token);
 
                         context.Items["User"] = user;
-                    } 
-                    else
-                    {
-                        var token = (string?)context.GetRouteData().Values["token"];
-
-                        var user = await jwtHandler.GetUserViewModelByTokenAsync(token);
-
-                        context.Items["User"] = user;
-                    }                  
+                    }                 
                 }
             } 
             await _next(context);

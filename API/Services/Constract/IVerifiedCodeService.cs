@@ -1,4 +1,5 @@
-﻿using API.Models.Requests;
+﻿using API.Models;
+using API.Models.Requests;
 using API.Models.Response;
 using Domain.Entities;
 using Domain.Shares.Enums;
@@ -12,6 +13,9 @@ namespace API.Services.Constract
         Task<Response?> CheckValidTimeSendOtp(SendOtpRequest request, Response errorResponse);
         Task<Response> SendAndSaveOtp(SendOtpRequest request, Response successResponse, Response errorResponse);
         Task SendMail(string mail, string subject, string content);
-        Task SendVerifiedAccountLink(string email, string token, bool resend = true);
+        Task SendMailOTPVerificationLink(UserViewModel user, string? subject = "ViGo: Verified Your Email Account");
+        Task<string?> CreateOTPVerificationLinkCode(string registration, RegistrationTypes registrationType, OtpTypes otpType);
+        Task SendPhoneOTPVerificationLink(UserViewModel user);
+        Task<bool> VerifyOtpLink(string otp, string registration, RegistrationTypes registrationTypes, OtpTypes otpTypes);
     }
 }

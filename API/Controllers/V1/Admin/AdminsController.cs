@@ -350,30 +350,58 @@ namespace API.Controllers.V1.Admin
             });
         }
 
-        [HttpPut("driver-registrations/{userCode}")]
-        public async Task<IActionResult> UpdateDriverRegistration(string userCode, [FromForm] UpdateDriverRegistrationRequest request, [FromForm] Users.Status status)
+        [HttpPut("drivers/{userCode}")]
+        public async Task<IActionResult> UpdateDriver(string userCode, [FromForm] DriverInformationRequest request, [FromForm] Users.Status status)
         {
-            var pendingDriver = await AppServices.Driver.GetPendingDriverByCode(userCode);
+            var driver = await AppServices.Driver.GetDriverByCode(userCode);
 
-            if (pendingDriver == null)
+            if (driver == null)
                 throw new ValidationException("Not found pending driver with this code.");
 
             //validate request
-            var validationErrorMsg = request.Validate(AppServices, pendingDriver);
-            if (validationErrorMsg != null) return ApiResult(new()
-            {
-                StatusCode = StatusCodes.Status400BadRequest,
-                Message = validationErrorMsg
-            });
+            var validator = new DriverInformationRequestValidator(AppServices, validateType: ValidateTypes.UPDATE);
 
-            var driver = await AppServices.Driver.UpdateDriverRegistration(pendingDriver, request, status);
+            await validator.Validate(request, driver);
+
+            var driverVM = await AppServices.Driver.UpdateDriver(driver.Code.ToString(), request, status);
+
+            if (driverVM == null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Failed to update driver."
+            });
 
             return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status200OK,
                 Message = "Update driver registration successfully.",
-                Data = driver
+                Data = driverVM
             });
+        }
+
+        /// <summary>
+        ///     Get banner
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     GET api/admins/banner
+        /// ```
+        /// </remarks>
+        /// <response code = "200"> Get banner successfully.</response>
+        [HttpGet("banners")]
+        public async Task<IActionResult> GetBanners([FromQuery] string? Title = "")
+        {
+            var response =
+                await AppServices.Banner.GetAllBanners(
+                    Title,
+                    new()
+                    {
+                        Message = "Get banners successfully.",
+                        StatusCode = StatusCodes.Status200OK
+                    });
+
+            return ApiResult(response);
         }
 
         /// <summary>
@@ -387,8 +415,8 @@ namespace API.Controllers.V1.Admin
         /// </remarks>
         /// <response code = "200"> Create banner successfully.</response>
         /// <response code = "500"> Fail to create banner.</response>
-        [HttpPost("banner")]
-        public async Task<IActionResult> Create([FromForm] CreateBannerRequest request)
+        [HttpPost("banners")]
+        public async Task<IActionResult> CreateBanner([FromForm] CreateBannerRequest request)
         {
             var response =
                 await AppServices.Banner.Create(
@@ -418,8 +446,8 @@ namespace API.Controllers.V1.Admin
         /// </remarks>
         /// <response code = "200"> Create banner successfully.</response>
         /// <response code = "500"> Fail to create banner.</response>
-        [HttpPut("banner")]
-        public async Task<IActionResult> Update([FromForm] UpdateBannerRequest request)
+        [HttpPut("banners")]
+        public async Task<IActionResult> UpdateBanner([FromForm] UpdateBannerRequest request)
         {
             var response =
                 await AppServices.Banner.Update(
@@ -514,7 +542,7 @@ namespace API.Controllers.V1.Admin
         [HttpGet("drivers/{code}")]
         public IActionResult GetDriverByCode(string code)
         {
-            var driver = AppServices.Driver.GetDriverByCode(code);
+            var driver = AppServices.Driver.GetDriverVMByCode(code);
 
             return ApiResult(new()
             {
@@ -583,7 +611,7 @@ namespace API.Controllers.V1.Admin
         }
 
         /// <summary>
-        ///     Get promotion
+        ///     Search promotion
         /// </summary>
         /// <remarks>
         /// ```
@@ -593,11 +621,11 @@ namespace API.Controllers.V1.Admin
         /// </remarks>
         /// <response code = "200">Get promotions successfully.</response>
         [HttpGet("promotions")]
-        public async Task<IActionResult> GetPromotion()
+        public async Task<IActionResult> SearchPromotion([FromQuery] SearchPromotionRequest request)
         {
             return ApiResult(new Response
             {
-                Data = await AppServices.Promotion.Get(),
+                Data = await AppServices.Promotion.Get(request.SearchValue),
                 Message = "Get promotions successfully.",
                 StatusCode = StatusCodes.Status200OK
             });
