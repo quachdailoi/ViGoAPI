@@ -264,7 +264,7 @@ namespace API.Services
         public async Task<Response> GetProfile(int userId, Response successResponse)
         {
             var profile = await AppServices.User.GetUserViewModelById(userId);
-
+            profile.Settings = AppServices.Setting.GetAllSettings();
             return successResponse.SetData(profile);
         }
 
