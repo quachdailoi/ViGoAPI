@@ -35,6 +35,8 @@ namespace API.Models
         public UserLicenseViewModel Identification { get; set; }
         public UserLicenseViewModel DriverLicense { get; set; }
         public UserLicenseViewModel VehicleRegistration { get; set; }
+
+        public IEnumerable<object>? Settings { get; set; } = null;
     }
 
     public class DriverViewModel

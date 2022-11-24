@@ -16,9 +16,14 @@ namespace API.Services
 
         public async Task<Response> GetAll(Response response)
         {
-            var settings = (await UnitOfWork.Settings
-                .List(x => x.Type != null)
-                .ToListAsync())
+            var settings = GetAllSettings();
+
+            return response.SetData(settings);
+        }
+
+        public IEnumerable<object> GetAllSettings()
+        {
+            var settings = (UnitOfWork.Settings.List(x => x.Type != null).ToList())
                 .GroupBy(x => x.Type)
                 .Select(x => new
                 {
@@ -34,7 +39,7 @@ namespace API.Services
                     })
                 });
 
-            return response.SetData(settings);
+            return settings;
         }
 
         public async Task<bool> Update(Dictionary<Settings,string> items)
