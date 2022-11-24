@@ -71,7 +71,6 @@ namespace API.Services
 
         public async Task SendPushNotifications(NotificationDTO dto, Dictionary<int, string> userInfos, bool isSave = true)
         {
-            var listNotiSave = new List<Domain.Entities.Notification>();
             var message = MapToNotiMessage(dto);
 
             foreach(var info in userInfos)
@@ -79,16 +78,18 @@ namespace API.Services
                 message.Token = info.Value; // fcm token
                 dto.UserId = info.Key;
                 dto.Token = info.Value;
-                await PushNotificationSignalR(dto);
-
-                if (isSave)
-                {
-                    var notification = Mapper.Map<Domain.Entities.Notification>(dto);
-                    listNotiSave.Add(notification);
-                }
+                await PushNotificationSignalR(dto); 
 
                 try
                 {
+                    if (isSave)
+                    {
+                        Domain.Entities.Notification notification = new();
+                        notification = Mapper.Map(dto, notification);
+                        notification.Code = Guid.NewGuid();
+                        await UnitOfWork.Notifications.Add(notification);
+                    }
+                    
                     await FirebaseMessaging.DefaultInstance.SendAsync(message);
                 }
                 catch (Exception ex)
@@ -96,8 +97,7 @@ namespace API.Services
                     Logger<NotificationService>().LogError($"===> ERROR send push notification: {ex.Message}");
                 }
             }
-
-            await UnitOfWork.Notifications.Add(listNotiSave);
+           
         }
 
         private Message MapToNotiMessage(NotificationDTO dto)
