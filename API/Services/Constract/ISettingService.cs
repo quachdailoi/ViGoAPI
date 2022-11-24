@@ -8,6 +8,7 @@ namespace API.Services.Constract
         Task<string?> GetValue(Settings key);
         Task<T> GetValue<T>(Settings key, T defaultValue);
         Task<Response> GetAll(Response response);
-        Task<bool> Update(Dictionary<Settings, string> items);
+        Task<bool> Update(Dictionary<Settings, string> items); 
+        IEnumerable<object> GetAllSettings();
     }
 }
