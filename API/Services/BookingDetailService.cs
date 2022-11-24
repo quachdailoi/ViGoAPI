@@ -742,7 +742,7 @@ namespace API.Services
             if (!await UnitOfWork.BookingDetails.Update(bookingDetail))
                 return failedResponse;
 
-            await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = bookingDetailDriver.RouteRoutineId, Type = TaskItems.MappingItemTypes.RouteRoutine });
+            
 
             await AppServices.RedisMQ.Publish(RefundBookingTask.REFUND_QUEUE, new RefundItemDTO 
             { 
@@ -753,6 +753,7 @@ namespace API.Services
 
             if(bookingDetailDriver != null)
             {
+                await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = bookingDetailDriver.RouteRoutineId, Type = TaskItems.MappingItemTypes.RouteRoutine });
                 var driver = bookingDetailDriver.RouteRoutine.User;
 
                 var notiDTO = new NotificationDTO()
