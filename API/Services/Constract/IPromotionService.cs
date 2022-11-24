@@ -15,5 +15,6 @@ namespace API.Services.Constract
         Task<Response> Create(CreatePromotionRequest request, Response successResponse, Response duplicateResponse, Response errorResponse);
         Task<Response> Update(int promotionId, UpdatePromotionRequest request, Response successResponse, Response notExistResponse, Response errorResponse);
         Task<List<AdminPromotionViewModel>> Get();
+        Task<Response> Delete(List<int> ids, Response successResponse, Response notFoundResponse, Response failResponse);
     }
 }

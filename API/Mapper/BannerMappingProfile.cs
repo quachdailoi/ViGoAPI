@@ -17,6 +17,9 @@ namespace API.Mapper
                     model => model.FilePath,
                     config => config.MapFrom(src => src.File.GetFilePath(service))
                 );
+
+            CreateMap<Banner, AdminBannerViewModel>()
+                .IncludeBase<Banner, BannerViewModel>();
         }
     }
 }

@@ -29,6 +29,16 @@ namespace API.Services
             return succeess.SetData(banners);
         }
 
+        public async Task<Response> GetBanners(Response response)
+        {
+            var banners = await UnitOfWork.Banners.GetAll()
+                .OrderBy(x => x.Priority)
+                .MapTo<AdminBannerViewModel>(Mapper, AppServices)
+                .ToListAsync();
+
+            return response.SetData(banners);
+        }
+
         public async Task<Response> Create(CreateBannerRequest request, Response successResponse, Response failResponse)
         {
             var banner = new Banner
@@ -97,6 +107,28 @@ namespace API.Services
 
             if (!await UnitOfWork.Banners.UpdateRange(banners.ToArray()))
                 return failResponse;
+
+            return successResponse;
+        }
+
+        public async Task<Response> Delete(List<int> ids, Response successResponse, Response notFoundResponse, Response failResponse)
+        {
+            var banners = await UnitOfWork.Banners
+                .List(x => ids.Contains(x.Id))
+                .Include(x => x.File)
+                .ToListAsync();
+
+            if (banners == null || !banners.Any()) return notFoundResponse;
+
+            var now = DateTimeOffset.Now;
+
+            foreach(var banner in banners)
+            {
+                banner.DeletedAt = now;
+                banner.File.DeletedAt = now;
+            }
+
+            if (!await UnitOfWork.Banners.UpdateRange(banners.ToArray())) return failResponse;
 
             return successResponse;
         }
