@@ -210,7 +210,8 @@ namespace API.Services
                     x => x.Code.ToString().Contains(searchValue) ||
                     x.Name.ToLower().Contains(searchValue) ||
                     x.RouteStations.Any(rs => rs.Station.Name.ToLower().Contains(searchValue) || rs.Station.Address.ToLower().Contains(searchValue))
-                ).PagingMap<Domain.Entities.Route, RouteViewModel>(Mapper, paging.Page, paging.PageSize, AppServices);
+                )
+                .PagingMap<Domain.Entities.Route, RouteViewModel>(Mapper, paging.Page, paging.PageSize, AppServices);
 
             return routes;
         }

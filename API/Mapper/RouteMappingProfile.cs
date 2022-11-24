@@ -16,7 +16,7 @@ namespace API.Mapper
             CreateMap<Domain.Entities.Route, RouteViewModel>()
                 .ForMember(
                     dest => dest.Stations,
-                    opt => opt.MapFrom(src => src.RouteStations.Select(item => item.Station))
+                    opt => opt.MapFrom(src => src.RouteStations.OrderBy(x => x.Index).Select(item => item.Station))
                 );
                 //.ForMember(
                 //    dest => dest.UpdatedByAdmin,
