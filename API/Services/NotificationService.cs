@@ -88,7 +88,14 @@ namespace API.Services
                     listNotiSave.Add(notification);
                 }
 
-                FirebaseMessaging.DefaultInstance.SendAsync(message);
+                try
+                {
+                    await FirebaseMessaging.DefaultInstance.SendAsync(message);
+                }
+                catch (Exception ex)
+                {
+                    Logger<NotificationService>().LogError($"===> ERROR send push notification: {ex.Message}");
+                }
             }
 
             await UnitOfWork.Notifications.Add(listNotiSave);
