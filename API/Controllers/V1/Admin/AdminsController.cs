@@ -4,6 +4,7 @@ using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
+using API.Services;
 using API.Validators;
 using Domain.Shares.Enums;
 using FluentValidation;
@@ -314,6 +315,8 @@ namespace API.Controllers.V1.Admin
                     .SetMessage("Login failed - not found user with this gmail");
                 return ApiResult(response);
             }
+
+            await AppServices.User.CheckValidUserToLogin(user, RegistrationTypes.Gmail);
 
             string token = _jwtHandler.GenerateToken(user);
             string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());

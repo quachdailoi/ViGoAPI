@@ -1,4 +1,7 @@
 ﻿using API.JwtFeatures;
+using API.Services;
+using API.Services.Constract;
+using Domain.Shares.Enums;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -18,7 +21,7 @@ namespace API.Middleware
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, IJwtHandler jwtHandler)
+        public async Task Invoke(HttpContext context, IJwtHandler jwtHandler, IAppServices appServices)
         {
             var metaData = context.GetEndpoint()?.Metadata;
             
@@ -36,7 +39,15 @@ namespace API.Middleware
                         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
                         var user = await jwtHandler.GetUserViewModelByTokenAsync(token);
+                        if (user.RoleName == Roles.BOOKER.GetName())
+                        {
+                            await appServices.User.CheckValidUserToLogin(user, RegistrationTypes.Phone);
+                        }
+                        else
+                        {
+                            await appServices.User.CheckValidUserToLogin(user, RegistrationTypes.Gmail);
 
+                        }
                         context.Items["User"] = user;
                     }                 
                 }
