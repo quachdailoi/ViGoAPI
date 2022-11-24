@@ -713,6 +713,8 @@ namespace API.Services
             var bookingDetail = await UnitOfWork.BookingDetails
                 .List(e => e.Code == code)
                 .Include(e => e.BookingDetailDrivers)
+                .ThenInclude(bdr => bdr.RouteRoutine)
+                .ThenInclude(r => r.User)
                 .FirstOrDefaultAsync();
 
             if (bookingDetail == null) return notFoundResponse;
