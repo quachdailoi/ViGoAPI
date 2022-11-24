@@ -158,6 +158,16 @@ namespace API.Services
                                 {
                                     await AppServices.User.UpdateStatus(reportedDriver.Id, Users.Status.Inactive);
 
+                                    var notiDTO = new NotificationDTO()
+                                    {
+                                        EventId = Events.Types.BanDriver,
+                                        Type = Notifications.Types.SpecificUser,
+                                        Token = reportedDriver.FCMToken,
+                                        UserId = reportedDriver.Id
+                                    };
+
+                                    await AppServices.Notification.SendPushNotification(notiDTO);
+
                                     var bookingDetailIds = await AppServices.BookingDetailDriver.GetNotYetBookingDetailId(reportedDriver.Id);
 
                                     foreach(var id in bookingDetailIds)
