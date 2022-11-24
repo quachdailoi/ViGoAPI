@@ -20,5 +20,6 @@ namespace API.Services.Constract
         Task CreateRange(List<User> users);
         Task CheckValidUserToLogin(UserViewModel userVm, RegistrationTypes registrationType);
         User? GetById(int? id);
+        Task<bool?> UpdateStatus(int userId, Users.Status status);
     }
 }

@@ -866,6 +866,10 @@ namespace API.Controllers.V1.Booker
                     Message = "Report successfully.",
                     StatusCode = StatusCodes.Status200OK
                 },
+                duplicateResponse: new()
+                {
+                    StatusCode = StatusCodes.Status400BadRequest
+                },
                 failResponse: new()
                 {
                     Message = "Fail to report.",
