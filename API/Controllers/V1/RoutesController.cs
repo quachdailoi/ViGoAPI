@@ -92,6 +92,7 @@ namespace API.Controllers.V1
             });
 
             var route = await AppServices.Route.GetRouteByCode(request.RouteCode);
+            route.Name = request.RouteName;
 
             if (route == null) return ApiResult(new()
             {
