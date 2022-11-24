@@ -45,7 +45,7 @@ namespace API.Services
             var reports = UnitOfWork.Reports
                     .List(
                         e => e.User.Accounts.Any(a => a.RegistrationType == RegistrationTypes.Phone && a.Registration.Contains(searchValue)) ||
-                        e.User.Name.Contains(searchValue)
+                        e.User.Name.ToLower().Trim().Contains(searchValue)
                     );
 
             if (paging != null) data = reports.PagingMap<Report, ReportViewModel>(Mapper, page: paging.Page, pageSize: paging.PageSize, AppServices);
