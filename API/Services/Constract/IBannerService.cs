@@ -10,5 +10,6 @@ namespace API.Services.Constract
         Task<Response> Create(CreateBannerRequest request, Response successResponse, Response failResponse);
         Task<Response> Update(UpdateBannerRequest request, Response successResponse, Response notExistResponse, Response failResponse);
         Task<Response> UpdatePriority(Dictionary<int, int> pairs, Response successResponse, Response failResponse);
+        Task<Response> Delete(List<int> ids, Response successResponse, Response notFoundResponse, Response failResponse);
     }
 }

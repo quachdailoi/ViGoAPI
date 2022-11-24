@@ -181,18 +181,20 @@ namespace API.Services
             return successResponse.SetData(promotionVM);
         }
 
-        public async Task<Response> Update(UpdatePromotionRequest request, Response successResponse, Response notExistResponse,Response errorResponse)
+        public async Task<Response> Update(int promotionId, UpdatePromotionRequest request, Response successResponse, Response notExistResponse,Response errorResponse)
         {
             var promotion = await UnitOfWork.Promotions
-                .List(x => x.Code == request.Code)
+                .List(x => x.Id == promotionId)
                 .Include(x => x.PromotionCondition)
+                .Include(x => x.File)
                 .FirstOrDefaultAsync();
 
             if (promotion == null) return notExistResponse;
 
-            promotion = Mapper.Map<Promotion>(request);
+            promotion = Mapper.Map(request, promotion);
 
-            if(request.File != null)
+            // file
+            if (request.File != null)
             {
                 if (promotion.File != null)
                 {
@@ -206,7 +208,7 @@ namespace API.Services
                 }                    
             }
 
-            promotion.PromotionCondition = Mapper.Map<PromotionCondition>(request);
+            promotion.PromotionCondition = Mapper.Map(request, promotion.PromotionCondition);
 
             if (!await UnitOfWork.Promotions.Update(promotion)) return errorResponse;
 
@@ -221,6 +223,32 @@ namespace API.Services
                .Where(x => x.Name.Trim().ToLower().Contains(searchValue) || x.Code.ToLower().Contains(searchValue))
                .MapTo<AdminPromotionViewModel>(Mapper, AppServices)
                .ToListAsync();
+        }
+
+        public async Task<Response> Delete(List<int> ids, Response successResponse, Response notFoundResponse, Response failResponse)
+        {
+            var promotions = await UnitOfWork.Promotions
+                .List(x => ids.Contains(x.Id))
+                .Include(x => x.File)
+                .Include(x => x.PromotionCondition)
+                .ToListAsync();
+
+            if (promotions == null || !promotions.Any()) return notFoundResponse;
+
+            var now = DateTimeOffset.Now;
+
+            foreach (var promotion in promotions)
+            {
+                promotion.DeletedAt = now;
+                promotion.PromotionCondition.DeletedAt = now;
+
+                if(promotion.File != null)
+                    promotion.File.DeletedAt = now;
+            }
+
+            if (!await UnitOfWork.Promotions.UpdateRange(promotions.ToArray())) return failResponse;
+
+            return successResponse;
         }
     }
 }

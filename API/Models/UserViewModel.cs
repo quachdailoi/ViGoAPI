@@ -35,6 +35,8 @@ namespace API.Models
         public UserLicenseViewModel? Identification { get; set; } = null;
         public UserLicenseViewModel? DriverLicense { get; set; } = null;
         public UserLicenseViewModel? VehicleRegistration { get; set; } = null;
+
+        public IEnumerable<object>? Settings { get; set; } = null;
     }
 
     public class DriverViewModel
@@ -71,7 +73,7 @@ namespace API.Models
         public string Name { get; set; }
         public int Gender { get; set; }
         public string? AvatarUrl { get; set; } = string.Empty;
-        public Guid AvatarCode { get; set; } = Guid.NewGuid();
+        public Guid? AvatarCode { get; set; } = Guid.NewGuid();
         public string PhoneNumber { get; set; } = string.Empty;
     }
 

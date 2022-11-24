@@ -13,7 +13,8 @@ namespace API.Services.Constract
         Task<Response> GetBannerPromotion(Response successResponse, Response emptyResponse);
         Task<Promotion?> GetPromotionByCode(string code, int userId, double totalPrice, int totalTickets, Payments.PaymentMethods paymentMethods);
         Task<Response> Create(CreatePromotionRequest request, Response successResponse, Response duplicateResponse, Response errorResponse);
-        Task<Response> Update(UpdatePromotionRequest request, Response successResponse, Response notExistResponse, Response errorResponse);
+        Task<Response> Update(int promotionId, UpdatePromotionRequest request, Response successResponse, Response notExistResponse, Response errorResponse);
         Task<List<AdminPromotionViewModel>> Get(string searchValue);
+        Task<Response> Delete(List<int> ids, Response successResponse, Response notFoundResponse, Response failResponse);
     }
 }

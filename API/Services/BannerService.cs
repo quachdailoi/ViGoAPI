@@ -112,5 +112,27 @@ namespace API.Services
 
             return successResponse;
         }
+
+        public async Task<Response> Delete(List<int> ids, Response successResponse, Response notFoundResponse, Response failResponse)
+        {
+            var banners = await UnitOfWork.Banners
+                .List(x => ids.Contains(x.Id))
+                .Include(x => x.File)
+                .ToListAsync();
+
+            if (banners == null || !banners.Any()) return notFoundResponse;
+
+            var now = DateTimeOffset.Now;
+
+            foreach(var banner in banners)
+            {
+                banner.DeletedAt = now;
+                banner.File.DeletedAt = now;
+            }
+
+            if (!await UnitOfWork.Banners.UpdateRange(banners.ToArray())) return failResponse;
+
+            return successResponse;
+        }
     }
 }

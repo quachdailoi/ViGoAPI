@@ -197,7 +197,7 @@ namespace API.Services
         {
             var stations = await AppServices.Station.GetStationDTOsByCodes(request.StationCodes);
 
-            var createdRoute = await CreateRouteByListOfStation(stations, adminId);
+            var createdRoute = await CreateRouteByListOfStation(stations, adminId, request.RouteName);
             if (createdRoute == null) return failed;
             var routeVM = 
                 (await UnitOfWork.Routes.List()

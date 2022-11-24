@@ -704,7 +704,7 @@ namespace API.Services
         public Task<BookerBookingDetailViewModel?> GetBookerViewModelByCode(Guid code)
         {
             return UnitOfWork.BookingDetails.GetBookingDetailByCodeAsync(code.ToString())
-                .MapTo<BookerBookingDetailViewModel>(Mapper)
+                .MapTo<BookerBookingDetailViewModel>(Mapper, AppServices)
                 .FirstOrDefaultAsync();
         }
 

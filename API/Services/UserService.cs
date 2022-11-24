@@ -37,6 +37,15 @@ namespace API.Services
             return user;
         }
 
+        public User? GetById(int? id)
+        {
+            if (id == null) return null;
+
+            var user = UnitOfWork.Users.GetUserById((int)id).FirstOrDefault();
+
+            return user;
+        }
+
         public async Task<UserViewModel?> GetUserViewModelById(int? userId)
         {
             if (userId == null) return null;

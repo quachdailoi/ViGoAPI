@@ -84,7 +84,18 @@ namespace API.Controllers.V1
 
             //var value = await AppServices.Setting.GetValue<double>(Settings.DiscountPerEachSharingCase,0.5);
 
-            return Ok(Guid.NewGuid().ToString().Split("-").Last().Substring(0,10).ToUpper());
+            var settingTime = await AppServices.Setting.GetValue<TimeOnly>(Settings.AllowedBookerCancelTripTime, new TimeOnly(19, 45));
+
+            var nowTime = DateTimeExtensions.NowTimeOnly;
+
+            var tomorrowDate = DateTimeExtensions.NowDateOnly.AddDays(1);
+            return Ok(new
+            {
+                Setting = settingTime,
+                NowTime = nowTime,
+                TomorrowDate = tomorrowDate,
+                IsExpried = settingTime < nowTime
+            });
 
             //return Ok(await AppServices.VehicleType.GetWithFare());
         }
