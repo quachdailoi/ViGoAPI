@@ -170,6 +170,8 @@ namespace API.Services
 
                                     var bookingDetailIds = await AppServices.BookingDetailDriver.GetNotYetBookingDetailId(reportedDriver.Id);
 
+                                    await AppServices.BookingDetail.Cancel(bookingDetailIds);
+
                                     foreach(var id in bookingDetailIds)
                                     {
                                         await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO
