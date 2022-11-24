@@ -5,6 +5,7 @@ using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Settings;
+using API.Services;
 using API.TaskQueues.TaskResolver;
 using AutoMapper;
 using Domain.Entities;
@@ -544,6 +545,8 @@ namespace API.Controllers.V1.Booker
                     .SetMessage("Login failed - not found user with this phone number");
                 return ApiResult(response);
             }
+
+            await AppServices.User.CheckValidUserToLogin(user, RegistrationTypes.Phone);
 
             string token = _jwtHandler.GenerateToken(user);
             string refreshToken = await _jwtHandler.GenerateRefreshToken(user.Code.ToString());
