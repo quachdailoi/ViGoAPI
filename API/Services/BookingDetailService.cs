@@ -708,6 +708,30 @@ namespace API.Services
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<bool> Cancel(List<int> ids)
+        {
+            var bookingDetails = await UnitOfWork.BookingDetails
+                .List(e => ids.Contains(e.Id))
+                .Include(e => e.BookingDetailDrivers)
+                .ToListAsync();
+
+            bookingDetails = bookingDetails.Select(e =>
+            {
+                e.Status = BookingDetails.Status.Pending;
+                e.MessageRoom = null;
+                e.MessageRoomId = null;
+                var bookingDetailDriver = e.BookingDetailDrivers.Where(x => x.TripStatus == BookingDetailDrivers.TripStatus.NotYet).FirstOrDefault();
+                if (bookingDetailDriver != null)
+                    bookingDetailDriver.TripStatus = BookingDetailDrivers.TripStatus.Cancelled;
+
+                return e;
+            })
+            .ToList();
+
+            return await UnitOfWork.BookingDetails.UpdateRange(bookingDetails.ToArray());
+
+        } 
+
         public async Task<Response> Cancel(Guid code, Response successResponse, Response notFoundResponse, Response notAllowResponse, Response failedResponse)
         {
             var bookingDetail = await UnitOfWork.BookingDetails
