@@ -19,7 +19,7 @@ namespace API.TaskQueues
 
         public RedisMQService(IConfiguration configuration)
         {
-            _connection = ConnectionMultiplexer.Connect(configuration.Get("RedisSettings:ConnectionString"));
+            _connection = ConnectionMultiplexer.Connect(configuration.Get("RedisSettings_ConnectionString"));
         }
 
         public ChannelMessageQueue GetChannel(string key)
