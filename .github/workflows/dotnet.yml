@@ -5,43 +5,40 @@ name: Deploy AWS Elastic Beanstalk
 
 on:
   push:
-    branches: [ "deploy" ]
+    branches: ["deploy"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     env:
       ASPNETCORE_ENVIRONMENT: production
-      DATABASE_URL: postgres://vbifjtiagbungl:20dd2b66caac1cf22f5fa40b6df849346d14c4184d25fa7540e79e71f98e21a8@ec2-3-224-184-9.compute-1.amazonaws.com:5432/dcfkcad2moe0vu
+      DATABASE_URL: postgres://vbifjtiagbungl:20dd2b66caac1cf22f5fa40b6df849346d14c4184d25fa7540e79e71f98e21a8@awseb-e-bhdqccwdze-stack-awsebrdsdatabase-sx4am4uzdpn0.cntrmpytu0sj.ap-southeast-1.rds.amazonaws.com:5432/dcfkcad2moe0vu
       RedisSettings:ConnectionString: redis-11130.c1.ap-southeast-1-1.ec2.cloud.redislabs.com:11130,password=M151Le1Q7f4aTXNovXoGaRVfGTaTkkXA,abortConnect=false
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: 
-        dotnet restore && dotnet tool restore  
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-    - name: Publish
-      run: dotnet publish -c Release -o '${{ github.workspace }}/out'
-    - name: Zip package
-      run: 
-        cd ${{ github.workspace }}/out
-        zip -r ${{ github.workspace }}/out.zip *
-    - name: Deploy to EB
-      uses: einaregilsson/beanstalk-deploy@v20
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: ViGo-API
-        environment_name: ViGo-Env
-        version_label: ${{ github.run_id }}
-        version_description: ${{ github.sha }}
-        region: ap-southeast-1
-        deployment_package: ${{ github.workspace }}/out.zip
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+      - name: Restore dependencies
+        run: dotnet restore && dotnet tool restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+      - name: Publish
+        run: dotnet publish -c Release -o '${{ github.workspace }}/out'
+      - name: Zip package
+        run: cd ${{ github.workspace }}/out
+          zip -r ${{ github.workspace }}/out.zip *
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ViGo-API
+          environment_name: ViGo-Env
+          version_label: ${{ github.run_id }}
+          version_description: ${{ github.sha }}
+          region: ap-southeast-1
+          deployment_package: ${{ github.workspace }}/out.zip
