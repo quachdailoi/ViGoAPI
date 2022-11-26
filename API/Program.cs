@@ -69,6 +69,7 @@ services.ConfigureSwagger();
 
 // private key
 var pathToKey = Path.Combine(Directory.GetCurrentDirectory(), _config["Firebase:AdminSdkJsonFile"]);
+Console.WriteLine($"===> Path firebase: {pathToKey}");
 GoogleCredential credential = GoogleCredential.FromFile(pathToKey);
 
 // Create Firebase app
