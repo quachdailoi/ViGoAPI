@@ -186,9 +186,9 @@ services.ConfigureIoCRedisMessageQueue();
 
 // add redis cache
 var redisSetting = _config["RedisSettings:ConnectionString"];
-if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
+if (env == "production")
 {
-    redisSetting = Environment.GetEnvironmentVariable("RedisSettings:ConnectionString");
+    redisSetting = Environment.GetEnvironmentVariable("RedisSettings_ConnectionString");
 }
 Console.WriteLine($"===> Redis: {redisSetting}");
 services.AddStackExchangeRedisCache(r => r.Configuration = redisSetting);
