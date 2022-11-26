@@ -19,8 +19,6 @@ namespace API.TaskQueues
 
         public RedisMQService(IConfiguration configuration)
         {
-            //_connection = ConnectionMultiplexer.Connect(configuration.Get("RedisSettings_ConnectionString"));
-            
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
             {
                 _connection = ConnectionMultiplexer.Connect(configuration.Get("RedisSettings_ConnectionString"));
