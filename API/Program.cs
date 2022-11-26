@@ -190,6 +190,7 @@ if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production"
 {
     redisSetting = Environment.GetEnvironmentVariable("RedisSettings:ConnectionString");
 }
+Console.WriteLine($"===> Redis: {redisSetting}");
 services.AddStackExchangeRedisCache(r => r.Configuration = redisSetting);
 
 
