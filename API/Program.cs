@@ -190,7 +190,7 @@ services.ConfigureIoCRedisMessageQueue();
 
 // add redis cache
 var redisSetting = _config.Get(BaseSettings.RedisConnectionString);
-
+Console.WriteLine($"==> Redis: {redisSetting}");
 services.AddStackExchangeRedisCache(r => r.Configuration = redisSetting);
 
 
