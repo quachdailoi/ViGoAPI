@@ -220,7 +220,7 @@ var app = builder.Build();
     IdentityModelEventSource.ShowPII = true;
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 // add middlewares
 app.UseRouting();
