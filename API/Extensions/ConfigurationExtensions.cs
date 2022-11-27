@@ -5,8 +5,10 @@
         public static T? Get<T>(this IConfiguration configuration, string configName)
         {
             var config = "";
+            
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
             {
+                configName = configName.Replace(":", "_");
                 config = Environment.GetEnvironmentVariable(configName);
             } 
             else
