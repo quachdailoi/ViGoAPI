@@ -80,8 +80,8 @@ jobs:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           use_existing_version_if_available: true
-          application_name: ViGo_API
-          environment_name: Vigoapi-env
+          application_name: vigo
+          environment_name: vigo-api
           version_label: ${{ github.run_id }}
           version_description: ${{ github.sha }}
           region: ap-southeast-1
