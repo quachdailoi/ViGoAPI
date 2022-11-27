@@ -68,6 +68,7 @@
 
 	<ItemGroup>
 		<Folder Include="Extensions\MapperSupport\" />
+		<Folder Include=".ebextensions\" />
 	</ItemGroup>
 
 	<ItemGroup>
