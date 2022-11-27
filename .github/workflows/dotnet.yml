@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ASPNETCORE_ENVIRONMENT: production
-      PostgreSQLMaaSConnection: Host=awseb-e-bhdqccwdze-stack-awsebrdsdatabase-sx4am4uzdpn0.cntrmpytu0sj.ap-southeast-1.rds.amazonaws.com:5432;Database=dcfkcad2moe0vu;Username=vbifjtiagbungl;Password=20dd2b66caac1cf22f5fa40b6df849346d14c4184d25fa7540e79e71f98e21a8;SSL Mode=Require;Trust Server Certificate=true;Include Error Detail=true
+      PostgreSQLMaaSConnection: Host=awseb-e-xag77pws5z-stack-awsebrdsdatabase-oq34b9tukikn.cntrmpytu0sj.ap-southeast-1.rds.amazonaws.com:5432;Database=dcfkcad2moe0vu;Username=vbifjtiagbungl;Password=20dd2b66caac1cf22f5fa40b6df849346d14c4184d25fa7540e79e71f98e21a8;SSL Mode=Require;Trust Server Certificate=true;Include Error Detail=true
       RedisSettings_ConnectionString: redis-11130.c1.ap-southeast-1-1.ec2.cloud.redislabs.com:11130,password=M151Le1Q7f4aTXNovXoGaRVfGTaTkkXA,abortConnect=false
       AwsSettings_AccessKey: AKIAZJOTSEPVXCOZ7NML
       AwsSettings_BannerFolder: banner/
