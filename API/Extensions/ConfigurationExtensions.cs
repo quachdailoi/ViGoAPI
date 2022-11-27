@@ -1,4 +1,6 @@
-﻿namespace API.Extensions
+﻿using API.Models.Settings;
+
+namespace API.Extensions
 {
     public static class ConfigurationExtensions
     {
@@ -6,7 +8,7 @@
         {
             var config = "";
             
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "production")
+            if (Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment) == BaseSettings.ProductionEnvironment)
             {
                 configName = configName.Replace(":", "_");
                 config = Environment.GetEnvironmentVariable(configName);
@@ -20,6 +22,36 @@
         }
 
         public static string? Get(this IConfiguration configuration, string configName)
+        {
+            return configuration.Get<string>(configName);
+        }
+
+        public static string? GetConnectionString(this ConfigurationManager configuration, string configName, string? env)
+        {
+            if (env == BaseSettings.ProductionEnvironment)
+                return Environment.GetEnvironmentVariable(configName);
+            else
+                return configuration.GetConnectionString(configName);
+        }
+
+        public static T? Get<T>(this ConfigurationManager configuration, string configName)
+        {
+            var config = "";
+
+            if (Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment) == BaseSettings.ProductionEnvironment)
+            {
+                configName = configName.Replace(":", "_");
+                config = Environment.GetEnvironmentVariable(configName);
+            }
+            else
+            {
+                config = configuration[configName];
+            }
+
+            return (T?)Convert.ChangeType(config, typeof(T));
+        }
+
+        public static string? Get(this ConfigurationManager configuration, string configName)
         {
             return configuration.Get<string>(configName);
         }

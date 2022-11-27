@@ -12,50 +12,50 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ASPNETCORE_ENVIRONMENT: production
-      DATABASE_URL: postgres://vbifjtiagbungl:20dd2b66caac1cf22f5fa40b6df849346d14c4184d25fa7540e79e71f98e21a8@awseb-e-bhdqccwdze-stack-awsebrdsdatabase-sx4am4uzdpn0.cntrmpytu0sj.ap-southeast-1.rds.amazonaws.com:5432/dcfkcad2moe0vu
-      "RedisSettings:ConnectionString": redis-11130.c1.ap-southeast-1-1.ec2.cloud.redislabs.com:11130,password=M151Le1Q7f4aTXNovXoGaRVfGTaTkkXA,abortConnect=false
-      AwsSettings:AccessKey: AKIAZJOTSEPVXCOZ7NML
-      AwsSettings:BannerFolder: banner/
-      AwsSettings:BucketName: vigo-app-bucket
-      AwsSettings:DefaultAvatar: default-user-avatar.png
-      AwsSettings:DriverLicenseFolder: user/driver_license/
-      AwsSettings:IdentiticationFolder: user/identification/
-      AwsSettings:PromotionFolder: promotion/
-      AwsSettings:RegionEndPoint: ap-southeast-1
-      AwsSettings:SecretKey: UM2DGwP7NY04ZbUyWoegDonyUsxfsR8hs8mPrSyL
-      AwsSettings:UserAvatarFolder: user/avatar/
-      AwsSettings:VehicleRegistrationFolder: user/vehicle_registration/
-      JwtSettings:AccessTokenTTLMinutes: 2880
-      JwtSettings:Audience: 336488913408-sq34kubhmhok18s899iro5t5ipdr0g3v.apps.googleusercontent.com
-      JwtSettings:Issuer: https://securetoken.google.com/maas-project-61216
-      JwtSettings:Key: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY1Mzg5MTE3NCwiaWF0IjoxNjUzODkxMTc0fQ.Fnt9IQ31hdK27rHGjcGr0SdmvP1vcxme_ABhbpBLoXs
-      JwtSettings:RefreshTokenTTLDays: 7
-      MailSettings:DisplayName: VIGO APP
-      MailSettings:Host: smtp.gmail.com
-      MailSettings:Mail: vigo.app.maas@gmail.com
-      MailSettings:Password: nfbwsssrcbkcprab
-      MailSettings:Port: 587
-      MailSettings:VerifiedAccountHost: https://vigo-application.herokuapp.com/api/v1/drivers/email/verify/{0}
-      PaymentSettings:Momo:AccessKey: 1ieZAkvtgIr9OXlk
-      PaymentSettings:Momo:PartnerCode: MOMOJOU420220817
-      PaymentSettings:Momo:PartnerName: ViGo
-      PaymentSettings:Momo:PublicKey: MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAn4mjaL8dulUaiaTgZOSIP+4duCiOgKw8AuTl01A33CtmD7/wf8An/Rum04OtaLXUqSe8XXlNJHThFmXnYOXWypDPynZVjEJw9vdvFXXR7LYYJTpsl4g59kOcRBjsQj2o24kRqdN039vC4v/NHWxNTcp/pfuZyJ7xsFTuoOPCe84XpZmzXIuXhnAfeSZHmFNPu3pmYxieEXPFgohzqckS9HPXEts68zWkX+vueXnKkkPeePgiFb3PU/gP+LpYgq79KrSdFYt+kOgRwT7g3ZUfmGLx/v7yE3usO/nGJ2eujoKq1VYQuTg+9TAstzkJgM8eiA2V38f5hLpulX8RD2JTmD2j8r6f0tcNN29bJvlmcojAZNmIuKSk04WQ/KKCGrbNiiYdlnpIkJaAQCm1RQJGwYBXtDrYMD7++nZb18NzzR8iOIUjMcZU8naXFZjvynpnU5xSLuyW+y8tBavknEBX00PYgyYtNjuPC1kHhFiX/RQCUSVWmLeM9JsnCUqR5h0KxGKmK3QWW2NzpDF4M30sdX0AxEir3zkeezK4Rq5AWVfglus74hp9LJrvGxC45xu/BtCuRtcB81CCTNXrMz7+ycdHqG95Lucxy+UZnvRT/r8fp+rZqOPhb5ZYAJUBBzhc6HSSFTKqEvCJhWnNOLH16HPFscYK4nLvv/sgpqZmrIUCAwEAAQ==
-      PaymentSettings:Momo:SecretKey: 5A1TzU2zawgWdEMBXcfijdGDr9ycWp5x
-      PaymentSettings:Momo:StoreId: ViGo App
-      PaymentSettings:ZaloPay:AppId: 2553
-      PaymentSettings:ZaloPay:Key1: PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL
-      PaymentSettings:ZaloPay:Key2: kLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz
-      RapidApiSettings:ApiKeys: 95dcc21852msh16ca545768a293fp111192jsn584ea24f65f7,c9b2ef5a0fmshec1fcf81d2d71cap1b47dejsne2e6e9308cd7
-      RapidApiSettings:TrueWayDirectionService:ApiHost: trueway-directions2.p.rapidapi.com
-      RapidApiSettings:TrueWayDirectionService:Uri: https://trueway-directions2.p.rapidapi.com
-      RapidApiSettings:TrueWayMatrixService:ApiHost: trueway-matrix.p.rapidapi.com
-      RapidApiSettings:TrueWayMatrixService:Uri: https://trueway-matrix.p.rapidapi.com
-      TwilioSettings:AccountSID: AC47276a73f7435d772f4dc1511eca6526
-      TwilioSettings:AuthToken: 1a68d738ad54552739021c9aaf2c1488
-      TwilioSettings:ExpiredTime: 3
-      TwilioSettings:PhoneNumber: +15736724329
-      TwilioSettings:TimeResend: 0
-      TwilioSettings:VerifiedAccountHost: https://localhost:7019/api/v1/drivers/phone/verify/{0}
+      PostgreSQLMaaSConnection: Host=ec2-3-224-184-9.compute-1.amazonaws.com:5432;Database=dcfkcad2moe0vu;Username=vbifjtiagbungl;Password=20dd2b66caac1cf22f5fa40b6df849346d14c4184d25fa7540e79e71f98e21a8;SSL Mode=Require;Trust Server Certificate=true;Include Error Detail=true
+      RedisSettings_ConnectionString: redis-11130.c1.ap-southeast-1-1.ec2.cloud.redislabs.com:11130,password=M151Le1Q7f4aTXNovXoGaRVfGTaTkkXA,abortConnect=false
+      AwsSettings_AccessKey: AKIAZJOTSEPVXCOZ7NML
+      AwsSettings_BannerFolder: banner/
+      AwsSettings_BucketName: vigo-app-bucket
+      AwsSettings_DefaultAvatar: default-user-avatar.png
+      AwsSettings_DriverLicenseFolder: user/driver_license/
+      AwsSettings_IdentiticationFolder: user/identification/
+      AwsSettings_PromotionFolder: promotion/
+      AwsSettings_RegionEndPoint: ap-southeast-1
+      AwsSettings_SecretKey: UM2DGwP7NY04ZbUyWoegDonyUsxfsR8hs8mPrSyL
+      AwsSettings_UserAvatarFolder: user/avatar/
+      AwsSettings_VehicleRegistrationFolder: user/vehicle_registration/
+      JwtSettings_AccessTokenTTLMinutes: 2880
+      JwtSettings_Audience: 336488913408-sq34kubhmhok18s899iro5t5ipdr0g3v.apps.googleusercontent.com
+      JwtSettings_Issuer: https://securetoken.google.com/maas-project-61216
+      JwtSettings_Key: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY1Mzg5MTE3NCwiaWF0IjoxNjUzODkxMTc0fQ.Fnt9IQ31hdK27rHGjcGr0SdmvP1vcxme_ABhbpBLoXs
+      JwtSettings_RefreshTokenTTLDays: 7
+      MailSettings_DisplayName: VIGO APP
+      MailSettings_Host: smtp.gmail.com
+      MailSettings_Mail: vigo.app.maas@gmail.com
+      MailSettings-Password: nfbwsssrcbkcprab
+      MailSettings_Port: 587
+      MailSettings_VerifiedAccountHost: https://vigo-application.herokuapp.com/api/v1/drivers/email/verify/{0}
+      PaymentSettings_Momo_AccessKey: 1ieZAkvtgIr9OXlk
+      PaymentSettings_Momo_PartnerCode: MOMOJOU420220817
+      PaymentSettings_Momo_PartnerName: ViGo
+      PaymentSettings_Momo_PublicKey: MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAn4mjaL8dulUaiaTgZOSIP+4duCiOgKw8AuTl01A33CtmD7/wf8An/Rum04OtaLXUqSe8XXlNJHThFmXnYOXWypDPynZVjEJw9vdvFXXR7LYYJTpsl4g59kOcRBjsQj2o24kRqdN039vC4v/NHWxNTcp/pfuZyJ7xsFTuoOPCe84XpZmzXIuXhnAfeSZHmFNPu3pmYxieEXPFgohzqckS9HPXEts68zWkX+vueXnKkkPeePgiFb3PU/gP+LpYgq79KrSdFYt+kOgRwT7g3ZUfmGLx/v7yE3usO/nGJ2eujoKq1VYQuTg+9TAstzkJgM8eiA2V38f5hLpulX8RD2JTmD2j8r6f0tcNN29bJvlmcojAZNmIuKSk04WQ/KKCGrbNiiYdlnpIkJaAQCm1RQJGwYBXtDrYMD7++nZb18NzzR8iOIUjMcZU8naXFZjvynpnU5xSLuyW+y8tBavknEBX00PYgyYtNjuPC1kHhFiX/RQCUSVWmLeM9JsnCUqR5h0KxGKmK3QWW2NzpDF4M30sdX0AxEir3zkeezK4Rq5AWVfglus74hp9LJrvGxC45xu/BtCuRtcB81CCTNXrMz7+ycdHqG95Lucxy+UZnvRT/r8fp+rZqOPhb5ZYAJUBBzhc6HSSFTKqEvCJhWnNOLH16HPFscYK4nLvv/sgpqZmrIUCAwEAAQ==
+      PaymentSettings_Momo_SecretKey: 5A1TzU2zawgWdEMBXcfijdGDr9ycWp5x
+      PaymentSettings_Momo_StoreId: ViGo App
+      PaymentSettings_ZaloPay_AppId: 2553
+      PaymentSettings_ZaloPay_Key1: PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL
+      PaymentSettings_ZaloPay_Key2: kLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz
+      RapidApiSettings_ApiKeys: 95dcc21852msh16ca545768a293fp111192jsn584ea24f65f7,c9b2ef5a0fmshec1fcf81d2d71cap1b47dejsne2e6e9308cd7
+      RapidApiSettings_TrueWayDirectionService_ApiHost: trueway-directions2.p.rapidapi.com
+      RapidApiSettings_TrueWayDirectionService_Uri: https://trueway-directions2.p.rapidapi.com
+      RapidApiSettings_TrueWayMatrixService_ApiHost: trueway-matrix.p.rapidapi.com
+      RapidApiSettings_TrueWayMatrixService_Uri: https://trueway-matrix.p.rapidapi.com
+      TwilioSettings_AccountSID: AC47276a73f7435d772f4dc1511eca6526
+      TwilioSettings_AuthToken: 1a68d738ad54552739021c9aaf2c1488
+      TwilioSettings_ExpiredTime: 3
+      TwilioSettings_PhoneNumber: +15736724329
+      TwilioSettings_TimeResend: 0
+      TwilioSettings_VerifiedAccountHost: https://localhost:7019/api/v1/drivers/phone/verify/{0}
       TZ: Asia/Ho_Chi_Minh
     steps:
       - uses: actions/checkout@v3
