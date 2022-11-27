@@ -29,7 +29,10 @@ namespace API.Extensions
         public static string? GetConnectionString(this ConfigurationManager configuration, string configName, string? env)
         {
             if (env == BaseSettings.ProductionEnvironment)
+            {
+                Console.WriteLine($"===> Here... {configName}");
                 return Environment.GetEnvironmentVariable(configName);
+            }    
             else
                 return configuration.GetConnectionString(configName);
         }
