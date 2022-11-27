@@ -25,7 +25,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseUrls("http://localhost:5000");
+builder.WebHost.UseUrls(urls: "http://*:5000");
 var services = builder.Services;
 var _config = builder.Configuration;
 
