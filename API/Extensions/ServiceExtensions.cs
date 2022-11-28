@@ -51,13 +51,13 @@ namespace API.Extensions
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = config[JwtSettings.Issuer];
+                options.Authority = config.Get(JwtSettings.Issuer);
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = config[JwtSettings.Issuer],
+                    ValidIssuer = config.Get(JwtSettings.Issuer),
                     ValidateAudience = true,
-                    ValidAudience = config[JwtSettings.Audience],
+                    ValidAudience = config.Get(JwtSettings.Audience),
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config[JwtSettings.Key])),
