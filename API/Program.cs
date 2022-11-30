@@ -207,6 +207,9 @@ services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
+// add health check for beanstalk
+app.MapGet("/", () => "Application is healthy.!");
+
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 {
