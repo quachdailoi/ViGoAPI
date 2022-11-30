@@ -20,9 +20,12 @@ using Newtonsoft.Json.Serialization;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using API.Models.Settings;
+using Microsoft.EntityFrameworkCore.Storage;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+
 var services = builder.Services;
 var _config = builder.Configuration;
 
@@ -68,7 +71,7 @@ services.AddEndpointsApiExplorer();
 services.ConfigureSwagger();
 
 // private key
-var pathToKey = Path.Combine(Directory.GetCurrentDirectory(), _config["Firebase:AdminSdkJsonFile"]);
+var pathToKey = Path.Combine(Directory.GetCurrentDirectory(), _config[FireBaseSettings.AdminSdkJsonFile]);
 Console.WriteLine($"===> Path firebase: {pathToKey}");
 GoogleCredential credential = GoogleCredential.FromFile(pathToKey);
 
@@ -76,34 +79,36 @@ GoogleCredential credential = GoogleCredential.FromFile(pathToKey);
 FirebaseApp.Create(new AppOptions
 {
     Credential = credential,
-    ProjectId = _config["Firebase:ProjectId"],
-    ServiceAccountId = _config["Firebase:ServiceAccountId"]
+    ProjectId = _config[FireBaseSettings.ProjectId],
+    ServiceAccountId = _config[FireBaseSettings.ServiceAccountId]
 });
 
-string connectionString = string.Empty;
-var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+string? connectionString = string.Empty;
+var env = Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment);
 Console.WriteLine($"===> ENVIRONMENT: {env}");
-if (env == "production")
-{
-    // Use connection string provided at runtime by Heroku.
-    var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+//if (env == BaseSettings.ProductionEnvironment)
+//{
+//    // Use connection string provided at runtime by Heroku.
+//    var connectionUrl = Environment.GetEnvironmentVariable(BaseSettings.DatabaseURL);
 
-    connectionUrl = connectionUrl.Replace("postgres://", string.Empty);
-    var userPassSide = connectionUrl.Split("@")[0];
-    var hostSide = connectionUrl.Split("@")[1];
+//    connectionUrl = connectionUrl.Replace("postgres://", string.Empty);
+//    var userPassSide = connectionUrl.Split("@")[0];
+//    var hostSide = connectionUrl.Split("@")[1];
 
-    var user = userPassSide.Split(":")[0];
-    var password = userPassSide.Split(":")[1];
-    var host = hostSide.Split("/")[0];
-    var database = hostSide.Split("/")[1].Split("?")[0];
+//    var user = userPassSide.Split(":")[0];
+//    var password = userPassSide.Split(":")[1];
+//    var host = hostSide.Split("/")[0];
+//    var database = hostSide.Split("/")[1].Split("?")[0];
 
-    connectionString = $"Host={host};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true";
-}
-else
-{
-    connectionString = _config.GetConnectionString("PostgreSQLMaaSConnection");
-}
+//    connectionString = $"Host={host};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true;Include Error Detail=true";
+//}
+//else
+//{
+//    connectionString = _config.GetConnectionString(BaseSettings.DatabaseConnectionString);
+//}
 
+connectionString = _config.GetConnectionString(BaseSettings.PostgreSQLMaaSConnection, Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment));
+//Console.WriteLine($"==> ConnectionString: {connectionString}");
 services.AddDbContextPool<AppDbContext>(options =>
 {
     options.UseNpgsql(connectionString);
@@ -186,11 +191,8 @@ services.ConfigureIoCCronJob();
 services.ConfigureIoCRedisMessageQueue();
 
 // add redis cache
-var redisSetting = _config["RedisSettings:ConnectionString"];
-if (env == "production")
-{
-    redisSetting = Environment.GetEnvironmentVariable("RedisSettings:ConnectionString");
-}
+var redisSetting = _config.Get(BaseSettings.RedisConnectionString);
+//Console.WriteLine($"==> Redis: {redisSetting}");
 Console.WriteLine($"===> Redis: {redisSetting}");
 services.AddStackExchangeRedisCache(r => r.Configuration = redisSetting);
 
@@ -221,7 +223,7 @@ var app = builder.Build();
     IdentityModelEventSource.ShowPII = true;
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 // add middlewares
 app.UseRouting();

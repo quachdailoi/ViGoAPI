@@ -1,4 +1,5 @@
 ﻿using API.Extensions;
+using API.Models.Settings;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
@@ -19,7 +20,7 @@ namespace API.TaskQueues
 
         public RedisMQService(IConfiguration configuration)
         {
-            _connection = ConnectionMultiplexer.Connect(configuration.Get("RedisSettings:ConnectionString"));
+            _connection = ConnectionMultiplexer.Connect(configuration.Get(BaseSettings.RedisConnectionString));
         }
 
         public ChannelMessageQueue GetChannel(string key)
