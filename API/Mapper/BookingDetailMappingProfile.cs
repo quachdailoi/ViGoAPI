@@ -63,6 +63,15 @@ namespace API.Mapper
                     otp => otp.MapFrom(
                         src => src.Booking.User))
                 .IncludeBase<BookingDetail, BookingDetailViewModel>();
+
+            CreateMap<BookingDetail, BookerBookingDetailWithStationsViewModel>()
+                .IncludeBase<BookingDetail, BookerBookingDetailViewModel>()
+                .ForMember(
+                    dest => dest.Stations,
+                    otp => otp.MapFrom(
+                    src => src.Booking.StartRouteStation.Route.RouteStations
+                        .OrderBy(x => x.DistanceFromFirstStationInRoute)
+                        .Select(routeStation => routeStation.Station)));
         }
     }
 }
