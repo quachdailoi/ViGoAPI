@@ -136,8 +136,8 @@ namespace API.Services
                 switch (tripStatus)
                 {
                     case BookingDetailDrivers.TripStatus.PickedUp:
-                        if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(-1 * await AppServices.Setting.GetValue(Settings.TimeBeforePickingUp, 10))) 
-                            throw new Exception("Invalid time to set status PickedUp for it.");
+                        //if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(-1 * await AppServices.Setting.GetValue(Settings.TimeBeforePickingUp, 10))) 
+                        //    throw new Exception("Invalid time to set status PickedUp for it.");
 
                         await CheckRadiusFromStartStation(bookingDetail, latitude, longitude);
 
@@ -146,8 +146,8 @@ namespace API.Services
                         bookingDetailDriver.StartTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
                         break;
                     case BookingDetailDrivers.TripStatus.Completed:
-                        if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(await AppServices.Setting.GetValue(Settings.TimeAfterComplete, 3))) 
-                            throw new Exception("Invalid time to set status Completed for it.");
+                        //if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(await AppServices.Setting.GetValue(Settings.TimeAfterComplete, 3))) 
+                        //    throw new Exception("Invalid time to set status Completed for it.");
 
                         if (bookingDetailDriver.TripStatus == BookingDetailDrivers.TripStatus.Start)
                         {
