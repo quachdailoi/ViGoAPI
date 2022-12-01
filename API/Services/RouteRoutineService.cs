@@ -214,7 +214,7 @@ namespace API.Services
         public async Task<Response?> CheckDateToCreateRoutine(CreateRouteRoutineRequest request)
         {
             var nowDateOnly = DateTimeExtensions.NowDateOnly;
-            var firstDayOfNextMonth = new DateOnly(nowDateOnly.Year, nowDateOnly.Month + 1, 01);
+            var firstDayOfNextMonth = new DateOnly(nowDateOnly.AddMonths(1).Year, nowDateOnly.AddMonths(1).Month + 1, 1);
             var lastDayOfNextMonth = firstDayOfNextMonth.AddMonths(1).AddDays(-1);
 
             var startRoutineMonth = request.StartAtParsed.Month;
