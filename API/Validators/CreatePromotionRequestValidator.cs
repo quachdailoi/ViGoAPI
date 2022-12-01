@@ -54,7 +54,7 @@ namespace API.Validators
                 .WithMessage("{PropertyName} must greater than or equal to 0");
 
             RuleFor(x => x.Type)
-                .Must(x => (int)x >= (int)Promotions.Types.Holiday && (int)x <= (int)Promotions.Types.MoreAndMore)
+                .Must(x => (int)x >= (int)Promotions.Types.Holiday && (int)x <= (int)Promotions.Types.NewUser)
                 .NotNull()
                 .WithMessage("{PropertyName} must be not null");
 

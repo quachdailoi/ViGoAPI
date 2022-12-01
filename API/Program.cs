@@ -20,6 +20,8 @@ using Newtonsoft.Json.Serialization;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Http;
+using API.Models.Response;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -126,6 +128,16 @@ services.AddSignalR(cfg =>
     cfg.EnableDetailedErrors = true;
 });
 
+// config
+services.AddMvc().ConfigureApiBehaviorOptions(opt =>
+{
+    opt.InvalidModelStateResponseFactory = (context => new BadRequestObjectResult(new Response{
+        StatusCode = StatusCodes.Status400BadRequest,
+        Message = context.ModelState.Values.SelectMany(x => x.Errors).First().ErrorMessage,
+        Data = null
+    }));
+});
+
 // Config for authentication
 services.ConfigureAuthentication(_config);
 
@@ -224,9 +236,9 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 // add middlewares
-app.UseRouting();
-app.UseJwtMiddleware();
+app.UseRouting(); 
 app.UseErrorHandlerMiddleware();
+app.UseJwtMiddleware();
 
 // Using CORS
 app.UseCors(MyAllowSpecificOrigins);

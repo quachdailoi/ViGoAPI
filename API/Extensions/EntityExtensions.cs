@@ -1,5 +1,7 @@
-﻿using AutoMapper;
+﻿using API.Models.Response;
+using AutoMapper;
 using Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Extensions
 {

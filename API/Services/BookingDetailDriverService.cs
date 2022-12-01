@@ -139,7 +139,7 @@ namespace API.Services
                         //if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(-1 * await AppServices.Setting.GetValue(Settings.TimeBeforePickingUp, 10))) 
                         //    throw new Exception("Invalid time to set status PickedUp for it.");
 
-                        //await CheckRadiusFromStartStation(bookingDetail, latitude, longitude);
+                        await CheckRadiusFromStartStation(bookingDetail, latitude, longitude);
 
                         bookingDetail.Status = BookingDetails.Status.Started;
                         bookingDetailDriver.BookingDetail = bookingDetail;
@@ -151,11 +151,11 @@ namespace API.Services
 
                         if (bookingDetailDriver.TripStatus == BookingDetailDrivers.TripStatus.Start)
                         {
-                            //await CheckRadiusFromStartStation(bookingDetail, latitude, longitude);
+                            await CheckRadiusFromStartStation(bookingDetail, latitude, longitude);
                         }
                         else
                         {
-                            //await CheckRadiusFromEndStation(bookingDetail, latitude, longitude);
+                            await CheckRadiusFromEndStation(bookingDetail, latitude, longitude);
                         }
 
                         bookingDetail.Status = BookingDetails.Status.Completed;

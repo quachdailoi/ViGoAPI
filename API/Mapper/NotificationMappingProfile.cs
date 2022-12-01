@@ -15,7 +15,7 @@ namespace API.Mapper
                 .ForMember(
                     des => des.Title,
                     opt => opt.MapFrom(
-                        src => src.Event.Tittle
+                        src => src.Event.Title
                     )
                 ).ForMember(
                     des => des.Content,

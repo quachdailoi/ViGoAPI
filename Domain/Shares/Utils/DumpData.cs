@@ -338,7 +338,7 @@ namespace Domain.Shares.Utils
                     Longitude = 106.80144678877895,
                     Latitude = 10.875092307642346,
                     Name = "Nhà Văn Hóa Sinh Viên ĐHQG",
-                    Address = "VRF2+XFW đường Quảng Trường Sáng Tạo, Đông Hoà, Dĩ An, Bình Dương"
+                    Address = "VRF2+XFW đường Quảng Trường Sáng Tạo, Đông Hòa, Dĩ An, Bình Dương"
                 },
                 new Station
                 {
@@ -610,7 +610,7 @@ namespace Domain.Shares.Utils
                     Longitude = 106.72589627507526,
                     Latitude = 10.806246963358644,
                     Name = "Công Ty TNHH Một Thành Viên Ánh Sáng Hoàng ĐP",
-                    Address = "40 đường Nguyễn Văn Hưởng, Thảo Điền, Thành phố Thủ Đức, Thành Phố Hồ Chí Minh"
+                    Address = "40 đường Nguyễn Văn Hưởng, Thảo Điền, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
                 },
                 new Station
                 {
@@ -626,7 +626,7 @@ namespace Domain.Shares.Utils
                     Longitude = 106.73143206816108,
                     Latitude = 10.797897644669561,
                     Name = "SCB Trần Não - Ngân hàng TMCP Sài Gòn",
-                    Address = "91B đường Trần Não, Bình Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
+                    Address = "91B đường Trần Não, An Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
                 },
                 new Station
                 {
@@ -634,7 +634,7 @@ namespace Domain.Shares.Utils
                     Longitude = 106.7293406127999,
                     Latitude = 10.793905585531592,
                     Name = "Công Ty TNHH Xuất Nhập Khẩu Máy Móc Và Phụ Tùng Ô Tô Hưng Thịnh",
-                    Address = "6 đường số 26, Bình Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
+                    Address = "6 đường số 26, An Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
                 },
                 new Station
                 {
@@ -642,7 +642,7 @@ namespace Domain.Shares.Utils
                     Longitude = 106.72895399848618,
                     Latitude = 10.789891277804319,
                     Name = "Tòa nhà Microspace Building",
-                    Address = "220 đường Trần Não, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
+                    Address = "220 đường Trần Não, An Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
                 },
                 new Station
                 {
@@ -650,7 +650,7 @@ namespace Domain.Shares.Utils
                     Longitude = 106.72783903612815,
                     Latitude = 10.786711346588366,
                     Name = "Công ty TNHH vận tải - thi công cơ giới Xuân Thao",
-                    Address = "18/2 đường số 35, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
+                    Address = "18/2 đường số 35, An Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
                 },
                 new Station
                 {
@@ -658,7 +658,7 @@ namespace Domain.Shares.Utils
                     Longitude = 106.72849002239546,
                     Latitude = 10.780549913195312,
                     Name = "Công Ty TNHH Ch Resource Vietnam",
-                    Address = "9 đường Trần Não, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
+                    Address = "9 đường Trần Não, An Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
                 },
                 new Station
                 {
@@ -666,7 +666,7 @@ namespace Domain.Shares.Utils
                     Longitude = 106.72969521262236,
                     Latitude = 10.786744237747117,
                     Name = "Công Ty TNHH Thương Mại Và Dịch Vụ Nhật Vượng",
-                    Address = "10 đường số 39, Bình Trưng Tây, Thành Phố Thủ Đức, Thành phố Hồ Chí Minh"
+                    Address = "10 đường số 39, Bình Trưng Tây, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
                 },
                 new Station
                 {
@@ -674,7 +674,7 @@ namespace Domain.Shares.Utils
                     Longitude = 106.73067177064897,
                     Latitude = 10.792554668741762,
                     Name = "Ngân hàng TMCP Kỹ thương Việt Nam (Techcombank)- Chi nhánh Gia Định - PGD Trần Não",
-                    Address = "125 đường Trần Não, Bình An, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
+                    Address = "125 đường Trần Não, An Khánh, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
                 },
                 new Station
                 {
@@ -722,7 +722,7 @@ namespace Domain.Shares.Utils
                     Longitude = 106.81262497275418,
                     Latitude = 10.840147321061634,
                     Name = "Vườn ươm doanh nghiệp Công Nghệ Cao - SHTP",
-                    Address = "Lô E2a-10 Đường, D2b Đ. D1, TP. Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam"
+                    Address = "Lô K1-G3 Đường D1, Phường Tân Phú, Thành phố Thủ Đức, Thành phố Hồ Chí Minh"
                 }
             };
         }

@@ -4,10 +4,16 @@ using FluentValidation;
 using Infrastructure.Data.UnitOfWork;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
+using System.Buffers;
 using System.Net;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Web.Http.ModelBinding;
 
 namespace API.Middleware
 {
@@ -29,7 +35,8 @@ namespace API.Middleware
                 if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
                 {
                     throw new UnauthorizedAccessException("Token Validation Has Failed. Request Access Denied");
-                }
+                } 
+                
             }
             catch (Exception error)
             {
