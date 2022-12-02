@@ -197,7 +197,7 @@ namespace API.Extensions
 
         public static void ConfigurationSeedData(this IServiceCollection services)
         {
-            services.AddHostedService<DumpRoutes>();
+            //services.AddHostedService<DumpRoutes>();
         }
 
         public static void ConfigureSwagger(this IServiceCollection services)
