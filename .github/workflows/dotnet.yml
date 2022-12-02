@@ -5,7 +5,7 @@ name: Deploy AWS Elastic Beanstalk
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   build:
@@ -56,6 +56,9 @@ jobs:
       TwilioSettings_PhoneNumber: +15736724329
       TwilioSettings_TimeResend: 0
       TwilioSettings_VerifiedAccountHost: https://localhost:7019/api/v1/drivers/phone/verify/{0}
+      FirebaseSettings_AdminSdkJsonFile: vigo-fdf71-firebase-adminsdk-4y5s9-71aaa17bc2.json
+      FirebaseSettings_ProjectId: vigo-fdf71
+      FirebaseSettings_ServiceAccountId: firebase-adminsdk-4y5s9@vigo-fdf71.iam.gserviceaccount.com
       TZ: Asia/Ho_Chi_Minh
     steps:
       - uses: actions/checkout@v3
