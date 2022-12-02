@@ -11,7 +11,7 @@ namespace API.Extensions
             if (Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment) == BaseSettings.ProductionEnvironment)
             {
                 configName = configName.Replace(":", "_");
-                Console.WriteLine($"==> configName: " + configName);
+                //Console.WriteLine($"==> configName: " + configName);
                 config = Environment.GetEnvironmentVariable(configName);
             } 
             else
@@ -31,7 +31,7 @@ namespace API.Extensions
         {
             if (env == BaseSettings.ProductionEnvironment)
             {
-                Console.WriteLine($"===> Here... {configName}");
+                //Console.WriteLine($"===> Here... {configName}");
                 return Environment.GetEnvironmentVariable(configName);
             }    
             else
@@ -45,7 +45,7 @@ namespace API.Extensions
             if (Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment) == BaseSettings.ProductionEnvironment)
             {
                 configName = configName.Replace(":", "_");
-                Console.WriteLine($"==> configName: " + configName);
+                //Console.WriteLine($"==> configName: " + configName);
                 config = Environment.GetEnvironmentVariable(configName);
             }
             else

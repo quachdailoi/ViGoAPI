@@ -88,45 +88,14 @@ FirebaseApp.Create(new AppOptions
 string? connectionString = string.Empty;
 var env = Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment);
 Console.WriteLine($"===> ENVIRONMENT: {env}");
-if (env == BaseSettings.ProductionEnvironment)
-{
-    // Use connection string provided at runtime by Heroku.
-    var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-    connectionUrl = connectionUrl.Replace("postgres://", string.Empty);
-    var userPassSide = connectionUrl.Split("@")[0];
-    var hostSide = connectionUrl.Split("@")[1];
+connectionString = _config.GetConnectionString(BaseSettings.PostgreSQLMaaSConnection, Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment));
 
-    var user = userPassSide.Split(":")[0];
-    var password = userPassSide.Split(":")[1];
-    var host = hostSide.Split("/")[0];
-    var database = hostSide.Split("/")[1].Split("?")[0];
-
-    connectionString = $"Host={host};Database={database};Username={user};Password={password};SSL Mode=Require;Trust Server Certificate=true;Include Error Detail=true";
-}
-else
-{
-    connectionString = _config.GetConnectionString("PostgreSQLMaaSConnection");
-}
-Console.WriteLine($"===> ConnectionName1:");
-Console.WriteLine($"===> ConnectionName: {BaseSettings.PostgreSQLMaaSConnection}");
-//connectionString = _config.GetConnectionString(BaseSettings.PostgreSQLMaaSConnection, Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment));
-Console.WriteLine($"==> ConnectionString: {connectionString}");
 services.AddDbContextPool<AppDbContext>(options =>
 {
     options.UseNpgsql(connectionString);
     options.EnableSensitiveDataLogging();
 });
-
-//var serviceProvider = builder.Services.BuildServiceProvider();
-//try
-//{
-//    var dbContext = serviceProvider.GetRequiredService<AppDbContext>();
-//    dbContext.Database.Migrate();
-//}
-//catch
-//{
-//}
 
 // config for signalR
 services.AddSignalR(cfg =>
