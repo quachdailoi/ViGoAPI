@@ -110,7 +110,7 @@ Console.WriteLine($"===> ENVIRONMENT: {env}");
 //}
 
 connectionString = _config.GetConnectionString(BaseSettings.PostgreSQLMaaSConnection, Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment));
-//Console.WriteLine($"==> ConnectionString: {connectionString}");
+Console.WriteLine($"==> ConnectionString: {connectionString}");
 services.AddDbContextPool<AppDbContext>(options =>
 {
     options.UseNpgsql(connectionString);
@@ -204,7 +204,7 @@ services.ConfigureIoCRedisMessageQueue();
 
 // add redis cache
 var redisSetting = _config.Get(BaseSettings.RedisConnectionString);
-//Console.WriteLine($"==> Redis: {redisSetting}");
+Console.WriteLine($"==> Redis: {redisSetting}");
 services.AddStackExchangeRedisCache(r => r.Configuration = redisSetting);
 
 
