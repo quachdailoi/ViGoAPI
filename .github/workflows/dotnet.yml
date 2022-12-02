@@ -5,7 +5,7 @@ name: Deploy AWS Elastic Beanstalk
 
 on:
   push:
-    branches: [ "deploy" ]
+    branches: [ "master" ]
 
 jobs:
   build:
