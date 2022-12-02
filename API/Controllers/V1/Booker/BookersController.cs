@@ -762,11 +762,11 @@ namespace API.Controllers.V1.Booker
             //});
 
             // check booking detail have been given rating and feedback
-            //if (bookingDetailOfBooker.Rating != null || bookingDetailOfBooker.FeedBack != null) return ApiResult(new()
-            //{
-            //    StatusCode = StatusCodes.Status400BadRequest,
-            //    Message = "This booking detail have been given rating and feedback."
-            //});
+            if (bookingDetailOfBooker.Rating != null || bookingDetailOfBooker.FeedBack != null) return ApiResult(new()
+            {
+                StatusCode = StatusCodes.Status400BadRequest,
+                Message = "This booking detail have been given rating and feedback."
+            });
 
             bookingDetailOfBooker.Rating = request.Rating;
             bookingDetailOfBooker.FeedBack = request.FeedBack;

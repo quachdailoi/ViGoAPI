@@ -56,9 +56,9 @@ namespace API.Controllers.V2
             return Ok("Delete user successfully.");
         }  
         
-        [HttpGet("create-routes")]
+        [HttpGet("create-routes-background")]
         [AllowAnonymous]
-        public IActionResult CreateRoutes()
+        public IActionResult CreateRoutesBackGround()
         {
 
             _queue.QueueBackgroundWorkItem(CreateRouteTask); // background task
@@ -85,6 +85,15 @@ namespace API.Controllers.V2
                     await Task.Delay(TimeSpan.FromSeconds(2), token);
                 }
             }
+        }
+
+        [HttpGet("create-routes")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CreateRoutes(CancellationToken token)
+        {
+            await CreateRouteTask(token); // must done
+
+            return Ok("Please wait for adding new route.");
         }
 
         [HttpGet("send-push-notification")]
