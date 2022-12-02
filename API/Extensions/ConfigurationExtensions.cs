@@ -1,4 +1,4 @@
-﻿using API.Models.Settings;
+﻿using API.Models.SettingConfigs;
 
 namespace API.Extensions
 {
@@ -30,7 +30,7 @@ namespace API.Extensions
         {
             if (env == BaseSettings.ProductionEnvironment)
             {
-                Console.WriteLine($"===> Here... {configName}");
+                //Console.WriteLine($"===> Here... {configName}");
                 return Environment.GetEnvironmentVariable(configName);
             }    
             else

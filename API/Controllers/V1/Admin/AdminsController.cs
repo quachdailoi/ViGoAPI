@@ -3,7 +3,7 @@ using API.JwtFeatures;
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Services;
 using API.Validators;
 using Domain.Shares.Enums;

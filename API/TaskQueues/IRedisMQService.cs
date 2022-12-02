@@ -1,5 +1,5 @@
 ﻿using API.Extensions;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 

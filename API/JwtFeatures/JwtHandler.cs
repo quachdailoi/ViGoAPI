@@ -1,6 +1,6 @@
 ﻿using API.Extensions;
 using API.Models;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Services.Constract;
 using Domain.Entities;
 using Domain.Shares.Enums;

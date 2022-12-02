@@ -1,10 +1,13 @@
 ﻿using API.Extensions;
+using API.Models;
 using API.Models.Response;
 using API.Services.Constract;
+using AutoMapper;
 using Domain.Entities;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using System.Linq;
 
 namespace API.Services
 {
@@ -40,6 +43,23 @@ namespace API.Services
                 });
 
             return settings;
+        }
+
+        public List<SettingInProfileViewModel> GetSettingsForProfile()
+        {
+            var listType = new List<string>()
+            {
+                SettingDataUnits.Days.ToString().ToLower(),
+                SettingDataUnits.Time.ToString().ToLower(),
+                SettingDataUnits.Hours.ToString().ToLower(),
+                SettingDataUnits.Minutes.ToString().ToLower()
+            };
+
+            var rs = UnitOfWork.Settings.List(x => x.Type != null).MapTo<SettingInProfileViewModel>(Mapper).ToList()
+                .Where(x => listType.Contains(x.Id.GetUnitAndDataType().Item2))
+                .ToList();
+
+            return rs;
         }
 
         public async Task<bool> Update(Dictionary<Settings,string> items)

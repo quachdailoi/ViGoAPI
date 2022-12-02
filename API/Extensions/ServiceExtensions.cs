@@ -1,5 +1,5 @@
 ﻿using API.Helpers;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Quartz;
 using API.Quartz.Jobs;
 using API.TaskQueues;
@@ -60,7 +60,7 @@ namespace API.Extensions
                     ValidAudience = config.Get(JwtSettings.Audience),
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config[JwtSettings.Key])),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Get(JwtSettings.Key) ?? "")),
                     ClockSkew = TimeSpan.Zero
                 };
                 options.RequireHttpsMetadata = false;

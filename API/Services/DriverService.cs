@@ -4,7 +4,7 @@ using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Responses;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Services.Constract;
 using API.Utilities;
 using API.Validators;

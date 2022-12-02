@@ -20,7 +20,7 @@ using Newtonsoft.Json.Serialization;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.AspNetCore.Http;
 using API.Models.Response;
@@ -73,16 +73,16 @@ services.AddEndpointsApiExplorer();
 services.ConfigureSwagger();
 
 // private key
-var pathToKey = Path.Combine(Directory.GetCurrentDirectory(), _config[FireBaseSettings.AdminSdkJsonFile]);
-Console.WriteLine($"===> Path firebase: {pathToKey}");
+var pathToKey = Path.Combine(Directory.GetCurrentDirectory(), _config.Get(FireBaseSettings.AdminSdkJsonFile));
+//Console.WriteLine($"===> Path firebase: {pathToKey}");
 GoogleCredential credential = GoogleCredential.FromFile(pathToKey);
 
 // Create Firebase app
 FirebaseApp.Create(new AppOptions
 {
     Credential = credential,
-    ProjectId = _config[FireBaseSettings.ProjectId],
-    ServiceAccountId = _config[FireBaseSettings.ServiceAccountId]
+    ProjectId = _config.Get(FireBaseSettings.ProjectId),
+    ServiceAccountId = _config.Get(FireBaseSettings.ServiceAccountId)
 });
 
 string? connectionString = string.Empty;
@@ -205,7 +205,6 @@ services.ConfigureIoCRedisMessageQueue();
 // add redis cache
 var redisSetting = _config.Get(BaseSettings.RedisConnectionString);
 //Console.WriteLine($"==> Redis: {redisSetting}");
-Console.WriteLine($"===> Redis: {redisSetting}");
 services.AddStackExchangeRedisCache(r => r.Configuration = redisSetting);
 
 
