@@ -11,6 +11,7 @@ namespace API.Extensions
             if (Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment) == BaseSettings.ProductionEnvironment)
             {
                 configName = configName.Replace(":", "_");
+                Console.WriteLine($"==> configName: " + configName);
                 config = Environment.GetEnvironmentVariable(configName);
             } 
             else
@@ -44,6 +45,7 @@ namespace API.Extensions
             if (Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment) == BaseSettings.ProductionEnvironment)
             {
                 configName = configName.Replace(":", "_");
+                Console.WriteLine($"==> configName: " + configName);
                 config = Environment.GetEnvironmentVariable(configName);
             }
             else
