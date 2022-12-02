@@ -109,6 +109,7 @@ Console.WriteLine($"===> ENVIRONMENT: {env}");
 //    connectionString = _config.GetConnectionString(BaseSettings.DatabaseConnectionString);
 //}
 
+Console.WriteLine($"===> ConnectionName: {BaseSettings.PostgreSQLMaaSConnection}");
 connectionString = _config.GetConnectionString(BaseSettings.PostgreSQLMaaSConnection, Environment.GetEnvironmentVariable(BaseSettings.ProjectEnvironment));
 Console.WriteLine($"==> ConnectionString: {connectionString}");
 services.AddDbContextPool<AppDbContext>(options =>
