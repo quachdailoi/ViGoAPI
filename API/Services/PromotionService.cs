@@ -2,7 +2,7 @@
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;
@@ -219,7 +219,7 @@ namespace API.Services
         {
             searchValue = searchValue.Trim().ToLower();
             return UnitOfWork.Promotions
-               .List(x => x.Status == Promotions.Status.Available)
+               .List()
                .Where(x => x.Name.Trim().ToLower().Contains(searchValue) || x.Code.ToLower().Contains(searchValue))
                .MapTo<AdminPromotionViewModel>(Mapper, AppServices)
                .ToListAsync();

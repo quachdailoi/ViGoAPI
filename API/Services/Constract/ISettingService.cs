@@ -1,4 +1,5 @@
-﻿using API.Models.Response;
+﻿using API.Models;
+using API.Models.Response;
 using Domain.Shares.Enums;
 
 namespace API.Services.Constract
@@ -10,5 +11,6 @@ namespace API.Services.Constract
         Task<Response> GetAll(Response response);
         Task<bool> Update(Dictionary<Settings, string> items); 
         IEnumerable<object> GetAllSettings();
+        List<SettingInProfileViewModel> GetSettingsForProfile();
     }
 }

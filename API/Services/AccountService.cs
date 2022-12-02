@@ -2,7 +2,7 @@
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Services.Constract;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -264,7 +264,9 @@ namespace API.Services
         public async Task<Response> GetProfile(int userId, Response successResponse)
         {
             var profile = await AppServices.User.GetUserViewModelById(userId);
-            profile.Settings = AppServices.Setting.GetAllSettings();
+
+            profile.Settings = AppServices.Setting.GetSettingsForProfile();
+
             return successResponse.SetData(profile);
         }
 

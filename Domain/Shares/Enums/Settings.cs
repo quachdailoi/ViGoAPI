@@ -54,6 +54,17 @@ namespace Domain.Shares.Enums
         Default = 0
     }
 
+    public enum SettingDataUnits
+    {
+        Percent,
+        Minutes,
+        Hours,
+        Days,
+        Meters,
+        Turn,
+        Time
+    }
+
     public static class SettingExtension
     {
         public static Tuple<SettingDataTypes, string> GetUnitAndDataType(this Settings setting)

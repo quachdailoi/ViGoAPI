@@ -282,5 +282,12 @@ namespace API.Controllers.V1
         //{
 
         //}
+
+        [HttpGet("test-deploy")]
+        [AllowAnonymous]
+        public async Task<IActionResult> TestDeploy()
+        {
+            return Ok("Deploy OK");
+        }
     }
 }

@@ -197,7 +197,8 @@ namespace API.Services
                     StatusCode = StatusCodes.Status400BadRequest,
                     Message = "You can only create route routine from tomorrow."
                 };
-            } else
+            } 
+            else
             {
                 // can create routine start from the day after tomorrow
                 if (request.StartAtParsed < nowDateOnly.AddDays(2)) return new()

@@ -4,7 +4,7 @@ using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Responses;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Services.Constract;
 using API.Utilities;
 using API.Validators;
@@ -197,7 +197,7 @@ namespace API.Services
 
         public async Task UpdateCancelledTripRate(int driverId)
         {
-            var driver = AppServices.User.GetUserById(driverId)?.FirstOrDefault();
+            var driver = AppServices.User.GetUserById(driverId)?.Include(x => x.Accounts).FirstOrDefault();
             if (driver == null) throw new Exception("Not found driver.");
 
             var bookingDetailDrivers = UnitOfWork.BookingDetailDrivers.List(bdr => bdr.RouteRoutine.UserId == driver.Id)
@@ -223,6 +223,16 @@ namespace API.Services
                     UserId = driverId
                 };
                 await AppServices.Notification.SendPushNotification(notiDTO);
+                //send email
+                var nearlyBanEvent = await UnitOfWork.Events.List(x => x.Id == Events.Types.NearlyBan).FirstOrDefaultAsync();
+                if (nearlyBanEvent != null)
+                {
+                    await AppServices.VerifiedCode.SendMail(
+                        mail: driver.Gmail,
+                        subject: $"ViGo: {nearlyBanEvent.Title}",
+                        content: nearlyBanEvent.Content
+                    );
+                }
             } else if (cancelledTripRate >= await AppServices.Setting.GetValue(Settings.MaxCancelledTripRate, 0.1))
             {
                 var notiDTO = new NotificationDTO()
@@ -232,6 +242,16 @@ namespace API.Services
                     UserId = driverId
                 };
                 await AppServices.Notification.SendPushNotification(notiDTO);
+                // send email
+                var banEvent = await UnitOfWork.Events.List(x => x.Id == Events.Types.BanDriver).FirstOrDefaultAsync();
+                if (banEvent != null)
+                {
+                    await AppServices.VerifiedCode.SendMail(
+                        mail: driver.Gmail,
+                        subject: $"ViGo: {banEvent.Title}",
+                        content: banEvent.Content
+                    );
+                }
             }
 
             await UnitOfWork.Users.Update(driver);

@@ -1,6 +1,6 @@
 ﻿using API.Extensions;
 using API.Models.DTO;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Services.Constract;
 using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
