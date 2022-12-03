@@ -276,6 +276,89 @@ namespace API.Controllers.V1
             return Ok();
         }
 
+        /// <summary>
+        ///     Dump trip
+        /// </summary>
+        /// <remarks>
+        /// ```
+        /// Sample request:
+        ///     POST api/tests/trips
+        ///     {
+        ///         DriverId = 3, // 1: Lợi, 2: Đạt, 3: Khoa, 4: Duy
+        ///         NumberOfPassenger = 2, // min: 1, max: 4
+        ///     }
+        /// ```
+        /// </remarks>
+        [HttpPost("dump/trips")]
+        [AllowAnonymous]
+        public async Task<IActionResult> DumpTrips([FromBody] DumpTripRequest request) 
+        {
+            var driver = await AppServices.User.GetUserViewModelById(request.DriverId);
+
+            if (request.NumberOfPassenger <= 0 || request.NumberOfPassenger > 4)
+                return BadRequest();
+
+            if (driver == null || driver.RoleName != Roles.DRIVER.GetName())
+                return BadRequest();
+
+            var nowTimeOnly = DateTimeExtensions.NowTimeOnly.AddMinutes(1);
+
+            var nowDateOnly = DateTimeExtensions.NowDateOnly;
+
+            var bookerIds = new List<int>
+            {
+                5, // Loi,
+                6, // Dat,
+                7, // Khoa,
+                8, // Duy
+            };
+
+            dynamic routes = (await AppServices.Route.GetAll(new(), new())).Data;
+
+            var route = routes[0] as RouteViewModel;
+
+            var routeRoutine = (await AppServices.RouteRoutine.CreateRouteRoutines(new List<RouteRoutine>
+            {
+                new RouteRoutine
+                {
+                    UserId = request.DriverId,
+                    RouteId = route.Id,
+                    StartTime = nowTimeOnly,
+                    EndTime = nowTimeOnly.AddMinutes(route.Duration/60),
+                    StartAt = nowDateOnly,
+                    EndAt = nowDateOnly,
+                }
+            }))[0];
+
+            if (routeRoutine == null)
+                return Problem();
+
+            for(var i = 0; i < request.NumberOfPassenger; i++)
+            {
+                var bookingDto = new BookingDTO();
+
+                bookingDto.PaymentMethod = Payments.PaymentMethods.Wallet;
+                bookingDto.VehicleTypeCode = driver.Vehicle.VehicleTypeCode;
+                bookingDto.StartAt = nowDateOnly;
+                bookingDto.EndAt = nowDateOnly;
+                bookingDto.Time = nowTimeOnly;
+                bookingDto.UserId = bookerIds[i];
+                bookingDto.DayOfWeeks = new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday };
+                //bookingDto.Type = Bookings.Types.MonthTicket;
+                bookingDto.IsShared = driver.Vehicle.VehicleTypeId != (int)VehicleTypes.Type.ViRide;
+                bookingDto.RouteCode = route.Code;
+                bookingDto.StartStationCode = route.Stations[0].Code;
+
+                var endIndex = 1 + (new Random()).Next() % (route.Stations.Count - 1);
+
+                bookingDto.EndStationCode = route.Stations[endIndex].Code;
+
+                await AppServices.Booking.Create(bookingDto, new(), new(), new(), new(), new(), new(), new(), new(), new(), new(), true, routeRoutine.Id);
+            } 
+
+            return Ok();
+        }
+
         //[HttpPost("dump/drivers")]
         //[AllowAnonymous]
         //public async Task<IActionResult> DumpDrivers()

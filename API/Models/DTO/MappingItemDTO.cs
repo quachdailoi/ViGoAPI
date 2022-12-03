@@ -6,5 +6,6 @@ namespace API.Models.DTO
     {
         public int Id { get; set; }
         public TaskItems.MappingItemTypes Type { get; set; } = TaskItems.MappingItemTypes.Booking;
+        public int? SpecificMappingId { get; set; } = null;
     }
 }
