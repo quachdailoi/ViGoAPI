@@ -1,4 +1,5 @@
-﻿using API.Extensions;
+﻿using Amazon.S3;
+using API.Extensions;
 using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
@@ -351,9 +352,15 @@ namespace API.Services
 
             var userVM = UnitOfWork.Users.GetUserById(newUser.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
             //send mail to driver to verify email account
-            await AppServices.VerifiedCode.SendMailOTPVerificationLink(userVM);
+            //await AppServices.VerifiedCode.SendMailOTPVerificationLink(userVM);
             //send sms to driver to verify phone number account
-            await AppServices.VerifiedCode.SendPhoneOTPVerificationLink(userVM);
+            //await AppServices.VerifiedCode.SendPhoneOTPVerificationLink(userVM);
+
+            //send mail to notification submit registration successfully.
+            var mail = await AppServices.Event.GetById(Events.Types.SubmitRegistrationSuccess);
+
+            await AppServices.VerifiedCode.SendMail(userVM.Gmail, mail.Title, string.Format(mail.Content, userVM.Name));
+
             await UnitOfWork.CommitAsync();
 
             return userVM;
@@ -537,72 +544,55 @@ namespace API.Services
                 if (await UnitOfWork.Vehicles.Add(vehicle) != null) throw new Exception("Failed to add new vehicle for driver.");
             }
 
-            var emailAcc = AppServices.Account.GetAccountByUserCode(driver.Code.ToString(), RegistrationTypes.Gmail)?.FirstOrDefault();
-            var phoneAcc = AppServices.Account.GetAccountByUserCode(driver.Code.ToString(), RegistrationTypes.Phone)?.FirstOrDefault();
+            var accounts = UnitOfWork.Accounts.GetAccountByUserId(driver.Id);
+            var emailAcc = accounts.Where(x => x.RegistrationType == RegistrationTypes.Gmail).FirstOrDefault();
+            var phoneAcc = accounts.Where(x => x.RegistrationType == RegistrationTypes.Phone).FirstOrDefault();
 
+            //emailAcc.User = null; emailAcc.Role = null;
+            //phoneAcc.User = null; phoneAcc.Role = null;
             var userVM = UnitOfWork.Users.GetUserById(driver.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
 
-            var sendMailOption = 0;
-            var sendSMS = false;
+            Events.Types? eventTypeEmail = null;
+            Events.Types? eventTypePhone = null;
+            var result = true;
 
             if (driver.Status == Users.Status.Pending && userStatus == Users.Status.Rejected)
             {
                 //send mail 
-                sendMailOption = 1;
+                eventTypeEmail = Events.Types.RejectDriverRegistration;
             }
             else if (driver.Status == Users.Status.Pending && userStatus == Users.Status.Active)
             {
-                // if email account was not verified resend mail to user to verify account.
+                //send mail to driver to verify email account
+                eventTypeEmail = Events.Types.VerifyEmailByLinkNewDriver;
 
-                if (emailAcc.Registration == request.Email)
-                {
-                    if (!userVM.HasVerifiedGmail)
-                    {
-                        //send mail
-                        await AppServices.VerifiedCode.SendMailOTPVerificationLink(userVM, "ViGo - REMINDED: Your driver registration is valid, final step: Click to this link");
-                        throw new Exception("Driver's email was not verified, mail to remind driver to verify their mail was resent");
-                    }
-                    else
-                    {
-                        // send mail
-                        sendMailOption = 4;
-                    }
-                }
-                else
-                {
-                    
-                    emailAcc.Registration = request.Email;
-                    emailAcc.Verified = false;
-                    userVM.Gmail = request.Email;
-                    if (!await UnitOfWork.Accounts.Update(emailAcc)) throw new Exception("Failed to update email.");
-                    //send mail to driver to verify email account
-                    sendMailOption = 2;
-                }
+                eventTypePhone = Events.Types.VerifyEmailByLinkNewDriver;
             }
             else if (driver.Status == Users.Status.Active && userStatus == Users.Status.Active)
             {
                 if (emailAcc.Registration != request.Email)
                 {
-                    emailAcc.Registration = request.Email;
-                    userVM.Gmail = request.Email;
-                    emailAcc.Verified = false;
-                    if (!await UnitOfWork.Accounts.Update(emailAcc)) throw new Exception("Failed to update email.");
                     //send mail to driver to verify email account
-                    sendMailOption = 2;
-                    
+                    eventTypeEmail = Events.Types.VerifyEmailByLinkOldDriver;
+                }
+                if (phoneAcc.Registration != request.PhoneNumber)
+                {
+                    //send phone to driver to verify phone account
+                    eventTypePhone = Events.Types.VerifyEmailByLinkNewDriver;
                 }
             }
 
-            if (phoneAcc.Registration != request.PhoneNumber)
-            {
+            //update email account
+            emailAcc.Registration = request.Email;
+            emailAcc.Verified = false;
+            if (!await UnitOfWork.Accounts.Update(emailAcc)) throw new Exception("Failed to update email.");
+            userVM.Gmail = request.Email;
 
-                phoneAcc.Registration = request.PhoneNumber;
-                userVM.PhoneNumber = request.PhoneNumber;
-                phoneAcc.Verified = false;
-                if (!await UnitOfWork.Accounts.Update(phoneAcc)) throw new Exception("Failed to update phone number.");
-                //send verification sms when change phone number
-                sendSMS = true;
-            }
+            //update phone account
+            phoneAcc.Registration = request.PhoneNumber;
+            phoneAcc.Verified = false;
+            if (!await UnitOfWork.Accounts.Update(phoneAcc)) throw new Exception("Failed to update phone number.");
+            userVM.PhoneNumber = request.PhoneNumber;
 
             driver.Status = userStatus;
 
@@ -611,28 +601,34 @@ namespace API.Services
 
             await UnitOfWork.CommitAsync();
 
-            switch(sendMailOption)
+            // send mail
+            if (eventTypeEmail.HasValue)
             {
-                case 0:
-                    //not send mail
+                var mail = await AppServices.Event.GetById((Events.Types)eventTypeEmail);
+                switch (eventTypeEmail)
+                {
+                    case Events.Types.RejectDriverRegistration:
+                        await AppServices.VerifiedCode.SendMail(userVM.Gmail, mail.Title, string.Format(mail.Content, userVM.Name));
                     break;
-                case 1:
-                    //send reject mail
-                    AppServices.VerifiedCode.SendMail(emailAcc.Registration, "ViGo: Rejected Your Driver Registration", "Your driver registration was rejected, please contact to admin for details and support.");
-                    break;
-                case 2:
-                    //send mail verification
-                    await AppServices.VerifiedCode.SendMailOTPVerificationLink(userVM);
-                    break;
-                case 3:
-                    //resend mail verification - notification
-                    break;
-                case 4:
-                    //send mail approve
-                    await AppServices.VerifiedCode.SendMail(emailAcc.Registration, "ViGo: Approve Your Driver Registration", "You driver registration was approved, now you can use email to login to ViGo.");
-                    break;
+                    case Events.Types.VerifyEmailByLinkNewDriver:
+                    case Events.Types.VerifyEmailByLinkOldDriver:
+                        await AppServices.VerifiedCode.SendMailOTPVerificationLink(userVM, mail.Title, string.Format(mail.Content, userVM.Name, "{0}"));
+                        break;
+                }
             }
-            if(sendSMS) await AppServices.VerifiedCode.SendPhoneOTPVerificationLink(userVM);
+
+            if (eventTypePhone.HasValue)
+            {
+                var phoneMessage = await AppServices.Event.GetById((Events.Types)eventTypePhone);
+                switch (eventTypePhone)
+                {
+                    case Events.Types.VerifyPhoneByLink:
+                        //send verification sms when change phone number
+                        var phoneSMS = await AppServices.Event.GetById(Events.Types.VerifyPhoneByLink);
+                        await AppServices.VerifiedCode.SendMailOTPVerificationLink(userVM, phoneSMS.Title, phoneSMS.Content);
+                        break;
+                }
+            }
 
             userVM = UnitOfWork.Users.GetUserById(driver.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
 

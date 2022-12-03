@@ -189,7 +189,13 @@ namespace Infrastructure.Data.Seeders
                     Id = Settings.PromotionFileSizeLimit,
                     Key = Settings.PromotionFileSizeLimit.ToString(),
                     Value = "20"
-                }
+                },
+                new Setting
+                {
+                    Id = Settings.TimeBeforeStartTrip,
+                    Key = Settings.TimeBeforeStartTrip.ToString(),
+                    Value = "30"
+                },
             });
         }
     }

@@ -35,7 +35,8 @@ namespace Domain.Shares.Enums
         TradeDisountForBookerCancelTrip,
         DriverRegistrationFileSizeLimit,
         BannerFileSizeLimit,
-        PromotionFileSizeLimit
+        PromotionFileSizeLimit,
+        TimeBeforeStartTrip
     }
 
     public enum SettingTypes

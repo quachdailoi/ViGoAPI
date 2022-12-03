@@ -81,6 +81,10 @@ namespace Infrastructure.Data.Repositories
 
         public virtual async Task<bool> Update(T entity)
         {
+            var exist = DbSet.Any(x => ((IBaseEntity)entity).Id == ((IBaseEntity)x).Id);
+
+            if (!exist) return false;
+
             try
             {
                 if (typeof(IBaseEntity).IsAssignableFrom(typeof(T)))

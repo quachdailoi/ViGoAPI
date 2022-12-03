@@ -47,5 +47,6 @@ namespace API.Services.Constract
         ISettingService Setting { get; }
         IReportService Report { get; }
         IUserLicenseService UserLicense { get; }
+        IEventService Event { get; }
     }
 }
