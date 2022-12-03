@@ -285,7 +285,7 @@ namespace API.Controllers.V1
         ///     POST api/tests/trips
         ///     {
         ///         DriverId = 3, // 1: Lợi, 2: Đạt, 3: Khoa, 4: Duy
-        ///         NumberOfPassenger = 2, // min: 1, max: 4
+        ///         UserIds = [5,6], // 5: Lợi, 6: Đạt, 7: Khoa, 8: Duy
         ///     }
         /// ```
         /// </remarks>
@@ -294,8 +294,18 @@ namespace API.Controllers.V1
         public async Task<IActionResult> DumpTrips([FromBody] DumpTripRequest request) 
         {
             var driver = await AppServices.User.GetUserViewModelById(request.DriverId);
+            var bookerIds = new List<int>
+            {
+                5, // Loi,
+                6, // Dat,
+                7, // Khoa,
+                8, // Duy
+            };
 
-            if (request.NumberOfPassenger <= 0 || request.NumberOfPassenger > 4)
+            if (!request.UserIds.Any())
+                return BadRequest();
+
+            if (request.UserIds.Any(id => !bookerIds.Contains(id)))
                 return BadRequest();
 
             if (driver == null || driver.RoleName != Roles.DRIVER.GetName())
@@ -305,13 +315,7 @@ namespace API.Controllers.V1
 
             var nowDateOnly = DateTimeExtensions.NowDateOnly;
 
-            var bookerIds = new List<int>
-            {
-                5, // Loi,
-                6, // Dat,
-                7, // Khoa,
-                8, // Duy
-            };
+            
 
             dynamic routes = (await AppServices.Route.GetAll(new(), new())).Data;
 
@@ -333,7 +337,7 @@ namespace API.Controllers.V1
             if (routeRoutine == null)
                 return Problem();
 
-            for(var i = 0; i < request.NumberOfPassenger; i++)
+            foreach(var userId in request.UserIds.Distinct())
             {
                 var bookingDto = new BookingDTO();
 
@@ -342,7 +346,7 @@ namespace API.Controllers.V1
                 bookingDto.StartAt = nowDateOnly;
                 bookingDto.EndAt = nowDateOnly;
                 bookingDto.Time = nowTimeOnly;
-                bookingDto.UserId = bookerIds[i];
+                bookingDto.UserId = userId;
                 bookingDto.DayOfWeeks = new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday };
                 //bookingDto.Type = Bookings.Types.MonthTicket;
                 bookingDto.IsShared = driver.Vehicle.VehicleTypeId != (int)VehicleTypes.Type.ViRide;
