@@ -42,6 +42,7 @@ namespace API.Models
     public class BookerRouteViewModel : RouteViewModel
     {
         public FeeViewModel Fee { get; set; }
+        public FeeViewModel BookingFee { get; set; }
 
         public override BookerRouteViewModel ProcessStation() => (BookerRouteViewModel)base.ProcessStation();
     }

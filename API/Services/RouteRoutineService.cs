@@ -197,7 +197,8 @@ namespace API.Services
                     StatusCode = StatusCodes.Status400BadRequest,
                     Message = "You can only create route routine from tomorrow."
                 };
-            } else
+            } 
+            else
             {
                 // can create routine start from the day after tomorrow
                 if (request.StartAtParsed < nowDateOnly.AddDays(2)) return new()
@@ -213,7 +214,7 @@ namespace API.Services
         public async Task<Response?> CheckDateToCreateRoutine(CreateRouteRoutineRequest request)
         {
             var nowDateOnly = DateTimeExtensions.NowDateOnly;
-            var firstDayOfNextMonth = new DateOnly(nowDateOnly.Year, nowDateOnly.Month + 1, 01);
+            var firstDayOfNextMonth = new DateOnly(nowDateOnly.AddMonths(1).Year, nowDateOnly.AddMonths(1).Month + 1, 1);
             var lastDayOfNextMonth = firstDayOfNextMonth.AddMonths(1).AddDays(-1);
 
             var startRoutineMonth = request.StartAtParsed.Month;
@@ -432,5 +433,6 @@ namespace API.Services
         public Task<bool> ExistAnyRoutines()
         {
             return UnitOfWork.RouteRoutines.GetAllRouteRoutine().AnyAsync();
-        }    }
+        }    
+    }
 }

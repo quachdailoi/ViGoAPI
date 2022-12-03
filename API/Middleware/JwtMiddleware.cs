@@ -39,6 +39,7 @@ namespace API.Middleware
                         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
                         var user = await jwtHandler.GetUserViewModelByTokenAsync(token);
+                        if(user!= null)
                         if (user.RoleName == Roles.BOOKER.GetName())
                         {
                             await appServices.User.CheckValidUserToLogin(user, RegistrationTypes.Phone);

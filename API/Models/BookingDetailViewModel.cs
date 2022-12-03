@@ -54,6 +54,36 @@ namespace API.Models
             }
         }
     }
+
+    public class BookerBookingDetailWithStationsViewModel : BookerBookingDetailViewModel
+    {
+        //[JsonIgnore]
+        //public new StationInRouteViewModel StartStation { get; set; }
+        //[JsonIgnore]
+        //public new StationInRouteViewModel EndStation { get; set; }
+        [JsonIgnore]
+        private List<StationInRouteViewModel> _Stations = new();
+        public List<StationInRouteViewModel> Stations
+        {
+            get => _Stations;
+            set
+            {
+                var startStation = value.Where(station => station.Id == this.StartStation.Id).First();
+                var endStation = value.Where(station => station.Id == this.EndStation.Id).First();
+
+                value = value.OrderBy(station => station.DistanceFromFirstStationInRoute).ToList();
+
+                var stationAfterStart = value.Where(station => station.DistanceFromFirstStationInRoute >= startStation.DistanceFromFirstStationInRoute).ToList();
+                var stationBeforeEnd = value.Where(station => station.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute).ToList();
+
+                value = startStation.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute ?
+                    stationAfterStart.Intersect(stationBeforeEnd).ToList() : stationAfterStart.Concat(stationBeforeEnd).ToList();
+
+                _Stations = value;
+            }
+        }
+    }
+
     public class DriverBookingDetailViewModel : BookingDetailViewModel
     {
         public ContactUserViewModel User { get; set; }

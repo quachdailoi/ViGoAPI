@@ -3,7 +3,7 @@ using API.Models;
 using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.TaskQueues.TaskResolver;
 using API.Utils;
 using AutoMapper;

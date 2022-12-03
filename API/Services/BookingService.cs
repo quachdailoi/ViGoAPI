@@ -83,7 +83,7 @@ namespace API.Services
                         var discountPriceByPercentage = booking.TotalPrice * promotion.DiscountPercentage;
 
                         // compare with promotion max descrease
-                        booking.DiscountPrice = discountPriceByPercentage < promotion.MaxDecrease ? discountPriceByPercentage : promotion.MaxDecrease;
+                        booking.DiscountPrice = Fee.FloorToHundreds(discountPriceByPercentage < promotion.MaxDecrease ? discountPriceByPercentage : promotion.MaxDecrease);
 
                         booking.PromotionId = promotion.Id;
 

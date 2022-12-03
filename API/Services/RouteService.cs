@@ -132,7 +132,9 @@ namespace API.Services
                     routeViewModel.Stations = stations;
                     routeViewModel.Distance = distance >= 0 ? distance : routeViewModel.Distance + distance;
                     routeViewModel.Duration = duration >= 0 ? duration : routeViewModel.Duration + duration;
-                    routeViewModel.Fee = await AppServices.Fare.CaculateFeePerTrip(dto.VehicleTypeId, dto.StartAt, dto.EndAt, dto.DayOfWeeks, routeViewModel.Distance, dto.Time);
+                    routeViewModel.BookingFee = await AppServices.Fare.CaculateBookingFee(dto.VehicleTypeId, dto.StartAt, dto.EndAt, dto.DayOfWeeks, routeViewModel.Distance, dto.Time);
+
+                    routeViewModel.Fee = routeViewModel.BookingFee.FeePerTrip;
                 }
                 else removeRouteIdHashSet.Add(routeViewModel.Id);
             }

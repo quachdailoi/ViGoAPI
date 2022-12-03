@@ -4,7 +4,7 @@ using API.Models.DTO;
 using API.Models.Requests;
 using API.Models.Response;
 using API.Models.Responses;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Services.Constract;
 using API.Utilities;
 using API.Validators;
@@ -15,8 +15,12 @@ using Domain.Shares.Enums;
 using FluentValidation;
 using Infrastructure.Data.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using Serilog.Sinks.File;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
+using Twilio.Rest.Api.V2010.Account;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace API.Services
 {
@@ -193,7 +197,7 @@ namespace API.Services
 
         public async Task UpdateCancelledTripRate(int driverId)
         {
-            var driver = AppServices.User.GetUserById(driverId)?.FirstOrDefault();
+            var driver = AppServices.User.GetUserById(driverId)?.Include(x => x.Accounts).FirstOrDefault();
             if (driver == null) throw new Exception("Not found driver.");
 
             var bookingDetailDrivers = UnitOfWork.BookingDetailDrivers.List(bdr => bdr.RouteRoutine.UserId == driver.Id)
@@ -219,6 +223,16 @@ namespace API.Services
                     UserId = driverId
                 };
                 await AppServices.Notification.SendPushNotification(notiDTO);
+                //send email
+                var nearlyBanEvent = await UnitOfWork.Events.List(x => x.Id == Events.Types.NearlyBan).FirstOrDefaultAsync();
+                if (nearlyBanEvent != null)
+                {
+                    await AppServices.VerifiedCode.SendMail(
+                        mail: driver.Gmail,
+                        subject: $"ViGo: {nearlyBanEvent.Title}",
+                        content: nearlyBanEvent.Content
+                    );
+                }
             } else if (cancelledTripRate >= await AppServices.Setting.GetValue(Settings.MaxCancelledTripRate, 0.1))
             {
                 var notiDTO = new NotificationDTO()
@@ -228,6 +242,16 @@ namespace API.Services
                     UserId = driverId
                 };
                 await AppServices.Notification.SendPushNotification(notiDTO);
+                // send email
+                var banEvent = await UnitOfWork.Events.List(x => x.Id == Events.Types.BanDriver).FirstOrDefaultAsync();
+                if (banEvent != null)
+                {
+                    await AppServices.VerifiedCode.SendMail(
+                        mail: driver.Gmail,
+                        subject: $"ViGo: {banEvent.Title}",
+                        content: banEvent.Content
+                    );
+                }
             }
 
             await UnitOfWork.Users.Update(driver);
@@ -442,136 +466,43 @@ namespace API.Services
             var driverLicenseCodeNew = request.DriverLicenseCode;
             var vehicleRegistrationCodeNew = request.VehicleRegistrationCode;
 
-            // update identification
-            var frontFile = request.IdentificationFrontSideImage;
-            var backFile = request.IdentificationBackSideImage;
-            var identification = AppServices.UserLicense.GetLicenseByUserIdAndType(driver.Id, LicenseTypes.Identification).FirstOrDefault();
-            
-            var errorMsg = "";
-            if (identification == null)
-            {
-                // not found identification -> create new
-                // check 2 image not null
-                errorMsg = "Not found identification, we need 2 image file to update";
-                
-                validator.CheckFileSize(frontFile, errorMsg);
-                validator.CheckFileSize(backFile, errorMsg);
-
-                identification = await UploadLicense2Side(driver, request.IdentificationCode, LicenseTypes.Identification, frontFile, backFile);
-                //driver.UserLicenses.Add(identification);
-                identification = await UnitOfWork.UserLicenses.Add(identification);
-            } 
-            else // update
-            {
-                // FRONT SIDE
-                if (frontFile != null)
-                {
-                    var path = identification.FrontSideFile.Path;
-
-                    if (!await AppServices.File.UpdateS3File(path, frontFile))
-                        throw new Exception("Failed to update identification's front side file.");
-                }
-
-                // BACK SIDE
-                if (backFile != null)
-                {
-                    var path = identification.BackSideFile.Path;
-
-                    if (!await AppServices.File.UpdateS3File(path, backFile))
-                        throw new Exception("Failed to update identification's front side file.");
-                }
-                identification.Code = identificationCodeNew;
-                identification.FrontSideFile = null;
-                identification.BackSideFile = null;
-                if (!await UnitOfWork.UserLicenses.Update(identification)) throw new Exception("Failed to update identification.");
-            }
+            // update or insert identification
+            await UpsertLicense(
+                newLicenseCode: request.IdentificationCode,
+                driver,
+                newFrontFile: request.IdentificationFrontSideImage,
+                newBackFile: request.IdentificationBackSideImage,
+                folder: _identificationFolder,
+                validator,
+                licenseType: LicenseTypes.Identification,
+                licenseName: "identification"
+            );
             //-----------------
 
             // update driver license
-            frontFile = request.DriverLicenseFrontSideImage;
-            backFile = request.DriverLicenseBackSideImage;
-            var driverLicense = AppServices.UserLicense.GetLicenseByUserIdAndType(driver.Id, LicenseTypes.DriverLicense).FirstOrDefault();
-
-            if (driverLicense == null)
-            {
-                // not found driver license -> create new
-                // check 2 image not null
-                errorMsg = "Not found driver license, we need 2 image file to update";
-
-                validator.CheckFileSize(frontFile, errorMsg);
-                validator.CheckFileSize(backFile, errorMsg);
-
-                driverLicense = await UploadLicense2Side(driver, request.DriverLicenseCode, LicenseTypes.DriverLicense, frontFile, backFile);
-                driverLicense = await UnitOfWork.UserLicenses.Add(driverLicense);
-            }
-            else
-            {
-                // FRONT SIDE
-                if (frontFile != null)
-                {
-                    var path = driverLicense.FrontSideFile.Path;
-
-                    if (!await AppServices.File.UpdateS3File(path, frontFile))
-                        throw new Exception("Failed to update driver license's front side file.");
-                }
-
-                // BACK SIDE
-                if (backFile != null)
-                {
-                    var path = driverLicense.BackSideFile.Path;
-
-                    if (!await AppServices.File.UpdateS3File(path, backFile))
-                        throw new Exception("Failed to update driver license's front side file.");
-                }
-                driverLicense.Code = driverLicenseCodeNew;
-                driverLicense.FrontSideFile = null;
-                driverLicense.BackSideFile = null;
-
-                if (!await UnitOfWork.UserLicenses.Update(driverLicense)) throw new Exception("Failed to update driver license.");
-            }
+            await UpsertLicense(
+                newLicenseCode: request.DriverLicenseCode,
+                driver,
+                newFrontFile: request.DriverLicenseFrontSideImage,
+                newBackFile: request.DriverLicenseBackSideImage,
+                folder: _driverLicenseFolder,
+                validator,
+                licenseType: LicenseTypes.DriverLicense,
+                licenseName: "driver license"
+            );
             //-----------------
 
             // update vehicle registration
-            frontFile = request.VehicleRegistrationFrontSideImage;
-            backFile = request.VehicleRegistrationBackSideImage;
-            var vehicleRegistration = AppServices.UserLicense.GetLicenseByUserIdAndType(driver.Id, LicenseTypes.VehicleRegistration).FirstOrDefault();
-
-            if (vehicleRegistration == null)
-            {
-                // not found vehicle registration -> create new
-                // check 2 image not null
-                errorMsg = "Not found vehicle registration, we need 2 image file to update";
-
-                validator.CheckFileSize(frontFile, errorMsg);
-                validator.CheckFileSize(backFile, errorMsg);
-
-                vehicleRegistration = await UploadLicense2Side(driver, request.VehicleRegistrationCode, LicenseTypes.VehicleRegistration, frontFile, backFile);
-                vehicleRegistration = await UnitOfWork.UserLicenses.Add(vehicleRegistration);
-            }
-            else
-            {
-                if (frontFile != null)
-                {
-                    var path = vehicleRegistration.FrontSideFile.Path;
-
-                    if (!await AppServices.File.UpdateS3File(path, frontFile))
-                        throw new Exception("Failed to update vehicle registration's front side file.");
-                }
-
-                if (backFile != null)
-                {
-                    var path = vehicleRegistration.BackSideFile.Path;
-
-                    if (!await AppServices.File.UpdateS3File(path, backFile))
-                        throw new Exception("Failed to update vehicle registration's front side file.");
-                }
-
-                vehicleRegistration.Code = vehicleRegistrationCodeNew;
-                vehicleRegistration.FrontSideFile = null;
-                vehicleRegistration.BackSideFile = null;
-
-                if (!await UnitOfWork.UserLicenses.Update(vehicleRegistration)) throw new Exception("Failed to update vehicle registration.");
-            }
+            await UpsertLicense(
+                newLicenseCode: request.VehicleRegistrationCode,
+                driver,
+                newFrontFile: request.VehicleRegistrationFrontSideImage,
+                newBackFile: request.VehicleRegistrationBackSideImage,
+                folder: _vehicleRegistrationFolder,
+                validator,
+                licenseType: LicenseTypes.VehicleRegistration,
+                licenseName: "vehicle registration"
+            );
             //-----------------
 
             //update info
@@ -706,6 +637,81 @@ namespace API.Services
             userVM = UnitOfWork.Users.GetUserById(driver.Id).MapTo<UserViewModel>(Mapper, AppServices).FirstOrDefault();
 
             return userVM;
+        }
+
+        private async Task CheckUpsertLicense(UserLicense license, string licenseName, bool isUpdate = true)
+        {
+            var result = true;
+            try
+            {
+                if (isUpdate)
+                    result = await UnitOfWork.UserLicenses.Update(license);
+                else
+                    result = await UnitOfWork.UserLicenses.Add(license) != null;
+            }
+            catch (Exception ex)
+            {
+                Logger<DriverService>().LogError(ex.Message);
+            }
+            string action = isUpdate ? "update" : "add new";
+            if (!result) throw new Exception($"Failed to {action} {licenseName}.");
+            await Task.CompletedTask;
+        }
+
+        private async Task UpsertLicenseFileSide(Guid userCode, UserLicense license, AppFile? curFile, IFormFile? newFIle, string folder, string licenseName, string licenseSide)
+        {
+            if (newFIle != null)
+            {
+                if (curFile == null) // create new
+                {
+                    var newFile = await UploadUserFile($"{userCode}_{licenseSide}", newFIle, _identificationFolder, FileTypes.IdentificationImageFront, $"{licenseName} {licenseSide} side file");
+
+                    license.FrontSideFileId = newFile.Id;
+                }
+                else //update
+                {
+                    var path = curFile.Path;
+
+                    if (!await AppServices.File.UpdateS3File(path, newFIle))
+                        throw new Exception($"Failed to update {licenseName}'s {licenseSide} side file.");
+                }
+            }
+        }
+
+        private async Task UpsertLicense(string newLicenseCode, User driver, IFormFile? newFrontFile, IFormFile? newBackFile, string folder, DriverInformationRequestValidator validator, LicenseTypes licenseType, string licenseName)
+        {
+            var newIdentificationCode = newLicenseCode;
+
+            var license = UnitOfWork.UserLicenses.List(x => x.UserId == driver.Id && x.LicenseTypeId == licenseType).FirstOrDefault();
+
+            var errorMsg = "";
+            if (license == null)
+            {
+                // not found license -> create new
+                // check 2 image not null
+                errorMsg = $"Not found {licenseName}, we need 2 image file to update";
+
+                validator.CheckFileSize(newFrontFile, errorMsg);
+                validator.CheckFileSize(newBackFile, errorMsg);
+
+                license = await UploadLicense2Side(driver, newIdentificationCode, LicenseTypes.Identification, newFrontFile, newBackFile);
+
+                await CheckUpsertLicense(license, licenseName, isUpdate: false);
+            }
+            else // update
+            {
+                // FRONT SIDE
+                var frontSideFileCur = await UnitOfWork.Files.GetById(license.FrontSideFileId);
+                await UpsertLicenseFileSide(driver.Code, license, frontSideFileCur, newFrontFile, folder, licenseName, "front");
+
+                // BACK SIDE
+                var backSideFileCur = await UnitOfWork.Files.GetById(license.BackSideFileId);
+                await UpsertLicenseFileSide(driver.Code, license, backSideFileCur, newBackFile, folder, licenseName, "back");
+
+                license.Code = newIdentificationCode;
+
+                await CheckUpsertLicense(license, licenseName);
+            }
         }
 
         private async Task<AppFile> UploadUserFile(string fileName, IFormFile file, string folder, FileTypes fileType, string fileTypeName)

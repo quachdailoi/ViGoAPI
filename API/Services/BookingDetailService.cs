@@ -705,10 +705,10 @@ namespace API.Services
                     .ToList();
         }
 
-        public Task<BookerBookingDetailViewModel?> GetBookerViewModelByCode(Guid code)
+        public Task<BookerBookingDetailWithStationsViewModel?> GetBookerViewModelByCode(Guid code)
         {
             return UnitOfWork.BookingDetails.GetBookingDetailByCodeAsync(code.ToString())
-                .MapTo<BookerBookingDetailViewModel>(Mapper, AppServices)
+                .MapTo<BookerBookingDetailWithStationsViewModel>(Mapper, AppServices)
                 .FirstOrDefaultAsync();
         }
 

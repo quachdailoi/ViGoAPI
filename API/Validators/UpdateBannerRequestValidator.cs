@@ -42,6 +42,7 @@ namespace API.Validators
 
         private bool CheckFileSize(IFormFile file, int fileSizeLimit)
         {
+            if (file == null) return true;
             try
             {
                 file.ValideSize(file.FileName, fileSizeLimit);

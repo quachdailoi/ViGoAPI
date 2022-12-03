@@ -1,5 +1,5 @@
 ﻿using API.Helpers;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Quartz;
 using API.Quartz.Jobs;
 using API.TaskQueues;
@@ -51,16 +51,16 @@ namespace API.Extensions
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = config["JwtSettings:Issuer"];
+                options.Authority = config.Get(JwtSettings.Issuer);
                 options.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = config["JwtSettings:Issuer"],
+                    ValidIssuer = config.Get(JwtSettings.Issuer),
                     ValidateAudience = true,
-                    ValidAudience = config["JwtSettings:Audience"],
+                    ValidAudience = config.Get(JwtSettings.Audience),
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:Key"])),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.Get(JwtSettings.Key) ?? "")),
                     ClockSkew = TimeSpan.Zero
                 };
                 options.RequireHttpsMetadata = false;
@@ -197,7 +197,7 @@ namespace API.Extensions
 
         public static void ConfigurationSeedData(this IServiceCollection services)
         {
-            services.AddHostedService<DumpRoutes>();
+            //services.AddHostedService<DumpRoutes>();
         }
 
         public static void ConfigureSwagger(this IServiceCollection services)

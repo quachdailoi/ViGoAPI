@@ -92,13 +92,15 @@ namespace API.Controllers.V1
             });
 
             var route = await AppServices.Route.GetRouteByCode(request.RouteCode);
-            route.Name = request.RouteName;
-
+            
             if (route == null) return ApiResult(new()
             {
                 StatusCode = StatusCodes.Status400BadRequest,
                 Message = "Not found any route with this code."
             });
+
+            route.Name = request.RouteName;
+            route.Status = request.Status;
 
             var routeWasBooked = AppServices.Route.CheckRouteWasBooked(route.Id);
 

@@ -22,7 +22,7 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasColumnName("id")
                 .HasConversion<int>();
 
-            builder.Property(e => e.Tittle)
+            builder.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(250)
                 .HasColumnName("title");

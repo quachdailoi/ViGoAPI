@@ -36,7 +36,7 @@ namespace API.Models
         public UserLicenseViewModel? DriverLicense { get; set; } = null;
         public UserLicenseViewModel? VehicleRegistration { get; set; } = null;
 
-        public IEnumerable<object>? Settings { get; set; } = null;
+        public List<SettingInProfileViewModel> Settings { get; set; } = new();
     }
 
     public class DriverViewModel

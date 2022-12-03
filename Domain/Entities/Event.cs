@@ -11,7 +11,7 @@ namespace Domain.Entities
     public class Event
     {
         public Events.Types Id { get; set; }
-        public string Tittle { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
         public string Content { get; set; } = string.Empty;
         public Events.SubTypes Type { get; set; }
         public Events.Status Status { get; set; } = Events.Status.Active;

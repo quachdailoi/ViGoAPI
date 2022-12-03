@@ -49,9 +49,10 @@ namespace API.Services
             return new FeeViewModel
             {
                 FeePerTrip = feePerTrip,
-                Fee = bookingFee.TotalFee,
-                DiscountFee = bookingFee.DiscountFee + discountFee,
-                TotalFee = bookingFee.TotalFee - (bookingFee.DiscountFee + discountFee)
+                Fee = bookingFee.TotalFee + discountFee + bookingFee.DiscountFee,
+                DiscountFee = bookingFee.DiscountFee + discount,
+                TotalFee = bookingFee.TotalFee - discount,
+                ExtraFee = feePerTrip.ExtraFee * dates.Count
             };
         }
 

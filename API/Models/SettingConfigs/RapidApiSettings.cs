@@ -1,4 +1,4 @@
-﻿namespace API.Models.Settings
+﻿namespace API.Models.SettingConfigs
 {
     public class RapidApiSettings
     {

@@ -112,7 +112,7 @@ namespace API.Services
                 Token = dto.Token,
                 Notification = new Notification()
                 {
-                    Title = eventDTO.Tittle,
+                    Title = eventDTO.Title,
                     Body = eventDTO.Content
                 },
                 Apns = new()

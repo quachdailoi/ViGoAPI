@@ -2,7 +2,7 @@
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Services.Constract;
 using API.Utilities;
 using AutoMapper;
@@ -35,7 +35,7 @@ namespace API.Services
             title = title.Trim().ToLower();
             var banners = await UnitOfWork.Banners.GetAll()
                 .Where(x => x.Title.Trim().ToLower().Contains(title))
-                .MapTo<BannerViewModel>(Mapper, AppServices)
+                .MapTo<AdminBannerViewModel>(Mapper, AppServices)
                 .ToListAsync();
 
             return succeess.SetData(banners);
@@ -64,7 +64,7 @@ namespace API.Services
 
             var bannerVM = await UnitOfWork.Banners
                 .List(x => x.Id == banner.Id)
-                .MapTo<BannerViewModel>(Mapper, AppServices)
+                .MapTo<AdminBannerViewModel>(Mapper, AppServices)
                 .FirstOrDefaultAsync();
 
             return successResponse.SetData(bannerVM);

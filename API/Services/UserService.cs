@@ -5,7 +5,7 @@ using API.Extensions;
 using API.Models;
 using API.Models.Requests;
 using API.Models.Response;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Services.Constract;
 using AutoMapper;
 using Domain.Entities;

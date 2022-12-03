@@ -5,7 +5,7 @@ using Amazon.S3.Transfer;
 using API.AWS.S3;
 using API.Extensions;
 using API.Models.Response;
-using API.Models.Settings;
+using API.Models.SettingConfigs;
 using API.Services.Constract;
 using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
