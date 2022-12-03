@@ -137,7 +137,7 @@ namespace API.Services
 
         public async Task<Response> Create(
             BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse, Response invalidVehicleTypeResponse,
-            Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response insufficientBalanceResponse, Response errorResponse, bool isDummy = false)
+            Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, Response notAvailableResponse, Response insufficientBalanceResponse, Response errorResponse, bool isDummy = false, int? routeRoutineId = null)
         {
             var pairOfStation = await AppServices.Station.GetPairOfStation(dto.StartStationCode, dto.EndStationCode);
 
@@ -185,7 +185,8 @@ namespace API.Services
                     BookingId = booking.Id
                 };
 
-                booking.WalletTransactions.Add(walletTransaction);
+                if(!isDummy)
+                    booking.WalletTransactions.Add(walletTransaction);
 
                 //var walletTransactionDto = Mapper.Map<WalletTransactionDTO>(walletTransaction);
 
@@ -225,15 +226,18 @@ namespace API.Services
 
                         break;
                     case Payments.PaymentMethods.Wallet:
-                        if (wallet.Balance < booking.TotalPrice) throw new Exception("Insufficient balance.");
+                        if (!isDummy)
+                        {
+                            if (wallet.Balance < booking.TotalPrice) throw new Exception("Insufficient balance.");
 
-                        walletTransaction.Type = WalletTransactions.Types.BookingPaid;
-                        walletTransaction.Status = WalletTransactions.Status.Success;
+                            walletTransaction.Type = WalletTransactions.Types.BookingPaid;
+                            walletTransaction.Status = WalletTransactions.Status.Success;
 
-                        wallet = await AppServices.Wallet.UpdateBalance(Mapper.Map<WalletTransactionDTO>(walletTransaction), false);
+                            wallet = await AppServices.Wallet.UpdateBalance(Mapper.Map<WalletTransactionDTO>(walletTransaction), false);
 
-                        if (wallet == null) throw new Exception("Fail to pay by wallet.");
-
+                            if (wallet == null) throw new Exception("Fail to pay by wallet.");
+                        }
+                        
                         booking.Status = Bookings.Status.PendingMapping;
 
                         if (!UnitOfWork.Bookings.Update(booking).Result) throw new Exception("Fail to update booking status."); 
@@ -261,7 +265,14 @@ namespace API.Services
             {
                 case Payments.PaymentMethods.COD:
                 case Payments.PaymentMethods.Wallet:
-                    await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, new MappingItemDTO { Id = booking.Id, Type = TaskItems.MappingItemTypes.Booking });
+                    var mappingItem = new MappingItemDTO 
+                    { 
+                        Id = booking.Id, 
+                        Type = TaskItems.MappingItemTypes.Booking,
+                        SpecificMappingId = routeRoutineId
+                    };
+
+                    await AppServices.RedisMQ.Publish(MappingBookingTask.MAPPING_QUEUE, mappingItem);
                     break;
             }
 
@@ -378,7 +389,7 @@ namespace API.Services
             bookingDetail.MessageRoomId = room.Id;
         }
 
-        public async Task<Booking?> MappingBooking(int bookingId)
+        public async Task<Booking?> MappingBooking(int bookingId, int? specificRouteRoutineId = null)
         {
             var startTime = DateTimeOffset.UtcNow;
 
@@ -414,6 +425,9 @@ namespace API.Services
                 .List(routeRoutine => (routeRoutine.StartTime <= booking.Time && routeRoutine.EndTime > booking.Time) &&
                                       routeRoutine.RouteId == booking.StartRouteStation.RouteId && routeRoutine.User.Vehicle.VehicleTypeId == booking.VehicleTypeId &&
                                       routeRoutine.User.Status == Users.Status.Active);
+
+            if (specificRouteRoutineId.HasValue)
+                routeRoutines = routeRoutines.Where(routeRoutine => routeRoutine.Id == specificRouteRoutineId.Value);
 
             var driverUserMessageRoomDic = new Dictionary<Guid, Room>();
 
@@ -846,35 +860,36 @@ namespace API.Services
                 switch (booking.PaymentMethod)
                 {
                     case Payments.PaymentMethods.Momo:
-                        //var transaction = booking.WalletTransactions
-                        //    .Where(trans => trans.Type == WalletTransactions.Types.BookingPaidByMomo && trans.Status == WalletTransactions.Status.Success)
-                        //    .FirstOrDefault();
+                    //var transaction = booking.WalletTransactions
+                    //    .Where(trans => trans.Type == WalletTransactions.Types.BookingPaidByMomo && trans.Status == WalletTransactions.Status.Success)
+                    //    .FirstOrDefault();
 
-                        //if (transaction != null)
-                        //{
-                        //    var txnId = long.Parse(transaction.TxnId);
+                    //if (transaction != null)
+                    //{
+                    //    var txnId = long.Parse(transaction.TxnId);
 
-                        //    var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
+                    //    var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
 
-                        //    if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
+                    //    if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
 
-                        //    var refundTransaction = new WalletTransactionDTO
-                        //    {
-                        //        Amount = amount,
-                        //        BookingId = booking.Id,
-                        //        Type = WalletTransactions.Types.BookingRefund,
-                        //        TxnId = response.transId.ToString(),
-                        //        WalletId = wallet.Id,
-                        //        Status = WalletTransactions.Status.Success
-                        //    };
+                    //    var refundTransaction = new WalletTransactionDTO
+                    //    {
+                    //        Amount = amount,
+                    //        BookingId = booking.Id,
+                    //        Type = WalletTransactions.Types.BookingRefund,
+                    //        TxnId = response.transId.ToString(),
+                    //        WalletId = wallet.Id,
+                    //        Status = WalletTransactions.Status.Success
+                    //    };
 
-                        //    await AppServices.WalletTransaction.Create(refundTransaction);
+                    //    await AppServices.WalletTransaction.Create(refundTransaction);
 
-                        //    isSuccess = true;
-                        //}
+                    //    isSuccess = true;
+                    //}
 
-                        ////return true;
-                        //break;
+                    ////return true;
+                    //break;
+                    case Payments.PaymentMethods.COD:
                     case Payments.PaymentMethods.Wallet:
                         await AppServices.Wallet.UpdateBalance(new WalletTransactionDTO
                         {

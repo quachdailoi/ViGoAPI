@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Shares.Enums;
+using System.Text.Json.Serialization;
 
 namespace API.Models
 {

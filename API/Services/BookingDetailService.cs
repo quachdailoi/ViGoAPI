@@ -412,36 +412,37 @@ namespace API.Services
                 switch (bookingDetail.Booking.PaymentMethod)
                 {
                     case Payments.PaymentMethods.Momo:
-                        //var transaction = bookingDetail.Booking.WalletTransactions
-                        //    .Where(trans => trans.Type == WalletTransactions.Types.BookingPaidByMomo && trans.Status == WalletTransactions.Status.Success)
-                        //    .FirstOrDefault();
+                    //var transaction = bookingDetail.Booking.WalletTransactions
+                    //    .Where(trans => trans.Type == WalletTransactions.Types.BookingPaidByMomo && trans.Status == WalletTransactions.Status.Success)
+                    //    .FirstOrDefault();
 
-                        //if(transaction != null)
-                        //{
-                        //    var txnId = long.Parse(transaction.TxnId);
+                    //if(transaction != null)
+                    //{
+                    //    var txnId = long.Parse(transaction.TxnId);
 
-                        //    var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
+                    //    var response = await AppServices.Payment.MomoRefund(txnId, (long)amount);
 
-                        //    if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
+                    //    if (response.resultCode != (int)Payments.MomoStatusCodes.Successed) return false;
 
-                        //    var refundTransaction = new WalletTransactionDTO
-                        //    {
-                        //        Amount = amount,
-                        //        BookingId = bookingDetail.BookingId,
-                        //        Type = WalletTransactions.Types.BookingRefund,
-                        //        TxnId = response.transId.ToString(),
-                        //        WalletId = wallet.Id,
-                        //        Status = WalletTransactions.Status.Success
-                        //    };
+                    //    var refundTransaction = new WalletTransactionDTO
+                    //    {
+                    //        Amount = amount,
+                    //        BookingId = bookingDetail.BookingId,
+                    //        Type = WalletTransactions.Types.BookingRefund,
+                    //        TxnId = response.transId.ToString(),
+                    //        WalletId = wallet.Id,
+                    //        Status = WalletTransactions.Status.Success
+                    //    };
 
-                        //    await AppServices.WalletTransaction.Create(refundTransaction);
+                    //    await AppServices.WalletTransaction.Create(refundTransaction);
 
-                        //    isSuccess = true;
-                        //}
-                        
+                    //    isSuccess = true;
+                    //}
 
-                        ////return true;
-                        //break;
+
+                    ////return true;
+                    //break;
+                    case Payments.PaymentMethods.COD:
                     case Payments.PaymentMethods.Wallet:
                         await AppServices.Wallet.UpdateBalance(new WalletTransactionDTO
                         {
@@ -604,6 +605,8 @@ namespace API.Services
             if (routeStationDic == null)
                 return null;
 
+            var routeRoutineId = bookingDetail.BookingDetailDrivers.First().RouteRoutineId;
+
             var bookingDetailInTrips =
                 (await UnitOfWork.RouteRoutines
                 .List(e => e.Id == bookingDetail.BookingDetailDrivers.First().RouteRoutineId)
@@ -616,6 +619,7 @@ namespace API.Services
                 .FirstOrDefaultAsync())?
                 .BookingDetailDrivers
                 .Select(bdr => bdr.BookingDetail)
+                .Where(bd => bd.Id != bookingDetail.Id)
                 .ToList();
 
             if (bookingDetailInTrips == null)

@@ -11,14 +11,14 @@ namespace API.Services.Constract
         Task<Response> Create(
             BookingDTO dto, CollectionLinkRequestDTO paymentDto, Response successResponse, Response invalidStationResponse,
             Response invalidVehicleTypeResponse, Response invalidRouteResponse, Response duplicationResponse, Response invalidPromotionResponse, 
-            Response notAvailableResponse, Response insufficientBalanceResponse, Response errorResponse, bool isDummy = false);
+            Response notAvailableResponse, Response insufficientBalanceResponse, Response errorResponse, bool isDummy = false, int ? routeRoutineId = null);
         Task<Response> GetProvision(
             BookingDTO dto, Response successResponse, Response invalidStationResponse, Response invalidRouteResponse, 
             Response invalidVehicleTypeResponse, Response invalidPromotionResponse);
         Task<Response> Get(int userId, GetBookingRequest request, Response successReponse);
         Task<bool> Update(Booking booking);
         Task<Booking?> GetByCode(Guid code);
-        Task<Booking?> MappingBooking(int bookingId);
+        Task<Booking?> MappingBooking(int bookingId, int? specificRouteRoutineId = null);
         Task<RouteRoutine?> MappingRouteRoutine(int routeRoutineId);
         Task<BookingDetail?> MappingBookingDetail(int bookingDetailId);
         Task<BookingDetail?> MappingBookingDetailSuddenly(Guid code);

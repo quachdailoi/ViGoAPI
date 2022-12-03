@@ -8,5 +8,6 @@
         public string LicensePlate { get; set; }
         public string Type { get; set; }
         public int VehicleTypeId { get; set; }
+        public Guid VehicleTypeCode { get; set; }
     }
 }
