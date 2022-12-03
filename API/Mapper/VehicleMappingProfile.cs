@@ -22,7 +22,11 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.Type,
                     otp => otp.MapFrom(
-                        src => src.VehicleType.Name));
+                        src => src.VehicleType.Name))
+                .ForMember(
+                    dest => dest.VehicleTypeCode,
+                    otp => otp.MapFrom(
+                        src => src.VehicleType.Code));
         }
     }
 }

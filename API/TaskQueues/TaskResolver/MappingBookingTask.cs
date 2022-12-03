@@ -34,7 +34,7 @@ namespace API.TaskQueues.TaskResolver
                             switch (item.Type)
                             {
                                 case TaskItems.MappingItemTypes.Booking:
-                                    var booking = await _appService.Booking.MappingBooking(item.Id);
+                                    var booking = await _appService.Booking.MappingBooking(item.Id, item.SpecificMappingId);
                                     if (booking != null)
                                     {
                                         var isMappedSuccess = booking.BookingDetails.Any(bd => bd.Status == BookingDetails.Status.Ready);
