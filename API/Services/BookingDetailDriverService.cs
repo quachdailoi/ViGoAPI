@@ -10,6 +10,7 @@ using Domain.Entities;
 using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Twilio.Rest.Api.V2010.Account;
 using static Domain.Shares.Enums.BookingDetailDrivers;
 
@@ -35,6 +36,18 @@ namespace API.Services
         public async Task<bool> StartBookingDetailDrivers(string[] codes)
         {
             var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString())).Include(x => x.BookingDetail).ThenInclude(x => x.Booking).ThenInclude(x => x.User);
+
+            if (detailDrivers.IsNullOrEmpty()) throw new Exception("Not found any trip with these code to start.");
+
+            //check valid time to start routine
+            var routine = detailDrivers.FirstOrDefault()?.RouteRoutine;
+            var nowDate = DateTimeExtensions.NowDateOnly;
+            var nowTime = DateTimeExtensions.NowTimeOnly;
+            var validTimeBeforeToStart = await AppServices.Setting.GetValue(Settings.TimeBeforeStartTrip, 30);
+
+            if (!(routine.StartAt <= nowDate && nowDate <= routine.EndAt &&
+                    routine.StartTime <= nowTime.AddMinutes(validTimeBeforeToStart)))
+                throw new Exception($"You just only start your routine before {validTimeBeforeToStart} minutes.");
 
             var updatedDetailDrivers = detailDrivers.ToList().Select(x => {
                 x.TripStatus = BookingDetailDrivers.TripStatus.Start;
@@ -135,7 +148,7 @@ namespace API.Services
 
                 switch (tripStatus)
                 {
-                    case BookingDetailDrivers.TripStatus.PickedUp:
+                    case TripStatus.PickedUp:
                         //if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(-1 * await AppServices.Setting.GetValue(Settings.TimeBeforePickingUp, 10))) 
                         //    throw new Exception("Invalid time to set status PickedUp for it.");
 
@@ -145,7 +158,7 @@ namespace API.Services
                         bookingDetailDriver.BookingDetail = bookingDetail;
                         bookingDetailDriver.StartTime = TimeOnly.FromDateTime(DateTimeOffset.Now.DateTime);
                         break;
-                    case BookingDetailDrivers.TripStatus.Completed:
+                    case TripStatus.Completed:
                         //if (today < bookingDetailDate || now < bookingDetailTime.AddMinutes(await AppServices.Setting.GetValue(Settings.TimeAfterComplete, 3))) 
                         //    throw new Exception("Invalid time to set status Completed for it.");
 
@@ -166,13 +179,15 @@ namespace API.Services
 
                 // cancelled
 
-                await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", new
+                object dataNoti = new
                 {
                     BookingDetailDriverCode = bookingDetailDriver.Code,
                     BookingDetailCode = bookingDetailDriver.BookingDetail.Code,
                     TripStatus = tripStatus,
                     TripStatusName = tripStatus.DisplayName()
-                });
+                };
+
+                await AppServices.SignalR.SendToUserAsync(bookingDetail.Booking.User.Code.ToString(), "TripStatus", dataNoti);
             }
             else Logger<BookingDetailDriverService>().LogError("Error: Booking detail null -> cannot set complete or send signal");
 
@@ -180,10 +195,12 @@ namespace API.Services
 
             if (await UnitOfWork.BookingDetailDrivers.Update(bookingDetailDriver))
             {
+                //send notification
+                //...
                 var notiDTO = new NotificationDTO();
                 switch (bookingDetailDriver.TripStatus)
                 {
-                    case BookingDetailDrivers.TripStatus.Completed:
+                    case TripStatus.Completed:
                         var wallet = await AppServices.Wallet.GetWallet(bookingDetailDriver.RouteRoutine.UserId);
 
                         var totalFee = bookingDetail.Price + bookingDetail.DiscountPrice;
@@ -218,6 +235,7 @@ namespace API.Services
                                 BookingId = bookingDetail.Booking.Id
                             };
 
+                            // send push notification for driver's income
                             if ((wallet = AppServices.Wallet.UpdateBalance(transactionDto).Result) != null)
                             {
                                 notiDTO = new NotificationDTO()

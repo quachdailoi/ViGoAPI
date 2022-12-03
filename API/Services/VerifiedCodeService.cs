@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using Org.BouncyCastle.Crypto.Macs;
+using System.Configuration;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 
@@ -291,7 +292,7 @@ namespace API.Services
             return successResponse;
         }
 
-        public async Task SendMailOTPVerificationLink(UserViewModel user, string? subject = "ViGo: Verified Your Email Account")
+        public async Task SendMailOTPVerificationLink(UserViewModel user, string subject, string content)
         {
             var mail = user.Gmail;
             var otp = await CreateOTPVerificationLinkCode(mail, RegistrationTypes.Gmail, OtpTypes.MailLinkOTP);
@@ -301,14 +302,14 @@ namespace API.Services
             var host = Configuration.Get(MailSettings.VerifiedAccountHost);
             var link = string.Format(host, token);
 
-            var content = $"Click link to verified your email account: {link}";
+            content = string.Format(content, link);
             
             SendMail(mail, subject, content); 
 
             await Task.CompletedTask;
         }
 
-        public async Task SendPhoneOTPVerificationLink(UserViewModel user)
+        public async Task SendPhoneOTPVerificationLink(UserViewModel user, string message)
         {
             var phone = user.PhoneNumber;
             var otp = await CreateOTPVerificationLinkCode(phone, RegistrationTypes.Phone, OtpTypes.SMSLinkOTP);
@@ -318,7 +319,7 @@ namespace API.Services
 
             var host = Configuration.Get(TwilioSettings.VerifiedAccountHost);
             var link = string.Format(host, token);
-            var message = $"From ViGo: Click to this link to verify your phone number.\n{link}";
+            message = string.Format(message, link);
 
             SendSMS(message, phone);
             await Task.CompletedTask;

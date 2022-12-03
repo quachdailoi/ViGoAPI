@@ -359,7 +359,7 @@ namespace API.Controllers.V1.Admin
             var driver = await AppServices.Driver.GetDriverByCode(userCode);
 
             if (driver == null)
-                throw new ValidationException("Not found pending driver with this code.");
+                throw new ValidationException("Not found driver with this code.");
 
             //validate request
             var validator = new DriverInformationRequestValidator(AppServices, validateType: ValidateTypes.UPDATE);

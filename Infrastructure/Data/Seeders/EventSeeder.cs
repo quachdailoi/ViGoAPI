@@ -149,6 +149,46 @@ namespace Infrastructure.Data.Seeders
                     Content = "Booker canceled your trips, don't worry we will find new trip for you.",
                     Status = Domain.Shares.Enums.Events.Status.Active,
                     Type = Domain.Shares.Enums.Events.SubTypes.Default
+                },
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.SubmitRegistrationSuccess,
+                    Title = "VIGO: Submit Registration Successfully.",
+                    Content = "Hi {0}, We received your driver registration and we will reponse to you the result as soon as posible.",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
+                },
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.VerifyEmailByLinkNewDriver,
+                    Title = "VIGO: Final Step To Become Our Driver.",
+                    Content = "Hi {0}, All your information was approved. Now verify your email to login into our system by click this link: {1}",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
+                },
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.VerifyEmailByLinkOldDriver,
+                    Title = "VIGO: Verify Your Email.",
+                    Content = "Hi {0}, In order to verify your mail, please click to this link: {1}",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
+                },
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.RejectDriverRegistration,
+                    Title = "VIGO: Your Driver Registration Was Rejected.",
+                    Content = "Hi {0}, some information of your driver registration was not correct so it was rejected. Please go to our office to support.",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
+                },
+                new()
+                {
+                    Id = Domain.Shares.Enums.Events.Types.VerifyPhoneByLink,
+                    Title = "VIGO: Verify Your Phone Number.",
+                    Content = "Hi {0}, In order to verify your mail, please click to this link: {1}",
+                    Status = Domain.Shares.Enums.Events.Status.Active,
+                    Type = Domain.Shares.Enums.Events.SubTypes.Default
                 }
             };
 

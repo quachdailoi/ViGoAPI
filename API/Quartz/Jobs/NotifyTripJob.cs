@@ -17,7 +17,14 @@ namespace API.Quartz.Jobs
 
             using var scope = _serviceProvider.CreateScope();
             var appService = scope.ServiceProvider.GetRequiredService<IAppServices>();
-            await appService.BookingDetail.CheckingExistTripInDay();
+            try
+            {
+                await appService.BookingDetail.CheckingExistTripInDay();
+            } 
+            catch (Exception ex)
+            {
+                Console.WriteLine($"===> {ex.Message}");
+            }
 
             Console.WriteLine($"NotifyTripJob is completed - {DateTimeOffset.Now}");
         }

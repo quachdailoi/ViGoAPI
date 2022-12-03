@@ -161,6 +161,7 @@ namespace API.Extensions
             services.AddTransient<ISettingService, SettingService>();
             services.AddTransient<IReportService, ReportService>();
             services.AddTransient<IUserLicenseService, UserLicenseService>();
+            services.AddTransient<IEventService, EventService>();
         }
         public static void ConfigureIoCRedisMessageQueue(this IServiceCollection services)
         {
@@ -197,7 +198,7 @@ namespace API.Extensions
 
         public static void ConfigurationSeedData(this IServiceCollection services)
         {
-            //services.AddHostedService<DumpRoutes>();
+            services.AddHostedService<DumpRoutes>();
         }
 
         public static void ConfigureSwagger(this IServiceCollection services)

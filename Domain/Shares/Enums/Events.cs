@@ -30,7 +30,12 @@ namespace Domain.Shares.Enums
             HaveTripSuddenly = 14,
             TripIncome = 15,
             NewReport = 16,
-            CancelByBooker = 17
+            CancelByBooker = 17,
+            SubmitRegistrationSuccess = 18,
+            VerifyEmailByLinkNewDriver = 19,
+            VerifyEmailByLinkOldDriver = 20,
+            RejectDriverRegistration = 21,
+            VerifyPhoneByLink = 22,
         }
 
         public enum Status
