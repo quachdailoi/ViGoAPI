@@ -13,6 +13,7 @@ using Domain.Interfaces.UnitOfWork;
 using Domain.Shares.Enums;
 using FirebaseAdmin.Auth;
 using Infrastructure.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
@@ -179,15 +180,15 @@ namespace API.Services
         {
             var user = AppServices.User.GetUserById(userVm.Id)?.Include(x => x.Accounts).FirstOrDefault();
 
-            if (user == null) throw new Exception("Login failed, not found user. Please try again.");
+            if (user == null) throw new ForbiddenException("Login failed, not found user. Please try again.");
 
-            if (user.Status != Users.Status.Active) throw new Exception("Login failed, user is not active to login.");
+            if (user.Status != Users.Status.Active) throw new ForbiddenException("Login failed, user is not active to login.");
 
             var accLogin = user.Accounts.Where(x => x.RegistrationType == registrationType).FirstOrDefault();
 
-            if (accLogin == null) throw new Exception("Login failed, not found account. Please try again.");
+            if (accLogin == null) throw new ForbiddenException("Login failed, not found account. Please try again.");
 
-            if (!accLogin.Verified) throw new Exception("Login failed, account was not verified to login.");
+            if (!accLogin.Verified) throw new ForbiddenException("Login failed, account was not verified to login.");
 
             return Task.CompletedTask;
         }

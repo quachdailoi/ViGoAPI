@@ -47,9 +47,11 @@ namespace API.Middleware
 
                 switch (error)
                 {
-                    case AppException e:
-                        // custom application error
+                    case ValidationException e:
                         response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        break;
+                    case ForbiddenException e:
+                        response.StatusCode = (int)HttpStatusCode.Forbidden;
                         break;
                     case KeyNotFoundException e:
                         // not found error
@@ -57,9 +59,6 @@ namespace API.Middleware
                         break;
                     case UnauthorizedAccessException e:
                         response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                        break;
-                    case ValidationException e:
-                        response.StatusCode = (int)HttpStatusCode.BadRequest;
                         break;
                     default:
                         // unhandled error

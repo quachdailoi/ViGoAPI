@@ -43,9 +43,13 @@ namespace Infrastructure.Data.EntityConfigurations
                 .HasConversion<int>()
                 .HasColumnName("payment_methods");
 
-            builder.Property(e => e.VehicleTypes)
+            builder.Property(e => e.VehicleTypeId)
                 .HasConversion<int>()
-                .HasColumnName("vehicle_types");
+                .HasColumnName("vehicle_type_id");
+
+            builder.HasOne(e => e.VehicleType)
+                .WithMany(e => e.PromotionConditions)
+                .HasForeignKey(e => e.VehicleTypeId);
 
             //builder.Property(e => e.VehicleTypeId)
             //    .HasColumnName("vehicle_type_id");

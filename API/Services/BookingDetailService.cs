@@ -54,7 +54,13 @@ namespace API.Services
 
         public async Task<Response> GetBookingsOfDriver(int driverId, PagingRequest request, DateFilterRequest dateFilter, Response success)
         {
-            var bookingDetails = UnitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId).Where(x => x.Status != BookingDetails.Status.Cancelled && x.Status != BookingDetails.Status.Completed);
+            var bookingDetails = UnitOfWork.BookingDetails.GetBookingDetailsByDriverId(driverId)
+                .Include(x => x.BookingDetailDrivers)
+                .Where(x => x.BookingDetailDrivers.Any(bdr => bdr.RouteRoutine.UserId == driverId &&
+                                                                bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled &&
+                                                                bdr.TripStatus != BookingDetailDrivers.TripStatus.Completed
+                                                      )
+                );
 
             if (dateFilter.FromDate != null && dateFilter.ToDate != null)
             {
@@ -94,8 +100,12 @@ namespace API.Services
                 UnitOfWork.RouteRoutines.GetAllRouteRoutine(driverId).Include(x => x.Route).OrderBy(x => x.StartTime).ToList()
                     .Where(routine =>
                     {
-                        var details = bookingDetails.Where(x => x.Date == driverSchedule.Date).OrderBy(x => x.Booking.Time)
-                            .Where(bd => bd.BookingDetailDrivers.Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled).FirstOrDefault().RouteRoutine.Id == routine.Id);
+                        var details = bookingDetails.Where(x => x.Date == driverSchedule.Date)
+                            .OrderBy(x => x.Booking.Time)
+                            .Where(bd => bd.BookingDetailDrivers.Where(bdr => bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled &&
+                                                                            bdr.TripStatus != BookingDetailDrivers.TripStatus.Completed
+                                                                       ).Any(x => x.RouteRoutineId == routine.Id)
+                                  );
 
                         if (details.Any())
                             detailRoutines.Add(new()
@@ -119,7 +129,7 @@ namespace API.Services
 
                     var detailsInRouteRoutine = routineDetail.BookingDetails
                         .Where(x => x.Booking.StartRouteStation.RouteId == routine.RouteId)
-                        .Where(x => x.Status != BookingDetails.Status.Cancelled && x.Status != BookingDetails.Status.Completed); 
+                        .Where(x => x.Status != BookingDetails.Status.Cancelled && x.Status != BookingDetails.Status.Completed);
 
                     if (!detailsInRouteRoutine.Any()) continue;
 

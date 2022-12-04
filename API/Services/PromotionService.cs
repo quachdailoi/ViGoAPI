@@ -38,7 +38,7 @@ namespace API.Services
             return successResponse.SetData(availablePromotions);
         }
 
-        private async Task<List<PromotionViewModel>> GetAvailablePromotion(int userId, double? totalPrice = null, int? totalTickets = null, Payments.PaymentMethods? paymentMethods = null, VehicleTypes.Type? vehicleTypes = null)
+        private async Task<List<PromotionViewModel>> GetAvailablePromotion(int userId, double? totalPrice = null, int? totalTickets = null, Payments.PaymentMethods? paymentMethods = null, VehicleTypes.SpecificType? vehicleTypes = null)
         {
             var userPromotions = UnitOfWork.PromotionUsers.GetUsedPromotion(userId);
 
@@ -66,7 +66,7 @@ namespace API.Services
             return availablePromotions;
         }
 
-        private static bool CheckBookingAvailable(PromotionCondition condition, double? totalPrice, int? totalTickets, Payments.PaymentMethods? paymentMethods, VehicleTypes.Type? vehicleTypes)
+        private static bool CheckBookingAvailable(PromotionCondition condition, double? totalPrice, int? totalTickets, Payments.PaymentMethods? paymentMethods, VehicleTypes.SpecificType? vehicleTypes)
         {
             if (totalPrice != null && condition.MinTotalPrice != null && totalPrice < condition.MinTotalPrice) return false;
 
@@ -74,7 +74,7 @@ namespace API.Services
 
             if (paymentMethods != null && condition.PaymentMethods != null && paymentMethods !=  condition.PaymentMethods) return false;
 
-            if (vehicleTypes != null && condition.VehicleTypes != null && vehicleTypes != condition.VehicleTypes) return false;
+            if (vehicleTypes != null && condition.VehicleTypeId != null && vehicleTypes != condition.VehicleTypeId) return false;
 
             return true;
         }

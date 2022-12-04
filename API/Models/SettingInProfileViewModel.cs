@@ -7,8 +7,8 @@ namespace API.Models
         public Settings Id { get; set; }
         public string Key { get; set; }
         public string Value { get; set; }
-        public SettingDataTypes DataType { get; set; }
-        public string DataTypeName { get; set; }
+        public SettingDataTypes DataType { get; set; } = SettingDataTypes.Default;
+        public string DataTypeName { get; set; } = "";
         public string Unit { get; set; }
     }
 }

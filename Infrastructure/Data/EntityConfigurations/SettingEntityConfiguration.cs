@@ -28,8 +28,32 @@ namespace Infrastructure.Data.EntityConfigurations
                 .IsRequired()
                 .HasColumnName("value");
 
-            builder.Property(e => e.Type)
-                .HasColumnName("Type");
+            builder.Property(e => e.TypeId)
+                .IsRequired()
+                .HasConversion<int>()
+                .HasColumnName("type_id");
+
+            builder.Property(e => e.DataTypeId)
+                .IsRequired()
+                .HasConversion<int>()
+                .HasColumnName("data_type_id");
+
+            builder.Property(e => e.DataUnitId)
+                .IsRequired()
+                .HasConversion<int>()
+                .HasColumnName("data_unit_id");
+
+            builder.HasOne(e => e.Type)
+                .WithMany(b => b.Settings)
+                .HasForeignKey(e => e.TypeId);
+
+            builder.HasOne(e => e.DataType)
+                .WithMany(b => b.Settings)
+                .HasForeignKey(e => e.DataTypeId);
+
+            builder.HasOne(e => e.DataUnit)
+                .WithMany(b => b.Settings)
+                .HasForeignKey(e => e.DataUnitId);
 
             builder.HasIndex(e => e.Key)
                 .IsUnique();

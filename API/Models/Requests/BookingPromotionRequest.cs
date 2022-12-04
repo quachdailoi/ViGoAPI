@@ -10,6 +10,6 @@ namespace API.Models.Requests
         public int? TotalTickets { get; set; } 
         public double? TotalPrice { get; set; }
         public Payments.PaymentMethods? PaymentMethods { get; set; }
-        public VehicleTypes.Type? VehicleTypes { get; set; }
+        public VehicleTypes.SpecificType? VehicleTypes { get; set; }
     }
 }

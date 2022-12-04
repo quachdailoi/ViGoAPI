@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Interfaces.Entities;
 using Infrastructure.Data.EntityConfigurations.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -10,16 +11,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.EntityConfigurations
 {
-    public class AffiliatePartyEntityConfiguration : IEntityTypeConfiguration<AffiliateParty>
+    public class AffiliatePartyEntityConfiguration : BaseEntityConfiguration<AffiliateParty>
     {
         public void Configure(EntityTypeBuilder<AffiliateParty> builder)
         {
             builder.ToTable("affiliate_parties");
-
-            builder.HasKey(x => x.Id);
-
-            builder.Property(e => e.Id)
-                .HasColumnName("id");
 
             builder.Property(e => e.Code)
                 .HasColumnName("code")

@@ -12,6 +12,12 @@ namespace Domain.Entities
         public Settings Id { get; set; }
         public string Key { get; set; }
         public string Value { get; set; }
-        public SettingTypes? Type { get; set; } = null;
+        public SettingTypes TypeId { get; set; } = SettingTypes.Default;
+        public SettingDataTypes DataTypeId { get; set; } = SettingDataTypes.Default;
+        public SettingDataUnits DataUnitId { get; set; } = SettingDataUnits.Default;
+
+        public SettingType Type { get; set; } 
+        public SettingDataType DataType { get; set; }
+        public SettingDataUnit DataUnit { get; set; }
     }
 }
