@@ -50,7 +50,7 @@ namespace API.Validators
                     }
                     break;
                 case Settings.TimeAfterComplete:
-                case Settings.TimeBeforePickingUp:
+                case Settings.TimeBeforeToPickUp:
                 case Settings.TimeRatingAfterComplete:
                 case Settings.TotalTripsCalculateRating:
                 case Settings.RadiusNearbyStation:

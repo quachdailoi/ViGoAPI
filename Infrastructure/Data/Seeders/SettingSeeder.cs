@@ -43,8 +43,8 @@ namespace Infrastructure.Data.Seeders
                 },
                 new Setting
                 {
-                    Id = Settings.TimeBeforePickingUp,
-                    Key = Settings.TimeBeforePickingUp.ToString(),
+                    Id = Settings.TimeBeforeToPickUp,
+                    Key = Settings.TimeBeforeToPickUp.ToString(),
                     Value = "10",
                     TypeId = SettingTypes.Trip,
                     DataTypeId = SettingDataTypes.Integer,
@@ -249,9 +249,18 @@ namespace Infrastructure.Data.Seeders
                 },
                 new Setting
                 {
-                    Id = Settings.TimeBeforeStartTrip,
-                    Key = Settings.TimeBeforeStartTrip.ToString(),
-                    Value = "30",
+                    Id = Settings.TimeBeforeToStartTrip,
+                    Key = Settings.TimeBeforeToStartTrip.ToString(),
+                    Value = "60",
+                    TypeId = SettingTypes.Trip,
+                    DataTypeId = SettingDataTypes.Integer,
+                    DataUnitId = SettingDataUnits.Minutes
+                },
+                new Setting
+                {
+                    Id = Settings.TimeAfterToStartTrip,
+                    Key = Settings.TimeAfterToStartTrip.ToString(),
+                    Value = "5",
                     TypeId = SettingTypes.Trip,
                     DataTypeId = SettingDataTypes.Integer,
                     DataUnitId = SettingDataUnits.Minutes

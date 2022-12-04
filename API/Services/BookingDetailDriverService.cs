@@ -43,11 +43,17 @@ namespace API.Services
             var routine = detailDrivers.FirstOrDefault()?.RouteRoutine;
             var nowDate = DateTimeExtensions.NowDateOnly;
             var nowTime = DateTimeExtensions.NowTimeOnly;
-            var validTimeBeforeToStart = await AppServices.Setting.GetValue(Settings.TimeBeforeStartTrip, 30);
+            var validTimeBeforeToStart = await AppServices.Setting.GetValue(Settings.TimeBeforeToStartTrip, 60);
+            var validTimeAfterToStart = await AppServices.Setting.GetValue(Settings.TimeAfterToStartTrip, 5);
 
-            if (!(routine.StartAt <= nowDate && nowDate <= routine.EndAt &&
-                    routine.StartTime <= nowTime.AddMinutes(validTimeBeforeToStart)))
-                throw new Exception($"You just only start your routine before {validTimeBeforeToStart} minutes.");
+            if (routine.StartAt <= nowDate && nowDate <= routine.EndAt)
+            {
+                if (routine.StartTime > nowTime.AddMinutes(validTimeBeforeToStart))
+                    throw new Exception($"You just only start your routine before start time {validTimeBeforeToStart} minutes.");
+                
+                else if (routine.StartTime.AddMinutes(validTimeAfterToStart) < nowTime)
+                    throw new Exception($"You just only start your routine after start time {validTimeAfterToStart} minutes.");
+            }
 
             var updatedDetailDrivers = detailDrivers.ToList().Select(x => {
                 x.TripStatus = BookingDetailDrivers.TripStatus.Start;

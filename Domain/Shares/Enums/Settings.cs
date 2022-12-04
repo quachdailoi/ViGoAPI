@@ -12,7 +12,7 @@ namespace Domain.Shares.Enums
     public enum Settings
     {
         AllowedMappingTimeRange,
-        TimeBeforePickingUp,
+        TimeBeforeToPickUp,
         TimeAfterComplete,
         TradeDiscount,
         DefaultPageSize,
@@ -38,7 +38,8 @@ namespace Domain.Shares.Enums
         DriverRegistrationFileSizeLimit,
         BannerFileSizeLimit,
         PromotionFileSizeLimit,
-        TimeBeforeStartTrip
+        TimeBeforeToStartTrip,
+        TimeAfterToStartTrip
     }
 
     public enum SettingTypes
