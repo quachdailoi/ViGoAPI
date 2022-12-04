@@ -35,7 +35,7 @@ namespace API.Services
 
         public async Task<bool> StartBookingDetailDrivers(string[] codes)
         {
-            var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString())).Include(x => x.BookingDetail).ThenInclude(x => x.Booking).ThenInclude(x => x.User);
+            var detailDrivers = UnitOfWork.BookingDetailDrivers.List(x => codes.Contains(x.Code.ToString())).Include(x => x.RouteRoutine).Include(x => x.BookingDetail).ThenInclude(x => x.Booking).ThenInclude(x => x.User);
 
             if (detailDrivers.IsNullOrEmpty()) throw new Exception("Not found any trip with these code to start.");
 

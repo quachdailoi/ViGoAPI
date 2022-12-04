@@ -21,20 +21,20 @@ namespace API.Mapper
                     dest => dest.Driver,
                     opt => opt.MapFrom(
                         src => src.BookingDetailDrivers
-                        .Where(bdr => bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
-                        .FirstOrDefault().RouteRoutine.User))
+                        .OrderBy(x => x.CreatedAt)
+                        .LastOrDefault().RouteRoutine.User))
                 .ForMember(
                     dest => dest.DriverStatus,
                     opt => opt.MapFrom(
                         src => src.BookingDetailDrivers
-                        .Where(bdr => bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
-                        .FirstOrDefault().TripStatus))
+                        .OrderBy(x => x.CreatedAt)
+                        .LastOrDefault().TripStatus))
                 .ForMember(
                     dest => dest.BookingDetailDriverCode,
                     opt => opt.MapFrom(
                         src => src.BookingDetailDrivers
-                        .Where(bdr => bdr.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
-                        .FirstOrDefault().Code))
+                        .OrderBy(x => x.CreatedAt)
+                        .LastOrDefault().Code))
                 .ForMember(
                     dest => dest.Time,
                     opt => opt.MapFrom(
