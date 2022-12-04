@@ -347,7 +347,7 @@ namespace API.Controllers.V1
                 bookingDto.EndAt = nowDateOnly;
                 bookingDto.Time = nowTimeOnly;
                 bookingDto.UserId = userId;
-                bookingDto.DayOfWeeks = new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday , DayOfWeek.Saturday};
+                bookingDto.DayOfWeeks = new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday , DayOfWeek.Sunday};
                 //bookingDto.Type = Bookings.Types.MonthTicket;
                 bookingDto.IsShared = driver.Vehicle.VehicleTypeId != (int)VehicleTypes.Type.ViRide;
                 bookingDto.RouteCode = route.Code;
