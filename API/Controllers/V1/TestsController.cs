@@ -311,7 +311,7 @@ namespace API.Controllers.V1
             if (driver == null || driver.RoleName != Roles.DRIVER.GetName())
                 return BadRequest();
 
-            var nowTimeOnly = DateTimeExtensions.NowTimeOnly.AddMinutes(1);
+            var nowTimeOnly = DateTimeExtensions.NowTimeOnly.AddMinutes(5);
 
             var nowDateOnly = DateTimeExtensions.NowDateOnly;
 
@@ -337,7 +337,11 @@ namespace API.Controllers.V1
             if (routeRoutine == null)
                 return Problem();
 
-            foreach(var userId in request.UserIds.Distinct())
+            var ids = request.UserIds.Distinct();
+
+            var totalSuccess = 0;
+
+            foreach (var userId in ids)
             {
                 var bookingDto = new BookingDTO();
 
@@ -357,10 +361,15 @@ namespace API.Controllers.V1
 
                 bookingDto.EndStationCode = route.Stations[endIndex].Code;
 
-                await AppServices.Booking.Create(bookingDto, new(), new(), new(), new(), new(), new(), new(), new(), new(), new(), true, routeRoutine.Id);
+                dynamic booking = (await AppServices.Booking.Create(bookingDto, new(), new(), new(), new(), new(), new(), new(), new(), new(), new(), true, routeRoutine.Id)).Data;
+
+                if (booking != null)
+                    totalSuccess++;
+                else
+                    totalSuccess++;
             } 
 
-            return Ok();
+            return Ok(totalSuccess);
         }
 
         //[HttpPost("dump/drivers")]
