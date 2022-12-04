@@ -21,5 +21,7 @@ namespace Domain.Entities
         public Fare Fare { get; set; }
         public List<Vehicle> Vehicles { get; set; } = new();
         public List<Booking> Bookings { get; set; } = new();
+
+        public List<PromotionCondition> PromotionConditions { get; set; } = new();
     }
 }

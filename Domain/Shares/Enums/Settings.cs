@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Interfaces.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -41,6 +43,7 @@ namespace Domain.Shares.Enums
 
     public enum SettingTypes
     {
+        Default = 0,
         Trip = 1,
         Penalty = 2,
         RouteRoutine = 3,
@@ -57,54 +60,14 @@ namespace Domain.Shares.Enums
 
     public enum SettingDataUnits
     {
-        Percent,
-        Minutes,
-        Hours,
-        Days,
-        Meters,
-        Turn,
-        Time
+        Default = 0,
+        Percent = 1,
+        Minutes = 2,
+        Hours = 3,
+        Days = 4,
+        Meters = 5,
+        Turn = 6,
+        Time = 7,
+        MB = 8
     }
-
-    public static class SettingExtension
-    {
-        public static Tuple<SettingDataTypes, string> GetUnitAndDataType(this Settings setting)
-        {
-            switch (setting)
-            {
-                case Settings.TradeDiscount:
-                case Settings.MaxCancelledTripRate:
-                case Settings.NotifiedCancelledTripRate:
-                case Settings.DiscountPerEachSharingCase:
-                case Settings.ThresholdDiscountPerEachSharingCase:
-                case Settings.TradeDisountForBookerCancelTrip:
-                    return new Tuple<SettingDataTypes, string>(SettingDataTypes.Double, "%");
-                case Settings.AllowedMappingTimeRange:
-                case Settings.TimeAfterComplete:
-                case Settings.TimeBeforePickingUp:
-                case Settings.TimeSpanRounded:
-                case Settings.TimeSpanBufferToCreateRoutine:
-                case Settings.AllowedCancelAfterCreateBookingTime:
-                    return new Tuple<SettingDataTypes, string>(SettingDataTypes.Integer, "minutes");
-                case Settings.TimeRatingAfterComplete:
-                    return new Tuple<SettingDataTypes, string>(SettingDataTypes.Integer, "hours");
-                case Settings.LastDayNumberForNextMonthRoutine:
-                    return new Tuple<SettingDataTypes, string>(SettingDataTypes.Integer, "days");
-                case Settings.RadiusNearbyStation:
-                case Settings.RadiusToComplete:
-                    return new Tuple<SettingDataTypes, string>(SettingDataTypes.Integer, "meters");
-                case Settings.TotalTripsCalculateRating:
-                    return new Tuple<SettingDataTypes, string>(SettingDataTypes.Integer, "turn");
-                case Settings.CheckingMappingStatusTime:
-                case Settings.NotifyTripInDayTime:
-                case Settings.AllowedDriverCancelTripTime:
-                case Settings.TimeToCreateTomorrowRoutine:
-                case Settings.AllowedBookerCancelTripTime:
-                    return new Tuple<SettingDataTypes, string>(SettingDataTypes.Time, "time");
-                default:
-                    return new Tuple<SettingDataTypes, string>(SettingDataTypes.Default, String.Empty);
-            }
-        }
-    }
-    
 }

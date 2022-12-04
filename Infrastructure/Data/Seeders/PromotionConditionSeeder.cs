@@ -76,7 +76,7 @@ namespace Infrastructure.Data.Seeders
                 MinTotalPrice = 300000,
                 MinTickets = null,
                 PaymentMethods = null,
-                VehicleTypes = VehicleTypes.Type.ViRide
+                VehicleTypeId = VehicleTypes.SpecificType.ViRide
             });
 
             builder.Entity<PromotionCondition>().HasData(new PromotionCondition
@@ -90,7 +90,7 @@ namespace Infrastructure.Data.Seeders
                 MinTotalPrice = 500000,
                 MinTickets = null,
                 PaymentMethods = null,
-                VehicleTypes = VehicleTypes.Type.ViCar
+                VehicleTypeId = VehicleTypes.SpecificType.ViCar7
             });
         }
     }

@@ -18,12 +18,11 @@ namespace Domain.Entities
         public float? MinTotalPrice { get; set; } = null;
         public int? MinTickets { get; set; } = null;
         public Payments.PaymentMethods? PaymentMethods { get; set; } = null;
-        public VehicleTypes.Type? VehicleTypes { get; set; } = null;
-        //public int? VehicleTypeId { get; set; } = null;
+        public VehicleTypes.SpecificType? VehicleTypeId { get; set; } = null;
 
-        //public VehicleType? VehicleType { get; set; } = null;
+        public VehicleType? VehicleType { get; set; } = null;
 
-        public Promotion Promotion { get; set; }
-        public List<PromotionUser> UserPromotionConditions { get; set; }
+        public Promotion? Promotion { get; set; }
+        //public List<PromotionUser> PromotionUsers { get; set; }
     }
 }

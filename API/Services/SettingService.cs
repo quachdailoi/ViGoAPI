@@ -27,18 +27,18 @@ namespace API.Services
         public IEnumerable<object> GetAllSettings()
         {
             var settings = (UnitOfWork.Settings.List(x => x.Type != null).ToList())
-                .GroupBy(x => x.Type)
+                .GroupBy(x => x.TypeId)
                 .Select(x => new
                 {
-                    Type = x.Key.Value,
-                    TypeName = x.Key.Value.DisplayName(),
+                    Type = x.Key,
+                    TypeName = x.Key.DisplayName(),
                     Settings = x.Select(setting => new
                     {
                         Id = setting.Id,
                         Key = setting.Key,
                         Value = setting.Value,
-                        DataType = setting.Id.GetUnitAndDataType().Item1,
-                        Unit = setting.Id.GetUnitAndDataType().Item2
+                        DataType = GetDataTypeById(setting.Id).Id,
+                        Unit = GetDataUnitById(setting.Id).Name
                     })
                 });
 
@@ -55,8 +55,8 @@ namespace API.Services
                 SettingDataUnits.Minutes.ToString().ToLower()
             };
 
-            var rs = UnitOfWork.Settings.List(x => x.Type != null).MapTo<SettingInProfileViewModel>(Mapper).ToList()
-                .Where(x => listType.Contains(x.Id.GetUnitAndDataType().Item2))
+            var rs = UnitOfWork.Settings.List(x => x.Type != null).MapTo<SettingInProfileViewModel>(Mapper, AppServices).ToList()
+                .Where(x => listType.Contains(GetDataUnitById(x.Id).Name.ToLower()))
                 .ToList();
 
             return rs;
@@ -113,6 +113,28 @@ namespace API.Services
             }
 
             return (T)Convert.ChangeType(setting, typeof(T));
+        }
+
+        public SettingDataType GetDataTypeById(Settings settingId)
+        {
+            var dataType = UnitOfWork.Settings.List(x => x.Id == settingId)
+                .Select(x => x.DataType)
+                .FirstOrDefault();
+
+            if (dataType == null) throw new Exception($"Failed to get setting id: {settingId}");
+
+            return dataType;
+        }
+
+        public SettingDataUnit GetDataUnitById(Settings settingId)
+        {
+            var dataUnit = UnitOfWork.Settings.List(x => x.Id == settingId)
+                .Select(x => x.DataUnit)
+                .FirstOrDefault();
+
+            if (dataUnit == null) throw new Exception($"Failed to get setting id: {settingId}");
+
+            return dataUnit;
         }
     }
 }

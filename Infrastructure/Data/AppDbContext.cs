@@ -65,6 +65,12 @@ namespace Infrastructure.Data
 
             new NotificationSeeder(builder);
 
+            new SettingTypeSeeder(builder);
+
+            new SettingDataTypeSeeder(builder);
+
+            new SettingDataUnitSeeder(builder);
+
             new SettingSeeder(builder);
 
             new UserLicenseTypeSeeder(builder);
@@ -183,6 +189,12 @@ namespace Infrastructure.Data
 
             new PricingEntityConfiguration()
                 .Configure(builder.Entity<Pricing>());
+
+            new SettingDataTypeEntityConfiguration()
+                .Configure(builder.Entity<SettingDataType>());
+
+            new SettingDataUnitEntityConfiguration()
+                .Configure(builder.Entity<SettingDataUnit>());
 
             new SettingEntityConfiguration()
                 .Configure(builder.Entity<Setting>());
