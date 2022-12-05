@@ -179,7 +179,7 @@ namespace API.Services
 
                         bookingDetail.Status = BookingDetails.Status.Completed;
                         bookingDetailDriver.BookingDetail = bookingDetail;
-                        bookingDetailDriver.EndTime = ((TimeOnly)bookingDetailDriver.StartTime).AddMinutes(bookingDetail.Booking.Duration / 60);
+                        bookingDetailDriver.EndTime = (bookingDetail.Booking.Time).AddMinutes(bookingDetail.Booking.Duration / 60);
                         break;
                 }
 
@@ -240,7 +240,7 @@ namespace API.Services
                                 WalletId = wallet.Id,
                                 Type = WalletTransactions.Types.TripIncome,
                                 BookingId = bookingDetail.Booking.Id,
-                                CreatedAt = new DateTimeOffset(bookingDetail.Date.ToDateTime(new TimeOnly(0,0,0)), ((TimeOnly)(bookingDetailDriver.EndTime)).ToTimeSpan())
+                                //CreatedAt = new DateTimeOffset(bookingDetail.Date.ToDateTime(new TimeOnly(0,0,0)), ((TimeOnly)(bookingDetailDriver.EndTime)).ToTimeSpan())
                             };
 
                             // send push notification for driver's income
