@@ -72,6 +72,8 @@ namespace API.Middleware
                     Message = error.Message
                 });
 
+                Console.WriteLine(error.Message);
+
                 logger.LogError(error, "Request {method} {url} => {statusCode}", 
                     context.Request?.Method, 
                     context.Request?.Path.Value, 
