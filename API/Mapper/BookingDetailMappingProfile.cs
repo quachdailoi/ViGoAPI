@@ -20,33 +20,24 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.Driver,
                     opt => opt.MapFrom(
-                        src => src.Status != BookingDetails.Status.Pending ? 
-                        src.BookingDetailDrivers
+                        src => src.BookingDetailDrivers
+                        .Where(x => x.BookingDetail.Status != BookingDetails.Status.Pending)
                         .OrderBy(x => x.CreatedAt)
-                        .LastOrDefault().RouteRoutine.User :
-                        src.BookingDetailDrivers
-                        .Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
-                        .FirstOrDefault().RouteRoutine.User))
+                        .LastOrDefault().RouteRoutine.User))
                 .ForMember(
                     dest => dest.DriverStatus,
                     opt => opt.MapFrom(
-                        src => src.Status != BookingDetails.Status.Pending ? 
-                        src.BookingDetailDrivers
+                        src => src.BookingDetailDrivers
+                        .Where(x => x.BookingDetail.Status != BookingDetails.Status.Pending)
                         .OrderBy(x => x.CreatedAt)
-                        .LastOrDefault().TripStatus :
-                        src.BookingDetailDrivers
-                        .Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
-                        .FirstOrDefault().TripStatus))
+                        .LastOrDefault().TripStatus))
                 .ForMember(
                     dest => dest.BookingDetailDriverCode,
                     opt => opt.MapFrom(
-                        src => src.Status != BookingDetails.Status.Pending ?
-                        src.BookingDetailDrivers
+                        src => src.BookingDetailDrivers
+                        .Where(x => x.BookingDetail.Status != BookingDetails.Status.Pending)
                         .OrderBy(x => x.CreatedAt)
-                        .LastOrDefault().Code :
-                        src.BookingDetailDrivers
-                        .Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
-                        .FirstOrDefault().Code))
+                        .LastOrDefault().Code))
                 .ForMember(
                     dest => dest.Time,
                     opt => opt.MapFrom(
