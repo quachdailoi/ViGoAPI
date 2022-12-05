@@ -19,5 +19,6 @@ namespace Domain.Entities
         public int WalletId { get; set; }
         public Wallet Wallet { get; set; }
         public Booking? Booking { get; set; } = null;
+        public Guid BookingDetailCode { get; set; }
     }
 }
