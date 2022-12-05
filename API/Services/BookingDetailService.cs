@@ -709,8 +709,10 @@ namespace API.Services
 
             return mappedBookingDetails
                     .Where(mappedBookingDetail =>
-                        !(curStartStation.DistanceFromFirstStationInRoute >= routeStationDic[mappedBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute ||
-                          curEndStation.DistanceFromFirstStationInRoute <= routeStationDic[mappedBookingDetail.Booking.StartRouteStationId].DistanceFromFirstStationInRoute))
+                        !((curStartStation.DistanceFromFirstStationInRoute >= routeStationDic[mappedBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute &&
+                            routeStationDic[mappedBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute != 0) || 
+                          (curEndStation.DistanceFromFirstStationInRoute <= routeStationDic[mappedBookingDetail.Booking.StartRouteStationId].DistanceFromFirstStationInRoute &&
+                            curEndStation.DistanceFromFirstStationInRoute != 0)))
                     .OrderBy(mappedBookingDetail => mappedBookingDetail.Booking.Time)
                     .ToList();
         }
