@@ -11,6 +11,7 @@ namespace API.Models.DTO
         public WalletTransactions.Status Status { get; set; } = WalletTransactions.Status.Pending;
         public int WalletId { get; set; }
         public int? BookingId { get; set; } = null;
+        public Guid BookingDetailCode { get; set; }
         //public Wallet Wallet { get; set; }
     }
 }
