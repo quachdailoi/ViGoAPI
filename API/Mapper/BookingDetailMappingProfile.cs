@@ -20,21 +20,33 @@ namespace API.Mapper
                 .ForMember(
                     dest => dest.Driver,
                     opt => opt.MapFrom(
-                        src => src.BookingDetailDrivers
+                        src => src.Status != BookingDetails.Status.Pending ? 
+                        src.BookingDetailDrivers
                         .OrderBy(x => x.CreatedAt)
-                        .LastOrDefault().RouteRoutine.User))
+                        .LastOrDefault().RouteRoutine.User :
+                        src.BookingDetailDrivers
+                        .Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
+                        .FirstOrDefault().RouteRoutine.User))
                 .ForMember(
                     dest => dest.DriverStatus,
                     opt => opt.MapFrom(
-                        src => src.BookingDetailDrivers
+                        src => src.Status != BookingDetails.Status.Pending ? 
+                        src.BookingDetailDrivers
                         .OrderBy(x => x.CreatedAt)
-                        .LastOrDefault().TripStatus))
+                        .LastOrDefault().TripStatus :
+                        src.BookingDetailDrivers
+                        .Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
+                        .FirstOrDefault().TripStatus))
                 .ForMember(
                     dest => dest.BookingDetailDriverCode,
                     opt => opt.MapFrom(
-                        src => src.BookingDetailDrivers
+                        src => src.Status != BookingDetails.Status.Pending ?
+                        src.BookingDetailDrivers
                         .OrderBy(x => x.CreatedAt)
-                        .LastOrDefault().Code))
+                        .LastOrDefault().Code :
+                        src.BookingDetailDrivers
+                        .Where(x => x.TripStatus != BookingDetailDrivers.TripStatus.Cancelled)
+                        .FirstOrDefault().Code))
                 .ForMember(
                     dest => dest.Time,
                     opt => opt.MapFrom(
