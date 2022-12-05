@@ -116,6 +116,10 @@ namespace API.Services
             //.Paging(page: request.Page, pageSize: request.PageSize);
 
             var incomesByDate = incomes.OrderByDescending(x => x.Date).ToList().GroupBy(x => x.Date);
+            if (!incomesByDate.Any() && (fromDate == null || toDate == null))
+            {
+                return listTotalIncome;
+            }
 
             for (var index = 0; index < incomesByDate.Count(); index++)
             {
