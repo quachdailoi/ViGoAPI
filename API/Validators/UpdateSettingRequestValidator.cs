@@ -49,6 +49,8 @@ namespace API.Validators
                         return false;
                     }
                     break;
+                case Settings.TimeBeforeToStartTrip:
+                case Settings.TimeAfterToStartTrip:
                 case Settings.TimeAfterComplete:
                 case Settings.TimeBeforeToPickUp:
                 case Settings.TimeRatingAfterComplete:
