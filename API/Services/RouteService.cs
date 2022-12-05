@@ -110,8 +110,32 @@ namespace API.Services
                 var startStation = stationDic[dto.StartStationId];
                 var endStation = stationDic[dto.EndStationId];
 
-                var startRouteStation = routeViewModel.RouteStations.Find(routeStation => routeStation.StationId == dto.StartStationId);
-                var endRouteStation = routeViewModel.RouteStations.Find(routeStation => routeStation.StationId == dto.EndStationId);
+
+                var startRouteStations = routeViewModel.RouteStations.Where(routeStation => routeStation.StationId == dto.StartStationId).ToList();
+                var endRouteStations = routeViewModel.RouteStations.Where(routeStation => routeStation.StationId == dto.EndStationId).ToList();
+
+                var startRouteStation = new RouteStation();
+                var endRouteStation = new RouteStation();
+
+                var minDistance = double.MaxValue;
+
+                foreach(var _startRouteStation in startRouteStations)
+                {
+                    foreach(var _endRouteStation in endRouteStations)
+                    {
+                        var _distance = _endRouteStation.DistanceFromFirstStationInRoute - _startRouteStation.DistanceFromFirstStationInRoute;
+
+                        if (_distance < 0)
+                            _distance = routeViewModel.Distance + _distance;
+
+                        if(_distance < minDistance)
+                        {
+                            startRouteStation = _startRouteStation;
+                            endRouteStation = _endRouteStation;
+                            minDistance = _distance;
+                        }
+                    }
+                }
 
                 var currentRouteStation = startRouteStation;
                 while (true)

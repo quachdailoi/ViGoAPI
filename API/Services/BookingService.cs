@@ -38,6 +38,8 @@ namespace API.Services
                 .Include(routeStation => routeStation.Station)
                 .ToListAsync();
 
+            var routeStationDic = routeStations.ToDictionary(e => e.Id);
+
             var route = await UnitOfWork.Routes
                 .List(route => route.Code == dto.RouteCode && route.Status == Routes.Status.Active)
                 .FirstOrDefaultAsync();
@@ -46,22 +48,44 @@ namespace API.Services
             {
                 //booking.StartRouteStation.RouteId = route.Id;
 
-                var startStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.StartStationCode).First();
-                var endStation = routeStations.Where(routeStation => routeStation.Station.Code == dto.EndStationCode).First();
+                var startRouteStations = routeStations.Where(routeStation => routeStation.Station.Code == dto.StartStationCode).ToList();
+                var endRouteStations = routeStations.Where(routeStation => routeStation.Station.Code == dto.EndStationCode).ToList();
 
-                booking.StartRouteStation = startStation;
-                booking.EndRouteStation = endStation;
+                var startRouteStation = new RouteStation();
+                var endRouteStation = new RouteStation();
+
+                var distance = double.MaxValue;
+                double duration = 0;
+
+                foreach (var _startRouteStation in startRouteStations)
+                {
+                    foreach (var _endRouteStation in endRouteStations)
+                    {
+                        var _distance = _endRouteStation.DistanceFromFirstStationInRoute - _startRouteStation.DistanceFromFirstStationInRoute;
+                        var _duration = _endRouteStation.DurationFromFirstStationInRoute - _startRouteStation.DurationFromFirstStationInRoute;
+
+                        if (_distance < 0)
+                            _distance = route.Distance + _distance;
+
+                        if (_distance < distance)
+                        {
+                            startRouteStation = _startRouteStation;
+                            endRouteStation = _endRouteStation;
+                            distance = _distance;
+                            duration = _duration > 0 ? _duration : route.Duration + _duration;
+                        }
+                    }
+                }
+
+                booking.StartRouteStation = startRouteStation;
+                booking.EndRouteStation = endRouteStation;
 
                 // estimate distance
-                booking.Distance = (startStation.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute) ?
-                    endStation.DistanceFromFirstStationInRoute - startStation.DistanceFromFirstStationInRoute :
-                    route.Distance - (startStation.DistanceFromFirstStationInRoute - endStation.DistanceFromFirstStationInRoute);
+                booking.Distance = distance;
 
 
                 // estimate time
-                booking.Duration = (startStation.DurationFromFirstStationInRoute <= endStation.DurationFromFirstStationInRoute) ?
-                    endStation.DurationFromFirstStationInRoute - startStation.DurationFromFirstStationInRoute :
-                    route.Duration - (startStation.DurationFromFirstStationInRoute - endStation.DurationFromFirstStationInRoute);
+                booking.Duration = duration;
 
                 // caculate price
                 var fee = await AppServices.Fare.CaculateBookingFee(dto.VehicleTypeId, dto.StartAt, dto.EndAt, dto.DayOfWeeks, booking.Distance, dto.Time);
@@ -309,8 +333,10 @@ namespace API.Services
                     mappedBookingDetails
                     .Where(_mappedBookingDetail => 
                         _mappedBookingDetail.Id == mappedBookingDetail.Id ||
-                        !(routeStationDic[_mappedBookingDetail.Booking.StartRouteStationId].DistanceFromFirstStationInRoute >= mappedEndStation.DistanceFromFirstStationInRoute ||
-                          routeStationDic[_mappedBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute <= mappedStartStation.DistanceFromFirstStationInRoute))
+                        !((routeStationDic[_mappedBookingDetail.Booking.StartRouteStationId].DistanceFromFirstStationInRoute >= mappedEndStation.DistanceFromFirstStationInRoute && 
+                            mappedEndStation.DistanceFromFirstStationInRoute != 0) ||
+                          (routeStationDic[_mappedBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute <= mappedStartStation.DistanceFromFirstStationInRoute &&
+                            routeStationDic[_mappedBookingDetail.Booking.EndRouteStationId].DistanceFromFirstStationInRoute != 0)))
                     .Count() + 1;
 
                 if (totalSharingBookingDetail >= slot) return false;
