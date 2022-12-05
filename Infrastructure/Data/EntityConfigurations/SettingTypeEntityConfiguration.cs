@@ -13,7 +13,7 @@ namespace Infrastructure.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<SettingType> builder)
         {
-            builder.ToTable("setting_data_units");
+            builder.ToTable("setting_types");
 
             builder.HasKey(e => e.Id);
 
