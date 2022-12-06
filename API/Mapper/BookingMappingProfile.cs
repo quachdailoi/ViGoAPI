@@ -21,7 +21,11 @@ namespace API.Mapper
                     otp => otp.MapFrom(
                     src => src.StartRouteStation.Route.RouteStations
                         .OrderBy(x => x.DistanceFromFirstStationInRoute)
-                        .Select(routeStation => routeStation.Station)));
+                        .Select(routeStation => routeStation.Station)))
+                .ForMember(
+                    dest => dest.RouteStations,
+                    opt => opt.MapFrom(
+                        src => src.StartRouteStation.Route.RouteStations));
 
             CreateMap<Booking, BookerBookingViewModel>()
                 .ForMember(
