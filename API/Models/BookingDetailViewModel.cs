@@ -62,24 +62,48 @@ namespace API.Models
         //[JsonIgnore]
         //public new StationInRouteViewModel EndStation { get; set; }
         [JsonIgnore]
+        public RouteStation StartRouteStation { get; set; }
+        [JsonIgnore]
+        public RouteStation EndRouteStation { get; set; }
+        [JsonIgnore]
+        public List<RouteStation> RouteStations { get; set; }
         private List<StationInRouteViewModel> _Stations = new();
         public List<StationInRouteViewModel> Stations
         {
             get => _Stations;
             set
             {
-                var startStation = value.Where(station => station.Id == this.StartStation.Id).First();
-                var endStation = value.Where(station => station.Id == this.EndStation.Id).First();
+                var routeStationDic = RouteStations.ToDictionary(x => x.Id);
 
-                value = value.OrderBy(station => station.DistanceFromFirstStationInRoute).ToList();
+                var stationDic = value.DistinctBy(x => x.Id).ToDictionary(x => x.Id);
 
-                var stationAfterStart = value.Where(station => station.DistanceFromFirstStationInRoute >= startStation.DistanceFromFirstStationInRoute).ToList();
-                var stationBeforeEnd = value.Where(station => station.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute).ToList();
+                var currentRouteStation = StartRouteStation;
 
-                value = startStation.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute ?
-                    stationAfterStart.Intersect(stationBeforeEnd).ToList() : stationAfterStart.Concat(stationBeforeEnd).ToList();
+                var stations = new List<StationInRouteViewModel>();
 
-                _Stations = value;
+                while (true)
+                {
+                    stations.Add(stationDic[currentRouteStation.StationId]);
+
+                    if (currentRouteStation.StationId == EndRouteStation.StationId ||
+                        !currentRouteStation.NextRouteStationId.HasValue) break;
+
+                    currentRouteStation = routeStationDic[currentRouteStation.NextRouteStationId.Value];
+                }
+
+                //var startStation = value.Where(station => station.Id == this.StartStation.Id).First();
+                //var endStation = value.Where(station => station.Id == this.EndStation.Id).First();
+
+                //value = value.OrderBy(station => station.DistanceFromFirstStationInRoute).ToList();
+
+                //var stationAfterStart = value.Where(station => station.DistanceFromFirstStationInRoute >= startStation.DistanceFromFirstStationInRoute).ToList();
+                //var stationBeforeEnd = value.Where(station => station.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute).ToList();
+
+                //value = startStation.DistanceFromFirstStationInRoute <= endStation.DistanceFromFirstStationInRoute ?
+                //    stationAfterStart.Intersect(stationBeforeEnd).ToList() : stationAfterStart.Concat(stationBeforeEnd).ToList();
+
+
+                _Stations = stations;
             }
         }
     }
