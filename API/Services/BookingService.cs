@@ -181,7 +181,7 @@ namespace API.Services
             if (booking.BookingDetails.Count == 0) return invalidRouteResponse;
             if (!booking.PromotionId.HasValue && !String.IsNullOrEmpty(dto.PromotionCode)) return invalidPromotionResponse; 
 
-            if (CheckIsConflictBooking(booking).Result) return duplicationResponse;
+            if (!isDummy && CheckIsConflictBooking(booking).Result) return duplicationResponse;
 
             // check for exist available driver for this trip
 

@@ -353,7 +353,7 @@ namespace API.Controllers.V1
                 bookingDto.UserId = userId;
                 bookingDto.DayOfWeeks = new List<DayOfWeek> { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday , DayOfWeek.Sunday};
                 //bookingDto.Type = Bookings.Types.MonthTicket;
-                bookingDto.IsShared = driver.Vehicle.VehicleTypeId != (int)VehicleTypes.Type.ViRide;
+                bookingDto.IsShared = driver.Vehicle.VehicleTypeId != VehicleTypes.SpecificType.ViRide;
                 bookingDto.RouteCode = route.Code;
                 bookingDto.StartStationCode = route.Stations[0].Code;
 
@@ -361,11 +361,11 @@ namespace API.Controllers.V1
 
                 bookingDto.EndStationCode = route.Stations[endIndex].Code;
 
-                dynamic booking = (await AppServices.Booking.Create(bookingDto, new(), new(), new(), new(), new(), new(), new(), new(), new(), new(), true, routeRoutine.Id)).Data;
+                var result = await AppServices.Booking.Create(bookingDto, new(), new(), new(), new(), new(), new(), new(), new(), new(), new(), true, routeRoutine.Id);
+
+                dynamic booking = result.Data;
 
                 if (booking != null)
-                    totalSuccess++;
-                else
                     totalSuccess++;
             } 
 
