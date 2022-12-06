@@ -74,7 +74,19 @@ namespace API.Mapper
                     otp => otp.MapFrom(
                     src => src.Booking.StartRouteStation.Route.RouteStations
                         .OrderBy(x => x.DistanceFromFirstStationInRoute)
-                        .Select(routeStation => routeStation.Station)));
+                        .Select(routeStation => routeStation.Station)))
+                .ForMember(
+                    dest => dest.StartRouteStation,
+                    otp => otp.MapFrom(
+                        src => src.Booking.StartRouteStation))
+                .ForMember(
+                    dest => dest.EndRouteStation,
+                    otp => otp.MapFrom(
+                        src => src.Booking.EndRouteStation))
+                .ForMember(
+                    dest => dest.RouteStations,
+                    opt => opt.MapFrom(
+                        src => src.Booking.StartRouteStation.Route.RouteStations));
         }
     }
 }

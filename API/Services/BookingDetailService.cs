@@ -158,7 +158,7 @@ namespace API.Services
                             Code = x.Booking.EndRouteStation.Station.Code,
                             Name = x.Booking.EndRouteStation.Station.Name,
                             Address = x.Booking.EndRouteStation.Station.Address,
-                            Index = x.Booking.EndRouteStation.Index,
+                            Index = x.Booking.EndRouteStation.Index > 1 ? x.Booking.EndRouteStation.Index : int.MaxValue,
                             Longitude = x.Booking.EndRouteStation.Station.Longitude,
                             Latitude = x.Booking.EndRouteStation.Station.Latitude
                         },
